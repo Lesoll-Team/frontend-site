@@ -16,10 +16,10 @@
   box-shadow:(5px 5px 10px #000);
 }
 .nav-bg {
-  background-image: url(../../public/bg-navbar.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position:bottom -865px right 0px;
+  background-image: url(../../public/header.svg);
+  /* background-size: cover; */
+  /* background-repeat: no-repeat;
+  background-position:bottom -865px right 0px; */
   
 
 }

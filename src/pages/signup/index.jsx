@@ -8,9 +8,9 @@ import SignIn from "../signin";
 
 const SignUp = () => {
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row ">
       {/* form div*/}
-      <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  h-screen border-3  px-1">
+      <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  mx-h-screen border-3  px-1 ">
         <form
         
           action=""
