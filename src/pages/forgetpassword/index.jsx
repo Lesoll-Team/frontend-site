@@ -8,12 +8,13 @@ import lock from "../../../public/lock.svg";
 const ForgetPass = () => {
   return (
     <div className="flex  mx-auto  h-screen items-center justify-center password-bg ">
-      <div className="shadow border-2 rounded-md p-6 bg-white  mx-auto  ">
+      <div className=" rounded-md p-6 bg-white  mx-auto md:w-96  ">
         <form
-          onSubmit={() => {}}
+          //   onSubmit={() => {}}
           className="flex flex-col border-5 justify-center "
         >
           <Image
+            alt=""
             src={lock}
             className="md:hidden w-40 relative mx-auto -mt-20"
           />
@@ -33,7 +34,7 @@ const ForgetPass = () => {
       </div>
       {/* img */}
       <div className="hidden md:flex md:flex-col md:w-1/2 bg-lightGreen h-screen items-center justify-center">
-        <Image src={lock}></Image>
+        <Image src={lock} alt=""></Image>
       </div>
     </div>
   );
