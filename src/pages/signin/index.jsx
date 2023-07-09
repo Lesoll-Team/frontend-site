@@ -6,9 +6,6 @@ import Image from "next/image";
 import house from "../../../public/page3.svg";
 
 const SignIn = () => {
- 
-
-
   return (
     <>
       <div className="flex flex-col md:flex-row">
