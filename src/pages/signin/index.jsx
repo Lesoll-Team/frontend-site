@@ -33,12 +33,20 @@ const SignIn = () => {
             {/* Form inputs */}
             <Input type="email" placeholder="Your email" required={true} />
             <Input type="password" placeholder="Your Password" />
-            <Link href={""} className="text-lightOrange text-right mb-3 -mt-2">
+            <Link
+              href={"/forgetpassword"}
+              className="text-lightOrange text-right mb-3 -mt-2"
+            >
               Forget Password?
             </Link>
             <Button type="submit" className="" text="Login" />
           </form>
-          <div> or </div>
+          {/* line break */}
+          <div className="flex justify-between items-center space-x-3">
+            <div className="line-break"></div>
+            <p>or</p>
+            <div className="line-break"></div>
+          </div>
           {/* Google and facebook sign in */}
           <a
             href="#"

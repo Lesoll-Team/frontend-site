@@ -4,7 +4,7 @@ import Button from "../Button";
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-200">
+    <nav className="bg-gray-200 fixed top-0 left-0 right-0">
       <div className="container mx-auto py-3 items-center  flex justify-between">
         {/* logo */}
         <div className="">logo</div>
