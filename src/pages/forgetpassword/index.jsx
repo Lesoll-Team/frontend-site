@@ -3,7 +3,6 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import forgetImg from "../../../public/forgetpassword.svg";
 import lock from "../../../public/lock.svg";
 
 const ForgetPass = () => {
@@ -16,10 +15,13 @@ const ForgetPass = () => {
         <form
           st
           onSubmit={() => {}}
-          className="flex flex-col border-5 justify-center "
+          className="flex flex-col border-5 justify-center w-72 md:w-80"
         >
-          <Image src={lock} className="w-40 relative mx-auto -mt-24" />
-          <h1 className="text-4xl mb-5 text-lightGreen font-black">
+          <Image
+            src={lock}
+            className="md:hidden w-40 relative mx-auto -mt-20"
+          />
+          <h1 className="text-2xl mb-5 text-lightGreen font-black">
             Reset password
           </h1>
           {/* Form inputs */}
@@ -36,7 +38,6 @@ const ForgetPass = () => {
       {/* img */}
       <div className="hidden md:flex md:flex-col md:w-1/2 bg-lightGreen h-screen items-center justify-center">
         <Image src={lock}></Image>
-        <p>Reset Password</p>
       </div>
     </div>
   );
