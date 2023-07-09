@@ -7,22 +7,20 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 .line-break {
   width: 90px;
   height: 2px;
   background-color: rgb(200, 200, 200);
 }
-
 .shadow {
   box-shadow:(5px 5px 10px #000);
 }
-
-.building-bg{
-  background-image: url("https://img.freepik.com/free-photo/giant-building-with-sun_1127-400.jpg?w=826&t=st=1688884206~exp=1688884806~hmac=adf75ae37593eaed7e1ef306ab07b2e282a8959185b6b7b279e710581055f647");
+.nav-bg {
+  background-image: url(../../public/bg-navbar.png);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
-  height: 100vh;
+  background-position:bottom -865px right 0px;
+  
+
 }
 

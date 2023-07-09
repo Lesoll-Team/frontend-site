@@ -8,20 +8,16 @@ import lock from "../../../public/lock.svg";
 const ForgetPass = () => {
   return (
     <div className="flex  mx-auto  h-screen items-center justify-center password-bg ">
-      <div
-        style={{}}
-        className="shadow border-2 rounded-md p-6 bg-white  mx-auto  "
-      >
+      <div className="shadow border-2 rounded-md p-6 bg-white  mx-auto  ">
         <form
-          st
           onSubmit={() => {}}
-          className="flex flex-col border-5 justify-center w-72 md:w-80"
+          className="flex flex-col border-5 justify-center "
         >
           <Image
             src={lock}
             className="md:hidden w-40 relative mx-auto -mt-20"
           />
-          <h1 className="text-2xl mb-5 text-lightGreen font-black">
+          <h1 className="text-4xl mb-5 text-lightGreen font-black">
             Reset password
           </h1>
           {/* Form inputs */}
