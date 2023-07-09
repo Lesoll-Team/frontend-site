@@ -25,7 +25,12 @@ const SignUp = () => {
 
           <Button className="" text="Sign up" />
         </form>
-        <div> or </div>
+        {/* line break */}
+        <div className="flex justify-between items-center space-x-3">
+          <div className="line-break"></div>
+          <p>or</p>
+          <div className="line-break"></div>
+        </div>
         {/* Google and facebook sign in */}
         <a
           href="#"
@@ -36,7 +41,7 @@ const SignUp = () => {
             src="https://img.icons8.com/?size=512&id=17949&format=png"
             alt=""
           />{" "}
-          <p>Login with Google</p>
+          <p>Sign up with Google</p>
         </a>
         <a
           href="#"
@@ -47,7 +52,7 @@ const SignUp = () => {
             src="https://img.icons8.com/?size=512&id=118497&format=png"
             alt=""
           />{" "}
-          <p>Login with Facebook</p>
+          <p>Sign up with Facebook</p>
         </a>
         <p className="">
           Alraedy have an account?

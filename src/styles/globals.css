@@ -7,7 +7,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.line-break {
+  width: 90px;
+  height: 2px;
+  background-color: rgb(200, 200, 200);
+}
+.shadow {
+  box-shadow:(5px 5px 10px #000);
+}
 .nav-bg {
   background-image: url(../../public/bg-navbar.png);
   background-size: cover;

@@ -16,11 +16,8 @@ import Button from "../Button";
 
 const Navbar = () => {
   return (
-    <nav className=" h-28 nav-bg">
-
-      <div className=" pt-4 items-center flex  	 "> {/*justify-between*/}
-        {/* <Image src={navbarImg} className="w-full h-24 absolute object-cover object-center " /> */}
-        {/* <Image src={navbarImg} className="w-full h-24 absolute object-cover object-center " /> */}
+    <nav className="bg-gray-200">
+      <div className="container mx-auto py-3 items-center  flex justify-between">
         {/* logo */}
         <div className="w-1/5 h-auto">
         <Image src={logoNavbar} className="h-14" />

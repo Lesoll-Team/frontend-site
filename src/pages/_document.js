@@ -6,8 +6,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body>
-        <Navbar />
+      <body className="relative">
+        <Navbar className="" />
         <Main />
         <NextScript />
         <Footer />
