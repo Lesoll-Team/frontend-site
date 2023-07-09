@@ -1,21 +1,13 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
-import { useState } from "react";
+// import { useState } from "react";
 import Image from "next/image";
 import house from "../../../public/page3.svg";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // You can make API calls or perform authentication logic here
-  };
 
   return (
     <>
@@ -23,7 +15,6 @@ const SignIn = () => {
         {/* form div*/}
         <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  h-screen border-3  px-1">
           <form
-            st
             onSubmit={() => {}}
             className="flex flex-col w-96  border-5 justify-center "
           >

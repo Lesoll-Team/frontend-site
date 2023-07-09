@@ -10,15 +10,13 @@ const ForgetPass = () => {
   return (
     <div className="flex  mx-auto  h-screen items-center justify-center password-bg ">
       <div
-        style={{}}
         className="shadow border-2 rounded-md p-6 bg-white  mx-auto  "
       >
         <form
-          st
-          onSubmit={() => {}}
+         
           className="flex flex-col border-5 justify-center "
         >
-          <Image src={lock} className="w-40 relative mx-auto -mt-24" />
+          <Image src={lock} alt="" className="w-40 relative mx-auto -mt-24" />
           <h1 className="text-4xl mb-5 text-lightGreen font-black">
             Reset password
           </h1>
@@ -35,7 +33,7 @@ const ForgetPass = () => {
       </div>
       {/* img */}
       <div className="hidden md:flex md:flex-col md:w-1/2 bg-lightGreen h-screen items-center justify-center">
-        <Image src={lock}></Image>
+        <Image src={lock} alt=""></Image>
         <p>Reset Password</p>
       </div>
     </div>

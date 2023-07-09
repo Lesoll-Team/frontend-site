@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 // import navbarImg from '../../../public/bg-navbar.png'
-import navbarImg from '../../../public/headerNavbar.svg'
+// import navbarImg from '../../../public/headerNavbar.svg'
 import logoNavbar from '../../../public/icons/logoNavbar.svg'
 import aboutNavbar from '../../../public/icons/about.svg'
 import buyNavbar from '../../../public/icons/buy.svg'

@@ -12,7 +12,7 @@ const SignUp = () => {
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  h-screen border-3  px-1">
         <form
-          st
+        
           action=""
           className="flex flex-col w-96  border-5 justify-center "
         >
