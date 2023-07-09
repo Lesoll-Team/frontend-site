@@ -20,13 +20,13 @@ const Navbar = () => {
         {/* logo */}
 
         <div className="w-32 h-auto">
-        <Image src={logoNavbar} className="" />
+        <Image src={logoNavbar} alt="" className="" />
         </div>
 
         {/* links */}
         <div className="inline-block  space-x-8">
           <Link href="/" className="inline-block px-3 py-2  rounded-3xl  duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95">
-            <Image src={homeNavbar} className="inline-block   "/> Home
+            <Image src={homeNavbar} alt="" className="inline-block   "/> Home
           </Link>
           <Link href="/" className="inline-block px-3 py-2  rounded-3xl  duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95">
             <Image src={rentNavbar} alt="" className="inline-block"/> Rent

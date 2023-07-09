@@ -34,7 +34,7 @@ const ForgetPass = () => {
       </div>
       {/* img */}
       <div className="hidden md:flex md:flex-col md:w-1/2 bg-lightGreen h-screen items-center justify-center">
-        <Image src={lock} alt=""></Image>
+        <Image src={lock} alt=""/>
       </div>
     </div>
   );

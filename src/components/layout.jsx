@@ -6,7 +6,6 @@ export default function Layout({ children }) {
     return (
       <>
       <div className="globalBody bg-gradient">
-      <div className="">
         <Head>
           <meta
             name="Lesoll"
@@ -30,7 +29,6 @@ export default function Layout({ children }) {
         <main>{children}</main>
         {/* <Footer /> */}
         </div>
-    </div>
       </>
     )
   }
