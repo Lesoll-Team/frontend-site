@@ -16,6 +16,34 @@
   box-shadow:(5px 5px 10px #000);
 }
 
+
+input[type="radio"] {
+  /* display: none; */
+  background-color: #000;
+  border-radius: 10%;
+ }
+ 
+ .usersinput{
+   display: none;
+ }
+ 
+ .userslabel {
+ 
+   width: 120px;
+   border: #309da0 2px solid;
+   text-align: center;
+   padding: 10px 5px;
+   color: #309da0;
+   font-weight: 500;
+   font-size: 18px;
+   width: 33%;
+ }
+ 
+ .usersinput:checked + .userslabel {
+   background-color: #309da0;
+   color: #fff;
+ }
+
 /* 
 .nav-bg {
   position: absolute;
@@ -35,17 +63,5 @@ textarea:focus {
 } */
 
 
-/* .nav-bg {
-  background-image: url(../../public/header.png);
-  background-size:cover;
-  
-  /* height:10px; */
-  /* background-repeat: no-repeat; */
-  /* opacity:0.5; */
-  /* height:min-content; */
-  /* background-position:bottom -100px ; 
-} */
-  
-/* nav {
-  z-index: 10;
-} */
+
+

@@ -13,7 +13,7 @@ const SignIn = () => {
         <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  h-screen border-3  px-1">
           <form
             onSubmit={() => {}}
-            className="flex flex-col w-96  border-5 justify-center "
+            className="flex flex-col w-80 md:w-96  border-5 justify-center "
           >
             <h1 className="text-7xl mb-5 text-lightGreen font-black">
               Sign in
@@ -38,7 +38,7 @@ const SignIn = () => {
           {/* Google and facebook sign in */}
           <a
             href="#"
-            className="w-100% flex items-center justify-center py-2 space-x-2 border-2 w-96 rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
+            className="flex items-center justify-center py-2 space-x-2 border-2 w-80 md:w-96 rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
           >
             <img
               className="w-8 "
@@ -49,7 +49,7 @@ const SignIn = () => {
           </a>
           <a
             href="#"
-            className="w-100% flex items-center justify-center py-2 space-x-2 border-2 w-96  rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
+            className=" flex items-center justify-center py-2 space-x-2 border-2 w-80 md:w-96  rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
           >
             <img
               className="w-8 "

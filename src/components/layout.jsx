@@ -4,8 +4,8 @@ import NavbarT from "../components/navbar/Navbar2";
 import Head from "next/head";
 
 export default function Layout({ children }) {
-    return (
-      <>
+  return (
+    <>
       <div className="globalBody bg-gradient">
         <Head>
           <meta
@@ -31,7 +31,7 @@ export default function Layout({ children }) {
         <Navbar className="relative" />
         <main className="mt-20">{children}</main>
         {/* <Footer /> */}
-        </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  );
+}
