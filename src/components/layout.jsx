@@ -25,7 +25,7 @@ export default function Layout({ children }) {
             "
           />
         </Head>
-        {/* <Navbar /> */}
+        <Navbar />
         <main>{children}</main>
         {/* <Footer /> */}
       </div>
