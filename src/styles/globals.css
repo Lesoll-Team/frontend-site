@@ -15,14 +15,14 @@
 .shadow {
   box-shadow:(5px 5px 10px #000);
 }
-
+/* 
 .nav-bg {
   position: absolute;
   z-index: -1;
   top: 0;
   left: 0;
   opacity:0.5
-}
+} */
 
 
 

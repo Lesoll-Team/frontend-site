@@ -73,6 +73,7 @@ const SignIn = () => {
           <Image src={house} alt="home" className="w-4/5" />
         </div>
       </div>
+      
     </>
   );
 };

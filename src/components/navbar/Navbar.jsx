@@ -14,66 +14,63 @@ import notificationsNavbar from '../../../public/icons/notifications.svg'
 
 
 const navigationRoutes = ["home", "rent", "buy", "about","contact"];
-const navigationIcone = [homeNavbar,rentNavbar,buyNavbar ,aboutNavbar ,contactNavbar];
+// const navigationIcone = [homeNavbar,rentNavbar,buyNavbar ,aboutNavbar ,contactNavbar];
 
 export default function Navbar  ()  {
   const router = useRouter();
   return (
+    
+    <nav  className=" fixed top-0 left-0 right-0 z-50  flex items-center" >
+      <div className=" mx-auto z-10  items-center  flex xl:space-x-32  ">
+        {/* logo */}
+        <div className="w-36">
+        <Image src={logoNavbar} alt="logo"/>
+        </div>
 
+        {/* links */}
+        <div className="lg:inline-block xl:space-x-2 hidden">
+        {navigationRoutes.map((singleRoute) => {
+        return (
+          <NavigationLink
+            key={singleRoute}
+            href={`/${singleRoute}`}
+            text={singleRoute}
+            router={router}
+            // icone={}
+          />
+        );
+      })}
+        </div>
+        <div  className="inline-block xl:space-x-2">{/*container mx-auto py-0 items-center */}
+        <Link href="/" className="inline-block px-3 py-2 bg-white rounded-3xl hover:bg-darkGray hover:text-white  active:scale-95 ">
+            <Image src={notificationsNavbar} alt="" className="inline-block"/> 
+          </Link>
+          <Link href="/" className="inline-block px-3 py-2 bg-white rounded-3xl  hover:bg-darkGray hover:text-white  active:scale-95">
+            <Image src={needNavbar} alt="" className="inline-block "/> Need
+          </Link>
+          <Link href="/" className="inline-block px-3 py-2 bg-white rounded-3xl  hover:bg-darkGray hover:text-white  active:scale-95">
+            <Image src={sellNavbar} alt="" className="inline-block" /> Sell
+          </Link>
+       </div>
+        {/* buttons */}
+        <div className="inline-block px-7 py-2 bg-white rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95">
+        <button className="">   
+            <Link href="/signin" >
+         <b> Sign In</b> 
+          </Link></button>
+        </div>
 
-<header className=" top-0 w-full  ">
-<Image src={navbarImg} className=" h-20 nav-bg" alt=""/>
-        <nav className=" w-full  z-[100]" >
-  
-  <div className="container mx-auto z-10   items-center  flex justify-between">
-    {/* logo */}
-    <div className="w-32 h-auto">
-    <Image src={logoNavbar} alt="" className="" />
-    </div>
-    {/* links */}
-    <div className="inline-block  space-x-8">
-    {navigationRoutes.map((singleRoute) => {
-    return (
-      <NavigationLink
-        key={singleRoute}
-        href={`/${singleRoute}`}
-        text={singleRoute}
-        router={router}
-        // icone={}
-      />
-    );
-  })}
-    </div>
-    <div  className="w-1/5 flex justify-between ">{/*container mx-auto py-0 items-center */}
-    <Link href="/" className="inline-block px-3 py-2 bg-white rounded-3xl hover:bg-darkGray hover:text-white  active:scale-95 ">
-        <Image src={notificationsNavbar} alt="" className="inline-block"/> 
-      </Link>
-      <Link href="/" className="inline-block px-3 py-2 bg-white rounded-3xl  hover:bg-darkGray hover:text-white  active:scale-95">
-        <Image src={needNavbar} alt="" className="inline-block w-6"/> Need
-      </Link>
-      <Link href="/" className="inline-block px-3 py-2 bg-white rounded-3xl  hover:bg-darkGray hover:text-white  active:scale-95">
-        <Image src={sellNavbar} alt="" className="inline-block w-6" /> Sell
-      </Link>
-   </div>
-    {/* buttons */}
-    <div className="inline-block px-7 py-2 bg-white rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95">
-    <button className="">   
-        <Link href="/signin" >
-     <b> Sign In</b> 
-      </Link></button>
-    </div>
-
-  </div>
-
-</nav>
-</header>
+      </div >
+      <div className="absolute inset-0 bg-cover bg-center  z-0" style={{ backgroundImage: "url('/header.png')" }}></div>
+    </nav>
   );
 };
 
 function NavigationLink({ href, text, router }) {
   const isActive = router.asPath === (href === "/home" ? "/" : href);
   return (
-    <Link className="inline-block px-3 py-2  rounded-3xl  duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95" href={href === "/home" ? "/" : href} passHref>
+    <Link className="inline-block px-3 py-2  rounded-3xl  duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95"
+     href={href === "/home" ? "/" : href} passHref>
      {text}
     </Link>
   );

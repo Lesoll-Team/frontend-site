@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function buy() {
   return (
-    <div>
+    <div >
     welcome in <b>Buy</b>
     </div>
   )

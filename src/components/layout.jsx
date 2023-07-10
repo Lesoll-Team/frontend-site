@@ -25,8 +25,8 @@ export default function Layout({ children }) {
             "
           />
         </Head>
-        <Navbar />
-        <main>{children}</main>
+        <Navbar className="relative" />
+        <main className="mt-20">{children}</main>
         {/* <Footer /> */}
         </div>
       </>
