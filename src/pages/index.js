@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <main>
-     hi
+    welcome in <b>Home</b>
     </main>
   )
 }
