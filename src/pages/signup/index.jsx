@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import house from "../../../public/page3.svg";
-import SignIn from "../signin";
-import styles from "./signup.module.css";
 
 const SignUp = () => {
   const [userType, setUserType] = useState("individual");
