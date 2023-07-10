@@ -1,5 +1,4 @@
 import Navbar from "../components/navbar/Navbar";
-import NavbarT from "../components/navbar/Navbar2";
 // import Footer from "../components/footer/Footer";
 import Head from "next/head";
 
