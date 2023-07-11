@@ -48,7 +48,7 @@ const SignUp = () => {
   return (
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
-      <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  h-screen border-3  px-1 ">
+      <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
         <form
           action=""
           className="flex flex-col w-80 md:w-96  border-5 justify-center "
@@ -117,6 +117,7 @@ const SignUp = () => {
           <Input type="email" placeholder="Email" />
           <Input type="password" placeholder="Password" />
           <Input type="password" placeholder="Confirm Password" />
+          <Input type="number" placeholder="Phone Number" />
 
           <Button className="" text="Sign up" />
         </form>
@@ -138,7 +139,7 @@ const SignUp = () => {
           />{" "}
           <p>Sign up with Google</p>
         </a>
-        <a
+        {/* <a
           href="#"
           className="w-80 flex items-center justify-center py-2 space-x-2 border-2 md:w-96  rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
         >
@@ -148,7 +149,7 @@ const SignUp = () => {
             alt=""
           />{" "}
           <p>Sign up with Facebook</p>
-        </a>
+        </a> */}
         <p className="">
           Alraedy have an account?
           <Link
@@ -160,7 +161,7 @@ const SignUp = () => {
         </p>
       </div>
       {/* img */}
-      <div className="hidden md:flex h-100 h-screen bg-lightGreen items-center w-1/2 justify-end">
+      <div className="hidden md:flex h-100 min-h-[100dvh] bg-lightGreen items-center w-1/2 justify-end">
         <Image src={house} alt="home" className="w-4/5" />
       </div>
       {/* suggest */}

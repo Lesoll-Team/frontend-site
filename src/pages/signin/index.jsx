@@ -10,7 +10,7 @@ const SignIn = () => {
     <>
       <div className="flex flex-col md:flex-row">
         {/* form div*/}
-        <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  h-screen border-3  px-1">
+        <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  min-h-[100dvh] border-3  px-1">
           <form
             onSubmit={() => {}}
             className="flex flex-col w-80 md:w-96  border-5 justify-center "
@@ -47,7 +47,7 @@ const SignIn = () => {
             />{" "}
             <p>Login with Google</p>
           </a>
-          <a
+          {/* <a
             href="#"
             className=" flex items-center justify-center py-2 space-x-2 border-2 w-80 md:w-96  rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
           >
@@ -57,7 +57,7 @@ const SignIn = () => {
               alt=""
             />{" "}
             <p>Login with Facebook</p>
-          </a>
+          </a> */}
           <p className="">
             Don't have an account?
             <Link
@@ -73,7 +73,6 @@ const SignIn = () => {
           <Image src={house} alt="home" className="w-4/5" />
         </div>
       </div>
-      
     </>
   );
 };

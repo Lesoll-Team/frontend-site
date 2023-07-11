@@ -26,7 +26,6 @@ export default function Layout({ children }) {
           />
         </Head>
 
-
         <Navbar className="relative" />
         <main className="mt-20">{children}</main>
         {/* <Footer /> */}
