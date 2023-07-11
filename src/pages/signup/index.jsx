@@ -55,7 +55,7 @@ const SignUp = () => {
         >
           <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign up</h1>
           {/* Form inputs */}
-          <div className="users flex my-5 justify-between  group:">
+          {/* <div className="users flex my-5 justify-between  group:">
             <div className="user__lable">
               <input
                 className="rounded-sm checked:bg-lightGreen group-checked:bg-lightGreen users__input"
@@ -112,7 +112,7 @@ const SignUp = () => {
                 Developer
               </label>
             </div>
-          </div>
+          </div> */}
           <Input type="text" placeholder="Full Name" required={true} />
           <Input type="email" placeholder="Email" />
           <Input type="password" placeholder="Password" />
