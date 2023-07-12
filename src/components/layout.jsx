@@ -5,7 +5,7 @@ import Head from "next/head";
 export default function Layout({ children }) {
   return (
     <>
-      <div className="globalBody bg-gradient">
+      <div className="globalBody bg-gradient relative">
         <Head>
           <meta
             name="Lesoll"
