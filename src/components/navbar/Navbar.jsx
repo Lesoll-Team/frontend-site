@@ -10,15 +10,23 @@ import {
   MdOutlineRealEstateAgent,
   MdSearch,
   MdAddHome,
-  MdClear
+  MdClear,
+  MdAccountCircle,
+  MdOutlineSettings,
+  MdOutlineFavorite,
 } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
+import {   HiOutlineArrowRightOnRectangle,HiOutlineArrowLeftOnRectangle } from "react-icons/hi";
+import {  IoCheckmarkDoneSharp ,IoRadioButtonOnOutline } from "react-icons/io5";
+
 
 export default function Navbar() {
   const [open, setOpen] = useState(true);
   const [isAuth, setAuth] = useState(false);
   const [language, setLanguage] = useState(true);
   const [openUserMenu, setOpenUserMenu] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+  const [read, setRead] = useState(false);
 
 
   return (
@@ -30,7 +38,7 @@ export default function Navbar() {
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
             <Link className="" href={"/"}
              onClick={()=>setOpenUserMenu(setOpen(true))}>
-              <Image src={logoNavbar} width={150} height={150} />
+              <Image src={logoNavbar} width={'auto'} height={'auto'}  alt="Logo" />
             </Link>
           </li>
         </ul>
@@ -72,11 +80,33 @@ export default function Navbar() {
 
            {/*button SignUp & user menu & user image*/}
         <ul className="flex md:grow-0 justify-end grow bg-red-200 space-x-4 items-center">  
-        <li className={` ${isAuth ? "hidden" : "" }`}>
-            <button  onClick={()=>setOpenUserMenu(setOpen(true))}>
+        <li className={` ${isAuth ? "hidden" : "" } relative`}>
+
+            <button  onClick={()=>setNotifications(!notifications)}>
               <MdNotificationsNone className={` rounded-full 
                text-darkGray bg-white sm:text-5xl text-4xl  hover:bg-darkGray hover:text-white  active:scale-95`}/> 
             </button>
+
+
+            <ul className={`bg-gray-100 ${notifications ? "" : "hidden"} max-h-96 overflow-auto  rounded-md p-2 -left-80 w-96 absolute`}>
+            <Link href="/">
+                      <ul onClick={()=>setRead(!read)} className="  flex-col p-5 rounded-3xl my-3 bg-white w-full ">
+                          <li className=" "><h2>شقة مفروشة فى الهرم </h2></li>
+
+                          <ul className="flex ">
+                              <li className="w-9/12">الجيزة</li>
+                              <li className="flex w-3/12 justify-end"> {read ? ( <IoCheckmarkDoneSharp/> ) : (<IoRadioButtonOnOutline/>)} </li>
+                          </ul>
+            
+                          <li><h5> شارع قلبى المجروح والمتكسر   </h5></li>
+
+                      </ul>
+                      </Link>
+                     
+                   
+
+                      </ul>
+
           </li>
 
            {/*button SignUp*/}
@@ -101,31 +131,51 @@ export default function Navbar() {
 
                         <ul className={`bg-gray-100 ${openUserMenu ? "" : "hidden"} rounded-md p-2 -left-24 w-36 absolute`}>
                       
-                        <li>
+                        <li >
                           <Link
-                            className="   duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            className=" w-full flex justify-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             href={"/"}>
                             
                             {language ? "Profile" : "الصفحة الشخصية"}
                           </Link>
                         </li>
-                        <li>
-                          <button
-                            onClick={() => setLanguage(!language)}
-                            className="   duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-                            >
-                            {language ? "عربى" : "English"}{" "}
-                          </button>
+                        <li className="flex justify-center">
+                          <Link
+                            className=" w-full flex justify-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            href={"/"}>
+                            
+                            {language ? "Favorite" : " المفضلة"}
+                          </Link>
                         </li>
 
-                        <li>
+                        <li className="flex justify-center">
                           <Link
-                            className="   duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            className="  w-full flex justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            href={"/"}>
+                            
+                            {language ? "setting" : " الإعدادات"}
+                          </Link>
+                        </li>
+
+                       
+                        <li className="flex justify-center">
+                          <Link
+                            className=" w-full flex justify-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             href={"/signup"}>
                             
                             {language ? "SignUp" : "أشتراك"}{" "}
                           </Link>
                         </li>
+
+                        <li className="flex justify-center">
+                          <button
+                            onClick={() => setLanguage(!language)}
+                            className=" w-full flex justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            >
+                            {language ? "عربى" : "English"}{" "}
+                          </button>
+                        </li>
+
                         </ul>
 
           </li>
@@ -158,7 +208,7 @@ export default function Navbar() {
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
               ? "hidden"
-              : `${openUserMenu ? `${setOpenUserMenu(false)}` : ``}`
+              : `${openUserMenu || notifications? `${setOpenUserMenu(false)} ${setNotifications(false)} ` : ``}`
               } `}
         >
           <ul className="items-center">
