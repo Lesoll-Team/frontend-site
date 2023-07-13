@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-// import { useRouter } from "next/router";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
-// import logoNavbarSmall from '../../../public/icons/logoNavbarSM.png'
 import { useState } from "react";
 
 import {
@@ -16,8 +14,8 @@ import {
   MdOutlineFavorite,
 } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import {   HiOutlineArrowRightOnRectangle,HiOutlineArrowLeftOnRectangle } from "react-icons/hi";
-import {  IoCheckmarkDoneSharp ,IoRadioButtonOnOutline } from "react-icons/io5";
+import {   HiOutlineArrowRightOnRectangle} from "react-icons/hi2";
+import {  IoCheckmarkDoneSharp ,IoRadioButtonOnOutline,IoLanguage } from "react-icons/io5";
 
 
 export default function Navbar() {
@@ -79,7 +77,7 @@ export default function Navbar() {
         </ul>
 
            {/*button SignUp & user menu & user image*/}
-        <ul className="flex md:grow-0 justify-end grow bg-red-200 space-x-4 items-center">  
+        <ul className="flex md:grow-0 justify-end grow  space-x-4 items-center">  
         <li className={` ${isAuth ? "hidden" : "" } relative`}>
 
             <button  onClick={()=>setNotifications(!notifications)}>
@@ -124,35 +122,35 @@ export default function Navbar() {
           </li>
 
           {/*user section*/}
-          <li className={`  ${isAuth ? "hidden" : ""} bg-red-300  relative`}>
+          <li className={`  ${isAuth ? "hidden" : ""} relative`}>
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img className="rounded-full sm:w-[50px] w-[40px] " src="https://fakeimg.pl/50/ff0000/" />
             </button>
 
-                        <ul className={`bg-gray-100 ${openUserMenu ? "" : "hidden"} rounded-md p-2 -left-24 w-36 absolute`}>
+                        <ul className={`bg-gray-100 ${openUserMenu ? "" : "hidden"} rounded-md p-2 -left-32 w-40 absolute`}>
                       
                         <li >
                           <Link
-                            className=" w-full flex justify-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             href={"/"}>
-                            
+                            <MdAccountCircle/>
                             {language ? "Profile" : "الصفحة الشخصية"}
                           </Link>
                         </li>
                         <li className="flex justify-center">
                           <Link
-                            className=" w-full flex justify-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             href={"/"}>
-                            
+                            <MdOutlineFavorite/>
                             {language ? "Favorite" : " المفضلة"}
                           </Link>
                         </li>
 
                         <li className="flex justify-center">
                           <Link
-                            className="  w-full flex justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            className="  w-full flex items-center justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             href={"/"}>
-                            
+                            <MdOutlineSettings/>
                             {language ? "setting" : " الإعدادات"}
                           </Link>
                         </li>
@@ -160,18 +158,22 @@ export default function Navbar() {
                        
                         <li className="flex justify-center">
                           <Link
-                            className=" w-full flex justify-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                          onClick={()=>setAuth(!isAuth)}
+                            className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             href={"/signup"}>
+                                 <HiOutlineArrowRightOnRectangle/>
+                              {isAuth?``:`${language ? `  Log out` : "خروج"}`}
                             
-                            {language ? "SignUp" : "أشتراك"}{" "}
+                            
                           </Link>
                         </li>
 
                         <li className="flex justify-center">
                           <button
                             onClick={() => setLanguage(!language)}
-                            className=" w-full flex justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                            className=" w-full flex items-center justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
                             >
+                              <IoLanguage/>
                             {language ? "عربى" : "English"}{" "}
                           </button>
                         </li>
@@ -186,7 +188,7 @@ export default function Navbar() {
         </ul>
 
         {/*nav link web mobile */}
-        <ul className="flex mr-6  w-1/12 bg-black justify-center  md:hidden">
+        <ul className="flex mr-6  w-1/12  justify-center  md:hidden">
           <li className="">
             <button
               className="flex justify-center "
@@ -270,7 +272,7 @@ export default function Navbar() {
               <button
                 onClick={() => setLanguage(!language)}
                 className=" w-full flex p-2 px-2 text-3xl justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-              > {/* */}
+              >
                 {language ? "  عربى  " : "English"}
               </button>
             </li>
@@ -279,65 +281,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ماكنو فى السكشن التانى
-//<div className="grid "> {/* justify-items-stretch*/}
-//<section className={`bg-gray-300 ${openUserMenu? '': 'hidden'} `}> {/* */}
-//<ul >
-//<li >
-//<button onClick={() => setLanguage(!language)} className=" flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-//    > {/* */}
-//  {language?'عربى':'English'} </button>
-//</li>
-//<li >
-//<Link className=" flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center  duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-//     href={'/signup'}> {/* */}
-//   {language?'SignUp':'أشتراك'}  </Link>
-//</li>
-//</ul>
-//</section>
-//</div>
-
-// function NavigationLink({ href, text, router }) {
-//   const isActive = router.asPath === (href === "/home" ? "/" : href);
-//   return (
-//     <Link className="inline-block px-3 py-2  rounded-3xl  duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95  focus:bg-lightGreen "
-//      href={href === "/home" ? "/" : href} passHref>
-//      {text}
-//     </Link>
-//   );
-// }
-
-// function NavigationLinkMobile({ href, text, router }) {
-//   const isActive = router.asPath === (href === "/home" ? "/" : href);
-//   return (
-//     <Link className="inline-block p-6 bg-gray-300 w-full   duration-300 text-black hover:bg-gray-100 hover:text-black active:scale-95 "
-//      href={href === "/home" ? "/" : href} passHref>
-//      {text}
-//     </Link>
-//   );
-// }
-/**
- *  flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- flex xl:p-2 p-1 xl:px-5 px-2  md:text-4xl text-3xl items-center
- */
