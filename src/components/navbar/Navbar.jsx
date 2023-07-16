@@ -28,7 +28,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className="w-full   z-50 sticky top-0">
+    <nav className="w-full  z-50  sticky  top-0">
       <section className="flex sm:justify-around  bg-white drop-shadow-lg h-[90px] items-center">
 
         {/*Logo */}
@@ -77,7 +77,7 @@ export default function Navbar() {
         </ul>
 
            {/*button SignUp & user menu & user image*/}
-        <ul className="flex md:grow-0 justify-end grow  space-x-4 items-center">  
+        <ul className="flex md:grow-0 justify-end grow mr-6  space-x-4 items-center">  
         <li className={` ${isAuth ? "hidden" : "" } relative`}>
 
             <button  onClick={()=>setNotifications(!notifications)}>
@@ -86,24 +86,7 @@ export default function Navbar() {
             </button>
 
 
-            <ul className={`bg-gray-100 ${notifications ? "" : "hidden"} max-h-96 overflow-auto  rounded-md p-2 -left-80 w-96 absolute`}>
-            <Link href="/">
-                      <ul onClick={()=>setRead(!read)} className="  flex-col p-5 rounded-3xl my-3 bg-white w-full ">
-                          <li className=" "><h2>شقة مفروشة فى الهرم </h2></li>
 
-                          <ul className="flex ">
-                              <li className="w-9/12">الجيزة</li>
-                              <li className="flex w-3/12 justify-end"> {read ? ( <IoCheckmarkDoneSharp/> ) : (<IoRadioButtonOnOutline/>)} </li>
-                          </ul>
-            
-                          <li><h5> شارع قلبى المجروح والمتكسر   </h5></li>
-
-                      </ul>
-                      </Link>
-                     
-                   
-
-                      </ul>
 
           </li>
 
@@ -124,7 +107,7 @@ export default function Navbar() {
           {/*user section*/}
           <li className={`  ${isAuth ? "hidden" : ""} relative`}>
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
-              <img className="rounded-full sm:w-[50px] w-[40px] " src="https://fakeimg.pl/50/ff0000/" />
+              <img className="rounded-full border-2 border-green-800  sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] " src="icons/userimg.webp" />
             </button>
 
                         <ul className={`bg-gray-100 ${openUserMenu ? "" : "hidden"} rounded-md p-2 -left-32 w-40 absolute`}>
@@ -206,6 +189,7 @@ export default function Navbar() {
 
 
 {/*links in menu mobile button*/}
+<div className="  flex justify-end relative">
         <section
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
@@ -278,6 +262,52 @@ export default function Navbar() {
             </li>
           </ul>
         </section>
+        <section className={`bg-gray-200 ${notifications ? "" : "hidden"}  md:max-h-96 h-screen overflow-auto md:absolute rounded-md p-2 md:w-5/12 w-full `}>{/*md:justify-end  md:w-96 w-auto absolute*/}
+            <Link href="/">
+                      <ul onClick={()=>setRead(!read)} className="  flex-col p-5 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
+                          <li className="text-lightGreen text-2xl "><h2 className="truncate">شقة مفروشة فى الهرم </h2></li>
+
+                          <ul className="flex ">
+                              <li className="w-9/12 text-lightGreen text-xl">الجيزة</li>
+                              <li className="flex w-3/12 justify-end"> {read ? ( <IoCheckmarkDoneSharp className="text-lightGreen"/> ) : (<IoRadioButtonOnOutline className="text-darkOrange"/>)} </li>
+                          </ul>
+            
+                          <li className="text-md text-gray-500"><h5 className="truncate ">  شارع محمد الدور الاول شقة رقم 3 منطقة الجيزة شارع الهرم شارع ابن بطوط </h5></li>
+
+                      </ul>
+                      </Link>
+
+                      <Link href="/">
+                      <ul  className="  flex-col p-5 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
+                          <li className="text-lightGreen text-2xl "><h2 className="truncate">شقة مفروشة فى الهرم </h2></li>
+
+                          <ul className="flex ">
+                              <li className="w-9/12 text-lightGreen text-xl">الجيزة</li>
+                              <li className="flex w-3/12 justify-end"> <IoRadioButtonOnOutline className="text-darkOrange"/> </li>
+                          </ul>
+            
+                          <li className="text-md text-gray-500"><h5 className="truncate ">  شارع محمد الدور الاول شقة رقم 3 منطقة الجيزة شارع الهرم شارع ابن بطوط </h5></li>
+
+                      </ul>
+                      </Link>
+                      <Link href="/">
+                      <ul  className="  flex-col p-5 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
+                          <li className="text-lightGreen text-2xl "><h2 className="truncate">شقة مفروشة فى الهرم </h2></li>
+
+                          <ul className="flex ">
+                              <li className="w-9/12 text-lightGreen text-xl">الجيزة</li>
+                              <li className="flex w-3/12 justify-end">  <IoCheckmarkDoneSharp className="text-lightGreen"/>  </li>
+                          </ul>
+            
+                          <li className="text-md text-gray-500"><h5 className="truncate ">  شارع محمد الدور الاول شقة رقم 3 منطقة الجيزة شارع الهرم شارع ابن بطوط </h5></li>
+
+                      </ul>
+                      </Link>
+                     
+                   
+
+                      </section>
+                      </div>
     </nav>
   );
 }
