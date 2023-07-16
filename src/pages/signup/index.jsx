@@ -4,191 +4,160 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import house from "../../../public/page3.svg";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Router, useRouter } from "next/router";
 
 const SignUp = () => {
-  // const [userType, setUserType] = useState("");
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  const [values, setValues] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phoneNumber: "",
-    pattern: "",
-    required: true,
+  //router.
+  const router = useRouter();
+  // formik logic
+
+  const formik = useFormik({
+    initialValues: {
+      fullname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phoneNumber: "",
+      terms: "",
+    },
+    // form validation logic
+    validationSchema: Yup.object({
+      fullname: Yup.string().min(3, "Too Short!").required("name is required"),
+      email: Yup.string()
+        .email("Invalid Email Adress")
+        .required("Email is required"),
+      password: Yup.string()
+        .min(8, "password is short manimum 8 characters")
+        .max(16, "password is long maximum 16 characters")
+        .required("Required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords Doesn't Match")
+        .required("Passwords Doesn't Match"),
+      phoneNumber: Yup.number().required("Phone Number is required"),
+    }),
+
+    //subnit form
+    onSubmit: (values) => {
+      console.log(values);
+      router.push({ pathname: "/", query: values });
+    },
   });
 
-  const inputs = [
-    {
-      id: 1,
-      name: "fullName",
-      type: "text",
-      placeholder: "Full Name",
-      errorMessage: "",
-      lable: "Full Name",
-      errorMessage: "Required",
-      pattern: "^[A-zA]{3,20}$",
-
-      required: true,
-    },
-    {
-      id: 2,
-      name: "email",
-      type: "email",
-      placeholder: "Email",
-      errorMessage: "it should be a valid email address",
-      lable: "Email",
-      required: true,
-    },
-    {
-      id: 3,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      errorMessage: "password should be 8-20 characters ",
-      lable: "Password ",
-      pattern:
-        "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$",
-      required: true,
-    },
-    {
-      id: 4,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "Confirm Password",
-      errorMessage: "Passwords don't match",
-      lable: "Confirm Password",
-      required: true,
-      pattern: values.password,
-    },
-    {
-      id: 5,
-      name: "phoneNumber",
-      type: "number",
-      placeholder: "Phone Number",
-      errorMessage: "The mobile number is not in the correct",
-      lable: "Phone Number",
-      pattern: "",
-      required: true,
-    },
-  ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (password!== confirmPassword) {
-  //     alert("Passwords do not match");
-  //   } else {
-  //     fetch("/api/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userType,
-  //         name,
-  //         email,
-  //         password,
-  //         phoneNumber,
-  //       }),
-  //     })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //         if (data.error) {
-  //           alert(data.error);
-  //         } else {
-  //           localStorage.setItem("token", data.token);
-  //           window.location.href = "/";
-  //         }
-  //       });
-  //   }
-  // };
-
-  console.log(values);
-
+  // console.log(formik.values);
+  console.log(formik.errors);
+  // console.log(formik.touched);
+  // console.log(formik.isSubmitting);
   return (
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
-        <form className="flex flex-col w-80 md:w-96  border-5 justify-center ">
+        <form
+          className="flex flex-col w-80 md:w-96  border-5 justify-center "
+          onSubmit={formik.handleSubmit}
+        >
           <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign up</h1>
-          {/* Form inputs */}
-          {/* <div className="users flex my-5 justify-between  group:">
-            <div className="user__lable">
-              <input
-                className="rounded-sm checked:bg-lightGreen group-checked:bg-lightGreen users__input"
-                type="radio"
-                name="options"
-                id="option1"
-                value="individual"
-              />
-              <label
-                style={individualStyle}
-                className="group-checked:bg-lightGreen rounded-sm checked:bg-lightGreen w-full users__label"
-                for="option1"
-                onClick={() => {
-                  setUserType("individual");
-                }}
-              >
-                individual
-              </label>
-            </div>
-            <div className="user__lable">
-              <input
-                className="users__input"
-                type="radio"
-                name="options"
-                id="option2"
-                value="broker"
-              />
-              <label
-                className="rounded-sm  users__label "
-                for="option2"
-                onClick={() => {
-                  setUserType("broker");
-                }}
-              >
-                Broker
-              </label>
-            </div>
-            <div className="user__lable">
-              <input
-                className="users__input"
-                type="radio"
-                name="options"
-                id="option3"
-                value="developer"
-              />
-              <label
-                style={developerStyle}
-                className="rounded-sm users__label"
-                for="option3"
-                onClick={() => {
-                  setUserType("developer");
-                }}
-              >
-                Developer
-              </label>
-            </div>
+
+          <div>
+            <Input
+              name="fullname"
+              placeholder="Full Name"
+              type="text"
+              value={formik.values.fullname}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.fullname && formik.errors.fullname ? (
+              <p className="text-red-600">{formik.errors.fullname}</p>
+            ) : (
+              ""
+            )}
+          </div>
+          <div>
+            <Input
+              name="email"
+              placeholder="Email"
+              type="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <p className="text-red-600">{formik.errors.email}</p>
+            ) : (
+              ""
+            )}
+          </div>
+          <div>
+            <Input
+              name="password"
+              placeholder="Password"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <p className="text-red-600">{formik.errors.password}</p>
+            ) : (
+              ""
+            )}
+          </div>
+          <div>
+            <Input
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              type="password"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+              <p className="text-red-600">{formik.errors.confirmPassword}</p>
+            ) : (
+              ""
+            )}
+          </div>
+          <div>
+            <Input
+              name="phoneNumber"
+              placeholder="Phone Number"
+              type="number"
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+              <p className="text-red-600">{formik.errors.phoneNumber}</p>
+            ) : (
+              ""
+            )}
+          </div>
+
+          {/* <div className="flex justify-start relative">
+            <Input
+              name="terms"
+              type="checkbox"
+              className=" h-4 w-4 rounded-sm inline-block focus:ring-lightGreen text-lightGreen  "
+            />
+            <p
+              htmlFor="termsOfService"
+              className="absolute top-[10px] left-[20px]"
+            >
+              Accept Terms Of Service
+            </p>
           </div> */}
 
-          {inputs.map((input) => (
+          {/* {inputs.map((input) => (
             <Input
               key={input.id}
               {...input}
               value={values[input.name]}
               handleChange={handleChange}
             />
-          ))}
-          <Button className="" text="Sign up" />
+          ))} */}
+          <Button className="" type="submit" text="Sign up" />
         </form>
         {/* line break */}
         <div className="flex justify-between items-center space-x-3">
