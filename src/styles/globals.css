@@ -102,3 +102,10 @@ footer{
   margin-top: auto;
 }
 
+span {
+  display: none;
+}
+
+input:invalid ~ span {
+  display: block;
+}

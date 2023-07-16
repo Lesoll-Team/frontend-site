@@ -6,12 +6,82 @@ import Image from "next/image";
 import house from "../../../public/page3.svg";
 
 const SignUp = () => {
-  const [userType, setUserType] = useState("individual");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [userType, setUserType] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [values, setValues] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    pattern: "",
+    required: true,
+  });
 
+  const inputs = [
+    {
+      id: 1,
+      name: "fullName",
+      type: "text",
+      placeholder: "Full Name",
+      errorMessage: "",
+      lable: "Full Name",
+      errorMessage: "Required",
+      pattern: "^[A-zA]{3,20}$",
+
+      required: true,
+    },
+    {
+      id: 2,
+      name: "email",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "it should be a valid email address",
+      lable: "Email",
+      required: true,
+    },
+    {
+      id: 3,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage: "password should be 8-20 characters ",
+      lable: "Password ",
+      pattern:
+        "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$",
+      required: true,
+    },
+    {
+      id: 4,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      errorMessage: "Passwords don't match",
+      lable: "Confirm Password",
+      required: true,
+      pattern: values.password,
+    },
+    {
+      id: 5,
+      name: "phoneNumber",
+      type: "number",
+      placeholder: "Phone Number",
+      errorMessage: "The mobile number is not in the correct",
+      lable: "Phone Number",
+      pattern: "",
+      required: true,
+    },
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   if (password!== confirmPassword) {
@@ -27,6 +97,7 @@ const SignUp = () => {
   //         name,
   //         email,
   //         password,
+  //         phoneNumber,
   //       }),
   //     })
   //     .then((res) => res.json())
@@ -41,18 +112,13 @@ const SignUp = () => {
   //   }
   // };
 
-  let developerStyle = {};
-  let individualStyle = {};
-  let BrokerStyle = {};
+  console.log(values);
 
   return (
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
-        <form
-          action=""
-          className="flex flex-col w-80 md:w-96  border-5 justify-center "
-        >
+        <form className="flex flex-col w-80 md:w-96  border-5 justify-center ">
           <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign up</h1>
           {/* Form inputs */}
           {/* <div className="users flex my-5 justify-between  group:">
@@ -113,18 +179,21 @@ const SignUp = () => {
               </label>
             </div>
           </div> */}
-          <Input type="text" placeholder="Full Name" required={true} />
-          <Input type="email" placeholder="Email" />
-          <Input type="password" placeholder="Password" />
-          <Input type="password" placeholder="Confirm Password" />
-          <Input type="number" placeholder="Phone Number" />
 
+          {inputs.map((input) => (
+            <Input
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              handleChange={handleChange}
+            />
+          ))}
           <Button className="" text="Sign up" />
         </form>
         {/* line break */}
         <div className="flex justify-between items-center space-x-3">
           <div className="line-break"></div>
-          <p>or</p>
+          <p className="font-light">or</p>
           <div className="line-break"></div>
         </div>
         {/* Google and facebook sign in */}
@@ -139,17 +208,6 @@ const SignUp = () => {
           />{" "}
           <p>Sign up with Google</p>
         </a>
-        {/* <a
-          href="#"
-          className="w-80 flex items-center justify-center py-2 space-x-2 border-2 md:w-96  rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
-        >
-          <img
-            className="w-8 "
-            src="https://img.icons8.com/?size=512&id=118497&format=png"
-            alt=""
-          />{" "}
-          <p>Sign up with Facebook</p>
-        </a> */}
         <p className="">
           Alraedy have an account?
           <Link

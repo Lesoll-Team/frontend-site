@@ -23,7 +23,7 @@ const SignIn = () => {
             <Input type="password" placeholder="Your Password" />
             <Link
               href={"/forgetpassword"}
-              className="text-lightOrange text-right mb-3 -mt-2"
+              className="text-lightOrange text-right mb-3 mt-1"
             >
               Forget Password?
             </Link>
@@ -32,7 +32,7 @@ const SignIn = () => {
           {/* line break */}
           <div className="flex justify-between items-center space-x-3">
             <div className="line-break"></div>
-            <p>or</p>
+            <p className="font-light">or</p>
             <div className="line-break"></div>
           </div>
           {/* Google and facebook sign in */}
