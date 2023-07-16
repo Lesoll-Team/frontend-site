@@ -62,7 +62,17 @@ textarea:focus {
   box-shadow: none;
 } */
 
-
+body::-webkit-scrollbar {
+  width: 7px;               /* width of the entire scrollbar */
+}
+body::-webkit-scrollbar-track { 
+  background: #fff;        /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #309da0;    /* color of the scroll thumb */
+  border-radius: 0px;       /* roundness of the scroll thumb */
+  border: 3px solid #309da0;  /* creates padding around scroll thumb */
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

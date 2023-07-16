@@ -15,7 +15,7 @@ const Footer = () => {
             className="object-fit -mt-5 lg:w-[250px]  w-[150px]"
             src="/logo-x.png"
           />
-          <p className="w-3/4">
+          <p className="md:w-3/4">
             Lesoll is an Egyptian RealEstate marketplace. lesoll offers
             customers a digital experiance for buying sending and renting
             properties with end to end service
