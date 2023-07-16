@@ -3,6 +3,7 @@ import Navbar from "../components/navbar/Navbar";
 import Head from "next/head";
 
 export default function Layout({ children }) {
+  
   return (
     <>
       <div className="globalBody bg-gradient relative">
@@ -26,7 +27,7 @@ export default function Layout({ children }) {
           />
         </Head>
         <Navbar  />
-        <main>{children}</main>
+        <main >{children}</main>
         {/* <Footer /> */}
       </div>
     </>
