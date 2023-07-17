@@ -4,7 +4,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer style={{marginTop:"auto"}}>
-      <div className="container mx-auto md:grid lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
+      <div className="container mx-auto md:grid  lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
         {/* Discription */}
         <div className="col-span-3 lg:col-span-2 space-y-3 relative">
           {/* logo */}
