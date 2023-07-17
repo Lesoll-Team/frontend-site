@@ -1,11 +1,16 @@
 import Navbar from "../components/navbar/Navbar";
-// import Footer from "../components/footer/Footer";
+import Footer from "../components/footer/Footer";
 import Head from "next/head";
 
 export default function Layout({ children }) {
   return (
     <>
-      <div className="globalBody bg-gradient">
+      <div style={{
+          minHeight: "100dvh",
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+        }} className="globalBody bg-gradient">
         <Head>
           <meta
             name="Lesoll"
@@ -27,7 +32,7 @@ export default function Layout({ children }) {
         </Head>
         <Navbar  />
         <main>{children}</main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );

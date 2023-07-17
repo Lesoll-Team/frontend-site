@@ -6,18 +6,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body
-        style={{
-          minHeight: "100dvh",
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* <Navbar className="" /> */}
+      <body>
+
         <Main />
         <NextScript />
-        <Footer />
+
       </body>
     </Html>
   );
