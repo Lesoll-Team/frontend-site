@@ -6,7 +6,12 @@ export default function Layout({ children }) {
   
   return (
     <>
-      <div className="globalBody bg-gradient relative">
+      <div  style={{
+          minHeight: "100dvh",
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+        }} className="globalBody bg-gradient">
         <Head>
           <meta
             name="Lesoll"
@@ -27,7 +32,7 @@ export default function Layout({ children }) {
           />
         </Head>
         <Navbar  />
-        <main >{children}</main>
+        <main>{children}</main>
         <Footer />
       </div>
     </>
