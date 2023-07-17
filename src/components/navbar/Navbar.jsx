@@ -26,7 +26,6 @@ export default function Navbar() {
   return (
     <nav className="w-full  z-50  sticky  top-0">
       <section className="flex  relative bg-white  h-[90px] items-center">
-        {/*sm:justify-around */}
 
         {/*Logo */}
         <ul className=" flex  justify-center ">
@@ -48,12 +47,13 @@ export default function Navbar() {
 
         {/*nav link web page */}
         <ul className="md:flex  justify-center space-x-3 hidden">
-          {/* <LinksNavbar /> */}
           <LinksNavbar />
         </ul>
 
-        {/*button SignUp & user menu & user image grow md:grow-0*/}
+        {/* SignUp & language & Notifications & user menu & user image*/}
         <ul className="flex justify-end  mr-4 md:absolute  md:right-0 space-x-2 grow md:grow-0 items-center">
+
+        {/*button language*/}
           <li className="md:flex hidden">
             <button
               onClick={() => setLanguage(!language)}
@@ -65,6 +65,7 @@ export default function Navbar() {
             </button>
           </li>
 
+        {/*button Notifications */}
           <li className={` ${isAuth ? "hidden" : ""} relative`}>
             <button onClick={() => setNotifications(!notifications)}>
               <MdNotificationsNone
@@ -106,7 +107,7 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/*nav link web mobile */}
+        {/*button mobile links*/}
         <ul className="flex mr-6    justify-center  md:hidden">
           <li className="">
             <button
@@ -124,8 +125,8 @@ export default function Navbar() {
       </section>
 
       {/*links in menu mobile button*/}
-      <div className="  flex justify-end relative">
-        <section
+      <section className="  flex justify-end relative">
+        <ul
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
               ? "hidden"
@@ -148,9 +149,9 @@ export default function Navbar() {
               </button>
             </li>
           </ul>
-        </section>
+        </ul>
 
-        <section
+        <ul
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
           }   h-screen overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
@@ -158,8 +159,10 @@ export default function Navbar() {
           {/*md:justify-end  md:w-96 w-auto absolute*/}
 
           <NotificationMenu />
-        </section>
-      </div>
+        </ul>
+      </section>
+
+
       <div className="  flex -mt-1 relative">
         <img src="icons/rightNavBar.svg " className="w-10 absolute " alt="s" />
         <img
