@@ -69,9 +69,9 @@ body::-webkit-scrollbar-track {
   background: #fff;        /* color of the tracking area */
 }
 body::-webkit-scrollbar-thumb {
-  background-color: #309da0;    /* color of the scroll thumb */
+  background-color: #d2512d;    /* color of the scroll thumb */
   border-radius: 0px;       /* roundness of the scroll thumb */
-  border: 3px solid #309da0;  /* creates padding around scroll thumb */
+  border: 3px solid #d2512d;  /* creates padding around scroll thumb */
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -102,7 +102,7 @@ footer{
   margin-top: auto;
 }
 
-span {
+/* span {
   display: none;
 }
 
@@ -112,4 +112,41 @@ input:invalid[focused="true"] ~ span {
 
 input:invalid[focused="true"] {
   border: 1px solid red;
+} */
+
+
+.radio{
+  display: none;
+}
+.label{
+  /* text-align: center; */
+  cursor: pointer;
+  background-color: #fff;
+  padding: 10px;
+  border: #309da0 solid 2px;
+  border-radius: 7px;
+
+  transition: all 0.1s;
+  font-weight: 500;
+  color: #d2512d;
+  display: block;
+  /* width: 100%; */
+
+}
+.label:hover{
+  background-color: #309da0;
+  color: #fff;
+}
+/* input[type="radio"]:checked ~ label{
+  background-color: #309da0;
+  color: #000;
+} */
+
+#lang-1:checked ~ label{
+  background-color: #309da0;
+  color: #fff;
+}
+#lang-2:checked  ~ label {
+  background-color: #309da0;
+  color: #fff;
 }
