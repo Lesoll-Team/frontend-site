@@ -40,13 +40,13 @@ const BrokerSignUp = () => {
 
     //subnit form
     onSubmit: (values) => {
-      console.log(values);
+      //   console.log(values);
       router.push({ pathname: "/", query: values });
     },
   });
 
   // console.log(formik.values);
-  console.log(formik.errors);
+  //   console.log(formik.errors);
   // console.log(formik.touched);
   // console.log(formik.isSubmitting);
   return (
