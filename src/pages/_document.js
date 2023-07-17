@@ -6,10 +6,10 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
-
+{/*ابوس إيدك ياعبد الرحمن متجيش جنب المكان دة  */}
         <Main />
         <NextScript />
-
+{/* اطلع برة  يلا*/}
       </body>
     </Html>
   );
