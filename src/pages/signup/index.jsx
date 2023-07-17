@@ -7,176 +7,93 @@ import house from "../../../public/page3.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Router, useRouter } from "next/router";
+import UserType from "@/components/signup/UserType";
+import UserSignUp from "@/components/signup/UserSignUp";
+import BrokerSignUp from "@/components/signup/BrokerSignUp";
+import CompanySignUp from "@/components/signup/CompanySignUp";
 
 const SignUp = () => {
-  //router.
-  const router = useRouter();
-  // formik logic
-
-  const formik = useFormik({
-    initialValues: {
-      fullname: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      phoneNumber: "",
-      terms: "",
-    },
-    // form validation logic
-    validationSchema: Yup.object({
-      fullname: Yup.string().min(3, "Too Short!").required("name is required"),
-      email: Yup.string()
-        .email("Invalid Email Adress")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(8, "password is short manimum 8 characters")
-        .max(16, "password is long maximum 16 characters")
-        .required("Required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords Doesn't Match")
-        .required("Passwords Doesn't Match"),
-      phoneNumber: Yup.number().required("Phone Number is required"),
-    }),
-
-    //subnit form
-    onSubmit: (values) => {
-      console.log(values);
-      router.push({ pathname: "/", query: values });
-    },
-  });
-
-  // console.log(formik.values);
-  console.log(formik.errors);
-  // console.log(formik.touched);
-  // console.log(formik.isSubmitting);
+  const [userType, setUserType] = useState("");
+  const setOwner = () => {
+    setUserType("owner");
+    console.log(userType);
+  };
+  const setBroker = () => {
+    setUserType("broker");
+    console.log(userType);
+  };
+  const setCompany = () => {
+    setUserType("company");
+    console.log(userType);
+  };
   return (
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
-        <form
-          className="flex flex-col w-80 md:w-96  border-5 justify-center "
-          onSubmit={formik.handleSubmit}
-        >
-          <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign up</h1>
-
-          <div>
-            <Input
-              name="fullname"
-              placeholder="Full Name"
-              type="text"
-              value={formik.values.fullname}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.fullname && formik.errors.fullname ? (
-              <p className="text-red-600">{formik.errors.fullname}</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div>
-            <Input
-              name="email"
-              placeholder="Email"
-              type="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <p className="text-red-600">{formik.errors.email}</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div>
-            <Input
-              name="password"
-              placeholder="Password"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.password && formik.errors.password ? (
-              <p className="text-red-600">{formik.errors.password}</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div>
-            <Input
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              type="password"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-              <p className="text-red-600">{formik.errors.confirmPassword}</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div>
-            <Input
-              name="phoneNumber"
-              placeholder="Phone Number"
-              type="number"
-              value={formik.values.phoneNumber}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-              <p className="text-red-600">{formik.errors.phoneNumber}</p>
-            ) : (
-              ""
-            )}
-          </div>
-
-          {/* <div className="flex justify-start relative">
-            <Input
-              name="terms"
-              type="checkbox"
-              className=" h-4 w-4 rounded-sm inline-block focus:ring-lightGreen text-lightGreen  "
-            />
-            <p
-              htmlFor="termsOfService"
-              className="absolute top-[10px] left-[20px]"
-            >
-              Accept Terms Of Service
-            </p>
-          </div> */}
-
-          {/* {inputs.map((input) => (
-            <Input
-              key={input.id}
-              {...input}
-              value={values[input.name]}
-              handleChange={handleChange}
-            />
-          ))} */}
-          <Button className="" type="submit" text="Sign up" />
-        </form>
-        {/* line break */}
-        <div className="flex justify-between items-center space-x-3">
-          <div className="line-break"></div>
-          <p className="font-light">or</p>
-          <div className="line-break"></div>
+        <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign up</h1>
+        <div className="flex justify-evenly w-1/2 md:gap-3 gap-1">
+          <p
+            onClick={setOwner}
+            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md ${
+              userType === "owner"
+                ? "bg-lightGreen text-white"
+                : userType !== ""
+                ? "border-gray-500 border-[1px] text-gray-600 opacity-70 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
+                : ""
+            } ${
+              userType !== "owner" || (userType === "" && "border-gray-600")
+            }`}
+          >
+            Owner
+          </p>
+          <p
+            onClick={setBroker}
+            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md ${
+              userType === "broker"
+                ? "bg-lightGreen text-white"
+                : userType !== ""
+                ? "border-gray-500 border-[1px] text-gray-600 opacity-70 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
+                : ""
+            } ${
+              userType !== "broker" || (userType === "" && "border-gray-600")
+            }`}
+          >
+            Broker
+          </p>
+          <p
+            onClick={setCompany}
+            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md ${
+              userType === "company"
+                ? "bg-lightGreen text-white"
+                : userType !== ""
+                ? "border-gray-500 border-[1px] text-gray-600 opacity-70 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
+                : ""
+            } ${
+              userType !== "company" || (userType === "" && "border-gray-600")
+            }`}
+          >
+            Company
+          </p>
         </div>
-        {/* Google and facebook sign in */}
-        <a
-          href="#"
-          className="w-80 flex items-center justify-center py-2 space-x-2 border-2 md:w-96 rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
-        >
-          <img
-            className="w-8 "
-            src="https://img.icons8.com/?size=512&id=17949&format=png"
-            alt=""
-          />{" "}
-          <p>Sign up with Google</p>
-        </a>
+        <p className="text-center w-1/2 text-gray-600">
+          {userType === "owner"
+            ? "you are the owner of a property and looking to list it for rent or sale."
+            : userType === "broker"
+            ? "you are a broker connecting property owners with potential buyers."
+            : userType === "company"
+            ? " you represent a real estate broker or developer company."
+            : "To get started, please select your registration role from these options"}
+        </p>
+        {userType === "owner" ? (
+          <UserSignUp />
+        ) : userType === "broker" ? (
+          <BrokerSignUp />
+        ) : userType === "company" ? (
+          <CompanySignUp />
+        ) : (
+          ""
+        )}
+
         <p className="">
           Alraedy have an account?
           <Link
