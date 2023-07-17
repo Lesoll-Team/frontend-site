@@ -14,7 +14,7 @@ export default function LinksNavbar() {
       {links.map((link) => (
         <li key={link.id}>
           <Link
-            className=" flex p-1  px-3  md:text-2xl text-xl rounded-3xl 
+            className=" flex p-1  px-3   text-lg rounded-3xl 
                duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95 items-center "
             href={link.href}
           >
