@@ -22,10 +22,19 @@ const [language,setLanguage]=useState(true)
     <Fragment>
         {userMenus.map(
             (userMenu)=>(
-                <li key={userMenu.id}>
+                <li key={userMenu.id} className={`${userMenu.languages.arabic == "English" ? 'md:hidden':''}`} >
+
                 <Link
-                  className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                  className="border-solid my-1 border-b  border-gray-200 text-darkGreen w-full flex justify-center items-center duration-300 hover:bg-gray-100 hover:text-lightGreenHover  active:scale-95"
                   href={"/"}>
+                    <ul >
+              {userMenu.languages.english == "Profile" ? <MdAccountCircle /> : ""}
+              {userMenu.languages.english == "Favorite" ? <MdOutlineFavorite /> : ""}
+              {userMenu.languages.english == "Setting" ? <MdOutlineSettings /> : ""}
+              {userMenu.languages.english == "Log out" ? <HiOutlineArrowRightOnRectangle /> : ""}
+              {userMenu.languages.arabic == "English" ? <IoLanguage /> : ""}
+
+</ul>
                   {language ? userMenu.languages.english : userMenu.languages.arabic}
                 </Link>
               </li>

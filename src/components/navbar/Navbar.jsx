@@ -5,7 +5,10 @@ import { useState } from "react";
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLanguage } from "react-icons/io5";
+import { IoLanguage,IoSearchCircleOutline } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
+
+
 
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
@@ -13,11 +16,20 @@ import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
 
 export default function Navbar() {
+
+
   const [open, setOpen] = useState(true);
-  const [isAuth, setAuth] = useState(false);
+  const [isAuth, setAuth] = useState(true);
   const [language, setLanguage] = useState(true);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
+
+  const [searchVisible, setSearchVisible] = useState(false)
+
+
+  function toggleSearch() {
+    setSearchVisible(!searchVisible)
+  }
 
   const handleInputClick = (value) => {
     setOpenUserMenu(setOpen(value));
@@ -25,10 +37,10 @@ export default function Navbar() {
 
   return (
     <nav className="w-full  z-50  sticky  top-0">
-      <section className="flex  relative bg-white  h-[90px] items-center">
+      <section className="flex  relative bg-white  h-[80px] items-center ">
 
         {/*Logo */}
-        <ul className=" flex  justify-center ">
+        <ul className=" flex w-3/12  md:justify-center ">
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
             <Link
               className=""
@@ -46,15 +58,58 @@ export default function Navbar() {
         </ul>
 
         {/*nav link web page */}
-        <ul className="md:flex  justify-center space-x-3 hidden">
+        <ul className={` ${searchVisible? 'hidden':'md:flex'}   w-5/12 space-x-2 hidden`}>
           <LinksNavbar />
         </ul>
 
-        {/* SignUp & language & Notifications & user menu & user image*/}
-        <ul className="flex justify-end  mr-4 md:absolute  md:right-0 space-x-2 grow md:grow-0 items-center">
+          
+
+        {/* SignUp & language & Notifications & user menu & user image */}
+        <ul className={` ${searchVisible? 'w-8/12 ':'md:w-4/12 w-8/12'} flex justify-end md:justify-center  mr-4  space-x-2 items-center`}>
+
+
+
+        <ul className={`py-2 ${searchVisible? 'w-full ':''} mr-1`}>
+          <li className={` flex items-center  `}>
+            <FaSearch onClick={toggleSearch} className="   text-2xl  text-lightOrange "/>
+            <input  placeholder="Search" 
+            className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
+                           focus:outline-none focus:ring-1 focus:ring-lightOrange
+                           ring-lightOrange ring-1
+                       ${searchVisible? 'w-full':'hidden'}`} 
+            type="text" />
+               <MdClear onClick={toggleSearch} className={`rounded-full   text-4xl
+                 text-lightOrange ${searchVisible? '':'hidden'} `}/>
+          </li>
+
+
+          {/* <li className={` flex rounded-full hover:bg-white bg-lightOrange  `}>
+            <IoSearchCircleOutline onClick={toggleSearch} className="rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl  hover:text-lightOrange "/>
+            <input  placeholder="Search" 
+            className={` text-darkGreen placeholder-lightOrangeHover  px-2 rounded-full 
+                           focus:outline-none focus:ring-1 focus:ring-lightOrange
+                           ring-lightOrange ring-1
+                       ${searchVisible? 'w-full':'hidden'}`} 
+            type="text" />
+               <MdClear  className={`rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl
+                 hover:text-lightOrange ${searchVisible? '':'hidden'} `}/>
+          </li> */}
+            {/* <li className={` flex rounded-full hover:bg-white bg-lightOrange  `}>
+            <IoSearchCircleOutline onClick={toggleSearch} className="rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl  hover:text-lightOrange "/>
+            <input  placeholder="Search" 
+            className={` text-darkGreen placeholder-lightOrangeHover  px-2 rounded-full 
+                           focus:outline-none focus:ring-1 focus:ring-lightOrange
+                           ring-lightOrange ring-1
+                       ${searchVisible? 'w-full':'hidden'}`} 
+            type="text" />
+               <MdClear  className={`rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl
+                 hover:text-lightOrange ${searchVisible? '':'hidden'} `}/>
+          </li> */}
+
+          </ul>
 
         {/*button language*/}
-          <li className="md:flex hidden">
+          <li className={`  ${searchVisible? 'hidden':' md:flex hidden'}  `}>
             <button
               onClick={() => setLanguage(!language)}
               className=" flex p-1  px-3 border-b-[3px] hover:border-b-transparent md:text-1xl text-lg rounded-md 
@@ -66,8 +121,12 @@ export default function Navbar() {
           </li>
 
         {/*button Notifications */}
-          <li className={` ${isAuth ? "hidden" : ""} relative`}>
+          <li className={` ${isAuth ? "hidden" : ` ${searchVisible? 'hidden':' '}`} relative`}>
             <button onClick={() => setNotifications(!notifications)}>
+            {/* <span class="absolute flex h-3 w-3">
+  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+  <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+</span> */}
               <MdNotificationsNone
                 className={` rounded-full 
                text-lightGreen bg-white text-4xl  hover:bg-lightGreenHover hover:text-white  active:scale-95`}
@@ -89,7 +148,7 @@ export default function Navbar() {
           </li>
 
           {/*user section*/}
-          <li className={`  ${isAuth ? "hidden" : ""} relative`}>
+          <li className={`  ${isAuth ? "hidden" : `${searchVisible? 'hidden':''}`} relative`}>
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
                 className="rounded-full border-2 border-green-800  sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
@@ -98,7 +157,7 @@ export default function Navbar() {
             </button>
 
             <ul
-              className={`bg-gray-100 ${
+              className={`bg-white drop-shadow-md ${
                 openUserMenu ? "" : "hidden"
               } rounded-md p-2 -left-32 w-40 absolute`}
             >
@@ -108,7 +167,7 @@ export default function Navbar() {
         </ul>
 
         {/*button mobile links*/}
-        <ul className="flex mr-6    justify-center  md:hidden">
+        <ul className="flex  w-1-12   justify-center  md:hidden">
           <li className="">
             <button
               className="flex justify-center "
