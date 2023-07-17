@@ -1,5 +1,5 @@
 import Navbar from "../components/navbar/Navbar";
-// import Footer from "../components/footer/Footer";
+import Footer from "../components/footer/Footer";
 import Head from "next/head";
 
 export default function Layout({ children }) {
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
         </Head>
         <Navbar  />
         <main >{children}</main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );
