@@ -10,6 +10,8 @@ import { TiUserAdd } from "react-icons/ti";
 import { ImQuestion } from "react-icons/im";
 import { RiCustomerService2Fill } from "react-icons/ri";
 
+
+
 export default function MobileMenu({ onInputClick }) {
   const handleInputClick = () => {
     onInputClick(true);

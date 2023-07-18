@@ -1,26 +1,38 @@
 import Link from "next/link";
 import Image from "next/image";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLanguage,IoSearchCircleOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-
+import arLanguage from '../../../public/locales/ar/common.js'
+import enLanguage from '../../../public/locales/en/common.js'
 
 
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLanguage } from "@/redux-store/features/languageSlice";
 
 export default function Navbar() {
+  const [arbLanguage] = useState(arLanguage);
+  const [engLanguage] = useState(enLanguage);
+
+  
+
+  const dispatch=useDispatch();
+  const languageIs=useSelector(state=> state.Languages.languageIs)
+
+
 
 
   const [open, setOpen] = useState(true);
   const [isAuth, setAuth] = useState(true);
-  const [language, setLanguage] = useState(true);
+
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
 
@@ -72,51 +84,30 @@ export default function Navbar() {
         <ul className={`py-2 ${searchVisible? 'w-full ':''} mr-1`}>
           <li className={` flex items-center  `}>
             <FaSearch onClick={toggleSearch} className="   text-2xl  text-lightOrange "/>
-            <input  placeholder="Search" 
+            <input  
+            placeholder={languageIs? arbLanguage.input.search:engLanguage.input.search}
             className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
                            focus:outline-none focus:ring-1 focus:ring-lightOrange
                            ring-lightOrange ring-1
                        ${searchVisible? 'w-full':'hidden'}`} 
             type="text" />
-               <MdClear onClick={toggleSearch} className={`rounded-full   text-4xl
+               <MdClear 
+               onClick={toggleSearch} 
+               className={`rounded-full   text-4xl
                  text-lightOrange ${searchVisible? '':'hidden'} `}/>
           </li>
-
-
-          {/* <li className={` flex rounded-full hover:bg-white bg-lightOrange  `}>
-            <IoSearchCircleOutline onClick={toggleSearch} className="rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl  hover:text-lightOrange "/>
-            <input  placeholder="Search" 
-            className={` text-darkGreen placeholder-lightOrangeHover  px-2 rounded-full 
-                           focus:outline-none focus:ring-1 focus:ring-lightOrange
-                           ring-lightOrange ring-1
-                       ${searchVisible? 'w-full':'hidden'}`} 
-            type="text" />
-               <MdClear  className={`rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl
-                 hover:text-lightOrange ${searchVisible? '':'hidden'} `}/>
-          </li> */}
-            {/* <li className={` flex rounded-full hover:bg-white bg-lightOrange  `}>
-            <IoSearchCircleOutline onClick={toggleSearch} className="rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl  hover:text-lightOrange "/>
-            <input  placeholder="Search" 
-            className={` text-darkGreen placeholder-lightOrangeHover  px-2 rounded-full 
-                           focus:outline-none focus:ring-1 focus:ring-lightOrange
-                           ring-lightOrange ring-1
-                       ${searchVisible? 'w-full':'hidden'}`} 
-            type="text" />
-               <MdClear  className={`rounded-full hover:bg-white bg-lightOrange  text-white  text-4xl
-                 hover:text-lightOrange ${searchVisible? '':'hidden'} `}/>
-          </li> */}
 
           </ul>
 
         {/*button language*/}
           <li className={`  ${searchVisible? 'hidden':' md:flex hidden'}  `}>
             <button
-              onClick={() => setLanguage(!language)}
+              onClick={() => dispatch(handleLanguage())}
               className=" flex p-1  px-3 border-b-[3px] hover:border-b-transparent md:text-1xl text-lg rounded-md 
                             duration-300 text-white bg-lightGreen hover:bg-white hover:text-lightGreen   active:scale-95 items-center "
             >
               <IoLanguage />
-              {language ? "عربى" : "English"}
+              {languageIs ? "عربى" : "English"}
             </button>
           </li>
 
@@ -135,7 +126,7 @@ export default function Navbar() {
           </li>
 
           {/*button SignUp*/}
-          <li className={`${isAuth ? "" : "hidden"} `}>
+          <li className={`  ${isAuth ? `${searchVisible? 'hidden':' '}` : "hidden"} `}>
             <button className="" onClick={() => setAuth(!isAuth)}>
               <Link
                 className=" px-3 py-1 text-lg xl:px-4  border-lightOrange border-[2px] sm:text-2xl text-[8px] bg-white 
@@ -199,12 +190,15 @@ export default function Navbar() {
           <ul className="items-center">
             <MobileMenu onInputClick={handleInputClick} />
 
-            <li className={`${isAuth ? "" : "hidden"}`}>
+            <li className={`${isAuth ? "" : "hidden"} flex  justify-center`}>
               <button
-                onClick={() => setLanguage(!language)}
-                className=" w-full flex p-2 px-2 text-3xl justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
+                onClick={() => dispatch(handleLanguage())}
+                className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
               >
-                {language ? "  عربى  " : "English"}
+                <b className="flex items-center">
+                <IoLanguage />
+                {languageIs ? "  عربى  " : "English"}
+                </b>
               </button>
             </li>
           </ul>

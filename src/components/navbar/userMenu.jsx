@@ -7,9 +7,13 @@ import {
     MdOutlineSettings,
     MdOutlineFavorite,
   } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 export default function userMenu() {
-const [language,setLanguage]=useState(true)
+
+
+  const languageIs=useSelector(state=> state.Languages.languageIs)
+
     const userMenus=[
         {languages:{english:'Profile',arabic:'الصفحة الرئيسية'},href:'/',id:1},
         {languages:{english:'Favorite',arabic:'المفضلة'},href:'/',id:2},
@@ -26,7 +30,7 @@ const [language,setLanguage]=useState(true)
 
                 <Link
                   className="border-solid my-1 border-b  border-gray-200 text-darkGreen w-full flex justify-center items-center duration-300 hover:bg-gray-100 hover:text-lightGreenHover  active:scale-95"
-                  href={"/"}>
+                  href={userMenu.href}>
                     <ul >
               {userMenu.languages.english == "Profile" ? <MdAccountCircle /> : ""}
               {userMenu.languages.english == "Favorite" ? <MdOutlineFavorite /> : ""}
@@ -35,7 +39,7 @@ const [language,setLanguage]=useState(true)
               {userMenu.languages.arabic == "English" ? <IoLanguage /> : ""}
 
 </ul>
-                  {language ? userMenu.languages.english : userMenu.languages.arabic}
+                  {languageIs ? userMenu.languages.english : userMenu.languages.arabic}
                 </Link>
               </li>
         )
@@ -44,55 +48,3 @@ const [language,setLanguage]=useState(true)
     </Fragment>
   )
 }
-
-
-/**
- *  <li >
-                          <Link
-                            className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-                            href={"/"}>
-                            <MdAccountCircle/>
-                            {language ? "Profile" : "الصفحة الشخصية"}
-                          </Link>
-                        </li>
-                        <li className="flex justify-center">
-                          <Link
-                            className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-                            href={"/"}>
-                            <MdOutlineFavorite/>
-                            {language ? "Favorite" : " المفضلة"}
-                          </Link>
-                        </li>
-
-                        <li className="flex justify-center">
-                          <Link
-                            className="  w-full flex items-center justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-                            href={"/"}>
-                            <MdOutlineSettings/>
-                            {language ? "setting" : " الإعدادات"}
-                          </Link>
-                        </li>
-
-                       
-                        <li className="flex justify-center">
-                          <Link
-                          onClick={()=>setAuth(!isAuth)}
-                            className=" w-full flex justify-center items-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-                            href={"/signup"}>
-                                 <HiOutlineArrowRightOnRectangle/>
-                              {isAuth?``:`${language ? `  Log out` : "خروج"}`}
-                            
-                            
-                          </Link>
-                        </li>
-
-                        <li className="flex justify-center">
-                          <button
-                            onClick={() => setLanguage(!language)}
-                            className=" w-full flex items-center justify-center duration-300 text-darkGray hover:bg-gray-200 hover:text-black  active:scale-95"
-                            >
-                              <IoLanguage/>
-                            {language ? "عربى" : "English"}{" "}
-                          </button>
-                        </li>
- */
