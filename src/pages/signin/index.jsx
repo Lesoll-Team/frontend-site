@@ -119,7 +119,14 @@ const SignIn = () => {
         </div>
         {/* img */}
         <div className="hidden md:flex h-100 h-screen bg-lightGreen items-center w-1/2 justify-end">
-          <Image src={house} alt="home" className="w-4/5" />
+          <Image
+            priority
+            src={house}
+            width={"auto"}
+            height={"auto"}
+            alt="home"
+            className="w-4/5"
+          />
         </div>
       </div>
     </>

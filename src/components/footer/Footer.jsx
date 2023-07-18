@@ -1,19 +1,21 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import logo from "../../../public//icons/logoNavbar.png";
 const Footer = () => {
   return (
-    <footer style={{marginTop:"auto"}}>
+    <footer>
       <div className="container mx-auto md:grid  lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
         {/* Discription */}
         <div className="col-span-3 lg:col-span-2 space-y-3 relative">
           {/* logo */}
           <Image
-            width={100}
-            height={100}
+            alt="Logo"
+            width={"auto"}
+            height={"auto"}
             // className=" "
-            className="object-fit -mt-5 lg:w-[250px]  w-[150px]"
-            src="/logo-x.png"
+            className="-ml-6 md:-ml-5 lg:-ml-9 -mt-5 lg:w-[300px]  w-[200px]"
+            src={logo}
           />
           <p className="md:w-3/4">
             Lesoll is an Egyptian RealEstate marketplace. lesoll offers
@@ -29,6 +31,7 @@ const Footer = () => {
                 className="text-white"
               >
                 <Image
+                  alt="facebook"
                   className="w-[25px] md:w-[40px]  object-fit"
                   src={"/icons/facebook.svg"}
                   width={40}
@@ -43,6 +46,7 @@ const Footer = () => {
                 className="text-white"
               >
                 <Image
+                  alt="instagram"
                   src={"/icons/instgaram.svg"}
                   width={40}
                   height={40}
@@ -53,6 +57,7 @@ const Footer = () => {
             <div className=" rounded-full bg-darkGray flex justify-center items-center">
               <a target="_blank" href="#" className="text-white">
                 <Image
+                  alt="telegram"
                   className="w-[25px] md:w-[40px] object-fit"
                   src={"/icons/telegram.svg"}
                   width={40}
@@ -67,6 +72,7 @@ const Footer = () => {
                 className="text-white"
               >
                 <Image
+                  alt="twitter"
                   className="w-[25px] md:w-[40px]  object-fit"
                   src={"/icons/twitter.svg"}
                   width={40}

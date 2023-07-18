@@ -4,13 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import house from "../../../public/page3.svg";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Router, useRouter } from "next/router";
-import UserType from "@/components/signup/UserType";
-import UserSignUp from "@/components/signup/UserSignUp";
-import BrokerSignUp from "@/components/signup/BrokerSignUp";
-import CompanySignUp from "@/components/signup/CompanySignUp";
+import SignUpForm from "@/components/signup/SignUpForm";
 
 const SignUp = () => {
   const [userType, setUserType] = useState("");
@@ -30,52 +24,54 @@ const SignUp = () => {
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
-        <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign up</h1>
-        <div className="flex justify-evenly w-1/2 md:gap-3 gap-1">
-          <p
+        <h1 className="text-7xl mb-5 text-lightGreen font-black text-left">
+          Sign up
+        </h1>
+        <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
+          <button
             onClick={setOwner}
-            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md ${
+            className={`cursor-pointer border-2 border-lightGreen py-2 px-6  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
               userType === "owner"
                 ? "bg-lightGreen text-white"
                 : userType !== ""
-                ? "border-gray-500 border-[1px] text-gray-600 opacity-70 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
+                ? "border-gray-500 border-[1px] text-gray-600 opacity-50 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
                 : ""
             } ${
               userType !== "owner" || (userType === "" && "border-gray-600")
             }`}
           >
             Owner
-          </p>
-          <p
+          </button>
+          <button
             onClick={setBroker}
-            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md ${
+            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
               userType === "broker"
                 ? "bg-lightGreen text-white"
                 : userType !== ""
-                ? "border-gray-500 border-[1px] text-gray-600 opacity-70 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
+                ? "border-gray-500 border-[1px] text-gray-600 opacity-50 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
                 : ""
             } ${
               userType !== "broker" || (userType === "" && "border-gray-600")
             }`}
           >
             Broker
-          </p>
-          <p
+          </button>
+          <button
             onClick={setCompany}
-            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md ${
+            className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
               userType === "company"
                 ? "bg-lightGreen text-white"
                 : userType !== ""
-                ? "border-gray-500 border-[1px] text-gray-600 opacity-70 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
+                ? "border-gray-500 border-[1px] text-gray-600 opacity-50 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
                 : ""
             } ${
               userType !== "company" || (userType === "" && "border-gray-600")
             }`}
           >
             Company
-          </p>
+          </button>
         </div>
-        <p className="text-center w-1/2 text-gray-600">
+        <p className="text-center w-80 md:w-96  text-gray-600">
           {userType === "owner"
             ? "you are the owner of a property and looking to list it for rent or sale."
             : userType === "broker"
@@ -85,11 +81,11 @@ const SignUp = () => {
             : "To get started, please select your registration role from these options"}
         </p>
         {userType === "owner" ? (
-          <UserSignUp />
+          <SignUpForm userType="owner" />
         ) : userType === "broker" ? (
-          <BrokerSignUp />
+          <SignUpForm userType="broker" />
         ) : userType === "company" ? (
-          <CompanySignUp />
+          <SignUpForm userType="company" />
         ) : (
           ""
         )}
@@ -106,7 +102,14 @@ const SignUp = () => {
       </div>
       {/* img */}
       <div className="hidden md:flex h-100 min-h-[100dvh] bg-lightGreen items-center w-1/2 justify-end">
-        <Image src={house} alt="home" className="w-4/5" />
+        <Image
+          width={"auto"}
+          height={"auto"}
+          priority
+          src={house}
+          alt="home"
+          className="w-4/5"
+        />
       </div>
       {/* suggest */}
     </div>

@@ -24,7 +24,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full  z-50  sticky  top-0">
+    <nav className="w-full    sticky  top-0 z-[1000]">
       <section className="flex  relative bg-white  h-[90px] items-center">
         {/*sm:justify-around */}
 
