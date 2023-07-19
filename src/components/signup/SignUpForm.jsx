@@ -4,7 +4,14 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+
 const SignUpForm = (props) => {
+  const [passwordVisable, setPasswordVisable] = useState(false);
+
+  const showPassword = () => {
+    setPasswordVisable(!passwordVisable);
+  };
   // handle the user type from the props to
   const userType = props.userType || "user";
   let type = "";
@@ -51,6 +58,9 @@ const SignUpForm = (props) => {
     onSubmit: (values) => {
       values.type = userType;
       // console.log(values);
+      const data = Object.assign({}, values);
+      delete data.confirmPassword;
+      // console.log(data);
     },
   });
   // console.log(formik.errors);
@@ -106,21 +116,23 @@ const SignUpForm = (props) => {
         {/* phone number input */}
         <div>
           <PhoneInput
+            autoFoucs="true"
             country={"eg"}
             name="phoneNumber"
             value={phoneNumber}
             onChange={handlePhoneNumber}
-            onBlur={formik.handleBlur}
+            // onBlur={formik.handleBlur}
             // value={phone}
             countryCodeEditable={false}
-            // specialLabel={""}
-            // enableSearch={true}
+            specialLabel={"search"}
+            enableSearch={true}
             searchPlaceholder={"Search"}
             placeholder="Phone Number"
             // inputStyle={{ width: "100%" }}
             inputProps={{
               name: "phone",
               required: true,
+              autoFocus: true,
             }}
             //   className="border-lightGreen w-full"
           />
@@ -131,10 +143,10 @@ const SignUpForm = (props) => {
           )}
         </div>
         {/* password input */}
-        <div>
+        <div className="relative">
           <input
             name="password"
-            type="password"
+            type={passwordVisable ? "text" : "password"}
             placeholder="Password"
             value={formik.values.password}
             onChange={formik.handleChange}
@@ -150,12 +162,27 @@ const SignUpForm = (props) => {
           ) : (
             ""
           )}
+          {passwordVisable ? (
+            <p
+              onClick={showPassword}
+              className="absolute top-[9px] text-darkGreen right-4 text-xl p-1"
+            >
+              <AiOutlineEye />
+            </p>
+          ) : (
+            <p
+              onClick={showPassword}
+              className="absolute top-[9px] text-darkGreen right-4 text-xl p-1"
+            >
+              <AiOutlineEyeInvisible />
+            </p>
+          )}
         </div>
         {/* confirm password input */}
         <div>
           <input
             name="confirmPassword"
-            type="password"
+            type={passwordVisable ? "text" : "password"}
             placeholder="Confirm Password"
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
