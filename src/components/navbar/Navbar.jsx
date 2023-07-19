@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
 import { useEffect, useState } from "react";
+import ReactCountryFlag from "react-country-flag"
+
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -83,7 +85,7 @@ export default function Navbar() {
 
         <ul className={`py-2 ${searchVisible? 'w-full ':''} mr-1`}>
           <li className={` flex items-center  `}>
-            <FaSearch onClick={toggleSearch} className="   text-2xl  text-lightOrange "/>
+            <FaSearch onClick={toggleSearch} className="   text-1xl  text-lightOrange "/>
             <input  
             placeholder={languageIs? arbLanguage.input.search:engLanguage.input.search}
             className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
@@ -93,7 +95,7 @@ export default function Navbar() {
             type="text" />
                <MdClear 
                onClick={toggleSearch} 
-               className={`rounded-full   text-4xl
+               className={`rounded-full   text-2xl
                  text-lightOrange ${searchVisible? '':'hidden'} `}/>
           </li>
 
@@ -103,11 +105,24 @@ export default function Navbar() {
           <li className={`  ${searchVisible? 'hidden':' md:flex hidden'}  `}>
             <button
               onClick={() => dispatch(handleLanguage())}
-              className=" flex p-1  px-3 border-b-[3px] hover:border-b-transparent md:text-1xl text-lg rounded-md 
-                            duration-300 text-white bg-lightGreen hover:bg-white hover:text-lightGreen   active:scale-95 items-center "
-            >
-              <IoLanguage />
-              {languageIs ? "عربى" : "English"}
+              className="
+              flex py-1 px-1   w-24   text-md rounded-full 
+                            duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
+            ><ul className="mx-1">{languageIs?
+              <ReactCountryFlag
+              countryCode="EG"
+              svg
+              cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+              cdnSuffix="svg"
+              title="US"/> :
+                <ReactCountryFlag
+                countryCode="US"
+                svg
+                cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+                cdnSuffix="svg"
+                title="US"/>
+}</ul>
+              <ul className="mx-1">{languageIs ? `عربى` : `English`}</ul>
             </button>
           </li>
 
@@ -129,11 +144,11 @@ export default function Navbar() {
           <li className={`  ${isAuth ? `${searchVisible? 'hidden':' '}` : "hidden"} `}>
             <button className="" onClick={() => setAuth(!isAuth)}>
               <Link
-                className=" px-3 py-1 text-lg xl:px-4  border-lightOrange border-[2px] sm:text-2xl text-[8px] bg-white 
+                className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
-                {isAuth ? "Sign In" : "Log out"}
+                {isAuth ? "Sign In" : ""}
               </Link>
             </button>
           </li>
@@ -142,7 +157,7 @@ export default function Navbar() {
           <li className={`  ${isAuth ? "hidden" : `${searchVisible? 'hidden':''}`} relative`}>
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
-                className="rounded-full border-2 border-green-800  sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
+                className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
                 src="icons/userimg.webp"
               />
             </button>
@@ -150,7 +165,7 @@ export default function Navbar() {
             <ul
               className={`bg-white drop-shadow-md ${
                 openUserMenu ? "" : "hidden"
-              } rounded-md p-2 -left-32 w-40 absolute`}
+              } rounded-md py-3 px-2 -left-32 w-70 absolute`}
             >
               <UserMenu />
             </ul>
@@ -197,7 +212,7 @@ export default function Navbar() {
               >
                 <b className="flex items-center">
                 <IoLanguage />
-                {languageIs ? "  عربى  " : "English"}
+               <ul className="mx-2"> {languageIs ? "  عربى  " : "English"}</ul>
                 </b>
               </button>
             </li>

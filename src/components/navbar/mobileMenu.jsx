@@ -43,7 +43,7 @@ export default function MobileMenu({ onInputClick }) {
               {link.label == "Need" ? <TiUserAdd /> : ""}
               {link.label == "About Us" ? <ImQuestion /> : ""}
               {link.label == "Contact" ? <RiCustomerService2Fill /> : ""}
-              {link.label}
+              <ul className="mx-2">{link.label}</ul>
             </b>
           </Link>
         </li>

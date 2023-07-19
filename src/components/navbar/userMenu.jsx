@@ -15,7 +15,7 @@ export default function userMenu() {
   const languageIs=useSelector(state=> state.Languages.languageIs)
 
     const userMenus=[
-        {languages:{english:'Profile',arabic:'الصفحة الرئيسية'},href:'/',id:1},
+        {languages:{english:'Profile',arabic:'الصفحةالشخصية'},href:'/',id:1},
         {languages:{english:'Favorite',arabic:'المفضلة'},href:'/',id:2},
         {languages:{english:'Setting',arabic:'الإعدادات'},href:'/',id:3},
         {languages:{english:'Log out',arabic:'خـروج'},href:'/signin',id:4},
@@ -26,12 +26,12 @@ export default function userMenu() {
     <Fragment>
         {userMenus.map(
             (userMenu)=>(
-                <li key={userMenu.id} className={`${userMenu.languages.arabic == "English" ? 'md:hidden':''}`} >
+                <li key={userMenu.id} className={`${userMenu.languages.arabic == "English" ? 'md:hidden':''} w-48`} >
 
                 <Link
-                  className="border-solid my-1 border-b  border-gray-200 text-darkGreen w-full flex justify-center items-center duration-300 hover:bg-gray-100 hover:text-lightGreenHover  active:scale-95"
+                  className="border-solid my-1 py-3 border-b text-[16px]  border-gray-200 text-darkGreen w-full flex  items-center duration-300 hover:bg-gray-100 hover:text-lightGreenHover  active:scale-95"
                   href={userMenu.href}>
-                    <ul >
+                    <ul className="">
               {userMenu.languages.english == "Profile" ? <MdAccountCircle /> : ""}
               {userMenu.languages.english == "Favorite" ? <MdOutlineFavorite /> : ""}
               {userMenu.languages.english == "Setting" ? <MdOutlineSettings /> : ""}
@@ -39,7 +39,8 @@ export default function userMenu() {
               {userMenu.languages.arabic == "English" ? <IoLanguage /> : ""}
 
 </ul>
-                  {languageIs ? userMenu.languages.english : userMenu.languages.arabic}
+<ul className="mx-3">
+                  {languageIs ? userMenu.languages.english : userMenu.languages.arabic}</ul>
                 </Link>
               </li>
         )
