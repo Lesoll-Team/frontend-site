@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import {store} from '../redux-store/store'
 import { QueryClientProvider,queryClient  } from '../utils/queryClient';
 
- function App({ Component, pageProps }) {
+
+function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
 

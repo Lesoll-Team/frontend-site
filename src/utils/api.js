@@ -9,6 +9,12 @@
 import axios from 'axios';
 
 export async function registerUser(userData) {
+try {
   const response = await axios.post('http://www.backendsite.lesoll-demo.site/api/auth/register', userData);
   return response.data;
+} catch (error) {
+
+  throw error.response.data;
+  
+}
 }

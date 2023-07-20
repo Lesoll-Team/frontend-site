@@ -1,227 +1,114 @@
-import React, { useState } from "react";
-import Button from "../Button";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
-const SignUpForm = (props) => {
-  const [passwordVisable, setPasswordVisable] = useState(false);
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-  const showPassword = () => {
-    setPasswordVisable(!passwordVisable);
+import { registerStart, registerSuccess, registerFailure } from '../../redux-store/features/userSlice';
+import { useQueryClient } from 'react-query';
+import { registerUser } from '../../utils/api';
+
+const SignInForm = () => {
+  const dispatch = useDispatch();
+  const isRegistering = useSelector((state) => state.User.isRegistering);
+  const registrationError = useSelector((state) => state.User.registrationError);
+  const queryClient = useQueryClient();
+
+
+  const [type, setType] = useState('');
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [countryCode, setCountryCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    dispatch(registerStart());
+
+    try {
+      const userData = { fullname, password,email,countryCode,phoneNumber,type };
+      const newUser = await registerUser(userData);
+      dispatch(registerSuccess());
+
+      // Assuming you want to invalidate the user list query to trigger a refetch
+      queryClient.invalidateQueries('users');
+
+      console.log('User registered:', newUser);
+
+      // Clear the form fields after successful registration
+      setFullname('');
+      setPassword('');
+      setEmail('');
+      setCountryCode('');
+      setPhoneNumber('');
+      setType('');
+      
+    } catch (error) {
+      dispatch(registerFailure(error.message));
+    }
   };
-  // handle the user type from the props to
-  const userType = props.userType || "user";
-  let type = "";
-  if (userType === "company") {
-    type = "Company";
-  } else {
-    type = "Full";
-  }
-  // state to change the phone number in the intial value cuz the phone number input does not change the value by it self
-  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handlePhoneNumber = (value) => {
-    setPhoneNumber(value);
-    formik.setFieldValue("phoneNumber", value); // Update formik values
-  };
-
-  // Formik Logics
-  const formik = useFormik({
-    initialValues: {
-      fullname: "",
-      email: "",
-      phoneNumber: phoneNumber, // Use phoneNumber state value here
-      password: "",
-      confirmPassword: "",
-    },
-
-    // validation schema
-    validationSchema: Yup.object({
-      fullname: Yup.string().min(3, "Too Short!").required("name is required"),
-      email: Yup.string()
-        .email("Invalid Email Adress")
-        .required("Email is required"),
-      phoneNumber: Yup.number().required("Phone Number Required"),
-      password: Yup.string()
-        .min(8, "password is short manimum 8 characters")
-        .max(16, "password is long maximum 16 characters")
-        .required("Required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords Doesn't Match")
-        .required("Passwords Doesn't Match"),
-    }),
-
-    //submit action
-    onSubmit: (values) => {
-      values.type = userType;
-      // console.log(values);
-      const data = Object.assign({}, values);
-      delete data.confirmPassword;
-      // console.log(data);
-    },
-  });
-  // console.log(formik.errors);
-  //   console.log(formik.values);
   return (
-    <>
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex flex-col w-80 md:w-96  border-5 justify-center space-y-5"
-      >
-        {/* name input */}
+    <div>
+      <h2>User Registration</h2>
+      <form onSubmit={handleRegistration}>
         <div>
+          <label htmlFor="type">type :</label>
           <input
-            name="fullname"
             type="text"
-            placeholder={`${type} Name`}
-            value={formik.values.fullname}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-              formik.errors.fullname && formik.touched.fullname
-                ? "border-red-600 focus:border-red-600"
-                : ""
-            }`}
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
           />
-          {formik.touched.fullname && formik.errors.fullname ? (
-            <p className="text-red-600">{formik.errors.fullname}</p>
-          ) : (
-            ""
-          )}
         </div>
-        {/* email input */}
+
         <div>
+          <label htmlFor="fullname">fullname :</label>
           <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-              formik.errors.email && formik.touched.email
-                ? "border-red-600 focus:border-red-600"
-                : ""
-            }`}
+            type="text"
+            id="fullname"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
           />
-          {formik.errors.email && formik.touched.email ? (
-            <p className="text-red-600">{formik.errors.email}</p>
-          ) : (
-            ""
-          )}
         </div>
-        {/* phone number input */}
+
         <div>
-          <PhoneInput
-            autoFoucs="true"
-            country={"eg"}
-            name="phoneNumber"
+          <label htmlFor="email">email :</label>
+          <input
+            type="text"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="phoneNumber">phoneNumber :</label>
+          <input
+            type="text"
+            id="phoneNumber"
             value={phoneNumber}
-            onChange={handlePhoneNumber}
-            // onBlur={formik.handleBlur}
-            // value={phone}
-            countryCodeEditable={false}
-            specialLabel={"search"}
-            enableSearch={true}
-            searchPlaceholder={"Search"}
-            placeholder="Phone Number"
-            // inputStyle={{ width: "100%" }}
-            inputProps={{
-              name: "phone",
-              required: true,
-              autoFocus: true,
-            }}
-            //   className="border-lightGreen w-full"
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
-          {formik.errors.phoneNumber && (
-            <p className="font-light text-red-600">
-              {formik.errors.phoneNumber}
-            </p>
-          )}
         </div>
-        {/* password input */}
-        <div className="relative">
-          <input
-            name="password"
-            type={passwordVisable ? "text" : "password"}
-            placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-              formik.errors.password && formik.touched.password
-                ? "border-red-600 focus:border-red-600"
-                : ""
-            }`}
-          />
-          {formik.touched.password && formik.errors.password ? (
-            <p className="text-red-600">{formik.errors.password}</p>
-          ) : (
-            ""
-          )}
-          {passwordVisable ? (
-            <p
-              onClick={showPassword}
-              className="absolute top-[9px] text-darkGreen right-4 text-xl p-1"
-            >
-              <AiOutlineEye />
-            </p>
-          ) : (
-            <p
-              onClick={showPassword}
-              className="absolute top-[9px] text-darkGreen right-4 text-xl p-1"
-            >
-              <AiOutlineEyeInvisible />
-            </p>
-          )}
-        </div>
-        {/* confirm password input */}
+
+
         <div>
+          <label htmlFor="password">Password :</label>
           <input
-            name="confirmPassword"
-            type={passwordVisable ? "text" : "password"}
-            placeholder="Confirm Password"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-              formik.errors.confirmPassword && formik.touched.confirmPassword
-                ? "border-red-600 focus:border-red-600"
-                : ""
-            }`}
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-            <p className="text-red-600">{formik.errors.confirmPassword}</p>
-          ) : (
-            ""
-          )}
         </div>
-        {/* submit button */}
-        <Button text="Sign Up" type="submit" />
+        <button type="submit" disabled={isRegistering}>
+          {isRegistering ? 'Registering...' : 'Register'}
+        </button>
+        {registrationError && <p>Error: {registrationError}</p>}
       </form>
-      {/* line break */}
-      <div className="flex justify-between items-center space-x-3">
-        <div className="line-break"></div>
-        <p className="font-light">or</p>
-        <div className="line-break"></div>
-      </div>
-      {/* Google and facebook sign in */}
-      <a
-        href="#"
-        className="w-80 flex items-center justify-center py-2 space-x-2 border-2 md:w-96 rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
-      >
-        <img
-          className="w-8 "
-          src="https://img.icons8.com/?size=512&id=17949&format=png"
-          alt=""
-        />{" "}
-        <p>Sign up with Google</p>
-      </a>
-    </>
+    </div>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

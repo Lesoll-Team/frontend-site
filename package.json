@@ -19,6 +19,7 @@
     "react-country-flag": "^3.1.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-phone-input-2": "^2.15.1",
     "react-query": "^3.39.3",
     "react-redux": "^8.1.1",
     "redux-thunk": "^2.4.2",
