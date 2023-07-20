@@ -1,112 +1,17 @@
-import Button from "@/components/Button";
-import Input from "@/components/Input";
 import Link from "next/link";
-// import { useState } from "react";
 import Image from "next/image";
 import house from "../../../public/page3.svg";
-import { Formik, useFormik } from "formik";
-import * as Yup from "yup";
-import { useRouter } from "next/router";
+import SignInForm from "@/components/signin/SignInForm";
 
 const SignIn = () => {
-  const router = useRouter();
-
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().required("Email is required"),
-      password: Yup.string().required("password is required"),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-      router.push({ pathname: "/", query: values });
-    },
-  });
   return (
     <>
       <div className="flex flex-col md:flex-row">
         {/* form div*/}
         <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center  min-h-[100dvh] border-3  px-1">
-          <form
-            onSubmit={formik.handleSubmit}
-            className="flex flex-col w-80 md:w-96  border-5 justify-center "
-          >
-            <h1 className="text-7xl mb-5 text-lightGreen font-black">
-              Sign in
-            </h1>
-            {/* Form inputs */}
-            <div>
-              <Input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.errors.email && formik.touched.email ? (
-                <div className="text-red-500 text-xs mt-2">
-                  {formik.errors.email}
-                </div>
-              ) : null}
-            </div>
-            <div>
-              <Input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.errors.password && formik.touched.password ? (
-                <div className="text-red-500 text-xs mt-2">
-                  {formik.errors.password}
-                </div>
-              ) : null}
-            </div>
-            {/* <Input type="email" placeholder="Your email" required={true} />
-            <Input type="password" placeholder="Your Password" /> */}
-            <Link
-              href={"/forgetpassword"}
-              className="text-lightOrange text-right mb-3 mt-1"
-            >
-              Forget Password?
-            </Link>
-            <Button type="submit" className="" text="Login" />
-          </form>
-          {/* line break */}
-          <div className="flex justify-between items-center space-x-3">
-            <div className="line-break"></div>
-            <p className="font-light">or</p>
-            <div className="line-break"></div>
-          </div>
-          {/* Google and facebook sign in */}
-          <a
-            href="#"
-            className="flex items-center justify-center py-2 space-x-2 border-2 w-80 md:w-96 rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
-          >
-            <img
-              className="w-8 "
-              src="https://img.icons8.com/?size=512&id=17949&format=png"
-              alt=""
-            />{" "}
-            <p>Login with Google</p>
-          </a>
-          {/* <a
-            href="#"
-            className=" flex items-center justify-center py-2 space-x-2 border-2 w-80 md:w-96  rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
-          >
-            <img
-              className="w-8 "
-              src="https://img.icons8.com/?size=512&id=118497&format=png"
-              alt=""
-            />{" "}
-            <p>Login with Facebook</p>
-          </a> */}
+          <h1 className="text-7xl mb-5 text-lightGreen font-black">Sign in</h1>
+          <SignInForm />
+
           <p className="">
             Don't have an account?
             <Link
@@ -119,7 +24,14 @@ const SignIn = () => {
         </div>
         {/* img */}
         <div className="hidden md:flex h-100 h-screen bg-lightGreen items-center w-1/2 justify-end">
-          <Image src={house} alt="home" className="w-4/5" />
+          <Image
+            priority
+            src={house}
+            width={"auto"}
+            height={"auto"}
+            alt="home"
+            className="w-4/5"
+          />
         </div>
       </div>
     </>
