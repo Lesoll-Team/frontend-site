@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import {
   registerStart,
   registerSuccess,
@@ -22,19 +23,19 @@ const SignInForm = () => {
   const [password, setPassword] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [type, setType] = useState("");
+  const [typeOfUser, setTypeOfUser] = useState("");
   const [showForm, setShowForm] = useState(false);
   // const [userType, setUserType] = useState("");
-  const setOwner = () => {
-    setType("owner");
+  const setIndividual = () => {
+    setTypeOfUser("individual");
     setShowForm(true);
   };
   const setBroker = () => {
-    setType("broker");
+    setTypeOfUser("broker");
     setShowForm(true);
   };
-  const setOrganization = () => {
-    setType("organization");
+  const setCompany = () => {
+    setTypeOfUser("company");
     setShowForm(true);
   };
 
@@ -50,7 +51,7 @@ const SignInForm = () => {
         email,
         countryCode,
         phoneNumber,
-        type,
+        typeOfUser,
       };
       const newUser = await registerUser(userData);
       dispatch(registerSuccess());
@@ -66,60 +67,67 @@ const SignInForm = () => {
       setEmail("");
       setCountryCode("");
       setPhoneNumber("");
-      setType("");
+      setTypeOfUser("");
     } catch (error) {
       dispatch(registerFailure(error.message));
     }
   };
-  console.log(type);
+  console.log(typeOfUser);
 
   return (
     <div>
       {/* <h2>User Registration</h2> */}
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
-          onClick={setOwner}
+          onClick={setIndividual}
           className={`cursor-pointer border-2 border-lightGreen py-2 px-6  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
-            type === "owner"
+            typeOfUser === "individual"
               ? "bg-lightGreen text-white"
-              : type !== ""
+              : typeOfUser !== ""
               ? "border-gray-500 border-[1px] text-gray-600 opacity-50 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
               : ""
-          } ${type !== "owner" || (type === "" && "border-gray-600")}`}
+          } ${
+            typeOfUser !== "individual" ||
+            (typeOfUser === "" && "border-gray-600")
+          }`}
         >
-          Owner
+          individual
         </button>
         <button
           onClick={setBroker}
           className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
-            type === "broker"
+            typeOfUser === "broker"
               ? "bg-lightGreen text-white"
-              : type !== ""
+              : typeOfUser !== ""
               ? "border-gray-500 border-[1px] text-gray-600 opacity-50 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
               : ""
-          } ${type !== "broker" || (type === "" && "border-gray-600")}`}
+          } ${
+            typeOfUser !== "broker" || (typeOfUser === "" && "border-gray-600")
+          }`}
         >
           Broker
         </button>
         <button
-          onClick={setOrganization}
+          onClick={setCompany}
           className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
-            type === "organization"
+            typeOfUser === "company"
               ? "bg-lightGreen text-white"
-              : type !== ""
+              : typeOfUser !== ""
               ? "border-gray-500 border-[1px] text-gray-600 opacity-50 hover:border-lightGreen hover:opacity-100 hover:text-black duration-300"
               : ""
-          } ${type !== "organization" || (type === "" && "border-gray-600")}`}
+          } ${
+            typeOfUser !== "company" || (typeOfUser === "" && "border-gray-600")
+          }`}
         >
           Developers
         </button>
       </div>
-      <p className="text-center w-80 md:w-96  text-gray-600">
-        {type === "Owner"
+      <p className="text-center w-80 md:w-96 mt-2  text-gray-600">
+        {typeOfUser === "individual"
           ? "you are the owner of a property and looking to list it for rent or sale."
-          : type === "broker"
+          : typeOfUser === "broker"
           ? "you are a broker connecting property owners with potential buyers."
-          : type === "Organization"
+          : typeOfUser === "company"
           ? " you represent a real estate broker or developer Organization."
           : "To get started, please select your registration role from these options"}
       </p>
@@ -128,7 +136,7 @@ const SignInForm = () => {
           onSubmit={handleRegistration}
           className="flex flex-col w-80 md:w-96  border-5 justify-center space-y-4"
         >
-          <p>{type}</p>
+          <p>{typeOfUser}</p>
           <div>
             <input
               type="text"
@@ -153,7 +161,7 @@ const SignInForm = () => {
 
           <div>
             <input
-              type="text"
+              type="number"
               id="phoneNumber"
               value={phoneNumber}
               placeholder="Phone Number"
