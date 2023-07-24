@@ -4,8 +4,8 @@ const initialState = {
     languageIs:false //(false = ENG) ?& (true= ARB)
 }
 
-export const changeLanguageSlice = createSlice({
-name:"Languages",
+export const globalState = createSlice({
+name:"GlobalState",
 initialState,
 reducers:{
     handleLanguage:(state)=>{
@@ -13,5 +13,5 @@ reducers:{
     }
 },
   })
-  export const {handleLanguage}= changeLanguageSlice.actions
-  export default changeLanguageSlice.reducer
+  export const {handleLanguage}= globalState.actions
+  export default globalState.reducer

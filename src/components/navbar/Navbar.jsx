@@ -18,7 +18,7 @@ import MobileMenu from "./mobileMenu";
 import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLanguage } from "@/redux-store/features/languageSlice";
+import { handleLanguage } from "@/redux-store/features/globalState";
 
 export default function Navbar() {
   const [arbLanguage] = useState(arLanguage);
@@ -27,7 +27,7 @@ export default function Navbar() {
   
 
   const dispatch=useDispatch();
-  const languageIs=useSelector(state=> state.Languages.languageIs)
+  const languageIs=useSelector(state=> state.GlobalState.languageIs)
 
 
 
