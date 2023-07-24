@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 export default function userMenu() {
 
 
-  const languageIs=useSelector(state=> state.Languages.languageIs)
+  const languageIs=useSelector(state=> state.GlobalState.languageIs)
 
     const userMenus=[
         {languages:{english:'Profile',arabic:'الصفحةالشخصية'},href:'/',id:1},

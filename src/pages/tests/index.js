@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/RegisterForm"
+import RegisterForm from "@/components/LoginForm"
 export default function sell() {
     return (
       <div>
