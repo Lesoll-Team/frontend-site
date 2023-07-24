@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
-  userLocal: [],
+  // userLocal: [],
   isLoading: false,
   error: null,
 };
 
-const authSlice = createSlice({
-  name: 'Login',
+const signInSlice = createSlice({
+  name: 'SignIn',
   initialState,
   reducers: {
     loginStart(state) {
@@ -31,5 +31,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout,saveDataToLocal } = authSlice.actions;
-export default authSlice.reducer;
+export const { loginStart, loginSuccess, loginFailure, logout } = signInSlice.actions;
+export default signInSlice.reducer;

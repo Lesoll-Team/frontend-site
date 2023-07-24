@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     languageIs:false //(false = ENG) ?& (true= ARB)
+    // islogin:false //(false = ENG) ?& (true= ARB)
 }
 
 export const globalState = createSlice({

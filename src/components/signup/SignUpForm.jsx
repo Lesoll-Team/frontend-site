@@ -6,15 +6,15 @@ import {
   registerStart,
   registerSuccess,
   registerFailure,
-} from "../../redux-store/features/userSlice";
+} from "../../redux-store/features/signUpSlice";
 import { useQueryClient } from "react-query";
 import { registerUser } from "../../utils/api";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const isRegistering = useSelector((state) => state.User.isRegistering);
+  const isRegistering = useSelector((state) => state.SignUp.isRegistering);
   const registrationError = useSelector(
-    (state) => state.User.registrationError
+    (state) => state.SignUp.registrationError
   );
   const queryClient = useQueryClient();
 
@@ -42,9 +42,10 @@ const SignInForm = () => {
   const handleRegistration = async (e) => {
     // console.log(type);
     e.preventDefault();
-    dispatch(registerStart());
 
     try {
+    dispatch(registerStart());
+
       const userData = {
         fullname,
         password,
@@ -54,12 +55,13 @@ const SignInForm = () => {
         typeOfUser,
       };
       const newUser = await registerUser(userData);
-      dispatch(registerSuccess());
+      const user =newUser.userData
+      dispatch(registerSuccess(user));
 
       // Assuming you want to invalidate the user list query to trigger a refetch
       queryClient.invalidateQueries("users");
 
-      console.log("User registered:", newUser);
+      console.log("User registered:", newUser,"------",user);
 
       // Clear the form fields after successful registration
       setFullname("");

@@ -1,127 +1,77 @@
-import React, { useState } from "react";
-import Button from "../Button";
-import Link from "next/link";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginStart, loginSuccess, loginFailure } from '../../redux-store/features/signinSlice';
+import { loginUser } from '../../utils/api';
+
+const LoginPage = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.SignIn.isLoading);
+  const loginError = useSelector((state) => state.SignIn.error);
 
 
-const SignInForm = (props) => {
-  // Formik Logics
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    // validation schema
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid Email Adress")
-        .required("Email is required"),
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-      password: Yup.string().required("Required"),
-    }),
+    try {
+      dispatch(loginStart());
 
-    //submit action
-    onSubmit: async (values) => {
-      //   values.type = userType;'
-      const data = {
-        email: values.email,
-        password: values.password,
-      };
-      await axios
-        .post("http://www.backendsite.lesoll-demo.site/api/auth/login", data)
-        .then((res) => {
-          // console.log(res.data);
-          localStorage.setItem("token", res.data.checkEmail.token);
-        });
-      // console.log(values);
-    },
-  });
-  // console.log(formik.errors);
-  //   console.log(formik.values);
+      const userRespons = { email, password };
+      const response = await loginUser( userRespons);
+      console.log(response);
+      const user = response.userData; // Assuming your API returns the user object after successful login
+      
+      // const {email,TypeOfUser,fullname,images,token}=user
+    //  localStorage.setItem(userLocalData ,user )
+    //     console.log(localStorage.getItem(userLocalData));
+
+      dispatch(loginSuccess(user));
+
+      // Clear form fields after successful login
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      dispatch(loginFailure('Invalid email or password'));
+    }
+  };
+
+
+
+
   return (
-    <>
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex flex-col w-80 md:w-96  border-5 justify-center space-y-5"
-      >
-        {/* name input */}
-
-        {/* email input */}
+    <div>
+      <h1>Login Page</h1>
+      <form onSubmit={handleLogin}>
         <div>
+          <label htmlFor="email">Email</label>
           <input
+            type="email"
+            id="email"
             name="email"
-            type="text"
-            placeholder="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-              formik.errors.email && formik.touched.email
-                ? "border-red-600 focus:border-red-600"
-                : ""
-            }`}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          {formik.errors.email && formik.touched.email ? (
-            <p className="text-red-600">{formik.errors.email}</p>
-          ) : (
-            ""
-          )}
         </div>
-        {/* phone number input */}
-
-        {/* password input */}
         <div>
+          <label htmlFor="password">Password</label>
           <input
-            name="password"
             type="password"
-            placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-              formik.errors.password && formik.touched.password
-                ? "border-red-600 focus:border-red-600"
-                : ""
-            }`}
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          {formik.touched.password && formik.errors.password ? (
-            <p className="text-red-600">{formik.errors.password}</p>
-          ) : (
-            ""
-          )}
         </div>
-        <Link
-          href={"/forgetpassword"}
-          className="text-lightOrange text-right mb-3 mt-1"
-        >
-          Forget Password?
-        </Link>
-        {/* submit button */}
-        <Button text="Sign In" type="submit" />
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging In...' : 'Login'}
+        </button>
+        {loginError && <div>{loginError}</div>}
       </form>
-      {/* line break */}
-      <div className="flex justify-between items-center space-x-3">
-        <div className="line-break"></div>
-        <p className="font-light">or</p>
-        <div className="line-break"></div>
-      </div>
-      {/* Google and facebook sign in */}
-      <a
-        href="#"
-        className="w-80 flex items-center justify-center py-2 space-x-2 border-2 md:w-96 rounded-md active:scale-95  md:hover:bg-gray-200 duration-300"
-      >
-        <img
-          className="w-8 "
-          src="https://img.icons8.com/?size=512&id=17949&format=png"
-          alt=""
-        />{" "}
-        <p>Sign up with Google</p>
-      </a>
-    </>
+    </div>
   );
 };
 
-export default SignInForm;
+export default LoginPage;
