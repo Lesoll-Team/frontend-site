@@ -170,3 +170,10 @@ border: #309da0 solid 1px !important;
   font-size: 16px;
   color: #808080;
 }
+
+.hero-bg{
+  background-image: url("../../public/bg-hero.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
