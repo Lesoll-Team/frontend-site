@@ -3,13 +3,13 @@ import RealtyCard from "../realtyCard/RealtyCard";
 import Link from "next/link";
 const RecentRealties = () => {
   return (
-    <section className="p7-7 px-2 mt-24 ">
+    <section className=" px-2 my-24 ">
       <div className="container mx-auto">
         <h1 className="text-left font-bold text-4xl md:text-3xl p-3 text-lightGreen  ">
           Explore Recent Properties
         </h1>
       </div>
-      <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-col-2 justify-center justify-items-center gap-y-10 mt-5 md:mt-12  ">
+      <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
         <RealtyCard />
         <RealtyCard />
         <RealtyCard />
