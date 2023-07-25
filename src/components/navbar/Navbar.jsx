@@ -7,7 +7,7 @@ import ReactCountryFlag from "react-country-flag"
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLanguage,IoSearchCircleOutline } from "react-icons/io5";
+import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import arLanguage from '../../../public/locales/ar/common.js'
 import enLanguage from '../../../public/locales/en/common.js'

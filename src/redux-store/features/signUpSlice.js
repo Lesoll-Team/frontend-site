@@ -4,8 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isRegistering: false,
   registrationError: null,
-  user: null,
-
+  // user: null,
+  // isToken:false,
 };
 
 const SignUpSlice = createSlice({
@@ -16,10 +16,10 @@ const SignUpSlice = createSlice({
       state.isRegistering = true;
       state.registrationError = null;
     },
-    registerSuccess: (state,action) => {
+    registerSuccess: (state) => {//action
+      // state.isToken =!!localStorage.getItem("token");
+      // state.user = action.payload;
       state.isRegistering = false;
-      state.user = action.payload;
-
     },
     registerFailure: (state, action) => {
       state.isRegistering = false;

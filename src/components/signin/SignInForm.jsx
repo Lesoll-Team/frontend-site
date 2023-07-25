@@ -21,14 +21,10 @@ const LoginPage = () => {
 
       const userRespons = { email, password };
       const response = await loginUser( userRespons);
-      console.log(response);
       const user = response.userData; // Assuming your API returns the user object after successful login
       
-      // const {email,TypeOfUser,fullname,images,token}=user
-    //  localStorage.setItem(userLocalData ,user )
-    //     console.log(localStorage.getItem(userLocalData));
-
       dispatch(loginSuccess(user));
+      localStorage.setItem("token", user.token);
 
       // Clear form fields after successful login
       setEmail('');

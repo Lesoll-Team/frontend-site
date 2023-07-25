@@ -1,11 +1,24 @@
 import Link from "next/link";
-import { useState } from "react";
+
 import Image from "next/image";
 import house from "../../../public/page3.svg";
 import SignUpForm from "@/components/signup/SignUpForm";
+import  { useEffect } from "react";
+
+// import { useRouter } from "next/router";
+// import { useSelector } from "react-redux";
+
 
 const SignUp = () => {
-  return (
+  // const router = useRouter();
+
+  // const isLogin = useSelector( (state) => state.GlobalState.isLogin);
+  // const isLogin = false;
+
+
+
+
+  return (<>
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
@@ -37,7 +50,7 @@ const SignUp = () => {
         />
       </div>
       {/* suggest */}
-    </div>
-  );
+    </div></>
+  );  
 };
 export default SignUp;

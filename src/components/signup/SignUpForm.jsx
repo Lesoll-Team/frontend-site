@@ -1,22 +1,27 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import {
   registerStart,
   registerSuccess,
   registerFailure,
 } from "../../redux-store/features/signUpSlice";
-import { useQueryClient } from "react-query";
+import  { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "react-phone-input-2/lib/style.css";
 import { registerUser } from "../../utils/api";
 
-const SignInForm = () => {
+
+
+
+
+const SignInForm =() => {
+
+
   const dispatch = useDispatch();
+
   const isRegistering = useSelector((state) => state.SignUp.isRegistering);
-  const registrationError = useSelector(
-    (state) => state.SignUp.registrationError
-  );
-  const queryClient = useQueryClient();
+  const registrationError = useSelector( (state) => state.SignUp.registrationError);
+  let isLogin = useSelector( (state) => state.GlobalState.isLogin);
+
+  const isToken = useSelector( (state) => state.SignUp.isToken);
 
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +30,7 @@ const SignInForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
   const [showForm, setShowForm] = useState(false);
-  // const [userType, setUserType] = useState("");
+
   const setIndividual = () => {
     setTypeOfUser("individual");
     setShowForm(true);
@@ -40,7 +45,7 @@ const SignInForm = () => {
   };
 
   const handleRegistration = async (e) => {
-    // console.log(type);
+
     e.preventDefault();
 
     try {
@@ -57,12 +62,8 @@ const SignInForm = () => {
       const newUser = await registerUser(userData);
       const user =newUser.userData
       dispatch(registerSuccess(user));
-
-      // Assuming you want to invalidate the user list query to trigger a refetch
-      queryClient.invalidateQueries("users");
-
-      console.log("User registered:", newUser,"------",user);
-
+      // localStorage.setItem("token", user.token); //add token to localStorage
+      // isLogin=!isToken==null
       // Clear the form fields after successful registration
       setFullname("");
       setPassword("");
@@ -70,15 +71,18 @@ const SignInForm = () => {
       setCountryCode("");
       setPhoneNumber("");
       setTypeOfUser("");
+
+
+
     } catch (error) {
       dispatch(registerFailure(error.message));
     }
   };
-  console.log(typeOfUser);
+
 
   return (
+
     <div>
-      {/* <h2>User Registration</h2> */}
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
           onClick={setIndividual}
@@ -193,7 +197,8 @@ const SignInForm = () => {
         </form>
       )}
     </div>
-  );
+  )
+
 };
 
 export default SignInForm;
