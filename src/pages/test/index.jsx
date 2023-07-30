@@ -1,7 +1,7 @@
-import { useState } from "react";
+
 import Image from "next/image";
 import house from "../../../public/page3.svg";
-import SignUpForm from "@/components/signup/SignUpForm";
+
 import SignInForm from "@/components/signin/SignInForm";
 const SignUp = () => {
   return (
@@ -12,7 +12,8 @@ const SignUp = () => {
       </div>
       {/* img */}
       <div className="hidden md:flex h-100 min-h-[100dvh] bg-lightGreen items-center w-1/2 justify-end">
-        <Image src={house} alt="home" className="w-4/5" />
+        <Image src={house} alt="home" className="w-4/5" priority
+            loading="lazy"/>
       </div>
       {/* suggest */}
     </div>

@@ -9,9 +9,13 @@ const RealtyCard = () => {
       {/* card img */}
       <Image
         src={testImg}
+        priority
+            loading="lazy"
         width={"auto"}
         height={"auto"}
         className="w-full h-[220px] overflow-hidden   object-cover"
+        alt="RealtyCard"
+
       />
       {/* card body  */}
       <div className="relative ">

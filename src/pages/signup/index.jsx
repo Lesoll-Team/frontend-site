@@ -1,24 +1,26 @@
 import Link from "next/link";
-
 import Image from "next/image";
 import house from "../../../public/page3.svg";
 import SignUpForm from "@/components/signup/SignUpForm";
-import  { useEffect } from "react";
-
-// import { useRouter } from "next/router";
-// import { useSelector } from "react-redux";
-
-
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 const SignUp = () => {
-  // const router = useRouter();
+  const router=useRouter()
 
-  // const isLogin = useSelector( (state) => state.GlobalState.isLogin);
-  // const isLogin = false;
-
-
-
+  const isLoading = useSelector((state) => state.Auth.loading);
+  const [loading, setLoading] = useState(false);
+  useEffect(()=>{
+    setLoading(isLoading)
+    if (isLoading) {
+      router.push('/'); // This will navigate to the home page after login is complete
+    }
+//     console.log(isLoading);
+// console.log(loading);
+}, [isLoading, router]);
 
   return (<>
+  {!loading?(
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
       <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
@@ -44,13 +46,16 @@ const SignUp = () => {
           width={"auto"}
           height={"auto"}
           priority
+          loading="lazy"
           src={house}
           alt="home"
           className="w-4/5"
         />
       </div>
       {/* suggest */}
-    </div></>
+    </div>):(<div className="w-full flex justify-center items-center h-screen ">
+     <b> You Have Access...</b>
+    </div>)}</>
   );  
 };
 export default SignUp;

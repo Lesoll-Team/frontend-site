@@ -1,11 +1,12 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
+import { Fragment } from "react";
 
 export default function Layout({ children }) {
   
   return (
-    <>
+    <Fragment>
       <div  style={{
           minHeight: "100dvh",
           position: "relative",
@@ -35,6 +36,6 @@ export default function Layout({ children }) {
         <main>{children}</main>
         <Footer />
       </div>
-    </>
+    </Fragment>
   );
 }

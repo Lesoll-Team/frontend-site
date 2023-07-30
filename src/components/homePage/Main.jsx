@@ -23,9 +23,12 @@ const Main = () => {
           <Image
             priority
             src={heroImg}
+
+            loading="lazy"
             height={"auto"}
             width={"auto"}
             className="w-[100%] md:w-1/2 md:justify-self-end-end"
+            alt="heroImg"
           />
         </div>
         {/* <div className="  items-center w-[80%] md:w-[50%] border-2 flex gap-1 mx-auto  p-5 rounded-lg shadow-xl">

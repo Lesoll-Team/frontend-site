@@ -2,9 +2,24 @@ import SignInForm from "../../components/signin/SigninForm";
 import Link from "next/link";
 import house from "../../../public/page3.svg";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 const SignIn = () => {
+  const router=useRouter()
+
+  const isLoading = useSelector((state) => state.Auth.loading);
+  const [loading, setLoading] = useState(false);
+  useEffect(()=>{
+    setLoading(isLoading)
+    if (isLoading) {
+      router.push('/'); // This will navigate to the home page after login is complete
+    }
+//     console.log(isLoading);
+// console.log(loading);
+}, [isLoading, router]);
   return (
-    <>
+    <>{!loading?(
       <div className="flex flex-col md:flex-row ">
         {/* form div*/}
         <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
@@ -20,7 +35,7 @@ const SignIn = () => {
               className="text-lightOrange ml-1 font-semibold"
               href={"/signup"}
             >
-              Sign up
+              Sign In
             </Link>
           </p>
         </div>
@@ -30,6 +45,7 @@ const SignIn = () => {
             width={"auto"}
             height={"auto"}
             priority
+            loading="lazy"
             src={house}
             alt="home"
             className="w-4/5"
@@ -37,7 +53,9 @@ const SignIn = () => {
         </div>
         {/* suggest */}
       </div>
-    </>
+    ):(<div className="w-full flex justify-center items-center h-screen ">
+     <b> You Have Access...</b>
+    </div>)}</>
   );
 };
 
