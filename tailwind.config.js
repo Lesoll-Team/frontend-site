@@ -20,6 +20,9 @@ module.exports = {
         darkGray: "#5c5a5a",
       },
     },
+    fontFamily:{
+      
+    }
   },
   plugins: [],
 };

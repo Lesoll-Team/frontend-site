@@ -1,74 +1,77 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { useRouter } from "next/router";
 
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginStart, loginSuccess, loginFailure } from '../../redux-store/features/signinSlice';
-import { loginUser } from '../../utils/api';
-
+import {
+  loginUserAsync
+} from "../../redux-store/features/authSlice";
 const LoginPage = () => {
+  // const router=useRouter()
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.SignIn.isLoading);
-  const loginError = useSelector((state) => state.SignIn.error);
+  const isRegistering = useSelector((state) => state.Auth.isRegistering);
+  const registrationError = useSelector((state) => state.Auth.registrationError);
+  // const isLoading = useSelector((state) => state.Auth.loading);
 
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    try {
-      dispatch(loginStart());
-
-      const userRespons = { email, password };
-      const response = await loginUser( userRespons);
-      console.log(response);
-      const user = response.userData; // Assuming your API returns the user object after successful login
-      
-      // const {email,TypeOfUser,fullname,images,token}=user
-    //  localStorage.setItem(userLocalData ,user )
-    //     console.log(localStorage.getItem(userLocalData));
-
-      dispatch(loginSuccess(user));
-
-      // Clear form fields after successful login
-      setEmail('');
-      setPassword('');
-    } catch (error) {
-      dispatch(loginFailure('Invalid email or password'));
-    }
+      const userData = { email, password };
+      dispatch(loginUserAsync(userData));
+      setEmail("");
+      setPassword("");
   };
+//   useEffect(()=>{
+//     setLoading(isLoading)
+//     if (isLoading) {
+//       router.push('/'); // This will navigate to the home page after login is complete
+//     }
+// //     console.log(isLoading);
+// // console.log(loading);
+// }, [isLoading, router]);
 
 
 
 
   return (
     <div>
-      <h1>Login Page</h1>
-      <form onSubmit={handleLogin}>
+      
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col w-80 md:w-96  border-5 justify-center space-y-4"
+      >
         <div>
-          <label htmlFor="email">Email</label>
           <input
+            placeholder="Email"
             type="email"
             id="email"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
           <input
+            placeholder="Password"
             type="password"
             id="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
           />
         </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging In...' : 'Login'}
+        <button
+          type="submit"
+          disabled={isRegistering}
+          className="rounded-3xl bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
+        >
+          {isRegistering ? "Logging In..." : "Login"}
         </button>
-        {loginError && <div>{loginError}</div>}
+        {registrationError && <div>{registrationError}</div>}
       </form>
     </div>
   );

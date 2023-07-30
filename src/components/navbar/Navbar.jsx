@@ -1,58 +1,77 @@
 import Link from "next/link";
 import Image from "next/image";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
-import { useEffect, useState } from "react";
+import {  useState ,useEffect} from "react";
 import ReactCountryFlag from "react-country-flag"
-
+// import { useRouter } from "next/router";
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLanguage,IoSearchCircleOutline } from "react-icons/io5";
+import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-import arLanguage from '../../../public/locales/ar/common.js'
-import enLanguage from '../../../public/locales/en/common.js'
-
+import arLanguage from "../../../public/locales/ar/common.js";
+import enLanguage from "../../../public/locales/en/common.js";
 
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
+
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 
 export default function Navbar() {
+  const dispatch=useDispatch();
+// const router=useRouter()
+
+  const languageIs=useSelector((state)=> state.GlobalState.languageIs)
+
+
+
+
   const [arbLanguage] = useState(arLanguage);
   const [engLanguage] = useState(enLanguage);
 
-  
-
-  const dispatch=useDispatch();
-  const languageIs=useSelector(state=> state.GlobalState.languageIs)
-
-
-
-
   const [open, setOpen] = useState(true);
-  const [isAuth, setAuth] = useState(true);
-
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
-
   const [searchVisible, setSearchVisible] = useState(false)
 
+  const userInfo=useSelector((state)=> state.Auth.user)
+  const isLoading=useSelector((state)=> state.Auth.loading)
+
+  const [userDataInfo, setUserDataInfo] = useState({})
+  const [isAuth, setAuth] = useState(false);
+ 
 
   function toggleSearch() {
-    setSearchVisible(!searchVisible)
+    setSearchVisible(!searchVisible);
   }
 
   const handleInputClick = (value) => {
     setOpenUserMenu(setOpen(value));
   };
 
-  return (
-    <nav className="w-full  z-[1000]  sticky  top-0">
-      <section className="flex  relative bg-white  h-[80px] items-center ">
 
+  useEffect(()=>{
+
+      setAuth(isLoading);
+    setUserDataInfo(userInfo)
+  },[userInfo])
+
+// console.log("userInfo")
+// console.log(userInfo)
+// console.log("userInfo")
+
+// console.log("userDataInfo")
+// console.log(userDataInfo)
+// console.log("userDataInfo")
+
+
+  return (
+    <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md">
+      
+      <section className="flex  relative bg-white  h-[80px] items-center ">
         {/*Logo */}
         <ul className=" flex w-3/12  md:justify-center ">
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
@@ -61,6 +80,7 @@ export default function Navbar() {
               href={"/"}
               onClick={() => setOpenUserMenu(setOpen(true))}
             >
+
               <Image
                 src={logoNavbar}
                 width={"auto"}
@@ -72,67 +92,80 @@ export default function Navbar() {
         </ul>
 
         {/*nav link web page */}
-        <ul className={` ${searchVisible? 'hidden':'md:flex'}   w-5/12 space-x-2 hidden`}>
+        <ul
+          className={` ${
+            searchVisible ? "hidden" : "md:flex"
+          }   w-5/12 space-x-2 hidden`}
+        >
           <LinksNavbar />
         </ul>
 
-          
-
         {/* SignUp & language & Notifications & user menu & user image */}
-        <ul className={` ${searchVisible? 'w-8/12 ':'md:w-4/12 w-8/12'} flex justify-end md:justify-center  mr-4  space-x-2 items-center`}>
-
-
-
-        <ul className={`py-2 ${searchVisible? 'w-full ':''} mr-1`}>
-          <li className={` flex items-center  `}>
-            <FaSearch onClick={toggleSearch} className="   text-1xl  text-lightOrange "/>
-            <input  
-            placeholder={languageIs? arbLanguage.input.search:engLanguage.input.search}
-            className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
+        <ul
+          className={` ${
+            searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
+          } flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
+        >
+          <ul className={`py-2 ${searchVisible ? "w-full " : ""} mr-1`}>
+            <li className={` flex items-center  `}>
+              <FaSearch
+                onClick={toggleSearch}
+                className="   text-1xl  text-lightOrange "
+              />
+              <input
+                placeholder={
+                  languageIs
+                    ? arbLanguage.input.search
+                    : engLanguage.input.search
+                }
+                className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
                            focus:outline-none focus:ring-1 focus:ring-lightOrange
                            ring-lightOrange ring-1
-                       ${searchVisible? 'w-full':'hidden'}`} 
-            type="text" />
-               <MdClear 
-               onClick={toggleSearch} 
-               className={`rounded-full   text-2xl
-                 text-lightOrange ${searchVisible? '':'hidden'} `}/>
-          </li>
-
+                       ${searchVisible ? "w-full" : "hidden"}`}
+                type="text"
+              />
+              <MdClear
+                onClick={toggleSearch}
+                className={`rounded-full   text-2xl
+                 text-lightOrange ${searchVisible ? "" : "hidden"} `}
+              />
+            </li>
           </ul>
 
-        {/*button language*/}
-          <li className={`  ${searchVisible? 'hidden':' md:flex hidden'}  `}>
+          {/*button language*/}
+          <li className={`  ${searchVisible ? "hidden" : " md:flex hidden"}  `}>
             <button
               onClick={() => dispatch(handleLanguage())}
               className="
               flex py-1 px-1   w-24   text-md rounded-full 
                             duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
-            ><ul className="mx-1">{languageIs?
-              <ReactCountryFlag
-              countryCode="EG"
-              svg
-              cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-              cdnSuffix="svg"
-              title="US"/> :
-                <ReactCountryFlag
-                countryCode="US"
-                svg
-                cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                cdnSuffix="svg"
-                title="US"/>
-}</ul>
+            >
+              <ul className="mx-1">
+                {languageIs ? (
+                  <ReactCountryFlag
+                    countryCode="EG"
+                    svg
+                    cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+                    cdnSuffix="svg"
+                    title="US"
+                  />
+                ) : (
+                  <ReactCountryFlag
+                    countryCode="US"
+                    svg
+                    cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+                    cdnSuffix="svg"
+                    title="US"
+                  />
+                )}
+              </ul>
               <ul className="mx-1">{languageIs ? `عربى` : `English`}</ul>
             </button>
           </li>
 
         {/*button Notifications */}
-          <li className={` ${isAuth ? "hidden" : ` ${searchVisible? 'hidden':' '}`} relative`}>
+          <li className={` ${isAuth ?  ` ${searchVisible? 'hidden':' '}`:"hidden" } relative`}>
             <button onClick={() => setNotifications(!notifications)}>
-            {/* <span class="absolute flex h-3 w-3">
-  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-  <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-</span> */}
               <MdNotificationsNone
                 className={` rounded-full 
                text-lightGreen bg-white text-4xl  hover:bg-lightGreenHover hover:text-white  active:scale-95`}
@@ -141,24 +174,29 @@ export default function Navbar() {
           </li>
 
           {/*button SignUp*/}
-          <li className={`  ${isAuth ? `${searchVisible? 'hidden':' '}` : "hidden"} `}>
-            <button className="" onClick={() => setAuth(!isAuth)}>
+          <li className={`  ${isAuth ? "hidden" :`${searchVisible? 'hidden':' '}` } `}>
+            <button className="" >
+              {/*onClick={() => setAuth(!isAuth)}*/}
               <Link
                 className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
-                {isAuth ? "Sign In" : ""}
+                {isAuth ? '' : "Sign In"}
               </Link>
             </button>
           </li>
 
           {/*user section*/}
-          <li className={`  ${isAuth ? "hidden" : `${searchVisible? 'hidden':''}`} relative`}>
+          <li className={`  ${isAuth ?  `${searchVisible? 'hidden':''}`: "hidden"} relative`}>
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
                 className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
-                src="icons/userimg.webp"
+                src={userDataInfo?.avatarUrl}//"userimg.webp"
+                alt="User Avatar"
+                // loading="lazy"
+                // width={40}
+                // height={40}                
               />
             </button>
 
@@ -190,7 +228,7 @@ export default function Navbar() {
       </section>
 
       {/*links in menu mobile button*/}
-      <section className="  flex justify-end relative">
+      <section className="  flex justify-end  relative">
         <ul
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
@@ -202,17 +240,20 @@ export default function Navbar() {
                 }`
           } `}
         >
-          <ul className="items-center">
+          <ul className="items-center overflow-hidden ">
             <MobileMenu onInputClick={handleInputClick} />
 
-            <li className={`${isAuth ? "" : "hidden"} flex  justify-center`}>
+            <li className={` flex  justify-center`}>{/**${isAuth ? "" : "hidden"} */}
               <button
                 onClick={() => dispatch(handleLanguage())}
                 className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
               >
                 <b className="flex items-center">
-                <IoLanguage />
-               <ul className="mx-2"> {languageIs ? "  عربى  " : "English"}</ul>
+                  <IoLanguage />
+                  <ul className="mx-2">
+                    {" "}
+                    {languageIs ? "  عربى  " : "English"}
+                  </ul>
                 </b>
               </button>
             </li>
@@ -229,16 +270,6 @@ export default function Navbar() {
           <NotificationMenu />
         </ul>
       </section>
-
-
-      <div className="  flex -mt-1 relative">
-        <img src="icons/rightNavBar.svg " className="w-10 absolute " alt="s" />
-        <img
-          src="icons/leftNavBar.svg "
-          className="w-10 absolute right-0  "
-          alt="s"
-        />
-      </div>
     </nav>
   );
 }
