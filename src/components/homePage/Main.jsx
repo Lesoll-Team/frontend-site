@@ -6,8 +6,8 @@ const Main = () => {
   return (
     <>
       <section className="py-3 ">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="lg:space-y-2 flex flex-col justify-center items-center md:items-start md:w-[%]  md:shadow-lg md:min-h-[200px] md:border-2 md:rounded-r-[70px] md:pl-7 pr-2 md:py-10">
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
+          <div className="lg:space-y-2 flex flex-col justify-center items-center mt-5 sm:mt-0 md:items-start md:w-[%]  md:shadow-lg md:min-h-[200px] md:border-2 md:rounded-r-[70px] md:pl-7 pr-2 md:py-10">
             <h1 className="text-5xl relative lg:text-8xl text-lightGreen font-semibold text-center md:text-left">
               Lesoll{" "}
               <span className="text-3xl block lg:text-4xl lg:inline text-lightOrange">

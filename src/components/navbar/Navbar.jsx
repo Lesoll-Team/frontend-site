@@ -2,16 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
 import { useEffect, useState } from "react";
-import ReactCountryFlag from "react-country-flag"
-
+import ReactCountryFlag from "react-country-flag";
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLanguage,IoSearchCircleOutline } from "react-icons/io5";
+import { IoLanguage, IoSearchCircleOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-import arLanguage from '../../../public/locales/ar/common.js'
-import enLanguage from '../../../public/locales/en/common.js'
-
+import arLanguage from "../../../public/locales/ar/common.js";
+import enLanguage from "../../../public/locales/en/common.js";
 
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
@@ -24,13 +22,8 @@ export default function Navbar() {
   const [arbLanguage] = useState(arLanguage);
   const [engLanguage] = useState(enLanguage);
 
-  
-
-  const dispatch=useDispatch();
-  const languageIs=useSelector(state=> state.GlobalState.languageIs)
-
-
-
+  const dispatch = useDispatch();
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [open, setOpen] = useState(true);
   const [isAuth, setAuth] = useState(true);
@@ -38,11 +31,10 @@ export default function Navbar() {
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
 
-  const [searchVisible, setSearchVisible] = useState(false)
-
+  const [searchVisible, setSearchVisible] = useState(false);
 
   function toggleSearch() {
-    setSearchVisible(!searchVisible)
+    setSearchVisible(!searchVisible);
   }
 
   const handleInputClick = (value) => {
@@ -50,9 +42,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full  z-[1000]  sticky  top-0">
+    <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md">
       <section className="flex  relative bg-white  h-[80px] items-center ">
-
         {/*Logo */}
         <ul className=" flex w-3/12  md:justify-center ">
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
@@ -72,64 +63,85 @@ export default function Navbar() {
         </ul>
 
         {/*nav link web page */}
-        <ul className={` ${searchVisible? 'hidden':'md:flex'}   w-5/12 space-x-2 hidden`}>
+        <ul
+          className={` ${
+            searchVisible ? "hidden" : "md:flex"
+          }   w-5/12 space-x-2 hidden`}
+        >
           <LinksNavbar />
         </ul>
 
-          
-
         {/* SignUp & language & Notifications & user menu & user image */}
-        <ul className={` ${searchVisible? 'w-8/12 ':'md:w-4/12 w-8/12'} flex justify-end md:justify-center  mr-4  space-x-2 items-center`}>
-
-
-
-        <ul className={`py-2 ${searchVisible? 'w-full ':''} mr-1`}>
-          <li className={` flex items-center  `}>
-            <FaSearch onClick={toggleSearch} className="   text-1xl  text-lightOrange "/>
-            <input  
-            placeholder={languageIs? arbLanguage.input.search:engLanguage.input.search}
-            className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
+        <ul
+          className={` ${
+            searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
+          } flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
+        >
+          <ul className={`py-2 ${searchVisible ? "w-full " : ""} mr-1`}>
+            <li className={` flex items-center  `}>
+              <FaSearch
+                onClick={toggleSearch}
+                className="   text-1xl  text-lightOrange "
+              />
+              <input
+                placeholder={
+                  languageIs
+                    ? arbLanguage.input.search
+                    : engLanguage.input.search
+                }
+                className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
                            focus:outline-none focus:ring-1 focus:ring-lightOrange
                            ring-lightOrange ring-1
-                       ${searchVisible? 'w-full':'hidden'}`} 
-            type="text" />
-               <MdClear 
-               onClick={toggleSearch} 
-               className={`rounded-full   text-2xl
-                 text-lightOrange ${searchVisible? '':'hidden'} `}/>
-          </li>
-
+                       ${searchVisible ? "w-full" : "hidden"}`}
+                type="text"
+              />
+              <MdClear
+                onClick={toggleSearch}
+                className={`rounded-full   text-2xl
+                 text-lightOrange ${searchVisible ? "" : "hidden"} `}
+              />
+            </li>
           </ul>
 
-        {/*button language*/}
-          <li className={`  ${searchVisible? 'hidden':' md:flex hidden'}  `}>
+          {/*button language*/}
+          <li className={`  ${searchVisible ? "hidden" : " md:flex hidden"}  `}>
             <button
               onClick={() => dispatch(handleLanguage())}
               className="
               flex py-1 px-1   w-24   text-md rounded-full 
                             duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
-            ><ul className="mx-1">{languageIs?
-              <ReactCountryFlag
-              countryCode="EG"
-              svg
-              cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-              cdnSuffix="svg"
-              title="US"/> :
-                <ReactCountryFlag
-                countryCode="US"
-                svg
-                cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                cdnSuffix="svg"
-                title="US"/>
-}</ul>
+            >
+              <ul className="mx-1">
+                {languageIs ? (
+                  <ReactCountryFlag
+                    countryCode="EG"
+                    svg
+                    cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+                    cdnSuffix="svg"
+                    title="US"
+                  />
+                ) : (
+                  <ReactCountryFlag
+                    countryCode="US"
+                    svg
+                    cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+                    cdnSuffix="svg"
+                    title="US"
+                  />
+                )}
+              </ul>
               <ul className="mx-1">{languageIs ? `عربى` : `English`}</ul>
             </button>
           </li>
 
-        {/*button Notifications */}
-          <li className={` ${isAuth ? "hidden" : ` ${searchVisible? 'hidden':' '}`} relative`}>
+          {/*button Notifications */}
+          <li
+            className={` ${
+              isAuth ? "hidden" : ` ${searchVisible ? "hidden" : " "}`
+            } relative`}
+          >
             <button onClick={() => setNotifications(!notifications)}>
-            {/* <span class="absolute flex h-3 w-3">
+              {/* <span class="absolute flex h-3 w-3">
   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
   <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
 </span> */}
@@ -141,7 +153,11 @@ export default function Navbar() {
           </li>
 
           {/*button SignUp*/}
-          <li className={`  ${isAuth ? `${searchVisible? 'hidden':' '}` : "hidden"} `}>
+          <li
+            className={`  ${
+              isAuth ? `${searchVisible ? "hidden" : " "}` : "hidden"
+            } `}
+          >
             <button className="" onClick={() => setAuth(!isAuth)}>
               <Link
                 className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
@@ -154,7 +170,11 @@ export default function Navbar() {
           </li>
 
           {/*user section*/}
-          <li className={`  ${isAuth ? "hidden" : `${searchVisible? 'hidden':''}`} relative`}>
+          <li
+            className={`  ${
+              isAuth ? "hidden" : `${searchVisible ? "hidden" : ""}`
+            } relative`}
+          >
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
                 className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
@@ -211,8 +231,11 @@ export default function Navbar() {
                 className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
               >
                 <b className="flex items-center">
-                <IoLanguage />
-               <ul className="mx-2"> {languageIs ? "  عربى  " : "English"}</ul>
+                  <IoLanguage />
+                  <ul className="mx-2">
+                    {" "}
+                    {languageIs ? "  عربى  " : "English"}
+                  </ul>
                 </b>
               </button>
             </li>
@@ -229,16 +252,6 @@ export default function Navbar() {
           <NotificationMenu />
         </ul>
       </section>
-
-
-      <div className="  flex -mt-1 relative">
-        <img src="icons/rightNavBar.svg " className="w-10 absolute " alt="s" />
-        <img
-          src="icons/leftNavBar.svg "
-          className="w-10 absolute right-0  "
-          alt="s"
-        />
-      </div>
     </nav>
   );
 }

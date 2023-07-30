@@ -1,23 +1,22 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import Link from "next/link";
+import userImg from "../../../public/userimg.webp";
+//icons imports
 import { BsCheck2Circle } from "react-icons/bs";
-import { FiPaperclip, FiSettings } from "react-icons/fi";
-import { RiRadioButtonLine } from "react-icons/ri";
+import { FiSettings } from "react-icons/fi";
 import { CgSandClock } from "react-icons/cg";
 import { RiDraftLine } from "react-icons/ri";
 import { MdDoNotDisturbOn } from "react-icons/md";
-// import {FiPaperclip} from "react-icons/Fi"
 import { AiOutlineHeart } from "react-icons/ai";
-import userImg from "../../../public/userimg.webp";
+// componets imports
 import ActiveAds from "./ActiveAds";
-import Link from "next/link";
 import PendingAds from "./PendingAds";
 import DraftAds from "./DraftAds";
 import InActiveAds from "./InActiveAds";
 import FavoriteAds from "./FavoriteAds";
 const Profile = () => {
-  const [content, setContent] = useState("inactive");
+  const [content, setContent] = useState("active");
 
   // switchcontent
   const switchActive = () => {
@@ -35,23 +34,25 @@ const Profile = () => {
   const switchFav = () => {
     setContent("favorites");
   };
+
   return (
     <>
       <div className="">
         {/* user info */}
-        <div className="w-full  drop-shadow-xl bg-white ">
-          <div className="container mx-auto 0 py-10 relative pb-20">
+        <div className="w-full   bg-white ">
+          <div className="container mx-auto  py-10 relative pb-20">
             <div className="flex justify-between items-start">
-              <div className="flex items-center gap-3">
+              <div className="flex sm:items-center flex-col sm:flex-row gap-3">
                 <Image
+                  alt="user image"
                   src={userImg}
                   width={"auto"}
                   height={"auto"}
-                  className="w-[100px] h-[100px] rounded-full object-cover"
+                  className="w-[130px] h-[130px] rounded-full object-cover border-4  border-gray-300 drop-shadow-xl"
                 />
                 <div>
-                  <p className="font-bold text-lg">Abdelrahman Mostafa</p>
-                  <p className="font-light">@abdo2255</p>
+                  <p className="font-bold text-2xl">Abdelrahman Mostafa</p>
+                  <p className="font-light text-lg">@abdo2255</p>
                 </div>
               </div>
               {/* <Link
@@ -61,9 +62,19 @@ const Profile = () => {
                 <FiSettings />
                 settings
               </Link> */}
-              <FiSettings className="text-2xl absolute right-4 top-[65px]" />
+              {/* <FiSettings
+                onClick={switchSettings}
+                className="text-xl absolute right-4 top-[68px] sm:hidden"
+              /> */}
+              <Link
+                href={"/profile/settings"}
+                className=" absolute right-4 top-[83px]  text-sm w-36 sm:w-32 text-center md:text-md px-2 sm:px-3 py-[5px] text-lightGreen border-2 border-lightGreen rounded-md flex justify-center items-center gap-1"
+              >
+                <FiSettings className=" " />
+                Edit Profile
+              </Link>
             </div>
-            <div className="flex justify-between  items-center mt-5 gap-2 max-w-[400px]">
+            <div className="flex justify-between  items-center mt-5 gap-2 max-w-[400px] flex-wrap">
               <div className="text-center  items-center flex gap-1 text-gray-500">
                 <p className="text-sm">100</p>
                 <p className=" ">Active</p>
@@ -81,10 +92,10 @@ const Profile = () => {
                 <p className=" ">InActive</p>
               </div>
             </div>
-            <div className="flex custom-scroll-bar justify-between overflow-x-auto overflow-y-hidden items-center mt-10 left-0  bottom-0 absolute mx-auto w-[100%]  border-b-[1px] border-gray-400 ">
+            <div className="flex custom-scroll-bar justify-start  md:gap-7 overflow-x-auto overflow-y-hidden items-center mt-10 left-0  bottom-0 absolute mx-auto w-[100%]  border-b-[1px] border-gray-400 ">
               <div
                 onClick={switchActive}
-                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 ${
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "active" &&
                   "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
                 }`}
@@ -94,7 +105,7 @@ const Profile = () => {
               </div>
               <div
                 onClick={switchPending}
-                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 ${
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "pending" &&
                   "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
                 }`}
@@ -104,7 +115,7 @@ const Profile = () => {
               </div>
               <div
                 onClick={switchDraft}
-                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 ${
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "draft" &&
                   "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
                 }`}
@@ -114,7 +125,7 @@ const Profile = () => {
               </div>
               <div
                 onClick={switchInActive}
-                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 ${
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "inactive" &&
                   "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
                 }`}
@@ -124,7 +135,7 @@ const Profile = () => {
               </div>
               <div
                 onClick={switchFav}
-                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 ${
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "favorites" &&
                   "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
                 }`}
@@ -150,7 +161,7 @@ const Profile = () => {
           ) : content === "favorites" ? (
             <FavoriteAds />
           ) : (
-            "error"
+            "Settings"
           )}
         </div>
       </div>
