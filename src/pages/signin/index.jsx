@@ -8,15 +8,15 @@ import { useRouter } from "next/router";
 const SignIn = () => {
   const router=useRouter()
 
-  const isLoading = useSelector((state) => state.Auth.loading);
+  // const isLoading = useSelector((state) => state.GlobalState.isLogin);
+  const isLoading = useSelector((state) => state.Auth.isLoding);
+
   const [loading, setLoading] = useState(false);
   useEffect(()=>{
     setLoading(isLoading)
     if (isLoading) {
       router.push('/'); // This will navigate to the home page after login is complete
     }
-//     console.log(isLoading);
-// console.log(loading);
 }, [isLoading, router]);
   return (
     <>{!loading?(
@@ -24,7 +24,7 @@ const SignIn = () => {
         {/* form div*/}
         <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
           <h1 className="text-7xl mb-5 text-lightGreen font-black text-left">
-            Sign up
+            Sign In
           </h1>
 
           <SignInForm />
@@ -35,7 +35,7 @@ const SignIn = () => {
               className="text-lightOrange ml-1 font-semibold"
               href={"/signup"}
             >
-              Sign In
+              Sign Up
             </Link>
           </p>
         </div>
@@ -44,7 +44,6 @@ const SignIn = () => {
           <Image
             width={"auto"}
             height={"auto"}
-            priority
             loading="lazy"
             src={house}
             alt="home"

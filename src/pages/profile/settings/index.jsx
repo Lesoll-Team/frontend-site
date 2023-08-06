@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Profile from "@/components/profile/Profile";
+import UserSettings from "@/components/profile/settings/UserSettings";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-const ProfilePage = () => {
-  const router=useRouter()
 
+const index = () => {
+  const router=useRouter()
   // const isLoading = useSelector((state) => state.GlobalState.isLogin);
   const isLoading = useSelector((state) => state.Auth.isLoding);
+
 
   const [loading, setLoading] = useState(false);
 
@@ -15,16 +16,10 @@ const ProfilePage = () => {
     if (!isLoading) {
       router.push('/'); // This will navigate to the home page after login is complete
     }
-//     console.log(isLoading);
-// console.log(loading);
 }, [isLoading, router]);
-  return <>
-  {loading ?(
-  <Profile />):(<div className="w-full flex justify-center items-center h-screen ">
+
+  return <>{loading?(<UserSettings />):(<div className="w-full flex justify-center items-center h-screen ">
   <b> You not have access...</b>
- </div>)}
-
-  </>;
+ </div>)}</>;
 };
-
-export default ProfilePage;
+export default index;

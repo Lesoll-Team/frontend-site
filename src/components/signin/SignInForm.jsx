@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";//useEffect
 import { useDispatch, useSelector } from "react-redux";
-// import { useRouter } from "next/router";
+// import {getAllUserData}from "../../redux-store/features/globalState"
 
 import {
   loginUserAsync
 } from "../../redux-store/features/authSlice";
 const LoginPage = () => {
-  // const router=useRouter()
   const dispatch = useDispatch();
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
   const registrationError = useSelector((state) => state.Auth.registrationError);
-  // const isLoading = useSelector((state) => state.Auth.loading);
-
+  // const userToken = useSelector((state) => state.Auth.userToken);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [loading, setLoading] = useState(false);
-
   const handleLogin = async (e) => {
     e.preventDefault();
       const userData = { email, password };
@@ -23,18 +19,9 @@ const LoginPage = () => {
       setEmail("");
       setPassword("");
   };
-//   useEffect(()=>{
-//     setLoading(isLoading)
-//     if (isLoading) {
-//       router.push('/'); // This will navigate to the home page after login is complete
-//     }
-// //     console.log(isLoading);
-// // console.log(loading);
-// }, [isLoading, router]);
-
-
-
-
+// useEffect(()=>{
+//    dispatch(getAllUserData(userToken))
+// },[userToken,dispatch])
   return (
     <div>
       

@@ -8,15 +8,16 @@ import { useRouter } from "next/router";
 const SignUp = () => {
   const router=useRouter()
 
-  const isLoading = useSelector((state) => state.Auth.loading);
+  // const isLoading = useSelector((state) => state.GlobalState.isLogin);
+  const isLoading = useSelector((state) => state.Auth.isLoding);
+
+
   const [loading, setLoading] = useState(false);
   useEffect(()=>{
     setLoading(isLoading)
     if (isLoading) {
       router.push('/'); // This will navigate to the home page after login is complete
     }
-//     console.log(isLoading);
-// console.log(loading);
 }, [isLoading, router]);
 
   return (<>
@@ -45,7 +46,6 @@ const SignUp = () => {
         <Image
           width={"auto"}
           height={"auto"}
-          priority
           loading="lazy"
           src={house}
           alt="home"

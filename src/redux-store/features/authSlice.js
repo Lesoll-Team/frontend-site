@@ -1,56 +1,53 @@
 // store/SignUpSlice.js
 import { createSlice,createAsyncThunk} from '@reduxjs/toolkit';
 import { registerUser, loginUser } from '../../utils/api';
-const getUserDataFromLocalStorage = () => {
+
+const getUserTokenFromLocalStorage = () => {
   if (typeof window !== 'undefined') {
-    const userData = localStorage.getItem('userData');
-    return userData ? JSON.parse(userData) : null;
-  }
-  return null;
-};
-const getUserAuthFromLocalStorage = () => {
-  if (typeof window !== 'undefined') {
-    const userAuth = localStorage.getItem('userAuth');
-    return userAuth ? JSON.parse(userAuth) : null;
+    const userToken = localStorage.getItem('userToken');
+    return userToken ? JSON.parse(userToken) : null;
   }
   return null;
 };
 
+const getUserAuthFromLocalStorage = () => {
+  if (typeof window !== 'undefined') {
+    const userToken = localStorage.getItem('userIsLogin');
+    return userToken ? JSON.parse(userToken) : null;
+  }
+  return null;
+};
 const initialState = {
-  user: getUserDataFromLocalStorage(),
+  userToken: getUserTokenFromLocalStorage(),
   isRegistering: false,
   registrationError: null,
-  loading: getUserAuthFromLocalStorage(),
+  isLoding:getUserAuthFromLocalStorage(),
+
 };
 
 export const loginUserAsync = createAsyncThunk(
   'Auth/loginUser',
   async (userData) => {
     const response = await loginUser(userData);
-    return response.userData; // Assuming your API returns user data upon successful login
+    return response.token; // Assuming your API returns user data upon successful login
   }
 );
 
 export const signupUserAsync = createAsyncThunk(
-  'Auth/signupUser',
+  'Auth/registerUser',
   async (userData) => {
     const response = await registerUser(userData);
-    return response.userData; // Assuming your API returns user data upon successful signup
+    return response.token; // Assuming your API returns user data upon successful signup
   }
 );
-export const clearLocalStorage = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.clear()
-  }
-};
+
 const AuthSlice = createSlice({
   name: 'Auth',
   initialState,
   reducers: {
-    logout(state) {
-      state.user = null;
-      state.registrationError = null;
-      state.loading = false;
+    logoutUserToken(state) {
+      state.userToken = null;
+      state.isLoding=false;
     },
   },
   extraReducers: (builder) => {
@@ -58,43 +55,41 @@ const AuthSlice = createSlice({
       .addCase(loginUserAsync.pending, (state) => {
         state.isRegistering = true;
         state.registrationError = null;
-
+        state.isLoding=false;
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.isRegistering = false;
-        state.user = action.payload;
-        state.loading = true;
-        // Store the user data in localStorage
-        localStorage.setItem('userData', JSON.stringify(action.payload));
-        localStorage.setItem('userAuth', JSON.stringify(state.loading));
+        state.userToken = action.payload;
+        state.isLoding=true;
+        localStorage.setItem('userToken', JSON.stringify(action.payload));
+        localStorage.setItem('userIsLogin', JSON.stringify(state.isLoding));
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.isRegistering = false;
         state.registrationError = action.error.message;
-
+        state.isLoding=false;
       })
       .addCase(signupUserAsync.pending, (state) => {
         state.isRegistering = true;
         state.registrationError = null;
+        state.isLoding=false;
 
       })
       .addCase(signupUserAsync.fulfilled, (state, action) => {
         state.isRegistering = false;
-        state.user = action.payload;
-        state.loading = true;
-        // Store the user data in localStorage
-        localStorage.setItem('userData', JSON.stringify(action.payload));
+        state.userToken = action.payload;
+        state.isLoding=true;
+        localStorage.setItem('userToken', JSON.stringify(action.payload));
+        localStorage.setItem('userIsLogin', JSON.stringify(state.isLoding));
       })
       .addCase(signupUserAsync.rejected, (state, action) => {
         state.isRegistering = false;
         state.registrationError = action.error.message;
+        state.isLoding=false;
 
       });
   },
 });
-
-// export const { registerStart, registerSuccess, registerFailure,logout } = AuthSlice.actions;
-export const { logout } = AuthSlice.actions;
-
+export const { logoutUserToken } = AuthSlice.actions;
 export default AuthSlice.reducer;
 

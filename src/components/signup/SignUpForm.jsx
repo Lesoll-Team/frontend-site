@@ -1,13 +1,14 @@
 import { signupUserAsync } from "../../redux-store/features/authSlice";
-import { useState } from "react";
+import { useState } from "react";//useEffect
 import { useDispatch, useSelector } from "react-redux";
 import "react-phone-input-2/lib/style.css";
+// import {getAllUserData}from "../../redux-store/features/globalState"
 
-const SignInForm = () => {
+const SignUpForm = () => {
   const dispatch = useDispatch();
 
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
-
+  // const userToken = useSelector((state) => state.Auth.userToken);
   const registrationError = useSelector(
     (state) => state.Auth.registrationError
   );
@@ -16,7 +17,7 @@ const SignInForm = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [countryCode, setCountryCode] = useState("");
+  const [countryCode, setCountryCode] = useState("02");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -45,6 +46,7 @@ const SignInForm = () => {
       phone:phoneNumber,
       typeOfUser,
     };
+    // dispatch(getAllUserData())
     dispatch(signupUserAsync(userData));
 
     setFullname("");
@@ -55,7 +57,9 @@ const SignInForm = () => {
     setTypeOfUser("");
     setShowForm("");
   };
-
+//   useEffect(()=>{
+//     dispatch(getAllUserData(userToken))
+//  },[userToken,dispatch])
   return (
     <div>
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
@@ -175,4 +179,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
