@@ -89,18 +89,18 @@ const Footer = () => {
             About
           </Link>
 
-          <Link href="/about">Blogs</Link>
+          <Link href="/blogs">Blogs</Link>
 
-          <Link href="/about">Contact</Link>
+          <Link href="/contact">Contact</Link>
         </div>
         <div className="space-y-5 flex flex-col">
           <h3 className="text-1xl font-bold">Help?</h3>
 
-          <Link href="/about">FAQ</Link>
+          <Link href="/faq">FAQ</Link>
 
-          <Link href="/about">Terms & Conditions</Link>
+          <Link href="/termsofservice">Terms & Conditions</Link>
 
-          <Link href="/about">Privacy Policy</Link>
+          <Link href="/privacypolicy">Privacy Policy</Link>
         </div>
         <div className="space-y-5 flex flex-col">
           <h3 className="text-1xl font-bold">Contact</h3>
@@ -122,9 +122,9 @@ const Footer = () => {
             <a href="https://lesoll.com">Lesoll.com</a>
           </p>
           <div className="space-x-2">
-            <Link href="/">Terms & conditions</Link>
+            <Link href="/termsofservice">Terms & conditions</Link>
             <span>|</span>
-            <Link href="/">Privacy Policy</Link>
+            <Link href="/privacypolicy">Privacy Policy</Link>
           </div>
         </div>
       </div>

@@ -13,7 +13,6 @@ const SignUpForm = () => {
     (state) => state.Auth.registrationError
   );
 
-
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,8 +41,8 @@ const SignUpForm = () => {
       fullname,
       password,
       email,
-      code:countryCode,
-      phone:phoneNumber,
+      code: countryCode,
+      phone: phoneNumber,
       typeOfUser,
     };
     // dispatch(getAllUserData())
@@ -65,7 +64,7 @@ const SignUpForm = () => {
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
           onClick={setIndividual}
-          className={`cursor-pointer border-2 border-lightGreen py-2 px-6  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "individual"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -80,7 +79,7 @@ const SignUpForm = () => {
         </button>
         <button
           onClick={setBroker}
-          className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "broker"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -94,7 +93,7 @@ const SignUpForm = () => {
         </button>
         <button
           onClick={setCompany}
-          className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "company"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -107,7 +106,7 @@ const SignUpForm = () => {
           Developers
         </button>
       </div>
-      <p className="text-center w-80 md:w-96 mt-2  text-gray-600">
+      <p className="text-center w-80 md:w-96 mt-2 text-sm sm:text-base  text-gray-600">
         {typeOfUser === "individual"
           ? "you are the owner of a property and looking to list it for rent or sale."
           : typeOfUser === "broker"

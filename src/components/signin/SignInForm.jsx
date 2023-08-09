@@ -2,29 +2,29 @@ import React, {  useState } from "react";//useEffect
 import { useDispatch, useSelector } from "react-redux";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
-import {
-  loginUserAsync
-} from "../../redux-store/features/authSlice";
+import { loginUserAsync } from "../../redux-store/features/authSlice";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
-  const registrationError = useSelector((state) => state.Auth.registrationError);
-  // const userToken = useSelector((state) => state.Auth.userToken);
+  const registrationError = useSelector(
+    (state) => state.Auth.registrationError
+  );
+  // const isLoading = useSelector((state) => state.Auth.loading);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = async (e) => {
     e.preventDefault();
-      const userData = { email, password };
-      dispatch(loginUserAsync(userData));
-      setEmail("");
-      setPassword("");
+    const userData = { email, password };
+    dispatch(loginUserAsync(userData));
+    setEmail("");
+    setPassword("");
   };
 // useEffect(()=>{
 //    dispatch(getAllUserData(userToken))
 // },[userToken,dispatch])
   return (
     <div>
-      
       <form
         onSubmit={handleLogin}
         className="flex flex-col w-80 md:w-96  border-5 justify-center space-y-4"
