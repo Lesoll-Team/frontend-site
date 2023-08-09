@@ -2,24 +2,26 @@ import { MdAddCircle } from "react-icons/md";
 import { BsCheckCircle } from "react-icons/bs";
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { updateUserData,deleteUserAccount } from "@/utils/api";
-
+import { useSelector,useDispatch } from "react-redux";
+import { updateUserData} from "../../../redux-store/features/globalState";
+import { deleteAccount } from '../../../redux-store/features/authSlice';
 const PersonalInfo = () => {
-  const router=useRouter()
+  const dispatch=useDispatch()
   const [userName, setUserName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [emailVerified] = useState(false);
   const userInfo = useSelector((state) => state.GlobalState.userData);
+  const isUpdated = useSelector((state) => state.GlobalState.isUpdated);
+  const updateError = useSelector((state) => state.GlobalState.updateError);
   const [userDataInfo, setUserDataInfo] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
+  const isRegistering = useSelector((state) => state.Auth.isRegistering);
 
   useEffect(() => {
     setUserDataInfo(userInfo);
     setUserName(userInfo?.fullname);
     setPhonenumber(userInfo?.phone);
-  }, [userInfo]);
+  }, [dispatch,userInfo]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -27,22 +29,17 @@ const PersonalInfo = () => {
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
     formData.append("phone", phonenumber);
+
     try {
-      await updateUserData(userDataInfo?._id, userDataInfo?.token, formData);
+      dispatch(updateUserData({userID:userDataInfo?._id, userToken:userDataInfo?.token, userUpdate:formData}));
     } catch (error) {
       console.error(error);
     }
   };
 
-  const deleteAccount = async (e) => {
+  const deleteUserAccount = (e) => {
     e.preventDefault();
-    try {
-      await deleteUserAccount(userDataInfo?._id, userDataInfo?.token);
-      localStorage.clear()
-      router.push('/')
-    } catch (error) {
-      console.error(error);
-    }
+      dispatch(deleteAccount({ userID:userDataInfo?._id,userToken: userDataInfo?.token}))
   };
 
   return (
@@ -117,7 +114,11 @@ const PersonalInfo = () => {
             className="block placeholder:text-gray-500 focus:outline-none  font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
           />
         </div>
+        <span>
+          {updateError}
+        </span>
         <button
+        disabled={isUpdated}
           type="submit"
           className="rounded-lg w-full bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
         >
@@ -129,11 +130,14 @@ const PersonalInfo = () => {
       <h2 className="text-red-500 "><b>Delete Account</b></h2>
       <h4 className="text-darkGray "> The door misses a camel || الباب يفوت جمل</h4>
 
-      <button className="rounded-lg w-3/12 bg-red-600 text-white mt-5  py-2  font-semibold
+      <button
+      disabled={isRegistering}
+      className="rounded-lg w-3/12 bg-red-600 text-white mt-5  py-2  font-semibold
         duration-300 hover:bg-red-500 md:active:scale-95"
-       onClick={deleteAccount}>
-      Delete Account
+       onClick={deleteUserAccount}>
+                Delete Account
       </button>
+
     </div>
     </Fragment>
   );

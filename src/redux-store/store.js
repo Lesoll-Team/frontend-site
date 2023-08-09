@@ -8,4 +8,4 @@ import loggerMiddleware from 'redux-logger';
 
 export const store =configureStore({
   reducer: rootReducers,
-  middleware: [thunkMiddleware, loggerMiddleware],})
+  middleware: [thunkMiddleware],})//, loggerMiddleware

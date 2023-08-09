@@ -1,41 +1,15 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
-import { Fragment, useEffect, useState} from "react";
+import { Fragment} from "react";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch } from "react-redux";
-// import { updateUserData } from "@/utils/api";
+
 export default function Layout({ children }) {
   const dispatch=useDispatch()
-  useEffect(() => {
+  // useEffect(() => {
     dispatch(fetchUserData());
-  }, [dispatch]);
-
-// const [selectedImage, setSelectedImage] = useState(null);
-// const [selectedFullname, setSelectedFullname] = useState("");
-// const [selectedUserName, setSelectedUserName] = useState("");
-// const [selectedPhone, setSelectedPhone] = useState("");
-// const [selectedContactMethod, setSelectedContactMethod] = useState("");
-
-// const handleFormSubmit = async (e) => {
-//   e.preventDefault();
-
-//   const formData = new FormData();
-//   formData.append('img', selectedImage);
-//   formData.append('fullname', selectedFullname);
-//   formData.append('username', selectedUserName);
-//   formData.append('phone', selectedPhone);
-//   formData.append('contactMethod', selectedContactMethod);
-//   try {
-//     await updateUserData("64cb8879f1682ebf3df7407a",
-//     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2I4ODc5ZjE2ODJlYmYzZGY3NDA3YSIsImlhdCI6MTY5MTA2MDM0NX0.C3SNcxaVZ08SU_69OjHVzHrCAlo5mpxQReYJGlfmv6E",
-//     formData)
-
-//   } catch (error) {
-//     console.error(error);
-//   }
-//   console.log(formData);
-// };
+  // }, [dispatch]);
 
   return (
     <Fragment>
@@ -66,26 +40,6 @@ export default function Layout({ children }) {
         </Head>
         <Navbar  />
         <main>
-           {/* {console.log(updateUserData("64cb8879f1682ebf3df7407a",
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2I4ODc5ZjE2ODJlYmYzZGY3NDA3YSIsImlhdCI6MTY5MTA2MDM0NX0.C3SNcxaVZ08SU_69OjHVzHrCAlo5mpxQReYJGlfmv6E",
-          {
-            fullname:"Ahmed Jimmy",
-            img:"https://avatars.githubusercontent.com/u/124493176?v=4",
-            username:"Jimmynano",
-            phone:"01125613782",
-            contactMethod:"phone"
-          }
-          ))}  */}
-          {/* {console.log(getUserData())} */}
-           {/* <form onSubmit={handleFormSubmit}>
-      <input type="file" src="dsdsdsd" className="bg-red-100 m-2" name="img" onChange={(e)=>setSelectedImage(e.target.files[0])} />
-      <input type="text" value={selectedFullname|| " fullname"} className="bg-red-100 m-2" placeholder="name" name="fullname" onChange={(e)=>setSelectedFullname(e.target.value)}/>
-       <input type="text" value={selectedUserName|| " user name "} className="bg-red-100 m-2" name="username"  placeholder="user name" onChange={(e)=>setSelectedUserName(e.target.value)}/>
-  <input type="text" value={selectedPhone|| "phone"} className="bg-red-100 m-2" name="phone" placeholder="phone" onChange={(e)=>setSelectedPhone(e.target.value)}/>
-      <input type="text" value={selectedContactMethod || " contactMethod "} className="bg-red-100 m-2" name="contactMethod" placeholder="contactMethod" onChange={(e)=>setSelectedContactMethod(e.target.value)}/> 
-      <button type="submit">Upload Image</button>
-    </form>  */}
-          {/* {console.log()} */}
           {children}</main>
         <Footer />
       </div>

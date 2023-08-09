@@ -1,18 +1,19 @@
 // store/SignUpSlice.js
-import { createSlice,createAsyncThunk} from '@reduxjs/toolkit';
-import { registerUser, loginUser } from '../../utils/api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { registerUser, loginUser } from "../../utils/userAPI";
+import axios from 'axios';
 
 const getUserTokenFromLocalStorage = () => {
-  if (typeof window !== 'undefined') {
-    const userToken = localStorage.getItem('userToken');
+  if (typeof window !== "undefined") {
+    const userToken = localStorage.getItem("userToken");
     return userToken ? JSON.parse(userToken) : null;
   }
   return null;
 };
 
 const getUserAuthFromLocalStorage = () => {
-  if (typeof window !== 'undefined') {
-    const userToken = localStorage.getItem('userIsLogin');
+  if (typeof window !== "undefined") {
+    const userToken = localStorage.getItem("userIsLogin");
     return userToken ? JSON.parse(userToken) : null;
   }
   return null;
@@ -21,12 +22,10 @@ const initialState = {
   userToken: getUserTokenFromLocalStorage(),
   isRegistering: false,
   registrationError: null,
-  isLoding:getUserAuthFromLocalStorage(),
-
+  isLoding: getUserAuthFromLocalStorage(),
 };
-
 export const loginUserAsync = createAsyncThunk(
-  'Auth/loginUser',
+  "Auth/loginUser",
   async (userData) => {
     const response = await loginUser(userData);
     return response.token; // Assuming your API returns user data upon successful login
@@ -34,62 +33,99 @@ export const loginUserAsync = createAsyncThunk(
 );
 
 export const signupUserAsync = createAsyncThunk(
-  'Auth/registerUser',
+  "Auth/registerUser",
   async (userData) => {
     const response = await registerUser(userData);
     return response.token; // Assuming your API returns user data upon successful signup
   }
 );
 
+export const deleteAccount = createAsyncThunk(
+  "Auth/deleteUserAccount",
+  async (data, thunkAPI) => {
+    try {
+      const response = await axios.delete(`http://api0.lesoll-demo.site/api/user/delete/${data.userID}?token=${data.userToken}`);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const AuthSlice = createSlice({
-  name: 'Auth',
+  name: "Auth",
   initialState,
   reducers: {
     logoutUserToken(state) {
       state.userToken = null;
-      state.isLoding=false;
+      state.isLoding = false;
     },
   },
   extraReducers: (builder) => {
-    builder
+    builder //start case login
       .addCase(loginUserAsync.pending, (state) => {
         state.isRegistering = true;
         state.registrationError = null;
-        state.isLoding=false;
+        state.isLoding = false;
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.isRegistering = false;
         state.userToken = action.payload;
-        state.isLoding=true;
-        localStorage.setItem('userToken', JSON.stringify(action.payload));
-        localStorage.setItem('userIsLogin', JSON.stringify(state.isLoding));
+        state.isLoding = true;
+        localStorage.setItem("userToken", JSON.stringify(action.payload));
+        localStorage.setItem("userIsLogin", JSON.stringify(state.isLoding));
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.isRegistering = false;
         state.registrationError = action.error.message;
-        state.isLoding=false;
-      })
+        state.isLoding = false;
+      }) //end case login
+      //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*//
+      //start case signup
       .addCase(signupUserAsync.pending, (state) => {
         state.isRegistering = true;
         state.registrationError = null;
-        state.isLoding=false;
-
+        state.isLoding = false;
       })
       .addCase(signupUserAsync.fulfilled, (state, action) => {
         state.isRegistering = false;
         state.userToken = action.payload;
-        state.isLoding=true;
-        localStorage.setItem('userToken', JSON.stringify(action.payload));
-        localStorage.setItem('userIsLogin', JSON.stringify(state.isLoding));
+        state.isLoding = true;
+        localStorage.setItem("userToken", JSON.stringify(action.payload));
+        localStorage.setItem("userIsLogin", JSON.stringify(state.isLoding));
       })
       .addCase(signupUserAsync.rejected, (state, action) => {
         state.isRegistering = false;
         state.registrationError = action.error.message;
-        state.isLoding=false;
+        state.isLoding = false;
+      })
+      //end case signup
+      //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*//
+      //start case delete account
+      .addCase(deleteAccount.pending, (state) => {
+        state.isRegistering = true;
+        state.registrationError = null;
+        state.isLoding = true;
+      })
+      .addCase(deleteAccount.fulfilled, (state) => {
+        localStorage.clear()
+        state.userToken=null
+        state.isRegistering = false;
+        state.isLoding = false;
+        state.registrationError = null;
+      })
+      .addCase(deleteAccount.rejected, (state,action) => {
+        state.isRegistering = true;
+        state.registrationError = action.error.message;
+        state.isLoding = true;
+        // state.registrationError = action.error;
+      })
+    //end case delete account
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*//
 
-      });
+
+
   },
 });
 export const { logoutUserToken } = AuthSlice.actions;
 export default AuthSlice.reducer;
-

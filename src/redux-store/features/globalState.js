@@ -1,23 +1,34 @@
 import { createAsyncThunk, createSlice} from "@reduxjs/toolkit";//createAsyncThunk
-import { getUserData } from "../../utils/api";
+import { getUserData,updateUserDataInfo } from "../../utils/userAPI";
 
 export const fetchUserData = createAsyncThunk(
   "GlobalState/getUserData",
-  async () => {
+  async (_,thunkAPI) => {
+    const token = thunkAPI.getState().Auth.userToken;
     try {
-      const userToken = localStorage.getItem("userToken");
-      const user = await getUserData(userToken);
+      const user = await getUserData(token);
       return user;
     } catch (error) {
-      throw error.response.data;
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
-
 const initialState = {
   userData:null,
   languageIs: false, //(false = ENG) ?& (true= ARB)
+  isUpdated: false,
+  updateError: null,
 };
+export const updateUserData =createAsyncThunk("Auth/updateUserData",
+async(data)=>{
+  try {
+    const response= await updateUserDataInfo(data.userID,data.userToken,data.userUpdate)
+    return response
+  } catch (error) {
+    return error.message
+  }
+}
+)
 export const globalState = createSlice({
   name: "GlobalState",
   initialState,
@@ -29,112 +40,23 @@ export const globalState = createSlice({
   extraReducers:(builder) => {
     builder.addCase(fetchUserData.fulfilled, (state, action) => {
       state.userData = action.payload;
-      // localStorage.setItem("userInfo",JSON.stringify(action.payload))
-    })}
+    })
+    
+.addCase(updateUserData.pending,(state)=>{
+  state.isUpdated = true;
+  state.updateError = null;
+})
+.addCase(updateUserData.fulfilled,(state,action)=>{
+  state.isUpdated = false;
+  state.userData = action.payload;
+  state.updateError = null;
+})
+.addCase(updateUserData.rejected,(state,action)=>{
+  state.isUpdated = false;
+  state.updateError = action.error.message;
+})
+    // .addCase()
+  }
 });
 export const { handleLanguage } = globalState.actions;//logoutUser
 export default globalState.reducer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import { createSlice} from "@reduxjs/toolkit";//createAsyncThunk
-// import { getUserData } from "../../utils/api";
-
-
-// const getUserInfoFromLocalStorage = () => {
-//   if (typeof window !== 'undefined') {
-//     const userInfo = localStorage.getItem('userInfo');
-//     return userInfo ? JSON.parse(userInfo) : null;
-//   }
-//   return null;
-// };
-// const getUserLoginFromLocalStorage = () => {
-//   if (typeof window !== 'undefined') {
-//     const userAuth = localStorage.getItem('isLoging');
-//     return userAuth ? JSON.parse(userAuth) : null;
-//   }
-//   return null;
-// };
-const initialState = {
-  // usersData:getUserInfoFromLocalStorage(),
-  // isLogin:getUserLoginFromLocalStorage(),
-  languageIs: false, //(false = ENG) ?& (true= ARB)
-  // isAuth: false,
-  // isVerification: false,
-  // isError:null,
-    // usersData:null,
-  // isLogin:false,
-};
-
-// export const getAllUserData = createAsyncThunk(
-//   'GlobalState/getUserData',
-//   async (userToken) => {
-//     const response = await getUserData(userToken);
-//     return response.userData; // Assuming your API returns user data upon successful login
-//   }
-// );
-
-export const globalState = createSlice({
-  name: "GlobalState",
-  initialState,
-  reducers: {   
-    // logoutUser(state) {
-    //   // Clear user data and error when logging out
-    //   state.usersData = null;
-    //   state.isError = null;
-    //   state.isLogin = false;
-
-    //   // Remove data from localStorage when logging out
-    // },
-
-    handleLanguage: (state) => {
-      state.languageIs = !state.languageIs;
-    },
-    // handleAuth: (state, actoin) => {
-    //   state.isAuth = actoin.payload;
-    // },
-    // handleVerification: (state, actoin) => {
-    //   state.isVerification = actoin.payload;
-    // },
-  },
-  // extraReducers:(builder)=>{
-  //   builder
-  //   .addCase(getAllUserData.pending,(state)=>{
-  //     state.isLogin=false;
-  //     state.isError=null;
-  //   })
-  //   .addCase(getAllUserData.fulfilled,(state,action)=>{
-  //     state.isLogin=true;
-  //     state.usersData=action.payload;
-  //     // //save data to local storage 
-  //     // if (typeof window !== 'undefined') {
-  //       localStorage.setItem("userInfo",JSON.stringify(action.payload));
-  //       localStorage.setItem("isLoging",JSON.stringify(state.isLogin));
-  //     // }
-      
-  //   })
-  //   .addCase(getAllUserData.rejected,(state,action)=>{
-  //     state.isLogin=false;
-  //     state.isError="rejected=>:"+action.error.message;
-  //   })
-  // }
-});
-export const { handleLanguage } = globalState.actions;//logoutUser
-export default globalState.reducer;
-
-*/
