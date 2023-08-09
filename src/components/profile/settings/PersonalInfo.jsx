@@ -8,7 +8,7 @@ import Link from "next/link";
 const PersonalInfo = () => {
   const [userName, setUserName] = useState("Abdelrahman Mostafa");
   const [phonenumber, setPhonenumber] = useState("01146425301");
-  const [emailVerified] = useState(true);
+  const [emailVerified] = useState(false);
 
   return (
     <div className="w-full sm:max-w-[700px] mx-auto py-10 px-5 border-2 rounded-xl bg-white drop-shadow-lg">

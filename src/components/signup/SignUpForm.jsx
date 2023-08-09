@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import { signupUserAsync } from "../../redux-store/features/authSlice";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import {
-  registerStart,
-  registerSuccess,
-  registerFailure,
-} from "../../redux-store/features/signUpSlice";
-import { useQueryClient } from "react-query";
-import { registerUser } from "../../utils/api";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const isRegistering = useSelector((state) => state.SignUp.isRegistering);
+
+  const isRegistering = useSelector((state) => state.Auth.isRegistering);
+
   const registrationError = useSelector(
-    (state) => state.SignUp.registrationError
+    (state) => state.Auth.registrationError
   );
-  const queryClient = useQueryClient();
 
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +19,7 @@ const SignInForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
   const [showForm, setShowForm] = useState(false);
-  // const [userType, setUserType] = useState("");
+
   const setIndividual = () => {
     setTypeOfUser("individual");
     setShowForm(true);
@@ -39,50 +33,34 @@ const SignInForm = () => {
     setShowForm(true);
   };
 
-  const handleRegistration = async (e) => {
-    // console.log(type);
+  const handleRegistration = (e) => {
     e.preventDefault();
 
-    try {
-    dispatch(registerStart());
+    const userData = {
+      fullname,
+      password,
+      email,
+      code: countryCode,
+      phone: phoneNumber,
+      typeOfUser,
+    };
+    dispatch(signupUserAsync(userData));
 
-      const userData = {
-        fullname,
-        password,
-        email,
-        countryCode,
-        phoneNumber,
-        typeOfUser,
-      };
-      const newUser = await registerUser(userData);
-      const user =newUser.userData
-      dispatch(registerSuccess(user));
-
-      // Assuming you want to invalidate the user list query to trigger a refetch
-      queryClient.invalidateQueries("users");
-
-      console.log("User registered:", newUser,"------",user);
-
-      // Clear the form fields after successful registration
-      setFullname("");
-      setPassword("");
-      setEmail("");
-      setCountryCode("");
-      setPhoneNumber("");
-      setTypeOfUser("");
-    } catch (error) {
-      dispatch(registerFailure(error.message));
-    }
+    setFullname("");
+    setEmail("");
+    setPassword("");
+    setCountryCode("");
+    setPhoneNumber("");
+    setTypeOfUser("");
+    setShowForm("");
   };
-  console.log(typeOfUser);
 
   return (
     <div>
-      {/* <h2>User Registration</h2> */}
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
           onClick={setIndividual}
-          className={`cursor-pointer border-2 border-lightGreen py-2 px-6  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "individual"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -97,7 +75,7 @@ const SignInForm = () => {
         </button>
         <button
           onClick={setBroker}
-          className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "broker"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -111,7 +89,7 @@ const SignInForm = () => {
         </button>
         <button
           onClick={setCompany}
-          className={`cursor-pointer border-2 border-lightGreen py-2 px-6 rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "company"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -124,7 +102,7 @@ const SignInForm = () => {
           Developers
         </button>
       </div>
-      <p className="text-center w-80 md:w-96 mt-2  text-gray-600">
+      <p className="text-center w-80 md:w-96 mt-2 text-sm sm:text-base  text-gray-600">
         {typeOfUser === "individual"
           ? "you are the owner of a property and looking to list it for rent or sale."
           : typeOfUser === "broker"

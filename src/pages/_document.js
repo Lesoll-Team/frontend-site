@@ -1,4 +1,3 @@
-
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -6,10 +5,10 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body>
-{/*ابوس إيدك ياعبد الرحمن متجيش جنب المكان دة  */}
+        {/*ابوس إيدك ياعبد الرحمن متجيش جنب المكان دة  */}
         <Main />
         <NextScript />
-{/* اطلع برة  يلا*/}
+        {/* اطلع برة  يلا*/}
       </body>
     </Html>
   );

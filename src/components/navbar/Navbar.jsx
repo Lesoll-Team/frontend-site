@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import ReactCountryFlag from "react-country-flag";
+// import { useRouter } from "next/router";
 
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLanguage, IoSearchCircleOutline } from "react-icons/io5";
+import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import arLanguage from "../../../public/locales/ar/common.js";
 import enLanguage from "../../../public/locales/en/common.js";
@@ -15,23 +16,29 @@ import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
+
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+  // const router=useRouter()
+
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
+
   const [arbLanguage] = useState(arLanguage);
   const [engLanguage] = useState(enLanguage);
 
-  const dispatch = useDispatch();
-  const languageIs = useSelector((state) => state.GlobalState.languageIs);
-
   const [open, setOpen] = useState(true);
-  const [isAuth, setAuth] = useState(true);
-
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
-
   const [searchVisible, setSearchVisible] = useState(false);
+
+  const userInfo = useSelector((state) => state.Auth.user);
+  const isLoading = useSelector((state) => state.Auth.loading);
+
+  const [userDataInfo, setUserDataInfo] = useState({});
+  const [isAuth, setAuth] = useState(false);
 
   function toggleSearch() {
     setSearchVisible(!searchVisible);
@@ -40,6 +47,19 @@ export default function Navbar() {
   const handleInputClick = (value) => {
     setOpenUserMenu(setOpen(value));
   };
+
+  useEffect(() => {
+    setAuth(isLoading);
+    setUserDataInfo(userInfo);
+  }, [userInfo]);
+
+  // console.log("userInfo")
+  // console.log(userInfo)
+  // console.log("userInfo")
+
+  // console.log("userDataInfo")
+  // console.log(userDataInfo)
+  // console.log("userDataInfo")
 
   return (
     <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md">
@@ -137,14 +157,10 @@ export default function Navbar() {
           {/*button Notifications */}
           <li
             className={` ${
-              isAuth ? "hidden" : ` ${searchVisible ? "hidden" : " "}`
+              isAuth ? ` ${searchVisible ? "hidden" : " "}` : "hidden"
             } relative`}
           >
             <button onClick={() => setNotifications(!notifications)}>
-              {/* <span class="absolute flex h-3 w-3">
-  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-  <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-</span> */}
               <MdNotificationsNone
                 className={` rounded-full 
                text-lightGreen bg-white text-4xl  hover:bg-lightGreenHover hover:text-white  active:scale-95`}
@@ -155,16 +171,17 @@ export default function Navbar() {
           {/*button SignUp*/}
           <li
             className={`  ${
-              isAuth ? `${searchVisible ? "hidden" : " "}` : "hidden"
+              isAuth ? "hidden" : `${searchVisible ? "hidden" : " "}`
             } `}
           >
-            <button className="" onClick={() => setAuth(!isAuth)}>
+            <button className="">
+              {/*onClick={() => setAuth(!isAuth)}*/}
               <Link
                 className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
-                {isAuth ? "Sign In" : ""}
+                {isAuth ? "" : "Sign In"}
               </Link>
             </button>
           </li>
@@ -172,13 +189,17 @@ export default function Navbar() {
           {/*user section*/}
           <li
             className={`  ${
-              isAuth ? "hidden" : `${searchVisible ? "hidden" : ""}`
+              isAuth ? `${searchVisible ? "hidden" : ""}` : "hidden"
             } relative`}
           >
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
                 className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
-                src="icons/userimg.webp"
+                src={userDataInfo?.avatarUrl} //"userimg.webp"
+                alt="User Avatar"
+                // loading="lazy"
+                // width={40}
+                // height={40}
               />
             </button>
 
@@ -210,7 +231,7 @@ export default function Navbar() {
       </section>
 
       {/*links in menu mobile button*/}
-      <section className="  flex justify-end relative">
+      <section className="  flex justify-end  relative">
         <ul
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
@@ -222,10 +243,11 @@ export default function Navbar() {
                 }`
           } `}
         >
-          <ul className="items-center">
+          <ul className="items-center overflow-hidden ">
             <MobileMenu onInputClick={handleInputClick} />
 
-            <li className={`${isAuth ? "" : "hidden"} flex  justify-center`}>
+            <li className={` flex  justify-center`}>
+              {/**${isAuth ? "" : "hidden"} */}
               <button
                 onClick={() => dispatch(handleLanguage())}
                 className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"

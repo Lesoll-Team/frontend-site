@@ -21,6 +21,7 @@ const RealtyCard = () => {
       <Image
         alt="Realty"
         src={testImg}
+        loading="lazy"
         width={"auto"}
         height={"auto"}
         className="w-full h-[220px] overflow-hidden   object-cover"

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 import globalState from './features/globalState'; 
-import signUpReducer from './features/signUpSlice';
-import signInReducer from './features/signinSlice';
+import authReducer from './features/authSlice';
+
  
 
 export default combineReducers({
     GlobalState:globalState,
-    SignUp:signUpReducer,
-    SignIn:signInReducer, 
+    Auth:authReducer,
+
 })
