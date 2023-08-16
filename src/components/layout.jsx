@@ -4,6 +4,10 @@ import Head from "next/head";
 import { Fragment} from "react";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch } from "react-redux";
+// import {Badge, Button} from "@nextui-org/react";
+// import { MdNotificationsNone, MdClear } from "react-icons/md";
+
+
 
 export default function Layout({ children }) {
   const dispatch=useDispatch()
@@ -13,6 +17,7 @@ export default function Layout({ children }) {
 
   return (
     <Fragment>
+    
       <div  style={{
           minHeight: "100dvh",
           position: "relative",
@@ -40,8 +45,21 @@ export default function Layout({ children }) {
         </Head>
         <Navbar  />
         <main>
+        {/* <Badge content={0} shape="circle" color="danger">
+      <Button
+        radius="full"
+        isIconOnly
+        aria-label="more than 99 notifications"
+        variant="light"
+      >
+        <MdNotificationsNone size={24} />
+      </Button>
+    </Badge> */}
+
           {children}</main>
+
         <Footer />
+
       </div>
     </Fragment>
   );

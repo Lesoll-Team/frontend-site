@@ -23,8 +23,8 @@ const Main = () => {
           <Image
             
             src={heroImg}
-            loading="eager" // Use "eager" to prioritize loading
-            priority // Add the "priority" property to the image
+            loading="lazy" // Use "eager" to prioritize loading
+            // priority // Add the "priority" property to the image
             height={"auto"}
             width={"auto"}
             className="w-[100%] md:w-1/2 md:justify-self-end-end"

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 export const TermsOfService = () => {
   return (
     <div className="container mx-auto py-10 mb-10">
@@ -158,4 +160,4 @@ export const TermsOfService = () => {
   );
 };
 
-export default TermsOfService;
+export default memo(TermsOfService);

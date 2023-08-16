@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-
 export async function registerUser(userData) {
   try {
     const response = await axios.post(`http://api0.lesoll-demo.site/api/auth/register`,userData);// register
