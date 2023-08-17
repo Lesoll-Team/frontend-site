@@ -4,8 +4,10 @@ import { RiHotelBedFill, RiPencilRuler2Line } from "react-icons/ri";
 import { Button } from "@nextui-org/react";
 import { MdCheckCircleOutline } from "react-icons/md";
 import { BsCalendar3 } from "react-icons/bs";
-// import { BsSlashCircle } from "react-icons/bs";
+import { BsSlashCircle } from "react-icons/bs";
 import { GiHomeGarage } from "react-icons/gi";
+// import { Splide, SplideSlide} from '@splidejs/react-splide';
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 function OverviewDetails() {
   const [offerType, setOfferType] = useState("cash");
@@ -16,62 +18,82 @@ function OverviewDetails() {
           <b>Overview</b>
         </div>
         <div className="flex items-center justify-center">
-          <span className="flex"> <BsCalendar3 className=" mr-2" /> Updated:</span>
+          <span className="flex">
+            {" "}
+            <BsCalendar3 className=" mr-2" /> Updated:
+          </span>
           <span className="md:text-md text-sm">April 4, 2020 at 5:18 pm</span>
         </div>
       </div>
       <br />
       <hr />
       <br />
+      <overview_container>
+        <Splide
+          options={{
+            rewind: true,
+            // pagination  : false,
+            fixedWidth  : 230,
+            // perPage: 2,
+            // arrows:false ,
+            // gap: "1rem",
+            // perMove: 0,
+          }}
+          aria-label="My Favorite Images"
+        >
+          <SplideSlide>
+            <div className=" bg-gray-200 w-20 h-20  rounded-lg">
+              <span className="flex justify-center">bedroom</span>
+              <RiHotelBedFill className=" m-auto" />
+              <span className=" flex justify-center">1</span>
+            </div>
+          </SplideSlide>
+          <SplideSlide>
+            <div className=" bg-gray-200 w-20 h-20 rounded-lg">
+              <span className="flex justify-center">Bathroom</span>
 
-      <div className="lg:flex justify-between ">
-        <ul>
-          <li className=" mb-3">
-            <b>Apartment</b>
-          </li>
-          <li>
-            <b>PropertyType</b>
-          </li>
-        </ul>
+              <MdOutlineBathtub className=" m-auto" />
+              <span className=" flex justify-center">1</span>
+            </div>
+          </SplideSlide>
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-20 h-20 rounded-lg">
+              <span className="flex justify-center">Garage</span>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <RiHotelBedFill className=" mr-2" /> <span>1</span>
-          </li>
-          <li>Bedrooms</li>
-        </ul>
+              <GiHomeGarage className=" m-auto" />
+              <span className=" flex justify-center">1</span>
+            </div>
+          </SplideSlide>
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-20 h-20 rounded-lg">
+              <span className="flex justify-center">Sq Ft</span>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <MdOutlineBathtub className=" mr-2" />
-            <span>1</span>
-          </li>
-          <li>Bathroom</li>
-        </ul>
+              <RiPencilRuler2Line className=" m-auto" />
+              <span className=" flex justify-center">120</span>
+            </div>
+          </SplideSlide>
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-20 h-20 rounded-lg">
+              <span className="flex justify-center">Year Built</span>
+              <BsCalendar3 className=" m-auto" />
+              <span className=" flex justify-center"> 2016</span>
+            </div>
+          </SplideSlide>
+        </Splide>
+        {/* <Splide hasTrack={ true }>
+  <SplideTrack>
+    <SplideSlide> <div className=" bg-gray-200 w-20 h-20 rounded-lg">
+          <span className="flex justify-center">Year Built</span>
+          <BsCalendar3 className=" m-auto" />
+          <span className=" flex justify-center"> 2016</span>
+        </div></SplideSlide>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <GiHomeGarage className=" mr-2" />
-            <span>1</span>
-          </li>
-          <li>Garage</li>
-        </ul>
-
-        <ul>
-          <li className=" flex items-center mb-3">
-            <RiPencilRuler2Line className=" mr-2" />
-            <span>120</span>
-          </li>
-          <li>Sq Ft</li>
-        </ul>
-
-        <ul>
-          <li className=" flex items-center mb-3">
-            <BsCalendar3 className=" mr-2" /> <span> 2016</span>
-          </li>
-          <li>Year Built</li>
-        </ul>
-      </div>
+  </SplideTrack>
+</Splide> */}
+      </overview_container>
 
       <br />
       <hr />
@@ -83,141 +105,225 @@ function OverviewDetails() {
         <Button onClick={() => setOfferType("period")}>period</Button>
         <div>
           {offerType === "cash" ? (
-            <div className="lg:flex  w-full  border-2 border-gray-400 rounded-xl min-h-[200px] items-center">
-              <div className="lg:border-r-large lg:border-gray-400  flex justify-center items-center m-auto  min-h-[150px]  lg:w-4/12 w-11/12">
+            <table_payment className="md:flex  w-full  border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
+              <price_ className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div>
-                  <div className="font-bold text-lg">Price</div>
+                  <div className="font-bold sm:text-3xl">Price</div>
                   <div className="flex">
-                    <span className="font-bold text-3xl">15,000</span>
-                    <span className=" font-bold text-3xl">/month</span>
+                    <span className="font-bold sm:text-3xl">600</span>
+                    <span className=" font-bold sm:text-3xl">EGP</span>
                   </div>
                 </div>
-              </div>
+              </price_>
 
-              <div className=" flex lg:w-7/12 w-full justify-center ">
+              <continuer_table_details className=" min-h-[100px] flex md:w-7/12 w-full justify-center ">
+                <table_details className="md:flex  w-11/12 justify-center ">
+                  <colum_one className="w-6/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3 ">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12 ">
+                        {/*sm:w-7/12 w-5/12 */} Sale Option
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        Cash
+                      </span>
+                    </div>
+                  </colum_one>
 
-                <div className="lg:flex h-full lg:w-full  ">
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul className=" ">
-                      <li className="font-bold ">Sale Option</li>
-                    </ul>
-                    <ul className=" ">
-                      <li className="">Cash</li>
-                    </ul>
-                  </div>
-
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul>                      
-                      <li className=" font-bold">Negotiable</li>
-                    </ul>
-                    <ul>
-                      <li className="">
-                        <MdCheckCircleOutline />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+                  <colum_tow className="w-5/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        Negotiable
+                      </span>
+                      <span className="w-6/12 flex justify-end">
+                        <BsSlashCircle />
+                      </span>
+                    </div>
+                  </colum_tow>
+                </table_details>
+              </continuer_table_details>
+            </table_payment>
           ) : null}
 
           {offerType === "installment" ? (
-            <div className="lg:flex  w-full  border-2 border-gray-400 rounded-xl min-h-[200px] items-center">
-              <div className="lg:border-r-large lg:border-gray-400  flex justify-center items-center m-auto  min-h-[150px]  lg:w-4/12 w-11/12">
+            <table_payment className="md:flex  w-full  border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
+              <price_ className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div>
-                  <div className="font-bold text-lg">Down Payment</div>
-                  <div>
-                    {" "}
-                    <span className="font-bold text-5xl">250,000</span>
-                    <span className=" font-bold">EGP</span>
+                  <div className="font-bold sm:text-3xl">Down Payment</div>
+                  <div className="flex">
+                    <span className="font-bold sm:text-3xl">250,000</span>
+                    <span className=" font-bold sm:text-3xl">EGP</span>
                   </div>
                 </div>
-              </div>
+              </price_>
 
-              <div className=" flex lg:w-7/12 w-full justify-center ">
+              <continuer_table_details className=" min-h-[100px] flex md:w-7/12 w-full justify-center ">
+                <table_details className="md:flex  w-11/12 justify-center ">
+                  <colum_one className="w-6/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3 ">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12 ">
+                        {/*sm:w-7/12 w-5/12 */} Sale Option
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        Installment,Cash
+                      </span>
+                    </div>
 
-                <div className="lg:flex h-full lg:w-full  ">
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul className=" ">
-                      <li className="font-bold ">Seal Option:</li>
-                      <li className="font-bold ">installment Option:</li>
-                      <li className="font-bold ">installment Period:</li>
-                    </ul>
-                    <ul className=" ">
-                      <li className="">installment , Cash</li>
-                      <li className="">Yearly</li>
-                      <li className="">10,00</li>
-                    </ul>
-                  </div>
+                    <div className=" flex sm:w-full  w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12  ">
+                        {/*sm:w-7/12 w-5/12 */} installment Option
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        Yearly
+                      </span>
+                    </div>
 
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul>
-                      <li className=" font-bold">installment Amount:</li>
-                      
-                      <li className=" font-bold">Negotiable:</li>
-                    </ul>
-                    <ul>
-                      <li className="">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        installment Period
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 items-center text-end">
+                        10,000
+                      </span>
+                    </div>
+                  </colum_one>
+
+                  <colum_tow className="w-5/12  ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        installment Amount
+                      </span>
+                      <span className="w-6/12 text-end sm:text-[10px] text-[8px] ">
                         10,000 <span>EGP</span>
-                      </li>
-                      <li className="">
-                        <MdCheckCircleOutline />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+                      </span>
+                    </div>
+
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      {" "}
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        Negotiable
+                      </span>
+                      <span className=" w-6/12 flex justify-end">
+                        <BsSlashCircle />
+                      </span>
+                    </div>
+                  </colum_tow>
+                </table_details>
+              </continuer_table_details>
+            </table_payment>
           ) : null}
           {offerType === "period" ? (
-            <div className="lg:flex  w-full  border-2 border-gray-400 rounded-xl min-h-[200px] items-center">
-              <div className="lg:border-r-large lg:border-gray-400  flex justify-center items-center m-auto  min-h-[150px]  lg:w-4/12 w-11/12">
+            <table_payment className="md:flex  w-full  border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
+              <price_ className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div>
-                  <div className="font-bold text-lg">Price</div>
-                  <div>
-                    <span className="font-bold text-5xl">15,000</span>
-                    <span className=" font-bold">/month</span>
+                  <div className="font-bold sm:text-3xl">Price</div>
+                  <div className="flex">
+                    <span className="font-bold sm:text-3xl">15,000</span>
+                    <span className=" font-bold sm:text-3xl">/month</span>
                   </div>
                 </div>
-              </div>
+              </price_>
 
-              <div className=" flex lg:w-7/12 w-full justify-center ">
+              <continuer_table_details className=" min-h-[100px] flex md:w-7/12 w-full justify-center ">
+                <table_details className="md:flex  w-11/12 justify-center ">
+                  <colum_one className="w-6/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3 ">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12 ">
+                        {/*sm:w-7/12 w-5/12 */} Insurance
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        {" "}
+                        50,000 <span>EGP</span>
+                      </span>
+                    </div>
 
-                <div className="lg:flex h-full lg:w-full  ">
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul className=" ">
+                    <div className=" flex sm:w-full  w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12  ">
+                        {/*sm:w-7/12 w-5/12 */} Rental Period
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        Daily
+                      </span>
+                    </div>
+                  </colum_one>
+
+                  <colum_tow className="w-5/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        Commission
+                      </span>
+                      <span className="w-6/12 text-end sm:text-[10px] text-[8px] ">
+                        10<span>EGP</span>
+                      </span>
+                    </div>
+
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      {" "}
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        Negotiable
+                      </span>
+                      <span className=" w-6/12 flex justify-end">
+                        <BsSlashCircle />
+                      </span>
+                    </div>
+                  </colum_tow>
+                </table_details>
+              </continuer_table_details>
+            </table_payment>
+          ) : /*      
                       <li className="font-bold ">Insurance</li>
                       <li className="font-bold ">Rental Period</li>
-                    </ul>
-                    <ul className=" ">
-                      <li className="">50,000 <span>EGP</span></li>
+                        50,000 <span>EGP</span>
                       <li className="">Daily</li>
-                    </ul>
-                  </div>
+ />*/
 
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul>
-                      <li className=" font-bold">Commission</li>
-                      
-                      <li className=" font-bold">Negotiable:</li>
-                    </ul>
-                    <ul>
-                      <li className="">
-                        10<span>EGP</span>
-                      </li>
-                      <li className="">
-                        <MdCheckCircleOutline />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : null}
+          null}
         </div>
       </div>
     </div>
   );
 }
 export default memo(OverviewDetails);
+
+/**      <overview_container className=" w-full  bg-red-200">
+      <div className=" lg:flex justify-between">
+
+        <div className=" bg-gray-300 w-20 h-20  rounded-lg">
+          <span className="flex justify-center">bedroom</span>
+          <RiHotelBedFill className=" m-auto" />
+          <span className=" flex justify-center">1</span>
+        </div>
+
+        <div className=" bg-gray-300 w-20 h-20 rounded-lg">
+          <span className="flex justify-center">Bathroom</span>
+
+          <MdOutlineBathtub className=" m-auto" />
+          <span className=" flex justify-center">1</span>
+        </div>
+
+        <div className=" bg-gray-300 w-20 h-20 rounded-lg">
+          <span className="flex justify-center">Garage</span>
+
+          <GiHomeGarage className=" m-auto" />
+          <span className=" flex justify-center">1</span>
+        </div>
+
+        <div className=" bg-gray-300 w-20 h-20 rounded-lg">
+          <span className="flex justify-center">Sq Ft</span>
+
+          <RiPencilRuler2Line className=" m-auto" />
+          <span className=" flex justify-center">120</span>
+        </div>
+
+        <div className=" bg-gray-300 w-20 h-20 rounded-lg">
+          <span className="flex justify-center">Year Built</span>
+          <BsCalendar3 className=" m-auto" />
+          <span className=" flex justify-center"> 2016</span>
+        </div>
+        </div>
+      </overview_container> */

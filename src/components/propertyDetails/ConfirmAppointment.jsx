@@ -1,17 +1,17 @@
 import React,{memo} from "react";
 import { User, Checkbox, Link ,Button,Input,Textarea} from "@nextui-org/react";
-import { Carousel } from 'react-responsive-carousel';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
  function ConfirmAppointment() {
   return (
 
-      <div className=" py-10 border-2 border-gray-200 rounded-3xl">
+      <div className=" py-5 mb-10 border-2 border-gray-200 rounded-3xl">
       <center>
-        <h2 className="text-lg pb-7"><b>Confirm Appointment</b></h2>
+        <h2 className="text-lg text-lightGreen pb-3"><b>Confirm Appointment</b></h2>
         </center>
 
         {/*user info module*/}
-        <div className=" pb-5">
+        <div className="">
         {/*user info*/}
           <center>
             <User            
@@ -31,28 +31,50 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
         </div>
 
 
-        <div className="">{/**w-8/12 bg-red-200 overflow-hidden   */}
+        <div className="">
+        <Splide className="" options={ {
+    rewind: true,
+    // width : "100%",
+    // perPage: 3,
+    fixedWidth  : 105,
+    // arrows:false ,
+    gap   : '1rem',
+    // perMove:0,
+  } } aria-label="My Favorite Images">
+  <SplideSlide>
+  <button className=" bg-gray-300 w-16 h-20  rounded-lg">
+  <span className="flex justify-center">Aug</span>
+          {/* <RiHotelBedFill className=" m-auto" /> */}
+          <span className=" flex justify-center">3</span>
+        </button>
+  </SplideSlide>
+  <SplideSlide>
+  <button className=" bg-gray-300 w-16 h-20 rounded-lg">
+          <span className="flex justify-center">Aug</span>
 
-         {/*
-        <div class="">
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">01</button>
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">02</button>
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">03</button>
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">04</button>
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">05</button>
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">06</button>
-  <button className="w-20 h-20 m-1 text-4xl bg-gray-200 rounded-xl justify-center  ">07</button>
+          {/* <MdOutlineBathtub className=" m-auto" /> */}
+          <span className=" flex justify-center">4</span>
+        </button>
+  </SplideSlide>
+  <SplideSlide>    <button className=" bg-gray-300 w-16 h-20 rounded-lg">
+  <span className="flex justify-center">Aug</span>
 
-</div> 
+          {/* <GiHomeGarage className=" m-auto" /> */}
+          <span className=" flex justify-center">5</span>
+        </button></SplideSlide>
+  <SplideSlide>     <button className=" bg-gray-300 w-16 h-20 rounded-lg">
+  <span className="flex justify-center">Aug</span>
 
-       <div className="grid  grid-rows-4 overflow-auto date_slider">
-        <button className="w-20 h-20 mx-1 flex text-4xl bg-gray-200 rounded-xl justify-center items-center ">1</button>
-        <button className="w-20 h-20 mx-1 flex text-4xl bg-gray-200 rounded-xl justify-center items-center ">2</button>
-        <button className="w-20 h-20 mx-1 flex text-4xl bg-gray-200 rounded-xl justify-center items-center ">3</button>
-        <button className="w-20 h-20 mx-1 flex text-4xl bg-gray-200 rounded-xl justify-center items-center ">4</button>
-        <button className="w-20 h-20 mx-1 flex text-4xl bg-gray-200 rounded-xl justify-center items-center ">5</button>
-        <button className="w-20 h-20 mx-1 flex text-4xl bg-gray-200 rounded-xl justify-center items-center ">6</button>
-      </div> */}
+          {/* <RiPencilRuler2Line className=" m-auto" /> */}
+          <span className=" flex justify-center">6</span>
+        </button></SplideSlide>
+  <SplideSlide>        <button className=" bg-gray-300 w-16 h-20 rounded-lg">
+  <span className="flex justify-center">Aug</span>
+          {/* <BsCalendar3 className=" m-auto" /> */}
+          <span className=" flex justify-center"> 7</span>
+        </button></SplideSlide>
+
+</Splide>
       </div>
 
         <div className="">
@@ -108,10 +130,10 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
             <center className=" ">
             <div className="my-2 ">
-            <Button radius="sm" type="submit" className="mr-2 bg-lightGreenHover text-white">
+            <Button radius="sm" type="submit" className="mr-2 bg-lightGreen text-white">
         <b>send Message</b>
       </Button> 
-      <Button radius="sm" variant="bordered"  className="border-2 border-lightGreenHover text-lightGreenHover">
+      <Button radius="sm" variant="bordered"  className="border-2 border-lightGreen text-lightGreen">
         <b>Call</b>
       </Button> 
       </div>

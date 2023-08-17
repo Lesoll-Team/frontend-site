@@ -4,6 +4,10 @@ import Head from "next/head";
 import { Fragment} from "react";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch } from "react-redux";
+import '@splidejs/react-splide/css';
+import '@splidejs/react-splide/css/skyblue';
+import '@splidejs/react-splide/css/sea-green';
+import '@splidejs/react-splide/css/core';
 // import {Badge, Button} from "@nextui-org/react";
 // import { MdNotificationsNone, MdClear } from "react-icons/md";
 

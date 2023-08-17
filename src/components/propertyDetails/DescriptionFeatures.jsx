@@ -18,7 +18,7 @@ function DescriptionFeatures() {
     <div>
       <h1 className="font-bold ">Description</h1>
       <div>
-        <p className="  text-justify">
+        <p className=" sm:text-[11px] text-[10px] text-justify ">
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
           nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
           volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
@@ -56,22 +56,22 @@ function DescriptionFeatures() {
           <TableColumn></TableColumn>
           <TableColumn></TableColumn>
         </TableHeader>
-        <TableBody>
-          <TableRow key="1">
-            <TableCell>
+        <TableBody >
+          <TableRow key="1" >
+            <TableCell className="sm:text-[11px] text-[10px]">
               {" "}
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Tony Reichert
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <BsSlashCircle className="mx-2 text-lightOrangeHover" />
                 CEO
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Active
@@ -79,20 +79,20 @@ function DescriptionFeatures() {
             </TableCell>
           </TableRow>
           <TableRow key="2">
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               {" "}
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Zoey Lang
               </span>{" "}
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Technical Lead
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Paused
@@ -100,19 +100,19 @@ function DescriptionFeatures() {
             </TableCell>
           </TableRow>
           <TableRow key="3">
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <BsSlashCircle className="mx-2 text-lightOrangeHover" />
                 Jane Fisher
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Senior Developer
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Active
@@ -120,19 +120,19 @@ function DescriptionFeatures() {
             </TableCell>
           </TableRow>
           <TableRow key="4">
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 William Howard
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <BsSlashCircle className="mx-2 text-lightOrangeHover" />
                 Community Manager
               </span>
             </TableCell>
-            <TableCell>
+            <TableCell className="sm:text-[11px] text-[10px]">
               <span className=" flex items-center">
                 <MdCheckCircleOutline className="mx-2" />
                 Vacation
