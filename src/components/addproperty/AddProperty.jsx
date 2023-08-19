@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import bgPic from "../../../public/addpropbg.webp";
 
 // step imports
-import GetStarted from "./steps/GetStarted";
-import PropertyInfo from "./steps/PropertyInfo";
-import Description from "./steps/Description";
-import Photos from "./steps/Photos";
-import Features from "./steps/Features";
-import SellerInfo from "./steps/SellerInfo";
-import Location from "./steps/Location";
-import Appointments from "./steps/Appointments";
-import Review from "./steps/Review";
+import GetStarted from "./steps/getStarted/GetStarted";
+import PropertyInfo from "./steps/propertyInfo/PropertyInfo";
+import Description from "./steps/desciption/Description";
+import Photos from "./steps/photos/Photos";
+import Features from "./steps/features/Features";
+import SellerInfo from "./steps/sellerInfo/SellerInfo";
+import Location from "./steps/location/Location";
+import Appointments from "./steps/appointments/Appointments";
+import Review from "./steps/reviewproperty/Review";
 import ListingPrice from "./steps/ListingPrice/ListingPrice";
 
 const AddProperty = () => {
@@ -68,27 +68,27 @@ const AddProperty = () => {
     } else if (currentStep === 8) {
       return <Appointments />;
     } else if (currentStep === 9) {
-      return <Review />;
+      return <Review setStep={setCurrentStep} />;
     } else {
       return <GetStarted />;
     }
   };
   return (
     <div className="min-h-[93vh] flex items-center justify-center flex-col mx-auto">
-      <div className="container mx-auto mb-5">
-        <h2 className="text-lightGreen text-4xl text-center my-5 font-semibold">
+      <div className="container mx-auto mb-10">
+        <h2 className="text-lightGreen text-4xl text-center my-4 md:my-10  font-semibold">
           Add Property
         </h2>
-        <div className="w-full lg:w-[80%] bg-white flex flex-col justify-between drop-shadow-2xl min-h-[550px] mx-auto border rounded-[40px]  pb-6">
+        <div className="w-full lg:w-[80%] bg-white flex flex-col justify-between  min-h-[560px] mx-auto border-4 rounded-[40px]  pb-6">
           <div>
             {/* progress bar */}
-            <div className="mt-4">
-              <h3 className="text-center text-lg text-lightOrange font-black tracking-widest">
+            <div className="mt-8">
+              {/* <h3 className="text-center text-lg text-lightOrange font-black tracking-widest">
                 {currentStep + 1}
                 <span className="px-3 text-darkGreen font-thin">/</span>
                 {steps.length}
-              </h3>
-              <div className="h-3 w-[95%] mx-auto border rounded-lg bg-darkGray mt-2 relative">
+              </h3> */}
+              <div className="h-3 w-[83%] md:w-[93%] mx-auto border rounded-lg bg-darkGray mt-2 relative">
                 <div
                   style={{
                     width: `${(currentStep / (steps.length - 1)) * 100}%`,

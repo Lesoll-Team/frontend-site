@@ -1,24 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 
-const PaymentMethod = (props) => {
-  const setPaymentMethod = props.setPaymentMethod;
-  const paymentMethod = props.paymentMethod;
-  const [paymentMethodMenu, setPaymentMethodMenu] = useState("");
+const InstallmentPlan = ({ installmentPlan, handleInstallmetPlan }) => {
+  const [installmentPlanMenu, setinstallmentPlanMenu] = useState("");
 
-  const handlePaymentMethod = () => {
-    setPaymentMethodMenu(!paymentMethodMenu);
+  const handleinstallmentPlanMenu = () => {
+    setinstallmentPlanMenu(!installmentPlanMenu);
   };
 
-  const paymentMethodButtonRef = useRef(null); // Ref for the payment method button
+  const installmentPlanButtonRef = useRef(null); // Ref for the payment method button
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        paymentMethodButtonRef.current &&
-        !paymentMethodButtonRef.current.contains(event.target)
+        installmentPlanButtonRef.current &&
+        !installmentPlanButtonRef.current.contains(event.target)
       ) {
-        setPaymentMethodMenu(false);
+        setinstallmentPlanMenu(false);
       }
     };
 
@@ -30,38 +28,44 @@ const PaymentMethod = (props) => {
   }, []);
   return (
     <div className={`relative w-full`}>
-      <h3 className="text-lg md:text-xl text-darkGreen font-semibold mb-2">
-        Payment Method
+      <h3 className="text-xl text-darkGreen font-semibold mb-2">
+        Installment plan
       </h3>
       <button
-        ref={paymentMethodButtonRef}
-        onClick={handlePaymentMethod}
+        ref={installmentPlanButtonRef}
+        onClick={handleinstallmentPlanMenu}
         className="w-full font-semibold text-darkGreen md:text-lg flex items-center justify-between gap-6 focus:outline-none bg-white  border-lightGreen rounded-xl p-4 drop-shadow-xl  whitespace-nowrap"
       >
-        {paymentMethod || "Payment Method"}
+        {installmentPlan || "Payment Method"}
         <AiFillCaretDown className="text-darkGreen" />
       </button>
-      {paymentMethodMenu && (
+      {installmentPlanMenu && (
         <div
           className={`absolute z-10 w-full  mt-1 bg-white duration-200 drop-shadow-2xl border rounded-xl `}
         >
           <p
-            onClick={() => setPaymentMethod("Cash")}
+            onClick={() => handleInstallmetPlan("month")}
             className="text-lg font-semibold text-darkGreen py-2 px-3  duration-200  "
           >
-            Cash
+            month
           </p>
           <p
-            onClick={() => setPaymentMethod("Installment")}
+            onClick={() => handleInstallmetPlan("3 month")}
             className="text-lg font-semibold text-darkGreen py-2 px-3 duration-200 hover:bg-slate-100"
           >
-            Installment
+            3 month
           </p>
           <p
-            onClick={() => setPaymentMethod("Cash & Installment")}
+            onClick={() => handleInstallmetPlan("6 month")}
             className="text-lg font-semibold text-darkGreen py-2 px-3 duration-200 hover:bg-slate-100"
           >
-            Cash & Installment
+            6 month
+          </p>
+          <p
+            onClick={() => handleInstallmetPlan("year")}
+            className="text-lg font-semibold text-darkGreen py-2 px-3 duration-200 hover:bg-slate-100"
+          >
+            year
           </p>
         </div>
       )}
@@ -69,4 +73,4 @@ const PaymentMethod = (props) => {
   );
 };
 
-export default PaymentMethod;
+export default InstallmentPlan;

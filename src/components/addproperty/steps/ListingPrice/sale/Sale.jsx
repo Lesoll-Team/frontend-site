@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import PaymentMethod from "./PaymentMethod";
-import Price from "../Price";
-import Cash from "./cash/Cash";
+
+import InstallmentPlan from "./installment/InstallmentPlan";
 import Installment from "./installment/Installment";
+import Summary from "./installment/Summary";
+import AddPropCheck from "@/components/addproperty/AddPropIputs/AddPropCheck";
+import AddPropInput from "@/components/addproperty/AddPropIputs/AddPropInput";
 
 const Sale = () => {
   const initialState = {
@@ -12,11 +15,13 @@ const Sale = () => {
       negotiable: false,
     },
     installment: {
-      downPayment: false,
+      downPayment: "",
       downPaymentType: "EGP",
       period: false,
       installmentAmount: "",
-      installmentPlane: "year",
+      installmentPlan: "year",
+      mintenacePayment: "",
+      mintenacePaymentType: "EGP",
     },
     realEstateFinance: false,
   };
@@ -46,10 +51,18 @@ const Sale = () => {
       },
     }));
   };
-  const handleRealEstateFinance = (method) => {
+  const handleRealEstateFinance = () => {
     setSaleData((prevData) => ({
       ...prevData,
       realEstateFinance: !prevData.realEstateFinance,
+    }));
+  };
+  const handleInstallmetPlan = (plan) => {
+    setSaleData((prevData) => ({
+      ...prevData,
+      installment: {
+        installmentPlan: plan,
+      },
     }));
   };
   return (
@@ -65,18 +78,50 @@ const Sale = () => {
           className="w-full"
         />
         {saleData.paymentMethod !== "" && (
-          <Price price={saleData.price} setPrice={handlePriceChange} />
-        )}
-        {saleData.paymentMethod === "Installment" && <Installment />}
-      </div>
-      {saleData.paymentMethod === "Cash" && (
-        <div className="w-full md:w-[48%]">
-          <Cash
-            negotiable={saleData.cash.negotiable}
-            setNegotiable={handleNegotiableChange}
-            realEstateFinance={saleData.realEstateFinance}
-            setRealEstateFinance={handleRealEstateFinance}
+          <AddPropInput
+            title={"Price"}
+            placeholder={"Price"}
+            egp={true}
+            value={saleData.price}
+            setValue={handlePriceChange}
           />
+        )}
+        {saleData.paymentMethod !== "" ? (
+          saleData.paymentMethod !== "Cash" ? (
+            <Installment />
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
+      </div>
+      {saleData.paymentMethod !== "" && (
+        <div className="w-full md:w-[48%]">
+          {saleData.paymentMethod === "Cash" ? (
+            <div className="space-y-4">
+              {/* Nogitiable checkbox */}
+              <AddPropCheck
+                title={"Negotiable"}
+                value={saleData.cash.negotiable}
+                setValue={handleNegotiableChange}
+              />
+              {/* realEstateFinance checkbox */}
+              <AddPropCheck
+                title={"Real Estate Finance"}
+                value={saleData.realEstateFinance}
+                setValue={handleRealEstateFinance}
+              />
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <InstallmentPlan
+                installmentPlan={saleData.installment.installmentPlan}
+                handleInstallmetPlan={handleInstallmetPlan}
+              />
+              <Summary />
+            </div>
+          )}
         </div>
       )}
     </div>
