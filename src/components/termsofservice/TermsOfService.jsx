@@ -1,3 +1,4 @@
+import { memo } from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -35,4 +36,4 @@ export const TermsOfService = () => {
   );
 };
 
-export default TermsOfService;
+export default memo(TermsOfService);

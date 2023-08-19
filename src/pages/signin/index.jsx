@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Head from "next/head";
 const SignIn = () => {
   const router = useRouter();
 
@@ -20,6 +21,8 @@ const SignIn = () => {
 }, [isLoading, router]);
   return (
     <>
+      <Head><title>Lesoll Sign In</title></Head> 
+
       {!loading ? (
         <div className="flex flex-col md:flex-row ">
           {/* form div*/}

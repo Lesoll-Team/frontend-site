@@ -15,6 +15,8 @@ import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
+import {Badge, Button} from "@nextui-org/react";
+
 
 
 export default function Navbar() {
@@ -158,12 +160,24 @@ export default function Navbar() {
 
         {/*button Notifications */}
           <li className={` ${isAuth ?  ` ${searchVisible? 'hidden':' '}`:"hidden" } relative`}>
-            <button onClick={() => setNotifications(!notifications)}>
+          <Badge content={2} shape="circle" color="danger">
+          <Button
+          onClick={() => setNotifications(!notifications)}
+        radius="full"
+        isIconOnly
+        color="primary"
+        aria-label="more than 99 notifications"
+        variant="light"
+      >
+        <MdNotificationsNone className="text-lightGreen" size={30} />
+      </Button>
+          </Badge>
+            {/* <button onClick={() => setNotifications(!notifications)}>
               <MdNotificationsNone
                 className={` rounded-full 
                text-lightGreen bg-white text-4xl  hover:bg-lightGreenHover hover:text-white  active:scale-95`}
               />
-            </button>
+            </button> */}
           </li>
 
           {/*button SignUp*/}

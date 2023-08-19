@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Profile from "@/components/profile/Profile";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Head from "next/head";
 const ProfilePage = () => {
   const router=useRouter()
 
@@ -19,7 +20,10 @@ const ProfilePage = () => {
 // console.log(loading);
 }, [isLoading, router]);
   return <>
+      <Head><title>Lesoll Profile</title></Head> 
+
   {loading ?(
+
   <Profile />):(<div className="w-full flex justify-center items-center h-screen ">
   <b> You not have access...</b>
  </div>)}

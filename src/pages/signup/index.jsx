@@ -5,6 +5,7 @@ import SignUpForm from "@/components/signup/SignUpForm";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Head from "next/head";
 const SignUp = () => {
   const router=useRouter()
 
@@ -21,6 +22,8 @@ const SignUp = () => {
 }, [isLoading, router]);
 
   return (<>
+      <Head><title>Lesoll Sign Up</title></Head> 
+
   {!loading?(
     <div className="flex flex-col md:flex-row ">
       {/* form div*/}
