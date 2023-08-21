@@ -8,6 +8,8 @@ const AddPropInput = ({
   setValue,
   egp,
   percent,
+
+  period,
 }) => {
   return (
     <div className="relative">
@@ -16,7 +18,7 @@ const AddPropInput = ({
       </h3>
       <div className="relative">
         <input
-          value={value}
+          value={value || ""}
           onChange={(e) => setValue(e.target.value)}
           className=" w-full text-lg font-medium text-darkGreen focus:outline-none placeholder:text-darkGreen placeholder:opacity-60   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
           placeholder={placeholder}
@@ -25,6 +27,12 @@ const AddPropInput = ({
         {egp && (
           <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-white">
             EGP
+          </p>
+        )}
+        {/* Period  */}
+        {period && (
+          <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-white">
+            {period}
           </p>
         )}
       </div>

@@ -29,7 +29,7 @@ const SellerInfo = () => {
     }));
   };
   return (
-    <div className="w-full mx-auto px-8 md:px-8 my-8 space-y-3">
+    <div className="w-full mx-auto px-6 md:px-8 my-8 space-y-3">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
         Who's listing this property
       </h3>

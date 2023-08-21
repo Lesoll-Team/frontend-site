@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import PaymentMethod from "./PaymentMethod";
+import { useSelector, useDispatch } from "react-redux";
+import { setPaymentMethod } from "@/redux-store/features/propertySlice";
 
-import InstallmentPlan from "./installment/InstallmentPlan";
 import Installment from "./installment/Installment";
-import Summary from "./installment/Summary";
-import AddPropCheck from "@/components/addproperty/AddPropIputs/AddPropCheck";
-import AddPropInput from "@/components/addproperty/AddPropIputs/AddPropInput";
+
+import AddPropDropdown from "@/components/addproperty/AddPropIputs/AddPropDropdown";
+import Cash from "./cash/Cash";
 
 const Sale = () => {
+  const dispatch = useDispatch();
+  const paymentMethod = useSelector((state) => state.Property.saleOption);
+  console.log(paymentMethod);
   const initialState = {
-    paymentMethod: "",
+    // paymentMethod: "",
     price: "",
     cash: {
       negotiable: false,
@@ -27,13 +30,10 @@ const Sale = () => {
   };
   const [saleData, setSaleData] = useState(initialState);
 
-  console.log(saleData.paymentMethod);
+  // console.log(saleData.paymentMethod);
 
   const handlePaymentMethodChange = (method) => {
-    setSaleData((prevData) => ({
-      ...prevData,
-      paymentMethod: method,
-    }));
+    dispatch(setPaymentMethod(method));
   };
 
   const handlePriceChange = (newPrice) => {
@@ -66,65 +66,29 @@ const Sale = () => {
     }));
   };
   return (
-    <div className="w-full flex flex-col md:flex-row justify-between items-start md:space-y-0 space-y-4">
-      <div
-        className={`duration-200 w-full space-y-4 ${
-          saleData.paymentMethod !== "" ? "md:w-[48%]" : "w-full"
-        }`}
-      >
-        <PaymentMethod
-          paymentMethod={saleData.paymentMethod}
-          setPaymentMethod={handlePaymentMethodChange}
-          className="w-full"
+    <>
+      {!paymentMethod && (
+        <AddPropDropdown
+          title={"Payment method"}
+          setValue={(method) => {
+            dispatch(setPaymentMethod(method));
+          }}
+          value={paymentMethod}
+          options={["Cash", "Installment"]}
         />
-        {saleData.paymentMethod !== "" && (
-          <AddPropInput
-            title={"Price"}
-            placeholder={"Price"}
-            egp={true}
-            value={saleData.price}
-            setValue={handlePriceChange}
-          />
-        )}
-        {saleData.paymentMethod !== "" ? (
-          saleData.paymentMethod !== "Cash" ? (
+      )}
+      <div className="w-full   md:space-y-0 space-y-4">
+        <div>
+          {paymentMethod === "Cash" ? (
+            <Cash />
+          ) : paymentMethod === "Installment" ? (
             <Installment />
           ) : (
             ""
-          )
-        ) : (
-          ""
-        )}
-      </div>
-      {saleData.paymentMethod !== "" && (
-        <div className="w-full md:w-[48%]">
-          {saleData.paymentMethod === "Cash" ? (
-            <div className="space-y-4">
-              {/* Nogitiable checkbox */}
-              <AddPropCheck
-                title={"Negotiable"}
-                value={saleData.cash.negotiable}
-                setValue={handleNegotiableChange}
-              />
-              {/* realEstateFinance checkbox */}
-              <AddPropCheck
-                title={"Real Estate Finance"}
-                value={saleData.realEstateFinance}
-                setValue={handleRealEstateFinance}
-              />
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <InstallmentPlan
-                installmentPlan={saleData.installment.installmentPlan}
-                handleInstallmetPlan={handleInstallmetPlan}
-              />
-              <Summary />
-            </div>
           )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

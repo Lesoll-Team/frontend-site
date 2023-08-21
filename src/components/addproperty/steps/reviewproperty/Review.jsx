@@ -1,8 +1,15 @@
 import RealtyCard from "@/components/realtyCard/RealtyCard";
 import React from "react";
 import { FiEdit } from "react-icons/fi";
-
+import { useSelector } from "react-redux";
 const Review = ({ setStep }) => {
+  const price = useSelector((state) => state.Property.price);
+  const title = useSelector((state) => state.Property.title);
+  const offer = useSelector((state) => state.Property.offer);
+  const rooms = useSelector((state) => state.Property.rooms);
+  const bathRooms = useSelector((state) => state.Property.bathRooms);
+  const area = useSelector((state) => state.Property.area);
+  const description = useSelector((state) => state.Property.description);
   const steps = [
     "get started",
     "property info",
@@ -47,7 +54,16 @@ const Review = ({ setStep }) => {
           })}
         </div>
 
-        <RealtyCard className="col-span-1 " />
+        <RealtyCard
+          price={price}
+          title={title}
+          rooms={rooms}
+          offer={offer}
+          bathRooms={bathRooms}
+          area={area}
+          description={description}
+          className="col-span-1 "
+        />
       </div>
     </div>
   );

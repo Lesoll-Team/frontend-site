@@ -1,41 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
 import AddPropInput from "../../AddPropIputs/AddPropInput";
 import AddPropCheck from "../../AddPropIputs/AddPropCheck";
 import AddPropDropdown from "../../AddPropIputs/AddPropDropdown";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setArea,
+  setRooms,
+  setBathRooms,
+  setFinishingType,
+  setIsFurnished,
+  setIsRegisterd,
+} from "@/redux-store/features/propertySlice";
 
 const PropertyInfo = () => {
-  const [finishingOptions, setFinishingOptions] = useState("");
-  const [area, setArea] = useState("");
-  const [rooms, setRooms] = useState("");
-  const [bathRooms, setBathRooms] = useState("");
-  const [finishingOptionsMenu, setFinishingOptionsMenu] = useState(false);
+  // const [finishingOptions, setFinishingOptions] = useState("");
+
+  // const [rooms, setRooms] = useState("");
+  // const [bathRooms, setBathRooms] = useState("");
   const [furnished, setFurnished] = useState(false);
   const [registerd, setRegisterd] = useState(false);
 
-  const handleFinishingOptions = () => {
-    setFinishingOptionsMenu(!finishingOptionsMenu);
-  };
-  const finishingOptionsButtonRef = useRef(null); // Ref for the finishing options button
+  const dispatch = useDispatch();
+  const area = useSelector((state) => state.Property.area);
+  const rooms = useSelector((state) => state.Property.rooms);
+  const bathRooms = useSelector((state) => state.Property.bathRooms);
+  const finishingType = useSelector((state) => state.Property.finishingType);
+  const isFurnished = useSelector((state) => state.Property.isFurnished);
+  const isRegisterd = useSelector((state) => state.Property.isRegisterd);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        finishingOptionsButtonRef.current &&
-        !finishingOptionsButtonRef.current.contains(event.target)
-      ) {
-        setFinishingOptionsMenu(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
   return (
-    <div className=" w-full mx-auto px-8 md:px-8 my-8   ">
+    <div className=" w-full mx-auto px-6 md:px-8 my-8   ">
       <h3 className="text-lg md:text-2xl text-darkGreen font-bold mb-3  ">
         Property Info
       </h3>
@@ -46,40 +40,40 @@ const PropertyInfo = () => {
             placeholder={"Area"}
             type={"number"}
             value={area}
-            setValue={setArea}
+            setValue={(area) => dispatch(setArea(area))}
           />
           <AddPropInput
             title={"Number of rooms"}
             placeholder={"Number of rooms"}
             type={"number"}
             value={rooms}
-            setValue={setRooms}
+            setValue={(rooms) => dispatch(setRooms(rooms))}
           />
           <AddPropInput
             title={"Number of bathrooms"}
             placeholder={"Number of batrooms"}
             type={"number"}
             value={bathRooms}
-            setValue={setBathRooms}
+            setValue={(bathrooms) => dispatch(setBathRooms(bathrooms))}
           />
         </div>
         <div className="  w-full md:w-[48%] space-y-5">
           <AddPropDropdown
-            title={"Finishing Options"}
-            options={["Residential", "Commercial", "Land"]}
-            value={finishingOptions}
-            setValue={setFinishingOptions}
+            title={"Finishing Type"}
+            options={["Super Lux", "Lux", "Semi Finished", "Not Finished"]}
+            value={finishingType}
+            setValue={(type) => dispatch(setFinishingType(type))}
           />
 
           <AddPropCheck
             title={"Furnished"}
-            value={furnished}
-            setValue={setFurnished}
+            value={isFurnished}
+            setValue={() => dispatch(setIsFurnished())}
           />
           <AddPropCheck
             title={"Registerd"}
-            value={registerd}
-            setValue={setRegisterd}
+            value={isRegisterd}
+            setValue={() => dispatch(setIsRegisterd())}
           />
         </div>
       </div>

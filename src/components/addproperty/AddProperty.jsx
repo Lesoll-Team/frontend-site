@@ -74,12 +74,12 @@ const AddProperty = () => {
     }
   };
   return (
-    <div className="min-h-[93vh] flex items-center justify-center flex-col mx-auto">
+    <div className="min-h-[93vh] flex items-center justify-center flex-col mx-auto bg-[url(../../public/addpropbg.webp)] bg-no-repeat bg-cover">
       <div className="container mx-auto mb-10">
-        <h2 className="text-lightGreen text-4xl text-center my-4 md:my-10  font-semibold">
+        <h2 className="text-white text-4xl text-center my-4 md:my-10  font-semibold">
           Add Property
         </h2>
-        <div className="w-full lg:w-[80%] bg-white flex flex-col justify-between  min-h-[560px] mx-auto border-4 rounded-[40px]  pb-6">
+        <div className="w-full lg:w-[80%] bg-white flex flex-col justify-between  min-h-[560px] mx-auto  rounded-[40px]  pb-6 drop-shadow-xl">
           <div>
             {/* progress bar */}
             <div className="mt-8">

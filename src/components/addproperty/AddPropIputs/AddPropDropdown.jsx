@@ -45,11 +45,11 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute z-10 w-full  mt-1 bg-white duration-200 drop-shadow-2xl border rounded-xl `}
+          className={`absolute z-10 w-full  mt-1 bg-white duration-200 drop-shadow-2xl border overflow-y-auto rounded-xl max-h-[200px]`}
         >
-          {options.map((option) => (
+          {options.map((option, i) => (
             <p
-              key={option}
+              key={i}
               onClick={() => setValue(option)}
               className="text-lg font-semibold text-darkGreen py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
             >

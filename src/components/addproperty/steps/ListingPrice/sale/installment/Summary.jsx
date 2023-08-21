@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 const Summary = () => {
+  const price = useSelector((state) => state.Property.price);
   const n = "";
 
   return (
@@ -8,14 +10,14 @@ const Summary = () => {
         <div>
           <h4 className="text-darkGreen font-semibold text-lg">Price</h4>
           <div className="w-full font-semibold  md:text-lg flex items-center justify-between gap-6 focus:outline-none bg-darkGreen text-white  border-lightGreen rounded-xl p-4 drop-shadow-xl  whitespace-nowrap">
-            <p>test</p>
+            <p>{!price ? "0" : parseInt(price).toLocaleString()}</p>
             <p>EGP</p>
           </div>
         </div>
         <div>
           <h4 className="text-darkGreen font-semibold text-lg">Down payment</h4>
           <div className="w-full font-semibold  md:text-lg flex items-center justify-between gap-6 focus:outline-none bg-darkGreen text-white  border-lightGreen rounded-xl p-4 drop-shadow-xl  whitespace-nowrap">
-            <p>test</p>
+            <p>{0}</p>
             <p>EGP</p>
           </div>
         </div>
