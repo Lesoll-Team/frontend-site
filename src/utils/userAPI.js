@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function registerUser(userData) {
   try {
-    const response = await axios.post(`http://api0.lesoll-demo.site/api/auth/register`,userData);// register
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`,userData);// register
     return response.data;
   } catch (error) {
     throw error.response.data
@@ -11,40 +11,52 @@ export async function registerUser(userData) {
 }
 export async function loginUser(userData) {
   try {
-    const response = await axios.post(`http://api0.lesoll-demo.site/api/auth/login`,userData);//login 
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,userData);//login 
     return response.data;
   } catch (error) {
     throw error.response.data
   }
 }
 
-
-export async function getUserData(userToken) {
-  if (userToken!=null) {
-    const response = await axios.get(`http://api0.lesoll-demo.site/api/user/profile`,
-    {
-      headers:{
-        token:userToken
-      }
-    })//?token=${userToken}
-    .then((UserData)=>UserData.data.userData)
-    .catch((error)=>error.message)
-    return response
+export async function getUserData() {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  if (userToken != null) {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/profile`,
+        {
+          headers: {
+            token: userToken,
+          },
+        }
+      );
+      return response.data.userData;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
-  return null
+  return null;
 }
+
 
 
 export async function updateUserDataInfo(userID,userToken,userUpdate) {
   if (userToken!=null||userID!=null||userUpdate!=null) {
-    const response = await axios.put(`http://api0.lesoll-demo.site/api/user/update/${userID}?token=${userToken}`,userUpdate, {
+    try {
+    
+    const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}?token=${userToken}`,userUpdate, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then((message)=>message)
-    .catch((error)=>error)
     return response.data.userData
+
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+
   }
   return null
 
@@ -52,20 +64,6 @@ export async function updateUserDataInfo(userID,userToken,userUpdate) {
 
 
 
-// export async function updateUserPassword(userData,userLang) {
-//   if (userToken!=null||userID!=null||userUpdate!=null) {
-//     const response = await axios.put(`http://api0.lesoll-demo.site/api/user/update/${userID}?token=${userToken}`,userUpdate, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//     })
-//     .then((message)=>message)
-//     .catch((error)=>error)
-//     return response.data.userData
-//   }
-//   return null
-
-// }
 
 
 

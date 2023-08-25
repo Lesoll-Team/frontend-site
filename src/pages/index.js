@@ -5,10 +5,10 @@ import Head from "next/head";
 export default function Home() {
   return (
     <main>
-    <Head>
-    <title>Lesoll</title>
-      
-    </Head>
+      <Head>
+        <title>Lesoll</title>
+      </Head>
+      {/* {posts} */}
       <Main />
       <RecentRealties />
       <MostViewd />

@@ -1,129 +1,216 @@
-import React from 'react'
-import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, getKeyValue,Input} from "@nextui-org/react";
-
-import {EditIcon} from "./EditIcon";
-import {DeleteIcon} from "./DeleteIcon";
-// import {EyeIcon} from "./EyeIcon";
-import {columns, users} from "./data";
-import UserModule from './UserModule';
-const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
+import React from "react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+import BlogDashboard from './router/BlogDashboard' 
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import UserDashboard from "./router/UserDashboard";
+import PropertyDashboard from './router/PropertyDashboard'
+import ContactDashboard from './router/ContactDashboard'
 function Dashboard() {
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{radius: "lg", src: user.avatar}}
-            description={user.email}  
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">{user.team}</p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
   return (
- <div className="flex w-full flex-col ">
+    <div className="flex w-full flex-col ">
       <Tabs aria-label="Options">
-
-      <Tab key="Details" title="Details">
+        {/* <Tab key="Details" title="Details">
           <Card>
             <CardBody>
+              <Splide
+                options={{
+                  rewind: true,
+                  type: "loop",
+                  trimSpace: false,
+                  preloadPages: 1000,
+                  perPage: "full",
+                  breakpoints: {
+                    1600: {
+                      perPage: 6,
+                    },
+                    1366: {
+                      perPage: 4,
+                    },
+                    1024: {
+                      perPage: 3,
+                    },
+                    580: {
+                      perPage: 2,
+                    },
+                    410: {
+                      perPage: 1,
+                      padding: { left: 45 },
+                    },
+                    350: {
+                      perPage: 1,
+                      padding: { left: 20 },
+                    },
+                    300: {
+                      perPage: 1,
+                    },
+                  },
+                  focus: "center",
+                  gap: "2em",
+                  updateOnMove: true,
+                  pagination: false,
+                  rewindSpeed: 1000,
+                }}
+                aria-label="My Favorite Images"
+                className="m-auto xs:w-9/12 w-full"
+              >
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Users
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      500
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Property Rent
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      120
+                    </div>
+                  </div>
+                </SplideSlide>
+
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Property Buy
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      50
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Users Leave
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      10
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Company
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      22
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Broker
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      60
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Developers
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      5
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Users Watch
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      5000
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideSlide>
+                  <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                    <div className="text-center items-center font-bold text-2xl">
+                      Users Active
+                    </div>
+                    <div className="text-center items-center">P</div>
+                    <div className="text-center items-center font-bold text-1xl">
+                      145
+                    </div>
+                  </div>
+                </SplideSlide>
+                <SplideTrack>
+                  <SplideSlide>
+                    <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                      <div className="text-center items-center font-bold text-2xl">
+                        Users Active
+                      </div>
+                      <div className="text-center items-center">P</div>
+                      <div className="text-center items-center font-bold text-1xl">
+                        145
+                      </div>
+                    </div>
+                  </SplideSlide>
+                  <SplideSlide>
+                    <div className="w-36 h-36 my-5 rounded-xl bg-gray-200 grid grid-cols-1 ">
+                      <div className="text-center items-center font-bold text-2xl">
+                        Users Active
+                      </div>
+                      <div className="text-center items-center">P</div>
+                      <div className="text-center items-center font-bold text-1xl">
+                        145
+                      </div>
+                    </div>
+                  </SplideSlide>
+                </SplideTrack>
+              </Splide>
             </CardBody>
-          </Card>  
-        </Tab>
+          </Card>
+        </Tab> */}
 
         <Tab key="Property" title="Property">
           <Card>
             <CardBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+           <PropertyDashboard/>
             </CardBody>
-          </Card>  
+          </Card>
         </Tab>
 
         <Tab key="User" title="Users">
           <Card>
             <CardBody>
-            <Input
-      isClearable
-      type="email"
-      label="Search"
-      variant="bordered"
-      placeholder="Search Phone Or User Name"
-      onClear={() => console.log("input cleared")}
-      className="max-w-full"
-    />
-            <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={users}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+
+<UserDashboard/>
             </CardBody>
-          </Card>  
+          </Card>
         </Tab>
 
         <Tab key="Blog" title="Blogs">
           <Card>
             <CardBody>
+              <BlogDashboard/>
             </CardBody>
-          </Card>  
+          </Card>
         </Tab>
 
       </Tabs>
-
-      
-      
-    </div>  
-  )
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

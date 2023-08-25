@@ -24,6 +24,7 @@ const initialState = {
   registrationError: null,
   isLoding: getUserAuthFromLocalStorage(),
 };
+
 export const loginUserAsync = createAsyncThunk(
   "Auth/loginUser",
   async (userData) => {
@@ -44,7 +45,8 @@ export const deleteAccount = createAsyncThunk(
   "Auth/deleteUserAccount",
   async (data, thunkAPI) => {
     try {
-      const response = await axios.delete(`http://api0.lesoll-demo.site/api/user/delete/${data.userID}?token=${data.userToken}`);
+      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/delete/${data.userID}?token=${data.userToken}`);
+      // const response = await axios.delete(`http://api0.lesoll-demo.site/api/user/delete/${data.userID}?token=${data.userToken}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -127,5 +129,7 @@ const AuthSlice = createSlice({
 
   },
 });
+export const selectUserToken = (state) => state.Auth.userToken;
+
 export const { logoutUserToken } = AuthSlice.actions;
 export default AuthSlice.reducer;

@@ -7,7 +7,7 @@ export const TermsOfService = () => {
   const getTerms = () => {
     try {
       axios
-        .get(`http://api0.lesoll-demo.site:9000/api/admin/term/get`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/term/get`)
         .then((res) => {
           setTerms(res.data.terms);
         });

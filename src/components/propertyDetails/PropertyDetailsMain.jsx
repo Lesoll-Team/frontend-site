@@ -1,3 +1,4 @@
+
 import React, { memo } from "react";
 import ConfirmAppointment from "./ConfirmAppointment";
 import PropertyTitle from "./PropertyTitle";
@@ -7,11 +8,13 @@ import AddressLocation from "./AddressLocation";
 import SimilarListings from "./SimilarListings";
 import DescriptionFeatures from "./DescriptionFeatures";
 
-function PropertyDetailsMain() {
+function PropertyDetailsMain({singleProperty}) {
+
   return (
     <div className="container mx-auto">
       <div>
-        <PropertyTitle />
+        <PropertyTitle singleTitle={singleProperty}/>
+
       </div>
       <div className="lg:grid grid-cols-3">
         <div className="col-span-2 ">
@@ -24,13 +27,13 @@ function PropertyDetailsMain() {
 
       <div>
         <div className="mb-10">
-          <OverviewDetails />
+          <OverviewDetails  singleOverviewDetails={singleProperty}/>
         </div>
         <div className="mb-10">
-          <DescriptionFeatures />
+          <DescriptionFeatures singleDescriptionFeatures={singleProperty}/>
         </div>
         <div className="mb-10">
-          <AddressLocation />
+          <AddressLocation singleAddressLocation={singleProperty}/>
         </div>
       </div>
       <div>
