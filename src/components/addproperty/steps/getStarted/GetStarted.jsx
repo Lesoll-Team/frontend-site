@@ -9,6 +9,7 @@ import {
   setPropType,
   setUnitType,
 } from "@/redux-store/features/propertySlice";
+import FormControlBtns from "../../FormControlBtns";
 
 function GetStarted() {
   const dispatch = useDispatch();
@@ -17,45 +18,55 @@ function GetStarted() {
   const propertyType = useSelector((state) => state.Property.propType);
   const unitType = useSelector((state) => state.Property.unitType);
 
+  const canGoNext =
+    Boolean(propertyTitle) &&
+    Boolean(propertyType) &&
+    Boolean(unitType) &&
+    Boolean(listingOption);
   return (
-    <div className="w-full mx-auto px-6 md:px-8 my-5 space-y- flex flex-col justify-between">
-      <h2 className="text-center text-3xl font-bold  text-darkGreen">
-        Get started
-      </h2>
-      {/* Property title */}
+    <div className="w-full min-h-[450px] mx-auto px-6 md:px-8 my-5 space-y- flex flex-col justify-between">
+      <div>
+        <h2 className="text-center text-3xl font-bold  text-darkGreen">
+          Get started
+        </h2>
+        {/* Property title */}
 
-      <div className="space-y-10">
-        <AddPropInput
-          title={"Property title"}
-          placeholder={"Property title"}
-          value={propertyTitle}
-          setValue={(title) => dispatch(setTitle(title))}
-        />
-        <div className="flex flex-col md:flex-row justify-between items-start  gap-9 md:gap-4  ">
-          {/* property type */}
-          <AddPropDropdown
-            title={"Propety type"}
-            value={propertyType}
-            setValue={(type) => dispatch(setPropType(type))}
-            options={["Residential", "Commercial", "Land"]}
+        <div className="space-y-6 md:space-y-14">
+          <AddPropInput
+            title={"Property title"}
+            placeholder={"Property title"}
+            value={propertyTitle}
+            setValue={(title) => dispatch(setTitle(title))}
           />
+          <div className="flex flex-col md:flex-row justify-between items-start  gap-9 md:gap-4  ">
+            {/* property type */}
+            <AddPropDropdown
+              title={"Propety type"}
+              value={propertyType}
+              setValue={(type) => dispatch(setPropType(type))}
+              options={["Residential", "Commercial", "Land"]}
+            />
 
-          {/* unit type */}
-          <AddPropDropdown
-            title={"Unit type"}
-            value={unitType}
-            setValue={(type) => dispatch(setUnitType(type))}
-            options={["Residential", "Commercial", "Land"]}
-          />
+            {/* unit type */}
+            <AddPropDropdown
+              title={"Unit type"}
+              value={unitType}
+              setValue={(type) => dispatch(setUnitType(type))}
+              options={["Residential", "Commercial", "Land"]}
+            />
 
-          {/* listing options */}
-          <AddPropDropdown
-            title={"Listing options"}
-            value={listingOption}
-            setValue={(offer) => dispatch(setOffer(offer))}
-            options={["Sell", "Rent"]}
-          />
+            {/* listing options */}
+            <AddPropDropdown
+              title={"Listing options"}
+              value={listingOption}
+              setValue={(offer) => dispatch(setOffer(offer))}
+              options={["Sale", "Rent"]}
+            />
+          </div>
         </div>
+      </div>
+      <div className="-mb-6 mt-4">
+        <FormControlBtns canGoNext={canGoNext} />
       </div>
     </div>
   );

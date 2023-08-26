@@ -32,39 +32,6 @@ const Sale = () => {
 
   // console.log(saleData.paymentMethod);
 
-  const handlePaymentMethodChange = (method) => {
-    dispatch(setPaymentMethod(method));
-  };
-
-  const handlePriceChange = (newPrice) => {
-    setSaleData((prevData) => ({
-      ...prevData,
-      price: newPrice,
-    }));
-  };
-  const handleNegotiableChange = () => {
-    setSaleData((prevData) => ({
-      ...prevData,
-      cash: {
-        ...prevData.cash,
-        negotiable: !prevData.cash.negotiable,
-      },
-    }));
-  };
-  const handleRealEstateFinance = () => {
-    setSaleData((prevData) => ({
-      ...prevData,
-      realEstateFinance: !prevData.realEstateFinance,
-    }));
-  };
-  const handleInstallmetPlan = (plan) => {
-    setSaleData((prevData) => ({
-      ...prevData,
-      installment: {
-        installmentPlan: plan,
-      },
-    }));
-  };
   return (
     <>
       {!paymentMethod && (

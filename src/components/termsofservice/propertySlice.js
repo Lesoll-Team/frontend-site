@@ -66,24 +66,14 @@ dispatch(postProperty(PropertyData))
 export const postProperty = createAsyncThunk(
   "Property/postProperty",
   async (PropertyData) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-    if (userToken) {
-      try {
-        const response = await axios.post(
-          `http://ec2-184-73-152-95.compute-1.amazonaws.com:9000/api/property/create`,
-          PropertyData,
-          {
-            headers: {
-              tokrn: userToken,
-            },
-          }
-        );
-        return response.data;
-      } catch (err) {
-        return err.message;
-      }
-    } else {
-      return "Please login first";
+    try {
+      const response = await axios.post(
+        `http://ec2-184-73-152-95.compute-1.amazonaws.com:9000/api/property/create`,
+        PropertyData
+      );
+      return response.data;
+    } catch (err) {
+      return err.message;
     }
   }
 );

@@ -53,23 +53,23 @@ const Installment = () => {
           value={downPayment}
           setValue={(amount) => dispatch(setDownPayment(amount))}
         />
-        <AddPropDropdown
-          title={"Installment plan"}
-          value={installmentPlan}
-          setValue={(plan) => dispatch(setInstallmentPlan(plan))}
-          options={["Year", "Month"]}
-        />
 
-        {/* <AddPropInput
+        <AddPropInput
           title={"Maintenance Payment"}
           type={"number"}
           placeholder={"Price"}
           percent={true}
           value={maintenancePayment}
           setValue={setMaintenancePayment}
-        /> */}
+        />
       </div>
       <div className="w-full md:w-[48%] space-y-4">
+        <AddPropDropdown
+          title={"Installment plan"}
+          value={installmentPlan}
+          setValue={(plan) => dispatch(setInstallmentPlan(plan))}
+          options={["Year", "Month"]}
+        />
         <AddPropInput
           title={"Insatllment period"}
           type={"number"}

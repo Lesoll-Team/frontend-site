@@ -12,6 +12,7 @@ import Location from "./steps/location/Location";
 import Appointments from "./steps/appointments/Appointments";
 import Review from "./steps/reviewproperty/Review";
 import ListingPrice from "./steps/ListingPrice/ListingPrice";
+import { useSelector } from "react-redux";
 
 const AddProperty = () => {
   const steps = [
@@ -26,8 +27,8 @@ const AddProperty = () => {
     "appointments",
     "review",
   ];
-
-  const [currentStep, setCurrentStep] = useState(0);
+  const currentStep = useSelector((state) => state.Property.step);
+  // const [currentStep, setCurrentStep] = useState(0);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
@@ -68,18 +69,18 @@ const AddProperty = () => {
     } else if (currentStep === 8) {
       return <Appointments />;
     } else if (currentStep === 9) {
-      return <Review setStep={setCurrentStep} />;
+      return <Review />;
     } else {
       return <GetStarted />;
     }
   };
   return (
-    <div className="min-h-[93vh] flex items-center justify-center flex-col mx-auto bg-[url(../../public/addpropbg.webp)] bg-no-repeat bg-cover">
+    <div className="min-h-[93vh] flex items-center justify-center flex-col mx-auto bg-[url(../../public/addpropbg.webp)] bg-no-repeat bg-cover bg-left-top">
       <div className="container mx-auto mb-10">
         <h2 className="text-white text-4xl text-center my-4 md:my-10  font-semibold">
           Add Property
         </h2>
-        <div className="w-full lg:w-[80%] bg-white flex flex-col justify-between  min-h-[560px] mx-auto  rounded-[40px]  pb-6 drop-shadow-xl">
+        <div className="w-full lg:w-[85%] bg-white flex flex-col justify-between  min-h-[560px] mx-auto  rounded-[40px]  pb-6 drop-shadow-xl">
           <div>
             {/* progress bar */}
             <div className="mt-8">
@@ -98,41 +99,8 @@ const AddProperty = () => {
               </div>
             </div>
             {/* steps */}
-            <div className="mx-auto my-">{renderComponent()}</div>
+            <div className="mx-auto h-[100%]">{renderComponent()}</div>
           </div>
-
-          {/* buttons */}
-          {currentStep === 0 ? (
-            <div className="flex justify-center">
-              <button
-                onClick={handleNext}
-                className="bg-lightOrange text-white font-medium py-2 px-4 rounded-xl text-2xl w-[85%] md:w-96 my-5"
-              >
-                Get Started
-              </button>
-            </div>
-          ) : (
-            <div className="flex justify-between my-1 px-5 gap-5">
-              <button
-                onClick={handleBack}
-                className="bg-lightOrange rounded-xl py-2 px-4 text-white font-medium w-[100px] sm:w-[140px] md:w-[160px]"
-              >
-                Back
-              </button>
-              {currentStep === steps.length - 1 ? (
-                <button className="bg-lightGreen rounded-xl py-2 px-4 text-white font-medium w-[100px] sm:w-[140px] md:w-[160px]">
-                  Submit
-                </button>
-              ) : (
-                <button
-                  onClick={handleNext}
-                  className="bg-lightOrange rounded-xl py-2 px-4 text-white font-medium w-[100px] sm:w-[140px] md:w-[160px]"
-                >
-                  Next
-                </button>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -13,11 +13,8 @@ const RealtyCard = ({
   bathRooms,
   area,
   description,
+  isReview,
 }) => {
-  function getWordStr(str) {
-    return str.split(/\s+/).slice(0, 10).join(" ");
-  }
-  const shortDescription = getWordStr(description);
   return (
     <div className="md:max-w-[310px] lg:max-w-[350px] max-w-[295px] h-[410px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
@@ -28,21 +25,32 @@ const RealtyCard = ({
         </div>
       </div>
       {/* card img */}
-      <Image
-        alt="Realty"
-        src={testImg}
-        loading="lazy"
-        width={"auto"}
-        height={"auto"}
-        className="w-full h-[220px] overflow-hidden   object-cover"
-      />
+      {isReview ? (
+        <img
+          alt="Realty"
+          src={img || testImg}
+          loading="lazy"
+          width={"auto"}
+          height={"auto"}
+          className="w-full h-[220px] overflow-hidden   object-cover"
+        />
+      ) : (
+        <Image
+          alt="Realty"
+          src={img || testImg}
+          loading="lazy"
+          width={"auto"}
+          height={"auto"}
+          className="w-full h-[220px] overflow-hidden   object-cover"
+        />
+      )}
       {/* card body  */}
       <div className="relative ">
         <div className="  bg-lightGreen text-white rounded-b-[30px] h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
           <p className=" font-bold ">
             {price ? parseInt(price).toLocaleString() : 0} EGP
           </p>
-          <p className=" font-bold ">{offer || "exp: for sale"}</p>
+          <p className=" font-bold ">{offer || "For Sale"}</p>
         </div>
         <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
           <p>{title || "Title"}</p>

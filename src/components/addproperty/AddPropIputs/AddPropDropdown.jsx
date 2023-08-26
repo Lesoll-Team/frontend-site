@@ -34,7 +34,7 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
       <button
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-none bg-white  border-lightGreen rounded-xl p-4 drop-shadow-xl  whitespace-nowrap"
+        className="w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-lightGreen bg-white  border-lightGreen rounded-xl p-4 drop-shadow-xl  whitespace-nowrap"
       >
         {value || title}
         <AiFillCaretDown
@@ -51,7 +51,7 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
             <p
               key={i}
               onClick={() => setValue(option)}
-              className="text-lg font-semibold text-darkGreen py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
+              className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
             >
               {option}
             </p>

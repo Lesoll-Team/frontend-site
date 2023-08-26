@@ -6,18 +6,18 @@ const AddPropCheck = ({ title, value, setValue }) => {
       <h3 className=" text-lg md:text-2xl text-darkGreen font-semibold mb-2">
         {title}
       </h3>
-      <div
+      <button
         onClick={() => {
           setValue(!value);
         }}
-        className="bg-white font-semibold w-full text-lg text-darkGreen cursor-pointer flex justify-between items-center   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
+        className="bg-white font-semibold w-full text-lg focus:outline-lightGreen text-darkGreen cursor-pointer flex justify-between items-center   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
       >
         <p>{title}</p>
         {/* switch input */}
         <div className="relative border-[3px] p-0  outline-2 border-darkGreen w-14 h-[25px] rounded-full cursor-pointer overflow-hidden">
           {/* bg checked color */}
           <div
-            className={`absolute duration-200  h-full w-full rounded-full bg-lightGreen  ${
+            className={`absolute duration-200  h-full w-full rounded-full bg-darkGreen  ${
               !value && "-left-[100%]"
             }`}
           ></div>
@@ -28,7 +28,7 @@ const AddPropCheck = ({ title, value, setValue }) => {
             }`}
           ></div>
         </div>
-      </div>
+      </button>
     </div>
   );
 };

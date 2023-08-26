@@ -1,14 +1,8 @@
-// import { useSelector } from "react-redux"
+import AddProperty from "@/components/addproperty/AddProperty";
+import React from "react";
 
-import Head from "next/head";
+const index = () => {
+  return <AddProperty />;
+};
 
-export default function sell() {
-  // const userDataInfo=useSelector((state)=> state.Auth.user)
-// console.log(userDataInfo);
-  return (
-    <div>
-      <Head><title>Lesoll Sell</title></Head> 
-    welcome in <b>Sell</b>
-    </div>
-  )
-}
+export default index;

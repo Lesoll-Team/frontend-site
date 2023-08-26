@@ -8,7 +8,8 @@ const AddPropInput = ({
   setValue,
   egp,
   percent,
-
+  m2,
+  isLand,
   period,
 }) => {
   return (
@@ -16,22 +17,35 @@ const AddPropInput = ({
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
         {title}
       </h3>
-      <div className="relative">
+      <div className="relative ">
         <input
           value={value || ""}
           onChange={(e) => setValue(e.target.value)}
-          className=" w-full text-lg font-medium text-darkGreen focus:outline-none placeholder:text-darkGreen placeholder:opacity-60   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
+          className=" w-full text-lg font-semibold text-darkGreen focus:outline-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
           placeholder={placeholder}
           type={type}
         />
-        {egp && (
-          <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-white">
-            EGP
-          </p>
-        )}
+        <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-">
+          {isLand && isLand === "m" ? (
+            <>
+              <span>M </span>
+              <sup>2</sup>
+            </>
+          ) : isLand === "carat" ? (
+            "Carat"
+          ) : isLand === "arce" ? (
+            "Arce"
+          ) : null}
+          {m2 && (
+            <span>
+              M <sup>2</sup>
+            </span>
+          )}
+        </p>
+
         {/* Period  */}
         {period && (
-          <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-white">
+          <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 ">
             {period}
           </p>
         )}
@@ -42,7 +56,7 @@ const AddPropInput = ({
             <p className="bg-darkGreen text-sm w-10 font-bold text-center text-white text p-1 cursor-pointer">
               %
             </p>
-            <p className="bg-white text-sm text-darkGreen w-10 font-bold text-center  p-1 cursor-pointer  ">
+            <p className=" text-sm text-darkGreen w-10 font-bold text-center  p-1 cursor-pointer  ">
               EGP
             </p>
           </p>

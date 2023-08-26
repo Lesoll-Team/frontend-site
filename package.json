@@ -16,6 +16,7 @@
     "date-fns": "^2.30.0",
     "formik": "^2.4.2",
     "framer-motion": "^10.15.1",
+    "libphonenumber-js": "^1.10.41",
     "next": "13.4.9",
     "postcss": "8.4.25",
     "react": "^18.2.0",
