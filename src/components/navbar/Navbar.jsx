@@ -1,48 +1,41 @@
 import Link from "next/link";
 import Image from "next/image";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
-import {  useState ,useEffect} from "react";
-import ReactCountryFlag from "react-country-flag"
+import { useState, useEffect } from "react";
+import ReactCountryFlag from "react-country-flag";
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-import arLanguage from "../../../public/locales/ar/common.js";
-import enLanguage from "../../../public/locales/en/common.js";
+// import arLanguage from "../../../public/locales/ar/common.js";
+// import enLanguage from "../../../public/locales/en/common.js";
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 import NotificationMenu from "./notificationMenu";
 import UserMenu from "./userMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
-import {Badge, Button} from "@nextui-org/react";
-
-
-
+import { Badge, Button } from "@nextui-org/react";
+import ar from "../../language/ar/common";
+import en from "../../language/en/common";
 export default function Navbar() {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
-  const languageIs=useSelector((state)=> state.GlobalState.languageIs)
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
-
-
-
-  const [arbLanguage] = useState(arLanguage);
-  const [engLanguage] = useState(enLanguage);
+  // const [arbLanguage] = useState(ar);
+  // const [engLanguage] = useState(en);
 
   const [open, setOpen] = useState(true);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const [searchVisible, setSearchVisible] = useState(false)
+  const [searchVisible, setSearchVisible] = useState(false);
 
-  const userInfo=useSelector((state)=> state.GlobalState.userData)
-  // const isLoading=useSelector((state)=> state.GlobalState.isLogin)
+  const userInfo = useSelector((state) => state.GlobalState.userData);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
-
-  const [userDataInfo, setUserDataInfo] = useState({})
+  const [userDataInfo, setUserDataInfo] = useState({});
   const [isAuth, setAuth] = useState(false);
- 
 
   function toggleSearch() {
     setSearchVisible(!searchVisible);
@@ -52,28 +45,21 @@ export default function Navbar() {
     setOpenUserMenu(setOpen(value));
   };
 
-
-  useEffect(()=>{
-
-      setAuth(isLoading);
-    setUserDataInfo(userInfo)
-  })
-// },[userInfo])
-
-
+  useEffect(() => {
+    setAuth(isLoading);
+    setUserDataInfo(userInfo);
+  });
   return (
     <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md">
-      
-      <section className="flex  relative bg-white  h-[80px] items-center ">
+      <section className="flex  relative bg-white  h-[80px] items-center " dir={`${languageIs?"rtl":""}`}>
         {/*Logo */}
-        <ul className=" flex w-3/12  md:justify-center ">
+        <ul className=" flex w-3/12  md:justify-center " >
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
             <Link
               className=""
               href={"/"}
               onClick={() => setOpenUserMenu(setOpen(true))}
             >
-
               <Image
                 src={logoNavbar}
                 width={"auto"}
@@ -91,11 +77,10 @@ export default function Navbar() {
           className={` ${
             searchVisible ? "hidden" : "md:flex"
           }   w-5/12 space-x-2 hidden`}
+          
         >
           <LinksNavbar />
         </ul>
-
-        {/* SignUp & language & Notifications & user menu & user image */}
         <ul
           className={` ${
             searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
@@ -108,11 +93,7 @@ export default function Navbar() {
                 className="   text-1xl  text-lightOrange "
               />
               <input
-                placeholder={
-                  languageIs
-                    ? arbLanguage.input.search
-                    : engLanguage.input.search
-                }
+                placeholder={"search"}
                 className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
                            focus:outline-none focus:ring-1 focus:ring-lightOrange
                            ring-lightOrange ring-1
@@ -138,15 +119,16 @@ export default function Navbar() {
               <ul className="mx-1">
                 {languageIs ? (
                   <ReactCountryFlag
-                    countryCode="EG"
+                    countryCode="US"
                     svg
                     cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
                     cdnSuffix="svg"
                     title="US"
                   />
                 ) : (
-                  <ReactCountryFlag
-                    countryCode="US"
+
+                   <ReactCountryFlag
+                    countryCode="EG"
                     svg
                     cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
                     cdnSuffix="svg"
@@ -154,53 +136,57 @@ export default function Navbar() {
                   />
                 )}
               </ul>
-              <ul className="mx-1">{languageIs ? `عربى` : `English`}</ul>
+              <ul className="mx-1">{languageIs ? `English` :  `عربى`}</ul>
             </button>
           </li>
 
-        {/*button Notifications */}
-          <li className={` ${isAuth ?  ` ${searchVisible? 'hidden':' '}`:"hidden" } relative`}>
-          <Badge content={2} shape="circle" color="danger">
-          <Button
-          onClick={() => setNotifications(!notifications)}
-        radius="full"
-        isIconOnly
-        color="primary"
-        aria-label="more than 99 notifications"
-        variant="light"
-      >
-        <MdNotificationsNone className="text-lightGreen" size={30} />
-      </Button>
-          </Badge>
-            {/* <button onClick={() => setNotifications(!notifications)}>
-              <MdNotificationsNone
-                className={` rounded-full 
-               text-lightGreen bg-white text-4xl  hover:bg-lightGreenHover hover:text-white  active:scale-95`}
-              />
-            </button> */}
+          {/*button Notifications */}
+          <li
+            className={` ${
+              isAuth ? ` ${searchVisible ? "hidden" : " "}` : "hidden"
+            } relative`}
+          >
+            <Badge content={2} shape="circle" color="danger">
+              <Button
+                onClick={() => setNotifications(!notifications)}
+                radius="full"
+                isIconOnly
+                color="primary"
+                aria-label="more than 99 notifications"
+                variant="light"
+              >
+                <MdNotificationsNone className="text-lightGreen" size={30} />
+              </Button>
+            </Badge>
           </li>
 
           {/*button SignUp*/}
-          <li className={`  ${isAuth ? "hidden" :`${searchVisible? 'hidden':' '}` } `}>
-            <button className="" >
-              {/*onClick={() => setAuth(!isAuth)}*/}
+          <li
+            className={`  ${
+              isAuth ? "hidden" : `${searchVisible ? "hidden" : " "}`
+            } `}
+          >
+            <button className="">
               <Link
                 className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
-                {isAuth ? '' : "Sign In"}
+                {isAuth ? "" : "Sign In"}
               </Link>
             </button>
           </li>
 
           {/*user section*/}
-          <li className={`  ${isAuth ?  `${searchVisible? 'hidden':''}`: "hidden"} relative`}>
+          <li
+            className={`  ${
+              isAuth ? `${searchVisible ? "hidden" : ""}` : "hidden"
+            } relative`}
+          >
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
                 className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
-                // src="userimg.webp"//"userimg.webp"
-                src={userDataInfo?.avatarUrl}//"userimg.webp"
+                src={userDataInfo?.avatarUrl}
                 alt="User Avatar"
               />
             </button>
@@ -248,7 +234,8 @@ export default function Navbar() {
           <ul className="items-center overflow-hidden ">
             <MobileMenu onInputClick={handleInputClick} />
 
-            <li className={` flex  justify-center`}>{/**${isAuth ? "" : "hidden"} */}
+            <li className={` flex  justify-center`}>
+              {/**${isAuth ? "" : "hidden"} */}
               <button
                 onClick={() => dispatch(handleLanguage())}
                 className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
@@ -270,8 +257,6 @@ export default function Navbar() {
             notifications ? "" : "hidden"
           }   h-screen overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
-          {/*md:justify-end  md:w-96 w-auto absolute*/}
-
           <NotificationMenu />
         </ul>
       </section>

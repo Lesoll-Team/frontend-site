@@ -4,7 +4,7 @@ import React from "react";
 
 export default function PropertyDetails({ singleProperty }) {
   return (
-    <div>
+    <div className="">
       <PropertyDetailsMain singleProperty={singleProperty} />
     </div>
   );

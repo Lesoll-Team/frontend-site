@@ -1,4 +1,4 @@
-import RealtyCard from "../realtyCard/RealtyCard";
+import RealtyCard from "../realtyCard/RealtyCardRent";
 const FavoriteAds = () => {
   return (
     <div className="w-full">

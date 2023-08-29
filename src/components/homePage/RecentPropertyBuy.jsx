@@ -1,15 +1,19 @@
 import React from "react";
-import RealtyCard from "../realtyCard/RealtyCard";
+import RealtyCardBuy from "../realtyCard/RealtyCardBuy";
 import Link from "next/link";
 
-const MostViewd = () => {
+const RecentPropertyBuy = ({properties}) => {
   return (
     <section className=" px-2 my-24 ">
-      <h1 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl  p-3 text-lightGreen">
-        Recent Properties For Rent
-      </h1>
+        <h1 className="text-center font-bold text-3xl sm:text-4xl  p-3 text-lightGreen">
+          Recent Properties For Buy
+        </h1>
       <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-col-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
-        <RealtyCard />
+        {properties.map((property)=>
+        <Link key={property._id} href={`/propertyDetails/${property._id}`}>
+        <RealtyCardBuy  propertyDetails={property}/>
+        </Link>
+        )}
       </div>
       <div className="flex justify-center mt-5">
         <Link
@@ -20,7 +24,7 @@ const MostViewd = () => {
         </Link>
       </div>
     </section>
-  );
+  );multiple
 };
 
-export default MostViewd;
+export default RecentPropertyBuy;

@@ -7,6 +7,8 @@ import {
   MdKeyboardArrowRight,
   
 } from "react-icons/md";
+import {ar} from "../../language/ar/common"
+import {en} from "../../language/en/common"
  function PropertyTitle({singleTitle}) {
   // console.log(singleTitle);
   // console.log(singleTitle.title);

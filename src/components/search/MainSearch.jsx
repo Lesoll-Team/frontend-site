@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchBar from '../Shared/SearchBar'
+import SearchBar from '../../Shared/SearchBar'
 function MainSearch() {
   return (
     <div>
