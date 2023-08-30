@@ -1,107 +1,322 @@
+import { Input, Button } from "@nextui-org/react";
 import React, { useState } from "react";
-import bgPic from "../../../public/addpropbg.webp";
-
-// step imports
+import { createNewProperty } from "../../utils/propertyAPI";
+import {
+  selectAddPropData,
+  setMultiImage,
+} from "@/redux-store/features/addPropertySlice";
+import { useDispatch, useSelector } from "react-redux";
+import AddPropInput from "./AddPropIputs/AddPropInput";
 import GetStarted from "./steps/getStarted/GetStarted";
-import PropertyInfo from "./steps/propertyInfo/PropertyInfo";
-import Description from "./steps/desciption/Description";
-import Photos from "./steps/photos/Photos";
+import AddPropDropdown from "./AddPropIputs/AddPropDropdown";
+import PropertyInfo from "./steps/propInfo/PropertyInfo";
+import Description from "./steps/description/Description";
+import Price from "./steps/price/Price";
+import Gallery from "./steps/gallery/Gallery";
 import Features from "./steps/features/Features";
 import SellerInfo from "./steps/sellerInfo/SellerInfo";
+import Appointment from "./steps/appointment/Appointment";
+import Review from "./steps/reviewProperty/Review";
 import Location from "./steps/location/Location";
-import Appointments from "./steps/appointments/Appointments";
-import Review from "./steps/reviewproperty/Review";
-import ListingPrice from "./steps/ListingPrice/ListingPrice";
-import { useSelector } from "react-redux";
-
 const AddProperty = () => {
-  const steps = [
-    "get started",
-    "property info",
-    "description",
-    "listing price",
-    "photos",
-    "features",
-    "seller info",
-    "location",
-    "appointments",
-    "review",
-  ];
-  const currentStep = useSelector((state) => state.Property.step);
-  // const [currentStep, setCurrentStep] = useState(0);
+  const [step, setStep] = useState(0);
+  const [Show, setShow] = useState(true);
+  const [propertyDetils, setPropertyDetils] = useState({
+    title: "",
+    offer: "",
+    mainImage: null,
+    multiImage: null,
+    rentalPeriod: "",
+    insurance: "",
+    saleOption: "", //'', 'Cash', 'Installment', 'Cash & Installment'
+    governrate: null, //ID
+    region: null, //ID
+    propType: "Residential", //'Residential', 'Commercial', 'Land',
+    unitType: "", //'Residential', 'Commercial', 'Land'
+    landType: "", // '', 'Agriculture', 'Building'
+    price: "",
+    area: "",
+    realEstateFinance: false,
+    downPayment: "",
+    maintenancePayment: null,
 
-  const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
+    rooms: null,
+    bathRooms: null,
+    description: "",
+    service: [], //ID,
+    installmentOption: {
+      type: "Yearly",
+      period: null,
+      amount: null,
+    },
+    spaceType: "m",
+    address: {
+      name: "shobra maser",
+      governrate: "cairo",
+      region: "rodelfarg",
+      longitude: "30",
+      latitude: "31",
+      placeId: "4981811",
+      postalCode: "11633",
+    },
+
+    appointments: {
+      allDays: false,
+      from: "",
+      to: "",
+      startDate: "",
+      endDate: "",
+    },
+    status: "pendding",
+    reason: "",
+    level: "",
+    negotiable: false,
+    finishingType: "",
+    isRegisterd: false,
+    isFurnished: false,
+  });
+  const incrementStep = () => {
+    if (step < 9) {
+      setStep(step + 1);
     }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  };
+  const decrementStep = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
+  const [isLading, setLading] = useState(false);
+  // const [mainImg, setMainImg] = useState(null);
+  // const [multibulImg, setMultibulImg] = useState(null);
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
+    setLading(true);
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", propertyDetils.title);
+    formData.append("offer", propertyDetils.offer);
+    formData.append("price", propertyDetils.price);
+    formData.append("area", propertyDetils.area);
+    formData.append("finishingType", propertyDetils.finishingType);
+    formData.append("isFurnished", propertyDetils.isFurnished);
+    formData.append("isRegisterd", propertyDetils.isRegisterd);
+    formData.append("description", propertyDetils.description);
+    formData.append("downPayment", propertyDetils.downPayment);
+    formData.append("rooms", propertyDetils.rooms);
+    formData.append(
+      "installmentOption",
+      JSON.stringify(propertyDetils.installmentOption)
+    );
+    formData.append("address", JSON.stringify(propertyDetils.address));
+    formData.append(
+      "appointments",
+      JSON.stringify(propertyDetils.appointments)
+    );
+
+    formData.append("mainImage", propertyDetils.mainImage);
+
+    // Append each file individually from the multibulImg array
+    for (let i = 0; i < propertyDetils.multiImage.length; i++) {
+      formData.append("multiImage", propertyDetils.multiImage[i]);
+    }
+    // for (let i = 0; i < multibulImg.length; i++) {
+    //   formData.append("multiImage", multibulImg[i]);
+    // }
+
+    try {
+      await createNewProperty(formData);
+      // Handle success (e.g., show a success message)
+    } catch (error) {
+      // Handle error (e.g., display an error message)
+      console.error("Error creating property:", error);
+    }
+    // dispatch(setMultiImage(formData.getAll("multiImage")));
+    // console.log(formData.getAll("appointments"));
+
+    setLading(false);
+  };
+  const renderStep = () => {
+    if (step === 0) {
+      return (
+        <GetStarted
+          propertyDetils={propertyDetils}
+          setData={setPropertyDetils}
+        />
+      );
+    } else if (step === 1) {
+      return (
+        <PropertyInfo
+          propertyDetils={propertyDetils}
+          setData={setPropertyDetils}
+        />
+      );
+    } else if (step === 2) {
+      return (
+        <Description
+          propertyDetils={propertyDetils}
+          setData={setPropertyDetils}
+        />
+      );
+    } else if (step === 3) {
+      return (
+        <Price propertyDetils={propertyDetils} setData={setPropertyDetils} />
+      );
+    } else if (step === 4) {
+      return (
+        <Gallery propertyDetils={propertyDetils} setData={setPropertyDetils} />
+      );
+    } else if (step === 5) {
+      return (
+        <Features propertyDetils={propertyDetils} setData={setPropertyDetils} />
+      );
+    } else if (step === 6) {
+      return (
+        <Location propertyDetils={propertyDetils} setData={setPropertyDetils} />
+      );
+    } else if (step === 7) {
+      return (
+        <SellerInfo
+          propertyDetils={propertyDetils}
+          setData={setPropertyDetils}
+        />
+      );
+    } else if (step === 8) {
+      return (
+        <Appointment
+          propertyDetils={propertyDetils}
+          setData={setPropertyDetils}
+        />
+      );
+    } else if (step === 9) {
+      return (
+        <Review propertyDetils={propertyDetils} setData={setPropertyDetils} />
+      );
+    }
   };
 
-  const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-  const renderComponent = () => {
-    if (currentStep === 0) {
-      return <GetStarted />;
-    } else if (currentStep === 1) {
-      return <PropertyInfo />;
-    } else if (currentStep === 2) {
-      return <Description />;
-    } else if (currentStep === 3) {
-      return <ListingPrice />;
-    } else if (currentStep === 4) {
-      return <Photos />;
-    } else if (currentStep === 5) {
-      return <Features />;
-    } else if (currentStep === 6) {
-      return <SellerInfo />;
-    } else if (currentStep === 7) {
-      return <Location />;
-    } else if (currentStep === 8) {
-      return <Appointments />;
-    } else if (currentStep === 9) {
-      return <Review />;
-    } else {
-      return <GetStarted />;
-    }
-  };
+  // console.log(JSON.stringify(propertyDetils.appointments));
+  // const handleSaleOption = (e) => {};
+  const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="min-h-[93vh] flex items-center justify-center flex-col mx-auto bg-[url(../../public/addpropbg.webp)] bg-no-repeat bg-cover bg-left-top">
-      <div className="container mx-auto mb-10">
-        <h2 className="text-white text-4xl text-center my-4 md:my-10  font-semibold">
-          Add Property
-        </h2>
-        <div className="w-full lg:w-[85%] bg-white flex flex-col justify-between  min-h-[560px] mx-auto  rounded-[40px]  pb-6 drop-shadow-xl">
-          <div>
-            {/* progress bar */}
-            <div className="mt-8">
+    <div
+      // dir={language ? "ltr" : "rtl"}
+      className="container mx-auto py-10 space-y-4 min-h-[95dvh]  flex flex-col justify-center items-center"
+    >
+      <h1 className="text-center text-5xl font-bold text-white mb-4">
+        Add Property
+      </h1>
+      <div className="sm:w-[85%] w-full  rounded-3xl min-h-[550px] border-2 py-5  mx-auto px-7 bg-white drop-shadow-3xl">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col justify-between min-h-[500px] space-y-5"
+        >
+          <div className="flex flex-col space-y-4 justify-between">
+            <div className="">
               {/* <h3 className="text-center text-lg text-lightOrange font-black tracking-widest">
                 {currentStep + 1}
                 <span className="px-3 text-darkGreen font-thin">/</span>
                 {steps.length}
               </h3> */}
-              <div className="h-3 w-[83%] md:w-[93%] mx-auto border rounded-lg bg-darkGray mt-2 relative">
+              {/* <div className="h-3 w-full mx-auto border rounded-lg bg-darkGray mt-2 relative">
                 <div
                   style={{
-                    width: `${(currentStep / (steps.length - 1)) * 100}%`,
+                    width: `${(step / 9) * 100}%`,
                   }}
                   className={`bg-lightGreen h-full duration-200 rounded-lg`}
                 ></div>
-              </div>
+              </div> */}
             </div>
-            {/* steps */}
-            <div className="mx-auto h-[100%]">{renderComponent()}</div>
+            {/* {renderStep()} */}
+            {Show && (
+              <div className="space-y-10">
+                <GetStarted
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <PropertyInfo
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <Description
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <Price
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <Gallery
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <Features
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <Location />
+                <hr />
+                <SellerInfo />
+                <hr />
+                <Appointment
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
+                <Review />
+              </div>
+            )}
           </div>
-        </div>
+
+          <div className="flex justify-between items-center gap-5 ">
+            {/* <Button
+              type="submit"
+              color="primary"
+              variant="flat"
+              disabled={isLading}
+            >
+              {isLading ? "Submut.." : "submit"}
+            </Button> */}
+            {step === 0 ? (
+              <div
+                onClick={incrementStep}
+                className={`bg-lightOrange text-center text-white font-medium py-2 px-4 rounded-xl text-2xl w-[85%] md:w-96  mx-auto`}
+              >
+                Get Started
+              </div>
+            ) : (
+              <>
+                <div
+                  onClick={decrementStep}
+                  className="bg-lightOrange rounded-xl py-1 sm:py-2   text-white font-medium w-[100px] sm:w-[140px] md:w-[140px] focus:outline-lightOrangeHover text-center"
+                >
+                  Back
+                </div>
+                {step === 9 ? (
+                  <button
+                    disabled={isLading}
+                    className="bg-lightGreen rounded-xl py-1 sm:py-2  text-white font-medium w-[100px] sm:w-[140px] md:w-[140px] focus:outline-lightOrangeHover text-center"
+                  >
+                    {isLading ? "Submut.." : "submit"}
+                  </button>
+                ) : (
+                  <div
+                    onClick={incrementStep}
+                    className="bg-lightOrange rounded-xl py-1 sm:py-2  text-white font-medium w-[100px] sm:w-[140px] md:w-[140px] focus:outline-lightOrangeHover text-center"
+                  >
+                    Next
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </form>
+        <div></div>
       </div>
     </div>
   );

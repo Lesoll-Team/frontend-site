@@ -202,3 +202,28 @@ border: #309da0 solid 1px !important;
   background-position: center;
 } */
 
+
+
+/* date picker hours dropdown */
+.react-datepicker__time-container {
+  width:100% !important;  /* Adjust the width as needed */
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+  background-color: #309da0 !important;
+}
+.react-datepicker__time-container {
+  width: 150px; /* Adjust the width as needed */
+}

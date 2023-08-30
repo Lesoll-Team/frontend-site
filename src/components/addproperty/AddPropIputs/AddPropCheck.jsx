@@ -6,29 +6,31 @@ const AddPropCheck = ({ title, value, setValue }) => {
       <h3 className=" text-lg md:text-2xl text-darkGreen font-semibold mb-2">
         {title}
       </h3>
-      <button
+      <div
         onClick={() => {
           setValue(!value);
         }}
-        className="bg-white font-semibold w-full text-lg focus:outline-lightGreen text-darkGreen cursor-pointer flex justify-between items-center   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
+        className="bg-white font-semibold w-full text-lg focus:outline-lightGreen text-darkGreen cursor-pointer flex justify-between items-center    rounded-xl p-3 py-4 border-[3px]"
       >
         <p>{title}</p>
         {/* switch input */}
-        <div className="relative border-[3px] p-0  outline-2 border-darkGreen w-14 h-[25px] rounded-full cursor-pointer overflow-hidden">
+        <div
+          className={`relative border-[3px] p-0 flex justify-start  border-darkGreen w-14 h-[25px] rounded-full cursor-pointer overflow-hidden ${
+            value && "bg-darkGreen flex justify-end  "
+          }`}
+        >
           {/* bg checked color */}
-          <div
+          {/* <div
             className={`absolute duration-200  h-full w-full rounded-full bg-darkGreen  ${
               !value && "-left-[100%]"
             }`}
-          ></div>
+          ></div> */}
           {/* circle */}
           <div
-            className={`bg-lightOrange right-0 absolute  duration-200  top-0 h-full w-5 rounded-full  ${
-              !value && "left-0 duration-200"
-            }`}
+            className={`bg-lightOrange  animate-appearance-in   duration-200  -top- h-full w-5 rounded-full  `}
           ></div>
         </div>
-      </button>
+      </div>
     </div>
   );
 };

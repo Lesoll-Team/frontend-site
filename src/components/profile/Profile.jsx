@@ -1,7 +1,7 @@
 import Image from "next/image";
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 //icons imports
 import { BsCheck2Circle } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
@@ -16,8 +16,8 @@ import DraftAds from "./DraftAds";
 import InActiveAds from "./InActiveAds";
 import FavoriteAds from "./FavoriteAds";
 const Profile = () => {
-  const userInfo=useSelector((state)=> state.GlobalState.userData)
-  const [userDataInfo, setUserDataInfo] = useState({})
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const [userDataInfo, setUserDataInfo] = useState({});
   const [content, setContent] = useState("active");
 
   // switchcontent
@@ -36,10 +36,10 @@ const Profile = () => {
   const switchFav = () => {
     setContent("favorites");
   };
-useEffect(()=>{
-  setUserDataInfo(userInfo)
-},[userInfo])
-
+  useEffect(() => {
+    setUserDataInfo(userInfo);
+  }, [userInfo]);
+  // console.log(userDataInfo);
   return (
     <>
       <div className="">
@@ -58,21 +58,27 @@ useEffect(()=>{
                   className="w-[130px] h-[130px] rounded-full  border-4  border-gray-300 drop-shadow-xl"
                 />
                 <div className="flex flex-col">
-                <div>
-                  <p className="font-bold text-xl md:text-2xl">  {userDataInfo?.fullname}</p>
-                  {/* {userDataInfo?.fullname} */}
-                  <p className="font-light md:text-lg"> @{userDataInfo?.username}</p>
-                  {/* @{userDataInfo?.username} */}
-                </div>
-                <div className="flex justify-start  items-center  gap-2 max-w-[400px] flex-wrap">
-              <div className="text-center  items-center  gap-1 text-gray-500">
-                <p className=" ">Active</p>
-                <p className="text-sm">
-                  {userDataInfo?.numProducts}
-                  {/* 15 */}
-                  </p>
-              </div>
-              {/* <div className="text-center   gap-1 items-center text-gray-500">
+                  <div>
+                    <p className="font-bold text-xl md:text-2xl">
+                      {" "}
+                      {userDataInfo?.fullname}
+                    </p>
+                    {/* {userDataInfo?.fullname} */}
+                    <p className="font-light md:text-lg">
+                      {" "}
+                      @{userDataInfo?.username}
+                    </p>
+                    {/* @{userDataInfo?.username} */}
+                  </div>
+                  <div className="flex justify-start  items-center  gap-2 max-w-[400px] flex-wrap">
+                    <div className="text-center  items-center  gap-1 text-gray-500">
+                      <p className=" ">Active</p>
+                      <p className="text-sm">
+                        {userDataInfo?.numProducts}
+                        {/* 15 */}
+                      </p>
+                    </div>
+                    {/* <div className="text-center   gap-1 items-center text-gray-500">
                 <p className=" ">Pending</p>
                 <p className="text-sm">{userDataInfo?.***?.length}</p>
               </div>
@@ -84,12 +90,12 @@ useEffect(()=>{
                 <p className=" ">Deleted</p>
                 <p className="text-sm">{userDataInfo?.***?.length}</p>
               </div> */}
-              <div className="text-center   gap-1 items-center text-gray-500">
-                <p className=" ">Favorites</p>
-                <p className="text-sm">0</p>
-                {/* {userDataInfo?.favorites?.length} */}
-              </div>
-            </div>
+                    <div className="text-center   gap-1 items-center text-gray-500">
+                      <p className=" ">Favorites</p>
+                      <p className="text-sm">0</p>
+                      {/* {userDataInfo?.favorites?.length} */}
+                    </div>
+                  </div>
                 </div>
               </div>
               {/* <Link
@@ -111,7 +117,7 @@ useEffect(()=>{
                 Edit Profile
               </Link>
             </div>
-  
+
             <div className="flex custom-scroll-bar justify-start  md:gap-7 overflow-x-auto overflow-y-hidden items-center mt-10 left-0  bottom-0 absolute mx-auto w-[100%]  border-b-[1px] border-gray-400 ">
               <div
                 onClick={switchActive}

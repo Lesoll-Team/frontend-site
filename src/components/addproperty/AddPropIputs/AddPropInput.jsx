@@ -20,12 +20,12 @@ const AddPropInput = ({
       <div className="relative ">
         <input
           value={value || ""}
-          onChange={(e) => setValue(e.target.value)}
-          className=" w-full text-lg font-semibold text-darkGreen focus:outline-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-lightGreen rounded-xl p-3 py-4 drop-shadow-xl"
+          onChange={setValue}
+          className=" w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 "
           placeholder={placeholder}
           type={type}
         />
-        <p className="absolute top-[17px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-">
+        <p className="absolute top-[20px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-">
           {isLand && isLand === "m" ? (
             <>
               <span>M </span>
@@ -41,6 +41,7 @@ const AddPropInput = ({
               M <sup>2</sup>
             </span>
           )}
+          {egp && <p>EGP</p>}
         </p>
 
         {/* Period  */}

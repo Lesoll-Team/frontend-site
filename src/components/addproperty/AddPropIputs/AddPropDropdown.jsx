@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-
+import { useSelector } from "react-redux";
 const AddPropDropdown = ({ title, value, setValue, options }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
-
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const choices = language ? options.en : options.ar;
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -25,35 +26,38 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
   const handleMenuOpen = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-
+  const [selectoption, setSelectedOption] = useState(null);
   return (
-    <div className="relative w-full ">
-      <h3 className="text-lg md:text-2xl text-darkGreen font-bold mb-2">
+    <div className="relative w-full cursor-pointer ">
+      <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
         {title}
       </h3>
-      <button
+      <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-lightGreen bg-white  border-lightGreen rounded-xl p-4 drop-shadow-xl  whitespace-nowrap"
+        className="w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-lightGreen bg-white border-[3px]   rounded-xl p-4   whitespace-nowrap"
       >
-        {value || title}
+        {selectoption || title}
         <AiFillCaretDown
           className={`text-darkGreen duration-150 ${
             menuIsOpen && "rotate-180"
           }`}
         />
-      </button>
+      </div>
       {menuIsOpen && (
         <div
-          className={`absolute z-10 w-full  mt-1 bg-white duration-200 drop-shadow-2xl border overflow-y-auto rounded-xl max-h-[200px]`}
+          className={`absolute animate-appearance-in z-10 w-full  mt-1 bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[150px]`}
         >
-          {options.map((option, i) => (
+          {choices.map((option, i) => (
             <p
               key={i}
-              onClick={() => setValue(option)}
+              onClick={() => {
+                setValue(option.value);
+                setSelectedOption(option.name);
+              }}
               className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
             >
-              {option}
+              {option.name}
             </p>
           ))}
         </div>
