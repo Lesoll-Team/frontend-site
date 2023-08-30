@@ -26,6 +26,11 @@ export default function UserMenu() {
       href: "/profile/settings",
       id: 3,
     },
+    {
+      languages: { english: "dashboard", arabic: "لوحة القيادة" },
+      href: "/dashboard",
+      id:4
+    },
   ];
   const handleLogout = () => {
     dispatch(logoutUserToken()); // Dispatch the logout action

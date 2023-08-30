@@ -1,25 +1,26 @@
 import { createAsyncThunk, createSlice} from "@reduxjs/toolkit";//createAsyncThunk
 import { getUserData,updateUserDataInfo } from "../../utils/userAPI";
 
-export const fetchUserData = createAsyncThunk(
-  "GlobalState/getUserData",
-  async (_,thunkAPI) => {
-    const token = thunkAPI.getState().Auth.userToken;
-    try {
-      const user = await getUserData(token);
-      return user;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
+
 const initialState = {
   userData:null,
+  userLod:false,
+  userErr:null,
   languageIs: false, //(false = ENG) ?& (true= ARB)
   isUpdated: false,
   updateError: null,
 };
-export const updateUserData =createAsyncThunk("Auth/updateUserData",
+export const fetchUserData=createAsyncThunk("GlobalState/fetchUserData",
+async()=>{
+  try {
+    const response=await getUserData()
+    return response
+  } catch (error) {
+    error.message
+  }
+}
+)
+export const updateUserData =createAsyncThunk("GlobalState/updateUserData",
 async(data)=>{
   try {
     const response= await updateUserDataInfo(data.userID,data.userToken,data.userUpdate)
@@ -38,10 +39,19 @@ export const globalState = createSlice({
     },
   },
   extraReducers:(builder) => {
-    builder.addCase(fetchUserData.fulfilled, (state, action) => {
-      state.userData = action.payload;
+    builder
+    .addCase(fetchUserData.pending, (state) => {
+      state.userLod=true
+      // state.userData = action.payload;
     })
-    
+    .addCase(fetchUserData.fulfilled, (state, action) => {
+      state.userData = action.payload;
+      state.userLod=false
+
+    })
+    .addCase(fetchUserData.rejected, (state, action) => {
+      state.userErr = action.error.message;
+    })
 .addCase(updateUserData.pending,(state)=>{
   state.isUpdated = true;
   state.updateError = null;

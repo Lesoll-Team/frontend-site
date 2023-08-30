@@ -8,8 +8,6 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const SignIn = () => {
   const router = useRouter();
-
-  // const isLoading = useSelector((state) => state.GlobalState.isLogin);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [loading, setLoading] = useState(false);
@@ -18,10 +16,12 @@ const SignIn = () => {
     if (isLoading) {
       router.push("/"); // This will navigate to the home page after login is complete
     }
-}, [isLoading, router]);
+  }, [isLoading, router]);
   return (
     <>
-      <Head><title>Lesoll Sign In</title></Head> 
+      <Head>
+        <title>Lesoll Sign In</title>
+      </Head>
 
       {!loading ? (
         <div className="flex flex-col md:flex-row ">

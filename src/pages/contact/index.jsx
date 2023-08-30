@@ -4,10 +4,9 @@ import Head from 'next/head'
 export default function contact() {
   return (
     <div className=''>
-            <Head>
+    <Head>
       <title>Lesoll Contact</title>
     </Head>
-    {/* welcome in <b>contact</b> */}
     <Contact />
     </div>
   )

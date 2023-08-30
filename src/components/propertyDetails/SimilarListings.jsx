@@ -1,9 +1,10 @@
 import React, { memo } from "react";
-import RealtyCard from "../realtyCard/RealtyCard";
-
+import RealtyCard from "../realtyCard/RealtyCardRent";
+import {ar} from "../../language/ar/common"
+import {en} from "../../language/en/common"
 function SimilarListings() {
   return (
-    <div className="p-10 px-14 border-2 border-gray-200 rounded-3xl">
+    <div className=" overflow-x-hidden p-10 px-14 border-2 border-gray-200 rounded-3xl">
       {/* <div><h1>Similar Listings</h1></div> */}
       <div className="font-bold mb-6 ml-5">
         {" "}

@@ -1,215 +1,348 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import { MdOutlineBathtub } from "react-icons/md";
 import { RiHotelBedFill, RiPencilRuler2Line } from "react-icons/ri";
-import { Button } from "@nextui-org/react";
 import { MdCheckCircleOutline } from "react-icons/md";
+import { SiLevelsdotfyi } from "react-icons/si";
 import { BsCalendar3 } from "react-icons/bs";
-// import { BsSlashCircle } from "react-icons/bs";
-import { GiHomeGarage } from "react-icons/gi";
+import { BsSlashCircle } from "react-icons/bs";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { ar } from "../../language/ar/common";
+import { en } from "../../language/en/common";
+import { useSelector } from "react-redux";
+function formatDate(dateString) {
+  const options = { year: "numeric", month: "numeric", day: "numeric" };
+  return new Date(dateString).toLocaleString("en-US", options);
+}
+function formatBuildDate(dateString) {
+  const options = { year: "numeric" };
+  return new Date(dateString).toLocaleString("en-US", options);
+}
+function OverviewDetails({ singleOverviewDetails }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
-function OverviewDetails() {
-  const [offerType, setOfferType] = useState("cash");
+  const formattedDate = formatDate(singleOverviewDetails?.createdAt);
+  const formattedBuildDate = formatBuildDate(
+    singleOverviewDetails?.buildingYear
+  );
   return (
     <div className=" lg:p-10 lg:px-14 border-2 border-gray-200 rounded-3xl">
       <div className="lg:flex justify-between ">
         <div className="flex justify-center items-center">
-          <b>Overview</b>
+          <b>            {language ? ar.property.overview : en.property.overview}
+</b>
         </div>
         <div className="flex items-center justify-center">
-          <span className="flex"> <BsCalendar3 className=" mr-2" /> Updated:</span>
-          <span className="md:text-md text-sm">April 4, 2020 at 5:18 pm</span>
+          <span className="flex">
+            {" "}
+            <BsCalendar3 className=" mr-2" />
+            {language ? ar.property.updated : en.property.updated}
+            {/* Updated: */}
+          </span>
+          <span className="md:text-md text-sm">
+            {formattedDate}
+            <div></div>
+          </span>
         </div>
       </div>
       <br />
       <hr />
       <br />
+      <div>
+        <Splide
+          className="md:hidden"
+          id="thumbnails"
+          options={{
+            fixedWidth: 100,
+            gap: 10,
+            rewind: true,
+            pagination: false,
+          }}
+          aria-label="Thumbnails Carousel"
+        >
+          <SplideSlide>
+            <div className=" bg-gray-200 w-[90px] h-[80px]  rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                {language ? ar.property.room : en.property.room}
+              </h2>
+              <RiHotelBedFill className=" m-auto w-full my-1" />
+              <h3 className=" items-center  text-center text-sm font-bold">
+                {singleOverviewDetails?.rooms}
+              </h3>
+            </div>
+          </SplideSlide>
 
-      <div className="lg:flex justify-between ">
-        <ul>
-          <li className=" mb-3">
-            <b>Apartment</b>
-          </li>
-          <li>
-            <b>PropertyType</b>
-          </li>
-        </ul>
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                {language ? ar.property.SqFt : en.property.SqFt}
+              </h2>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <RiHotelBedFill className=" mr-2" /> <span>1</span>
-          </li>
-          <li>Bedrooms</li>
-        </ul>
+              <RiPencilRuler2Line className=" m-auto w-full my-1" />
+              <h3 className=" items-center  text-center text-sm font-bold">
+                {singleOverviewDetails?.area}
+              </h3>
+            </div>
+          </SplideSlide>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <MdOutlineBathtub className=" mr-2" />
-            <span>1</span>
-          </li>
-          <li>Bathroom</li>
-        </ul>
+          <SplideSlide>
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                {language ? ar.property.bathroom : en.property.bathroom}
+              </h2>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <GiHomeGarage className=" mr-2" />
-            <span>1</span>
-          </li>
-          <li>Garage</li>
-        </ul>
+              <MdOutlineBathtub className=" m-auto w-full my-1" />
+              <h3 className=" items-center  text-center text-sm font-bold">
+                {singleOverviewDetails?.bathRooms}
+              </h3>
+            </div>
+          </SplideSlide>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <RiPencilRuler2Line className=" mr-2" />
-            <span>120</span>
-          </li>
-          <li>Sq Ft</li>
-        </ul>
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                
+                {language ? ar.property.level : en.property.level}
+              </h2>
 
-        <ul>
-          <li className=" flex items-center mb-3">
-            <BsCalendar3 className=" mr-2" /> <span> 2016</span>
-          </li>
-          <li>Year Built</li>
-        </ul>
+              <SiLevelsdotfyi className=" m-auto w-full my-1" />
+              <h3 className=" items-center  text-center text-sm font-bold">
+                {singleOverviewDetails?.level}
+              </h3>
+            </div>
+          </SplideSlide>
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-xs font-bold ">
+                {language ? ar.property.buildingYear : en.property.buildingYear}
+              </h2>
+              <BsCalendar3 className=" m-auto w-full my-1" />
+              <h3 className=" items-center  text-center text-sm font-bold">
+                {" "}
+                {formattedBuildDate}
+              </h3>
+            </div>
+          </SplideSlide>
+        </Splide>
+        {/* <div className=" md:grid grid-cols-5 items-center justify-between justify-items-center hidden"> */}
+        <div className=" hidden md:flex flex-wrap justify-center gap-10 ">
+          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <h2 className="items-center  text-center text-sm font-bold">
+              {language ? ar.property.room : en.property.room}
+            </h2>
+            <RiHotelBedFill className=" m-auto w-full my-1" />
+            <h3 className=" items-center  text-center text-sm font-bold">
+              {singleOverviewDetails?.rooms}
+            </h3>
+          </div>{" "}
+          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <h2 className="items-center  text-center text-sm font-bold">
+              {language ? ar.property.SqFt : en.property.SqFt}
+            </h2>
+
+            <RiPencilRuler2Line className=" m-auto w-full my-1" />
+            <h3 className=" items-center  text-center text-sm font-bold">
+              {singleOverviewDetails?.area}
+            </h3>
+          </div>
+          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <h2 className="items-center  text-center text-sm font-bold">
+              {" "}
+              {language ? ar.property.bathroom : en.property.bathroom}
+            </h2>
+
+            <MdOutlineBathtub className=" m-auto w-full my-1" />
+            <h3 className=" items-center  text-center text-sm font-bold">
+              {singleOverviewDetails?.bathRooms}
+            </h3>
+          </div>{" "}
+          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <h2 className="items-center  text-center text-sm font-bold">
+              {" "}
+              {language ? ar.property.level : en.property.level}
+            </h2>
+
+            <SiLevelsdotfyi className=" m-auto w-full my-1" />
+            <h3 className=" items-center  text-center text-sm font-bold">
+              {singleOverviewDetails?.level}
+            </h3>
+          </div>{" "}
+          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <h2 className="items-center  text-center text-xs font-bold">
+              {" "}
+              {language ? ar.property.buildingYear : en.property.buildingYear}
+            </h2>
+            <BsCalendar3 className=" m-auto w-full my-1" />
+            <h3 className=" items-center  text-center text-sm font-bold">
+              {" "}
+              {formattedBuildDate}
+            </h3>
+          </div>
+        </div>
       </div>
 
       <br />
       <hr />
       <br />
       <div>
-        <h1>payment</h1>
-        <Button onClick={() => setOfferType("cash")}>cash</Button>
-        <Button onClick={() => setOfferType("installment")}>installment</Button>
-        <Button onClick={() => setOfferType("period")}>period</Button>
-        <div>
-          {offerType === "cash" ? (
-            <div className="lg:flex  w-full  border-2 border-gray-400 rounded-xl min-h-[200px] items-center">
-              <div className="lg:border-r-large lg:border-gray-400  flex justify-center items-center m-auto  min-h-[150px]  lg:w-4/12 w-11/12">
+        <b>
+          
+          {language ? ar.property.payment : en.property.payment}
+        </b>
+
+        <div className="mt-5">
+          {singleOverviewDetails?.saleOption[0] === "Cash" ||
+          singleOverviewDetails?.saleOption[0] === "" ? (
+            <div className="md:flex  w-full   border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
+              <div className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div>
-                  <div className="font-bold text-lg">Price</div>
+                  <div className="font-bold sm:text-3xl">
+                    {language ? ar.property.price : en.property.price}
+                  </div>
                   <div className="flex">
-                    <span className="font-bold text-3xl">15,000</span>
-                    <span className=" font-bold text-3xl">/month</span>
+                    <span className="font-bold sm:text-3xl">
+                      {singleOverviewDetails?.price}
+                    </span>
+                    <span className=" font-bold sm:text-3xl">
+                      {language ? ar.property.egy : en.property.egy}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className=" flex lg:w-7/12 w-full justify-center ">
-
-                <div className="lg:flex h-full lg:w-full  ">
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul className=" ">
-                      <li className="font-bold ">Sale Option</li>
-                    </ul>
-                    <ul className=" ">
-                      <li className="">Cash</li>
-                    </ul>
+              <div className=" min-h-[100px] flex md:w-7/12 w-full justify-center ">
+                <div className="md:flex  w-11/12 justify-center ">
+                  <div className="w-6/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3 ">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12 ">
+                        {/*sm:w-7/12 w-5/12 */}
+                        {language
+                          ? ar.property.saleOption
+                          : en.property.saleOption}
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        Cash
+                      </span>
+                    </div>
                   </div>
 
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul>                      
-                      <li className=" font-bold">Negotiable</li>
-                    </ul>
-                    <ul>
-                      <li className="">
-                        <MdCheckCircleOutline />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <div className="w-5/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
 
-          ) : null}
-
-          {offerType === "installment" ? (
-            <div className="lg:flex  w-full  border-2 border-gray-400 rounded-xl min-h-[200px] items-center">
-              <div className="lg:border-r-large lg:border-gray-400  flex justify-center items-center m-auto  min-h-[150px]  lg:w-4/12 w-11/12">
-                <div>
-                  <div className="font-bold text-lg">Down Payment</div>
-                  <div>
-                    {" "}
-                    <span className="font-bold text-5xl">250,000</span>
-                    <span className=" font-bold">EGP</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className=" flex lg:w-7/12 w-full justify-center ">
-
-                <div className="lg:flex h-full lg:w-full  ">
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul className=" ">
-                      <li className="font-bold ">Seal Option:</li>
-                      <li className="font-bold ">installment Option:</li>
-                      <li className="font-bold ">installment Period:</li>
-                    </ul>
-                    <ul className=" ">
-                      <li className="">installment , Cash</li>
-                      <li className="">Yearly</li>
-                      <li className="">10,00</li>
-                    </ul>
-                  </div>
-
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul>
-                      <li className=" font-bold">installment Amount:</li>
-                      
-                      <li className=" font-bold">Negotiable:</li>
-                    </ul>
-                    <ul>
-                      <li className="">
-                        10,000 <span>EGP</span>
-                      </li>
-                      <li className="">
-                        <MdCheckCircleOutline />
-                      </li>
-                    </ul>
+                        {language
+                          ? ar.property.negotiable
+                          : en.property.negotiable}
+                      </span>
+                      <span className="w-6/12 flex justify-end">
+                        {singleOverviewDetails?.negotiable ? (
+                          <MdCheckCircleOutline />
+                        ) : (
+                          <BsSlashCircle />
+                        )}
+                        {/* <BsSlashCircle /> */}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           ) : null}
-          {offerType === "period" ? (
-            <div className="lg:flex  w-full  border-2 border-gray-400 rounded-xl min-h-[200px] items-center">
-              <div className="lg:border-r-large lg:border-gray-400  flex justify-center items-center m-auto  min-h-[150px]  lg:w-4/12 w-11/12">
-                <div>
-                  <div className="font-bold text-lg">Price</div>
-                  <div>
-                    <span className="font-bold text-5xl">15,000</span>
-                    <span className=" font-bold">/month</span>
+          {singleOverviewDetails?.saleOption[0] === "Installment" ? (
+            <div className="md:flex  w-full  border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
+              <div className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
+                <div className="">
+                  <div className="font-bold sm:text-3xl">
+                    {language
+                      ? ar.property.downPayment
+                      : en.property.downPayment}
+                  </div>
+                  <div className="flex">
+                    <span className="font-bold sm:text-3xl">
+                      {singleOverviewDetails?.downPayment}
+                    </span>
+                    <span className=" font-bold sm:text-3xl">
+                      {" "}
+                      {language ? ar.property.egy : en.property.egy}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className=" flex lg:w-7/12 w-full justify-center ">
+              <div className=" min-h-[100px] flex md:w-7/12 w-full justify-center ">
+                <div className="md:flex  w-11/12 justify-center ">
+                  <div className="w-6/12 m-auto ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3 ">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12 ">
+                      {language
+                          ? ar.property.saleOption
+                          : en.property.saleOption}
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                      {language
+                          ? ar.property.installmentCash
+                          : en.property.installmentCash}
+                      </span>
+                    </div>
 
-                <div className="lg:flex h-full lg:w-full  ">
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul className=" ">
-                      <li className="font-bold ">Insurance</li>
-                      <li className="font-bold ">Rental Period</li>
-                    </ul>
-                    <ul className=" ">
-                      <li className="">50,000 <span>EGP</span></li>
-                      <li className="">Daily</li>
-                    </ul>
+                    <div className=" flex sm:w-full  w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12  ">
+                
+                        {language
+                          ? ar.property.installmentOption
+                          : en.property.installmentOption}
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 text-end">
+                        {singleOverviewDetails?.installmentOption.type}
+                      </span>
+                    </div>
+
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        
+                        {language
+                          ? ar.property.installmentPeriod
+                          : en.property.installmentPeriod}
+                      </span>
+                      <span className="sm:text-[10px] text-[8px] w-6/12 items-center text-end">
+                        {singleOverviewDetails?.installmentOption.period}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className=" flex lg:w-6/12  lg:justify-around ">
-                    <ul>
-                      <li className=" font-bold">Commission</li>
-                      
-                      <li className=" font-bold">Negotiable:</li>
-                    </ul>
-                    <ul>
-                      <li className="">
-                        10<span>EGP</span>
-                      </li>
-                      <li className="">
-                        <MdCheckCircleOutline />
-                      </li>
-                    </ul>
+                  <div className="w-5/12  ">
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                        {/*sm:w-7/12 w-5/12 */}
+                        
+                        {language
+                          ? ar.property.installmentAmount
+                          : en.property.installmentAmount}
+                      </span>
+                      <span className="w-6/12 text-end sm:text-[10px] text-[8px] ">
+                        {singleOverviewDetails?.installmentOption.amount}{" "}
+                        <span>EGP</span>
+                      </span>
+                    </div>
+
+                    <div className=" flex sm:w-full w-9/12 m-auto py-3">
+                      <span className="font-bold sm:text-[11px] text-[10px] w-6/12">
+                      {language
+                          ? ar.property.negotiable
+                          : en.property.negotiable}
+                      </span>
+                      <span className=" w-6/12 flex justify-end">
+                        {singleOverviewDetails?.negotiable ? (
+                          <MdCheckCircleOutline />
+                        ) : (
+                          <BsSlashCircle />
+                        )}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

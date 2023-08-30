@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 //icons imports
 import { BsCheck2Circle } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
@@ -15,6 +15,7 @@ import PendingAds from "./PendingAds";
 import DraftAds from "./DraftAds";
 import InActiveAds from "./InActiveAds";
 import FavoriteAds from "./FavoriteAds";
+// import { fetchUserData } from "@/redux-store/features/globalState";
 const Profile = () => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const [userDataInfo, setUserDataInfo] = useState({});
@@ -36,10 +37,18 @@ const Profile = () => {
   const switchFav = () => {
     setContent("favorites");
   };
-  useEffect(() => {
-    setUserDataInfo(userInfo);
-  }, [userInfo]);
-  // console.log(userDataInfo);
+useEffect(()=>{
+  setUserDataInfo(userInfo)
+},[userInfo])
+
+// const dispatch = useDispatch();
+// const userData = useSelector((state) => state.globalState.userData);
+
+// useEffect(() => {
+//   // Call fetchUserData async thunk when the component mounts
+//   dispatch(fetchUserData());
+// }, [dispatch]);
+
   return (
     <>
       <div className="">
