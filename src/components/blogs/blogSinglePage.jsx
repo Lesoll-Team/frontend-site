@@ -2,7 +2,7 @@ import React from 'react'
 import {Card, CardBody, CardFooter, CardHeader, Image} from "@nextui-org/react";
 
 function BlogSinglePage({BlogData}) {
-  console.log(BlogData);
+  // console.log(BlogData);
   return (
     <div>
 

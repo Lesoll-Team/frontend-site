@@ -5,7 +5,7 @@ import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
 import { AiFillHeart } from "react-icons/ai";
 const RealtyCardRent = ({ propertyDetails }) => {
-  console.log("Rent :", propertyDetails);
+  // console.log("Rent :", propertyDetails);
   return (
     <div className="md:w-[310px] lg:w-[350px] w-[295px] min-h-[430px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}

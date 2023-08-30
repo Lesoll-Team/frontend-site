@@ -10,7 +10,7 @@ export default function PropertyDetails({ singleProperty }) {
   );
 }
 export async function getServerSideProps(context) {
-  console.log(context.params);
+  // console.log(context.params);
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/property/get/property/singlepage/${context.query.id}`
   );

@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 
 function blogId({ singleBlog }) {
-  console.log(singleBlog);
+  // console.log(singleBlog);
   return (
     <div className="container mx-auto">
       <div className="py-10">

@@ -1,7 +1,7 @@
 import React from "react";
 import RealtyCardRent from "../realtyCard/RealtyCardRent";
 import Link from "next/link";
-const RecentPropertyRent = ({properties}) => {
+const RecentPropertyRent = ({propertiesRent}) => {
   // console.log(property);
   return (
     <section className=" px-2 my-24 ">
@@ -12,7 +12,7 @@ const RecentPropertyRent = ({properties}) => {
       </div>
       <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
        
-       {properties.map((property)=>
+       {propertiesRent.map((property)=>
        <Link key={property._id} href={`/propertyDetails/${property._id}`}>
         <RealtyCardRent key={property._id} propertyDetails={property}/>
         </Link>

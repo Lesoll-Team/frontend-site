@@ -11,7 +11,7 @@ import {ar} from "../../language/ar/common"
 import {en} from "../../language/en/common"
 function PropertyDetailsMain({singleProperty}) {
 
-  console.log(singleProperty);
+  // console.log(singleProperty);
 const images = [
   { url: 'https://demo01.houzez.co/wp-content/uploads/2016/03/035-1170x785.jpg' },
   { url: '/card.png' },

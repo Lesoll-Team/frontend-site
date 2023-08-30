@@ -27,7 +27,7 @@ const initialState = {
   export const deleteBlog = createAsyncThunk(
     "BlogDashboard/deleteOneBlog",
     async (blogID) => {
-      console.log("redux slice:"+blogID);
+      // console.log("redux slice:"+blogID);
       const response = await deleteOneBlog(blogID);
       return response; // Assuming your API returns user data upon successful signup
     }

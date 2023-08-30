@@ -29,7 +29,7 @@ const PersonalInfo = () => {
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
     formData.append("phone", phonenumber);
-console.log(formData);
+// console.log(formData);
     try {
       dispatch(updateUserData({userID:userDataInfo?._id, userToken:userDataInfo?.token, userUpdate:formData}));
     } catch (error) {

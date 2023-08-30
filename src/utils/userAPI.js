@@ -2,7 +2,10 @@ import axios from "axios";
 
 export async function registerUser(userData) {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`,userData);// register
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+      userData
+    ); // register
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -10,7 +13,10 @@ export async function registerUser(userData) {
 }
 export async function loginUser(userData) {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,userData);//login 
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+      userData
+    ); //login
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -38,37 +44,23 @@ export async function getUserData() {
   return null;
 }
 
-
-
-export async function updateUserDataInfo(userID,userToken,userUpdate) {
-  if (userToken!=null||userID!=null||userUpdate!=null) {
+export async function updateUserDataInfo(userID, userToken, userUpdate) {
+  if (userToken != null || userID != null || userUpdate != null) {
     try {
-    
-    const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}?token=${userToken}`,userUpdate, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    return response.data.userData
-
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}?token=${userToken}`,
+        userUpdate,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data.userData;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
   return null;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

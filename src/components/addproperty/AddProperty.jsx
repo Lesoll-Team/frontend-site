@@ -282,6 +282,12 @@ const AddProperty = () => {
             >
               {isLading ? "Submut.." : "submit"}
             </Button> */}
+            <button
+                    disabled={isLading}
+                    className="bg-lightGreen rounded-xl py-1 sm:py-2  text-white font-medium w-[100px] sm:w-[140px] md:w-[140px] focus:outline-lightOrangeHover text-center"
+                  >
+                    {isLading ? "Submut.." : "submit"}
+                  </button>
             {step === 0 ? (
               <div
                 onClick={incrementStep}
