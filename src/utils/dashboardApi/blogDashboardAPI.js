@@ -33,7 +33,7 @@ export async function addBlogs(userToken,blogData) {
   export async function deleteOneBlog(blogID) {
       const userToken=JSON.parse(localStorage.getItem("userToken"))
     try {
-      console.log("in function utils:"+blogID);
+      // console.log("in function utils:"+blogID);
       const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/admin/blog/delete/blog/${blogID}`,{
         headers:{
           token:userToken,

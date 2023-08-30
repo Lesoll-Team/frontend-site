@@ -1,4 +1,58 @@
+import axios from "axios";
 
+export async function fetchAllProperty(userToken) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/getpending`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    // if (response.data.code==404) {
+    //   return response.data.status
+    // }else{
+    return response.data.result;
+  // }
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function deleteProperties(propertyID) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propertyID}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function acceptProperties(propertyID) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/accept/${propertyID}?token=${userToken}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+// /api/admin/property/accept/:id
+
+/* 
 const columns = [
 
   {name: "ID", uid: "id", sortable: true},
@@ -65,3 +119,4 @@ const properties = [
 ];
 
 export {columns, properties};
+ */

@@ -5,7 +5,7 @@ import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 const RealtyCardBuy = ({propertyDetails}) => {
-  // console.log("sss :",propertyDetails?.title);
+  console.log("Buy :",propertyDetails);
   return (
     <div className="md:w-[310px] lg:w-[350px] w-[295px] min-h-[430px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
@@ -21,7 +21,7 @@ const RealtyCardBuy = ({propertyDetails}) => {
       {/* card img */}
       <img
         alt="Realty"
-        src={"http://ec2-34-233-145-239.compute-1.amazonaws.com/v0/"+propertyDetails?.album[0]?.image}
+        src={propertyDetails?.album[0]?.image}
         loading="lazy"
         width={"auto"}
         height={"auto"}
@@ -55,7 +55,9 @@ const RealtyCardBuy = ({propertyDetails}) => {
         </div>
         {/* location */}
         <div className="px-7 mb-1 ">
-          <p className="text-sm  text-darkGray ">{propertyDetails?.address.name}</p>{/*propertyDetails?.address.region*/}
+          <p className="text-sm  text-darkGray ">
+          {propertyDetails?.address.name}
+          </p>{/*propertyDetails?.address.region*/}
         </div>
       </div>
     </div>

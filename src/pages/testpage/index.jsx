@@ -1,4 +1,4 @@
-import LoadingPage from "@/components/lodaingPage";
+import LoadingPage from "@/Shared/lodaingPage";
 const SignUp = () => {
   return (
     <div className="flex flex-col md:flex-row ">

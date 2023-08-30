@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Textarea, Input, Button } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
-import AddBlogModule from '../model/blogs/AddBlogModule'
+import AddBlogModule from "../model/blogs/AddBlogModule";
+// import {
+//   deleteBlog,
+// } from "@/redux-store/features/dashboard/blogDashboardSlice";
+// // deleteOneBlog
 import {
-  deleteBlog,
-} from "@/redux-store/features/dashboard/blogDashboardSlice";
-// deleteOneBlog
-import { deleteOneBlog, getAllBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
+  deleteOneBlog,
+  getAllBlogs,
+} from "@/utils/dashboardApi/blogDashboardAPI";
 import {
   Table,
   TableHeader,
@@ -36,7 +39,7 @@ const columns = [
 ];
 export default function BlogDashboard() {
   const dispatch = useDispatch();
-  const router=useRouter()
+  const router = useRouter();
   const [blogs, setBlogs] = React.useState([]);
   useEffect(() => {
     const fetchBlogsData = async () => {
@@ -115,18 +118,34 @@ export default function BlogDashboard() {
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
-            <Dropdown className="bg-background border-1 border-default-200">
-              <DropdownTrigger>
+            <Dropdown
+              aria-label="Options Menu Blog"
+              aria-labelledbyl="Options Menu Blog"
+              className="bg-background border-1 border-default-200"
+            >
+              <DropdownTrigger
+                aria-label="Options Menu Blog"
+                aria-labelledby="Options Menu Blog"
+              >
                 <Button isIconOnly radius="full" size="sm" variant="light">
                   <VerticalDotsIcon className="text-default-400" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu>
+              <DropdownMenu
+                aria-label="Options Menu Blog"
+                aria-labelledby="Options Menu Blog"
+              >
                 <DropdownItem
-                onClick={async()=> await deleteOneBlog(blog._id)}
-                >Delete</DropdownItem>
-                <DropdownItem onClick={() => router.push(`/blogs/${blog._id}`)}>
-                View
+                  textValue="Delete Blog"
+                  onClick={async () => await deleteOneBlog(blog._id)}
+                >
+                  Delete
+                </DropdownItem>
+                <DropdownItem
+                  textValue="View Blog"
+                  onClick={() => router.push(`/blogs/${blog._id}`)}
+                >
+                  View
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -174,7 +193,7 @@ export default function BlogDashboard() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-         <AddBlogModule />
+            <AddBlogModule />
           </div>
         </div>
         <div className="flex justify-between items-center">

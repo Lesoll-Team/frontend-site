@@ -1,6 +1,6 @@
 import React from "react";
 import lock from "../../../public/lock.svg";
-import Button from "../Button";
+import Button from "../../Shared/Button";
 import Link from "next/link";
 import Image from "next/image";
 import { useFormik } from "formik";

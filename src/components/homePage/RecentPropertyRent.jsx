@@ -21,7 +21,7 @@ const RecentPropertyRent = ({properties}) => {
       <div className="flex justify-center mt-7">
         <Link
           className="text-lightGreen text-xl border-lightGreen border-2 py-2 px-4 rounded-lg hover:bg-lightGreen hover:text-white duration-300"
-          href={"/rent/2"}>
+          href={"/rent/1"}>
           View More
         </Link>
       </div>
