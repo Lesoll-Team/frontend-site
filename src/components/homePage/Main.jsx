@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import heroImg from "../../../public/hero.png";
 import { AiOutlineSearch } from "react-icons/ai";
+// import SearchBar from "@/Shared/search/SearchBar";
 const Main = () => {
   return (
     <>
@@ -31,17 +32,7 @@ const Main = () => {
             alt="heroImg"
           />
         </div>
-        {/* <div className="  items-center w-[80%] md:w-[50%] border-2 flex gap-1 mx-auto  p-5 rounded-lg shadow-xl">
-          <AiOutlineSearch className="text-xl text-lightGreen font-black" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="focus:outline-none p-1 font-semibold  flex-1"
-          />
-          <button className="rounded-md bg-lightOrange text-lg text-white py-1 px-3 ">
-            Find Your Home
-          </button>
-        </div> */}
+        {/* <SearchBar/> */}
       </section>
     </>
   );

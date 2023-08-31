@@ -23,16 +23,13 @@ function UserUpdateModule({ userID }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [typeOfUser, setTypeOfUser] = useState("");
   const [isAdmin, setAdmin] = useState(false);
-//   console.log(typeOfUser);
-//   console.log(isAdmin);
   const handleUpdateData = useCallback(
     async (e) => {
       try {
         e.preventDefault();
         const newUserData = { typeOfUser, isAdmin };
-        await updateUsers(userID, newUserData);
-        // console.log(userID);
-        // console.log(newUserData);
+        // await updateUsers(userID, newUserData);
+        console.log(newUserData);
       } catch (error) {
         console.error("Error Update User Data:", error);
       }
@@ -90,9 +87,10 @@ function UserUpdateModule({ userID }) {
                       selectedKeys={selectedKeys}
                       onSelectionChange={(newSelectedKeys) => {
                         setSelectedKeys(newSelectedKeys);
-                        const selectedValue = Array.from(newSelectedKeys)
-                          .join(", ")
-                          .replaceAll("_", " ");
+                        const selectedValue =newSelectedKeys;
+                        // const selectedValue = Array.from(newSelectedKeys)
+                        //   .join(", ")
+                        //   .replaceAll("_", " ");
                         handleSelectedValueChange(selectedValue);
                       }}
                     >

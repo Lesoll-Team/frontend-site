@@ -24,7 +24,7 @@ const RecentPropertyBuy = ({propertiesBuy}) => {
         </Link>
       </div>
     </section>
-  );multiple
+  );
 };
 
 export default RecentPropertyBuy;

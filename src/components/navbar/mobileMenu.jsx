@@ -22,8 +22,8 @@ export default function MobileMenu({ onInputClick }) {
 
   const linksMenu = [
     { href: "/", label: `${language?ar.navbar.navHome:en.navbar.navHome}`, id: 1 },
-    { href: "/rent", label: `${language?ar.navbar.navRent:en.navbar.navRent}`, id: 2 },
-    { href: "/buy", label: `${language?ar.navbar.navBuy:en.navbar.navBuy}`, id: 3 },
+    { href: "/rent/1", label: `${language?ar.navbar.navRent:en.navbar.navRent}`, id: 2 },
+    { href: "/buy/1", label: `${language?ar.navbar.navBuy:en.navbar.navBuy}`, id: 3 },
     { href: "/sell", label: `${language?ar.navbar.navSell:en.navbar.navSell}`, id: 4 },
     { href: "/need", label: `${language?ar.navbar.navNeed:en.navbar.navNeed}`, id: 5 },
     { href: "/about", label: `${language?ar.navbar.navAbout:en.navbar.navAbout}`, id: 6 },

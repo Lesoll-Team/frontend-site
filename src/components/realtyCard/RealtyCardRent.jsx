@@ -11,7 +11,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
       {/* number of views */}
       <div className="flex items-center justify-between absolute w-full top-10">
         <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
-          <span>views</span> <span>{propertyDetails?.users.views.length}</span>
+          {/* <span>views</span> <span>{propertyDetails?.users.views.length}</span> */}
         </div>
         <div className=" bg-white  drop-shadow-lg p-7 mr-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
           {/* <AiOutlineHeart /> */}

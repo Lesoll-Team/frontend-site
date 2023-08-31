@@ -1,0 +1,93 @@
+import { Button, Input } from "@nextui-org/react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import { AiFillCaretDown } from "react-icons/ai";
+// import { useSelector } from "react-redux";
+const DropdownPrice = ({ classNames, name, options }) => {
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const dropdownButtonRef = useRef(null);
+  //   const language = useSelector((state) => state.GlobalState.languageIs);
+
+  //   useEffect(() => {
+  //     const handleClickOutside = (event) => {
+  //       if (
+  //         dropdownButtonRef.current &&
+  //         !dropdownButtonRef.current.contains(event.target)
+  //       ) {
+  //         setMenuIsOpen(false);
+  //       }
+  //     };
+
+  //     document.addEventListener("click", handleClickOutside);
+
+  //     return () => {
+  //       document.removeEventListener("click", handleClickOutside);
+  //     };
+  //   }, []);
+
+  const handleMenuOpen = () => {
+    setMenuIsOpen(!menuIsOpen);
+  };
+  //   const [selectoption, setSelectedOption] = useState();
+
+  //   const setSelectedOptionBasedOnLanguage = useCallback(() => {
+  //     setSelectedOption(language ? options.ar[0].name : options.en[0].name);
+  //   }, [language]);
+
+  //   useEffect(() => {
+  //     setSelectedOptionBasedOnLanguage();
+  //   }, [language, setSelectedOptionBasedOnLanguage]);
+  // console.log(options.ar[0].name);
+  return (
+    <div className={`${classNames} relative w-full  `}>
+      <div
+        ref={dropdownButtonRef}
+        onClick={handleMenuOpen}
+        className="w-full font-semibold text-darkGreen text-md flex items-center justify-around
+          focus:outline-lightGreen bg-white border-[3px] cursor-pointer  rounded-xl p-2   whitespace-nowrap"
+      >
+        {name}
+        <AiFillCaretDown
+          className={`text-darkGreen duration-150 ${
+            menuIsOpen && "rotate-180"
+          }`}
+        />
+      </div>
+      {menuIsOpen && (
+        <div
+          className={`absolute right-0 w-[200px] lg:w-[400px] animate-appearance-in z-10  mt-1
+           bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[550px]`}
+        >
+          <div className="w-full  p-4 flex flex-col items-center ">
+            <Input
+              className="pb-4"
+              type="number"
+              placeholder="0.00"
+              labelPlacement="outside"
+              startContent={
+                <div className="pointer-events-none flex items-center">
+                  <span className="text-default-400 text-small">From:</span>
+                </div>
+              }
+            />
+            <Input
+              className="pb-4"
+              type="number"
+              placeholder="0.00"
+              labelPlacement="outside"
+              startContent={
+                <div className="pointer-events-none flex items-center">
+                  <span className="text-default-400 text-small">To:</span>
+                </div>
+              }
+            />
+            <Button color="primary" variant="solid">
+              Find
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default memo(DropdownPrice);
