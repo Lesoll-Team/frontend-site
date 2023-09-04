@@ -1,4 +1,4 @@
-import React,{memo} from "react";
+import React, { memo } from "react";
 import {
   Table,
   TableHeader,
@@ -10,17 +10,19 @@ import {
 import { MdCheckCircleOutline } from "react-icons/md";
 import { BsSlashCircle } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import {ar} from "../../language/ar/common"
-import {en} from "../../language/en/common"
+import { ar } from "../../language/ar/common";
+import { en } from "../../language/en/common";
 
- function AddressLocation({singleAddressLocation}) {
-  const language = useSelector((state)=>state.GlobalState.languageIs)
-
+function AddressLocation({ singleAddressLocation }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  console.log(singleAddressLocation);
   return (
     <div className="lg:flex justify-between  items-center p-10 px-14 border-2 border-gray-200 rounded-3xl">
       <div className=" lg:w-6/12 ">
-   <div className="font-bold mb-6 ml-5">     <h3>{language?ar.property.address:en.property.address}</h3>
-   </div>
+        <div className="font-bold mb-6 ml-5">
+          {" "}
+          <h3>{language ? ar.property.address : en.property.address}</h3>
+        </div>
         <Table hideHeader aria-label="Example static collection table">
           <TableHeader>
             <TableColumn>NAME </TableColumn>
@@ -28,59 +30,71 @@ import {en} from "../../language/en/common"
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell className="font-bold">{language?ar.property.room:en.property.room}</TableCell>
+              <TableCell className="font-bold">
+                {language ? ar.property.room : en.property.room}
+              </TableCell>
               <TableCell>{singleAddressLocation.rooms}</TableCell>
             </TableRow>
             <TableRow key="2">
-              <TableCell className="font-bold">{language?ar.property.bathroom:en.property.bathroom} </TableCell>
+              <TableCell className="font-bold">
+                {language ? ar.property.bathroom : en.property.bathroom}{" "}
+              </TableCell>
               <TableCell>{singleAddressLocation.bathRooms}</TableCell>
             </TableRow>
             <TableRow key="3">
-              <TableCell className="font-bold"> {language?ar.property.pType:en.property.pType}</TableCell>
+              <TableCell className="font-bold">
+                {" "}
+                {language ? ar.property.pType : en.property.pType}
+              </TableCell>
               <TableCell>{singleAddressLocation.propType}</TableCell>
             </TableRow>
             <TableRow key="4">
               <TableCell className="font-bold">
-              {language?ar.property.level:en.property.level}
+                {language ? ar.property.level : en.property.level}
                 {/* Level/Number of Levels */}
               </TableCell>
               <TableCell>{singleAddressLocation.level}</TableCell>
             </TableRow>
             <TableRow key="5">
               <TableCell className="font-bold">
-              {language?ar.property.furnished:en.property.furnished}
+                {language ? ar.property.furnished : en.property.furnished}
 
-              {/* Furnished */}
+                {/* Furnished */}
               </TableCell>
-              <TableCell>       {singleAddressLocation.isFurnished? <MdCheckCircleOutline /> : <BsSlashCircle /> }</TableCell>
+              <TableCell>
+                {" "}
+                {singleAddressLocation.isFurnished ? (
+                  <MdCheckCircleOutline />
+                ) : (
+                  <BsSlashCircle />
+                )}
+              </TableCell>
             </TableRow>
             <TableRow key="6">
               <TableCell className="font-bold">
-              {/* Finishing Option */}
-              {language?ar.property.furnishedOp:en.property.furnishedOp}
-              
+                {/* Finishing Option */}
+                {language ? ar.property.furnishedOp : en.property.furnishedOp}
               </TableCell>
               <TableCell>{singleAddressLocation.finishingType}</TableCell>
             </TableRow>
             <TableRow key="7">
               <TableCell className="font-bold">
-              {/* Building Year */}
-              {language?ar.property.buildingYear:en.property.buildingYear}
+                {/* Building Year */}
+                {language ? ar.property.buildingYear : en.property.buildingYear}
               </TableCell>
               <TableCell>{singleAddressLocation.buildingYear}</TableCell>
             </TableRow>
             <TableRow key="8">
               <TableCell className="font-bold">
-              {/* Governorate */}
-              {language?ar.property.governorate:en.property.governorate}
+                {/* Governorate */}
+                {language ? ar.property.governorate : en.property.governorate}
               </TableCell>
               <TableCell>{singleAddressLocation.address.governrate}</TableCell>
             </TableRow>
             <TableRow key="9">
               <TableCell className="font-bold">
-              {/* City */}
-              {language?ar.property.city:en.property.city}
-              
+                {/* City */}
+                {language ? ar.property.city : en.property.city}
               </TableCell>
               <TableCell> {singleAddressLocation.address.region}</TableCell>
             </TableRow>
@@ -98,4 +112,4 @@ import {en} from "../../language/en/common"
     </div>
   );
 }
-export default memo(AddressLocation)
+export default memo(AddressLocation);

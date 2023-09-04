@@ -39,7 +39,11 @@ export default function PropertyDashboard() {
       try {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
         const getProperties = await fetchAllProperty(userToken);
-        setProperty(getProperties);
+
+if (getProperties==200) {
+  setProperty(getProperties);
+}
+    
         // console.log(property);
       } catch (error) {
         console.error("Error fetching Properties:", error);

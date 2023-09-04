@@ -21,10 +21,13 @@ export default function PropertyRent({ propertyForRent }) {
 
       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
         {propertyForRent.result.map((property) => (
-          <Link key={property._id} href={`/propertyDetails/${property._id}`}>
-            <RealtyCardRent propertyDetails={property} />
-          </Link>
+          
+
+            <RealtyCardRent key={property._id} propertyDetails={property} />
+            
         ))}
+          {/* <Link  href={`/propertyDetails/${property._id}`}>  </Link> */}
+
       </div>
 
       <div>

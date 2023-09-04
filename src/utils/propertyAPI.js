@@ -5,12 +5,31 @@ export async function createNewProperty(propertyDetils) {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.post(
-      `http://ec2-184-73-152-95.compute-1.amazonaws.com:9000/api/property/create`,
+      `${process.env.NEXT_PUBLIC_API_URL}/property/create`,
       propertyDetils,
       {
         headers: {
           token: userToken,
           "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function AddToFavorites(propertyid) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/favorites/${propertyid}`,
+      {},
+      {
+        headers: {
+          token: userToken,
         },
       }
     );

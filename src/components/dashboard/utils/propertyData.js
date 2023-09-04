@@ -16,7 +16,7 @@ export async function fetchAllProperty(userToken) {
     return response.data.result;
   // }
   } catch (error) {
-    throw error.response.data;
+    return error.response.data.code;
   }
 }
 

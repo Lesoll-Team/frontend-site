@@ -32,7 +32,24 @@ const Main = () => {
             alt="heroImg"
           />
         </div>
-        {/* <SearchBar/> */}
+        {/* <div className="  items-center w-[80%] md:w-[50%] border-2 flex gap-1 mx-auto  p-5 rounded-lg shadow-xl">
+          <AiOutlineSearch className="text-xl text-lightGreen font-black" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="focus:outline-none p-1 font-semibold  flex-1"
+          />
+          <button className="rounded-md bg-lightOrange text-lg text-white py-1 px-3 ">
+            Find Your Home
+          </button>
+        </div> */}
+
+        {/* <div className="container mx-auto grid  md:grid-cols-4 h-[85dvh] gap-5 ">
+          <div className="bg-gray-200  col-span-2 row-span-2 rounded-lg drop-shadow-xl"></div>
+          <div className="bg-gray-200  col-span-2 row-span-[1/2] rounded-lg drop-shadow-xl"></div>
+          <div className="bg-gray-200 col-span-[3/4] row-span-[2/3] rounded-lg drop-shadow-xl"></div>
+          <div className="bg-gray-200 col-span-[4/5] row-span-[2/3] rounded-lg drop-shadow-xl"></div>
+        </div> */}
       </section>
     </>
   );
