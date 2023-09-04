@@ -4,10 +4,12 @@ import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
 import { AiFillHeart } from "react-icons/ai";
-const RealtyCardRent = ({ propertyDetails }) => {
-  // console.log("Rent :", propertyDetails);
+import Link from "next/link";
+const SearchCard = ({ propertyDetails }) => {
+  // console.log("Search :", propertyDetails);
   return (
-    <div className="md:w-[310px] lg:w-[350px] w-[295px] min-h-[430px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className="md:w-[310px] lg:w-[350px] w-[295px] min-h-[430px] rounded-[30px] 
+    overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
       <div className="flex items-center justify-between absolute w-full top-10">
         <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
@@ -20,24 +22,26 @@ const RealtyCardRent = ({ propertyDetails }) => {
       </div>
       <div></div>
       {/* card img */}
+      <Link href={`/propertyDetails/${propertyDetails._id}`}>
       <img
         alt="Realty"
-        src={
-          propertyDetails?.album[0]?.image
-        }
+        src={propertyDetails?.album[0]?.image}
         loading="lazy"
         className="w-full h-[220px] overflow-hidden   object-cover"
       />
+      </Link>
       {/* card body  */}
       <div className="relative ">
         <div className="  bg-lightGreen text-white rounded-b-[30px] h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
           <p className=" font-bold ">
             <span>{propertyDetails?.price}</span>EGP
           </p>
-          <p className="">{propertyDetails?.offer}</p>
+          <p className="">For Sale</p>
         </div>
         <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
+        <Link href={`/propertyDetails/${propertyDetails._id}`}>
           <p>{propertyDetails?.title}</p>
+          </Link>
         </div>
         <div className="-mt-10 text-lightGreen h-20 pt-12 px-7 flex  justify-start gap-5 mb-5">
           <div className="flex items-center justify-start gap-1">
@@ -73,4 +77,4 @@ const RealtyCardRent = ({ propertyDetails }) => {
   );
 };
 
-export default RealtyCardRent;
+export default SearchCard;

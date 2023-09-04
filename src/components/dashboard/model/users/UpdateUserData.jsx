@@ -182,8 +182,8 @@ function UserUpdateModule({ userID }) {
         e.preventDefault();
         const newUserData = { typeOfUser, isAdmin };
         await updateUsers(userID, newUserData);
-        console.log(userID);
-        console.log(newUserData);
+        // console.log(userID);
+        // console.log(newUserData);
       } catch (error) {
         console.error("Error Update User Data:", error);
       }

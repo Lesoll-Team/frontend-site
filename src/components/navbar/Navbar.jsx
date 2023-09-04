@@ -74,42 +74,36 @@ export default function Navbar() {
 
         {/*nav link web page */}
         <ul
-          className={` ${
-            searchVisible ? "hidden" : "md:flex"
-          }   w-5/12 space-x-2 hidden`}
-          
+          className={` md:flex  w-5/12 space-x-2 hidden`}
         >
+        {/**${
+            searchVisible ? "hidden" : "md:flex"
+          }  */}
           <LinksNavbar />
         </ul>
         <ul
-          className={` ${
-            searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
-          } flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
+          className={`md:w-4/12 w-8/12  flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
         >
-          <ul className={`py-2 ${searchVisible ? "w-full " : ""} mr-1`}>
+        {/**${
+            searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
+          } */}
+          <Link href='/search'>
+          <ul className={`py-2 mr-1`}>
+          {/** ${searchVisible ? "w-full " : ""} */}
             <li className={` flex items-center  `}>
-              <FaSearch
+            <Button isIconOnly  className="bg-inherit" aria-label="Search">
+            <FaSearch
                 onClick={toggleSearch}
-                className="   text-1xl  text-lightOrange "
+                className="   text-1xl  text-lightOrange   "
               />
-              <input
-                placeholder={"search"}
-                className={` text-darkGreen placeholder-lightOrangeHover py-2 text-md mx-2 px-2 rounded-full 
-                           focus:outline-none focus:ring-1 focus:ring-lightOrange
-                           ring-lightOrange ring-1
-                       ${searchVisible ? "w-full" : "hidden"}`}
-                type="text"
-              />
-              <MdClear
-                onClick={toggleSearch}
-                className={`rounded-full   text-2xl
-                 text-lightOrange ${searchVisible ? "" : "hidden"} `}
-              />
+      </Button> 
+
             </li>
           </ul>
+          </Link>
 
           {/*button language*/}
-          <li className={`  ${searchVisible ? "hidden" : " md:flex hidden"}  `}>
+          <li className={`  md:flex hidden`}>{/**${searchVisible ? "hidden" : " md:flex hidden"} */}
             <button
               onClick={() => dispatch(handleLanguage())}
               className="
@@ -142,10 +136,8 @@ export default function Navbar() {
 
           {/*button Notifications */}
           <li
-            className={` ${
-              isAuth ? ` ${searchVisible ? "hidden" : " "}` : "hidden"
-            } relative`}
-          >
+            className={` ${isAuth ? " " : "hidden"} relative`}
+          >{/**` ${searchVisible ? "hidden" : " "}` */}
             <Badge content={2} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
@@ -163,9 +155,9 @@ export default function Navbar() {
           {/*button SignUp*/}
           <li
             className={`  ${
-              isAuth ? "hidden" : `${searchVisible ? "hidden" : " "}`
+              isAuth ? "hidden" : `` 
             } `}
-          >
+          >{/*${searchVisible ? "hidden" : " "} */}
             <button className="">
               <Link
                 className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
@@ -180,9 +172,10 @@ export default function Navbar() {
           {/*user section*/}
           <li
             className={`  ${
-              isAuth ? `${searchVisible ? "hidden" : ""}` : "hidden"
+              isAuth ? "" : "hidden"
             } relative`}
           >
+          {/**`${searchVisible ? "hidden" : ""}` */}
             <button onClick={() => setOpenUserMenu(!openUserMenu)}>
               <img
                 className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "

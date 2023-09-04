@@ -4,8 +4,8 @@ import RealtyCardBuy from "../../components/realtyCard/RealtyCardBuy.jsx";
 import PaginationPage from "../../Shared/Pagination/Pagination.jsx";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { SearchBar } from "@/Shared/search/SearchBar.jsx";
 export default function PropertyBuy({ propertyForBuy }) {
-  // console.log(propertyForBuy);
   const router = useRouter();
   const currentPage = router.query.page;
   return (
@@ -13,6 +13,8 @@ export default function PropertyBuy({ propertyForBuy }) {
       <Head>
         <title>Lesoll Buy</title>
       </Head>
+      <SearchBar/>
+
       <div>
         <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
           Properties for Buy

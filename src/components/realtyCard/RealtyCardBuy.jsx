@@ -31,7 +31,7 @@ const RealtyCardBuy = ({propertyDetails}) => {
       <div className="relative ">
         <div className="  bg-lightGreen text-white rounded-b-[30px] h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
           <p className=" font-bold "><span>{propertyDetails?.price}</span>EGP</p>
-          <p className="  ">For Sale</p>
+          <p className="  ">{propertyDetails?.offer}</p>
         </div>
         <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
           <p>{propertyDetails?.title}</p>

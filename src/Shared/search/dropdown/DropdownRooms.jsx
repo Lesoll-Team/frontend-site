@@ -1,22 +1,36 @@
 import { Button, Input } from "@nextui-org/react";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-
 import { MdAdd } from "react-icons/md";
 import { RxDash } from "react-icons/rx";
-// GiBoulderDash
-// MdAdd
-// import { useSelector } from "react-redux";
-const DropdownRooms = ({ classNames, name, options }) => {
+const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCountBedrooms,setCountBathroom }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  let [countBedrooms, setCountBedrooms] = useState(0);
-  let [countBathrooms, setCountBathroom] = useState(0);
   const dropdownButtonRef = useRef(null);
+  const dropdownContentRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownButtonRef.current &&
+        !dropdownButtonRef.current.contains(event.target) &&
+        dropdownContentRef.current &&
+        !dropdownContentRef.current.contains(event.target)
+      ) {
+        setMenuIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   const handleMenuOpen = () => {
     setMenuIsOpen(!menuIsOpen);
   };
   return (
-    <div className={`${classNames} relative w-full  `}>
+    <div  className={`${classNames} relative w-full  `}>
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
@@ -32,6 +46,8 @@ const DropdownRooms = ({ classNames, name, options }) => {
       </div>
       {menuIsOpen && (
         <div
+        ref={dropdownContentRef}
+
           className={`absolute right-0 w-[200px] lg:w-[300px] animate-appearance-in z-10  mt-1
            bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[550px]`}
         >
@@ -45,7 +61,7 @@ const DropdownRooms = ({ classNames, name, options }) => {
                   )
                 }
                 isIconOnly
-                color="danger"
+                className="bg-lightOrange text-white"
                 aria-label="Plath"
               >
                 {/* <HeartIcon /> */}
@@ -59,7 +75,7 @@ const DropdownRooms = ({ classNames, name, options }) => {
                   )
                 }
                 isIconOnly
-                color="danger"
+                className="bg-lightOrange text-white"
                 aria-label="Negative"
               >
                 {/* <HeartIcon /> */}
@@ -79,6 +95,7 @@ const DropdownRooms = ({ classNames, name, options }) => {
                 }
                 isIconOnly
                 color="warning"
+                className="text-lightOrange"
                 variant="faded"
                 aria-label="Plath"
               >
@@ -98,6 +115,7 @@ const DropdownRooms = ({ classNames, name, options }) => {
                 isIconOnly
                 color="warning"
                 variant="faded"
+                className="text-lightOrange"
                 aria-label="Negative"
               >
                 {/* <CameraIcon /> */}

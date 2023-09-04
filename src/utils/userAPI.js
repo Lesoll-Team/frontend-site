@@ -64,3 +64,32 @@ export async function updateUserDataInfo(userID, userToken, userUpdate) {
   }
   return null;
 }
+
+
+
+
+export async function changePassword(userNewPassword) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    try {
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/update/changepassword`,userNewPassword,
+        {
+          headers: {
+            token: userToken,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  
+}
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-export const paymentMethod = {
+export const paymentMethodData = {
   en: [
     { value: "Cash", name: "Cash" },
     { value: "Installment", name: "Installment" },
@@ -9,7 +9,7 @@ export const paymentMethod = {
   ],
 };
 
-export const finishingOptions = {
+export const finishingOptionsData = {
   en: [
     { value: "Super Lux", name: "Super Lux" },
     { value: "Lux", name: "Lux" },
@@ -24,7 +24,7 @@ export const finishingOptions = {
   ],
 };
 
-export const saleOptions = {
+export const saleOptionsData = {
   en: [
     { value: "For Sale", name: "For Sale" },
     { value: "For Rent", name: "For Rent" },
@@ -34,7 +34,7 @@ export const saleOptions = {
     { value: "For Rent", name: "للإيحار" },
   ],
 };
-export const propertyType = {
+export const propertyTypeData = {
   en: [
     { value: "Residential", name: "Residential" },
     { value: "Commercial", name: "Commercial" },
@@ -46,7 +46,7 @@ export const propertyType = {
     { value: "Land", name: "أرضي" },
   ],
 };
-export const unitType = {
+export const unitTypeData = {
   en: [
     { value: "Clinic", name: "Clinic" },
     { value: "Office", name: "Office" },

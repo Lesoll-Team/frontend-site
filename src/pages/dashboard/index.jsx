@@ -1,11 +1,52 @@
-import React from 'react'
-import DashboardAdmin from "../../components/dashboard/DashboardAdmin"
-function dashboard() {
-  return (
+import React, { useEffect } from 'react';
+import DashboardAdmin from "../../components/dashboard/DashboardAdmin";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
+function Dashboard() {
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const router = useRouter();
+
+  // Check if userInfo is not null and userInfo.isAdmin is true
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin === false) {
+      // Redirect to the 404 page if userInfo.isAdmin is not true or userInfo is null
+      router.push('/404'); // Assuming '/404' is the path to your 404 page
+    }
+  }, [userInfo]);
+
+  // Render DashboardAdmin only if userInfo is not null and userInfo.isAdmin is true
+  return userInfo && userInfo.isAdmin ? (
     <div>
-    <DashboardAdmin />
+      <DashboardAdmin />
     </div>
-  )
+  ) : <div className='w-full items-center flex justify-center text-center'>
+  Loading...
+  </div>;
 }
 
-export default dashboard
+export default Dashboard;
+
+
+// import React, { useEffect, useState } from 'react'
+// import DashboardAdmin from "../../components/dashboard/DashboardAdmin"
+// import { useSelector } from "react-redux";
+// import { useRouter } from "next/router";
+// function dashboard() {
+//   const userInfo = useSelector((state) => state.GlobalState.userData);  
+//   const router = useRouter();
+
+//   useEffect(() => {
+//     if (!userInfo.isAdmin) {
+//       // Redirect to the 404 page if userInfo.isAdmin is not true
+//       router.push('/404'); // Assuming '/404' is the path to your 404 page
+//     }
+//   }, [userInfo.isAdmin]);
+//   return (
+//     <div>
+//     <DashboardAdmin />
+//     </div>
+//   )
+// }
+
+// export default dashboard

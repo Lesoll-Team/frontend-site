@@ -3,7 +3,7 @@ import Link from "next/link";
 import PaginationPage from "../../Shared/Pagination/Pagination";
 import { useRouter } from "next/router";
 import RealtyCardRent from "../../components/realtyCard/RealtyCardRent";
-
+import { SearchBar } from "@/Shared/search/SearchBar";
 export default function PropertyRent({ propertyForRent }) {
   const router = useRouter();
   const currentPage = router.query.page;
@@ -12,6 +12,7 @@ export default function PropertyRent({ propertyForRent }) {
       <Head>
         <title>property</title>
       </Head>
+      <SearchBar/>
       <div>
         <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
           Properties for Rent
