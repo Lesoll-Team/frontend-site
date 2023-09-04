@@ -1,6 +1,6 @@
 import React from "react";
 
-const AddPropCheck = ({ title, value, setValue }) => {
+const AddPropCheck = ({ title, value, setValue, placeholder }) => {
   return (
     <div className="w-full  ">
       <h3 className=" text-lg md:text-2xl text-darkGreen font-semibold mb-2">
@@ -12,7 +12,7 @@ const AddPropCheck = ({ title, value, setValue }) => {
         }}
         className="bg-white font-semibold w-full text-lg focus:outline-lightGreen text-darkGreen cursor-pointer flex justify-between items-center    rounded-xl p-3 py-4 border-[3px]"
       >
-        <p>{title}</p>
+        <p>{title || placeholder}</p>
         {/* switch input */}
         <div
           className={`relative border-[3px] p-0 flex justify-start  border-darkGreen w-14 h-[25px] rounded-full cursor-pointer overflow-hidden ${

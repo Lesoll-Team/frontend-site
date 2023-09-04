@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //icons imports
 import { BsCheck2Circle } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
@@ -28,27 +28,27 @@ const Profile = () => {
   const switchPending = () => {
     setContent("pending");
   };
-  const switchDraft = () => {
-    setContent("draft");
-  };
-  const switchInActive = () => {
-    setContent("inactive");
-  };
+  // const switchDraft = () => {
+  //   setContent("draft");
+  // };
+  // const switchInActive = () => {
+  //   setContent("inactive");
+  // };
   const switchFav = () => {
     setContent("favorites");
   };
-useEffect(()=>{
-  setUserDataInfo(userInfo)
-},[userInfo])
+  useEffect(() => {
+    setUserDataInfo(userInfo);
+  }, [userInfo]);
 
-// const dispatch = useDispatch();
-// const userData = useSelector((state) => state.globalState.userData);
+  // const dispatch = useDispatch();
+  // const userData = useSelector((state) => state.globalState.userData);
 
-// useEffect(() => {
-//   // Call fetchUserData async thunk when the component mounts
-//   dispatch(fetchUserData());
-// }, [dispatch]);
-
+  // useEffect(() => {
+  //   // Call fetchUserData async thunk when the component mounts
+  //   dispatch(fetchUserData());
+  // }, [dispatch]);
+  // console.log(userInfo);
   return (
     <>
       <div className="">
@@ -148,7 +148,7 @@ useEffect(()=>{
                 <CgSandClock />
                 <p className=" ">Pending</p>
               </div>
-              <div
+              {/* <div
                 onClick={switchDraft}
                 className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "draft" &&
@@ -157,8 +157,8 @@ useEffect(()=>{
               >
                 <RiDraftLine />
                 <p className=" ">Draft</p>
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 onClick={switchInActive}
                 className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
                   content === "inactive" &&
@@ -167,7 +167,7 @@ useEffect(()=>{
               >
                 <MdDoNotDisturbOn />
                 <p className=" ">Deleted</p>
-              </div>
+              </div> */}
               <div
                 onClick={switchFav}
                 className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${

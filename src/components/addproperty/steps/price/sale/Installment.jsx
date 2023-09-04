@@ -2,6 +2,7 @@ import AddPropDropdown from "@/components/addproperty/AddPropIputs/AddPropDropdo
 import AddPropInput from "@/components/addproperty/AddPropIputs/AddPropInput";
 import React from "react";
 import { useSelector } from "react-redux";
+import Summary from "./Summary";
 
 const Installment = ({ propertyDetils, setData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -33,10 +34,10 @@ const Installment = ({ propertyDetils, setData }) => {
     ],
   };
   return (
-    <div className="flex flex-col md:flex-row justify-between">
-      <div className="flex flex-col gap-4 md:w-[48%]">
+    <div className="space-y-4 md:space-y-0 w-full flex flex-col md:flex-row md:justify-between items-stretch ">
+      <div className="w-full md:w-[48%] space-y-4 flex flex-col items-stretch ">
         <AddPropDropdown
-          title={language ? "Sale Option" : "نظام البيع"}
+          title={language ? "نظام البيع" : "Payment Method"}
           value={propertyDetils.saleOption}
           setValue={(e) => {
             setData({ ...propertyDetils, saleOption: e });
@@ -45,7 +46,7 @@ const Installment = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={language ? "Rental Price" : "سعر الإيجار"}
+          title={language ? "السعر" : " Price"}
           placeholder={"Price"}
           egp={true}
           value={propertyDetils.price}
@@ -55,7 +56,7 @@ const Installment = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={language ? "Down Payment" : "المقدم"}
+          title={language ? "المقدم" : "Down Payment"}
           placeholder={"Price"}
           egp={true}
           value={propertyDetils.downPayment}
@@ -65,7 +66,7 @@ const Installment = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={language ? "Maintenance Payment" : "المقدم"}
+          title={language ? "2 المقدم" : "Maintenance Payment"}
           placeholder={"Price"}
           egp={true}
           value={propertyDetils.maintenancePayment}
@@ -74,9 +75,9 @@ const Installment = ({ propertyDetils, setData }) => {
           }
         />
       </div>
-      <div className="flex flex-col gap-4 md:w-[48%]">
+      <div className=" gap-4 md:w-[48%]  flex flex-col items-stretch">
         <AddPropDropdown
-          title={language ? "Installment Type" : "نظام التقسيط"}
+          title={language ? "نظام التقسيط" : "Installment Type"}
           value={propertyDetils.installmentOption.type}
           setValue={(e) => {
             setData({
@@ -91,7 +92,7 @@ const Installment = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={language ? "Installment Period" : "مدة التقسيط"}
+          title={language ? "مدة التقسيط" : "Installment Period"}
           placeholder={
             propertyDetils.installmentOption.type === "Yearly"
               ? language
@@ -101,7 +102,7 @@ const Installment = ({ propertyDetils, setData }) => {
               ? "Months"
               : "عدد الشهور"
           }
-          value={propertyDetils.downPayment}
+          value={propertyDetils.installmentOption.period}
           setValue={(e) =>
             setData({
               ...propertyDetils,
@@ -112,6 +113,7 @@ const Installment = ({ propertyDetils, setData }) => {
             })
           }
         />
+        <Summary propertyDetils={propertyDetils} setData={setData} />
       </div>
     </div>
   );

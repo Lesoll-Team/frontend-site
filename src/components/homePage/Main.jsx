@@ -6,7 +6,7 @@ const Main = () => {
   return (
     <>
       <section className="py-3 ">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
+        {/* <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
           <div className="lg:space-y-2 flex flex-col justify-center items-center mt-5 sm:mt-0 md:items-start md:w-[%]  md:shadow-lg md:min-h-[200px] md:border-2 md:rounded-r-[70px] md:pl-7 pr-2 md:py-10">
             <h1 className="text-5xl relative lg:text-8xl text-lightGreen font-semibold text-center md:text-left">
               Lesoll{" "}
@@ -30,7 +30,7 @@ const Main = () => {
             className="w-[100%] md:w-1/2 md:justify-self-end-end"
             alt="heroImg"
           />
-        </div>
+        </div> */}
         {/* <div className="  items-center w-[80%] md:w-[50%] border-2 flex gap-1 mx-auto  p-5 rounded-lg shadow-xl">
           <AiOutlineSearch className="text-xl text-lightGreen font-black" />
           <input
@@ -42,6 +42,13 @@ const Main = () => {
             Find Your Home
           </button>
         </div> */}
+
+        <div className="container mx-auto grid  md:grid-cols-4 h-[85dvh] gap-5 ">
+          <div className="bg-gray-200  col-span-2 row-span-2 rounded-lg drop-shadow-xl"></div>
+          <div className="bg-gray-200  col-span-2 row-span-[1/2] rounded-lg drop-shadow-xl"></div>
+          <div className="bg-gray-200 col-span-[3/4] row-span-[2/3] rounded-lg drop-shadow-xl"></div>
+          <div className="bg-gray-200 col-span-[4/5] row-span-[2/3] rounded-lg drop-shadow-xl"></div>
+        </div>
       </section>
     </>
   );

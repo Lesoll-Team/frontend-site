@@ -35,11 +35,12 @@ const AddProperty = () => {
     unitType: "", //'Residential', 'Commercial', 'Land'
     landType: "", // '', 'Agriculture', 'Building'
     price: "",
-    area: "",
+    area: null,
+    areaType: "meter",
     realEstateFinance: false,
     downPayment: "",
     maintenancePayment: null,
-
+    connectPhoneNumber: "",
     rooms: null,
     bathRooms: null,
     description: "",
@@ -61,12 +62,14 @@ const AddProperty = () => {
     },
 
     appointments: {
-      allDays: false,
+      allDays: true,
       from: "",
       to: "",
       startDate: "",
       endDate: "",
     },
+    phoneNumber: null,
+    countryCode: null,
     status: "pendding",
     reason: "",
     level: "",
@@ -90,11 +93,26 @@ const AddProperty = () => {
   // const [multibulImg, setMultibulImg] = useState(null);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
+    if (!propertyDetils.title) {
+      console.error("Title is missing.");
+      return;
+    }
+
+    if (!propertyDetils.mainImage) {
+      console.error("Main image is missing.");
+      return;
+    }
+
+    if (!propertyDetils.multiImage || propertyDetils.multiImage.length === 0) {
+      console.error("Multi-images are missing.");
+      return;
+    }
     setLading(true);
-    e.preventDefault();
+    // e.preventDefault();
     const formData = new FormData();
     formData.append("title", propertyDetils.title);
     formData.append("offer", propertyDetils.offer);
+    formData.append("propType", propertyDetils.propType);
     formData.append("price", propertyDetils.price);
     formData.append("area", propertyDetils.area);
     formData.append("finishingType", propertyDetils.finishingType);
@@ -103,6 +121,14 @@ const AddProperty = () => {
     formData.append("description", propertyDetils.description);
     formData.append("downPayment", propertyDetils.downPayment);
     formData.append("rooms", propertyDetils.rooms);
+    propertyDetils.service.map((service) => {
+      formData.append("service", service);
+    });
+    // for (let i = 0; i < propertyDetils.multiImage.length; i++) {
+    //   formData.append("multiImage", propertyDetils.service[i]);
+    // }
+    formData.append("saleOption", propertyDetils.saleOption);
+    formData.append("bathRooms", propertyDetils.bathRooms);
     formData.append(
       "installmentOption",
       JSON.stringify(propertyDetils.installmentOption)
@@ -135,6 +161,7 @@ const AddProperty = () => {
 
     setLading(false);
   };
+  // console.log("data", propertyDetils);
   const renderStep = () => {
     if (step === 0) {
       return (
@@ -205,11 +232,8 @@ const AddProperty = () => {
       <h1 className="text-center text-5xl font-bold text-white mb-4">
         Add Property
       </h1>
-      <div className="sm:w-[85%] w-full  rounded-3xl min-h-[550px] border-2 py-5  mx-auto px-7 bg-white drop-shadow-3xl">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col justify-between min-h-[500px] space-y-5"
-        >
+      <div className=" w-full  rounded-3xl min-h-[550px] border-2 py-5  mx-auto px-7 bg-white drop-shadow-3xl">
+        <div className="flex flex-col justify-between min-h-[500px] space-y-5">
           <div className="flex flex-col space-y-4 justify-between">
             <div className="">
               {/* <h3 className="text-center text-lg text-lightOrange font-black tracking-widest">
@@ -261,7 +285,10 @@ const AddProperty = () => {
                 <hr />
                 <Location />
                 <hr />
-                <SellerInfo />
+                <SellerInfo
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
                 <hr />
                 <Appointment
                   propertyDetils={propertyDetils}
@@ -283,11 +310,12 @@ const AddProperty = () => {
               {isLading ? "Submut.." : "submit"}
             </Button> */}
             <button
-                    disabled={isLading}
-                    className="bg-lightGreen rounded-xl py-1 sm:py-2  text-white font-medium w-[100px] sm:w-[140px] md:w-[140px] focus:outline-lightOrangeHover text-center"
-                  >
-                    {isLading ? "Submut.." : "submit"}
-                  </button>
+              onClick={handleSubmit}
+              disabled={isLading}
+              className="bg-lightGreen rounded-xl py-1 sm:py-2  text-white font-medium w-[100px] sm:w-[140px] md:w-[140px] focus:outline-lightOrangeHover text-center"
+            >
+              {isLading ? "Submut.." : "submit"}
+            </button>
             {step === 0 ? (
               <div
                 onClick={incrementStep}
@@ -321,8 +349,7 @@ const AddProperty = () => {
               </>
             )}
           </div>
-        </form>
-        <div></div>
+        </div>
       </div>
     </div>
   );

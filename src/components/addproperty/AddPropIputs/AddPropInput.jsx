@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 const AddPropInput = ({
   type,
   title,
@@ -12,6 +12,7 @@ const AddPropInput = ({
   isLand,
   period,
 }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div className="relative">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
@@ -25,7 +26,11 @@ const AddPropInput = ({
           placeholder={placeholder}
           type={type}
         />
-        <p className="absolute top-[20px] text-darkGreen font-extrabold right-0 pl-1 pr-4 bg-">
+        <p
+          className={`absolute top-[20px] text-darkGreen font-extrabold  pl-1 pr-4 bg- ${
+            language ? "left-3 " : "right-0"
+          }`}
+        >
           {isLand && isLand === "m" ? (
             <>
               <span>M </span>
@@ -36,12 +41,16 @@ const AddPropInput = ({
           ) : isLand === "arce" ? (
             "Arce"
           ) : null}
-          {m2 && (
-            <span>
-              M <sup>2</sup>
-            </span>
-          )}
-          {egp && <p>EGP</p>}
+          {m2 &&
+            (language ? (
+              <>
+                <span>م</span>
+                <sup>2</sup>
+              </>
+            ) : (
+              <span>m&#178;</span>
+            ))}
+          {egp && <span>EGP</span>}
         </p>
 
         {/* Period  */}

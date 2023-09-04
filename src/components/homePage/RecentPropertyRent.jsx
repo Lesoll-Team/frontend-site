@@ -1,7 +1,7 @@
 import React from "react";
 import RealtyCardRent from "../realtyCard/RealtyCardRent";
 import Link from "next/link";
-const RecentPropertyRent = ({propertiesRent}) => {
+const RecentPropertyRent = ({ propertiesRent }) => {
   // console.log(property);
   return (
     <section className=" px-2 my-24 ">
@@ -11,17 +11,15 @@ const RecentPropertyRent = ({propertiesRent}) => {
         </h1>
       </div>
       <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
-       
-       {propertiesRent.map((property)=>
-       <Link key={property._id} href={`/propertyDetails/${property._id}`}>
-        <RealtyCardRent key={property._id} propertyDetails={property}/>
-        </Link>
-       )} 
+        {propertiesRent.map((property) => (
+          <RealtyCardRent key={property._id} propertyDetails={property} />
+        ))}
       </div>
       <div className="flex justify-center mt-7">
         <Link
           className="text-lightGreen text-xl border-lightGreen border-2 py-2 px-4 rounded-lg hover:bg-lightGreen hover:text-white duration-300"
-          href={"/rent/1"}>
+          href={"/rent/1"}
+        >
           View More
         </Link>
       </div>

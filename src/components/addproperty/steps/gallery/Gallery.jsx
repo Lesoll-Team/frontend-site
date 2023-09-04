@@ -6,6 +6,7 @@ import { MdOutlineRemoveCircle } from "react-icons/md";
 import { GrAddCircle } from "react-icons/gr";
 import { IoAddCircle } from "react-icons/io5";
 const Gallery = ({ propertyDetils, setData }) => {
+  const [imgMaxError, setImgMaxError] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const mainImageInputRef = useRef(null);
   const multiImageInputRef = useRef(null);
@@ -38,20 +39,31 @@ const Gallery = ({ propertyDetils, setData }) => {
   const handleAddMultiImage = (e) => {
     const newFiles = e.target.files;
 
-    if (propertyDetils.multiImage) {
-      const updatedMultiImage = [
-        ...Array.from(propertyDetils.multiImage),
-        ...newFiles,
-      ];
-      setData({
-        ...propertyDetils,
-        multiImage: updatedMultiImage,
-      });
+    // Check if the total number of selected files is greater than 14
+    if (
+      newFiles.length +
+        (propertyDetils.multiImage ? propertyDetils.multiImage.length : 0) >
+      14
+    ) {
+      setImgMaxError(true);
     } else {
-      setData({
-        ...propertyDetils,
-        multiImage: newFiles,
-      });
+      // Continue to add images to the state
+      setImgMaxError(false);
+      if (propertyDetils.multiImage) {
+        const updatedMultiImage = [
+          ...Array.from(propertyDetils.multiImage),
+          ...newFiles,
+        ];
+        setData({
+          ...propertyDetils,
+          multiImage: updatedMultiImage,
+        });
+      } else {
+        setData({
+          ...propertyDetils,
+          multiImage: newFiles,
+        });
+      }
     }
   };
 
@@ -79,6 +91,7 @@ const Gallery = ({ propertyDetils, setData }) => {
           <input
             hidden
             type="file"
+            accept="image/*"
             ref={mainImageInputRef}
             onChange={(e) => {
               setData({
@@ -88,9 +101,9 @@ const Gallery = ({ propertyDetils, setData }) => {
             }}
           />
           {propertyDetils.mainImage && (
-            <div className="relative">
+            <div className="relative  max-w-[250px] max-h-[250px]  overflow-hidden">
               <img
-                className="md:w-[300px] w-[250px] rounded-lg"
+                className="w-full h-full object-cover  rounded-lg"
                 src={URL.createObjectURL(propertyDetils.mainImage)}
               />
               <MdOutlineRemoveCircle
@@ -116,6 +129,7 @@ const Gallery = ({ propertyDetils, setData }) => {
           </div>
           <input
             hidden
+            max={14}
             ref={multiImageInputRef}
             type="file"
             multiple
@@ -123,12 +137,16 @@ const Gallery = ({ propertyDetils, setData }) => {
             label="multi Images"
             onChange={handleAddMultiImage}
           />
+
           {propertyDetils.multiImage && (
-            <div className="flex justify-center flex-wrap gap-4">
+            <div className="flex justify-center flex-wrap gap-4 ">
               {Array.from(propertyDetils.multiImage).map((image, index) => (
-                <div key={index} className="relative">
+                <div
+                  key={index}
+                  className="relative w-[200px] h-[200px]  overflow-hidden"
+                >
                   <img
-                    className="md:w-[300px] w-[250px] rounded-lg "
+                    className="object-cover rounded-lg w-full h-full "
                     src={URL.createObjectURL(image)}
                   />
                   <MdOutlineRemoveCircle
@@ -138,6 +156,11 @@ const Gallery = ({ propertyDetils, setData }) => {
                 </div>
               ))}
             </div>
+          )}
+          {imgMaxError && (
+            <p className="text-red-500">
+              Please select a maximum of 14 images.
+            </p>
           )}
         </div>
       </div>

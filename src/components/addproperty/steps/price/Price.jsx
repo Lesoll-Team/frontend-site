@@ -9,7 +9,7 @@ const Price = ({ propertyDetils, setData }) => {
   return (
     <div className="space-y-7">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
-        {language ? "Price" : "السعر"}
+        {language ? "السعر" : "Price"}
       </h3>
       {propertyDetils.offer === "For Sale" ? (
         <Sale propertyDetils={propertyDetils} setData={setData} />
