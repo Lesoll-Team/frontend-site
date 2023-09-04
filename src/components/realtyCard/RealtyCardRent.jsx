@@ -31,19 +31,21 @@ const RealtyCardRent = ({ propertyDetails }) => {
           <AiFillHeart className="text-red-500" onClick={addToFAv} />
         </div>
       </div>
-      <div></div>
+
       {/* card img */}
-      <Link
-        key={propertyDetails?._id}
-        href={`/propertyDetails/${propertyDetails?._id}`}
-      >
-        <img
-          alt="Realty"
-          src={propertyDetails?.album[0]?.image}
-          loading="lazy"
-          className="w-full h-[220px] overflow-hidden   object-cover"
-        />
-      </Link>
+      <div>
+        <Link
+          key={propertyDetails?._id}
+          href={`/propertyDetails/${propertyDetails?._id}`}
+        >
+          <img
+            alt="Realty"
+            src={propertyDetails?.album[0]?.image}
+            loading="lazy"
+            className="w-full h-[220px] overflow-hidden   object-cover"
+          />
+        </Link>
+      </div>
       {/* card body  */}
       <div className="relative ">
         <div className="  bg-lightGreen text-white rounded-b-[30px] h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
@@ -62,21 +64,18 @@ const RealtyCardRent = ({ propertyDetails }) => {
         </Link>
         <div className="-mt-10 text-lightGreen h-20 pt-12 px-7 flex  justify-start gap-5 mb-5">
           <div className="flex items-center justify-start gap-1">
-            {" "}
-            <BiSolidBed className="text-xl " />{" "}
+            <BiSolidBed className="text-xl " />
             <p className="text-[12px] font-semibold text-darkGray">
               <span>{propertyDetails?.rooms}</span> Rooms
             </p>
           </div>
           <div className="flex items-center gap-1">
-            {" "}
-            <FaBath className="text-xl " />{" "}
+            <FaBath className="text-xl " />
             <p className="text-[12px] font-semibold text-darkGray">
               <span>{propertyDetails?.bathRooms}</span> Bath
             </p>
           </div>
           <div className="flex items-center gap-1">
-            {" "}
             <TbRulerMeasure className="text-l " />{" "}
             <p className="text-[12px] font-semibold text-darkGray">
               <span>{propertyDetails?.area}</span> m2

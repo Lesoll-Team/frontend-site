@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.0.18",
+    "@reach/combobox": "^0.18.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
