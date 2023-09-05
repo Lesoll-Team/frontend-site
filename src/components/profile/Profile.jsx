@@ -15,6 +15,7 @@ import PendingAds from "./PendingAds";
 import DraftAds from "./DraftAds";
 import InActiveAds from "./InActiveAds";
 import FavoriteAds from "./FavoriteAds";
+import { Avatar } from "@nextui-org/react";
 // import { fetchUserData } from "@/redux-store/features/globalState";
 const Profile = () => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
@@ -57,15 +58,12 @@ const Profile = () => {
           <div className="container mx-auto  py-10 relative pb-20">
             <div className="flex justify-between items-start">
               <div className="flex sm:items-center flex-col sm:flex-row gap-3">
-                <img
-                  alt="user image"
+                <Avatar
                   src={userDataInfo?.avatarUrl}
-                  // src="userDataInfoavatarUrl"
-                  // width={130}
-                  // loading="lazy"
-                  // height={"auto"}
-                  className="w-[130px] h-[130px] rounded-full  border-4  border-gray-300 drop-shadow-xl"
+                  className="w-24 h-24 text-large"
                 />
+
+
                 <div className="flex flex-col">
                   <div>
                     <p className="font-bold text-xl md:text-2xl">

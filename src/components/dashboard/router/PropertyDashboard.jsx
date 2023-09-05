@@ -27,8 +27,6 @@ const columns = [
   { name: "Title", uid: "title" },
   { name: "Details", uid: "details" },
   { name: "Address", uid: "address" },
-  // { name: "Created", uid: "createdAt", sortable: true }, //, sortable: true address
-  // { name: "Updated", uid: "updatedAt" }, //, sortable: true
   { name: "ACTIONS", uid: "actions" },
 ];
 export default function PropertyDashboard() {
@@ -40,10 +38,10 @@ export default function PropertyDashboard() {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
         const getProperties = await fetchAllProperty(userToken);
 
-if (getProperties==200) {
-  setProperty(getProperties);
-}
-    
+        // if (getProperties==200) {
+        setProperty(getProperties);
+        // }
+
         // console.log(property);
       } catch (error) {
         console.error("Error fetching Properties:", error);
@@ -98,86 +96,88 @@ if (getProperties==200) {
   const renderCell = useCallback((blog, columnKey) => {
     switch (columnKey) {
       case "address":
-
         return (
           <div className="flex flex-col w-[300px]">
-                   <p className="text-bold grid grid-cols-2 text-medium capitalize">
-            <b>Address:</b>{blog.address.name}
-
+            <p className="text-bold grid grid-cols-2 text-medium capitalize">
+              <b>Address:</b>
+              {blog.address.name}
             </p>
             <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-            <b>Governorate</b>{blog.address.governrate}
+              <b>Governorate</b>
+              {blog.address.governrate}
             </p>
-            <hr/>
+            <hr />
             <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-            <b>Region</b>{blog.address.region}
+              <b>Region</b>
+              {blog.address.region}
             </p>
           </div>
         );
 
-        case "details":
-          const formattedUpdatedAtDate = new Date(
-    blog.updatedAt
-  ).toLocaleString();
-  const formattedCreatedAtDate = new Date(
-    blog.createdAt
-  ).toLocaleString();
-  return (
-    <div className="flex flex-col w-[350px]">
-             <p className="text-bold grid grid-cols-2 text-medium capitalize">
-      <b>Area:</b>{blog.offer}
+      case "details":
+        const formattedUpdatedAtDate = new Date(
+          blog.updatedAt
+        ).toLocaleString();
+        const formattedCreatedAtDate = new Date(
+          blog.createdAt
+        ).toLocaleString();
+        return (
+          <div className="flex flex-col w-[350px]">
+            <p className="text-bold grid grid-cols-2 text-medium capitalize">
+              <b>Offer:</b>
+              {blog.offer}
+            </p>
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>Price</b>
+              {blog.price}
+            </p>
+            <hr />
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>BathRooms</b>
+              {blog.bathRooms}
+            </p>
+            <hr />
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>Bedrooms:</b>
+              {blog.rooms}
+            </p>
+            <hr />
 
-      </p>
-      <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-      <b>Price</b>{blog.price}
-      </p>
-      <hr/>
-      <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-      <b>BathRooms</b>{blog.bathRooms}
-      </p>
-        <hr/>
-      <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-      <b>Bedrooms:</b>{blog.rooms}
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>Area:</b>
+              {blog.area}
+            </p>
+            <hr />
 
-      </p>
-      <hr/>
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>Created</b>
+              {formattedCreatedAtDate}
+            </p>
+            <hr />
 
-      <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-      <b>Area:</b>{blog.area}
-
-      </p>
-      <hr/>
-
-      <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-        <b>Created</b>{formattedCreatedAtDate}
-      </p>
-      <hr/>
-
-<p className="text-bold  capitalize grid grid-cols-2 text-medium">
-<b>Updated</b>{formattedUpdatedAtDate}
-</p>
-    </div>
-  );
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>Updated</b>
+              {formattedUpdatedAtDate}
+            </p>
+          </div>
+        );
 
       case "thumbnail":
         return (
           <div className="flex flex-col w-[200px]">
-              
-              <Image
-      width={200}
-      // height={2000}
-      src={blog.thumbnail}
-      fallbackSrc="https://via.placeholder.com/2  00x200"
-      alt="NextUI Image with fallback"
-    />
+            <Image
+              width={200}
+              // height={2000}
+              src={blog.thumbnail}
+              fallbackSrc="https://via.placeholder.com/2  00x200"
+              alt="NextUI Image with fallback"
+            />
           </div>
         );
       case "title":
         return (
           <div className="flex flex-col w-[250px]">
-            <p className="font-bold text-medium text-center">
-              {blog.title}
-            </p>
+            <p className="font-bold text-medium text-center">{blog.title}</p>
           </div>
         );
       // case "createdAt":
@@ -207,9 +207,7 @@ if (getProperties==200) {
       case "actions":
         return (
           <div className="relative flex justify-start items-center w-[200px] gap-2">
-          <div className="text-medium font-bold">
-            {blog._id}
-            </div>
+            <div className="text-medium font-bold">{blog._id}</div>
             <Dropdown
               aria-label="Options Menu Property"
               aria-labelledbyl="Options Menu Property"
@@ -282,7 +280,8 @@ if (getProperties==200) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total property pending: <b className="text-lightOrange"> {property.length}</b>
+            Total property pending:{" "}
+            <b className="text-lightOrange"> {property.length}</b>
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -356,7 +355,6 @@ if (getProperties==200) {
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
-
     >
       <TableHeader columns={headerColumns}>
         {(column) => (
@@ -369,11 +367,11 @@ if (getProperties==200) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody   emptyContent={"No property found"} items={sortedItems}>
+      <TableBody emptyContent={"No property found"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item._id} >
+          <TableRow key={item._id}>
             {(columnKey) => (
-              <TableCell >{renderCell(item, columnKey)}</TableCell>
+              <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}
           </TableRow>
         )}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, User } from "@nextui-org/react";
-import { getAllUsers, deleteUsers } from "../utils/userAPI";
+import { getAllUsers, deleteUsers, banUser } from "../utils/userAPI";
 import {
   Table,
   TableHeader,
@@ -18,8 +18,7 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
-import EditModule from "../model/EditModule";
-import UserUpdateModule from "../model/users/UpdateUserData"
+import UserUpdateModule from "../model/users/UpdateUserData";
 const columns = [
   { name: "User", uid: "fullname" },
   { name: "Phone", uid: "phone" },
@@ -28,37 +27,35 @@ const columns = [
   { name: "ACTIONS & ID", uid: "actions" },
 ];
 export default function UserDashboard() {
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [users, setUsers] = useState([]);
-  // console.log(users);
+  const [usersLength, setUsersLength] = useState(0);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
-        const getUsers = await getAllUsers(userToken);
-        setUsers(getUsers);
+        const getUsers = await getAllUsers(rowsPerPage, page, userToken);
+        setUsers(getUsers.data);
+        setUsersLength(getUsers.nPages);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
     fetchUsersData();
-  }, []);
-  // const [newUserData, setNewUserData] = useState({
-  //   isAdmin: false,
-  //   fullname: "YESO",
-  //   phone: "010010010",
-  // });
+  }, [page, rowsPerPage]);
+
   const [filterValue, setFilterValue] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+
   const [sortDescriptor, setSortDescriptor] = useState({});
-  const [page, setPage] = useState(1);
-  const pages = Math.ceil(users.length / rowsPerPage);
+  const pages = Math.ceil(usersLength / rowsPerPage);
   const hasSearchFilter = Boolean(filterValue);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
   const filteredItems = useMemo(() => {
     let filteredUsers = [...users];
-
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter(
         (user) =>
@@ -69,12 +66,18 @@ export default function UserDashboard() {
     }
     return filteredUsers;
   }, [users, filterValue]);
+
+  // console.log("filteredItems", filteredItems);//allows update 
+
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
+    return filteredItems.slice(start, end)&&filteredItems;
+    // return filteredItems
 
-    return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
+  // console.log("itme dot length", items);
+
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
       const first = a[sortDescriptor.column];
@@ -84,16 +87,9 @@ export default function UserDashboard() {
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-
-  // const UpdateUserData = async (UserID) => {
-  //   try {
-  //     const getDataUpdate = await updateUsers(UserID, newUserData);
-  //     // console.log(getDataUpdate);
-  //   } catch (error) {
-  //     console.error("Error Update User Data:", error);
-  //   }
-  // };
-
+  {
+    // console.log("sorting item :", sortedItems);
+  }
   const renderCell = useCallback((user, columnKey) => {
     switch (columnKey) {
       case "fullname":
@@ -136,7 +132,6 @@ export default function UserDashboard() {
             </p>
           </div>
         );
-
       case "actions":
         return (
           <div className="relative flex justify-start items-center gap-2">
@@ -154,7 +149,6 @@ export default function UserDashboard() {
                   <VerticalDotsIcon className="text-default-400" />
                 </Button>
               </DropdownTrigger>
-
               <DropdownMenu
                 aria-label="Options Menu User"
                 aria-labelledbyl="Options Menu User"
@@ -165,10 +159,15 @@ export default function UserDashboard() {
                 >
                   Delete
                 </DropdownItem>
-                <DropdownItem textValue="Ban">Ban</DropdownItem>
+                <DropdownItem
+                  textValue="Ban"
+                  onClick={async () => await banUser(user._id)}
+                >
+                  Ban
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-                <UserUpdateModule userID={user._id} isAdmin={false}/>{/*user.isAdmin*/}
+            <UserUpdateModule userID={user._id} isAdmin={false} />
           </div>
         );
     }
@@ -203,9 +202,6 @@ export default function UserDashboard() {
             onClear={() => setFilterValue("")}
             onValueChange={onSearchChange}
           />
-          {/* <div className="flex gap-3">
-            <AddBlogModule />
-          </div> */}
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
@@ -220,6 +216,9 @@ export default function UserDashboard() {
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
+              <option value="30">15</option>
+              <option value="60">15</option>
+              {/* <option value={`${usersLength/2}`}>All</option> */}
             </select>
           </label>
         </div>
@@ -229,7 +228,7 @@ export default function UserDashboard() {
     filterValue,
     onSearchChange,
     onRowsPerPageChange,
-    users.length,
+    usersLength,
     hasSearchFilter,
   ]);
   const bottomContent = useMemo(() => {
@@ -247,9 +246,14 @@ export default function UserDashboard() {
           variant="light"
           onChange={setPage}
         />
+        <span className="text-small text-default-400">
+          {selectedKeys === "all"
+            ? "All items selected"
+            : `${selectedKeys.size} of ${items.length} selected`}
+        </span>
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages, hasSearchFilter, selectedKeys]);
   const classNames = useMemo(
     () => ({
       wrapper: ["max-h-[382px]", "max-w-3xl"],
@@ -280,6 +284,9 @@ export default function UserDashboard() {
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
+      onSortChange={setSortDescriptor}
+      selectedKeys={selectedKeys}
+      onSelectionChange={setSelectedKeys}
     >
       <TableHeader columns={headerColumns}>
         {(column) => (
