@@ -17,7 +17,7 @@ const FavoriteAds = () => {
           },
         }
       );
-      // console.log(response.data);
+      console.log(response.data);
       setFav(response.data.propertyFavorites);
     } catch (err) {
       console.log(err);
