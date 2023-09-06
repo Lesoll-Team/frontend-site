@@ -130,7 +130,7 @@ const AddProperty = () => {
     formData.append("price", propertyDetils.price);
     formData.append("area", propertyDetils.area);
     formData.append("areaType", propertyDetils.areaType);
-    formData.append("realEstateFinance", propertyDetils.realEstateFinance);
+    formData.append("RealEstateFinance", propertyDetils.realEstateFinance);
     formData.append("downPayment", propertyDetils.downPayment);
     formData.append("maintenancePayment", propertyDetils.maintenancePayment);
     formData.append("rooms", propertyDetils.rooms);
