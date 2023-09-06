@@ -1,6 +1,6 @@
 import { logoutUserToken } from "../../redux-store/features/authSlice";
 import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import {
   MdAccountCircle,
@@ -13,6 +13,12 @@ export default function UserMenu() {
   const dispatch = useDispatch();
 
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const [userDataInfo, setUserDataInfo] = useState({});
+
+  useEffect(() => {
+    setUserDataInfo(userInfo);
+  });
 
   const userMenus = [
     {
@@ -29,7 +35,7 @@ export default function UserMenu() {
     {
       languages: { english: "dashboard", arabic: "لوحة القيادة" },
       href: "/dashboard",
-      id:4
+      id: 4,
     },
   ];
   const handleLogout = () => {
@@ -40,7 +46,14 @@ export default function UserMenu() {
   return (
     <Fragment>
       {userMenus.map((userMenu) => (
-        <li key={userMenu.id} className={` w-48`}>
+        <li
+          key={userMenu.id}
+          className={`${
+          userMenu.id === 4 && userDataInfo && userDataInfo.isAdmin === false
+            ? "hidden"
+            : ""
+        } w-48`}
+        >
           {/*${userMenu.languages.arabic == "English" ? 'md:hidden':''} */}
 
           <Link

@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Cash = ({ propertyDetils, setData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = !useSelector((state) => state.GlobalState.languageIs);
   const saleOptions = {
     en: [
       { value: "Cash", name: "Cash" },

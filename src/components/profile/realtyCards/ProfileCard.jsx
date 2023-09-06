@@ -5,10 +5,18 @@ import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import Link from "next/link";
+import { deleteProperty } from "@/utils/propertyAPI";
 
-const ProfileCard = (props) => {
-  const type = props.type;
-
+const ProfileCard = ({ propertyDetails, type, onRemove }) => {
+  const deleteProp = async () => {
+    try {
+      await deleteProperty(propertyDetails._id);
+      // After successfully adding to favorites, trigger the removal callback
+      onRemove(propertyDetails._id);
+    } catch (error) {
+      console.error("Error del prop:", error);
+    }
+  };
   return (
     <div className="md:max-w-[310px] lg:max-w-[350px] max-w-[295px] min-h-[410px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
@@ -28,34 +36,40 @@ const ProfileCard = (props) => {
       {/* card img */}
       <img
         alt="Realty"
-        src="testimg.webp"
+        src={propertyDetails.thumbnail}
         loading="lazy"
         className="w-full h-[220px] overflow-hidden   object-cover"
       />
       {/* card body  */}
       <div className="relative ">
         <div className="  bg-lightGreen text-white rounded-b-[30px] h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
-          <p className=" font-bold ">18,000 EGP</p>
-          <p className="  ">For Sale</p>
+          <p className=" font-bold ">{propertyDetails.price} EGP</p>
+          <p className="  ">{propertyDetails.offer}</p>
         </div>
         <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
-          <p>شقه مفروشه للإيجار بالشيخ زايد</p>
+          <p>{propertyDetails.title}</p>
         </div>
         <div className="-mt-10 text-lightGreen h-20 pt-12 px-7 flex  justify-start gap-5 mb-5">
           <div className="flex items-center justify-start gap-1">
             {" "}
             <BiSolidBed className="text-xl " />{" "}
-            <p className="text-[12px] font-semibold text-darkGray">3 Rooms</p>
+            <p className="text-[12px] font-semibold text-darkGray">
+              {propertyDetails.rooms} Rooms
+            </p>
           </div>
           <div className="flex items-center gap-1">
             {" "}
             <FaBath className="text-xl " />{" "}
-            <p className="text-[12px] font-semibold text-darkGray">1 Bath</p>
+            <p className="text-[12px] font-semibold text-darkGray">
+              {propertyDetails.bathrooms} Bath
+            </p>
           </div>
           <div className="flex items-center gap-1">
             {" "}
             <TbRulerMeasure className="text-l " />{" "}
-            <p className="text-[12px] font-semibold text-darkGray">250 m2</p>
+            <p className="text-[12px] font-semibold text-darkGray">
+              {propertyDetails.area} m2
+            </p>
           </div>
         </div>
         {/* location */}
@@ -63,11 +77,15 @@ const ProfileCard = (props) => {
       <p className="text-sm  text-lightGreen">Cairo - Naser City</p>
     </div> */}
         <div className="px-7 mb-1 flex justify-between items-center ">
-          <p className="text-sm  text-darkGray">Cairo - Naser City</p>
+          <p className="text-sm  text-darkGray">
+            {propertyDetails.address.name}
+          </p>
           <div className="flex gap-3 items-center">
-            <Link href={"/profile"}>
-              <AiFillDelete className="text-xl  md:text-2xl text-red-600" />
-            </Link>
+            <AiFillDelete
+              className="text-xl  md:text-2xl text-red-600 cursor-pointer"
+              onClick={deleteProp}
+            />
+
             <Link href={"/profile"}>
               <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
             </Link>

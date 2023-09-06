@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
-const AddPropDropdown = ({ title, value, setValue, options }) => {
+const AddPropDropdown = ({
+  title,
+  value,
+  setValue,
+  options,
+  disabled = true,
+}) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const choices = language ? options.en : options.ar;
+  const choices = !language ? options.en : options.ar;
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -24,6 +30,7 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
   }, []);
 
   const handleMenuOpen = () => {
+    if (!disabled) return;
     setMenuIsOpen(!menuIsOpen);
   };
   const [selectoption, setSelectedOption] = useState(value);
@@ -32,10 +39,13 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
         {title}
       </h3>
-      <div
+      <button
+        disabled={!disabled}
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-lightGreen bg-white border-[3px]   rounded-xl p-4   whitespace-nowrap"
+        className={`w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-lightGreen bg-white border-[3px]   rounded-xl p-4   whitespace-nowrap ${
+          !disabled && "opacity-50"
+        }`}
       >
         {selectoption || title}
         <AiFillCaretDown
@@ -43,7 +53,7 @@ const AddPropDropdown = ({ title, value, setValue, options }) => {
             menuIsOpen && "rotate-180"
           }`}
         />
-      </div>
+      </button>
       {menuIsOpen && (
         <div
           className={`absolute animate-appearance-in z-10 w-full  mt-1 bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[150px]`}

@@ -1,4 +1,6 @@
-import Search from "@/components/search/Search";
+// import Search from "@/components/search/Search";
+import { SearchBar } from "@/Shared/search/SearchBar";
+import SearchResult from "@/components/SearchResult/SearchResult";
 import Head from "next/head";
 
 const index = () => {
@@ -7,8 +9,14 @@ const index = () => {
       <Head>
         <title>Lesoll Search</title>
       </Head>
-      <Search />
+      <div>
+           <SearchBar/>
+           <SearchResult/>
+      </div>
     </>
   );
 };
 export default index;
+
+
+

@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import heroImg from "../../../public/hero.png";
 import { AiOutlineSearch } from "react-icons/ai";
+// import SearchBar from "@/Shared/search/SearchBar";
 const Main = () => {
   return (
     <>
@@ -43,7 +44,7 @@ const Main = () => {
           </button>
         </div> */}
 
-        <div className="container mx-auto grid  md:grid-cols-4 h-[85dvh] gap-5 ">
+        <div className="max-w-[90%] mx-auto grid  md:grid-cols-4 h-[87dvh] gap-5 ">
           <div className="bg-gray-200  col-span-2 row-span-2 rounded-lg drop-shadow-xl"></div>
           <div className="bg-gray-200  col-span-2 row-span-[1/2] rounded-lg drop-shadow-xl"></div>
           <div className="bg-gray-200 col-span-[3/4] row-span-[2/3] rounded-lg drop-shadow-xl"></div>

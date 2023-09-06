@@ -6,11 +6,15 @@ const Description = ({ setData, propertyDetils }) => {
   return (
     <div className="space-y-7">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
-        {language ? "Description" : "وصف العقار"}
+        {language ? "وصف العقار" : "Description"}
       </h3>
       <div>
         <textarea
-          placeholder="example: apartment for sale or rent with good view"
+          placeholder={
+            language
+              ? "مثال : شقه فى للبيع تطل على مشهد جيد"
+              : "example: apartment for sale or rent with good view"
+          }
           value={propertyDetils.description}
           onChange={(e) => {
             setData({ ...propertyDetils, description: e.target.value });

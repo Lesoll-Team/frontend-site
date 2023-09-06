@@ -22,7 +22,7 @@ const Summary = ({ propertyDetils, setData }) => {
 
       <div className="w-full font-semibold  md:text-lg flex items-center justify-between gap-6 focus:outline-none   bg-darkGreen text-white  border-lightGreen rounded-xl p-[12px] px-3 drop-shadow-xl  whitespace-nowrap">
         <div className="flex space-x-1">
-          <h4 className="text-white font-semibold text-lg">
+          <h4 className="text-white font-semibold text-lg px-1">
             {language ? "السعر : " : "Price : "}
           </h4>
           <p>
@@ -35,7 +35,7 @@ const Summary = ({ propertyDetils, setData }) => {
       </div>
       <div className="w-full font-semibold  md:text-lg flex items-center justify-between gap-6 focus:outline-none   bg-darkGreen text-white  border-lightGreen rounded-xl p-[12px] px-3 drop-shadow-xl  whitespace-nowrap">
         <div className="flex space-x-2">
-          <h4 className="text-white font-semibold text-lg">
+          <h4 className="text-white font-semibold text-lg px-1">
             {language ? "المقدم : " : "Down payment : "}
           </h4>
           <p>
@@ -48,8 +48,8 @@ const Summary = ({ propertyDetils, setData }) => {
       </div>
       <div className="w-full font-semibold  md:text-lg  items-center justify-between gap-6 focus:outline-none   bg-darkGreen text-white  border-lightGreen rounded-xl p-[12px] px-3 drop-shadow-xl  whitespace-nowrap">
         <div className="flex space-x-1 justify-between lg:flex-row flex-col  ">
-          <h4 className="text-white font-semibold text-lg">
-            Installment amount :
+          <h4 className="text-white font-semibold text-lg px-1">
+            {language ? "قيمة التقسيط : " : "Installment amount : "}
           </h4>
 
           <div className="flex justify-between w-full gap-3 flex-wrap">

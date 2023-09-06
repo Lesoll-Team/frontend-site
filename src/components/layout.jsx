@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
-import { Fragment } from "react";
+import { Fragment, useCallback, useMemo } from "react";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 import "@splidejs/react-splide/css";
@@ -11,7 +11,15 @@ import "@splidejs/react-splide/css/core";
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
-  dispatch(fetchUserData());
+
+  const memoizedFetchUserData = useMemo(() => {
+    return () => dispatch(fetchUserData());
+  }, [dispatch]);
+
+  const dispatchFetchUserData = useCallback(() => {
+    memoizedFetchUserData();
+  }, [memoizedFetchUserData]);
+  dispatchFetchUserData()
   return (
     <Fragment>
       <div

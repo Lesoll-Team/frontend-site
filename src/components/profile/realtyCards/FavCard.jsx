@@ -45,21 +45,25 @@ const FavCard = ({ propDetails, onRemove }) => {
         </div>
       </div>
       {/* card img */}
-      <img
-        alt="Realty"
-        src={propDetails?.thumbnail}
-        loading="lazy"
-        className="w-full h-[220px] overflow-hidden   object-cover"
-      />
+      <Link href={`/propertyDetails/${propDetails._id}`}>
+        <img
+          alt="Realty"
+          src={propDetails?.thumbnail}
+          loading="lazy"
+          className="w-full h-[220px] overflow-hidden   object-cover"
+        />
+      </Link>
       {/* card body  */}
       <div className=" ">
         <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center  z-[100]">
           <p className=" font-bold ">{propDetails?.price} EGP</p>
           <p className="  ">{propDetails?.offer}</p>
         </div>
-        <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
-          <p>{propDetails?.title}</p>
-        </div>
+        <Link href={`/propertyDetails/${propDetails._id}`}>
+          <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
+            <p>{propDetails?.title}</p>
+          </div>
+        </Link>
         <div className="-mt-10 text-lightGreen h-20 pt-12 px-7 flex  justify-start gap-5 mb-5">
           <div className="flex items-center justify-start gap-1">
             {" "}
@@ -89,14 +93,6 @@ const FavCard = ({ propDetails, onRemove }) => {
     </div> */}
         <div className="px-7 mb-1 flex justify-between items-center ">
           <p className="text-sm  text-darkGray">{propDetails?.address?.name}</p>
-          <div className="flex gap-3 items-center">
-            <Link href={"/profile"}>
-              <AiFillDelete className="text-xl  md:text-2xl text-red-600" />
-            </Link>
-            <Link href={"/profile"}>
-              <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
-            </Link>
-          </div>
         </div>
         {/* {type === "draft" ? (
           <div className="flex flex-col items-center space-y-2 mt-5">

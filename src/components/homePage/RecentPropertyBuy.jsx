@@ -10,7 +10,7 @@ const RecentPropertyBuy = ({ propertiesBuy }) => {
       </h1>
       <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-col-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
         {propertiesBuy.map((property) => (
-          <RealtyCardBuy propertyDetails={property} />
+          <RealtyCardBuy key={property._id} propertyDetails={property} />
         ))}
       </div>
       <div className="flex justify-center mt-5">
@@ -23,7 +23,6 @@ const RecentPropertyBuy = ({ propertiesBuy }) => {
       </div>
     </section>
   );
-  multiple;
 };
 
 export default RecentPropertyBuy;

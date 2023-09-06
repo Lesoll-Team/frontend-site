@@ -52,7 +52,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
           <p className=" font-bold ">
             <span>{propertyDetails?.price}</span>EGP
           </p>
-          <p className="">For Sale</p>
+          <p className="">{propertyDetails?.offer}</p>
         </div>
         <Link
           key={propertyDetails?._id}

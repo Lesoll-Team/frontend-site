@@ -1,9 +1,12 @@
+import { SearchBar } from "@/Shared/search/SearchBar";
 import Main from "@/components/homePage/Main";
 import RecentPropertyBuy from "@/components/homePage/RecentPropertyBuy";
 import RecentPropertyRent from "@/components/homePage/RecentPropertyRent";
 // import PaginationPage from "../Shared/Pagination"
 import Head from "next/head";
 export default function Home({ propertyForRent, propertyForBuy }) {
+  // console.log(propertyForBuy);
+  // console.log(propertyForRent);
 
   return (
     <main>
@@ -11,6 +14,7 @@ export default function Home({ propertyForRent, propertyForBuy }) {
         <title>Lesoll</title>
       </Head>
       <Main />
+      <SearchBar />
       <RecentPropertyRent propertiesRent={propertyForRent} />
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
     </main>
@@ -19,12 +23,14 @@ export default function Home({ propertyForRent, propertyForBuy }) {
 
 export async function getStaticProps() {
   // const { page } = context.query; 
-  const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=9&page=${1}` 
-  );
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=9&page=${1}` 
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}` 
   );
+  // console.log(resBuy);
+  const resRent = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}` 
+  );
+
   const dataRent = await resRent.json();
   const dataBuy = await resBuy.json();
 

@@ -25,7 +25,7 @@ const FavoriteAds = () => {
   }, []); // Empty dependency array means this function will only be created once
 
   useEffect(() => {
-    getFav();
+    setFav(getFav);
   }, [getFav]); // Use the memoized getFav function in the dependency array
 
   const handleRemoveFromFavorites = (propertyIdToRemove) => {

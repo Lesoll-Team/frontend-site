@@ -26,7 +26,7 @@ const Features = ({ propertyDetils, setData }) => {
   return (
     <div className="space-y-7">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
-        {language ? "Features" : "مميزات"}
+        {language ? "المميزات" : "Features"}
       </h3>
       <CheckboxGroup
         defaultValue={propertyDetils.service}
@@ -45,8 +45,8 @@ const Features = ({ propertyDetils, setData }) => {
                 key={feature._id}
                 value={feature._id}
               >
-                <p className="text-darkGray font-semibold">
-                  {language ? feature.name.en : feature.name.ar}
+                <p className="text-darkGray font-semibold px-3">
+                  {language ? feature.name.ar : feature.name.en}
                 </p>
               </Checkbox>
             );

@@ -111,7 +111,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
       </h3>
       <div className="w-full">
         <AddPropInput
-          title={language ? "Property Title" : "عنوان الاعلان"}
+          title={!language ? "Property Title" : "عنوان الاعلان"}
           setValue={(e) => {
             setData({ ...propertyDetils, title: e.target.value });
           }}
@@ -121,7 +121,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         <AddPropDropdown
-          title={language ? "Property type" : "نوع العقار"}
+          title={!language ? "Property type" : "نوع العقار"}
           value={propertyDetils.propType}
           setValue={(e) => {
             setData({ ...propertyDetils, propType: e });
@@ -130,7 +130,16 @@ const GetStarted = ({ setData, propertyDetils }) => {
           options={propType}
         />
         <AddPropDropdown
-          title={language ? "Unit Type" : "نوع الوحدة"}
+          title={!language ? "Listing Option" : "إختار العرض"}
+          value={propertyDetils.offer}
+          setValue={(e) => {
+            setData({ ...propertyDetils, offer: e });
+          }}
+          options={offer}
+        />
+        <AddPropDropdown
+          disabled={propertyDetils.propType}
+          title={!language ? "Unit Type" : "نوع الوحدة"}
           value={propertyDetils.unitType}
           setValue={(e) => {
             setData({ ...propertyDetils, unitType: e });
@@ -145,14 +154,6 @@ const GetStarted = ({ setData, propertyDetils }) => {
               ? unitType.Land
               : unitType.Residential
           }
-        />
-        <AddPropDropdown
-          title={language ? "Listing Option" : "إختار العرض"}
-          value={propertyDetils.offer}
-          setValue={(e) => {
-            setData({ ...propertyDetils, offer: e });
-          }}
-          options={offer}
         />
       </div>
     </div>

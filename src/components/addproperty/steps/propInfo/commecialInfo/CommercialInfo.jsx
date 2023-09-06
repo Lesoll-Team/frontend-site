@@ -25,16 +25,16 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       <div className="space-y-4 md:w-[48%]">
         <AddPropInput
-          title={language ? "Area" : "المساحة"}
-          placeholder={language ? "Area" : "المساحة"}
+          title={language ? "المساحة" : "Area"}
+          placeholder={language ? "المساحة" : "Area"}
           type={"number"}
           value={propertyDetils.area}
           setValue={(e) => setData({ ...propertyDetils, area: e.target.value })}
           m2={true}
         />
         <AddPropInput
-          title={language ? "Number of rooms" : "عدد الغرف"}
-          placeholder={language ? "Number of rooms" : "عدد الغرف"}
+          title={language ? "عدد الغرف" : "Number of rooms"}
+          placeholder={language ? "عدد الغرف" : "Number of rooms"}
           type={"number"}
           value={propertyDetils.rooms}
           setValue={(e) =>
@@ -42,8 +42,8 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropInput
-          title={language ? "Number of bathrooms" : "عدد الحمامات"}
-          placeholder={language ? "Number of bahtrooms" : "عدد الحمامات"}
+          title={language ? "عدد الحمامات" : "Number of bathrooms"}
+          placeholder={language ? "عدد الحمامات" : "Number of bathrooms"}
           type={"number"}
           value={propertyDetils.bathRooms}
           setValue={(e) =>
@@ -54,14 +54,14 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
       <div className="space-y-4 md:w-[48%]">
         <AddPropDropdown
           options={finishedOprions}
-          title={language ? "Finishing options" : "نوع التشطيب"}
+          title={language ? "نوع التشطيب" : "Finishing options"}
           value={propertyDetils.finishingType}
           setValue={(e) => {
             setData({ ...propertyDetils, finishingType: e });
           }}
         />
         <AddPropCheck
-          title={language ? "Furnished" : "مفروش"}
+          title={language ? "مفروش" : "Furnished"}
           value={propertyDetils.isFurnished}
           setValue={(e) =>
             setData({
@@ -71,7 +71,7 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropCheck
-          title={language ? "Registerd" : "مسجل"}
+          title={language ? "مسجل" : "Registerd"}
           value={propertyDetils.isRegisterd}
           setValue={(e) => {
             // console.log(propertyDetils);

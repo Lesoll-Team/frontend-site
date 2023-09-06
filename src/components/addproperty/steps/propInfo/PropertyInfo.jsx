@@ -9,7 +9,7 @@ const PropertyInfo = ({ propertyDetils, setData }) => {
   return (
     <div className="space-y-7">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
-        {language ? "Property Info" : "تفاصيل العقار"}
+        {language ? "تفاصيل العقار" : "Property Info"}
       </h3>
       {propertyDetils.propType === "Land" ? (
         <LandInfo propertyDetils={propertyDetils} setData={setData} />

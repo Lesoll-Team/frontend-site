@@ -34,6 +34,7 @@ export async function getAllUsers(userToken, limitPages) {
       );
       return response.data;
     } catch (error) {
+      console.log("error user");
       throw error.response.massage;
     }
   }

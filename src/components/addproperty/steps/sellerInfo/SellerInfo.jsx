@@ -23,9 +23,9 @@ const SellerInfo = ({ propertyDetils, setData }) => {
           enableSearch={true}
           country={"eg"}
           excludeCountries={["IL"]}
-          value={"5"}
+          value={propertyDetils.connectPhoneNumber}
           onChange={
-            (e) => setData({ ...propertyDetils, phoneNumber: e })
+            (e) => setData({ ...propertyDetils, connectPhoneNumber: e })
 
             // setCountry(country);
             // console.log(phone);

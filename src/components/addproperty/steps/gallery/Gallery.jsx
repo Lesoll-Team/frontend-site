@@ -72,7 +72,7 @@ const Gallery = ({ propertyDetils, setData }) => {
   return (
     <div className="space-y-7">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
-        {language ? "Property Photos" : "صور العقار"}
+        {language ? "صور العقار" : "Property Photos"}
       </h3>
       <div className="flex flex-col items-center gap-4 justify-between">
         {/* Add Main Image */}
@@ -86,7 +86,9 @@ const Gallery = ({ propertyDetils, setData }) => {
             }}
           >
             <IoAddCircle className="text-5xl text-darkGreen" />
-            <p className="text-slate-500 font-medium">Add Main Image</p>
+            <p className="text-slate-500 font-medium">
+              {language ? "أضف الصورة الرئيسية" : "Add Main Image"}
+            </p>
           </div>
           <input
             hidden
@@ -125,7 +127,9 @@ const Gallery = ({ propertyDetils, setData }) => {
             }}
           >
             <IoAddCircle className="text-5xl text-darkGreen" />
-            <p className="text-slate-500 font-medium">Add Main Image</p>
+            <p className="text-slate-500 font-medium">
+              {language ? "أضف الصور الاخرى" : "Add Sub Images"}
+            </p>
           </div>
           <input
             hidden

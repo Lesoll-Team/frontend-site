@@ -1,11 +1,9 @@
-import { Button, Pagination } from "@nextui-org/react";
 import Head from "next/head";
 import Link from "next/link";
-import PaginationPage from "../../Shared/Pagination";
+import PaginationPage from "../../Shared/Pagination/Pagination";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
 import RealtyCardRent from "../../components/realtyCard/RealtyCardRent";
-
+import { SearchBar } from "@/Shared/search/SearchBar";
 export default function PropertyRent({ propertyForRent }) {
   const router = useRouter();
   const currentPage = router.query.page;
@@ -14,6 +12,7 @@ export default function PropertyRent({ propertyForRent }) {
       <Head>
         <title>property</title>
       </Head>
+      <SearchBar />
       <div>
         <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
           Properties for Rent
@@ -21,14 +20,19 @@ export default function PropertyRent({ propertyForRent }) {
       </div>
 
       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
-        {propertyForRent.map((property) => (
+        {propertyForRent.result.map((property) => (
           <RealtyCardRent key={property._id} propertyDetails={property} />
         ))}
+        {/* <Link  href={`/propertyDetails/${property._id}`}>  </Link> */}
       </div>
 
       <div>
         <div className="py-2 px-2 flex justify-between items-center">
-          <PaginationPage currentPage={currentPage} totalPages={2000} />
+          <PaginationPage
+            hrefRout={"rent"}
+            currentPage={currentPage}
+            totalPages={propertyForRent.totalPages}
+          />
         </div>
       </div>
     </div>
@@ -42,26 +46,6 @@ export async function getServerSideProps(context) {
   const dataRent = await resRent.json();
 
   return {
-    props: { propertyForRent: dataRent.result },
+    props: { propertyForRent: dataRent },
   };
 }
-
-// import Head from "next/head";
-// import React from "react";
-
-// export default function rent() {
-//   return (
-//     <div>
-//       <Head>
-//         <title>Lesoll Rent</title>
-//       </Head>
-//       welcome in <b>Rent</b>
-//       <PaginationPage currentPage={1} totalPages={10} />
-//     </div>
-//   );
-// }
-/* <div key={property._id}>
-            <Link href={`/propertyDetails/${property._id}`}>
-              <div>{property._id}</div>
-            </Link>
-          </div> */

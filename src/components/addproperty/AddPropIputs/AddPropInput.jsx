@@ -13,6 +13,7 @@ const AddPropInput = ({
   period,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="relative">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
@@ -20,11 +21,12 @@ const AddPropInput = ({
       </h3>
       <div className="relative ">
         <input
+          inputmode={type === "number" && "numeric"}
           value={value || ""}
           onChange={setValue}
           className=" w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 "
           placeholder={placeholder}
-          type={type}
+          // type={type}
         />
         <p
           className={`absolute top-[20px] text-darkGreen font-extrabold  pl-1 pr-4 bg- ${

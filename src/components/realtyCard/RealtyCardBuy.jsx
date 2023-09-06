@@ -1,5 +1,5 @@
-import Image from "next/image";
-import testImg from "../../../public/testimg.webp";
+// import Image from "next/image";
+// import testImg from "../../../public/testimg.webp";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
@@ -37,9 +37,7 @@ const RealtyCardBuy = ({ propertyDetails }) => {
       {/* card body  */}
       <div className="relative ">
         <div className="  bg-lightGreen text-white rounded-b-[30px] h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
-          <p className=" font-bold ">
-            <span>{propertyDetails?.price}</span>EGP
-          </p>
+          <p className=" font-bold "><span>{propertyDetails?.price}</span>EGP</p>
           <p className="  ">For Sale</p>
         </div>
 

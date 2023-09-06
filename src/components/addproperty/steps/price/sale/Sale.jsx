@@ -28,7 +28,7 @@ const Sale = ({ propertyDetils, setData }) => {
       ) : (
         <div>
           <AddPropDropdown
-            title={language ? "Sale Option" : "نظام البيع"}
+            title={language ? "نظام البيع" : "Sale Option"}
             value={propertyDetils.saleOption}
             setValue={(e) => {
               setData({ ...propertyDetils, saleOption: e });
