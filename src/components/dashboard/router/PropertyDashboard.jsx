@@ -27,8 +27,6 @@ const columns = [
   { name: "Title", uid: "title" },
   { name: "Details", uid: "details" },
   { name: "Address", uid: "address" },
-  // { name: "Created", uid: "createdAt", sortable: true }, //, sortable: true address
-  // { name: "Updated", uid: "updatedAt" }, //, sortable: true
   { name: "ACTIONS", uid: "actions" },
 ];
 export default function PropertyDashboard() {
@@ -40,6 +38,10 @@ export default function PropertyDashboard() {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
         const getProperties = await fetchAllProperty(userToken);
         setProperty(getProperties);
+
+        // if (getProperties==200) {
+        setProperty(getProperties);
+        // }
 
         // console.log(property);
       } catch (error) {
@@ -123,7 +125,7 @@ export default function PropertyDashboard() {
         return (
           <div className="flex flex-col w-[350px]">
             <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Area:</b>
+              <b>Offer:</b>
               {blog.offer}
             </p>
             <p className="text-bold  capitalize grid grid-cols-2 text-medium">

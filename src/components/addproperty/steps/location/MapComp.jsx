@@ -18,7 +18,7 @@ import { setDate } from "date-fns";
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData }) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyD9YmquVFbmuQ9Yo-yPP6NGwDBL5ciTbww",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: libraries,
   });
   if (!isLoaded) return <div>loading ....</div>;

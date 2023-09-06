@@ -15,7 +15,7 @@ import { en } from "../../language/en/common";
 
 function AddressLocation({ singleAddressLocation }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(singleAddressLocation);
+  // console.log(singleAddressLocation);
   return (
     <div className="lg:flex justify-between  items-center p-10 px-14 border-2 border-gray-200 rounded-3xl">
       <div className=" lg:w-6/12 ">
@@ -48,13 +48,7 @@ function AddressLocation({ singleAddressLocation }) {
               </TableCell>
               <TableCell>{singleAddressLocation.propType}</TableCell>
             </TableRow>
-            <TableRow key="4">
-              <TableCell className="font-bold">
-                {language ? ar.property.level : en.property.level}
-                {/* Level/Number of Levels */}
-              </TableCell>
-              <TableCell>{singleAddressLocation.level}</TableCell>
-            </TableRow>
+
             <TableRow key="5">
               <TableCell className="font-bold">
                 {language ? ar.property.furnished : en.property.furnished}
@@ -77,13 +71,7 @@ function AddressLocation({ singleAddressLocation }) {
               </TableCell>
               <TableCell>{singleAddressLocation.finishingType}</TableCell>
             </TableRow>
-            <TableRow key="7">
-              <TableCell className="font-bold">
-                {/* Building Year */}
-                {language ? ar.property.buildingYear : en.property.buildingYear}
-              </TableCell>
-              <TableCell>{singleAddressLocation.buildingYear}</TableCell>
-            </TableRow>
+
             <TableRow key="8">
               <TableCell className="font-bold">
                 {/* Governorate */}
@@ -97,6 +85,24 @@ function AddressLocation({ singleAddressLocation }) {
                 {language ? ar.property.city : en.property.city}
               </TableCell>
               <TableCell> {singleAddressLocation.address.region}</TableCell>
+            </TableRow>
+            <TableRow key="7">
+              <TableCell className="font-bold">
+                {/* Building Year */}
+                {/* {language ? ar.property.buildingYear : en.property.buildingYear} */}
+              </TableCell>
+              <TableCell>
+              {/* {.buildingYear} */}
+              </TableCell>
+            </TableRow>
+            <TableRow key="4">
+              <TableCell className="font-bold">
+                {/* {language ? ar.property.level : en.property.level} */}
+                {/* Level/Number of Levels */}
+              </TableCell>
+              <TableCell>
+              {/* {singleAddressLocation.level} */}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>

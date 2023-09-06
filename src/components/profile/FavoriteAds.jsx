@@ -4,28 +4,29 @@ import { useEffect, useState, memo, useCallback } from "react";
 import FavCard from "./realtyCards/FavCard";
 
 const FavoriteAds = () => {
-  const [fav, setFav] = useState(null);
+  const [fav, setFav] = useState([]);
 
   // Define a memoized function to fetch favorites
   const getFav = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/favorites/get`,
+       ` ${process.env.NEXT_PUBLIC_API_URL}/user/favorites/get`,
         {
           headers: {
             token: JSON.parse(localStorage.getItem("userToken")),
           },
         }
       );
-      // console.log(response.data);
       setFav(response.data.propertyFavorites);
+
     } catch (err) {
       console.log(err);
     }
   }, []); // Empty dependency array means this function will only be created once
 
   useEffect(() => {
-    setFav(getFav);
+    getFav();
+    // console.log(fav);
   }, [getFav]); // Use the memoized getFav function in the dependency array
 
   const handleRemoveFromFavorites = (propertyIdToRemove) => {

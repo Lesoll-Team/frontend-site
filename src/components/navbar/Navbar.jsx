@@ -12,7 +12,8 @@ import { FaSearch } from "react-icons/fa";
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 import NotificationMenu from "./notificationMenu";
-import UserMenu from "./userMenu";
+// import UserMenu from "./userMenu";
+import UserDropdown from "./userDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
@@ -48,12 +49,16 @@ export default function Navbar() {
   useEffect(() => {
     setAuth(isLoading);
     setUserDataInfo(userInfo);
+    // console.log(userDataInfo);
   });
   return (
     <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md">
-      <section className="flex  relative bg-white  h-[80px] items-center " dir={`${languageIs?"rtl":""}`}>
+      <section
+        className="flex  relative bg-white  h-[80px] items-center "
+        dir={`${languageIs ? "rtl" : ""}`}
+      >
         {/*Logo */}
-        <ul className=" flex w-3/12  md:justify-center " >
+        <ul className=" flex w-3/12  md:justify-center ">
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
             <Link
               className=""
@@ -73,10 +78,8 @@ export default function Navbar() {
         </ul>
 
         {/*nav link web page */}
-        <ul
-          className={` md:flex  w-5/12 space-x-2 hidden`}
-        >
-        {/**${
+        <ul className={` md:flex  w-5/12 space-x-2 hidden`}>
+          {/**${
             searchVisible ? "hidden" : "md:flex"
           }  */}
           <LinksNavbar />
@@ -84,26 +87,26 @@ export default function Navbar() {
         <ul
           className={`md:w-4/12 w-8/12  flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
         >
-        {/**${
+          {/**${
             searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
           } */}
-          <Link href='/search'>
-          <ul className={`py-2 mr-1`}>
-          {/** ${searchVisible ? "w-full " : ""} */}
-            <li className={` flex items-center  `}>
-            <Button isIconOnly  className="bg-inherit" aria-label="Search">
-            <FaSearch
-                onClick={toggleSearch}
-                className="   text-1xl  text-lightOrange   "
-              />
-      </Button> 
-
-            </li>
-          </ul>
+          <Link href="/search">
+            <ul className={`py-2 mr-1`}>
+              {/** ${searchVisible ? "w-full " : ""} */}
+              <li className={` flex items-center  `}>
+                <Button isIconOnly className="bg-inherit" aria-label="Search">
+                  <FaSearch
+                    onClick={toggleSearch}
+                    className="   text-1xl  text-lightOrange   "
+                  />
+                </Button>
+              </li>
+            </ul>
           </Link>
 
           {/*button language*/}
-          <li className={`  md:flex hidden`}>{/**${searchVisible ? "hidden" : " md:flex hidden"} */}
+          <li className={`  md:flex hidden`}>
+            {/**${searchVisible ? "hidden" : " md:flex hidden"} */}
             <button
               onClick={() => dispatch(handleLanguage())}
               className="
@@ -120,8 +123,7 @@ export default function Navbar() {
                     title="US"
                   />
                 ) : (
-
-                   <ReactCountryFlag
+                  <ReactCountryFlag
                     countryCode="EG"
                     svg
                     cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
@@ -130,14 +132,13 @@ export default function Navbar() {
                   />
                 )}
               </ul>
-              <ul className="mx-1">{languageIs ? `English` :  `عربى`}</ul>
+              <ul className="mx-1">{languageIs ? `English` : `عربى`}</ul>
             </button>
           </li>
 
           {/*button Notifications */}
-          <li
-            className={` ${isAuth ? " " : "hidden"} relative`}
-          >{/**` ${searchVisible ? "hidden" : " "}` */}
+          <li className={` ${isAuth ? " " : "hidden"} relative`}>
+            {/**` ${searchVisible ? "hidden" : " "}` */}
             <Badge content={2} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
@@ -153,11 +154,8 @@ export default function Navbar() {
           </li>
 
           {/*button SignUp*/}
-          <li
-            className={`  ${
-              isAuth ? "hidden" : `` 
-            } `}
-          >{/*${searchVisible ? "hidden" : " "} */}
+          <li className={`  ${isAuth ? "hidden" : ``} `}>
+            {/*${searchVisible ? "hidden" : " "} */}
             <button className="">
               <Link
                 className="  py-1 px-5 text-md   border-lightOrange border-[2px] sm:text-md bg-white 
@@ -170,28 +168,7 @@ export default function Navbar() {
           </li>
 
           {/*user section*/}
-          <li
-            className={`  ${
-              isAuth ? "" : "hidden"
-            } relative`}
-          >
-          {/**`${searchVisible ? "hidden" : ""}` */}
-            <button onClick={() => setOpenUserMenu(!openUserMenu)}>
-              <img
-                className="rounded-full border-2 border-green-800 object-cover sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] "
-                src={userDataInfo?.avatarUrl}
-                alt="User Avatar"
-              />
-            </button>
-
-            <ul
-              className={`bg-white drop-shadow-md ${
-                openUserMenu ? "" : "hidden"
-              } rounded-md py-3 px-2 -left-32 w-70 absolute`}
-            >
-              <UserMenu />
-            </ul>
-          </li>
+          <UserDropdown classNamed={`  ${isAuth ? "" : "hidden"} relative`} />
         </ul>
 
         {/*button mobile links*/}
@@ -212,7 +189,7 @@ export default function Navbar() {
       </section>
 
       {/*links in menu mobile button*/}
-      <section className="  flex justify-end  relative">
+      <section dir={`${languageIs?"rtl":"ltr"}`} className="  flex justify-end  relative">
         <ul
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
@@ -246,9 +223,10 @@ export default function Navbar() {
         </ul>
 
         <ul
+        // dir="ltr"
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
-          }   h-screen overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
+          }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
           <NotificationMenu />
         </ul>

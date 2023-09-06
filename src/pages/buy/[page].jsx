@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import RealtyCardBuy from "../../components/realtyCard/RealtyCardBuy.jsx";
+import RealtyCardBuy from "../../components/realtyCard/RealtyCard.jsx";
 import PaginationPage from "../../Shared/Pagination/Pagination.jsx";
 import { useRouter } from "next/router";
 import Link from "next/link";

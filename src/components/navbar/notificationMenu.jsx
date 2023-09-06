@@ -1,43 +1,93 @@
-import React, { Fragment, useState } from 'react'
-import Link from 'next/link';
-import {  IoCheckmarkDoneSharp ,IoRadioButtonOnOutline} from "react-icons/io5";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { IoCheckmarkDoneSharp, IoRadioButtonOnOutline } from "react-icons/io5";
+import { getAllNotifications, visitNotifications } from "@/utils/notifications";
+import { useSelector } from "react-redux";
 
 
 export default function NotificationMenu() {
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
+  const [notifications, setNotifications] = useState([]);
 
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const getNotification = await getAllNotifications();
+      setNotifications(getNotification);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  }, []); // Empty dependency array, indicating that this callback doesn't depend on any props or state
 
-    const notifications =[
-        {href:'/',title:"محل بسنتر النخيل ٣٠ متر موقع مميز ",location:"الجيزه",address:"فيلا Z6-2B نيوم، قسم ثان 6 أكتوبر، الجيزة 3227110",id:1,visidet:false},
-        {href:'/',title:"محل بسنتر النخيل ٣٠ متر موقع مميز ",location:"الجيزه",address:"فيلا Z6-2B نيوم، قسم ثان 6 أكتوبر، الجيزة 3227110",id:2,visidet:false},
-        {href:'/',title:"محل بسنتر النخيل ٣٠ متر موقع مميز ",location:"الجيزه",address:"فيلا Z6-2B نيوم، قسم ثان 6 أكتوبر، الجيزة 3227110",id:3,visidet:true},
-        {href:'/',title:"محل بسنتر النخيل ٣٠ متر موقع مميز ",location:"الجيزه",address:"فيلا Z6-2B نيوم، قسم ثان 6 أكتوبر، الجيزة 3227110",id:4,visidet:true},
-    ]
+  const handleUserVisit = useCallback(
+    async (_id) => {
+      try {
+        await visitNotifications(_id);
+        // After visiting, fetch updated notifications
+        fetchNotifications();
+      } catch (error) {
+        console.error("Error visiting notification:", error);
+      }
+    },
+    [fetchNotifications]
+  );
 
-
-    
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
 
   return (
-   <Fragment>
-{notifications.map(
-    (notification)=>(
-        <Link key={notification.id} href={notification.href}>
-        <ul  className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
-            <li className="text-lightGreen text-lg "><h2 className="truncate"> <b>{notification.title}</b></h2></li>
+    <>
+      {notifications.map((notification) => (
+        <Link key={notification._id} onClick={() => handleUserVisit(notification._id)} href={"/"}>
+          {/**{notification.link} */}
+          <ul className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
+            <li className=" flex text-lightGreen text-lg ">
+              <h2 className="">
+                <b>
+                  {languageIs ? notification.title.ar : notification.title.en}
+                </b>
+              </h2>
+              <div>
+                {notification.isVisited ? (
+                  <IoCheckmarkDoneSharp className="text-lightGreen" />
+                ) : (
+                  <IoRadioButtonOnOutline className="text-darkOrange" />
+                )}
+              </div>
+            </li>
 
-            <ul className="flex ">
-                <li className="w-9/12 text-lightGreen text-md">{notification.location}</li>
-                <li className="flex w-3/12 justify-end"> {notification.visidet? ( <IoCheckmarkDoneSharp className="text-lightGreen"/> ) : (<IoRadioButtonOnOutline className="text-darkOrange"/>)} </li>
-            </ul>
-
-            <li className="text-sm text-gray-500"><h5 className="truncate ">  {notification.address}</h5></li>
-
-        </ul>
+            <li className="text-sm text-gray-500">
+              <h5 className="truncate "> {notification.createdAt}</h5>
+            </li>
+          </ul>
         </Link>
-    )
-)
+      ))}
+      {notifications.map((notification) => (
+        <Link key={notification._id} onClick={() => handleUserVisit(notification._id)} href={"/"}>
+          {/**{notification.link} */}
+          <ul className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
+            <li className=" flex text-lightGreen text-lg ">
+              <h2 className="">
+                <b>
+                  {languageIs ? notification.title.ar : notification.title.en}
+                </b>
+              </h2>
+              <div>
+                {notification.isVisited ? (
+                  <IoCheckmarkDoneSharp className="text-lightGreen" />
+                ) : (
+                  <IoRadioButtonOnOutline className="text-darkOrange" />
+                )}
+              </div>
+            </li>
 
-}
-   </Fragment>
-  )
+            <li className="text-sm text-gray-500">
+              <h5 className="truncate "> {notification.createdAt}</h5>
+            </li>
+          </ul>
+        </Link>
+      ))}
+    </>
+  );
 }

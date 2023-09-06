@@ -1,5 +1,5 @@
 import React from "react";
-import RealtyCardRent from "../realtyCard/RealtyCardRent";
+import RealtyCardRent from "../realtyCard/RealtyCard";
 import Link from "next/link";
 const RecentPropertyRent = ({ propertiesRent }) => {
   // console.log(property);

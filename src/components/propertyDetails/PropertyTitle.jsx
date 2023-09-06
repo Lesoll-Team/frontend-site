@@ -40,7 +40,7 @@ import {en} from "../../language/en/common"
         <div className="sm:flex text-2xl  justify-between p-5 sm:text-3xl font-bold " >
           <div className="flex justify-center">
             <h2>
-            {singleTitle?.address.governrate}
+            {singleTitle?.address.region}
 
             </h2>
           </div>
