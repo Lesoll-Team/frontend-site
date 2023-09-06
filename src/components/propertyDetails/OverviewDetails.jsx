@@ -98,6 +98,35 @@ function OverviewDetails({ singleOverviewDetails }) {
             </div>
           </SplideSlide>
 
+          
+          <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                
+                {language ? ar.property.furnished : en.property.furnished}
+              </h2>
+
+              {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
+              <h3 className=" flex h-[50px] items-center justify-center text-center text-sm font-bold">
+                {singleOverviewDetails?.isFurnished?<BsSlashCircle/>:<MdCheckCircleOutline/>}
+              </h3>
+            </div>
+          </SplideSlide> 
+          {/* <SplideSlide>
+            {" "}
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-xs font-bold ">
+                {language ? ar.property.buildingYear : en.property.buildingYear}
+              </h2>
+              <BsCalendar3 className=" m-auto w-full my-1" />
+              <h3 className=" items-center  text-center text-sm font-bold">
+                {" "}
+                {formattedBuildDate}
+              </h3>
+            </div>
+          </SplideSlide> */}
+{/* 
           <SplideSlide>
             {" "}
             <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
@@ -111,8 +140,8 @@ function OverviewDetails({ singleOverviewDetails }) {
                 {singleOverviewDetails?.level}
               </h3>
             </div>
-          </SplideSlide>
-          <SplideSlide>
+          </SplideSlide> */}
+          {/* <SplideSlide>
             {" "}
             <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
               <h2 className="items-center  text-center text-xs font-bold ">
@@ -124,7 +153,7 @@ function OverviewDetails({ singleOverviewDetails }) {
                 {formattedBuildDate}
               </h3>
             </div>
-          </SplideSlide>
+          </SplideSlide> */}
         </Splide>
         {/* <div className=" md:grid grid-cols-5 items-center justify-between justify-items-center hidden"> */}
         <div className=" hidden md:flex flex-wrap justify-center gap-10 ">
@@ -157,8 +186,31 @@ function OverviewDetails({ singleOverviewDetails }) {
             <h3 className=" items-center  text-center text-sm font-bold">
               {singleOverviewDetails?.bathRooms}
             </h3>
-          </div>{" "}
+          </div>
           <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                
+                {language ? ar.property.furnished : en.property.furnished}
+              </h2>
+
+              {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
+              <h3 className=" flex h-[50px] items-center justify-center text-center text-sm font-bold">
+                {singleOverviewDetails?.isFurnished?<BsSlashCircle/>:<MdCheckCircleOutline/>}
+              </h3>
+            </div>
+
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center text-sm font-bold">
+                
+                {language ? ar.property.furnished : en.property.furnished}
+              </h2>
+
+              {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
+              <h3 className=" flex h-[50px] items-center justify-center text-center text-[12px] font-bold">
+                {singleOverviewDetails?.propType}
+              </h3>
+            </div>
+          {/* <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <h2 className="items-center  text-center text-sm font-bold">
               {" "}
               {language ? ar.property.level : en.property.level}
@@ -168,8 +220,8 @@ function OverviewDetails({ singleOverviewDetails }) {
             <h3 className=" items-center  text-center text-sm font-bold">
               {singleOverviewDetails?.level}
             </h3>
-          </div>{" "}
-          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+          </div>{" "} */}
+          {/* <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <h2 className="items-center  text-center text-xs font-bold">
               {" "}
               {language ? ar.property.buildingYear : en.property.buildingYear}
@@ -179,7 +231,7 @@ function OverviewDetails({ singleOverviewDetails }) {
               {" "}
               {formattedBuildDate}
             </h3>
-          </div>
+          </div> */}
         </div>
       </div>
 

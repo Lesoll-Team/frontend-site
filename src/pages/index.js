@@ -15,6 +15,7 @@ export default function Home({ propertyForRent, propertyForBuy }) {
       </Head>
       <Main />
       <SearchBar />
+      {/* <App/> */}
       <RecentPropertyRent propertiesRent={propertyForRent} />
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
     </main>
@@ -22,13 +23,13 @@ export default function Home({ propertyForRent, propertyForBuy }) {
 }
 
 export async function getStaticProps() {
-  // const { page } = context.query; 
+  // const { page } = context.query;
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}` 
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`
   );
   // console.log(resBuy);
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}` 
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`
   );
 
   const dataRent = await resRent.json();

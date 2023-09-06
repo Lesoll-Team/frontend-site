@@ -49,7 +49,7 @@ export default function Navbar() {
   useEffect(() => {
     setAuth(isLoading);
     setUserDataInfo(userInfo);
-    console.log(userDataInfo);
+    // console.log(userDataInfo);
   });
   return (
     <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md">
@@ -226,7 +226,7 @@ export default function Navbar() {
         // dir="ltr"
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
-          }   h-screen overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
+          }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
           <NotificationMenu />
         </ul>
