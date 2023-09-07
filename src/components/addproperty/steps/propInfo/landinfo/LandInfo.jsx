@@ -31,7 +31,7 @@ const LandInfo = ({ propertyDetils, setData }) => {
         title={language ? "نوع المساحة" : "Area type"}
         value={propertyDetils.areaType}
         options={areaType}
-        setValue={(e) => setData({ ...propertyDetils, areaType: e })}
+        setValue={(e) => setData({ ...propertyDetils, areaType: m })}
       />
       <AddPropCheck
         className="md:w-[48%]"

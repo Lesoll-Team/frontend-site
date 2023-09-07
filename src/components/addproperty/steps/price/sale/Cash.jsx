@@ -15,14 +15,14 @@ const Cash = ({ propertyDetils, setData }) => {
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Cash & Installment", name: "قاش وتقسيط" },
+      { value: "Installment", name: "قاش وتقسيط" },
     ],
   };
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       <div className="space-y-4 md:w-[48%]">
         <AddPropDropdown
-          title={language ? "Sale Option" : "نظام البيع"}
+          title={!language ? "Sale Option" : "نظام البيع"}
           value={propertyDetils.saleOption}
           setValue={(e) => {
             setData({ ...propertyDetils, saleOption: e });
@@ -31,7 +31,7 @@ const Cash = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={language ? "Rental Price" : "سعر الإيجار"}
+          title={!language ? "Rental Price" : "السعر "}
           placeholder={"Price"}
           egp={true}
           value={propertyDetils.price}
@@ -42,7 +42,7 @@ const Cash = ({ propertyDetils, setData }) => {
       </div>
       <div className="space-y-4 md:w-[48%]">
         <AddPropCheck
-          title={language ? "negotiable" : "قابل للتفاوض"}
+          title={!language ? "negotiable" : "قابل للتفاوض"}
           value={propertyDetils.negotiable}
           setValue={(e) =>
             setData({
@@ -52,7 +52,7 @@ const Cash = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropCheck
-          title={language ? "Real Estate Finance" : "متاح للتمويل العقارى"}
+          title={!language ? "Real Estate Finance" : "متاح للتمويل العقارى"}
           value={propertyDetils.realEstateFinance}
           setValue={(e) =>
             setData({
