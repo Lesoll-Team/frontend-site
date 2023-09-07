@@ -20,7 +20,7 @@ const EditProp = () => {
   const { push } = useRouter();
   const userInfo = useSelector((state) => state.GlobalState.userData);
   //   const userToken = JSON.parse(localStorage.getItem("userToken"));
-  console.log(userInfo?._id);
+  // console.log(userInfo?._id);
   const [propertyDetils, setPropertyDetils] = useState(null);
   const [isLading, setLading] = useState(false);
   const dispatch = useDispatch();
@@ -99,7 +99,7 @@ const EditProp = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/property/get/property/singlepage/64f5cfd50a4be1e744e6ab0c`
       );
       setPropertyDetils(response.data.find);
-      console.log(propertyDetils);
+      // console.log(propertyDetils);
     } catch (err) {
       console.log(err);
     }
@@ -187,8 +187,8 @@ const EditProp = () => {
       </div>
     );
   }
-  console.log(propertyDetils?.user?._id === propertyDetils?.user?._id);
-  console.log("64f5c9e0ad0e98d8a55a4954" === "64f5c9e0ad0e98d8a55a4954");
+  // console.log(propertyDetils?.user?._id === propertyDetils?.user?._id);
+  // console.log("64f5c9e0ad0e98d8a55a4954" === "64f5c9e0ad0e98d8a55a4954");
 };
 
 export default EditProp;

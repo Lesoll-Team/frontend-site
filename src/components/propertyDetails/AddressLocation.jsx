@@ -12,6 +12,7 @@ import { BsSlashCircle } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
+import ShowMap from "@/Shared/map/ShowMap";
 
 function AddressLocation({ singleAddressLocation }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -108,12 +109,21 @@ function AddressLocation({ singleAddressLocation }) {
         </Table>
       </div>
 
-      <div className=" lg:w-5/12 ">
-        <img
+      <div className=" lg:w-[45%] mt-10 h-[300px]">
+        {/* <img
           src="https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/w_1600,c_limit/GoogleMapTA.jpg"
           className="rounded-3xl  "
           loading="lazy"
-        />
+        /> */}
+        {/* {console.log({
+        lat:singleAddressLocation?.address.latitude,
+      lng:singleAddressLocation?.address.longitude
+      })} */}
+      <ShowMap center={{
+        lat:parseFloat(singleAddressLocation.address.latitude),
+      lng:parseFloat(singleAddressLocation.address.longitude)
+      }}/>  
+
       </div>
     </div>
   );

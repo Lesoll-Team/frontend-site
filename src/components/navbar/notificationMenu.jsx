@@ -5,7 +5,7 @@ import { getAllNotifications, visitNotifications } from "@/utils/notifications";
 import { useSelector } from "react-redux";
 
 
-export default function NotificationMenu() {
+export default function NotificationMenu({sendCount}) {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [notifications, setNotifications] = useState([]);
@@ -14,6 +14,8 @@ export default function NotificationMenu() {
     try {
       const getNotification = await getAllNotifications();
       setNotifications(getNotification);
+      sendCount(getNotification.length)
+      // console.log(getNotification);
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
@@ -39,7 +41,7 @@ export default function NotificationMenu() {
   return (
     <>
       {notifications.map((notification) => (
-        <Link key={notification._id} onClick={() => handleUserVisit(notification._id)} href={"/"}>
+        <Link key={notification._id} onClick={() => handleUserVisit(notification._id)} href={`${notification.link}`}>
           {/**{notification.link} */}
           <ul className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
             <li className=" flex text-lightGreen text-lg ">
@@ -63,31 +65,7 @@ export default function NotificationMenu() {
           </ul>
         </Link>
       ))}
-      {notifications.map((notification) => (
-        <Link key={notification._id} onClick={() => handleUserVisit(notification._id)} href={"/"}>
-          {/**{notification.link} */}
-          <ul className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
-            <li className=" flex text-lightGreen text-lg ">
-              <h2 className="">
-                <b>
-                  {languageIs ? notification.title.ar : notification.title.en}
-                </b>
-              </h2>
-              <div>
-                {notification.isVisited ? (
-                  <IoCheckmarkDoneSharp className="text-lightGreen" />
-                ) : (
-                  <IoRadioButtonOnOutline className="text-darkOrange" />
-                )}
-              </div>
-            </li>
 
-            <li className="text-sm text-gray-500">
-              <h5 className="truncate "> {notification.createdAt}</h5>
-            </li>
-          </ul>
-        </Link>
-      ))}
     </>
   );
 }

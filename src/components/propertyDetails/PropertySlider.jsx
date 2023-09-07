@@ -13,7 +13,7 @@ export default function PropertyImgSlider({ images }) {
   }, [images]);
   // console.log(newImages);
   return (
-    <div className="  p-1 ">
+    <div dir="ltr" className="  p-1 ">
       <Splide
         id="main-carousel"
         options={{

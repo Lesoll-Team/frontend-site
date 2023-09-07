@@ -50,7 +50,9 @@ function BlogCard({blogData}) {
         <div className="gap-10 grid grid-cols-1  md:grid-cols-3 ">
           {blogData.map((item) => (
             <Link href={`/blogs/${item._id}`}>
-            <Card className='' shadow="sm" key={item._id} isPressable onPress={() => console.log("item pressed")}>
+            <Card className='' shadow="sm" key={item._id} isPressable 
+            // onPress={() => console.log("item pressed")}
+            >
               <CardBody className="overflow-visible p-0">
                 <Image
                   shadow="sm"

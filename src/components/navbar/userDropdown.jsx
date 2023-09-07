@@ -25,6 +25,7 @@ function UserDropdown({classNamed}) {
   const handleLogout = () => {
     dispatch(logoutUserToken()); // Dispatch the logout action
     localStorage.clear();
+    router.push("/signin")
   };
   return (
     <div className={`${classNamed}`}>

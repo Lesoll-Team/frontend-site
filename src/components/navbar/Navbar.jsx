@@ -21,7 +21,11 @@ import ar from "../../language/ar/common";
 import en from "../../language/en/common";
 export default function Navbar() {
   const dispatch = useDispatch();
+  const [countNotifications, setCountNotifications] = useState(0);
 
+  const calcCount = (dataFromChild) => {
+    setCountNotifications(dataFromChild);
+  };
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   // const [arbLanguage] = useState(ar);
@@ -139,7 +143,7 @@ export default function Navbar() {
           {/*button Notifications */}
           <li className={` ${isAuth ? " " : "hidden"} relative`}>
             {/**` ${searchVisible ? "hidden" : " "}` */}
-            <Badge content={2} shape="circle" color="danger">
+            <Badge content={countNotifications} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
                 radius="full"
@@ -189,7 +193,10 @@ export default function Navbar() {
       </section>
 
       {/*links in menu mobile button*/}
-      <section dir={`${languageIs?"rtl":"ltr"}`} className="  flex justify-end  relative">
+      <section
+        dir={`${languageIs ? "rtl" : "ltr"}`}
+        className="  flex justify-end  relative"
+      >
         <ul
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
@@ -223,12 +230,12 @@ export default function Navbar() {
         </ul>
 
         <ul
-        // dir="ltr"
+          // dir="ltr"
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
           }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
-          <NotificationMenu />
+          <NotificationMenu sendCount={calcCount}/>
         </ul>
       </section>
     </nav>

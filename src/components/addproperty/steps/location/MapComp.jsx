@@ -58,7 +58,7 @@ const Map = ({ propertyDetils, setData }) => {
       <div className="w-full  overflow-auto rounded-lg h-[350px] md:h-[500px]">
         <GoogleMap
           // streetView={false}
-          mapTypeId="roadmap"
+          // mapTypeId="roadmap"
           options={{
             disableDefaultUI: true, // Hide the default UI controls
             mapTypeControl: false, // Disable the map type control
@@ -67,6 +67,7 @@ const Map = ({ propertyDetils, setData }) => {
           center={selected || center}
           mapContainerClassName="map"
           // onDblClick={handleMapClick}
+          
         >
           {selected && <Marker position={selected} />}
         </GoogleMap>
@@ -107,7 +108,7 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
 
     const { lat, lng } = getLatLng(result[0]);
     setSelected({ lat, lng });
-    // console.log(result[0]);
+    console.log(result[0]);
     setData({
       ...propertyDetils,
       address: {
