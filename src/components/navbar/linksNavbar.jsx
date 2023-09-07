@@ -35,7 +35,7 @@ export default function LinksNavbar() {
     },
   ];
   return (
-    <Fragment>
+    <>
       {links.map((link) => (
         <li key={link.id}>
           <Link
@@ -57,6 +57,6 @@ export default function LinksNavbar() {
           </Link>
         </li>
       ))}
-    </Fragment>
+    </>
   );
 }

@@ -22,7 +22,7 @@ function AddressLocation({ singleAddressLocation }) {
       <div className=" lg:w-6/12 ">
         <div className="font-bold mb-6 ml-5">
           {" "}
-          <h3>{language ? ar.property.address : en.property.address}</h3>
+          <b className="sm:text-3xl text-lg">{language ? ar.property.address : en.property.address}</b>
         </div>
         <Table hideHeader aria-label="Example static collection table">
           <TableHeader>

@@ -15,39 +15,51 @@ import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 // import useFormatTime from "@/Hooks/useFormatTime";
 import useFormatDate from "@/Hooks/useFormatDate";
+import { useRouter } from "next/router";
 function ConfirmAppointment({ userAppointment }) {
-// console.log(userAppointment);
+  const router = useRouter();
+  console.log(router);
+  const message = `مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول `;
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${
+    userAppointment?.connectPhoneNumber
+  }&text=${encodeURIComponent(message)}`;
+  console.log("ConfirmAppointment", userAppointment);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [formattedDateFrom, setformattedDateFrom] = useState(null)
-  const [formattedDateTo, setformattedDateTo] = useState(null)
+  const [formattedDateFrom, setformattedDateFrom] = useState(null);
+  const [formattedDateTo, setformattedDateTo] = useState(null);
 
-useEffect(() => {
-  const originalDateFrom = userAppointment?.appointments.from;
-  const dateFrom = new Date(originalDateFrom);
-  setformattedDateFrom(dateFrom.toLocaleString("en-US", {
-      hour:"numeric",
-      minute:"numeric",
-      hour12: true,
-    }))
+  useEffect(() => {
+    const originalDateFrom = userAppointment?.appointments.from;
+    const dateFrom = new Date(originalDateFrom);
+    setformattedDateFrom(
+      dateFrom.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      })
+    );
 
     const originalDateTo = userAppointment?.appointments.to || null;
     const dateTo = new Date(originalDateTo);
-    setformattedDateTo(dateTo.toLocaleString("en-US", {
-        hour:"numeric",
-        minute:"numeric",
+    setformattedDateTo(
+      dateTo.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
         hour12: true,
-      }))
-},[])
+      })
+    );
+  }, []);
 
-
-  const formattedStartDate = useFormatDate(userAppointment?.appointments.startDate);
+  const formattedStartDate = useFormatDate(
+    userAppointment?.appointments.startDate
+  );
   const formattedEndDate = useFormatDate(userAppointment?.appointments.endDate);
 
   return (
     <div className=" py-5 mb-10 border-2 border-gray-200 rounded-3xl">
       <center>
         <h2 className="text-lg text-lightGreen pb-3">
-          <b>
+          <b className="sm:text-3xl text-lg">
             {language ? ar.property.cnfAppointment : en.property.cnfAppointment}
           </b>
         </h2>
@@ -56,14 +68,16 @@ useEffect(() => {
       <div className="">
         {/*user info*/}
         <div className="grid sm:grid-cols-2  grid-cols-1">
+        <div className="flex-col flex justify-items-center text-center  overflow-hidden">
           <User
-            className="sm:mb-0 mb-5"
-            name=<b>{userAppointment?.user.fullname}</b>
+            className="sm:mb-0 mb-5 "
             avatarProps={{
               size: "lg",
               src: userAppointment?.user.avatarUrl,
             }}
           />
+          <p className="font-bold">{userAppointment?.user.fullname}</p>
+          </div>
           <div className="grid grid-cols-1    sm:col-span-1 col-span-2   items-center justify-items-center">
             {/**userAppointment.appointments.allDays */}
             <div className=" w-full col-span-1  grid grid-cols-1  justify-items-center">
@@ -92,13 +106,13 @@ useEffect(() => {
               <div className="flex bg-default-200   m-2 w-[150px] rounded-2xl p-1 justify-around items-center font-semibold text-[14px]">
                 <span>From:</span>{" "}
                 <Chip className="bg-white" variant="light">
-                {formattedStartDate}
+                  {formattedStartDate}
                 </Chip>
               </div>
               <div className="flex bg-default-200  m-2 w-[150px] rounded-2xl p-1 justify-around items-center font-semibold text-[14px]">
                 <span>To:</span>{" "}
                 <Chip className="bg-white" variant="light">
-                 {formattedEndDate}
+                  {formattedEndDate}
                 </Chip>
               </div>
             </div>
@@ -110,11 +124,12 @@ useEffect(() => {
 
       <div className="">
         <div>
-          <form className="">
-            {/*Check box */}
+          {/* <form className=""> */}
+          {/*Check box */}
 
-            <center className=" ">
-              <div className="my-2 ">
+          <center className=" ">
+            <div className="my-2 ">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <Button
                   radius="sm"
                   type="submit"
@@ -126,6 +141,9 @@ useEffect(() => {
                     {language ? ar.property.sendWtsApp : en.property.sendWtsApp}
                   </b>
                 </Button>
+              </a>
+
+              <a href={`tel:${userAppointment?.connectPhoneNumber}`}>
                 <Button
                   radius="sm"
                   variant="bordered"
@@ -137,16 +155,17 @@ useEffect(() => {
                     {/* Call */}
                   </b>
                 </Button>
-              </div>
-              {/* <Button radius="sm" className="w-6/12 bg-green-400 text-white">
+              </a>
+            </div>
+            {/* <Button radius="sm" className="w-6/12 bg-green-400 text-white">
                 <b>
                 
           {language?ar.property.sendWtsApp:en.property.sendWtsApp}
                 
                 </b>
               </Button> */}
-            </center>
-          </form>
+          </center>
+          {/* </form> */}
         </div>
       </div>
     </div>

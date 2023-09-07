@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import heroImg from "../../../public/hero.webp";
+// import heroImg from "../../../public/hero.webp";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
 // import SearchBar from "@/Shared/search/SearchBar";
@@ -31,8 +31,8 @@ const Main = () => {
                 : " an Egyptian RealEstate marketplace. lesoll offers customers a digital experiance for buying sending and renting properties with end to end service"}
             </p>
           </div>
-          <Image
-            src={heroImg}
+          <img
+            src="hero.webp"
             loading="lazy" // Use "eager" to prioritize loading
             // priority // Add the "priority" property to the image
             height={"auto"}

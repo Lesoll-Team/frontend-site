@@ -108,7 +108,7 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
 
     const { lat, lng } = getLatLng(result[0]);
     setSelected({ lat, lng });
-    console.log(result[0]);
+    // console.log(result[0]);
     setData({
       ...propertyDetils,
       address: {
@@ -123,7 +123,7 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
     });
 
     // console.log(propertyDetils);
-    console.log(result[0]);
+    // console.log(result[0]);
   };
   const language = useSelector((state) => state.GlobalState.languageIs);
 

@@ -75,3 +75,24 @@ export async function deleteProperty(propertyid) {
     // console.log();
   }
 }
+
+export async function getRecommendRealty(propertyid) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/search/recommendrealty/?realtyId=${propertyid}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    //?token=${userToken}
+    return response.data.recommendedData;
+  } catch (error) {
+    throw error.response.data;
+    // console.log();
+  }
+}
+///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2

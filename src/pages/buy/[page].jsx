@@ -3,7 +3,7 @@ import React from "react";
 import RealtyCardBuy from "../../components/realtyCard/RealtyCard.jsx";
 import PaginationPage from "../../Shared/Pagination/Pagination.jsx";
 import { useRouter } from "next/router";
-import Link from "next/link";
+// import Link from "next/link";
 import { SearchBar } from "@/Shared/search/SearchBar.jsx";
 export default function PropertyBuy({ propertyForBuy }) {
   const router = useRouter();

@@ -9,6 +9,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+
 const RealtyCardRent = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -57,7 +58,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
         >
           <img
             alt="Realty"
-            src={propertyDetails?.album[0]?.image}
+            src={propertyDetails?.thumbnail||propertyDetails?.album[0]?.image}
             loading="lazy"
             className="w-full h-[220px] overflow-hidden   object-cover"
           />

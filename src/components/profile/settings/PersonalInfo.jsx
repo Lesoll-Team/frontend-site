@@ -60,7 +60,7 @@ const PersonalInfo = () => {
       <div className="w-full sm:max-w-[700px] mx-auto py-10 px-5 border-2 rounded-xl bg-white drop-shadow-lg">
         <form className="space-y-10" onSubmit={handleFormSubmit}>
           {/*img user */}
-          <div className="flex justify-start items-center relative   ">
+          <div className="flex justify-start items-center relative bg-red-200  ">
             {/* <img
               // src={userImg}
               src={userDataInfo?.avatarUrl}
@@ -70,6 +70,7 @@ const PersonalInfo = () => {
             <Avatar
               src={userDataInfo?.avatarUrl}
               className="w-24 h-24 text-large"
+              fallback
             />
             <div
               onClick={() => {
