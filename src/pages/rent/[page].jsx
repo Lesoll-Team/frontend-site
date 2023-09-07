@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import PaginationPage from "../../Shared/Pagination/Pagination";
 import { useRouter } from "next/router";
-import RealtyCardRent from "../../components/realtyCard/RealtyCardRent";
+import RealtyCardRent from "../../components/realtyCard/RealtyCard";
 import { SearchBar } from "@/Shared/search/SearchBar";
 export default function PropertyRent({ propertyForRent }) {
   const router = useRouter();

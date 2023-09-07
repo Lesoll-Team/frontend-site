@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import ProfileCard from "./realtyCards/ProfileCard";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const PendingAds = () => {
   const [pendingAdds, setPendingAdds] = useState(null);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const getPending = useCallback(async () => {
     try {
       const response = await axios.get(
@@ -20,6 +23,12 @@ const PendingAds = () => {
       console.log(err);
     }
   }, []);
+  const handleDelete = (propertyIdToRemove) => {
+    // Filter out the removed property from the 'fav' state
+    setPendingAdds((pending) =>
+      pending.filter((prop) => prop._id !== propertyIdToRemove)
+    );
+  };
   useEffect(() => {
     getPending();
     // console.log(activeAdds);
@@ -27,13 +36,14 @@ const PendingAds = () => {
   return (
     <div className="w-full">
       <h1 className="text-center font-bold text-lightGreen text-4xl">
-        Pending Ads
+        {language ? "تحت المراجعة" : "Pending"}
       </h1>
       <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
         {pendingAdds &&
           pendingAdds.map((propertyDetails) => {
             return (
               <ProfileCard
+                onRemove={handleDelete}
                 key={propertyDetails?._id}
                 propertyDetails={propertyDetails}
                 type="pending"

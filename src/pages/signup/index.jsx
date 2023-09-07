@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+const SignUpForm = dynamic(() => import("@/components/signup/SignUpForm"));
 import house from "../../../public/page3.svg";
-import SignUpForm from "@/components/signup/SignUpForm";
+// import SignUpForm from "@/components/signup/SignUpForm";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -17,11 +19,12 @@ const SignUp = () => {
       router.push("/"); // This will navigate to the home page after login is complete
     }
   }, [isLoading, router]);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <>
       <Head>
-        <title>Lesoll Sign Up</title>
+        <title>{language ? "الإشتراك" : "Sign Up"}</title>
       </Head>
 
       {!loading ? (
@@ -29,31 +32,45 @@ const SignUp = () => {
           {/* form div*/}
           <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
             <h1 className="text-7xl mb-5 text-lightGreen font-black text-left">
-              Sign up
+              {language ? "التسجيل" : "Sign Up"}
             </h1>
 
             <SignUpForm />
 
             <p className="">
-              Alraedy have an account?
+              {language ? "تمتلك حساب بالفعل؟" : "Alraedy have an account?"}
               <Link
-                className="text-lightOrange ml-1 font-semibold"
+                className="text-lightOrange mx-1 font-semibold"
                 href={"/signin"}
               >
-                Sign in
+                {language ? "سجل الدخول" : "Sign in"}
               </Link>
             </p>
           </div>
           {/* img */}
           <div className="hidden md:flex h-100 min-h-[100dvh] bg-lightGreen items-center w-1/2 justify-end">
-            <Image
-              width={"auto"}
-              height={"auto"}
-              loading="lazy"
-              src={house}
-              alt="home"
-              className="w-4/5"
-            />
+            {language ? (
+              <Image
+                style={{
+                  transform: "rotateY(180deg)",
+                }}
+                width={"auto"}
+                height={"auto"}
+                loading="lazy"
+                src={house}
+                alt="home"
+                className={`w-4/5 ${language && "rotate-180"}`}
+              />
+            ) : (
+              <Image
+                width={"auto"}
+                height={"auto"}
+                loading="lazy"
+                src={house}
+                alt="home"
+                className={`w-4/5 `}
+              />
+            )}
           </div>
           {/* suggest */}
         </div>

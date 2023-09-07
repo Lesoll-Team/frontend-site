@@ -8,6 +8,7 @@ import "@splidejs/react-splide/css";
 import "@splidejs/react-splide/css/skyblue";
 import "@splidejs/react-splide/css/sea-green";
 import "@splidejs/react-splide/css/core";
+import ScrollToTopButton from "./ScrollToTopButton";
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function Layout({ children }) {
   const dispatchFetchUserData = useCallback(() => {
     memoizedFetchUserData();
   }, [memoizedFetchUserData]);
-  dispatchFetchUserData()
+  dispatchFetchUserData();
   return (
     <Fragment>
       <div
@@ -52,6 +53,7 @@ export default function Layout({ children }) {
         <Navbar />
         <main dir={`${language ? "rtl" : ""}`}>{children}</main>
         <Footer />
+        <ScrollToTopButton />
       </div>
     </Fragment>
   );

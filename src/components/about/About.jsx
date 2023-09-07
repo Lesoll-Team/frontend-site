@@ -12,7 +12,7 @@ const About = () => {
           About
           <span className="text-lightGreen"> Us</span>
         </h1>
-        <p className="text-2xl leading-loose text-justify">
+        <p className="text-xl leading-loose md:text-justify">
           Lesoll is a leading online real estate marketplace in Egypt that
           provides a seamless digital experience for buying, selling, and
           renting properties. Our platform offers comprehensive end-to-end
@@ -31,13 +31,13 @@ const About = () => {
       </div>
 
       <div className="space-y-28 my-10">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-10 ">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-10 ">
           <div className="md:w-1/2 md:order-2">
             <Image
               src={missionImg}
               width={"auto"}
               height={"auto"}
-              className="w-full"
+              className="w-full md:h-[480px] mx-auto"
               alt=" "
             />
           </div>
@@ -45,7 +45,7 @@ const About = () => {
             <h2 className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               Our Mission
             </h2>
-            <p className="text-2xl md:text-3xl  text-center md:text-justify md:leading-loose">
+            <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose">
               Our vision is to become the ultimate destination for real estate
               transactions in Egypt. We envision Lesoll as the go-to online
               marketplace where individuals can effortlessly navigate the real
@@ -62,16 +62,15 @@ const About = () => {
               src={visionImg}
               width={"auto"}
               height={"auto"}
-              className="w-full"
+              className="w-full md:h-[480px]"
               alt=" "
-
             />
           </div>
           <div className="md:w-3/4 space-y-3 md:space-y-5 pt-5 md:order-2">
             <h2 className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               OUR VISION
             </h2>
-            <p className="text-2xl md:text-3xl  text-center md:text-justify md:leading-loose">
+            <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose">
               Our mission at Lesoll is to simplify and transform the real estate
               experience in Egypt. We aim to empower individuals by providing
               them with a user-friendly platform and a wide range of property
@@ -87,20 +86,20 @@ const About = () => {
               src={goalsImg}
               width={"auto"}
               height={"auto"}
-              className="w-full"
+              className=" w-full md:h-[480px]"
               alt=" "
-
             />
           </div>
           <div className="md:w-3/4 space-y-3 md:space-y-5 pt-5 md:order-1">
             <h2 className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               OUR GOALS
             </h2>
-            <p className="text-2xl md:text-3xl  text-center md:text-justify md:leading-loose">
+            <p className="text-xl md:text-2xl  text-center md:text-start ">
               1 .Simplify the real estate journey: We aim to streamline the
               process of buying, selling, and renting properties by providing a
               user-friendly interface, advanced search features, and
               comprehensive property information.
+              <br />
               <br />
               2.Foster transparency and trust: Our goal is to create a
               transparent and trustworthy marketplace where owners, buyers, and

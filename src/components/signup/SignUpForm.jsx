@@ -1,5 +1,5 @@
 import { signupUserAsync } from "../../redux-store/features/authSlice";
-import { useState } from "react";//useEffect
+import { useState } from "react"; //useEffect
 import { useDispatch, useSelector } from "react-redux";
 import "react-phone-input-2/lib/style.css";
 // import {getAllUserData}from "../../redux-store/features/globalState"
@@ -8,6 +8,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
+  const language = useSelector((state) => state.GlobalState.languageIs);
   // const userToken = useSelector((state) => state.Auth.userToken);
   const registrationError = useSelector(
     (state) => state.Auth.registrationError
@@ -56,15 +57,15 @@ const SignUpForm = () => {
     setTypeOfUser("");
     setShowForm("");
   };
-//   useEffect(()=>{
-//     dispatch(getAllUserData(userToken))
-//  },[userToken,dispatch])
+  //   useEffect(()=>{
+  //     dispatch(getAllUserData(userToken))
+  //  },[userToken,dispatch])
   return (
     <div>
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
           onClick={setIndividual}
-          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base  rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer font-semibold border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base  rounded-lg md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "individual"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -75,11 +76,11 @@ const SignUpForm = () => {
             (typeOfUser === "" && "border-gray-600")
           }`}
         >
-          individual
+          {language ? "فردى" : "individual"}
         </button>
         <button
           onClick={setBroker}
-          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] font-semibold border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-lg md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "broker"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -89,11 +90,11 @@ const SignUpForm = () => {
             typeOfUser !== "broker" || (typeOfUser === "" && "border-gray-600")
           }`}
         >
-          Broker
+          {language ? "سمسار" : "Broker"}
         </button>
         <button
           onClick={setCompany}
-          className={`cursor-pointer border-[1px] border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-md md:duration-300 hover:bg-lightGreen hover:text-white ${
+          className={`cursor-pointer border-[1px] font-semibold border-lightGreen py-2 text-xs w-[30%] text-center sm:text-base rounded-lg md:duration-300 hover:bg-lightGreen hover:text-white ${
             typeOfUser === "company"
               ? "bg-lightGreen text-white"
               : typeOfUser !== ""
@@ -103,32 +104,40 @@ const SignUpForm = () => {
             typeOfUser !== "company" || (typeOfUser === "" && "border-gray-600")
           }`}
         >
-          Developers
+          {language ? "مطور" : "Developer"}
         </button>
       </div>
-      <p className="text-center w-80 md:w-96 mt-2 text-sm sm:text-base  text-gray-600">
+      <p className="text-center w-80 md:w-96 mt-3 text-sm sm:text-base font-semibold text-gray-600">
         {typeOfUser === "individual"
-          ? "you are the owner of a property and looking to list it for rent or sale."
+          ? language
+            ? "أنت مالك عقار وتتطلع إلى إدراجه للإيجار أو البيع."
+            : "you are the owner of a property and looking to list it for rent or sale."
           : typeOfUser === "broker"
-          ? "you are a broker connecting property owners with potential buyers."
+          ? language
+            ? "أنت سمسار يربط أصحاب العقارات بالمشترين المحتملين."
+            : "you are a broker connecting property owners with potential buyers."
           : typeOfUser === "company"
-          ? " you represent a real estate broker or developer Organization."
+          ? language
+            ? "أنت تمثل وسيطًا عقاريًا أو منظمة تطوير."
+            : " you represent a real estate broker or developer Organization."
+          : language
+          ? "للبدء، يرجى تحديد دور التسجيل الخاص بك من هذه الخيارات"
           : "To get started, please select your registration role from these options"}
       </p>
       {showForm && (
         <form
           onSubmit={handleRegistration}
-          className="flex flex-col w-80 md:w-96  border-5 justify-center space-y-4"
+          className="flex flex-col w-80 md:w-96 py-5 justify-center space-y-4"
         >
-          <p>{typeOfUser}</p>
+          {/* <p>{typeOfUser}</p> */}
           <div>
             <input
               type="text"
               id="fullname"
               value={fullname}
               onChange={(e) => setFullname(e.target.value)}
-              placeholder="Name"
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
+              placeholder={language ? "الإسم" : "Name"}
+              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
             />
           </div>
 
@@ -138,8 +147,8 @@ const SignUpForm = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email Address"
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
+              placeholder={language ? " البريد الإلكتروني" : "Email Address"}
+              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
             />
           </div>
 
@@ -148,9 +157,9 @@ const SignUpForm = () => {
               type="number"
               id="phoneNumber"
               value={phoneNumber}
-              placeholder="Phone Number"
+              placeholder={language ? "رقم التليفون" : "Phone Number"}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
+              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
             />
           </div>
 
@@ -159,9 +168,9 @@ const SignUpForm = () => {
               type="password"
               id="password"
               value={password}
-              placeholder="Password"
+              placeholder={language ? "كلمة السر" : "Password"}
               onChange={(e) => setPassword(e.target.value)}
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
+              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
             />
           </div>
           <button
@@ -169,7 +178,13 @@ const SignUpForm = () => {
             disabled={isRegistering}
             className="rounded-3xl bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
           >
-            {isRegistering ? "Signing Up..." : "Sign Up"}
+            {isRegistering
+              ? language
+                ? "...جارى التسجيل "
+                : "Signing Up..."
+              : language
+              ? "التسجيل"
+              : "Sign Up"}
           </button>
           {registrationError && <p>Error: {registrationError}</p>}
         </form>

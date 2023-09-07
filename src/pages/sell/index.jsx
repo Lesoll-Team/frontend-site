@@ -3,8 +3,8 @@ import React from "react";
 
 const index = () => {
   return (
-    // <div className="  bg-gradient-to-br from-lightGreen to-lightOrange">
-    <div className="bg-[url(../../public/addpropbg.webp)] bg-cover bg-no-repeat ">
+    <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
+      {/* // <div className=""> */}
       <AddProperty />
     </div>
   );

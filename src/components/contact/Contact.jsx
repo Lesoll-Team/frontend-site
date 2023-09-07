@@ -16,14 +16,14 @@ export default function Contact() {
   const [massage, setMassage] = useState("");
   const handleConfirmMassage = async (e) => {
     e.preventDefault();
-    const userMassage = { fullName, email,phone,subject,massage };
+    const userMassage = { fullName, email, phone, subject, massage };
     dispatch(sendUserMassage(userMassage));
 
-    setFullName('');
-    setEmail('');
-    setPhone('');
-    setSubject('');
-    setMassage('');
+    setFullName("");
+    setEmail("");
+    setPhone("");
+    setSubject("");
+    setMassage("");
   };
   return (
     <Fragment>
@@ -35,60 +35,59 @@ export default function Contact() {
           <h6 className="text-lightGreen mb-5 ml-4">
             <b> Contact information </b>
           </h6>
-          <form onSubmit={handleConfirmMassage} className="">
-            <center className="m-2">
-              <div className="m-2">
+          <form
+            onSubmit={handleConfirmMassage}
+            className=" flex flex-col justify-end items-start  gap-2"
+          >
+            <center className="flex flex-col gap-3 w-full">
+              <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="Full name"
-            value={fullName}
-                  
+                  value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="mr-1 placeholder:text-gray-500 focus:outline-none  w-[48%] focus:border-lightGreen border-2 rounded-full px-4 py-2"
+                  className=" placeholder:text-gray-500 focus:outline-none  w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
                 />
                 <input
                   type="email"
                   placeholder="Email"
-            value={email}
-
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="placeholder:text-gray-500 focus:outline-none  ml-1 w-[48%] focus:border-lightGreen border-2 rounded-full px-4 py-2"
+                  className="placeholder:text-gray-500 focus:outline-none   w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
                 />
               </div>
-              <div className="m-2">
+              <div className="flex gap-2">
                 <input
                   type="number"
                   placeholder="Phone"
-            value={phone}
-
+                  value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="placeholder:text-gray-500 focus:outline-none  mr-1 w-[48%] focus:border-lightGreen  border-2 rounded-full px-4 py-2"
+                  className="placeholder:text-gray-500 focus:outline-none   w-[48%] focus:border-lightGreen  border-2 rounded-xl px-4 py-2"
                 />
                 <input
                   type="text"
                   placeholder="Subject "
-            value={subject}
-
+                  value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="placeholder:text-gray-500 focus:outline-none ml-1 
-                                 focus:border-lightGreen  border-2 rounded-full px-4 py-2 w-[48%]"
+                  className="placeholder:text-gray-500 focus:outline-none  
+                                 focus:border-lightGreen  border-2 rounded-xl px-4 py-2 w-[48%]"
                 />
               </div>
             </center>
             {/* <input type='' placeholder='Massage'/> */}
-            <center className="">
+            <center className=" w-full">
               <textarea
                 placeholder="Massage"
-            value={massage}
+                value={massage}
                 onChange={(e) => setMassage(e.target.value)}
-                className="placeholder:text-gray-500 focus:outline-none max-h-56 h-36  focus:border-lightGreen w-11/12 border-2 rounded-2xl px-4 py-2"
+                className="placeholder:text-gray-500  focus:outline-none max-h-56 h-36  focus:border-lightGreen w-[97%] ml-2 border-2 rounded-2xl px-4 py-2"
               ></textarea>
               <button
-                 type="submit"
+                type="submit"
                 disabled={isSending}
                 className="rounded-3xl w-10/12  bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
               >
-          {isSending ? "submitting In..." : "Submit"} 
+                {isSending ? "submitting In..." : "Submit"}
               </button>
               {errorMassage && <div>{errorMassage}</div>}
               {confirmMassage && <div>{confirmMassage}</div>}

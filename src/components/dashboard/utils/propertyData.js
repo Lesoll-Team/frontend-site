@@ -10,13 +10,9 @@ export async function fetchAllProperty(userToken) {
         },
       }
     );
-    // if (response.data.code==404) {
-    //   return response.data.status
-    // }else{
     return response.data.result;
-  // }
   } catch (error) {
-    return error.response.data.code;
+    throw error.response.data;
   }
 }
 

@@ -2,6 +2,13 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import logo from "../../../public//icons/logoNavbar.png";
+import {
+  AiFillFacebook,
+  AiFillInstagram,
+  AiFillTwitterCircle,
+  AiOutlineWhatsApp,
+} from "react-icons/ai";
+import { BsFacebook, BsWhatsapp } from "react-icons/bs";
 const Footer = () => {
   return (
     <footer>
@@ -23,61 +30,39 @@ const Footer = () => {
             properties with end to end service
           </p>
           {/* social links */}
-          <div className="flex md:gap-3 gap-1 absolute top-0 right-0 lg:static">
-            <div className=" rounded-full bg-darkGray flex justify-center items-center">
+          <div className="flex md:gap-3 gap-1 absolute top-2 sm:top-0 right-0 lg:static">
+            <div className=" flex justify-center items-center">
               <a
                 target="_blank"
                 href="https://www.facebook.com/LesollRealestate"
                 className="text-white"
               >
-                <Image
-                  alt="facebook"
-                  className="w-[25px] md:w-[40px]  object-fit"
-                  src={"/icons/facebook.svg"}
-                  width={40}
-                  height={40}
-                ></Image>
+                <AiFillFacebook className="text-darkGreen text-3xl md:text-5xl" />
               </a>
             </div>
-            <div className=" rounded-full bg-darkGray flex justify-center items-center">
+            <div className="  flex justify-center items-center">
               <a
                 target="_blank"
                 href="https://www.instagram.com/lesollrealestate/"
                 className="text-white"
               >
-                <Image
-                  alt="instagram"
-                  src={"/icons/instgaram.svg"}
-                  width={40}
-                  height={40}
-                  className="w-[25px] md:w-[40px]  object-fit"
-                ></Image>
+                <AiFillInstagram className="text-darkGreen text-3xl md:text-5xl" />
+
+                {/* <BsFacebook className="text-darkGreen text-3xl md:text-5xl" /> */}
               </a>
             </div>
-            <div className=" rounded-full bg-darkGray flex justify-center items-center">
+            <div className="  flex justify-center items-center">
               <a target="_blank" href="#" className="text-white">
-                <Image
-                  alt="telegram"
-                  className="w-[25px] md:w-[40px] object-fit"
-                  src={"/icons/telegram.svg"}
-                  width={40}
-                  height={40}
-                ></Image>
+                <AiOutlineWhatsApp className="text-darkGreen text-3xl md:text-5xl" />
               </a>
             </div>
-            <div className=" rounded-full bg-darkGray flex justify-center items-center">
+            <div className="  flex justify-center items-center">
               <a
                 target="_blank"
                 href="https://twitter.com/LesollRealstate"
                 className="text-white"
               >
-                <Image
-                  alt="twitter"
-                  className="w-[25px] md:w-[40px]  object-fit"
-                  src={"/icons/twitter.svg"}
-                  width={40}
-                  height={40}
-                ></Image>
+                <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-5xl" />
               </a>
             </div>
           </div>

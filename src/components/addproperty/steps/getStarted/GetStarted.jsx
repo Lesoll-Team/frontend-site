@@ -107,7 +107,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
   return (
     <div className="flex flex-col  w-full space-y-5">
       <h3 className="text-center text-4xl text-darkGreen mt-3 font-bold">
-        Get Started
+        {language ? "أضف عقارك" : "Add Property"}
       </h3>
       <div className="w-full">
         <AddPropInput
@@ -116,7 +116,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
             setData({ ...propertyDetils, title: e.target.value });
           }}
           value={propertyDetils.title}
-          placeholder={language ? "Property Title" : "عنوان الاعلان"}
+          placeholder={!language ? "Property Title" : "عنوان الاعلان"}
         />
       </div>
       <div className="flex flex-col md:flex-row gap-4">

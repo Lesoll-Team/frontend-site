@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import RealtyCard from "../realtyCard/RealtyCardRent";
+import RealtyCard from "../realtyCard/RealtyCard";
 import {ar} from "../../language/ar/common"
 import {en} from "../../language/en/common"
 function SimilarListings() {

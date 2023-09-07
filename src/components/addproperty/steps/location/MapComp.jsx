@@ -14,11 +14,11 @@ import {
 import "@reach/combobox/styles.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { setDate } from "date-fns";
+
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData }) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyD9YmquVFbmuQ9Yo-yPP6NGwDBL5ciTbww",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: libraries,
   });
   if (!isLoaded) return <div>loading ....</div>;
@@ -122,13 +122,14 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
     });
 
     // console.log(propertyDetils);
-    // console.log(result[0]);
+    console.log(result[0]);
   };
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <Combobox onSelect={handleSelect} className="w-full">
       <ComboboxInput
-        placeholder="Select the location"
+        placeholder={language ? "أدخل موفع العقار" : "Select the location"}
         value={value}
         onChange={(e) => {
           setValue(e.target.value);

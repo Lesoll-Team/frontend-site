@@ -2,22 +2,22 @@ import axios from "axios";
 
 import { useEffect, useState, memo, useCallback } from "react";
 import FavCard from "./realtyCards/FavCard";
+import { useSelector } from "react-redux";
 
 const FavoriteAds = () => {
-  const [fav, setFav] = useState(null);
-
+  const [fav, setFav] = useState([]);
+  const language = useSelector((state) => state.GlobalState.languageIs);
   // Define a memoized function to fetch favorites
   const getFav = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/favorites/get`,
+        ` ${process.env.NEXT_PUBLIC_API_URL}/user/favorites/get`,
         {
           headers: {
             token: JSON.parse(localStorage.getItem("userToken")),
           },
         }
       );
-      console.log(response.data);
       setFav(response.data.propertyFavorites);
     } catch (err) {
       console.log(err);
@@ -25,7 +25,8 @@ const FavoriteAds = () => {
   }, []); // Empty dependency array means this function will only be created once
 
   useEffect(() => {
-    setFav(getFav);
+    getFav();
+    // console.log(fav);
   }, [getFav]); // Use the memoized getFav function in the dependency array
 
   const handleRemoveFromFavorites = (propertyIdToRemove) => {
@@ -37,9 +38,9 @@ const FavoriteAds = () => {
   return (
     <div className="w-full">
       <h1 className="text-center font-bold text-lightGreen text-4xl">
-        Favorites
+        {language ? "المفضلة" : "Favorites"}
       </h1>
-      <div className="flex flex-wrap gap-20 justify-center items-center py-10 lg:gap-x-36 ">
+      <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center ">
         {fav &&
           fav.map((favData) => (
             <FavCard

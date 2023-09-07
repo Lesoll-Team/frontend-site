@@ -12,8 +12,12 @@ import {
 import Link from "next/link";
 import { useMemo, memo } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
+import { useSelector } from "react-redux";
 
 const FavCard = ({ propDetails, onRemove }) => {
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const addToFAv = async () => {
     try {
       await AddToFavorites(propDetails?._id);
@@ -40,8 +44,17 @@ const FavCard = ({ propDetails, onRemove }) => {
         </div> */}
         <div className=" bg-white  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
           {/* <AiOutlineHeart /> */}
-          <AiOutlineHeart className="text-red-500" />
-          <AiFillHeart className="text-red-500" onClick={addToFAv} />
+          {userInfo ? (
+            userInfo.favorites.includes(propDetails._id) ? (
+              <AiFillHeart className="text-red-500" onClick={addToFAv} />
+            ) : (
+              <AiOutlineHeart className="text-red-500" onClick={addToFAv} />
+            )
+          ) : (
+            ""
+          )}
+
+          {/* <AiFillHeart className="text-red-500" onClick={addToFAv} /> */}
         </div>
       </div>
       {/* card img */}
@@ -56,8 +69,18 @@ const FavCard = ({ propDetails, onRemove }) => {
       {/* card body  */}
       <div className=" ">
         <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center  z-[100]">
-          <p className=" font-bold ">{propDetails?.price} EGP</p>
-          <p className="  ">{propDetails?.offer}</p>
+          <p className=" font-bold ">
+            {propDetails?.price.toLocaleString()} {language ? "جنية" : "EGP"}
+          </p>
+          <p className="  ">
+            {propDetails.offer === "For Sale"
+              ? language
+                ? "للبيع"
+                : "For Sale"
+              : language
+              ? "للإيجار"
+              : "For Rent"}
+          </p>
         </div>
         <Link href={`/propertyDetails/${propDetails._id}`}>
           <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
@@ -69,21 +92,30 @@ const FavCard = ({ propDetails, onRemove }) => {
             {" "}
             <BiSolidBed className="text-xl " />{" "}
             <p className="text-[12px] font-semibold text-darkGray">
-              {propDetails?.rooms} Rooms
+              {propDetails?.rooms} {language ? "غرف" : "Rooms"}
             </p>
           </div>
           <div className="flex items-center gap-1">
             {" "}
             <FaBath className="text-xl " />{" "}
             <p className="text-[12px] font-semibold text-darkGray">
-              {propDetails?.bathRooms} Bath
+              {propDetails?.bathRooms} {language ? "حمام" : "Bathroom"}
             </p>
           </div>
           <div className="flex items-center gap-1">
             {" "}
             <TbRulerMeasure className="text-l " />{" "}
             <p className="text-[12px] font-semibold text-darkGray">
-              {propDetails?.area} m2
+              {propDetails?.area}
+              {language ? (
+                <span>
+                  م<sup>2</sup>
+                </span>
+              ) : (
+                <span>
+                  m<sup>2</sup>
+                </span>
+              )}
             </p>
           </div>
         </div>

@@ -1,23 +1,35 @@
 import axios from "axios";
 
-export async function getAllUsers(userToken) {
-//   if (userToken) {
+export async function getAllUsers(rowsPerPage,page,userToken) {
+// console.log(rowsPerPage,page,userToken);
     try {
       const response = await axios.get(
         `${
           process.env.NEXT_PUBLIC_API_URL
-        }/admin/getallusers?limit=${10}&page=1`,
+        }/admin/getallusers?limit=${rowsPerPage}&page=${page}`,
         {
           headers: {
             token: userToken,
           },
         }
       );
-      return response.data.data;
+      return response.data;
     } catch (error) {
       throw error.response.massage;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export async function deleteUsers(userID) {
@@ -54,5 +66,21 @@ export async function updateUsers(userID,newData) {
   }
 }
 
+export async function banUser(userID) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/ban/user/${userID}?token=${userToken}`
+      // {
+      //   headers: {
+      //     token: userToken,
+      //   },
+      // }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
 
-
+//BanUser: PATCH /api/admin/ban/user/:id

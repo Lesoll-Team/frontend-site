@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import ProfileCard from "./realtyCards/ProfileCard";
 import { GetActiveProp } from "@/utils/propertyAPI";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const ActiveAds = () => {
   const [activeAdds, setActiveAdds] = useState(null);
+  const language = useSelector((state) => state.GlobalState.languageIs);
   const getActive = useCallback(async () => {
     try {
       const response = await axios.get(
@@ -34,7 +36,7 @@ const ActiveAds = () => {
   return (
     <div className="w-full">
       <h1 className="text-center font-bold text-lightGreen text-4xl">
-        Active Ads
+        {language ? "إعلاناتك النشطة" : "Active Ads"}
       </h1>
       <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
         {activeAdds &&
