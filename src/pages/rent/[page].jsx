@@ -4,7 +4,10 @@ import PaginationPage from "../../Shared/Pagination/Pagination";
 import { useRouter } from "next/router";
 import RealtyCardRent from "../../components/realtyCard/RealtyCard";
 import { SearchBar } from "@/Shared/search/SearchBar";
+import { useSelector } from "react-redux";
 export default function PropertyRent({ propertyForRent }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const router = useRouter();
   const currentPage = router.query.page;
   return (
@@ -15,14 +18,16 @@ export default function PropertyRent({ propertyForRent }) {
       <SearchBar />
       <div>
         <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
-          Properties for Rent
+          {language ? "عقارات للإيجار" : " Properties for Rent"}
         </h1>
       </div>
 
       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
-        {propertyForRent.result.map((property) => (
-          <RealtyCardRent key={property._id} propertyDetails={property} />
-        ))}
+        {propertyForRent
+          ? propertyForRent.result.map((property) => (
+              <RealtyCardRent key={property?._id} propertyDetails={property} />
+            ))
+          : "no property found"}
         {/* <Link  href={`/propertyDetails/${property._id}`}>  </Link> */}
       </div>
 
@@ -31,7 +36,7 @@ export default function PropertyRent({ propertyForRent }) {
           <PaginationPage
             hrefRout={"rent"}
             currentPage={currentPage}
-            totalPages={propertyForRent.totalPages}
+            totalPages={propertyForRent?.totalPages}
           />
         </div>
       </div>

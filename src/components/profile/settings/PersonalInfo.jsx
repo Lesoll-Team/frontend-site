@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUserData } from "../../../redux-store/features/globalState";
 import { deleteAccount } from "../../../redux-store/features/authSlice";
 import { Avatar } from "@nextui-org/react";
+import ConfirmModal from "@/Shared/ConfirmModal";
 const PersonalInfo = () => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
@@ -77,13 +78,14 @@ const PersonalInfo = () => {
                   addImgRef.current.click();
                 }
               }}
-              className={` bg-lightGreen  z-10 top-8 rounded-full w-10 h-10 flex justify-center items-center relative overflow- cursor-text overflow-hidden border-gray-300 ${
+              className={` bg-lightGreen  z-10 top-8 rounded-full w-10 h-10 flex justify-center items-center relative overflow- cursor-pointer overflow-hidden border-gray-300 ${
                 language ? "left-8" : "right-8"
               }`}
             >
               <input
                 hidden
                 type="file"
+                ref={addImgRef}
                 // accept="image/"
                 onChange={(e) => setSelectedImage(e.target.files[0])}
                 className="scale-[2] right-5 bottom-0 absolute  top-2 cursor-pointer"
@@ -159,15 +161,23 @@ const PersonalInfo = () => {
           {" "}
           The door misses a camel || الباب يفوت جمل
         </h4>
-
-        <button
-          disabled={isRegistering}
-          className="rounded-lg w-3/12 bg-red-600 text-white mt-5  py-2  font-semibold
-        duration-300 hover:bg-red-500 md:active:scale-95"
-          onClick={deleteUserAccount}
+        <ConfirmModal
+          title={language ? "تأكيد إزالة الحساب" : "Confirm Account Deletion "}
+          description={
+            language
+              ? "سيتم فقد جميع البيانات والعقارات لديك عند إزالة الحساب"
+              : "All your data will be deleted including your properties "
+          }
+          actinFunction={deleteUserAccount}
         >
-          Delete Account
-        </button>
+          <button
+            disabled={isRegistering}
+            className="rounded-lg px-3 bg-red-600 text-white mt-5  py-2  font-semibold
+        duration-300 hover:bg-red-500 md:active:scale-95"
+          >
+            Delete Account
+          </button>
+        </ConfirmModal>
       </div>
     </Fragment>
   );

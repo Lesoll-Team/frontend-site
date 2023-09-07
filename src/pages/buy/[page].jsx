@@ -5,7 +5,9 @@ import PaginationPage from "../../Shared/Pagination/Pagination.jsx";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { SearchBar } from "@/Shared/search/SearchBar.jsx";
+import { useSelector } from "react-redux";
 export default function PropertyBuy({ propertyForBuy }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const currentPage = router.query.page;
   return (
@@ -17,13 +19,15 @@ export default function PropertyBuy({ propertyForBuy }) {
 
       <div>
         <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
-          Properties for Buy
+          {language ? "عقارات للبيع" : " Properties for Buy"}
         </h1>
       </div>
       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
-        {propertyForBuy.result.map((property) => (
-          <RealtyCardBuy key={property._id} propertyDetails={property} />
-        ))}
+        {propertyForBuy
+          ? propertyForBuy.result.map((property) => (
+              <RealtyCardBuy key={property._id} propertyDetails={property} />
+            ))
+          : "no property found"}
         {/* <Link  href={`/propertyDetails/${property._id}`}>   </Link> */}
       </div>
 

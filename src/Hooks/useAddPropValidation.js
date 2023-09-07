@@ -1,111 +1,95 @@
 import { useState } from "react";
 
 function useAddPropValidation() {
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
-  const validateProperty = (propertyDetils) => {
-    const newErrors = {};
+  const validateProperty = (propertyDetails) => {
+    const newErrors = [];
 
-    if (!propertyDetils.title) {
-      console.error("Title is missing.");
-      return;
+    if (!propertyDetails.title) {
+      newErrors.push("Title is missing.");
     }
-    if (!propertyDetils.offer) {
-      console.error("offer is missing.");
-      return;
+    if (!propertyDetails.offer) {
+      newErrors.push("Offer is missing.");
     }
-    if (!propertyDetils.unitType) {
-      console.error("unitType is missing.");
-      return;
+    if (!propertyDetails.unitType) {
+      newErrors.push("Unit Type is missing.");
     }
-    if (!propertyDetils.area) {
-      console.error("area are missing.");
-      return;
+    if (!propertyDetails.area) {
+      newErrors.push("Area is missing.");
     }
     if (
-      propertyDetils.propType === "Residential" ||
-      propertyDetils.propType === "Commercial"
+      propertyDetails.propType === "Residential" ||
+      propertyDetails.propType === "Commercial"
     ) {
-      if (!propertyDetils.rooms) {
-        console.error("rooms are missing.");
-        return;
+      if (!propertyDetails.rooms) {
+        newErrors.push("Rooms are missing.");
       }
-      if (!propertyDetils.bathRooms) {
-        console.error("bathrooms are missing.");
-        return;
+      if (!propertyDetails.bathRooms) {
+        newErrors.push("Bathrooms are missing.");
       }
-      if (!propertyDetils.finishingType) {
-        console.error("finishingType is missing.");
-        return;
+      if (!propertyDetails.finishingType) {
+        newErrors.push("Finishing Type is missing.");
       }
     }
-    if (!propertyDetils.description) {
-      console.error("description is missing.");
-      return;
+    if (!propertyDetails.description) {
+      newErrors.push("Description is missing.");
     }
-    if (propertyDetils.offer == "For Rent") {
-      if (!propertyDetils.rentalPeriod) {
-        console.error("rentalPeriod is missing.");
-        return;
+    if (propertyDetails.offer === "For Rent") {
+      if (!propertyDetails.rentalPeriod) {
+        newErrors.push("Rental Period is missing.");
       }
     }
-    if (propertyDetils.offer === "For Sale") {
-      if (propertyDetils.saleOption === "Cash") {
-        if (!propertyDetils.price) {
-          console.error("price is missing.");
-          return;
+    if (propertyDetails.offer === "For Sale") {
+      if (propertyDetails.saleOption === "Cash") {
+        if (!propertyDetails.price) {
+          newErrors.push("Price is missing.");
         }
       } else {
-        if (!propertyDetils.price) {
-          console.error("price is missing.");
-          return;
+        if (!propertyDetails.price) {
+          newErrors.push("Price is missing.");
         }
-        if (!propertyDetils.downPayment) {
-          console.error("downPayment is missing.");
-          return;
+        if (!propertyDetails.downPayment) {
+          newErrors.push("Down Payment is missing.");
         }
-        if (!propertyDetils.installmentOption.period) {
-          console.error("period is missing.");
-          return;
+        if (!propertyDetails.installmentOption.period) {
+          newErrors.push("Period is missing.");
         }
-        if (!propertyDetils.installmentOption.amount) {
-          console.error("amount is missing.");
-          return;
+        if (!propertyDetails.installmentOption.amount) {
+          newErrors.push("Amount is missing.");
         }
       }
     }
-    if (!propertyDetils.mainImage) {
-      console.error("Main image is missing.");
-      return;
+    if (!propertyDetails.mainImage) {
+      newErrors.push("Main image is missing.");
     }
 
-    if (!propertyDetils.multiImage || propertyDetils.multiImage.length < 4) {
-      console.error("Multi-images are missing not be less than 4.");
-      return;
+    if (!propertyDetails.multiImage || propertyDetails.multiImage.length < 4) {
+      newErrors.push("Multi-images are missing and should not be less than 4.");
     }
-    if (!propertyDetils.address.name) {
-      console.error("address is missing");
-      return;
+    if (!propertyDetails.address.name) {
+      newErrors.push("Address is missing.");
     }
-    if (!propertyDetils.connectPhoneNumber) {
-      console.error("connectPhoneNumber is missing");
-      return;
+    if (!propertyDetails.connectPhoneNumber) {
+      newErrors.push("Connect Phone Number is missing.");
     }
-    if (!propertyDetils.appointments.from && !propertyDetils.appointments.to) {
-      console.error("hours is missing");
-      return;
+    if (
+      !propertyDetails.appointments.from &&
+      !propertyDetails.appointments.to
+    ) {
+      newErrors.push("Hours are missing.");
     }
-    if (!propertyDetils.appointments.allDays) {
+    if (!propertyDetails.appointments.allDays) {
       if (
-        !propertyDetils.appointments.startDate &&
-        !propertyDetils.appointments.startDate
+        !propertyDetails.appointments.startDate &&
+        !propertyDetails.appointments.endDate
       ) {
-        console.error("days is missing");
-        return;
+        newErrors.push("Days are missing.");
       }
     }
+
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors.length === 0;
   };
 
   return { errors, validateProperty };

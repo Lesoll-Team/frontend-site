@@ -20,7 +20,7 @@ const EditProp = () => {
   const { push } = useRouter();
   const userInfo = useSelector((state) => state.GlobalState.userData);
   //   const userToken = JSON.parse(localStorage.getItem("userToken"));
-  console.log(userInfo?._id);
+  // console.log(userInfo?._id);
   const [propertyDetils, setPropertyDetils] = useState(null);
   const [isLading, setLading] = useState(false);
   const dispatch = useDispatch();

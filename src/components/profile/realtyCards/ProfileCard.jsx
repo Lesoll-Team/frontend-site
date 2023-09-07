@@ -1,5 +1,6 @@
 import Image from "next/image";
 import testImg from "../../../../public/testimg.webp";
+
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
@@ -7,6 +8,7 @@ import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import Link from "next/link";
 import { deleteProperty } from "@/utils/propertyAPI";
 import { useSelector } from "react-redux";
+import ConfirmModal from "@/Shared/ConfirmModal";
 const ProfileCard = ({ propertyDetails, type, onRemove }) => {
   // console.log(propertyDetails);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -110,10 +112,13 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
             {propertyDetails.address.name.substring(0, 50)} ...
           </p>
           <div className="flex gap-3 items-center">
-            <AiFillDelete
-              className="text-xl  md:text-2xl text-red-600 cursor-pointer"
-              onClick={deleteProp}
-            />
+            <ConfirmModal
+              actinFunction={deleteProp}
+              title={language ? "تأكيد إزالة العقار" : "Confirm Delete Propert"}
+            >
+              {" "}
+              <AiFillDelete className="text-xl  md:text-2xl text-red-600 cursor-pointer" />
+            </ConfirmModal>
 
             <Link href={"/profile"}>
               <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
