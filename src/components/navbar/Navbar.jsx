@@ -21,7 +21,11 @@ import ar from "../../language/ar/common";
 import en from "../../language/en/common";
 export default function Navbar() {
   const dispatch = useDispatch();
+  const [countNotifications, setCountNotifications] = useState(0);
 
+  const calcCount = (dataFromChild) => {
+    setCountNotifications(dataFromChild);
+  };
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   // const [arbLanguage] = useState(ar);
@@ -139,7 +143,7 @@ export default function Navbar() {
           {/*button Notifications */}
           <li className={` ${isAuth ? " " : "hidden"} relative`}>
             {/**` ${searchVisible ? "hidden" : " "}` */}
-            <Badge content={2} shape="circle" color="danger">
+            <Badge content={countNotifications} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
                 radius="full"
@@ -231,7 +235,7 @@ export default function Navbar() {
             notifications ? "" : "hidden"
           }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
-          <NotificationMenu />
+          <NotificationMenu sendCount={calcCount}/>
         </ul>
       </section>
     </nav>

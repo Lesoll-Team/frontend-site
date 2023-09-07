@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   User,
   // Checkbox,
@@ -13,9 +13,35 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
+// import useFormatTime from "@/Hooks/useFormatTime";
+import useFormatDate from "@/Hooks/useFormatDate";
 function ConfirmAppointment({ userAppointment }) {
-  // console.log(userAppointment);
+// console.log(userAppointment);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const [formattedDateFrom, setformattedDateFrom] = useState(null)
+  const [formattedDateTo, setformattedDateTo] = useState(null)
+
+useEffect(() => {
+  const originalDateFrom = userAppointment?.appointments.from;
+  const dateFrom = new Date(originalDateFrom);
+  setformattedDateFrom(dateFrom.toLocaleString("en-US", {
+      hour:"numeric",
+      minute:"numeric",
+      hour12: true,
+    }))
+
+    const originalDateTo = userAppointment?.appointments.to || null;
+    const dateTo = new Date(originalDateTo);
+    setformattedDateTo(dateTo.toLocaleString("en-US", {
+        hour:"numeric",
+        minute:"numeric",
+        hour12: true,
+      }))
+},[])
+
+
+  const formattedStartDate = useFormatDate(userAppointment?.appointments.startDate);
+  const formattedEndDate = useFormatDate(userAppointment?.appointments.endDate);
 
   return (
     <div className=" py-5 mb-10 border-2 border-gray-200 rounded-3xl">
@@ -23,7 +49,6 @@ function ConfirmAppointment({ userAppointment }) {
         <h2 className="text-lg text-lightGreen pb-3">
           <b>
             {language ? ar.property.cnfAppointment : en.property.cnfAppointment}
-            {/* Confirm Appointment */}
           </b>
         </h2>
       </center>
@@ -45,13 +70,13 @@ function ConfirmAppointment({ userAppointment }) {
               <div className="flex bg-default-200 mb-1 w-[150px] rounded-2xl p-1 justify-around items-center font-semibold text-[14px]">
                 <span>From:</span>{" "}
                 <Chip className="bg-white" color="success" variant="dot">
-                  {userAppointment?.appointments.from || "All time"}
+                  {formattedDateFrom}
                 </Chip>
               </div>
               <div className="flex bg-default-200 mb-1 rounded-2xl w-[150px] p-1 justify-around items-center font-semibold text-[14px]">
                 <span>To:</span>{" "}
                 <Chip className="bg-white" color="warning" variant="dot">
-                  {userAppointment?.appointments.to || "All time"}
+                  {formattedDateTo}
                 </Chip>
               </div>
             </div>
@@ -67,13 +92,13 @@ function ConfirmAppointment({ userAppointment }) {
               <div className="flex bg-default-200   m-2 w-[150px] rounded-2xl p-1 justify-around items-center font-semibold text-[14px]">
                 <span>From:</span>{" "}
                 <Chip className="bg-white" variant="light">
-                  2023/8/1
+                {formattedStartDate}
                 </Chip>
               </div>
               <div className="flex bg-default-200  m-2 w-[150px] rounded-2xl p-1 justify-around items-center font-semibold text-[14px]">
                 <span>To:</span>{" "}
                 <Chip className="bg-white" variant="light">
-                  2023/9/1
+                 {formattedEndDate}
                 </Chip>
               </div>
             </div>

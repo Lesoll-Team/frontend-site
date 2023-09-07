@@ -72,5 +72,6 @@ export async function deleteProperty(propertyid) {
     return response.data;
   } catch (error) {
     throw error.response.data;
+    // console.log();
   }
 }
