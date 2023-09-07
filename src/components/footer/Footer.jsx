@@ -61,7 +61,11 @@ const Footer = () => {
               </a>
             </div>
             <div className="  flex justify-center items-center">
-              <a target="_blank" href="#" className="text-white">
+              <a
+                target="_blank"
+                href="https://wa.me/+201032362898"
+                className="text-white"
+              >
                 <AiOutlineWhatsApp className="text-darkGreen text-3xl md:text-5xl" />
               </a>
             </div>

@@ -82,25 +82,25 @@ const Profile = () => {
                     </p>
                     {/* @{userDataInfo?.username} */}
                   </div>
-                  <div className="flex justify-start  items-center  gap-5 max-w-[400px] mt-2 flex-wrap">
+                  {/* <div className="flex justify-start  items-center  gap-5 max-w-[400px] mt-2 flex-wrap">
                     <div className="text-center  items-center  gap-1 text-gray-500 text-lg">
                       <p className="text-lg ">
                         {language ? "النشطة" : "Active"}
                       </p>
                       <p className="text-lg">
                         {userDataInfo?.numProducts}
-                        {/* 15 */}
+                   
                       </p>
                     </div>
                     <div className="text-center   gap-1 items-center text-gray-500">
                       <p className="text-lg ">
-                        {" "}
+                    
                         {language ? "المفضلة" : "Favorites"}
                       </p>
                       <p className="text-lg">{userInfo?.favorites.length}</p>
-                      {/* {userDataInfo?.favorites?.length} */}
+                      
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <Link
