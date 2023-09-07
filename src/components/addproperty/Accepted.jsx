@@ -10,7 +10,7 @@ const Accepted = () => {
         <h3 className="text-2xl font-semibold text-darkGreen">
           تمت إضافة العقار بنجاح
         </h3>
-        <p className="text-xl font-semibold text-darkGray">
+        <p className="text-xl font-semibold text-darkGray text-center">
           سيتم مراجعة العقار من فريق ليسول وسيتم الرد فى اقرب وقت
         </p>
       </div>

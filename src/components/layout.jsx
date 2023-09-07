@@ -52,7 +52,7 @@ export default function Layout({ children }) {
         </Head>
         <Navbar />
         <main dir={`${language ? "rtl" : ""}`}>{children}</main>
-        <Footer />
+        <Footer dir={`${language ? "rtl" : ""}`} />
         <ScrollToTopButton />
       </div>
     </Fragment>

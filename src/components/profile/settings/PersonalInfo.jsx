@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUserData } from "../../../redux-store/features/globalState";
 import { deleteAccount } from "../../../redux-store/features/authSlice";
 import { Avatar } from "@nextui-org/react";
+import ConfirmModal from "@/Shared/models/ConfirmModal";
 const PersonalInfo = () => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
@@ -26,7 +27,7 @@ const PersonalInfo = () => {
   }, [dispatch, userInfo]);
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  
     const formData = new FormData();
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
@@ -46,7 +47,7 @@ const PersonalInfo = () => {
   };
 
   const deleteUserAccount = (e) => {
-    e.preventDefault();
+
     dispatch(
       deleteAccount({
         userID: userDataInfo?._id,
@@ -58,9 +59,9 @@ const PersonalInfo = () => {
   return (
     <Fragment>
       <div className="w-full sm:max-w-[700px] mx-auto py-10 px-5 border-2 rounded-xl bg-white drop-shadow-lg">
-        <form className="space-y-10" onSubmit={handleFormSubmit}>
+        <div className="space-y-10">
           {/*img user */}
-          <div className="flex justify-start items-center relative bg-red-200  ">
+          <div className="flex justify-start items-center relative   ">
             {/* <img
               // src={userImg}
               src={userDataInfo?.avatarUrl}
@@ -70,7 +71,7 @@ const PersonalInfo = () => {
             <Avatar
               src={userDataInfo?.avatarUrl}
               className="w-24 h-24 text-large"
-              fallback
+              // showFallback
             />
             <div
               onClick={() => {
@@ -78,13 +79,14 @@ const PersonalInfo = () => {
                   addImgRef.current.click();
                 }
               }}
-              className={` bg-lightGreen  z-10 top-8 rounded-full w-10 h-10 flex justify-center items-center relative overflow- cursor-text overflow-hidden border-gray-300 ${
+              className={` bg-lightGreen  z-10 top-8 rounded-full w-10 h-10 flex justify-center items-center relative overflow- cursor-pointer overflow-hidden border-gray-300 ${
                 language ? "left-8" : "right-8"
               }`}
             >
               <input
                 hidden
                 type="file"
+                ref={addImgRef}
                 // accept="image/"
                 onChange={(e) => setSelectedImage(e.target.files[0])}
                 className="scale-[2] right-5 bottom-0 absolute  top-2 cursor-pointer"
@@ -143,14 +145,16 @@ const PersonalInfo = () => {
             />
           </div>
           <span>{updateError}</span>
+
+          <ConfirmModal title={"confirm update profile"} actinFunction={handleFormSubmit}>
           <button
             disabled={isUpdated}
-            type="submit"
             className="rounded-lg w-full bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
           >
             Save Changes
           </button>
-        </form>
+          </ConfirmModal>
+        </div>
       </div>
       <div className="w-full sm:max-w-[700px] my-4 mx-auto py-10 px-5 border-2 rounded-xl ">
         <h2 className="text-red-500 ">
@@ -160,15 +164,23 @@ const PersonalInfo = () => {
           {" "}
           The door misses a camel || الباب يفوت جمل
         </h4>
-
-        <button
-          disabled={isRegistering}
-          className="rounded-lg w-3/12 bg-red-600 text-white mt-5  py-2  font-semibold
-        duration-300 hover:bg-red-500 md:active:scale-95"
-          onClick={deleteUserAccount}
+        <ConfirmModal
+          title={language ? "تأكيد إزالة الحساب" : "Confirm Account Deletion "}
+          description={
+            language
+              ? "سيتم فقد جميع البيانات والعقارات لديك عند إزالة الحساب"
+              : "All your data will be deleted including your properties "
+          }
+          actinFunction={deleteUserAccount}
         >
-          Delete Account
-        </button>
+          <button
+            disabled={isRegistering}
+            className="rounded-lg px-3 bg-red-600 text-white mt-5  py-2  font-semibold
+        duration-300 hover:bg-red-500 md:active:scale-95"
+          >
+            Delete Account
+          </button>
+        </ConfirmModal>
       </div>
     </Fragment>
   );

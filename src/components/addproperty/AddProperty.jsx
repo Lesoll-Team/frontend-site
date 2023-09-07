@@ -182,17 +182,17 @@ const AddProperty = () => {
                   setData={setPropertyDetils}
                 />
                 <hr />
+                <Price
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                />
+                <hr />
                 <PropertyInfo
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
                 <hr />
                 <Description
-                  propertyDetils={propertyDetils}
-                  setData={setPropertyDetils}
-                />
-                <hr />
-                <Price
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
@@ -224,6 +224,9 @@ const AddProperty = () => {
                 {/* <hr /> */}
                 {/* <Review /> */}
               </div>
+              {errors && (
+                <p className="text-center text-red-500">{errors[0]}</p>
+              )}
               {isAuth ? (
                 <button
                   onClick={handleSubmit}

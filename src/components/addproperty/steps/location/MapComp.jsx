@@ -26,7 +26,7 @@ export default function MapComp({ propertyDetils, setData }) {
 }
 const center = { lat: 30, lng: 31.4 };
 const Map = ({ propertyDetils, setData }) => {
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selected, setSelected] = useState(null);
 

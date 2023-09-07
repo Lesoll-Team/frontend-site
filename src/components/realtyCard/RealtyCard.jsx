@@ -8,8 +8,7 @@ import { TbRulerMeasure } from "react-icons/tb";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 const RealtyCardRent = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -18,29 +17,47 @@ const RealtyCardRent = ({ propertyDetails }) => {
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
-      setLoved(true);
+
       // Handle success (e.g., show a success message)
     } catch (error) {
       // Handle error (e.g., display an error message)
       console.error("Error add to fav :", error);
     }
   };
+
+  useEffect(() => {
+    if (userInfo?.favorites.includes(propertyDetails?._id)) {
+      setLoved(true);
+    }
+  }, [userInfo?.favorites]);
   // console.log("Rent :", propertyDetails);
   // console.log(propertyDetails);
   return (
     <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[430px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
-      <div className="flex items-center justify-between absolute w-full top-10">
+      <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
           <span>views</span> <span>{propertyDetails?.users.views.length}</span>
         </div> */}
         {userInfo && (
           <div className=" bg-white  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
             {userInfo ? (
-              userInfo.favorites.includes(propertyDetails?._id) || loved ? (
-                <AiFillHeart className="text-red-500" onClick={addToFAv} />
+              loved ? (
+                <AiFillHeart
+                  className="text-red-500"
+                  onClick={() => {
+                    addToFAv();
+                    setLoved(!loved);
+                  }}
+                />
               ) : (
-                <AiOutlineHeart className="text-red-500" onClick={addToFAv} />
+                <AiOutlineHeart
+                  className="text-red-500"
+                  onClick={() => {
+                    addToFAv();
+                    setLoved(!loved);
+                  }}
+                />
               )
             ) : (
               ""

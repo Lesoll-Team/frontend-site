@@ -14,16 +14,11 @@ const RecentPropertyBuy = ({ propertiesBuy }) => {
         {language ? "أحدث العقارات للبيع" : "Recent Properties For Buy"}
       </h1>
       <div className="container mx-auto items-center py-5  grid gap-x-5 lg:grid-cols-3 md:grid-cols-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 ">
-      {propertiesBuy
+        {propertiesBuy
           ? propertiesBuy.map((property) => (
               <RealtyCard key={property._id} propertyDetails={property} />
             ))
           : "No properties found"}
-        {/**{propertiesBuy
-          ? propertiesBuy.map((property) => (
-              <RealtyCard key={property._id} propertyDetails={property} />
-            ))
-          : "No properties found"} */}
       </div>
       <div className="flex justify-center mt-5">
         <Link
