@@ -21,9 +21,9 @@ const Main = () => {
               <h1 className="text-4xl p-x relative lg:text-8xl text-lightGreen font-semibold text-center md:text-left">
                 {language ? " ليسول" : "Lesoll"}
               </h1>
-              <p className="text-3xl block lg:text-4xl lg:inline font-semibold text-lightOrange px-2">
+              <h2 className="text-3xl block lg:text-4xl lg:inline font-semibold text-lightOrange px-2">
                 {language ? "طريقك لبيتك" : "The Way You Home"}
-              </p>
+              </h2>
             </div>
             <p className="w-[95%] text-center hidden md:block font-light md:text-start lg:text-lg">
               {language

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import Link from "next/link";
 //icons imports
@@ -7,9 +8,10 @@ import { AiOutlineUser } from "react-icons/ai";
 import { GrCircleInformation } from "react-icons/gr";
 import { useSelector } from "react-redux";
 // componets imports
-
-import PersonalInfo from "./PersonalInfo";
-import EditPassword from "./EditPassword";
+const PersonalInfo = dynamic(() => import("./PersonalInfo"));
+const EditPassword = dynamic(() => import("./EditPassword"));
+// import PersonalInfo from "./PersonalInfo";
+// import EditPassword from "./EditPassword";
 
 const UserSettings = () => {
   const [content, setContent] = useState("info");

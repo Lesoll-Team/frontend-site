@@ -160,9 +160,6 @@ const AddProperty = () => {
       // dir={language ? "ltr" : "rtl"}
       className="container mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
     >
-      <Head>
-        <title>{language ? "إضافة عقار" : "Add property"}</title>
-      </Head>
       <h1 className="text-center text-5xl font-bold text-white mb-4"></h1>
       <div
         className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200 ${

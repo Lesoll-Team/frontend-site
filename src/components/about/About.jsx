@@ -8,10 +8,10 @@ const About = () => {
   return (
     <div className="relative min-h-screen py-10 container mx-auto  space-y-20 mb-10">
       <div className="space-y-5 ">
-        <h1 className="text-8xl md:text-9xl font-bold text-darkGray ">
+        <h2 className="text-8xl md:text-9xl font-bold text-darkGray ">
           About
           <span className="text-lightGreen"> Us</span>
-        </h1>
+        </h2>
         <p className="text-xl leading-loose md:text-justify">
           Lesoll is a leading online real estate marketplace in Egypt that
           provides a seamless digital experience for buying, selling, and

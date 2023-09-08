@@ -9,16 +9,21 @@ const RecentPropertyBuy = dynamic(() =>
 const RecentPropertyRent = dynamic(() =>
   import("@/components/homePage/RecentPropertyRent")
 );
+import { useSelector } from "react-redux";
+
 import Head from "next/head";
 export default function Home({ propertyForRent, propertyForBuy }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <main>
       <Head>
-        <title>Lesoll</title>
+        {/* <title>
+          {language ? "ليسول | تسويق عقارى" : "Lesoll | RealEstate Hub"}
+        </title> */}
       </Head>
       <Main />
       <SearchBar />
-      
+
       <RecentPropertyRent propertiesRent={propertyForRent} />
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
     </main>

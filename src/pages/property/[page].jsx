@@ -17,7 +17,7 @@ export default function property({ propertyHome }) {
       <Head>
         <title>property</title>
       </Head>
-      <h1>
+      <h2>
         {propertyHome.map((property) => (
           <div key={property._id}>
             <Link href={`/propertyDetails/${property._id}`}>
@@ -25,7 +25,7 @@ export default function property({ propertyHome }) {
             </Link>
           </div>
         ))}
-      </h1>
+      </h2>
 
       <div>
         <Button onClick={handleNextPage}>Next</Button>

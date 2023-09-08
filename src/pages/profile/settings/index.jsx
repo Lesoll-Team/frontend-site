@@ -13,14 +13,16 @@ const index = () => {
   useEffect(() => {
     setLoading(isLoading);
     if (!isLoading) {
-      router.push("/"); 
+      router.push("/");
     }
   }, [isLoading, router]);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <>
       <Head>
-        <title>Lesoll Profile Setting</title>
+        <title>{language ? "إعدادات الحساب" : "Account Settings"}</title>
+        <meta name="description" content="اعدادات حسابك" />
       </Head>
 
       {loading ? (

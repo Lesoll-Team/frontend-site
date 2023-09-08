@@ -29,9 +29,9 @@ export default function Contact() {
     <Fragment>
       <div className="md:container mt-14 mb-14 mx-auto md:flex ">
         <div className="md:w-7/12 ">
-          <h1 className="text-6xl mb-5 text-lightGreen">
+          <h2 className="text-6xl mb-5 text-lightGreen">
             <b>Contact</b>
-          </h1>
+          </h2>
           <h6 className="text-lightGreen mb-5 ml-4">
             <b> Contact information </b>
           </h6>

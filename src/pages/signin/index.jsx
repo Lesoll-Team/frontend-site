@@ -24,6 +24,10 @@ const SignIn = () => {
     <>
       <Head>
         <title>{language ? "تسجيل الدخول" : "Sign Im"}</title>
+        <meta
+          name="description"
+          content="قم بتسجيل الدخول إلى حسابك على منصتنا للعقارات. احصل على وصول إلى بحوثك المحفوظة والقوائم المفضلة والمزيد. عملية تسجيل دخول آمنة ومريحة لتجربة شخصية."
+        />
       </Head>
 
       {!loading ? (
@@ -57,7 +61,7 @@ const SignIn = () => {
                 height={"auto"}
                 loading="lazy"
                 src={house}
-                alt="home"
+                alt="sign up / sign in "
                 className={`w-4/5 ${language && "rotate-180"}`}
               />
             ) : (

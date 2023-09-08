@@ -113,9 +113,9 @@ const EditProp = () => {
   if (propertyDetils?.user?._id === propertyDetils?.user?._id) {
     return (
       <div className="container mx-auto py-5 space-y-4 min-h-[95dvh]  flex flex-col justify-center items-center m-20">
-        <h1 className="text-center text-5xl font-bold text-darkGreen mb-4">
+        <h2 className="text-center text-5xl font-bold text-darkGreen mb-4">
           Edit Property
-        </h1>
+        </h2>
         <div className=" w-full  rounded-3xl min-h-[550px] border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl">
           <div className="flex flex-col justify-between min-h-[500px] space-y-5">
             <div className="flex flex-col space-y-4 justify-between">

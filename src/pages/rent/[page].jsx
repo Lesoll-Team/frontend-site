@@ -13,13 +13,17 @@ export default function PropertyRent({ propertyForRent }) {
   return (
     <div className=" container mx-auto">
       <Head>
-        <title>property</title>
+        <title>{language ? "عقارات للإيجار" : "properties for rent"}</title>
+        <meta
+          name="description"
+          content="استكشف مجموعة واسعة من العقارات المتاحة للإيجار على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات تجارية للإيجار في المواقع الرئيسية. ابحث عن العقار المؤجَّر المثالي اليوم!"
+        />
       </Head>
       <SearchBar />
       <div>
-        <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
+        <h2 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات للإيجار" : " Properties for Rent"}
-        </h1>
+        </h2>
       </div>
 
       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">

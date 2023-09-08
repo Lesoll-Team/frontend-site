@@ -13,14 +13,19 @@ export default function PropertyBuy({ propertyForBuy }) {
   return (
     <div className="container mx-auto">
       <Head>
-        <title>Lesoll Buy</title>
+        <title>{language ? "عقارات للبيع" : "properties for sale"}</title>
+
+        <meta
+          name="description"
+          content="استكشف مجموعة واسعة من العقارات المتاحة للبيع على منصتنا للعقارات. ابحث عن منازل وشقق وعقارات تجارية للبيع في المواقع الرئيسية. ابحث عن العقار الذي تحلم به للبيع اليوم!"
+        />
       </Head>
       <SearchBar />
 
       <div>
-        <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
+        <h2 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات للبيع" : " Properties for Buy"}
-        </h1>
+        </h2>
       </div>
       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
         {propertyForBuy

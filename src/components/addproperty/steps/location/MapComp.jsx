@@ -46,9 +46,9 @@ const Map = ({ propertyDetils, setData }) => {
   return (
     <div className=" mx-auto  space-y-4 ">
       <div className="w-full  pt-4">
-        <h1 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
+        <h2 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
           {language ? "الموقع" : "Location"}
-        </h1>
+        </h2>
         <PlacesAutoComplete
           setSelected={setSelected}
           propertyDetils={propertyDetils}
@@ -67,7 +67,6 @@ const Map = ({ propertyDetils, setData }) => {
           center={selected || center}
           mapContainerClassName="map"
           // onDblClick={handleMapClick}
-          
         >
           {selected && <Marker position={selected} />}
         </GoogleMap>

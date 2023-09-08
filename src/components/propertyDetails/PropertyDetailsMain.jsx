@@ -7,10 +7,14 @@ import AddressLocation from "./AddressLocation";
 import SimilarListings from "./SimilarListings";
 import DescriptionFeatures from "./DescriptionFeatures";
 import { getRecommendRealty } from "@/utils/propertyAPI";
+import Head from "next/head";
+import { useSelector } from "react-redux";
+
 // import {ar} from "../../language/ar/common"
 // import {en} from "../../language/en/common"
 function PropertyDetailsMain({ singleProperty }) {
   // console.log("main",singleProperty._id);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   const [recommendations, setRecommendations] = useState([]);
 
@@ -27,40 +31,41 @@ function PropertyDetailsMain({ singleProperty }) {
     fetchRecommendations();
   }, [singleProperty]);
 
-
-
   return (
-    <div className="container mx-auto">
-      <div>
-        <PropertyTitle singleTitle={singleProperty} />
-      </div>
-      <div className="lg:grid grid-cols-3 items-center">
-        <div className="col-span-2 ">
-          <PropertyImgSlider
-            images={singleProperty}
-            className="col-span-2"
-          />
+    <>
+      <Head>
+        <title>{singleProperty?.title}</title>
+        <meta name="description" content={singleProperty?.description} />
+      </Head>
+      <div className="container mx-auto">
+        <div>
+          <PropertyTitle singleTitle={singleProperty} />
         </div>
-        <div className="col-span-1 ">
-          <ConfirmAppointment userAppointment={singleProperty} className="" />
+        <div className="lg:grid grid-cols-3 items-center">
+          <div className="col-span-2 ">
+            <PropertyImgSlider images={singleProperty} className="col-span-2" />
+          </div>
+          <div className="col-span-1 ">
+            <ConfirmAppointment userAppointment={singleProperty} className="" />
+          </div>
         </div>
-      </div>
 
-      <div>
-        <div className="mb-10">
-          <OverviewDetails singleOverviewDetails={singleProperty} />
+        <div>
+          <div className="mb-10">
+            <OverviewDetails singleOverviewDetails={singleProperty} />
+          </div>
+          <div className="mb-10">
+            <DescriptionFeatures singleDescriptionFeatures={singleProperty} />
+          </div>
+          <div className="mb-10">
+            <AddressLocation singleAddressLocation={singleProperty} />
+          </div>
         </div>
-        <div className="mb-10">
-          <DescriptionFeatures singleDescriptionFeatures={singleProperty} />
-        </div>
-        <div className="mb-10">
-          <AddressLocation singleAddressLocation={singleProperty} />
+        <div>
+          <SimilarListings recommendationsProperty={recommendations} />
         </div>
       </div>
-      <div>
-        <SimilarListings recommendationsProperty={recommendations} />
-      </div>
-    </div>
+    </>
   );
 }
 export default memo(PropertyDetailsMain);

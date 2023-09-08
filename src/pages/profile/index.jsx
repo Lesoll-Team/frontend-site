@@ -6,6 +6,7 @@ import Head from "next/head";
 const ProfilePage = () => {
   const router = useRouter();
   const isLoading = useSelector((state) => state.Auth.isLoding);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +19,8 @@ const ProfilePage = () => {
   return (
     <>
       <Head>
-        <title>Lesoll Profile</title>
+        <title>{language ? "الصفحة الشخصية" : "Profile"}</title>
+        <meta name="description" content="الصفحة الشخصية" />
       </Head>
 
       {loading ? (

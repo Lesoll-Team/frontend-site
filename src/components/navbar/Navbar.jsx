@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
 import { useState, useEffect } from "react";
 import ReactCountryFlag from "react-country-flag";
@@ -9,11 +10,16 @@ import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 // import arLanguage from "../../../public/locales/ar/common.js";
 // import enLanguage from "../../../public/locales/en/common.js";
-import LinksNavbar from "./linksNavbar";
-import MobileMenu from "./mobileMenu";
-import NotificationMenu from "./notificationMenu";
+const LinksNavbar = dynamic(() => import("./linksNavbar"));
+const MobileMenu = dynamic(() => import("./linksNavbar"));
+const NotificationMenu = dynamic(() => import("./notificationMenu"));
+const UserDropdown = dynamic(() => import("./userDropdown"));
+
+// import LinksNavbar from "./linksNavbar";
+// import MobileMenu from "./mobileMenu";
+// import NotificationMenu from "./notificationMenu";
 // import UserMenu from "./userMenu";
-import UserDropdown from "./userDropdown";
+// import UserDropdown from "./userDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
@@ -235,7 +241,7 @@ export default function Navbar() {
             notifications ? "" : "hidden"
           }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
-          <NotificationMenu sendCount={calcCount}/>
+          <NotificationMenu sendCount={calcCount} />
         </ul>
       </section>
     </nav>
