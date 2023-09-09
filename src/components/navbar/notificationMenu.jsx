@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 
 export default function NotificationMenu({sendCount}) {
+
+  
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [notifications, setNotifications] = useState([]);

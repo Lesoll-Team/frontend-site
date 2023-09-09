@@ -70,9 +70,9 @@ function UserModule() {
     };
 
     formData.append("img", selectedImage);
-    formData.append("title", JSON.stringify( title ));
-    formData.append("metaDescription", JSON.stringify(metaDescription));
-    formData.append("description", JSON.stringify(description));
+    formData.append("title", title );
+    formData.append("metaDescription",metaDescription);
+    formData.append("description",description);
     dispatch(
       createBlogs({ userToken: userDataInfo?.token, blogData: formData }) //, blogData: formData
     );

@@ -35,14 +35,14 @@ function Dashboard() {
             </CardBody>
           </Card>
         </Tab>
-
+{/* 
         <Tab key="overview" title="overview">
           <Card>
             <CardBody>
             <OverviewDetailsDashboard/>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
       </Tabs>
     </div>
   );
