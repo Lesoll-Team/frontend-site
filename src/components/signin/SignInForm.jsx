@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
 import { loginUserAsync } from "../../redux-store/features/authSlice";
-const LoginPage = () => {
+const SignInForm = () => {
   const dispatch = useDispatch();
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -71,4 +71,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignInForm;
