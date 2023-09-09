@@ -1,4 +1,4 @@
-import SignInForm from "../../components/signin/SigninForm";
+import SignInForm from "../../components/signin/SignInForm";
 // import dynamic from "next/dynamic";
 // const SignInForm = dynamic(() => import("../../components/signin/SigninForm"));
 import Link from "next/link";
