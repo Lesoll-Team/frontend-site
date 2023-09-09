@@ -1,5 +1,4 @@
 import Image from "next/image";
-import testImg from "../../../../public/testimg.webp";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";

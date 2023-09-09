@@ -73,6 +73,7 @@ const AddProperty = () => {
     isRegisterd: false,
     isFurnished: false,
   });
+  console.log(propertyDetils);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [isAuth, setAuth] = useState(false);

@@ -38,7 +38,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
         { value: "Home", name: "بيت" },
         { value: "Chalete", name: "شالية" },
         { value: "Cabin", name: "كابينة" },
-        { value: "Village", name: "فيلا" },
+        { value: "63cc93c546d6193aa1f50fed", name: "فيلا" },
         { value: "Townhouse", name: "تاون هاوس" },
         { value: "Twin house", name: "توين هاوس" },
       ],
