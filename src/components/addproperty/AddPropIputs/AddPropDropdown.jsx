@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
 const AddPropDropdown = ({
@@ -76,4 +76,4 @@ const AddPropDropdown = ({
   );
 };
 
-export default AddPropDropdown;
+export default memo(AddPropDropdown);

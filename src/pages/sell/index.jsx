@@ -7,6 +7,7 @@ const index = () => {
 
   return (
     <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
+      {/* // <div className="  bg-[url(../../public/addprop.webp)] bg-cover bg-no-repeat"> */}
       <Head>
         <title>{language ? "إضافة عقار" : "Add property"}</title>
         <meta name="description" content="إضافة عقار لموقع ليسول" />

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import testImg from "../../../../public/testimg.webp";
 
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
@@ -69,7 +68,10 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
           </p>
         </div>
         <div className=" text-lightOrange   px-5 flex justify-between  font-bold">
-          <p>{propertyDetails.title}</p>
+          <p>
+            {propertyDetails?.title.substring(0, 30)}
+            {propertyDetails?.title.length > 30 && "..."}
+          </p>
         </div>
         <div className=" text-lightGreen   px-5 flex  justify-start gap-5">
           <div className="flex items-center justify-start gap-1">
@@ -109,7 +111,8 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
     </div> */}
         <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
           <p className="text-sm  text-darkGray">
-            {propertyDetails.address.name.substring(0, 50)} ...
+            {propertyDetails.address.name.substring(0, 40)}{" "}
+            {propertyDetails.address.name.length > 40 && "..."}
           </p>
           <div className="flex gap-3 items-center">
             <ConfirmModal

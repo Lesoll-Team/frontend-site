@@ -103,7 +103,10 @@ const RealtyCardRent = ({ propertyDetails }) => {
           href={`/propertyDetails/${propertyDetails?._id}`}
         >
           <div className=" text-lightOrange mt-3  px-5 flex justify-between  font-bold">
-            <p>{propertyDetails?.title}</p>
+            <p>
+              {propertyDetails?.title.substring(0, 30)}
+              {propertyDetails?.title.length > 30 && "..."}
+            </p>
           </div>
         </Link>
         <div className=" text-lightGreen   px-5 flex  justify-start gap-5">
@@ -142,10 +145,10 @@ const RealtyCardRent = ({ propertyDetails }) => {
         <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
           <p className="text-sm  text-darkGray">
             {/* {propertyDetails?.address.name} */}
-            {/* {propertyDetails?.address?.name.substring(0, 50) || "not Found"} ... */}
-            {propertyDetails?.address?.region.substring(0, 50) || "not Found"}{" "}
+            {propertyDetails?.address?.name.substring(0, 50) || "not Found"} ...
+            {/* {propertyDetails?.address?.region.substring(0, 50) || "not Found"}{" "}
             {propertyDetails?.address?.governrate.substring(0, 50) ||
-              "not Found"}{" "}
+              "not Found"}{" "} */}
             ...
           </p>
         </div>

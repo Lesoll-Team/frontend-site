@@ -9,11 +9,6 @@ const GetStarted = ({ setData, propertyDetils }) => {
   const unitType = {
     Residential: {
       en: [
-        { value: "Chalete", name: "Chalete" },
-        { value: "Cabin", name: "Cabin" },
-        { value: "Village", name: "Village" },
-        { value: "Townhouse", name: "Townhouse" },
-        { value: "Twin house", name: "Twin house" },
         { value: "Apartment", name: "Apartment" },
         { value: "Apartment with garden", name: "Apartment with garden" },
         { value: "Duplex", name: "Duplex" },
@@ -24,13 +19,13 @@ const GetStarted = ({ setData, propertyDetils }) => {
         { value: "Furnished Apartment", name: "Furnished Apartment" },
         { value: "Residential Building", name: "Residential Building" },
         { value: "Home", name: "Home" },
+        { value: "Chalete", name: "Chalete" },
+        { value: "Cabin", name: "Cabin" },
+        { value: "Village", name: "Village" },
+        { value: "Townhouse", name: "Townhouse" },
+        { value: "Twin house", name: "Twin house" },
       ],
       ar: [
-        { value: "Chalete", name: "شالية" },
-        { value: "Cabin", name: "كابينة" },
-        { value: "Village", name: "فيلا" },
-        { value: "Townhouse", name: "تاون هاوس" },
-        { value: "Twin house", name: "توين هاوس" },
         { value: "Apartment", name: "شقة" },
         { value: "Apartment with garden", name: "شقة بحديقة" },
         { value: "Duplex", name: "دوبلكس" },
@@ -41,6 +36,11 @@ const GetStarted = ({ setData, propertyDetils }) => {
         { value: "Furnished Apartment", name: "شقق مفروشة" },
         { value: "Residential Building", name: "عمارة" },
         { value: "Home", name: "بيت" },
+        { value: "Chalete", name: "شالية" },
+        { value: "Cabin", name: "كابينة" },
+        { value: "Village", name: "فيلا" },
+        { value: "Townhouse", name: "تاون هاوس" },
+        { value: "Twin house", name: "توين هاوس" },
       ],
     },
     Commercial: {
@@ -130,14 +130,6 @@ const GetStarted = ({ setData, propertyDetils }) => {
           options={propType}
         />
         <AddPropDropdown
-          title={!language ? "Listing Option" : "إختار العرض"}
-          value={propertyDetils.offer}
-          setValue={(e) => {
-            setData({ ...propertyDetils, offer: e });
-          }}
-          options={offer}
-        />
-        <AddPropDropdown
           disabled={propertyDetils.propType}
           title={!language ? "Unit Type" : "نوع الوحدة"}
           value={propertyDetils.unitType}
@@ -154,6 +146,14 @@ const GetStarted = ({ setData, propertyDetils }) => {
               ? unitType.Land
               : unitType.Residential
           }
+        />
+        <AddPropDropdown
+          title={!language ? "Listing Option" : "إختار العرض"}
+          value={propertyDetils.offer}
+          setValue={(e) => {
+            setData({ ...propertyDetils, offer: e });
+          }}
+          options={offer}
         />
       </div>
     </div>

@@ -17,7 +17,11 @@ const Price = ({ propertyDetils, setData }) => {
         <Rent propertyDetils={propertyDetils} setData={setData} />
       ) : (
         <div>
-          <p>Please Choose Listing option</p>
+          <p className="text-center font-semibold text-gray-500">
+            {language
+              ? "من فضلك أختر نوع العرض"
+              : "Please Choose Listing option"}{" "}
+          </p>
         </div>
       )}
     </div>

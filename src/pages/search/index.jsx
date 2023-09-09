@@ -15,7 +15,7 @@ const index = () => {
           content="ابحث عن العقار الذي تحلم بشرائه أو استئجاره. اعثر على منازل وشقق وعقارات تجارية تتناسب مع معاييرك."
         />
       </Head>
-      <div>
+      <div className="min-h-[100dvh]">
         <SearchBar />
         <SearchResult />
       </div>

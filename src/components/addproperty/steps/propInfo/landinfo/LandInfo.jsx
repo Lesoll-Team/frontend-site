@@ -7,24 +7,26 @@ const LandInfo = ({ propertyDetils, setData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const areaType = {
     en: [
+      { value: "m", name: "meter" },
       { value: "carat", name: "Carat" },
-      { value: "meter", name: <span>m&#178;</span> },
+      { value: "acre", name: "acre" },
     ],
     ar: [
+      { value: "meter", name: "متر" },
       { value: "Carat", name: "قيراط" },
-      { value: "meter", name: <span>م&#178;</span> },
+      { value: "acre", name: "فدان" },
     ],
   };
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-[4%]">
       <AddPropInput
         className="md:w-[48%]"
-        title={language ? "Area" : "المساحة"}
-        placeholder={language ? "Area" : "المساحة"}
+        title={language ? "المساحة" : "Area"}
+        placeholder={language ? "المساحة" : "Area"}
         type={"number"}
         value={propertyDetils.area}
         setValue={(e) => setData({ ...propertyDetils, area: e.target.value })}
-        m2={true}
+        // m2={true}
       />
 
       <AddPropDropdown
@@ -35,7 +37,7 @@ const LandInfo = ({ propertyDetils, setData }) => {
       />
       <AddPropCheck
         className="md:w-[48%]"
-        title={language ? "Registerd" : "مسجل"}
+        title={language ? "مسجل" : "Registerd"}
         value={propertyDetils.isRegisterd}
         setValue={(e) => {
           // console.log(propertyDetils);

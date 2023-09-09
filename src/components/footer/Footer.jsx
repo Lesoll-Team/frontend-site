@@ -15,7 +15,7 @@ const Footer = () => {
 
   return (
     <footer dir={`${language ? "rtl" : ""}`}>
-      <div className="container mx-auto md:grid  lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
+      <div className="container mx-auto md:grid  drop-shadow-2xl lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
         {/* Discription */}
         <div className="col-span-3 lg:col-span-2 space-y-3 relative">
           {/* logo */}
