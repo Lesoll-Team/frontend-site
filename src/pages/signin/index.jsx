@@ -1,6 +1,6 @@
-// import SignInForm from "../../components/signin/SigninForm";
-import dynamic from "next/dynamic";
-const SignInForm = dynamic(() => import("../../components/signin/SigninForm"));
+import SignInForm from "../../components/signin/SigninForm";
+// import dynamic from "next/dynamic";
+// const SignInForm = dynamic(() => import("../../components/signin/SigninForm"));
 import Link from "next/link";
 import house from "../../../public/page3.svg";
 import Image from "next/image";

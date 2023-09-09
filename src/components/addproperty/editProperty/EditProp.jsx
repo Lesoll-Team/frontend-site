@@ -11,7 +11,7 @@ import Gallery from "./steps/gallery/Gallery";
 import Features from "./steps/features/Features";
 import SellerInfo from "./steps/sellerInfo/SellerInfo";
 import Appointment from "./steps/appointment/Appointment";
-import Review from "./steps/reviewProperty/Review";
+// import Review from "./steps/reviewProperty/Review";
 import Location from "./steps/location/Location";
 import axios from "axios";
 import { useRouter } from "next/navigation";
