@@ -23,6 +23,20 @@ export const finishingOptionsData = {
     { value: "Not Finished", name: "بدون تشطيب" },
   ],
 };
+export const percentageProperty = {
+  en: [
+    { value: "3%_Real_Estate_Finance", name: " All Options" },
+    { value: "3%_Real_Estate_Finance", name: " CBE 3% Initiative" },
+
+    { value: "8%_Real_Estate_Finance", name: "CBE 8% Initiative" },
+  ],
+  ar: [
+    { value: "3%_Real_Estate_Finance", name: "جميع الخيارات" },
+    { value: "3%_Real_Estate_Finance", name: "3% تمويل عقارى" },
+
+    { value: "8%_Real_Estate_Finance", name: "8% تمويل عقارى " },
+  ],
+};
 
 export const saleOptionsData = {
   en: [

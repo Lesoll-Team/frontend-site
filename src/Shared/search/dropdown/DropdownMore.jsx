@@ -1,26 +1,31 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
+// import { AiFillCaretDown } from "react-icons/ai";
 import Dropdown from "./Dropdown";
 import { Checkbox } from "@nextui-org/react";
+import { MdOutlineMoreVert } from "react-icons/md";
 import {
   paymentMethodData,
   finishingOptionsData,
-  propertyTypeData,
+  // propertyTypeData,
   unitTypeData,
+  percentageProperty,
 } from "./dataDropdown";
 import DropdownRooms from "./DropdownRooms";
+import DropdownPrice from "./DropdownPrice";
+import { useSelector } from "react-redux";
+import DropdownArea from "./DropdownArea";
 
 //Listings Available for Mortgage
 const DropdownMore = ({
   classNames,
-  name,
-  propertyType,
+  // name,
+  // propertyType,
   paymentMethod,
   isFurnished,
   setPaymentMethod,
   setFinishingOptions,
   setUnitType,
-  setPropertyType,
+  // setPropertyType,
   finishingOptions,
   setFurnished,
   unitType,
@@ -28,6 +33,16 @@ const DropdownMore = ({
   countBathrooms,
   setCountBedrooms,
   setCountBathroom,
+  setPropertyFinance,
+  propertyFinance,
+  fromPrice,
+  setFromPrice,
+  toPrice,
+  setToPrice,
+  setFromArea,
+  fromArea,
+  setToArea,
+  toArea,
 }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,22 +69,18 @@ const DropdownMore = ({
   const handleMenuOpen = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <div className={`${classNames} relative w-full cursor-pointer `}>
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-md flex items-center justify-around
-          focus:outline-lightGreen bg-white border-[3px]   rounded-xl p-2   whitespace-nowrap"
+        className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-around
+          focus:outline-lightGreen bg-white    rounded-xl p-1   whitespace-nowrap"
       >
-        {name}
-        <AiFillCaretDown
-          className={`text-darkGreen duration-150 ${
-            menuIsOpen && "rotate-180"
-          }`}
-        />
+        <MdOutlineMoreVert className="text-3xl " />
       </div>
       {menuIsOpen && (
         <div
@@ -77,34 +88,66 @@ const DropdownMore = ({
           className={`absolute right-0 p-4 w-[250px] lg:w-[600px] animate-appearance-in z-10  mt-1
            bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[700px] min-h-[350px]`}
         >
-          <div className="w-full flex">
+          <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">
+          <Dropdown
+              classNames="  block sm:hidden"
+              value={unitType}
+              options={unitTypeData}
+              setValue={setUnitType}
+              valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
+            />
+            <DropdownRooms
+              classNames="lg:hidden block pb-2 "
+              name={`${
+                languageIs ? "الغرف & الحمامات " : "Bedrooms & Bathrooms"
+              }`}
+              setCountBedrooms={setCountBedrooms}
+              setCountBathroom={setCountBathroom}
+              countBedrooms={countBedrooms}
+              countBathrooms={countBathrooms}
+            />
+            <DropdownPrice
+              name={`${languageIs ? "السعر " : "Price"}`}
+              classNames="lg:hidden block"
+              valueToPrice={toPrice}
+              setFromPrice={setFromPrice}
+              setToPrice={setToPrice}
+              valueFromPrice={fromPrice}
+            />
+            <DropdownArea
+              name={`${languageIs ? "المنطقة " : "Area"}`}
+              classNames="lg:hidden block"
+              setFromPrice={setFromArea}
+              valueFromPrice={fromArea}
+              setToPrice={setToArea}
+              valueToPrice={toArea}
+            />
             <Dropdown
-              valueDefault={'payment'}
+              classNames="pb-2"
+              valueDefault={`${languageIs ? "طريقة السداد" : "Payment Method"}`}
               value={paymentMethod}
               setValue={setPaymentMethod}
               options={paymentMethodData}
             />
-
             <Dropdown
+              classNames="pb-2"
               value={finishingOptions}
               setValue={setFinishingOptions}
               options={finishingOptionsData}
-              valueDefault="Finishing"
+              valueDefault= {`${languageIs ? "التشطيب" : "Finishing"}`}
             />
-          </div>
-          <div className="flex items-center ">
-            <br />
-            <br />
-            <Dropdown
-              classNames=" max-w-[200px] lg:hidden block "
-              value={unitType}
-              valueDefault="Unit Type"
-              options={unitTypeData}
-              setValue={setUnitType}
-            />
-            <div className="flex ">
-              <span className="font-bold lg:mx-3 mx-0">Furnished</span>
-              <div className="lg:mx-3 mx-0">
+            <div className="lg:col-span-2 col-span-1 grid lg:grid-cols-2  grid-cols-1">
+              <Dropdown
+                classNames="pb-2"
+                value={propertyFinance}
+                valueDefault={`${languageIs ? "التمويل العقاري" : "Mortgage listings"}`}
+                options={percentageProperty}
+                setValue={setPropertyFinance}
+              />
+              <div className="flex items-center justify-center">
+                <span className="font-bold mx-3 ">{
+                  languageIs?"مفروشة":"Furnished"
+                }</span>
                 <Checkbox
                   size="lg"
                   onClick={() => setFurnished(!isFurnished)}
@@ -113,24 +156,6 @@ const DropdownMore = ({
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-1">
-            <Dropdown
-              classNames="lg:hidden block  max-w-[200px]"
-              value={propertyType}
-              valueDefault="Property Type"
-              options={propertyTypeData}
-              setValue={setPropertyType}
-            />
-            <DropdownRooms
-              classNames="lg:hidden block  max-w-[200px]"
-              name="Bedroom & Bathroom"
-              setCountBedrooms={setCountBedrooms}
-              setCountBathroom={setCountBathroom}
-              countBedrooms={countBedrooms}
-              countBathrooms={countBathrooms}
-            />
-          </div>
         </div>
       )}
     </div>
@@ -138,3 +163,67 @@ const DropdownMore = ({
 };
 
 export default memo(DropdownMore);
+
+{
+  /* </div> */
+}
+
+{
+  /* <div className="flex items-center "> */
+}
+{
+  /* <br />
+            <br /> */
+}
+{
+  /* <Dropdown
+              classNames=" max-w-[200px]"
+              value={unitType}
+              valueDefault="Unit Type"
+              options={unitTypeData}
+              setValue={setUnitType}
+            /> */
+}
+
+{
+  /* </div> */
+}
+
+{
+  /* <div className="grid grid-cols-1"> */
+}
+{
+  /* <Dropdown
+              classNames="lg:hidden block  max-w-[200px]"
+              value={propertyType||"متاح للتمويل"}
+              valueDefault="Property Type"
+              options={propertyTypeData}
+              setValue={setPropertyType}
+            /> */
+}
+{
+  /* <div className="grid lg:grid-cols-2  grid-cols-1"> */
+}
+
+{
+  /* <Dropdown
+                classNames="pb-2"
+                value={propertyFinance}
+                valueDefault="Mortgage listings"
+                options={percentageProperty}
+                setValue={setPropertyFinance}
+              />
+              <div className="flex items-center">
+                <span className="font-bold lg:mx-3 mx-0">
+                Furnished</span>
+
+                <Checkbox
+                  size="lg"
+                  onClick={() => setFurnished(!isFurnished)}
+                  isSelected={isFurnished}
+                />
+              </div> */
+}
+{
+  /* </div> */
+}

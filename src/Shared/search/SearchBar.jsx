@@ -18,27 +18,54 @@ import { useRouter } from "next/router";
 
 export function SearchBar() {
   const dispatch = useDispatch();
-  const router=useRouter()
+  const router = useRouter();
   const [saleOptions, setSaleOptions] = useState("");
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [fromPrice, setFromPrice] = useState(0.0);
   const [toPrice, setToPrice] = useState(0.0);
 
+
+  const [fromArea, setFromArea] = useState(0);
+  const [toArea, setToArea] = useState(0);
+
+
   let [countBedrooms, setCountBedrooms] = useState(0);
   let [countBathrooms, setCountBathroom] = useState(0);
-
+  /**
+ *   setPropertyFinance,
+  propertyFinance
+ */
+  let [propertyFinance, setPropertyFinance] = useState("");
   let [paymentMethod, setPaymentMethod] = useState("");
   let [keywords, setKeywords] = useState("");
   let [finishingOptions, setFinishingOptions] = useState("");
   let [unitType, setUnitType] = useState("");
   let [propertyType, setPropertyType] = useState("");
   let [isFurnished, setFurnished] = useState(false);
-const page=useSelector((state)=>state.Search.page)
+  const page = useSelector((state) => state.Search.page);
 
-const handleSubmitSearch = useCallback(
-  (e) => {
-    e.preventDefault();
-    const InputKeywords = {
+  const handleSubmitSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      const InputKeywords = {
+        saleOptions,
+        propertyType,
+        unitType,
+        paymentMethod,
+        countBathrooms,
+        countBedrooms,
+        isFurnished,
+        finishingOptions,
+        toPrice,
+        fromPrice,
+        keywords,
+      };
+      // Dispatch the action with the InputKeywords and current page
+      dispatch(propertyFromSearch({ InputKeywords, page }));
+      router.push("/search");
+    },
+    [
       saleOptions,
       propertyType,
       unitType,
@@ -50,76 +77,61 @@ const handleSubmitSearch = useCallback(
       toPrice,
       fromPrice,
       keywords,
-    };
-    // Dispatch the action with the InputKeywords and current page
-    dispatch(propertyFromSearch({ InputKeywords, page }));
-    router.push('/search');
-  },
-  [
-    saleOptions,
-    propertyType,
-    unitType,
-    paymentMethod,
-    countBathrooms,
-    countBedrooms,
-    isFurnished,
-    finishingOptions,
-    toPrice,
-    fromPrice,
-    keywords,
-    dispatch,
-    router,
-    page,
-  ]
-);
+      dispatch,
+      router,
+      page,
+    ]
+  );
 
   return (
     <form onSubmit={handleSubmitSearch}>
-      <div dir="ltr" className=" w-full flex justify-center p-2">
+      <div dir="ltr" className=" w-full flex justify-center ">
         <div className="p-2 flex  flex-col md:w-8/12 w-full  ">
           {/*bg-blue-200 grid lg:grid-cols-3 grid-cols-2 items-center */}
-          <div className="p-2 ">
+          <div className="p-1 ">
             <Input
-              className=" h-full"
-              size="lg"
+              className=" h-full "
+              size="md"
               isClearable
               placeholder="Search by City, Region or Unit type"
               onValueChange={setKeywords}
             />
           </div>
-          <div className=" flex">
+          <div className=" flex items-center justify-around ">
             <Dropdown
-              valueDefault="Sale Option"
+              valueDefault={`${languageIs ? "خيار البيع" : "Sale Option"}`}
               classNames="max-w-[200px]"
               value={saleOptions}
               options={saleOptionsData}
               setValue={setSaleOptions}
             />
             <Dropdown
-              classNames="lg:block hidden max-w-[200px]"
+              classNames=" max-w-[200px]"
               value={propertyType}
               options={propertyTypeData}
               setValue={setPropertyType}
-              valueDefault="Property Type"
+              valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
             />
             <Dropdown
-              classNames=" max-w-[200px] lg:block hidden"
+              classNames=" max-w-[200px] sm:block hidden"
               value={unitType}
               options={unitTypeData}
               setValue={setUnitType}
-              valueDefault="Unit Type"
+              valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
             />
             <DropdownRooms
               classNames="lg:block hidden max-w-[200px]"
-              name="Bedroom & Bathroom"
+              name={`${
+                languageIs ? "الغرف & الحمامات " : "Bedrooms & Bathrooms"
+              }`}
               setCountBedrooms={setCountBedrooms}
               setCountBathroom={setCountBathroom}
               countBedrooms={countBedrooms}
               countBathrooms={countBathrooms}
             />
             <DropdownPrice
-              name="Price"
-              classNames="max-w-[200px]"
+              name={`${languageIs ? "السعر " : "Price"}`}
+              classNames="max-w-[200px] lg:block hidden"
               valueToPrice={toPrice}
               setFromPrice={setFromPrice}
               setToPrice={setToPrice}
@@ -140,14 +152,24 @@ const handleSubmitSearch = useCallback(
               setCountBedrooms={setCountBedrooms}
               countBathrooms={countBathrooms}
               setCountBathroom={setCountBathroom}
-              name="More"
-              classNames="max-w-[200px]"
+              setPropertyFinance={setPropertyFinance}
+              propertyFinance={propertyFinance}
+              // name="More"
+              fromPrice={fromPrice}
+              setFromPrice={setFromPrice}
+              toPrice={toPrice}
+              setToPrice={setToPrice}
+              fromArea={fromArea}
+              setFromArea={setFromArea}
+              toArea={toArea}
+              setToArea={setToArea}
+              classNames="max-w-[40px]"
             />
           </div>
         </div>
         <div className="flex items-center justify-center py-3">
           <Button type="submit" className="h-full bg-lightGreen">
-            <LuSearch className="text-5xl text-white" />
+            <LuSearch className="lg:text-5xl text-2xl text-white" />
           </Button>
         </div>
       </div>
