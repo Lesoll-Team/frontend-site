@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Rent = ({ propertyDetils, setData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = !useSelector((state) => state.GlobalState.languageIs);
   const rentalPeriodOptions = {
     en: [
       { value: "Daily", name: "Daily" },

@@ -104,8 +104,8 @@ const RealtyCardRent = ({ propertyDetails }) => {
         >
           <div className=" text-lightOrange mt-3  px-5 flex justify-between  font-bold">
             <p>
-              {propertyDetails?.title.substring(0, 30)}
-              {propertyDetails?.title.length > 30 && "..."}
+              {propertyDetails?.title.substring(0, 40)}
+              {propertyDetails?.title.length > 40 && "..."}
             </p>
           </div>
         </Link>
