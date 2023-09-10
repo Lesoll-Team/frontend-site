@@ -18,11 +18,13 @@ function AddressLocation({ singleAddressLocation }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   // console.log(singleAddressLocation);
   return (
-    <div className="lg:flex justify-between  items-center p-10 px-14 border-2 border-gray-200 rounded-3xl">
+    <div className="lg:flex justify-between  items-center p-10 px-10 border-2 border-gray-200 rounded-3xl">
       <div className=" lg:w-6/12 ">
         <div className="font-bold mb-6 ml-5">
           {" "}
-          <b className="sm:text-3xl text-lg">{language ? ar.property.address : en.property.address}</b>
+          <b className="sm:text-3xl text-lg">
+            {language ? ar.property.address : en.property.address}
+          </b>
         </div>
         <Table hideHeader aria-label="Example static collection table">
           <TableHeader>
@@ -92,18 +94,14 @@ function AddressLocation({ singleAddressLocation }) {
                 {/* Building Year */}
                 {/* {language ? ar.property.buildingYear : en.property.buildingYear} */}
               </TableCell>
-              <TableCell>
-              {/* {.buildingYear} */}
-              </TableCell>
+              <TableCell>{/* {.buildingYear} */}</TableCell>
             </TableRow>
             <TableRow key="4">
               <TableCell className="font-bold">
                 {/* {language ? ar.property.level : en.property.level} */}
                 {/* Level/Number of Levels */}
               </TableCell>
-              <TableCell>
-              {/* {singleAddressLocation.level} */}
-              </TableCell>
+              <TableCell>{/* {singleAddressLocation.level} */}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -119,11 +117,12 @@ function AddressLocation({ singleAddressLocation }) {
         lat:singleAddressLocation?.address.latitude,
       lng:singleAddressLocation?.address.longitude
       })} */}
-      <ShowMap center={{
-        lat:parseFloat(singleAddressLocation.address.latitude),
-      lng:parseFloat(singleAddressLocation.address.longitude)
-      }}/>  
-
+        <ShowMap
+          center={{
+            lat: parseFloat(singleAddressLocation.address.latitude),
+            lng: parseFloat(singleAddressLocation.address.longitude),
+          }}
+        />
       </div>
     </div>
   );

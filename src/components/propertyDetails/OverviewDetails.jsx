@@ -40,6 +40,7 @@ function OverviewDetails({ singleOverviewDetails }) {
       <br />
       <div>
         <Splide
+          dir="ltr"
           className="sm:hidden"
           id="thumbnails"
           options={{
@@ -116,7 +117,6 @@ function OverviewDetails({ singleOverviewDetails }) {
             </p>
           </div>
 
-
           <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
               {language ? ar.property.SqFt : en.property.SqFt}
@@ -159,18 +159,18 @@ function OverviewDetails({ singleOverviewDetails }) {
       <hr />
       <br />
       <div>
-      <div className="flex md:justify-normal justify-center items-center ">
-        <p className="sm:text-3xl text-lg font-semibold">
-          {language ? ar.property.payment : en.property.payment}
-        </p>
-</div>
+        <div className="flex md:justify-normal justify-center items-center ">
+          <p className="sm:text-3xl text-lg font-semibold">
+            {language ? ar.property.payment : en.property.payment}
+          </p>
+        </div>
         <div className="mt-5">
           {singleOverviewDetails?.saleOption[0] === "Cash" ||
           singleOverviewDetails?.saleOption[0] === "" ? (
             <div className="md:flex  w-full   border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
               <div className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div>
-                  <div className="font-bold sm:text-3xl text-lg" >
+                  <div className="font-bold sm:text-3xl text-lg">
                     {language ? ar.property.price : en.property.price}
                   </div>
                   <div className="flex">
@@ -194,9 +194,7 @@ function OverviewDetails({ singleOverviewDetails }) {
                           ? ar.property.saleOption
                           : en.property.saleOption}
                       </span>
-                      <span className=" w-6/12  flex items-center">
-                        Cash
-                      </span>
+                      <span className=" w-6/12  flex items-center">Cash</span>
                     </div>
                   </div>
 
@@ -213,7 +211,7 @@ function OverviewDetails({ singleOverviewDetails }) {
                         {singleOverviewDetails?.negotiable ? (
                           <MdCheckCircleOutline className="mx-2 w-[23px] h-[23px] text-lightGreen" />
                         ) : (
-                          <BsSlashCircle className="mx-2 w-[23px] h-[23px] text-lightOrange"/>
+                          <BsSlashCircle className="mx-2 w-[23px] h-[23px] text-lightOrange" />
                         )}
                       </span>
                     </div>

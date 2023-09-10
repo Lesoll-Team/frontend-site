@@ -36,6 +36,8 @@ function PropertyDetailsMain({ singleProperty }) {
       <Head>
         <title>{singleProperty?.title}</title>
         <meta name="description" content={singleProperty?.description} />
+        <meta property="og:title" content={singleProperty?.title} />
+        <meta property="og:description" content={singleProperty?.description} />
       </Head>
       <div className="container mx-auto">
         <div>
