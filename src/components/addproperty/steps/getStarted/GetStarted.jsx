@@ -18,7 +18,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
         { value: "63cc939746d6193aa1f50fd7", name: "Floor" },
         { value: "63cc93ab46d6193aa1f50fe2", name: "Furnished Apartment" },
         { value: "642449f07502ee416a864e95", name: "Residential Building" },
-        { value: "645376a84ef5131a0a061888", name: "Home" },
+        { value: "645376a84ef5131a0a061888", name:"Home"},
         { value: "63cc940a46d6193aa1f51014", name: "Chalete" },
         { value: "63cc941646d6193aa1f5101f", name: "Cabin" },
         { value: "63cc93c546d6193aa1f50fed", name: "Village" },

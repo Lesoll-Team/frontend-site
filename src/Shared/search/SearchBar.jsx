@@ -1,4 +1,4 @@
-"use client";
+
 import { useCallback, useEffect, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import {

@@ -22,7 +22,7 @@ const SignUp = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <>
+    <div>
       <Head>
         <title>{language ? "الإشتراك" : "Sign Up"}</title>
         <meta
@@ -83,7 +83,7 @@ const SignUp = () => {
           <b> You Have Access...</b>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default SignUp;

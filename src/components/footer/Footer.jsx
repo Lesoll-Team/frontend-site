@@ -41,16 +41,16 @@ const Footer = () => {
             }`}
           >
             <div className=" flex justify-center items-center">
-              <a
+              <Link
                 target="_blank"
                 href="https://www.facebook.com/LesollRealestate"
                 className="text-white"
               >
                 <AiFillFacebook className="text-darkGreen text-3xl md:text-5xl" />
-              </a>
+              </Link>
             </div>
             <div className="  flex justify-center items-center">
-              <a
+              <Link
                 target="_blank"
                 href="https://www.instagram.com/lesollrealestate/"
                 className="text-white"
@@ -58,25 +58,25 @@ const Footer = () => {
                 <AiFillInstagram className="text-darkGreen text-3xl md:text-5xl" />
 
                 {/* <BsFacebook className="text-darkGreen text-3xl md:text-5xl" /> */}
-              </a>
+              </Link>
             </div>
             <div className="  flex justify-center items-center">
-              <a
+              <Link
                 target="_blank"
                 href="https://wa.me/+201032362898"
                 className="text-white"
               >
                 <AiOutlineWhatsApp className="text-darkGreen text-3xl md:text-5xl" />
-              </a>
+              </Link>
             </div>
             <div className="  flex justify-center items-center">
-              <a
+              <Link
                 target="_blank"
                 href="https://twitter.com/LesollRealstate"
                 className="text-white"
               >
                 <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-5xl" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -121,11 +121,11 @@ const Footer = () => {
 
           {/* <Link href="/about">Address Cairo, Heliopolis</Link> */}
           <address className="not-italic	">
-            <a href="https://maps.app.goo.gl/3atQvrpBzq9Awpss6" target="_blank">
+            <Link href="https://maps.app.goo.gl/3atQvrpBzq9Awpss6" target="_blank">
               Address Cairo, Heliopolis
-            </a>
+            </Link>
           </address>
-          <a href="mailto:info@lesoll.com">Email:info@lesoll.com</a>
+          <Link href="mailto:info@lesoll.com">Email:info@lesoll.com</Link>
         </div>
       </div>
       {/* policy & copy Rights */}
@@ -133,7 +133,7 @@ const Footer = () => {
         <div className="container mx-auto sm:flex-row flex-col-reverse flex justify-between items-center ">
           <p dir="ltr">
             © {new Date().getFullYear()},{` `}
-            <a href="https://lesoll.com">Lesoll.com</a>
+            <Link href="https://lesoll.com">Lesoll.com</Link>
           </p>
           <div className="">
             <Link href="/termsofservice">

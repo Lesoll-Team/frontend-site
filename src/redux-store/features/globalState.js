@@ -1,17 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"; //createAsyncThunk
 import { getUserData, updateUserDataInfo } from "../../utils/userAPI";
-const getLanguageFromLocalStorage = () => {
-  if (typeof window !== "undefined") {
-    const language = localStorage.getItem("language");
-    return language ? JSON.parse(language) : null;
-  }
-  return null;
-};
+// const getLanguageFromLocalStorage = () => {
+//   if (typeof window !== "undefined") {
+//     const language = localStorage.getItem("language");
+//     return language === "ARB"; // Return true for Arabic, false for English
+//   }
+//   return false; // Default to English if localStorage is not available
+// };
+// console.log("function,",getLanguageFromLocalStorage());
 const initialState = {
   userData: null,
   userLod: false,
   userErr: null,
-  languageIs: getLanguageFromLocalStorage, //(false = ENG) ?& (true= ARB)
+  languageIs:true , // getLanguageFromLocalStorage() (false = ENG) ?& (true= ARB)
   isUpdated: false,
   updateError: null,
 };
@@ -47,7 +48,8 @@ export const globalState = createSlice({
   reducers: {
     handleLanguage: (state) => {
       state.languageIs = !state.languageIs;
-      localStorage.setItem("language",state.languageIs)
+      // localStorage.setItem("language", state.languageIs ? "ARB" : "ENG");
+
     },
   },
   extraReducers: (builder) => {

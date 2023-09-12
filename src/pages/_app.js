@@ -1,7 +1,7 @@
-'use client'
+
 
 import "@/styles/globals.css";
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import { Provider } from "react-redux";
 import { store } from "../redux-store/store";
 // import { NextUIProvider } from "@nextui-org/react";

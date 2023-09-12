@@ -1,13 +1,26 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { IoCheckmarkDoneSharp, IoRadioButtonOnOutline } from "react-icons/io5";
 import { getAllNotifications, visitNotifications } from "@/utils/notifications";
 import { useSelector } from "react-redux";
 
 
-export default function NotificationMenu({sendCount}) {
+export default function NotificationMenu({sendCount,notificationsMenuRef }) {
+  // const notificationMenuRef = useRef(null); // Create a new ref
 
-  
+  // useEffect(() => {
+  //   function handleClickInside(event) {
+  //     if (notificationsMenuRef.current && notificationsMenuRef.current.contains(event.target)) {
+  //       // Handle click inside the menu here
+  //     }
+  //   }
+
+  //   document.addEventListener("mousedown", handleClickInside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickInside);
+  //   };
+  // }, [notificationsMenuRef]);
+
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [notifications, setNotifications] = useState([]);
@@ -41,10 +54,17 @@ export default function NotificationMenu({sendCount}) {
   }, [fetchNotifications]);
 
   return (
-    <>
-      {notifications.map((notification) => (
+    <div 
+    ref={notificationsMenuRef}
+    >
+     {notifications.length === 0 ? (
+        <div className=" p-2 h-full flex items-center justify-center">
+        <p className="text-default-500">No notifications available</p>
+        </div>
+      ) : 
+      notifications.map((notification) => (
         <Link key={notification._id} onClick={() => handleUserVisit(notification._id)} href={`${notification.link}`}>
-          {/**{notification.link} */}
+
           <ul className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
             <li className=" flex text-lightGreen text-lg ">
               <h2 className="">
@@ -67,7 +87,66 @@ export default function NotificationMenu({sendCount}) {
           </ul>
         </Link>
       ))}
-
-    </>
+    </div>
   );
 }
+
+
+// export default function NotificationMenu({sendCount}) {
+
+  
+//   const languageIs = useSelector((state) => state.GlobalState.languageIs);
+
+//   const [notifications, setNotifications] = useState([]);
+
+//   const fetchNotifications = useCallback(async () => {
+//     try {
+//       const getNotification = await getAllNotifications();
+//       setNotifications(getNotification);
+//       sendCount(getNotification.length)
+//       // console.log(getNotification);
+//     } catch (error) {
+//       console.error("Error fetching notifications:", error);
+//     }
+//   }, []); // Empty dependency array, indicating that this callback doesn't depend on any props or state
+
+//   const handleUserVisit = useCallback(
+//     async (_id) => {
+//       try {
+//         await visitNotifications(_id);
+//         // After visiting, fetch updated notifications
+//         fetchNotifications();
+//       } catch (error) {
+//         console.error("Error visiting notification:", error);
+//       }
+//     },
+//     [fetchNotifications]
+//   );
+
+//   useEffect(() => {
+//     fetchNotifications();
+//   }, [fetchNotifications]);
+
+//   return (
+//     <div className=" ">
+//       {notifications.length === 0 ? (
+//         <div className=" p-2 h-full flex items-center justify-center">
+//         <p className="text-default-500">No notifications available</p>
+
+//         </div>
+//       ) : (
+//         notifications.map((notification) => (
+//           <Link
+//             key={notification._id}
+//             onClick={() => handleUserVisit(notification._id)}
+//             href={`${notification.link}`}
+//           >
+//             <ul className="flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full">
+//               {/* ... Your existing code for rendering notifications ... */}
+//             </ul>
+//           </Link>
+//         ))
+//       )}
+//     </div>
+//   );
+// }

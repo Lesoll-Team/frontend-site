@@ -2,29 +2,23 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-// import arLanguage from "../../../public/locales/ar/common.js";
-// import enLanguage from "../../../public/locales/en/common.js";
-const LinksNavbar = dynamic(() => import("./linksNavbar"));
-const MobileMenu = dynamic(() => import("./mobileMenu"));
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
 
-// import LinksNavbar from "./linksNavbar";
-// import MobileMenu from "./mobileMenu";
+import LinksNavbar from "./linksNavbar";
+import MobileMenu from "./mobileMenu";
 // import NotificationMenu from "./notificationMenu";
 // import UserMenu from "./userMenu";
 // import UserDropdown from "./userDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
-// import ar from "../../language/ar/common";
-// import en from "../../language/en/common";
 export default function Navbar() {
   const dispatch = useDispatch();
   const [countNotifications, setCountNotifications] = useState(0);
@@ -34,33 +28,42 @@ export default function Navbar() {
   };
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
-  // const [arbLanguage] = useState(ar);
-  // const [engLanguage] = useState(en);
-
   const [open, setOpen] = useState(true);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const [searchVisible, setSearchVisible] = useState(false);
 
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  // const userInfo = useSelector((state) => state.GlobalState.userData);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
-  const [userDataInfo, setUserDataInfo] = useState({});
+  // const [userDataInfo, setUserDataInfo] = useState({});
   const [isAuth, setAuth] = useState(false);
 
-  function toggleSearch() {
-    setSearchVisible(!searchVisible);
-  }
+  useEffect(() => {
+    setAuth(isLoading);
+    // setUserDataInfo(userInfo);
+    // console.log(userDataInfo);
+  });
+  const mobileMenuRef = useRef(null);
+  const notificationsMenuRef = useRef(null);
 
   const handleInputClick = (value) => {
     setOpenUserMenu(setOpen(value));
   };
-
   useEffect(() => {
-    setAuth(isLoading);
-    setUserDataInfo(userInfo);
-    // console.log(userDataInfo);
-  });
+    function handleClickOutside(event) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setOpen(true);
+      }
+      if (notificationsMenuRef.current && !notificationsMenuRef.current.contains(event.target)) {
+        setNotifications(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md ">
       <section
@@ -73,7 +76,7 @@ export default function Navbar() {
             <Link
               className=""
               href={"/"}
-              onClick={() => setOpenUserMenu(setOpen(true))}
+              // onClick={() => setOpenUserMenu(setOpen(true))}
             >
               <Image
                 src={logoNavbar}
@@ -97,21 +100,10 @@ export default function Navbar() {
         <ul
           className={`md:w-4/12 w-8/12  flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
         >
-          {/**${
-            searchVisible ? "w-8/12 " : "md:w-4/12 w-8/12"
-          } */}
           <Link href="/search">
-            <ul className={`py-2 mr-1`}>
-              {/** ${searchVisible ? "w-full " : ""} */}
-              <li className={` flex items-center  `}>
-                <Button isIconOnly className="bg-inherit" aria-label="Search">
-                  <FaSearch
-                    onClick={toggleSearch}
-                    className="   text-1xl  text-lightOrange   "
-                  />
-                </Button>
-              </li>
-            </ul>
+            <Button isIconOnly className="bg-inherit" aria-label="Search">
+              <FaSearch className="text-1xl  text-lightOrange" />
+            </Button>
           </Link>
 
           {/*button language*/}
@@ -147,7 +139,10 @@ export default function Navbar() {
           </li>
 
           {/*button Notifications */}
-          <li className={` ${isAuth ? " " : "hidden"} relative`}>
+          <li  className={` ${isAuth ? " " : "hidden"} relative`}
+          // ref={notificationsMenuRef}
+          
+          >
             {/**` ${searchVisible ? "hidden" : " "}` */}
             <Badge content={countNotifications} shape="circle" color="danger">
               <Button
@@ -183,18 +178,18 @@ export default function Navbar() {
 
         {/*button mobile links*/}
         <ul className="flex  w-1-12  mx-2 justify-center  md:hidden">
-          <li className="">
-            <button
-              className="flex justify-center "
-              onClick={() => setOpen(!open)}
-            >
-              {open ? (
-                <GiHamburgerMenu className=" text-darkGreen text-3xl		" />
-              ) : (
-                <MdClear className=" text-darkGreen 	 text-4xl" />
-              )}
-            </button>
-          </li>
+          {/* <li className=""> */}
+          <button
+            className="flex justify-center "
+            onClick={() => setOpen(!open)}
+          >
+            {open ? (
+              <GiHamburgerMenu className=" text-darkGreen text-3xl		" />
+            ) : (
+              <MdClear className=" text-darkGreen 	 text-4xl" />
+            )}
+          </button>
+          {/* </li> */}
         </ul>
       </section>
 
@@ -203,37 +198,33 @@ export default function Navbar() {
         dir={`${languageIs ? "rtl" : "ltr"}`}
         className="  flex justify-end  relative"
       >
-        <ul
+        <div
           className={`  w-full h-screen  bg-white lg:hidden ${
             open
               ? "hidden"
-              : `${
-                  openUserMenu || notifications
-                    ? `${setOpenUserMenu(false)} ${setNotifications(false)} `
-                    : ``
-                }`
+              : `${notifications ? `${setNotifications(false)}` : ``}`
           } `}
+          ref={mobileMenuRef}
         >
-          <ul className="items-center overflow-hidden ">
-            <MobileMenu onInputClick={handleInputClick} />
+          <div className="items-center overflow-hidden ">
+            <MobileMenu onInputClick={handleInputClick}/>
+            <div className={` flex  justify-center`}>
 
-            <li className={` flex  justify-center`}>
-              {/**${isAuth ? "" : "hidden"} */}
               <button
                 onClick={() => dispatch(handleLanguage())}
                 className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
               >
-                <b className="flex items-center">
+                <div className="flex items-center">
                   <IoLanguage />
-                  <ul className="mx-2">
-                    {" "}
+                  <div className="mx-2">
                     {languageIs ? "  عربى  " : "English"}
-                  </ul>
-                </b>
+                  </div>
+                </div>
               </button>
-            </li>
-          </ul>
-        </ul>
+
+            </div>
+          </div>
+        </div>
 
         <ul
           // dir="ltr"
@@ -241,7 +232,7 @@ export default function Navbar() {
             notifications ? "" : "hidden"
           }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
         >
-          <NotificationMenu sendCount={calcCount} />
+          <NotificationMenu sendCount={calcCount} notificationsMenuRef={notificationsMenuRef}/>
         </ul>
       </section>
     </nav>
