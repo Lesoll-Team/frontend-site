@@ -124,7 +124,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
               <AiFillDelete className="text-xl  md:text-2xl text-red-600 cursor-pointer" />
             </ConfirmModal>
 
-            <Link href={"/profile"}>
+            <Link href={`/editproperty/${propertyDetails._id}`}>
               <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
             </Link>
           </div>
