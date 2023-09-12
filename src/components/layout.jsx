@@ -48,7 +48,7 @@ export default function Layout({ children }) {
             property="og:image"
             content="../../public/socialApperance.svg"
           />
-          npm
+
           <meta
             property="og:description"
             content="ليسول هو موقع عقارات مصري متكامل يقدم خدمة التجربة الرقمية سواء لشراء أو بيع أو تأجير العقارات مع خدمة شاملة تقدم تفاصيل عن العقار من خلال خريطة تفاعلية"

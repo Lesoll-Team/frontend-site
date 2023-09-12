@@ -1,19 +1,15 @@
 // import Image from "next/image";
 import { Image } from "@nextui-org/react";
+import faqImg from "../../../public/faq.svg";
+import heroImg from "../../../public/hero.png";
+import React, { useEffect, useMemo, useState } from "react";
 
-import heroImg from "../../../public/faq.svg";
-import React, { useMemo, useState } from "react";
-import Question from "./Question";
 import { Accordion, AccordionItem } from "@nextui-org/react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-} from "@nextui-org/react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 const Faq = () => {
-  const [qType, setQType] = useState("buyer");
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const [qType, setQType] = useState("general");
 
   const setGeneral = () => {
     setQType("general");
@@ -24,15 +20,39 @@ const Faq = () => {
   const setBuyer = () => {
     setQType("buyer");
   };
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
-  const selectedValue = useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
-  );
-  // console.log(selectedKeys);
-  const defaultContent =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
+  const [faq, setFaq] = useState([]);
+  const [generalFaq, setGeneralFaq] = useState([]);
+  const [ownerFaq, setOwnerFaq] = useState([]);
+  const [buyerFaq, setBuyerFaq] = useState([]);
+  const getFaq = () => {
+    try {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/QandA/getall`)
+        .then((res) => {
+          setFaq(res.data.getQ_A);
+
+          // console.log(res.data.terms);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getFaq();
+  }, []);
+  useEffect(() => {
+    setGeneralFaq(faq.filter((faq) => faq.related === "General"));
+    setOwnerFaq(faq.filter((faq) => faq.related === "Owner/Broker"));
+    setBuyerFaq(faq.filter((faq) => faq.related === "Renter/Buyer"));
+    // console.log()
+  }, [faq]);
+
+  console.log(faq);
+  console.log(generalFaq);
+  console.log(ownerFaq);
+  console.log(buyerFaq);
   return (
     <div className="py-10 min-h-screen">
       {/* <div className="flex flex-col md:flex-row relative justify-between ">
@@ -47,136 +67,110 @@ const Faq = () => {
         />
       </div> */}
       <div className="container mx-auto">
-        {/* <div className="w-[%] md:w-[80%] mx-auto flex justify-center bg-white drop-shadow-xl rounded-full">
+        <div className="flex flex-col-reverse md:flex-row justify-center items-center space-y-3">
+          <img
+            width={"auto"}
+            height={"auto"}
+            className="md:w-[40%]  "
+            src={"/faq.svg"}
+          />
+          <h3 className="text-darkGreen font-semibold text-5xl md:text-8xl md:w-1/2 text-center">
+            {language ? "الأسئلة الشائعة" : "FAQ"}
+          </h3>
+        </div>
+        <div className="w-[%] md:w-[80%] mx-auto flex justify-center bg-white drop-shadow-xl border-lightGreen rounded-full overflow-hidden border  ">
           <p
             onClick={setGeneral}
-            className={`text-center cursor-pointer px-5 border border-r-0 border-lightGreen rounded-l-full text-xs sm:text-xl w-[33.3%] py-2 md:hover:bg-lightGreen md:hover:text-white font-semibold text-darkGreen duration-200 ${
+            className={`text-center cursor-pointer px-5  border-r-0 border-lightGreen text-xs sm:text-xl w-[33.3%] py-2 md:hover:bg-lightGreen md:hover:text-white font-semibold text-darkGreen duration-200 ${
               qType === "general" && "bg-lightGreen text-white"
             }`}
           >
-            General
+            {language ? "عامة" : "General"}
           </p>
           <p
             onClick={setOwner}
-            className={`text-center cursor-pointer px-5 border border-lightGreen text-xs sm:text-xl w-[33.3%] py-2 md:hover:bg-lightGreen md:hover:text-white font-semibold text-darkGreen duration-200 ${
+            className={`text-center cursor-pointer px-5 border-x border-lightGreen text-xs sm:text-xl w-[33.3%] py-2 md:hover:bg-lightGreen md:hover:text-white font-semibold text-darkGreen duration-200 ${
               qType === "owner" && "bg-lightGreen text-white"
             }`}
           >
-            Owner
+            {language ? "مالك / سمسار" : "Owner / Broker"}
           </p>
-          <p className="text-center px-5 border border-lightGreen">test</p>
           <p
             onClick={setBuyer}
-            className={`text-center cursor-pointer px-5 border border-l-0 border-lightGreen rounded-r-full text-xs sm:text-xl w-[33.3%] py-2 md:hover:bg-lightGreen md:hover:text-white font-semibold text-darkGreen duration-200 ${
+            className={`text-center cursor-pointer px-5   text-xs sm:text-xl w-[33.3%] py-2 md:hover:bg-lightGreen md:hover:text-white font-semibold text-darkGreen duration-200 ${
               qType === "buyer" && "bg-lightGreen text-white"
             }`}
           >
-            Buyer
+            {language ? "مشترى/مستأجر" : "Buyer / Renter"}
           </p>
-        </div> */}
+        </div>
         <div dir="rtl" className="my-7 ">
           <Accordion variant="splitted">
-            <AccordionItem
-              className="py-3"
-              key="1"
-              aria-label="Accordion 1"
-              title=" سؤال"
-            >
-              {defaultContent}
-            </AccordionItem>
-            <AccordionItem
-              className="py-3"
-              key="2"
-              aria-label="Accordion 2"
-              title=" سؤال"
-            >
-              {defaultContent}
-            </AccordionItem>
-            <AccordionItem
-              className="py-3"
-              key="3"
-              aria-label="Accordion 3"
-              title=" سؤال"
-            >
-              {defaultContent}
-            </AccordionItem>
+            {qType === "general" &&
+              generalFaq.map((item) => {
+                return (
+                  <AccordionItem
+                    className="py-3"
+                    key={item._id}
+                    aria-label={item._id}
+                    title={
+                      language ? `${item?.question.ar}` : `${item?.question.en}`
+                    }
+                  >
+                    {item.answers.map((answer) => {
+                      return (
+                        <p className="my-1">
+                          {language ? answer.ar : answer.en}
+                        </p>
+                      );
+                    })}
+                  </AccordionItem>
+                );
+              })}
+            {qType === "owner" &&
+              ownerFaq.map((item) => {
+                return (
+                  <AccordionItem
+                    className="py-3"
+                    key={item._id}
+                    aria-label={item._id}
+                    title={
+                      language ? `${item?.question.ar}` : `${item?.question.en}`
+                    }
+                  >
+                    {item.answers.map((answer) => {
+                      return (
+                        <p className="my-1">
+                          {language ? answer.ar : answer.en}
+                        </p>
+                      );
+                    })}
+                  </AccordionItem>
+                );
+              })}
+            {qType === "buyer" &&
+              buyerFaq.map((item) => {
+                return (
+                  <AccordionItem
+                    className="py-3"
+                    key={item._id}
+                    aria-label={item._id}
+                    title={
+                      language ? `${item?.question.ar}` : `${item?.question.en}`
+                    }
+                  >
+                    {item.answers.map((answer) => {
+                      return (
+                        <p className="my-1">
+                          {language ? answer.ar : answer.en}
+                        </p>
+                      );
+                    })}
+                  </AccordionItem>
+                );
+              })}
           </Accordion>
         </div>
-        <div className="flex gap-3 w-full">
-          <Dropdown className="w-full">
-            <DropdownTrigger>
-              <div className="w-fullflex items-center p-2 border-[3px] w-[30%] text-center rounded-lg">
-                {selectedValue}
-              </div>
-            </DropdownTrigger>
-            <DropdownMenu
-              className="w-full"
-              aria-label="Single selection example"
-              variant="shadow"
-              disallowEmptySelection
-              selectionMode="single"
-              selectedKeys={selectedKeys}
-              onSelectionChange={setSelectedKeys}
-            >
-              <DropdownItem key="text">Text</DropdownItem>
-              <DropdownItem key="number">Number</DropdownItem>
-              <DropdownItem key="date">Date</DropdownItem>
-              <DropdownItem key="single_date">Single Date</DropdownItem>
-              <DropdownItem key="iteration">adadada</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown className="w-full">
-            <DropdownTrigger>
-              <div className="w-fullflex items-center p-2 border-[3px] w-[30%] text-center rounded-lg">
-                {selectedValue}
-              </div>
-            </DropdownTrigger>
-            <DropdownMenu
-              className="w-full"
-              aria-label="Single selection example"
-              variant="shadow"
-              disallowEmptySelection
-              selectionMode="single"
-              selectedKeys={selectedKeys}
-              onSelectionChange={setSelectedKeys}
-            >
-              <DropdownItem key="text">Text</DropdownItem>
-              <DropdownItem key="number">Number</DropdownItem>
-              <DropdownItem key="date">Date</DropdownItem>
-              <DropdownItem key="single_date">Single Date</DropdownItem>
-              <DropdownItem key="iteration">adadada</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown className="w-full">
-            <DropdownTrigger>
-              <div className="w-fullflex items-center p-2 border-[3px] w-[30%] text-center rounded-lg">
-                {selectedValue}
-              </div>
-            </DropdownTrigger>
-            <DropdownMenu
-              className="w-full"
-              aria-label="Single selection example"
-              variant="shadow"
-              disallowEmptySelection
-              selectionMode="single"
-              selectedKeys={selectedKeys}
-              onSelectionChange={setSelectedKeys}
-            >
-              <DropdownItem key="text">Text</DropdownItem>
-              <DropdownItem key="number">Number</DropdownItem>
-              <DropdownItem key="date">Date</DropdownItem>
-              <DropdownItem key="single_date">Single Date</DropdownItem>
-              <DropdownItem key="iteration">adadada</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
-        <Image
-          width={300}
-          height={200}
-          src="https://app.requestly.io/delay/1000/https://nextui-docs-v2.vercel.app/images/fruit-4.jpeg"
-          fallbackSrc="https://via.placeholder.com/300x200"
-          alt="NextUI Image with fallback"
-        />
       </div>
     </div>
   );
