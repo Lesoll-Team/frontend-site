@@ -11,7 +11,7 @@ import { FaSearch } from "react-icons/fa";
 // import arLanguage from "../../../public/locales/ar/common.js";
 // import enLanguage from "../../../public/locales/en/common.js";
 const LinksNavbar = dynamic(() => import("./linksNavbar"));
-const MobileMenu = dynamic(() => import("./linksNavbar"));
+const MobileMenu = dynamic(() => import("./mobileMenu"));
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
 
@@ -23,8 +23,8 @@ const UserDropdown = dynamic(() => import("./userDropdown"));
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
-import ar from "../../language/ar/common";
-import en from "../../language/en/common";
+// import ar from "../../language/ar/common";
+// import en from "../../language/en/common";
 export default function Navbar() {
   const dispatch = useDispatch();
   const [countNotifications, setCountNotifications] = useState(0);

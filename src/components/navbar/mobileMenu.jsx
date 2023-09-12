@@ -40,20 +40,20 @@ export default function MobileMenu({ onInputClick }) {
       label: `${language ? ar.navbar.navSell : en.navbar.navSell}`,
       id: 4,
     },
-    {
-      href: "/need",
-      label: `${language ? ar.navbar.navNeed : en.navbar.navNeed}`,
-      id: 5,
-    },
+    // {
+    //   href: "/need",
+    //   label: `${language ? ar.navbar.navNeed : en.navbar.navNeed}`,
+    //   id: 5,
+    // },
     {
       href: "/about",
       label: `${language ? ar.navbar.navAbout : en.navbar.navAbout}`,
-      id: 6,
+      id: 5,
     },
     {
       href: "/contact",
       label: `${language ? ar.navbar.navContact : en.navbar.navContact}`,
-      id: 7,
+      id: 6,
     },
   ];
   return (
@@ -70,9 +70,9 @@ export default function MobileMenu({ onInputClick }) {
               {link.id == 2 ? <MdSell /> : ""}
               {link.id == 3 ? <MdOutlineRealEstateAgent /> : ""}
               {link.id == 4 ? <MdAddHome /> : ""}
-              {link.id == 5 ? <TiUserAdd /> : ""}
-              {link.id == 6 ? <ImQuestion /> : ""}
-              {link.id == 7 ? <RiCustomerService2Fill /> : ""}
+              {/* {link.id == 5 ? <TiUserAdd /> : ""} */}
+              {link.id == 5 ? <ImQuestion /> : ""}
+              {link.id == 6 ? <RiCustomerService2Fill /> : ""}
               <ul className="mx-2">{link.label}</ul>
             </b>
           </Link>
