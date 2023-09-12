@@ -1,4 +1,5 @@
-import Image from "next/image";
+// import Image from "next/image";
+import { Image } from "@nextui-org/react";
 
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
@@ -24,7 +25,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
     <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[430px]  rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
       <div
-        className={`flex items-center  absolute w-full top-10 right-0 ${
+        className={`flex items-center z-[1000] absolute w-full top-10 right-0 ${
           language ? "justify-start" : "justify-end"
         }`}
       >
@@ -45,11 +46,11 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
         </p>
       </div>
       {/* card img */}
-      <img
+      <Image
         alt="Realty"
         src={propertyDetails.thumbnail}
         loading="lazy"
-        className="w-full h-[220px] overflow-hidden   object-cover"
+        className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
       />
       {/* card body  */}
       <div className="relative space-y-3">

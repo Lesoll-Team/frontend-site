@@ -1,4 +1,7 @@
-import Image from "next/image";
+// import Image from "next/image";
+import { Image } from "@nextui-org/react";
+
+// import testImg from "../../../../public/testimg.webp";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
@@ -29,7 +32,7 @@ const FavCard = ({ propDetails, onRemove }) => {
   return (
     <div className="w-[300px]   min-h-[410px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
-      <div className="flex items-center justify-end absolute w-full top-10">
+      <div className="flex items-center justify-between absolute w-full top-10">
         {/* <div className=" bg-white text-lightOrange font-medium top-9 text-sm w-20 text-center px-2 py-1   rounded-l-full">
           {type === "active"
             ? "active"
@@ -41,7 +44,7 @@ const FavCard = ({ propDetails, onRemove }) => {
             ? "draft"
             : ""}
         </div> */}
-        <div className=" bg-white  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
+        <div className=" bg-white z-[1000]  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
           {/* <AiOutlineHeart /> */}
           {userInfo ? (
             userInfo.favorites.includes(propDetails._id) ? (
@@ -58,11 +61,11 @@ const FavCard = ({ propDetails, onRemove }) => {
       </div>
       {/* card img */}
       <Link href={`/propertyDetails/${propDetails._id}`}>
-        <img
+        <Image
           alt="Realty"
           src={propDetails?.thumbnail}
           loading="lazy"
-          className="w-full h-[220px] overflow-hidden   object-cover"
+          className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
         />
       </Link>
       {/* card body  */}

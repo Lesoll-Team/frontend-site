@@ -61,7 +61,7 @@ const SignUpForm = () => {
   //     dispatch(getAllUserData(userToken))
   //  },[userToken,dispatch])
   return (
-    <div>
+    <div className="animate-appearance-in">
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
           onClick={setIndividual}
@@ -127,7 +127,7 @@ const SignUpForm = () => {
       {showForm && (
         <form
           onSubmit={handleRegistration}
-          className="flex flex-col w-80 md:w-96 py-5 justify-center space-y-4"
+          className="flex flex-col w-80 animate-appearance-in md:w-96 py-5 justify-center space-y-4"
         >
           {/* <p>{typeOfUser}</p> */}
           <div>

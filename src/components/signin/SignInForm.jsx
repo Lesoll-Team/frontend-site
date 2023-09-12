@@ -25,7 +25,7 @@ const SignInForm = () => {
   //    dispatch(getAllUserData(userToken))
   // },[userToken,dispatch])
   return (
-    <div>
+    <div className="animate-appearance-in">
       <form
         onSubmit={handleLogin}
         className="flex flex-col w-80 md:w-96  justify-center space-y-4"

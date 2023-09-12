@@ -1,6 +1,7 @@
 // import Image from "next/image";
 // import testImg from "../../../public/testimg.webp";
 import { AddToFavorites } from "@/utils/propertyAPI";
+import { Image } from "@nextui-org/react";
 
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
@@ -40,7 +41,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
           <span>views</span> <span>{propertyDetails?.users.views.length}</span>
         </div> */}
         {userInfo && (
-          <div className=" bg-white  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
+          <div className="z-[10000] bg-white  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
             {userInfo ? (
               loved ? (
                 <AiFillHeart
@@ -68,16 +69,16 @@ const RealtyCardRent = ({ propertyDetails }) => {
       </div>
 
       {/* card img */}
-      <div>
+      <div className="z-10">
         <Link
           key={propertyDetails?._id}
           href={`/propertyDetails/${propertyDetails?._id}`}
         >
-          <img
+          <Image
             alt="Realty"
             src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
             loading="lazy"
-            className="w-full h-[220px] overflow-hidden   object-cover"
+            className="w-full h-[220px] rounded-none overflow-hidden   object-cover"
           />
         </Link>
       </div>
