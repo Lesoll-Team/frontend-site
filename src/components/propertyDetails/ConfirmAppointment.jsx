@@ -18,12 +18,12 @@ import useFormatDate from "@/Hooks/useFormatDate";
 import { useRouter } from "next/router";
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
-  console.log(router);
+  // console.log(router);
   const message = `مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userAppointment?.connectPhoneNumber
   }&text=${encodeURIComponent(message)}`;
-  console.log("ConfirmAppointment", userAppointment);
+  // console.log("ConfirmAppointment", userAppointment);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formattedDateFrom, setformattedDateFrom] = useState(null);
   const [formattedDateTo, setformattedDateTo] = useState(null);
@@ -68,15 +68,15 @@ function ConfirmAppointment({ userAppointment }) {
       <div className="">
         {/*user info*/}
         <div className="grid sm:grid-cols-2  grid-cols-1">
-        <div className="flex-col flex justify-items-center text-center  overflow-hidden">
-          <User
-            className="sm:mb-0 mb-5 "
-            avatarProps={{
-              size: "lg",
-              src: userAppointment?.user.avatarUrl,
-            }}
-          />
-          <p className="font-bold">{userAppointment?.user.fullname}</p>
+          <div className="flex-col flex justify-items-center text-center  overflow-hidden">
+            <User
+              className="sm:mb-0 mb-5 "
+              avatarProps={{
+                size: "lg",
+                src: userAppointment?.user.avatarUrl,
+              }}
+            />
+            <p className="font-bold">{userAppointment?.user.fullname}</p>
           </div>
           <div className="grid grid-cols-1    sm:col-span-1 col-span-2   items-center justify-items-center">
             {/**userAppointment.appointments.allDays */}

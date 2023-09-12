@@ -34,6 +34,7 @@ const AddPropDropdown = ({
     setMenuIsOpen(!menuIsOpen);
   };
   const [selectoption, setSelectedOption] = useState(value);
+  // const [selectName, setSelectedName] = useState(value);
   return (
     <div className="relative w-full cursor-pointer ">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">

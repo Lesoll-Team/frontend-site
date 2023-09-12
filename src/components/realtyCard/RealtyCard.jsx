@@ -75,7 +75,9 @@ const RealtyCardRent = ({ propertyDetails }) => {
           href={`/propertyDetails/${propertyDetails?._id}`}
         >
           <Image
+            isZoomed="true"
             alt="Realty"
+            radius="none"
             src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
             loading="lazy"
             className="w-full h-[220px] rounded-none overflow-hidden   object-cover"

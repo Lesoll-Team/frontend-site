@@ -86,7 +86,8 @@ const FavCard = ({ propDetails, onRemove }) => {
         </div>
         <Link href={`/propertyDetails/${propDetails._id}`}>
           <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
-            <p>{propDetails?.title}</p>
+            {propDetails?.title.substring(0, 40)}
+            {propDetails?.title.length > 40 && "..."}
           </div>
         </Link>
         <div className="-mt-10 text-lightGreen h-20 pt-12 px-7 flex  justify-start gap-5 mb-5">
@@ -126,7 +127,11 @@ const FavCard = ({ propDetails, onRemove }) => {
       <p className="text-sm  text-lightGreen">Cairo - Naser City</p>
     </div> */}
         <div className="px-7 mb-1 flex justify-between items-center ">
-          <p className="text-sm  text-darkGray">{propDetails?.address?.name}</p>
+          <p className="text-sm  text-darkGray">
+            {" "}
+            {propDetails?.address?.name.substring(0, 40)}{" "}
+            {propDetails?.address?.name.length > 40 && "..."}
+          </p>
         </div>
         {/* {type === "draft" ? (
           <div className="flex flex-col items-center space-y-2 mt-5">

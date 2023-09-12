@@ -13,7 +13,7 @@ export default function property({ propertyHome }) {
   };
 
   return (
-    <div>
+    <div className="overflow-x-hidden min-h-[100dvh]">
       <Head>
         <title>property</title>
       </Head>

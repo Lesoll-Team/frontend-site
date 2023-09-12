@@ -29,7 +29,7 @@ const Faq = () => {
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
-  console.log(selectedKeys);
+  // console.log(selectedKeys);
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
@@ -171,10 +171,11 @@ const Faq = () => {
           </Dropdown>
         </div>
         <Image
-          width={320}
+          width={300}
           height={200}
-          alt="NextUI hero Image with delay"
-          src="https://app.requestly.io/delay/5000/https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
+          src="https://app.requestly.io/delay/1000/https://nextui-docs-v2.vercel.app/images/fruit-4.jpeg"
+          fallbackSrc="https://via.placeholder.com/300x200"
+          alt="NextUI Image with fallback"
         />
       </div>
     </div>

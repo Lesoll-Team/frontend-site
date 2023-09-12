@@ -112,8 +112,8 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
     </div> */}
         <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
           <p className="text-sm  text-darkGray">
-            {propertyDetails.address.name.substring(0, 40)}{" "}
-            {propertyDetails.address.name.length > 40 && "..."}
+            {propertyDetails?.address?.name.substring(0, 40)}{" "}
+            {propertyDetails?.address?.name.length > 40 && "..."}
           </p>
           <div className="flex gap-3 items-center">
             <ConfirmModal
