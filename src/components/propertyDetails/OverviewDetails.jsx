@@ -52,23 +52,22 @@ function OverviewDetails({ singleOverviewDetails }) {
           aria-label="Thumbnails Carousel"
         >
           <SplideSlide>
-            <div className=" bg-gray-200 w-[90px] h-[80px]  rounded-lg">
-              <b className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
+            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+              <h2 className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {language ? ar.property.room : en.property.room}
-              </b>
+              </h2>
               <RiHotelBedFill className=" m-auto w-full my-1" />
-              <b className=" items-center  text-center sm:text-[19px] text-[14px] font-bold">
+              <h3 className=" items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {singleOverviewDetails?.rooms}
-              </b>
+              </h3>
             </div>
           </SplideSlide>
 
           <SplideSlide>
-            {" "}
             <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
-              <b className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
+              <h2 className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {language ? ar.property.SqFt : en.property.SqFt}
-              </b>
+              </h2>
 
               <RiPencilRuler2Line className=" m-auto w-full my-1" />
               <h3 className=" items-center  text-center sm:text-[19px] text-[14px] font-bold">

@@ -12,12 +12,12 @@ export default function LinksNavbar() {
   return (
     <div className="flex">
       <Link
-        className=" flex p-1  px-3   text-md rounded-3xl gap-1
+        className=" flex p-1   px-3   text-md rounded-3xl gap-1
                          duration-300 text-darkGray hover:bg-lightGreen
                           hover:text-white  active:scale-95 items-start "
         href="/"
       >
-        <MdHomeFilled className="text-xl" />
+        <MdHomeFilled className=" text-xl" />
        {language ? "الصفحة الرئيسية":"Home"}
       </Link>
 

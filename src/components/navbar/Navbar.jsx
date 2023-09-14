@@ -8,6 +8,7 @@ import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
+import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
 
@@ -100,11 +101,12 @@ export default function Navbar() {
         <ul
           className={`md:w-4/12 w-8/12  flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
         >
-          <Link href="/search">
-            <Button isIconOnly className="bg-inherit" aria-label="Search">
-              <FaSearch className="text-1xl  text-lightOrange" />
-            </Button>
-          </Link>
+          {/* <Link href="/search"> */}
+            {/* <Button isIconOnly className="bg-inherit" aria-label="Search"> */}
+              {/* <FaSearch className="text-1xl  text-lightOrange" /> */}
+              <SearchModel/>
+            {/* </Button> */}
+          {/* </Link> */}
 
           {/*button language*/}
           <li className={`  md:flex hidden`}>

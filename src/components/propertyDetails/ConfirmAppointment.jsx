@@ -1,29 +1,25 @@
 import React, { memo, useEffect, useState } from "react";
 import {
   User,
-  // Checkbox,
-  Link,
   Button,
-  // Input,
-  // Textarea,
   Chip,
 } from "@nextui-org/react";
-// import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
-// import useFormatTime from "@/Hooks/useFormatTime";
 import useFormatDate from "@/Hooks/useFormatDate";
 import { useRouter } from "next/router";
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
-  // console.log(router);
-  const message = `مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول `;
+  console.log(userAppointment);
+  const message = `
+   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
+   ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN+router.asPath} `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userAppointment?.connectPhoneNumber
   }&text=${encodeURIComponent(message)}`;
-  // console.log("ConfirmAppointment", userAppointment);
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formattedDateFrom, setformattedDateFrom] = useState(null);
   const [formattedDateTo, setformattedDateTo] = useState(null);

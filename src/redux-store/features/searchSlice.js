@@ -22,6 +22,20 @@ const initialState = {
     }
   );
 
+  // export const showMoreResult = createAsyncThunk(
+  //   "Search/getMore",
+  //   async (_,thunkAPI) => {
+  //   let pageNum= thunkAPI.getState().page
+  //     try {
+  //       const { page } = getState().Search;
+  //       const response = await getPropertyFromSearch(InputKeywords, page);
+  //       return response;
+  //     } catch (error) {
+  //       return rejectWithValue(error.response.data);
+  //     }
+  //   }
+  // );
+
 
   const SearchSlice=createSlice({
     name:"Search",
