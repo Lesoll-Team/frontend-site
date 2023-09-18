@@ -40,8 +40,8 @@ const DropdownArea = ({
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-md flex items-center justify-around
-          focus:outline-lightGreen bg-white border-[3px] cursor-pointer  rounded-xl p-2   whitespace-nowrap"
+        className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
+          focus:outline-lightGreen select-none bg-white border-[3px] cursor-pointer  rounded-xl p-2   whitespace-nowrap"
       >
         {name}
         <AiFillCaretDown

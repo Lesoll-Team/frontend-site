@@ -40,7 +40,7 @@ const Dropdown = ({ classNames, setValue, options ,valueDefault}) => {
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-md flex items-center justify-around
+        className="select-none w-full font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap">
         {selectoption|| valueDefault}
         <div>
@@ -63,7 +63,7 @@ const Dropdown = ({ classNames, setValue, options ,valueDefault}) => {
                 setValue(option.value);
                 setSelectedOption(option.name);
               }}
-              className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
+              className="text-lg select-none font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
             >
               {option.name}
             </p>

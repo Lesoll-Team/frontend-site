@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
-import {
-  saleOptionsData,
-  propertyTypeData,
-  unitTypeData,
-} from "./dropdown/dataDropdown";
-import { LuSearch } from "react-icons/lu";
-import Dropdown from "./dropdown/Dropdown";
+// import {
+//   saleOptionsData,
+//   propertyTypeData,
+//   unitTypeData,
+// } from "./dropdown/dataDropdown";
+// import { LuSearch } from "react-icons/lu";
+// import Dropdown from "./dropdown/Dropdown";
 import DropdownMore from "./dropdown/DropdownMore";
-import DropdownPrice from "./dropdown/DropdownPrice";
-import DropdownRooms from "./dropdown/DropdownRooms";
+// import DropdownPrice from "./dropdown/DropdownPrice";
+// import DropdownRooms from "./dropdown/DropdownRooms";
 import { propertyFromSearch } from "../../redux-store/features/searchSlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,7 @@ export function SearchBar() {
   let [countBedrooms, setCountBedrooms] = useState(0);
   let [countBathrooms, setCountBathroom] = useState(0);
   let [propertyFinance, setPropertyFinance] = useState("");
+  // let [mortgagePrice, setMortgagePrice] = useState("");
   let [paymentMethod, setPaymentMethod] = useState("");
   let [keywords, setKeywords] = useState("");
   let [finishingOptions, setFinishingOptions] = useState("");
@@ -35,10 +36,20 @@ export function SearchBar() {
   let [propertyType, setPropertyType] = useState("");
   let [isFurnished, setFurnished] = useState(false);
   const page = useSelector((state) => state.Search.page);
-console.log(saleOptions);
+// console.log("propertyFinanceOut:",propertyFinance);
+// console.log("paymentMethodOut:",paymentMethod);
+
   const handleSubmitSearch = useCallback(
     (e) => {
       e.preventDefault();
+
+      // if (paymentMethod==="Real_Estate_Finance") {
+      //   setPaymentMethod(propertyFinance)
+      //    console.log("paymentMethod:",paymentMethod);
+
+      // }
+      // console.log("paymentMethod:",paymentMethod);
+
       const InputKeywords = {
         saleOptions,
         propertyType,
@@ -52,6 +63,8 @@ console.log(saleOptions);
         fromPrice,
         keywords,
       };
+// console.log("paymentMethod:",paymentMethod);
+
       dispatch(propertyFromSearch({ InputKeywords, page }));
       router.push("/search");
     },
@@ -113,7 +126,7 @@ console.log(saleOptions);
             <div className="w-full">
               <Input
               
-                className="w-full "
+                className="w-full select-none"
                 size="lg"
                 isClearable
                 placeholder="Search by City, Region..."
@@ -133,6 +146,9 @@ console.log(saleOptions);
 
               setPropertyType={setPropertyType}
               propertyType={propertyType}
+
+              // mortgagePrice={mortgagePrice}
+              // setMortgagePrice={setMortgagePrice}
 
               isFurnished={isFurnished}
               setFurnished={setFurnished}
@@ -160,11 +176,8 @@ console.log(saleOptions);
 
               classNames="max-w-[40px]"
             />
-            {/*  
-        disableRipple="false"
-*/}
-            <button type="submit" className="bg-lightGreen text-white font-semibold  p-4 rounded-lg">
-              {languageIs?"بحث":"Search"}
+            <button type="submit" className="bg-lightGreen text-white font-semibold  p-4 rounded-lg   select-none">
+              {languageIs?"بـحـث":"Search"}
             </button>
           </div>
         </div>
@@ -172,46 +185,3 @@ console.log(saleOptions);
     </form>
   );
 }
-
-/**
- *             <Dropdown
-              valueDefault={`${languageIs ? "خيار البيع" : "Sale Option"}`}
-              classNames="max-w-[200px]"
-              value={saleOptions}
-              options={saleOptionsData}
-              setValue={setSaleOptions}
-            />
-            ------------------------------------------------------------------
-            <Dropdown
-              classNames=" max-w-[200px]"
-              value={propertyType}
-              options={propertyTypeData}
-              setValue={setPropertyType}
-              valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
-            />
-            <Dropdown
-              classNames=" max-w-[200px] sm:block hidden"
-              value={unitType}
-              options={unitTypeData}
-              setValue={setUnitType}
-              valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
-            />
-            <DropdownRooms
-              classNames="lg:block hidden max-w-[200px]"
-              name={`${
-                languageIs ? "الغرف & الحمامات " : "Bedrooms & Bathrooms"
-              }`}
-              setCountBedrooms={setCountBedrooms}
-              setCountBathroom={setCountBathroom}
-              countBedrooms={countBedrooms}
-              countBathrooms={countBathrooms}
-            />
-            <DropdownPrice
-              name={`${languageIs ? "السعر " : "Price"}`}
-              classNames="max-w-[200px] lg:block hidden"
-              valueToPrice={toPrice}
-              setFromPrice={setFromPrice}
-              setToPrice={setToPrice}
-              valueFromPrice={fromPrice}
-            />
- */

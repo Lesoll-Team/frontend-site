@@ -58,7 +58,7 @@ const DropdownMore = ({
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
+  // console.log(paymentMethod);
   // let [countBedrooms, setCountBedrooms] = useState(0);
   // let [countBathrooms, setCountBathroom] = useState(0);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -75,7 +75,7 @@ const DropdownMore = ({
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-around
+        className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white    rounded-xl p-1   whitespace-nowrap"
       >
         <MdOutlineMoreVert className="text-3xl " />
@@ -87,15 +87,15 @@ const DropdownMore = ({
            bg-white  duration-200 drop-shadow-xl border  rounded-xl h-auto`}
         >
           <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">
-          <Dropdown
+            <Dropdown
               classNames="my-1"
               value={propertyType}
-              valueDefault={languageIs?"نوع العقار":"Property Type"} 
+              valueDefault={languageIs ? "نوع العقار" : "Property Type"}
               options={propertyTypeData}
               setValue={setPropertyType}
-            /> 
+            />
 
-          <DropdownUintType
+            <DropdownUintType
               classNames="my-1 "
               value={unitType}
               options={unitTypeData}
@@ -142,27 +142,35 @@ const DropdownMore = ({
               value={finishingOptions}
               setValue={setFinishingOptions}
               options={finishingOptionsData}
-              valueDefault= {`${languageIs ? "التشطيب" : "Finishing"}`}
+              valueDefault={`${languageIs ? "التشطيب" : "Finishing"}`}
             />
             {/* <div className="lg:col-span-2 col-span-1 grid lg:grid-cols-2  grid-cols-1"> */}
+            {/* <div
+              className={`${
+                paymentMethod == "Real_Estate_Finance" ? "" : "hidden"
+              }`}
+            > */}
               <Dropdown
                 classNames="my-1"
                 value={propertyFinance}
-                valueDefault={`${languageIs ? "التمويل العقاري" : "Mortgage listings"}`}
+                valueDefault={`${
+                  languageIs ? "التمويل العقاري" : "Mortgage listings"
+                }`}
                 options={percentageProperty}
                 setValue={setPropertyFinance}
               />
-              <div className="flex items-center justify-center">
-                <span className="font-bold mx-3 ">{
-                  languageIs?"مفروشة":"Furnished"
-                }</span>
-                <Checkbox
-                className="my-1"
-                  size="lg"
-                  onClick={() => setFurnished(!isFurnished)}
-                  isSelected={isFurnished}
-                />
-              </div>
+            {/* </div> */}
+            <div className="flex items-center justify-center">
+              <span className="font-bold mx-3 select-none ">
+                {languageIs ? "مفروشة" : "Furnished"}
+              </span>
+              <Checkbox
+                className="my-1 "
+                size="lg"
+                onClick={() => setFurnished(!isFurnished)}
+                isSelected={isFurnished}
+              />
+            </div>
             {/* </div> */}
           </div>
         </div>
@@ -172,67 +180,3 @@ const DropdownMore = ({
 };
 
 export default memo(DropdownMore);
-
-{
-  /* </div> */
-}
-
-{
-  /* <div className="flex items-center "> */
-}
-{
-  /* <br />
-            <br /> */
-}
-{
-  /* <Dropdown
-              classNames=" max-w-[200px]"
-              value={unitType}
-              valueDefault="Unit Type"
-              options={unitTypeData}
-              setValue={setUnitType}
-            /> */
-}
-
-{
-  /* </div> */
-}
-
-{
-  /* <div className="grid grid-cols-1"> */
-}
-{
-  /* <Dropdown
-              classNames="lg:hidden block  max-w-[200px]"
-              value={propertyType||"متاح للتمويل"}
-              valueDefault="Property Type"
-              options={propertyTypeData}
-              setValue={setPropertyType}
-            /> */
-}
-{
-  /* <div className="grid lg:grid-cols-2  grid-cols-1"> */
-}
-
-{
-  /* <Dropdown
-                classNames=""
-                value={propertyFinance}
-                valueDefault="Mortgage listings"
-                options={percentageProperty}
-                setValue={setPropertyFinance}
-              />
-              <div className="flex items-center">
-                <span className="font-bold lg:mx-3 mx-0">
-                Furnished</span>
-
-                <Checkbox
-                  size="lg"
-                  onClick={() => setFurnished(!isFurnished)}
-                  isSelected={isFurnished}
-                />
-              </div> */
-}
-{
-  /* </div> */
-}

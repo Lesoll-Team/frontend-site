@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import lock from "../../../public/lock.svg";
 import Button from "../../Shared/Button";
 import Link from "next/link";
 import Image from "next/image";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const ResetPassword = () => {
+
+  const router = useRouter();
+  const isLoading = useSelector((state) => state.Auth.isLoding);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(isLoading);
+    if (isLoading) {
+      router.push("/"); // This will navigate to the home page after login is complete
+    }
+  }, [isLoading, router]);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -15,11 +28,14 @@ const ResetPassword = () => {
       email: Yup.string().email("Invalid email").required("Email is required"),
     }),
     onSubmit: (values) => {
-      // console.log(values);
+      console.log(values);
     },
   });
 
   return (
+    <>
+    
+    {!loading ? (
     <div className=" p-6 bg-white border-2 shadow-lg  md:border-none  mx-auto w-80 md:w-96  ">
       <form
         onSubmit={formik.handleSubmit}
@@ -31,14 +47,14 @@ const ResetPassword = () => {
           className="md:hidden w-40 relative mx-auto -mt-20"
         />
         <h1 className="md:text-4xl text-3xl text-center mb-5 text-lightGreen font-black">
-          Reset password
+         {language?` تغير كلمة المرور`:` Reset password`}
         </h1>
         {/* Form inputs */}
         <div>
           <input
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder={language?`البريد الإلكترونى`:`Email`}
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -49,19 +65,25 @@ const ResetPassword = () => {
             }`}
           />
           {formik.errors.email && formik.touched.email ? (
-            <p className="text-red-600">{formik.errors.email}</p>
+            <p className="text-red-600">{language?formik.touched.email? "يجب أدخال البريد الإلكترونى":null: formik.touched.email? "You must enter the email":null}</p>
           ) : (
             ""
           )}
         </div>
-        <Button type="submit" className="" text="Send" />
+        <Button type="submit" className="" text={language?`أرسال`:`Send`} />
       </form>
       <div className="flex justify-center mt-4">
         <Link href={"/signin"} className="">
-          <p className="text-lightGreen font-bold">&#8592; Back to sign in</p>
+          <p className="text-lightGreen font-bold">{language?`   تسجيل الدخول`:`   sign in`}</p>
         </Link>
       </div>
     </div>
+    ) : (
+      <div className="w-full flex justify-center items-center h-screen ">
+          <b> You Have Access...</b>
+        </div>
+      )}
+    </>
   );
 };
 

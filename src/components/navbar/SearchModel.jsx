@@ -53,14 +53,14 @@ export default function SearchModel() {
       </Button>
       <Modal
         size="5xl"
-        backdrop="opaque"
+        backdrop=""
         placement="top"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         motionProps={{
           variants: {
             enter: {
-              y: -25,
+              y: 20,
               opacity: 1,
               transition: {
                 duration: 0.3,

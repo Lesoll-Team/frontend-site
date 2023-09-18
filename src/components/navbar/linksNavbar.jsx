@@ -51,7 +51,7 @@ export default function LinksNavbar() {
       >
         <MdAddHome className="text-xl" />
         {/* {language ? ar.navbar.navSell : en.navbar.navSell} */}
-        {language ? "أضفة عقار" : "Sell"}
+        {language ? "إضافة عقار" : "Sell"}
       </Link>
     </div>
   );

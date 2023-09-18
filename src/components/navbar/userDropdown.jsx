@@ -39,9 +39,9 @@ function UserDropdown({classNamed}) {
             src={userDataInfo?.avatarUrl}
           />
         </DropdownTrigger>
-        <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem isReadOnly={true} shouldFocusWrap={true} textValue="email" key="email" className="h-14 gap-2">
-            <p className="font-semibold">Signed in as</p>
+        <DropdownMenu aria-label="Profile Actions" variant="flat" >
+          <DropdownItem variant={"light"} isReadOnly={true} shouldFocusWrap={true} textValue="email" key="email"  className="h-14 gap-2 cursor-text hover:bg-white">
+            <p className="font-semibold select-none	">Signed in as</p>
             <p className="font-semibold">{userDataInfo?.email}</p>
           </DropdownItem>
           <DropdownItem 
@@ -62,10 +62,10 @@ function UserDropdown({classNamed}) {
 
           </DropdownItem>
 
-          <DropdownItem textValue="Favorite" key="Favorite" onPress={() => router.push("/profile")}>
+          {/* <DropdownItem textValue="Favorite" key="Favorite" onPress={() => router.push("/profile")}>
             
             {languageIs ? "المفضل" : "Favorite"}
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem
           textValue="dashboard"
             onPress={() => router.push("/dashboard")}

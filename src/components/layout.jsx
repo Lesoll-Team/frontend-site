@@ -1,6 +1,11 @@
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
 import Head from "next/head";
+
+// import { Inter } from 'next/font/google'
+
+
+
 import { Fragment, useCallback, useEffect, useMemo } from "react";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +14,11 @@ import "@splidejs/react-splide/css/skyblue";
 import "@splidejs/react-splide/css/sea-green";
 import "@splidejs/react-splide/css/core";
 import ScrollToTopButton from "./ScrollToTopButton";
+
+// const inter = Inter({
+//   subsets: ['latin'],
+//   display: 'swap',
+// })
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -33,7 +43,9 @@ export default function Layout({ children }) {
           display: "flex",
           flexDirection: "column",
         }}
-        className="globalBody bg-gradient"
+        // className={`globalBody bg-gradient,${inter.className}`}
+        className={`globalBody bg-gradient`}
+        
       >
 
         <Navbar />

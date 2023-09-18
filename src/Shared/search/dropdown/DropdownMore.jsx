@@ -14,12 +14,13 @@ import DropdownRooms from "./DropdownRooms";
 import DropdownPrice from "./DropdownPrice";
 import { useSelector } from "react-redux";
 import DropdownArea from "./DropdownArea";
+import DropdownUintType from "./DropdownUintType";
 
 //Listings Available for Mortgage
 const DropdownMore = ({
   classNames,
   // name,
-  // propertyType,
+  propertyType,
   paymentMethod,
   isFurnished,
   setPaymentMethod,
@@ -61,8 +62,6 @@ const DropdownMore = ({
     };
   }, []);
 
-  // let [countBedrooms, setCountBedrooms] = useState(0);
-  // let [countBathrooms, setCountBathroom] = useState(0);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const dropdownContentRef = useRef(null);
@@ -77,7 +76,7 @@ const DropdownMore = ({
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-around
+        className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white    rounded-xl p-1   whitespace-nowrap"
       >
         <MdOutlineMoreVert className="text-3xl " />
@@ -89,15 +88,16 @@ const DropdownMore = ({
            bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[700px] min-h-[350px]`}
         >
           <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">
-          <Dropdown
-              classNames="  block sm:hidden"
+                  <DropdownUintType
+              classNames="max-w-[200px] block sm:hidden my-1"
               value={unitType}
               options={unitTypeData}
+              propertyType={propertyType}
               setValue={setUnitType}
               valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
             />
             <DropdownRooms
-              classNames="lg:hidden block pb-2 "
+              classNames="lg:hidden block my-1 "
               name={`${
                 languageIs ? "الغرف & الحمامات " : "Bedrooms & Bathrooms"
               }`}
@@ -108,7 +108,7 @@ const DropdownMore = ({
             />
             <DropdownPrice
               name={`${languageIs ? "السعر " : "Price"}`}
-              classNames="lg:hidden block"
+              classNames="lg:hidden block my-1"
               valueToPrice={toPrice}
               setFromPrice={setFromPrice}
               setToPrice={setToPrice}
@@ -116,44 +116,53 @@ const DropdownMore = ({
             />
             <DropdownArea
               name={`${languageIs ? "المنطقة " : "Area"}`}
-              classNames="lg:hidden block"
+              classNames="lg:hidden block my-1"
               setFromPrice={setFromArea}
               valueFromPrice={fromArea}
               setToPrice={setToArea}
               valueToPrice={toArea}
             />
             <Dropdown
-              classNames="pb-2"
+                classNames="my-1"
               valueDefault={`${languageIs ? "طريقة السداد" : "Payment Method"}`}
               value={paymentMethod}
               setValue={setPaymentMethod}
               options={paymentMethodData}
             />
             <Dropdown
-              classNames="pb-2"
+                classNames="my-1"
               value={finishingOptions}
               setValue={setFinishingOptions}
               options={finishingOptionsData}
               valueDefault= {`${languageIs ? "التشطيب" : "Finishing"}`}
             />
-            <div className="lg:col-span-2 col-span-1 grid lg:grid-cols-2  grid-cols-1">
+            {/* <div className="lg:col-span-2 col-span-1 grid lg:grid-cols-2  grid-cols-1"> */}
+            {/* <div
+              className={`${
+                paymentMethod == "Real_Estate_Finance" ? "" : "hidden"
+              }`}
+            > */}
               <Dropdown
-                classNames="pb-2"
+                classNames="my-1"
                 value={propertyFinance}
-                valueDefault={`${languageIs ? "التمويل العقاري" : "Mortgage listings"}`}
+                valueDefault={`${
+                  languageIs ? "التمويل العقاري" : "Mortgage listings"
+                }`}
                 options={percentageProperty}
                 setValue={setPropertyFinance}
               />
+            {/* </div> */}
               <div className="flex items-center justify-center">
-                <span className="font-bold mx-3 ">{
+                <span className="font-bold mx-3 select-none">{
                   languageIs?"مفروشة":"Furnished"
                 }</span>
                 <Checkbox
+                className="my-1"
                   size="lg"
                   onClick={() => setFurnished(!isFurnished)}
                   isSelected={isFurnished}
                 />
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </div>

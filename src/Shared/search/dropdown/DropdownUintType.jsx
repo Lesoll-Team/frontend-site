@@ -59,8 +59,8 @@ const DropdownUintType = ({
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
-          focus:outline-lightGreen select-none bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap"
+        className="select-none w-full font-semibold text-darkGreen text-md flex items-center justify-between
+          focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap"
       >
         {selectoption || valueDefault}
         <div>
@@ -121,7 +121,7 @@ const DropdownUintType = ({
 
           {propertyType == "" ? (
             <div className=" flex items-center justify-center text-default-500 cursor-no-drop py-14 ">
-              اختار من نوع العقار اولاَ
+         {language?" اختار من نوع العقار اولاَ":"Choose a property type first"}   
             </div>
           ) : null}
         </div>

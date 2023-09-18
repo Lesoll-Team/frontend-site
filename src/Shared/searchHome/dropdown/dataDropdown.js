@@ -2,25 +2,12 @@ export const paymentMethodData = {
   en: [
     { value: "Cash", name: "Cash" },
     { value: "Installment", name: "Installment" },
+    { value: "Real_Estate_Finance", name: "Real Estate Finance" },
   ],
   ar: [
     { value: "Cash", name: "نقدى" },
     { value: "Installment", name: "تقسيط" },
-  ],
-};
-
-export const finishingOptionsData = {
-  en: [
-    { value: "Super Lux", name: "Super Lux" },
-    { value: "Lux", name: "Lux" },
-    { value: "Finished", name: "Semi Finished" },
-    { value: "Not Finished", name: "Not Finished" },
-  ],
-  ar: [
-    { value: "Super Lux", name: "سوبر لوكس" },
-    { value: "Lux", name: "لوكس" },
-    { value: "Finished", name: "نصف تشطيب" },
-    { value: "Not Finished", name: "بدون تشطيب" },
+    // { value: "Real_Estate_Finance", name: "تمويل عقارى" },
   ],
 };
 export const percentageProperty = {
@@ -37,6 +24,21 @@ export const percentageProperty = {
     { value: "8%_Real_Estate_Finance", name: "8% تمويل عقارى " },
   ],
 };
+export const finishingOptionsData = {
+  en: [
+    { value: "Super Lux", name: "Super Lux" },
+    { value: "Lux", name: "Lux" },
+    { value: "Finished", name: "Semi Finished" },
+    { value: "Not Finished", name: "Not Finished" },
+  ],
+  ar: [
+    { value: "Super Lux", name: "سوبر لوكس" },
+    { value: "Lux", name: "لوكس" },
+    { value: "Finished", name: "نصف تشطيب" },
+    { value: "Not Finished", name: "بدون تشطيب" },
+  ],
+};
+
 
 export const saleOptionsData = {
   en: [

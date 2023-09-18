@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import {
@@ -12,7 +11,7 @@ import DropdownMore from "./dropdown/DropdownMore";
 import DropdownPrice from "./dropdown/DropdownPrice";
 import DropdownRooms from "./dropdown/DropdownRooms";
 import { propertyFromSearch } from "../../redux-store/features/searchSlice";
-
+import DropdownUintType from "./dropdown/DropdownUintType";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
@@ -25,17 +24,11 @@ export function SearchBar() {
   const [fromPrice, setFromPrice] = useState(0.0);
   const [toPrice, setToPrice] = useState(0.0);
 
-
   const [fromArea, setFromArea] = useState(0);
   const [toArea, setToArea] = useState(0);
 
-
   let [countBedrooms, setCountBedrooms] = useState(0);
   let [countBathrooms, setCountBathroom] = useState(0);
-  /**
- *   setPropertyFinance,
-  propertyFinance
- */
   let [propertyFinance, setPropertyFinance] = useState("");
   let [paymentMethod, setPaymentMethod] = useState("");
   let [keywords, setKeywords] = useState("");
@@ -112,10 +105,11 @@ export function SearchBar() {
               setValue={setPropertyType}
               valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
             />
-            <Dropdown
-              classNames=" max-w-[200px] sm:block hidden"
+            <DropdownUintType
+              classNames="max-w-[200px]  sm:block hidden"
               value={unitType}
               options={unitTypeData}
+              propertyType={propertyType}
               setValue={setUnitType}
               valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
             />

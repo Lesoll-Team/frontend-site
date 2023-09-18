@@ -80,10 +80,12 @@ export async function changePassword(userNewPassword) {
           },
         }
       );
+      // console.log("yes out 1:",response.data);
       return response.data;
     } catch (error) {
-      console.error(error);
-      return null;
+      // console.log(error);
+      // console.log("error out 2:",error);
+      return error.response.data;
     }
   
 }
@@ -93,3 +95,29 @@ export async function changePassword(userNewPassword) {
 
 
 
+export async function verifyEmail() {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify?token=${userToken}`
+    // {
+    //   headers:{
+    //     token:userToken
+    //   }
+    // }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+
+export async function sendCodeVerifyEmail(codenumber) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/getverify?token=${userToken}`,codenumber);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

@@ -63,7 +63,7 @@ export default function MobileMenu({onInputClick }) {
           >
             <b className="flex items-center">
             <MdAddHome />
-              {language ? "أضفة عقار":"Sell"}
+              {language ? "إضافة عقار":"Sell"}
             </b>
           </Link>
 

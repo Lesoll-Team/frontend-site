@@ -3,10 +3,12 @@ import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { MdAdd } from "react-icons/md";
 import { RxDash } from "react-icons/rx";
+import { useSelector } from "react-redux";
 const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCountBedrooms,setCountBathroom }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const dropdownContentRef = useRef(null);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,8 +36,8 @@ const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCount
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-md flex items-center justify-around
-          focus:outline-lightGreen bg-white border-[3px]   rounded-xl p-2 cursor-pointer  whitespace-nowrap"
+        className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
+          focus:outline-lightGreen select-none bg-white border-[3px]   rounded-xl p-2 cursor-pointer  whitespace-nowrap"
       >
         {name}
         <AiFillCaretDown
@@ -53,7 +55,7 @@ const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCount
         >
           <div className="w-full  p-4 flex flex-col items-center ">
             <div className="flex  gap-2 items-center pb-2">
-              <span className="font-bold">Bedrooms</span>
+              <span className="font-bold select-none"> {language?"الغرف":"Bedrooms"}</span>
               <Button
                 onClick={() =>
                   setCountBedrooms(
@@ -83,7 +85,7 @@ const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCount
               </Button>
             </div>
             <div className="flex gap-2 items-center">
-              <span className="font-bold">Bathroom</span>
+              <span className="font-bold">{language?"الحمامات":"Bathroom"}</span>
 
               <Button
                 onClick={() =>
