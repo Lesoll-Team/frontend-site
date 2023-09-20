@@ -52,7 +52,6 @@ const PrivacyPolicy = () => {
             </p>
             include the length of time you spent on the website and your
             browsing history.
-            <p></p>
           </div>
           <p className="font-thin text-gray-500"></p>
         </div>

@@ -4,7 +4,7 @@ import SearchResult from "@/components/SearchResult/SearchResult";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 
-const index = () => {
+const search = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <>
@@ -22,4 +22,4 @@ const index = () => {
     </>
   );
 };
-export default index;
+export default search;

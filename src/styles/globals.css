@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 *{
-  font-family: "Roboto",sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,7 +18,6 @@
   font-size: 14px;
   width: 100%;
 }
-
 .custom-select::after {
   content: '\f078';
   font-family: FontAwesome;
@@ -70,39 +69,6 @@ input[type="radio"] {
  }
  
 
-/* 
-.nav-bg {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  opacity:0.5
-} */
-
-/* button:focus,
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none;
-  box-shadow: none;
-} */
-
-/* .date_slider::-webkit-scrollbar {
-  height: 4px;              
-  width: 4px;         
-  border: 1px solid #d5d5d5;
-  
-}
-.date_slider::-webkit-scrollbar-thumb {
-  background-color: #d2512d;
-} */
-
-/* .slider_date{
-  display: inline-flex;
-  overflow:;
-} */
-
 
 body::-webkit-scrollbar {
   width: 7px;               /* width of the entire scrollbar */
@@ -129,8 +95,6 @@ input[type=number] {
 footer {
   background-color: #fff;
   z-index: 0;
-  /* z-index: 100; */
-  /* padding: 20px 00; */
   -webkit-box-shadow:  0px -6px 16px -4px rgba(0,0,0,0.2);
 -moz-box-shadow:  0px -6px 16px -4px rgba(0,0,0,0.2);
 box-shadow:  0px -6px 16px -4px rgba(0,0,0,0.2);
@@ -222,4 +186,10 @@ border: #309da0 solid 1px !important;
 }
 .react-datepicker__time-container {
   width: 150px; /* Adjust the width as needed */
+}
+
+@media (max-width:500px){
+  .splide {
+    padding: 5px !important;
+  }
 }

@@ -19,7 +19,7 @@ function Dashboard() {
 
   // Render DashboardAdmin only if userInfo is not null and userInfo.isAdmin is true
   return userInfo && userInfo.isAdmin ? (
-    <div>
+    <div dir="ltr">
       <Head>
         <title>{language ? "لوحة القيادة" : "Dashboard"}</title>
       </Head>

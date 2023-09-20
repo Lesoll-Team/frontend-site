@@ -3,6 +3,7 @@ import {getPropertyFromSearch} from "@/utils/searchAPI";
 const initialState = {
     searchResult:null,
     isSearching:false,
+    setInputKeyword:null,
     searchingMassage:null,
     page:1,
     hasMore: true, // Initialize as true
@@ -11,7 +12,7 @@ const initialState = {
 
   export const propertyFromSearch = createAsyncThunk(
     "Search/getPropertyFromSearch",
-    async ({ InputKeywords }, { getState, rejectWithValue }) => {
+    async ({ InputKeywords}, { getState, rejectWithValue }) => {
       try {
         const { page } = getState().Search;
         const response = await getPropertyFromSearch(InputKeywords, page);
@@ -22,6 +23,20 @@ const initialState = {
     }
   );
 
+  // export const showMoreResult = createAsyncThunk(
+  //   "Search/getMore",
+  //   async (_,thunkAPI) => {
+  //   let pageNum= thunkAPI.getState().page
+  //     try {
+  //       const { page } = getState().Search;
+  //       const response = await getPropertyFromSearch(InputKeywords, page);
+  //       return response;
+  //     } catch (error) {
+  //       return rejectWithValue(error.response.data);
+  //     }
+  //   }
+  // );
+
 
   const SearchSlice=createSlice({
     name:"Search",
@@ -29,6 +44,9 @@ const initialState = {
     reducers:{
       showMore: (state) => {
         state.page += 1;
+      },
+      setInputKeywords: (state, action) => {
+        state.setInputKeyword = action.payload;
       },
     },
     extraReducers:(builder) => {
@@ -48,6 +66,6 @@ const initialState = {
     }
   })
 //   export const {} = contactSlice.actions;
-export const { showMore } = SearchSlice.actions;
+export const { showMore,setInputKeywords  } = SearchSlice.actions;
 
   export default SearchSlice.reducer;

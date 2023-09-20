@@ -1,8 +1,8 @@
 
 export  const en = {
   navbar: {
-    navHome: "Home",
-    navAbout: "About",
+    navHome:"Home",
+    navAbout:"About",
     navRent:"Rent",
     navBuy:"Buy",
     navSell:"Sell",

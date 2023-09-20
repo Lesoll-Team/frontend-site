@@ -1,17 +1,20 @@
 import { MdAddCircle } from "react-icons/md";
 import { BsCheckCircle } from "react-icons/bs";
 import { Fragment, useEffect, useRef, useState } from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserData } from "../../../redux-store/features/globalState";
 import { deleteAccount } from "../../../redux-store/features/authSlice";
 import { Avatar } from "@nextui-org/react";
 import ConfirmModal from "@/Shared/models/ConfirmModal";
+import { verifyEmail } from "@/utils/userAPI";
+import EmailVerificationModal from "@/Shared/models/EmailVerificationModal";
 const PersonalInfo = () => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
-  const [emailVerified] = useState(false);
+  // const [emailVerified] = useState(false);
+  const [modelVerified,setModelVerified] = useState(false);
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const isUpdated = useSelector((state) => state.GlobalState.isUpdated);
   const updateError = useSelector((state) => state.GlobalState.updateError);
@@ -25,9 +28,7 @@ const PersonalInfo = () => {
     setUserName(userInfo?.fullname);
     setPhonenumber(userInfo?.phone);
   }, [dispatch, userInfo]);
-
   const handleFormSubmit = async (e) => {
-  
     const formData = new FormData();
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
@@ -46,6 +47,14 @@ const PersonalInfo = () => {
     }
   };
 
+  const handleVerifyEmail=async()=>{
+     const resVerify=await verifyEmail()
+     if (resVerify.code===200) {
+      setModelVerified(true)
+     }
+    // console.log(resVerify);
+  }
+
   const deleteUserAccount = (e) => {
 
     dispatch(
@@ -55,23 +64,16 @@ const PersonalInfo = () => {
       })
     );
   };
+  // console.log(userDataInfo);
 
   return (
     <Fragment>
       <div className="w-full sm:max-w-[700px] mx-auto py-10 px-5 border-2 rounded-xl bg-white drop-shadow-lg">
         <div className="space-y-10">
-          {/*img user */}
           <div className="flex justify-start items-center relative   ">
-            {/* <img
-              // src={userImg}
-              src={userDataInfo?.avatarUrl}
-              alt="user img"
-              className="w-[150px] h-[150px] object-cover rounded-full"
-            /> */}
             <Avatar
-              src={userDataInfo?.avatarUrl}
+              src={selectedImage ? URL.createObjectURL(selectedImage) : userDataInfo?.avatarUrl}
               className="w-24 h-24 text-large"
-              // showFallback
             />
             <div
               onClick={() => {
@@ -96,7 +98,7 @@ const PersonalInfo = () => {
           </div>
           {/* name */}
           <div className=" ">
-            <p className="font-semibold text-xl mb-2">Name</p>
+            <p className="font-semibold text-xl mb-2">{language?"الأسم":"Name"}</p>
             <input
               // type="text"
               placeholder="Full Name"
@@ -107,7 +109,7 @@ const PersonalInfo = () => {
           </div>
           {/* user name */}
           <div className="  ">
-            <p className="font-semibold text-xl  mb-2">User Name</p>
+            <p className="font-semibold text-xl  mb-2">{language?"أسم المستخدم":"User Name"}</p>
             <p className="block  focus:outline-none text-gray-400  font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2">
               @{userDataInfo?.username}
               {/* @test1 */}
@@ -115,27 +117,31 @@ const PersonalInfo = () => {
           </div>
           {/* Email */}
           <div className=" relative ">
-            <p className="font-semibold text-xl mb-2 ">Email</p>
-            <div className="grid">
-              <p className="block text-gray-400   font-medium focus:border-lightGreen overflow-x-auto w-full border-2 rounded-md px-4 py-2">
+            <p className="font-semibold text-xl mb-2 "> {language?"البريد الإلكتروني":"Email"}</p>
+            <div className="grid ">
+              <p className="block items-center text-gray-400   font-medium
+              overflow-x-auto w-full border-2 rounded-md px-4 py-2">
+              <span className="flex justify-between items-center">
+
                 {userDataInfo?.email}
-                {/* test@email.com */}
+           {userDataInfo?.Verified !==false?   <BsCheckCircle className="text-lg text-lightGreen " />:null}
+
+                 </span>
               </p>
-              {emailVerified === true ? (
-                <BsCheckCircle className="absolute right-3 bottom-[13px] text-lg text-green-600" />
-              ) : (
-                <Link
-                  className="bg-green-600 w-28 text-center justify-self-end items-end text-white mt-3 -mb-7 py-2 px-3 rounded-lg   "
-                  href={"/"}
+              {userDataInfo?.Verified !== true ? (
+                <button
+                  className="bg-green-600  text-center justify-self-end items-end text-white mt-3 -mb-7 py-2 px-3 rounded-lg   "
+                  // href={"/"}
+                  onClick={handleVerifyEmail}
                 >
-                  Verify Email
-                </Link>
-              )}
+                  {language?"التحقق من البريد الإلكتروني":"Verify Email"}
+                </button>
+              ) :null}
             </div>
           </div>
           {/* phone number */}
           <div className=" ">
-            <p className="font-semibold text-xl  mb-2">Phone Number</p>
+            <p className="font-semibold text-xl  mb-2">{language?"رقم الهاتف":"Phone Number"}</p>
             <input
               // type="number"
               placeholder="Phone"
@@ -151,18 +157,20 @@ const PersonalInfo = () => {
             disabled={isUpdated}
             className="rounded-lg w-full bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
           >
-            Save Changes
+            
+            {language?"حفظ التغييرات":"Save Changes"}
           </button>
           </ConfirmModal>
         </div>
       </div>
       <div className="w-full sm:max-w-[700px] my-4 mx-auto py-10 px-5 border-2 rounded-xl ">
         <h2 className="text-red-500 ">
-          <b>Delete Account</b>
+          <b>
+          {language?" حذف الحساب":"Delete Account"}
+          </b>
         </h2>
         <h4 className="text-darkGray ">
-          {" "}
-          The door misses a camel || الباب يفوت جمل
+        {language?" الباب يفوت جمل":"The door misses a camel"}
         </h4>
         <ConfirmModal
           title={language ? "تأكيد إزالة الحساب" : "Confirm Account Deletion "}
@@ -178,10 +186,17 @@ const PersonalInfo = () => {
             className="rounded-lg px-3 bg-red-600 text-white mt-5  py-2  font-semibold
         duration-300 hover:bg-red-500 md:active:scale-95"
           >
-            Delete Account
+              {language?" حذف الحساب":"Delete Account"}
+
           </button>
         </ConfirmModal>
       </div>
+      {modelVerified && (
+        <div className="modal-overlay">
+          <EmailVerificationModal onClose={() => setModelVerified(false)}  />
+          {/* sssss */}
+        </div>
+      )}
     </Fragment>
   );
 };

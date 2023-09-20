@@ -7,56 +7,52 @@ import {
   MdHomeFilled,
 } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { ar } from "../../language/ar/common";
-import { en } from "../../language/en/common";
 export default function LinksNavbar() {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
-  const links = [
-    {
-      href: "/",
-      label: language ? ar.navbar.navHome : en.navbar.navHome,
-      id: 1,
-    },
-    {
-      href: "/rent/1",
-      label: language ? ar.navbar.navRent : en.navbar.navRent,
-      id: 2,
-    },
-    {
-      href: "/buy/1",
-      label: language ? ar.navbar.navBuy : en.navbar.navBuy,
-      id: 3,
-    },
-    {
-      href: "/sell",
-      label: language ? ar.navbar.navSell : en.navbar.navSell,
-      id: 4,
-    },
-  ];
+  let language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <>
-      {links.map((link) => (
-        <li key={link.id}>
-          <Link
-            className=" flex p-1  px-3   text-md rounded-3xl gap-1
-               duration-300 text-darkGray hover:bg-lightGreen hover:text-white  active:scale-95 items-start "
-            href={link.href}
-          >
-            {link.id == 1 ? <MdHomeFilled className="text-xl" /> : ""}
-            {link.id == 2 ? <MdSell className="text-xl" /> : ""}
-            {link.id == 3 ? (
-              <MdOutlineRealEstateAgent className="text-xl" />
-            ) : (
-              ""
-            )}
-            {link.id == 4 ? <MdAddHome className="text-xl" /> : ""}
-            <p className="text-md font-semibold  whitespace-nowrap">
-              {link.label}
-            </p>
-          </Link>
-        </li>
-      ))}
-    </>
+    <div className="flex">
+      <Link
+        className=" flex p-1   px-3   text-md rounded-3xl gap-1
+                         duration-300 text-darkGray hover:bg-lightGreen
+                          hover:text-white  active:scale-95 items-start "
+        href="/"
+      >
+        <MdHomeFilled className=" text-xl" />
+       {language ? "الصفحة الرئيسية":"Home"}
+      </Link>
+
+      <Link
+        className=" flex p-1  px-3   text-md rounded-3xl gap-1
+                         duration-300 text-darkGray hover:bg-lightGreen
+                          hover:text-white  active:scale-95 items-start "
+        href="/rent/1"
+      >
+        <MdSell className="text-xl" />
+        {/* {language ? ar.navbar.navRent : en.navbar.navRent} */}
+        {language ? "للإيجار" : "Rent"}
+      </Link>
+
+      <Link
+        className=" flex p-1  px-3   text-md rounded-3xl gap-1
+                         duration-300 text-darkGray hover:bg-lightGreen
+                          hover:text-white  active:scale-95 items-start "
+        href="/buy/1"
+      >
+        <MdOutlineRealEstateAgent className="text-xl" />
+        {/* {language ? ar.navbar.navBuy : en.navbar.navBuy} */}
+        {language ? "للبيع" : "Buy"}
+      </Link>
+
+      <Link
+        className=" flex p-1  px-3   text-md rounded-3xl gap-1
+                         duration-300 text-darkGray hover:bg-lightGreen
+                          hover:text-white  active:scale-95 items-start "
+        href="/sell"
+      >
+        <MdAddHome className="text-xl" />
+        {/* {language ? ar.navbar.navSell : en.navbar.navSell} */}
+        {language ? "إضافة عقار" : "Sell"}
+      </Link>
+    </div>
   );
 }

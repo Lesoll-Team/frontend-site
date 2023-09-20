@@ -23,25 +23,25 @@ function ScrollToTopButton() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll,{ passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const buttonStyle = {
-    position: "fixed",
-    bottom: "20px",
-    right: "20px",
-    display: isVisible ? "block" : "none",
-    background: "#007BFF",
-    color: "#fff",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  };
+  // const buttonStyle = {
+  //   position: "fixed",
+  //   bottom: "20px",
+  //   right: "20px",
+  //   display: isVisible ? "block" : "none",
+  //   background: "#007BFF",
+  //   color: "#fff",
+  //   padding: "10px 20px",
+  //   border: "none",
+  //   borderRadius: "5px",
+  //   cursor: "pointer",
+  // };
 
   return (
     <>

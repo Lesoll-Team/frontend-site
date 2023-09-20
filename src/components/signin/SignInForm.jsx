@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { loginUserAsync } from "../../redux-store/features/authSlice";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import Link from "next/link";
 const SignInForm = () => {
   const dispatch = useDispatch();
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
@@ -86,42 +87,17 @@ const SignInForm = () => {
           )}
         </div>
         <div>
-          <div className="flex items-center">
-            <input
-              placeholder={language ? "كلمة السر" : "Password"}
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (e.target.value) {
-                  setPasswordError(false);
-                }
-              }}
-              className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2 ${
-                passwordError && "border-red-500 focus:border-red-500"
-              }`}
-            />
-            {showPassword ? (
-              <AiOutlineEye
-                onClick={toggleShowPassword}
-                className="-mx-8 cursor-pointer text-darkGray text-xl"
-              />
-            ) : (
-              <AiOutlineEyeInvisible
-                onClick={toggleShowPassword}
-                className="-mx-8 cursor-pointer text-darkGray text-xl"
-              />
-            )}
-          </div>
-          {passwordError && (
-            <p className="text-red-500">
-              {language
-                ? "من فضلك ادخل كلمة السر"
-                : "Please enter your password"}
-            </p>
-          )}
+          <input
+            placeholder={language ? "كلمة السر" : "Password"}
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
+          />
+        <Link href={"/forgetpassword"} className="text-blue-500 text-xs">{language?"نسيت كلمة المرور؟":"Reset Password?"}</Link>
+
         </div>
         <button
           type="submit"

@@ -72,7 +72,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
       <div className="z-10">
         <Link
           key={propertyDetails?._id}
-          href={`/propertyDetails/${propertyDetails?._id}`}
+          href={`/propertyDetails/${propertyDetails?.slug}`}
         >
           <Image
             isZoomed="true"
@@ -103,7 +103,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
         </div>
         <Link
           key={propertyDetails?._id}
-          href={`/propertyDetails/${propertyDetails?._id}`}
+          href={`/propertyDetails/${propertyDetails?.slug}`}
         >
           <div className=" text-lightOrange mt-3  px-5 flex justify-between  font-bold">
             <p>
@@ -149,10 +149,6 @@ const RealtyCardRent = ({ propertyDetails }) => {
           <p className="text-sm  text-darkGray">
             {/* {propertyDetails?.address.name} */}
             {propertyDetails?.address?.name.substring(0, 50) || "not Found"} ...
-            {/* {propertyDetails?.address?.region.substring(0, 50) || "not Found"}{" "}
-            {propertyDetails?.address?.governrate.substring(0, 50) ||
-              "not Found"}{" "} */}
-            ...
           </p>
         </div>
       </div>

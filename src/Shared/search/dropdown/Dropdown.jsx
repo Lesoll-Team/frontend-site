@@ -40,7 +40,7 @@ const Dropdown = ({ classNames, setValue, options ,valueDefault}) => {
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-full font-semibold text-darkGreen text-md flex items-center justify-around
+        className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap">
         {selectoption|| valueDefault}
         <div>

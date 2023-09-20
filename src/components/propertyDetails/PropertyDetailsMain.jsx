@@ -39,21 +39,26 @@ function PropertyDetailsMain({ singleProperty }) {
         <meta property="og:title" content={singleProperty?.title} />
         <meta property="og:description" content={singleProperty?.description} />
       </Head>
-      <div className="container mx-auto">
-        <div>
+      <div className="sm:container mx-auto ">
+
+        <div className="">
           <PropertyTitle singleTitle={singleProperty} />
         </div>
+
         <div className="lg:grid grid-cols-3 items-center">
           <div className="col-span-2 ">
-            <PropertyImgSlider images={singleProperty} className="col-span-2" />
+            <PropertyImgSlider images={singleProperty}  />
           </div>
           <div className="col-span-1 ">
-            <ConfirmAppointment userAppointment={singleProperty} className="" />
+            <AddressLocation singleAddressLocation={singleProperty} />
+            <ConfirmAppointment userAppointment={singleProperty}  />
+
+        
           </div>
         </div>
 
         <div>
-          <div className="mb-10">
+          <div className="mb-10 ">
             <OverviewDetails singleOverviewDetails={singleProperty} />
           </div>
           <div className="mb-10">
