@@ -64,7 +64,7 @@ const PersonalInfo = () => {
       })
     );
   };
-  console.log(userDataInfo);
+  // console.log(userDataInfo);
 
   return (
     <Fragment>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
 import { loginUserAsync } from "../../redux-store/features/authSlice";
+import Link from "next/link";
 const SignInForm = () => {
   const dispatch = useDispatch();
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
@@ -51,6 +52,8 @@ const SignInForm = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
           />
+        <Link href={"/forgetpassword"} className="text-blue-500 text-xs">{language?"نسيت كلمة المرور؟":"Reset Password?"}</Link>
+
         </div>
         <button
           type="submit"

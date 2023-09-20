@@ -15,10 +15,10 @@ function formatDate(dateString) {
 }
 function OverviewDetails({ singleOverviewDetails }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+// console.log(singleOverviewDetails);
   const formattedDate = formatDate(singleOverviewDetails?.createdAt);
   return (
-    <div className=" lg:p-10 lg:px-14 border-2 border-gray-200 rounded-3xl">
+    <div className=" lg:p-10 lg:px-14  bg-gray-100 rounded-3xl">
       <div className="lg:flex justify-between ">
         <div className="flex justify-center items-center">
           <b className="sm:text-3xl text-lg">
@@ -29,7 +29,7 @@ function OverviewDetails({ singleOverviewDetails }) {
           <span className="flex">
             <BsCalendar3 className=" mx-2" />
           </span>
-          <span className="sm:text-[19px] text-[14px]">
+          <span className="sm:text-[19px] font-semibold text-[14px]">
             {formattedDate}
             <div></div>
           </span>
@@ -45,6 +45,7 @@ function OverviewDetails({ singleOverviewDetails }) {
           id="thumbnails"
           options={{
             fixedWidth: 100,
+            fixedHeight:85,
             gap: 10,
             rewind: true,
             pagination: false,
@@ -52,7 +53,7 @@ function OverviewDetails({ singleOverviewDetails }) {
           aria-label="Thumbnails Carousel"
         >
           <SplideSlide>
-            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
               <h2 className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {language ? ar.property.room : en.property.room}
               </h2>
@@ -64,7 +65,7 @@ function OverviewDetails({ singleOverviewDetails }) {
           </SplideSlide>
 
           <SplideSlide>
-            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
               <h2 className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {language ? ar.property.SqFt : en.property.SqFt}
               </h2>
@@ -77,7 +78,7 @@ function OverviewDetails({ singleOverviewDetails }) {
           </SplideSlide>
 
           <SplideSlide>
-            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
               <h2 className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {language ? ar.property.bathroom : en.property.bathroom}
               </h2>
@@ -91,7 +92,7 @@ function OverviewDetails({ singleOverviewDetails }) {
 
           <SplideSlide>
             {" "}
-            <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
               <h2 className="items-center  text-center sm:text-[19px] text-[14px] font-bold">
                 {language ? ar.property.furnished : en.property.furnished}
               </h2>
@@ -106,7 +107,7 @@ function OverviewDetails({ singleOverviewDetails }) {
           </SplideSlide>
         </Splide>
         <div className=" hidden sm:flex flex-wrap justify-center gap-10 ">
-          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+          <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
               {language ? ar.property.room : en.property.room}
             </p>
@@ -115,8 +116,9 @@ function OverviewDetails({ singleOverviewDetails }) {
               {singleOverviewDetails?.rooms}
             </p>
           </div>
+          
 
-          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+          <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
               {language ? ar.property.SqFt : en.property.SqFt}
             </p>
@@ -126,7 +128,7 @@ function OverviewDetails({ singleOverviewDetails }) {
               {singleOverviewDetails?.area}
             </p>
           </div>
-          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+          <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
               {" "}
               {language ? ar.property.bathroom : en.property.bathroom}
@@ -137,7 +139,7 @@ function OverviewDetails({ singleOverviewDetails }) {
               {singleOverviewDetails?.bathRooms}
             </p>
           </div>
-          <div className=" bg-gray-200 w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+          <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
               {language ? ar.property.furnished : en.property.furnished}
             </p>
@@ -145,19 +147,41 @@ function OverviewDetails({ singleOverviewDetails }) {
             {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
             <p className=" flex h-[50px] items-center justify-center text-center text-[15px] font-bold">
               {singleOverviewDetails?.isFurnished ? (
-                <BsSlashCircle />
-              ) : (
                 <MdCheckCircleOutline />
+              ) : (
+                <BsSlashCircle />
+
               )}
             </p>
           </div>
+
+
+
+
+          <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
+            <p className="items-center  text-center text-[13px] font-bold">
+            {language?"قابل للتفاوض":"Negotiable"} 
+            </p>
+
+            {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
+            <p className=" flex h-[50px] items-center justify-center text-center text-[15px] font-bold">
+              {singleOverviewDetails?.negotiable? (
+                <MdCheckCircleOutline />
+
+              ) : (
+                <BsSlashCircle />
+
+              )}
+            </p>
+          </div>
+
         </div>
       </div>
 
       <br />
       <hr />
       <br />
-      <div>
+      <div className="">
         <div className="flex md:justify-normal justify-center items-center ">
           <p className="sm:text-3xl text-lg font-semibold">
             {language ? ar.property.payment : en.property.payment}
@@ -166,15 +190,15 @@ function OverviewDetails({ singleOverviewDetails }) {
         <div className="mt-5">
           {singleOverviewDetails?.saleOption[0] === "Cash" ||
           singleOverviewDetails?.saleOption[0] === "" ? (
-            <div className="md:flex  w-full   border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
-              <div className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
+            <div className="md:flex  w-full bg-white shadow-md rounded-xl min-h-[200px] items-center">
+              <div className="md:border-r-large flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div>
                   <div className="font-bold sm:text-3xl text-lg">
                     {language ? ar.property.price : en.property.price}
                   </div>
                   <div className="flex">
                     <span className="font-bold sm:text-3xl">
-                      {singleOverviewDetails?.price}
+                      {singleOverviewDetails?.price.toLocaleString()}
                     </span>
                     <span className=" font-bold sm:text-3xl">
                       {language ? ar.property.egy : en.property.egy}
@@ -220,8 +244,8 @@ function OverviewDetails({ singleOverviewDetails }) {
             </div>
           ) : null}
           {singleOverviewDetails?.saleOption[0] === "Installment" ? (
-            <div className="md:flex  w-full  border-2 border-gray-200 rounded-xl min-h-[200px] items-center">
-              <div className="md:border-r-large md:border-gray-200  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
+            <div className="md:flex  w-full  bg-white rounded-xl min-h-[200px] items-center">
+              <div className="md:border-r-large  flex justify-center items-center m-auto  md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
                 <div className="">
                   <div className=" font-bold sm:text-xl text-sm w-full ">
                     {language
@@ -230,7 +254,7 @@ function OverviewDetails({ singleOverviewDetails }) {
                   </div>
                   <div className="flex">
                     <span className="font-bold sm:text-xl text-sm w-full ">
-                      {singleOverviewDetails?.downPayment}
+                      {singleOverviewDetails?.downPayment.toLocaleString()}
                     </span>
                     <span className=" font-bold sm:text-xl mx-2 text-sm w-full ">
                       {" "}
@@ -310,6 +334,7 @@ function OverviewDetails({ singleOverviewDetails }) {
                         )}
                       </span>
                     </div>
+                    
                   </div>
                 </div>
               </div>

@@ -37,18 +37,6 @@ const UserSettings = () => {
               <h2 className="  text-3xl font-bold">
                 {language ? "اعدادات الحساب" : "Account Settings"}
               </h2>
-
-              {/* <Link
-                href={"/"}
-                className="px-3 py-1 bg-lightOrange text-white rounded-full flex items-center gap-1 "
-              >
-                <FiSettings />
-                settings
-              </Link> */}
-              {/* <FiSettings
-                onClick={switchSettings}
-                className="text-xl absolute right-4 top-[68px] sm:hidden"
-              /> */}
               <Link
                 href={"/profile"}
                 className=" relative top-1 text-sm w-36 sm:w-32 text-center md:text-md px-2 sm:px-3 py-[5px] text-lightGreen border-2 border-lightGreen rounded-md flex justify-center items-center gap-1"

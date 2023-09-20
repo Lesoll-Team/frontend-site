@@ -7,7 +7,7 @@ import { SearchBar } from "@/Shared/search/SearchBar";
 import { useSelector } from "react-redux";
 export default function PropertyRent({ propertyForRent }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+// console.log(propertyForRent);
   const router = useRouter();
   const currentPage = router.query.page;
   return (

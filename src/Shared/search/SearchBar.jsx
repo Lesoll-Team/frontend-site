@@ -10,7 +10,7 @@ import Dropdown from "./dropdown/Dropdown";
 import DropdownMore from "./dropdown/DropdownMore";
 import DropdownPrice from "./dropdown/DropdownPrice";
 import DropdownRooms from "./dropdown/DropdownRooms";
-import { propertyFromSearch } from "../../redux-store/features/searchSlice";
+import { propertyFromSearch, setInputKeywords } from "../../redux-store/features/searchSlice";
 import DropdownUintType from "./dropdown/DropdownUintType";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -36,7 +36,7 @@ export function SearchBar() {
   let [unitType, setUnitType] = useState("");
   let [propertyType, setPropertyType] = useState("");
   let [isFurnished, setFurnished] = useState(false);
-  const page = useSelector((state) => state.Search.page);
+  let page = useSelector((state) => state.Search.page);
 
   const handleSubmitSearch = useCallback(
     (e) => {
@@ -54,8 +54,8 @@ export function SearchBar() {
         fromPrice,
         keywords,
       };
-      // Dispatch the action with the InputKeywords and current page
       dispatch(propertyFromSearch({ InputKeywords, page }));
+      dispatch(setInputKeywords(InputKeywords));
       router.push("/search");
     },
     [
@@ -70,9 +70,9 @@ export function SearchBar() {
       toPrice,
       fromPrice,
       keywords,
-      dispatch,
       router,
       page,
+      dispatch,
     ]
   );
 

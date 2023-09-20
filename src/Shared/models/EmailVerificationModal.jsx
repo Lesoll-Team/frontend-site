@@ -6,7 +6,7 @@ import React, { useState } from "react";
 const EmailVerificationModal = ({ onClose }) => {
   const router=useRouter()
   // Your modal content here
-  const [sixNumber, setSixNumber] = useState(null);
+  const [sixNumber, setSixNumber] = useState("");
   const [codeError, setCodeError] = useState("");
 
 

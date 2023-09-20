@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 *{
   margin: 0;
   padding: 0;
@@ -187,4 +185,10 @@ border: #309da0 solid 1px !important;
 }
 .react-datepicker__time-container {
   width: 150px; /* Adjust the width as needed */
+}
+
+@media (max-width:500px){
+  .splide {
+    padding: 5px !important;
+  }
 }

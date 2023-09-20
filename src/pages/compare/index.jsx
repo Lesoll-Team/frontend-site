@@ -1,3 +1,7 @@
+import LoadingPage from '@/Shared/lodaingPage'
+import CompareCards from '@/components/compare/CompareCards'
+import CompareDetails from '@/components/compare/CompareDetails'
+import CompareHeader from '@/components/compare/CompareHeader'
 import React from 'react'
 
 function index() {
@@ -5,6 +9,7 @@ function index() {
     <div>
     <CompareHeader />
     <CompareCards />
+    <LoadingPage/>
     <CompareDetails />
     </div>
   )

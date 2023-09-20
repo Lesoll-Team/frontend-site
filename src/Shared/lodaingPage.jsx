@@ -26,7 +26,7 @@ const LoadingPage = () => {
       <div className="min-h-screen flex items-center w-full justify-center">
         {/* Your logo animation or loader goes here */}
         <span className='animate-ping  absolute inline-flex  rounded-full  opacity-90'>
-        <img src="icons/logoNavbar.png" width={250} height={250} alt="Logo" className=" " />
+        <img src="unnamed.png" width={250} height={250} alt="Logo" className=" " />
         </span>
       </div>
     </>

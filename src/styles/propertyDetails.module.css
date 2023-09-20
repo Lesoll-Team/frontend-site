@@ -1,0 +1,36 @@
+/* propertyDetails.module.css */
+
+.propertyImgSlider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.keenSlider {
+  display: flex;
+  overflow: hidden;
+}
+
+.keen-slider__slide {
+  flex: 0 0 auto;
+  min-width: 100%;
+  padding: 10px;
+}
+
+.thumbnail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.thumbnail .keen-slider__slide {
+  flex: 0 0 calc(25% - 10px);
+  margin-right: 10px;
+}
+
+/* Custom active slide style */
+.active {
+  border: 2px solid #007bff;
+}
