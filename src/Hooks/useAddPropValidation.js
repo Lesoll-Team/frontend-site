@@ -73,20 +73,6 @@ function useAddPropValidation() {
     if (!propertyDetails.connectPhoneNumber) {
       newErrors.push("Connect Phone Number is missing.");
     }
-    if (
-      !propertyDetails.appointments.from &&
-      !propertyDetails.appointments.to
-    ) {
-      newErrors.push("Hours are missing.");
-    }
-    if (!propertyDetails.appointments.allDays) {
-      if (
-        !propertyDetails.appointments.startDate &&
-        !propertyDetails.appointments.endDate
-      ) {
-        newErrors.push("Days are missing.");
-      }
-    }
 
     setErrors(newErrors);
     return newErrors.length === 0;

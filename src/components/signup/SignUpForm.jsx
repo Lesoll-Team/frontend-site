@@ -2,6 +2,7 @@ import { signupUserAsync } from "../../redux-store/features/authSlice";
 import { useState } from "react"; //useEffect
 import { useDispatch, useSelector } from "react-redux";
 import "react-phone-input-2/lib/style.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
 const SignUpForm = () => {
@@ -21,6 +22,15 @@ const SignUpForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [formError, setFormError] = useState({
+    nameError: false,
+    emailError: false,
+    phoneNumberError: false,
+    passwordError: false,
+    validEmail: false,
+  });
 
   const setIndividual = () => {
     setTypeOfUser("individual");
@@ -34,7 +44,13 @@ const SignUpForm = () => {
     setTypeOfUser("company");
     setShowForm(true);
   };
+  const toggleShowPassword = () => [setShowPassword(!showPassword)];
 
+  const isValidEmail = (email) => {
+    // Regular expression for a valid email address
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
   const handleRegistration = (e) => {
     e.preventDefault();
 
@@ -46,16 +62,34 @@ const SignUpForm = () => {
       phone: phoneNumber,
       typeOfUser,
     };
-    // dispatch(getAllUserData())
-    dispatch(signupUserAsync(userData));
+    if (fullname && password && email && phoneNumber && isValidEmail(email)) {
+      dispatch(signupUserAsync(userData));
+    }
+    if (!password) {
+      setFormError({ ...formError, passwordError: true });
+    }
+    if (!phoneNumber) {
+      setFormError({ ...formError, phoneNumberError: true });
+    }
+    if (!email) {
+      setFormError({ ...formError, emailError: true });
+    }
+    if (!fullname) {
+      setFormError({ ...formError, nameError: true });
+    }
+    if (email && !isValidEmail(email)) {
+      setFormError({ ...formError, validEmail: true });
+    }
 
-    setFullname("");
-    setEmail("");
-    setPassword("");
-    setCountryCode("");
-    setPhoneNumber("");
-    setTypeOfUser("");
-    setShowForm("");
+    // dispatch(getAllUserData())
+
+    // setFullname("");
+    // setEmail("");
+    // setPassword("");
+    // setCountryCode("");
+    // setPhoneNumber("");
+    // setTypeOfUser("");
+    // setShowForm("");
   };
   //   useEffect(()=>{
   //     dispatch(getAllUserData(userToken))
@@ -76,7 +110,7 @@ const SignUpForm = () => {
             (typeOfUser === "" && "border-gray-600")
           }`}
         >
-          {language ? "فردى" : "individual"}
+          {language ? "فرد" : "individual"}
         </button>
         <button
           onClick={setBroker}
@@ -135,43 +169,104 @@ const SignUpForm = () => {
               type="text"
               id="fullname"
               value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
+              onChange={(e) => {
+                setFullname(e.target.value);
+                if (e.target.value) {
+                  setFormError({ ...formError, nameError: false });
+                }
+              }}
               placeholder={language ? "الإسم" : "Name"}
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
+              className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2 ${
+                formError.nameError && "border-red-500"
+              }`}
             />
+            {formError.nameError && (
+              <p className="text-red-500">please enter your name</p>
+            )}
           </div>
 
           <div>
             <input
-              type="text"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value) {
+                  setFormError({
+                    ...formError,
+                    emailError: false,
+                    validEmail: false,
+                  });
+                }
+                setEmail(e.target.value);
+              }}
               placeholder={language ? " البريد الإلكتروني" : "Email Address"}
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
+              className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2 ${
+                (formError.emailError || formError.validEmail) &&
+                "border-red-500"
+              }`}
             />
+            {formError.emailError && (
+              <p className="text-red-500">please enter your email</p>
+            )}
+            {formError.validEmail && (
+              <p className="text-red-500">please enter a valid email</p>
+            )}
           </div>
 
           <div>
             <input
-              type="number"
+              inputMode="numeric"
+              // type="number"
               id="phoneNumber"
               value={phoneNumber}
               placeholder={language ? "رقم التليفون" : "Phone Number"}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+                if (e.target.value) {
+                  setFormError({ ...formError, phoneNumberError: false });
+                }
+              }}
+              className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2 ${
+                formError.phoneNumberError && "border-red-500"
+              }`}
             />
+            {formError.phoneNumberError && (
+              <p className="text-red-500">please enter your phone</p>
+            )}
           </div>
 
           <div>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              placeholder={language ? "كلمة السر" : "Password"}
-              onChange={(e) => setPassword(e.target.value)}
-              className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2"
-            />
+            <div className="flex items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                placeholder={language ? "كلمة السر" : "Password"}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (e.target.value) {
+                    setFormError({ ...formError, passwordError: false });
+                  }
+                }}
+                className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2 ${
+                  formError.passwordError && "border-red-500"
+                }`}
+              />
+              {showPassword ? (
+                <AiOutlineEye
+                  onClick={toggleShowPassword}
+                  className="-mx-8 cursor-pointer text-darkGray text-xl"
+                />
+              ) : (
+                <AiOutlineEyeInvisible
+                  onClick={toggleShowPassword}
+                  className="-mx-8 cursor-pointer text-darkGray text-xl"
+                />
+              )}
+            </div>
+            {formError.passwordError && (
+              <p className="text-red-500">please enter your password</p>
+            )}
           </div>
           <button
             type="submit"

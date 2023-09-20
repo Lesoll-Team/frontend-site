@@ -23,7 +23,7 @@ export async function editProperty(propertyDetils, propertyId) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-    const response = await axios.post(
+    const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${propertyId}`,
       propertyDetils,
       {

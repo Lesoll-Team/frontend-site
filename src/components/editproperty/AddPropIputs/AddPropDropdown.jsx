@@ -36,16 +36,15 @@ const AddPropDropdown = ({
   };
   useEffect(() => {
     setSelectedOption(value);
-    setTimeout(() => {
-      setSelectedOption(value);
-    }, 500);
-  }, []);
+  }, [value]);
+  // console.log(title, value);
   // const [selectName, setSelectedName] = useState(value);
   return (
     <div className="relative w-full cursor-pointer ">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
         {title}
       </h3>
+
       <button
         disabled={!disabled}
         ref={dropdownButtonRef}

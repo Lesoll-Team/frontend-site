@@ -1,8 +1,8 @@
 // pages/loading.js
 
-import Head from 'next/head';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const LoadingPage = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const LoadingPage = () => {
     const loadingTime = 10000; // 3 seconds
     const timeout = setTimeout(() => {
       // Redirect to the actual content page after the loading time
-    //   router.push('/');
+      //   router.push('/');
     }, loadingTime);
 
     return () => clearTimeout(timeout);
@@ -25,8 +25,14 @@ const LoadingPage = () => {
       </Head>
       <div className="min-h-screen flex items-center w-full justify-center">
         {/* Your logo animation or loader goes here */}
-        <span className='animate-ping  absolute inline-flex  rounded-full  opacity-90'>
-        <img src="icons/logoNavbar.png" width={250} height={250} alt="Logo" className=" " />
+        <span className="animate-ping  absolute inline-flex  rounded-full  opacity-90">
+          <img
+            src="/icons/logoNavbar.png"
+            width={250}
+            height={250}
+            alt="Logo"
+            className=" "
+          />
         </span>
       </div>
     </>

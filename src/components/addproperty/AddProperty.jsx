@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { Progress } from "@nextui-org/react";
 import Link from "next/link";
 import { createNewProperty } from "../../utils/propertyAPI";
 const GetStarted = dynamic(() => import("./steps/getStarted/GetStarted"));
@@ -56,13 +56,7 @@ const AddProperty = () => {
       placeId: "",
       postalCode: "",
     },
-    appointments: {
-      allDays: true,
-      from: "",
-      to: "",
-      startDate: "",
-      endDate: "",
-    },
+
     connectPhoneNumber: "",
     countryCode: "",
     status: "Pending",
@@ -127,10 +121,7 @@ const AddProperty = () => {
       JSON.stringify(propertyDetils.installmentOption)
     );
     formData.append("address", JSON.stringify(propertyDetils.address));
-    formData.append(
-      "appointments",
-      JSON.stringify(propertyDetils.appointments)
-    );
+
     formData.append("connectPhoneNumber", propertyDetils.connectPhoneNumber);
     formData.append("status", propertyDetils.status);
     formData.append("negotiable", propertyDetils.negotiable);
@@ -215,10 +206,10 @@ const AddProperty = () => {
                   setData={setPropertyDetils}
                 />
                 <hr />
-                <Appointment
+                {/* <Appointment
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
-                />
+                /> */}
                 {/* <hr /> */}
                 {/* <Review /> */}
               </div>
@@ -229,9 +220,19 @@ const AddProperty = () => {
                 <button
                   onClick={handleSubmit}
                   disabled={isLading}
-                  className="bg-lightGreen mx-auto text-xl rounded-xl w-full md:w-96 py-1 sm:py-2  text-white font-medium  text-center"
+                  className="bg-lightGreen mx-auto text-xl h-10 rounded-xl w-full md:w-96 py-1 sm:py-2  px-3 text-white font-medium  text-center"
                 >
-                  {isLading ? "Submit.." : "submit"}
+                  {isLading ? (
+                    <Progress
+                      size="md"
+                      isIndeterminate
+                      aria-label="Loading..."
+                      className="w-200"
+                      color="success"
+                    />
+                  ) : (
+                    "submit"
+                  )}
                 </button>
               ) : (
                 <Link

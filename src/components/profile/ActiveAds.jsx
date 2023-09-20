@@ -26,6 +26,8 @@ const ActiveAds = () => {
     getActive();
     // console.log(activeAdds);
   }, []);
+  // console.log(activeAdds);
+
   const handledelete = (propertyIdToRemove) => {
     // Use the functional form of setActiveAdds to ensure state updates correctly
     setActiveAdds((prevActiveAdds) =>

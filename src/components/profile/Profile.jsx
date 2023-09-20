@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 //icons imports
 import { BsCheck2Circle } from "react-icons/bs";

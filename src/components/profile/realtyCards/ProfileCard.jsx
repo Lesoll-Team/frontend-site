@@ -21,11 +21,12 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
       console.error("Error del prop:", error);
     }
   };
+  // console.log(propertyDetails);
   return (
     <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[430px]  rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
       <div
-        className={`flex items-center z-[1000] absolute w-full top-10 right-0 ${
+        className={`flex items-center z-[100] absolute w-full top-10 right-0 ${
           language ? "justify-start" : "justify-end"
         }`}
       >
@@ -46,12 +47,28 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
         </p>
       </div>
       {/* card img */}
-      <Image
-        alt="Realty"
-        src={propertyDetails.thumbnail}
-        loading="lazy"
-        className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
-      />
+
+      {type === "active" ? (
+        <Link href={`/propertyDetails/${propertyDetails.slug}`}>
+          <Image
+            isZoomed="true"
+            alt="Realty"
+            radius="none"
+            src={propertyDetails.thumbnail}
+            loading="lazy"
+            className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
+          />
+        </Link>
+      ) : (
+        <Image
+          isZoomed="true"
+          alt="Realty"
+          radius="none"
+          src={propertyDetails.thumbnail}
+          loading="lazy"
+          className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
+        />
+      )}
       {/* card body  */}
       <div className="relative space-y-3">
         <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
@@ -69,10 +86,19 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
           </p>
         </div>
         <div className=" text-lightOrange   px-5 flex justify-between  font-bold">
-          <p>
-            {propertyDetails?.title.substring(0, 30)}
-            {propertyDetails?.title.length > 30 && "..."}
-          </p>
+          {type === "active" ? (
+            <Link href={`/propertyDetails/${propertyDetails.slug}`}>
+              <p>
+                {propertyDetails?.title.substring(0, 30)}
+                {propertyDetails?.title.length > 30 && "..."}
+              </p>
+            </Link>
+          ) : (
+            <p>
+              {propertyDetails?.title.substring(0, 30)}
+              {propertyDetails?.title.length > 30 && "..."}
+            </p>
+          )}
         </div>
         <div className=" text-lightGreen   px-5 flex  justify-start gap-5">
           <div className="flex items-center justify-start gap-1">
@@ -124,7 +150,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
               <AiFillDelete className="text-xl  md:text-2xl text-red-600 cursor-pointer" />
             </ConfirmModal>
 
-            <Link href={`/editproperty/${propertyDetails._id}`}>
+            <Link href={`/editproperty/${propertyDetails.slug}`}>
               <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
             </Link>
           </div>
