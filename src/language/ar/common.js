@@ -48,12 +48,13 @@ export const ar = {
     room: "الغرف",
     bathroom: "الحمامات",
     pType: "نوع العقار",
-    level: "الدو/عدد الادوار",
+    level: "الدو",
     furnished: "مفروشة",
     furnishedOp: "خيار التشطيب",
     buildingYear: "سنة البناء",
     governorate: "المحافظة",
     city: "مدينة",
+    region:"منطقة",
     cnfAppointment: "تأكيد الموعد",
     submitting: "إرسال النموذج أوافق على",
     submittingTerms: "شروط الاستخدام",
@@ -87,6 +88,7 @@ export const ar = {
     installmentAmount: "مبلغ القسط",
     negotiable: "قابل للتفاوض",
     overview: "ملخص",
+    uintType:"نوع الوحدة"
   },
 };
 

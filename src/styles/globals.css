@@ -2,7 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+pre{
+  font-family: 'roboto',sans-serif;
+}
 *{
   margin: 0;
   padding: 0;

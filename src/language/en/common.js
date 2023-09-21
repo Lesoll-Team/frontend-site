@@ -55,6 +55,7 @@ export  const en = {
     buildingYear:"Building Year",
     governorate:"Governorate",
     city:"City",
+    region:"Region",
     cnfAppointment:"Confirm Appointment",
     submitting:"submitting form I agree to ",
     submittingTerms:"Terms of Use",
@@ -88,6 +89,8 @@ export  const en = {
     installmentAmount:"installment Amount",
     negotiable:"Negotiable",
     overview:"Overview",
+    uintType:"Uint Type",
+
   }
 
 }
