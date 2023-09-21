@@ -143,10 +143,11 @@ const GetStarted = ({ setData, propertyDetils }) => {
             disabled={propertyDetils.propType}
             title={!language ? "Unit Type" : "نوع الوحدة"}
             value={
-              propertyDetils.unitType &&
-              (language
-                ? propertyDetils?.unitType.title.ar
-                : propertyDetils?.unitType.title.en)
+              propertyDetils.unitType.title
+                ? language
+                  ? propertyDetils?.unitType.title.ar
+                  : propertyDetils?.unitType.title.en
+                : propertyDetils.unitType
             }
             setValue={(e) => {
               setData({ ...propertyDetils, unitType: e });

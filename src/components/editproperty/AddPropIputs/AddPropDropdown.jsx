@@ -36,7 +36,7 @@ const AddPropDropdown = ({
   };
   useEffect(() => {
     setSelectedOption(value);
-  }, [value]);
+  }, []);
   // console.log(title, value);
   // const [selectName, setSelectedName] = useState(value);
   return (

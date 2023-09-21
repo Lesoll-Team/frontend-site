@@ -38,16 +38,29 @@ const EditProp = ({ propData, setPropData }) => {
     setAuth(isLoading);
 
     // console.log(userDataInfo);
-  });
-  // console.log(propData);
+  }, []);
+  useEffect(() => {
+    if (propData) {
+      console.log(propData?.unitType?._id);
+      if (propData?.service[0]?._id) {
+        setPropData({
+          ...propData,
+          service: propData.service.map((obj) => obj._id),
+        });
+      }
+    }
+  }, [propData?.service]);
+
+  // console.log(propData.service[0]._id);
   const handleSubmit = async (e) => {
     setIsSubmitting(true);
     // e.preventDefault();
     const formData = new FormData();
     formData.append("title", propData.title);
     formData.append("offer", propData.offer);
-    formData.append("mainImage", propData.mainImage);
-
+    if (propData.mainImage) {
+      formData.append("mainImage", propData.mainImage);
+    }
     // Append each file individually from the multibulImg array
     if (propData.multiImage && propData.multiImage.length > 0) {
       for (let i = 0; i < propData.multiImage.length; i++) {
@@ -60,14 +73,20 @@ const EditProp = ({ propData, setPropData }) => {
     formData.append("insurance", propData.insurance);
     formData.append("saleOption", propData.saleOption);
     formData.append("propType", propData.propType);
-    formData.append("unitType", propData.unitType._id);
+    if (propData?.unitType?._id) {
+      formData.append("unitType", propData.unitType._id);
+    } else {
+      formData.append("unitType", propData.unitType);
+    }
     formData.append("landType", propData.landType);
     formData.append("price", propData.price);
     formData.append("area", propData.area);
     formData.append("areaType", propData.areaType);
     // formData.append("RealEstateFinance", propData.realEstateFinance);
     formData.append("downPayment", propData.downPayment);
+
     formData.append("maintenancePayment", propData.maintenancePayment);
+
     formData.append("rooms", propData.rooms);
     formData.append("bathRooms", propData.bathRooms);
     formData.append("description", propData.description);
@@ -109,7 +128,7 @@ const EditProp = ({ propData, setPropData }) => {
 
     setIsSubmitting(false);
   };
-  // console.log(propData.multiImage);
+  console.log(propData);
   return propData ? (
     <div
       // dir={language ? "ltr" : "rtl"}
@@ -131,6 +150,7 @@ const EditProp = ({ propData, setPropData }) => {
               <div className="flex flex-col space-y-10 justify-between ">
                 <GetStarted propertyDetils={propData} setData={setPropData} />
                 <hr />
+
                 <Price propertyDetils={propData} setData={setPropData} />
                 <hr />
                 <PropertyInfo propertyDetils={propData} setData={setPropData} />
