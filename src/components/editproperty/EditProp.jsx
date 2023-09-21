@@ -12,6 +12,7 @@ import Location from "./steps/location/Location";
 import { editProperty } from "@/utils/propertyAPI";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
+import { motion } from "framer-motion";
 
 const EditProp = ({ propData, setPropData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -41,7 +42,7 @@ const EditProp = ({ propData, setPropData }) => {
   }, []);
   useEffect(() => {
     if (propData) {
-      console.log(propData?.unitType?._id);
+      // console.log(propData?.unitType?._id);
       if (propData?.service[0]?._id) {
         setPropData({
           ...propData,
@@ -128,11 +129,14 @@ const EditProp = ({ propData, setPropData }) => {
 
     setIsSubmitting(false);
   };
-  console.log(propData);
+  // console.log(propData);
   return propData ? (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
       // dir={language ? "ltr" : "rtl"}
-      className="container mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center animate-appearance-in"
+      className="container mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
     >
       <h1 className="text-center text-5xl font-bold text-white mb-4"></h1>
       <div
@@ -165,10 +169,6 @@ const EditProp = ({ propData, setPropData }) => {
                 <hr />
                 <SellerInfo propertyDetils={propData} setData={setPropData} />
                 <hr />
-                {/* <Appointment
-              propertyDetils={propertyDetils}
-              setData={setPropData}
-            /> */}
                 {/* <hr /> */}
                 {/* <Review /> */}
               </div>
@@ -206,7 +206,7 @@ const EditProp = ({ propData, setPropData }) => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   ) : (
     <div className="h-[90vh] flex items-center justify-center">
       <DotPulse size={60} speed={1.3} color="#309da0" />

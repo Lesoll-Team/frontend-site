@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 export default function LinksNavbar() {
   let language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="flex">
+    <div className="flex items-center gap-1">
       <Link
         className=" flex p-1   px-3   text-md rounded-3xl gap-1
                          duration-300 text-darkGray hover:bg-lightGreen
@@ -18,7 +18,7 @@ export default function LinksNavbar() {
         href="/"
       >
         <MdHomeFilled className=" text-xl" />
-       {language ? "الصفحة الرئيسية":"Home"}
+        {language ? " الرئيسية" : "Home"}
       </Link>
 
       <Link

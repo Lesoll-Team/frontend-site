@@ -34,7 +34,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
   // console.log("Rent :", propertyDetails);
   // console.log(propertyDetails);
   return (
-    <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[430px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className="md:max-w-[310px] lg:w-[350px] w-[310px] min-h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
@@ -87,11 +87,15 @@ const RealtyCardRent = ({ propertyDetails }) => {
       {/* card body  */}
       <div className="relative space-y-5">
         <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center relative z-[100] rounded-b-">
-          <p className="font-bold">
-            <span>{propertyDetails?.price.toLocaleString()}</span>{" "}
+          <p className="font-medium">
+            <span>
+              {language
+                ? propertyDetails?.price.toLocaleString("ar-Eg")
+                : propertyDetails?.price.toLocaleString()}{" "}
+            </span>
             {language ? "جنية" : "EGP"}
           </p>
-          <p className="font-semibold">
+          <p className="font-medium">
             {propertyDetails?.offer === "For Sale"
               ? language
                 ? "للبيع"
@@ -105,33 +109,44 @@ const RealtyCardRent = ({ propertyDetails }) => {
           key={propertyDetails?._id}
           href={`/propertyDetails/${propertyDetails?.slug}`}
         >
-          <div className=" text-lightOrange mt-3  px-5 flex justify-between  font-bold">
+          <div
+            dir="rtl"
+            className=" text-lightOrange mt-3  px-5 flex justify-between  hover:underline  font-medium"
+          >
             <p>
-              {propertyDetails?.title.substring(0, 40)}
-              {propertyDetails?.title.length > 40 && "..."}
+              {propertyDetails?.title.substring(0, 30)}
+              {propertyDetails?.title.length > 30 && "..."}
             </p>
           </div>
         </Link>
-        <div className=" text-lightGreen   px-5 flex  justify-start gap-5">
+        <div className=" text-lightGreen w-full  px-5 flex  justify-between ">
           <div className="flex items-center justify-start gap-1">
             {" "}
             <BiSolidBed className="text-xl " />{" "}
-            <p className="text-[12px] font-semibold text-darkGray">
-              {propertyDetails?.rooms} {language ? "غرف" : "Rooms"}
+            <p className=" font-semibold text-darkGray">
+              {language
+                ? propertyDetails?.rooms.toLocaleString("ar-Eg")
+                : propertyDetails?.rooms.toLocaleString()}{" "}
+              {language ? "غرف" : "Rooms"}
             </p>
           </div>
           <div className="flex items-center gap-1">
             {" "}
             <FaBath className="text-xl " />{" "}
-            <p className="text-[12px] font-semibold text-darkGray">
-              {propertyDetails?.bathRooms} {language ? "حمام" : "Bathroom"}
+            <p className=" font-semibold text-darkGray">
+              {language
+                ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
+                : propertyDetails?.bathRooms.toLocaleString()}{" "}
+              {language ? "حمام" : "Bathroom"}
             </p>
           </div>
           <div className="flex items-center gap-1">
             {" "}
             <TbRulerMeasure className="text-l " />{" "}
-            <p className="text-[12px] font-semibold text-darkGray">
-              {propertyDetails?.area}{" "}
+            <p className=" font-semibold text-darkGray">
+              {language
+                ? propertyDetails?.area.toLocaleString("ar-Eg")
+                : propertyDetails?.area.toLocaleString()}{" "}
               {language ? (
                 <span>
                   م<sup>2</sup>
@@ -148,7 +163,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
         <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
           <p className="text-sm  text-darkGray">
             {/* {propertyDetails?.address.name} */}
-            {propertyDetails?.address?.name.substring(0, 50) || "not Found"} ...
+            {propertyDetails?.address?.name.substring(0, 35) || "not Found"} ...
           </p>
         </div>
       </div>

@@ -59,14 +59,11 @@ const Summary = ({ propertyDetils, setData }) => {
               propertyDetils.downPayment
                 ? parseInt(propertyDetils.price) <=
                   parseInt(propertyDetils.downPayment) +
-                    parseInt(propertyDetils.maintenancePayment)
+                    parseInt(propertyDetils.maintenancePayment || 0)
                   ? "0"
-                  : parseInt(
-                      (propertyDetils.price -
-                        propertyDetils.downPayment -
-                        propertyDetils?.maintenancePayment) /
-                        propertyDetils.installmentOption.period
-                    ).toLocaleString()
+                  : isNaN(propertyDetils.installmentOption.amount)
+                  ? "0"
+                  : propertyDetils.installmentOption.amount
                 : 0}
             </p>
             <p>/{propertyDetils.installmentOption.type}</p>

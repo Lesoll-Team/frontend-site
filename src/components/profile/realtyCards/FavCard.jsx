@@ -46,15 +46,8 @@ const FavCard = ({ propDetails, onRemove }) => {
         </div> */}
         <div className=" bg-white z-[1000]  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
           {/* <AiOutlineHeart /> */}
-          {userInfo ? (
-            userInfo.favorites.includes(propDetails._id) ? (
-              <AiFillHeart className="text-red-500" onClick={addToFAv} />
-            ) : (
-              <AiOutlineHeart className="text-red-500" onClick={addToFAv} />
-            )
-          ) : (
-            ""
-          )}
+
+          <AiFillHeart className="text-red-500" onClick={addToFAv} />
 
           {/* <AiFillHeart className="text-red-500" onClick={addToFAv} /> */}
         </div>

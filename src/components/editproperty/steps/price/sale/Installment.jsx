@@ -55,19 +55,19 @@ const Installment = ({ propertyDetils, setData }) => {
     // Convert input values to numbers
     const price = parseInt(propertyDetils.price);
     const downPayment = parseInt(propertyDetils.downPayment);
-    const maintenancePayment = parseInt(propertyDetils.maintenancePayment);
+    const maintenancePayment = parseInt(propertyDetils.maintenancePayment || 0);
     const period = parseInt(propertyDetils.installmentOption.period);
 
     // Check if all values are valid numbers
     if (
       !isNaN(price) &&
       !isNaN(downPayment) &&
-      !isNaN(maintenancePayment) &&
+      !isNaN(maintenancePayment || 0) &&
       !isNaN(period) &&
-      price > downPayment + maintenancePayment
+      price > downPayment + (maintenancePayment || 0)
     ) {
       // Calculate the amount
-      const amount = (price - downPayment - maintenancePayment) / period;
+      const amount = (price - (downPayment + maintenancePayment)) / period;
 
       // Update the data
       setData({
