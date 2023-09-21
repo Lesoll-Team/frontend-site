@@ -101,8 +101,10 @@ const PersonalInfo = () => {
             <p className="font-semibold text-xl mb-2">{language?"الأسم":"Name"}</p>
             <input
               // type="text"
+              name="Full Name"
+
               placeholder="Full Name"
-              value={userName}
+              value={userName || ""}
               onChange={(e) => setUserName(e.target.value)}
               className="block placeholder:text-gray-500 focus:outline-none  font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
             />
@@ -144,8 +146,9 @@ const PersonalInfo = () => {
             <p className="font-semibold text-xl  mb-2">{language?"رقم الهاتف":"Phone Number"}</p>
             <input
               // type="number"
+              name="Phone Number"
               placeholder="Phone"
-              value={phonenumber}
+              value={phonenumber ||""}
               onChange={(e) => setPhonenumber(e.target.value)}
               className="block placeholder:text-gray-500 focus:outline-none  font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
             />

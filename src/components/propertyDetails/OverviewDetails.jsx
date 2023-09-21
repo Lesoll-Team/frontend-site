@@ -16,7 +16,7 @@ function formatDate(dateString) {
 }
 function OverviewDetails({ singleOverviewDetails }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-console.log(singleOverviewDetails);
+// console.log(singleOverviewDetails);
   const formattedDate = formatDate(singleOverviewDetails?.createdAt);
   return (
     <div className="  p-5 lg:p-10  bg-gray-100 rounded-3xl">
