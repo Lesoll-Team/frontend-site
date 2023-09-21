@@ -10,7 +10,7 @@ import { en } from "../../language/en/common";
 import { useRouter } from "next/router";
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
-  // console.log(userAppointment);
+
   const message = `
    مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN+router.asPath} `;

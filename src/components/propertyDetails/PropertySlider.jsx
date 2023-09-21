@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-// import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import "@splidejs/splide/dist/css/themes/splide-sea-green.min.css";
-// import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
-// import "@splidejs/splide/dist/css/splide.min.css";
-// import "@splidejs/splide/dist/css/splide-core.min.css";
-
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css'; // Import the styles
 export default function PropertyImgSlider({ images }) {
   const [newImages, setNewImages] = useState([]);
-  // const [thumbnailImage, setThumbnailImage] = useState("");
-  
-  // console.log(thumbnailImage);
+  const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
   useEffect(() => {
     const thumbnail = [{ image: images?.thumbnail, _id: Math.random() }];
     setNewImages(thumbnail.concat(images?.album));
   }, [images]);
+
+  const openLightbox = (index) => {
+    setLightboxIsOpen(true);
+    setLightboxIndex(index);
+  };
+
+  const closeLightbox = () => {
+    setLightboxIsOpen(false);
+  };
 
   return (
     <div dir="ltr" className="">
@@ -23,23 +29,40 @@ export default function PropertyImgSlider({ images }) {
         options={{
           rewind: true,
         }}
-        // onMoved={(splide, newIndex) => {
-        //   console.log("moved", newIndex);
-        //   console.log("length", splide.length);
-        // }}
         aria-label="Main Carousel"
       >
-        {newImages.map((image) => (
-          <SplideSlide onClick={() => console.log(image._id)} key={image._id}>
+        {newImages.map((image, index) => (
+          <SplideSlide key={image._id}>
             <img
               src={image.image}
               className="w-full rounded-xl"
-              alt={`Image `}
+              alt={`Image ${image.image}`}
+              onClick={() => openLightbox(index)}
             />
           </SplideSlide>
         ))}
       </Splide>
-      {/* <Splide
+
+      {lightboxIsOpen && (
+        <Lightbox
+          mainSrc={newImages[lightboxIndex].image}
+          nextSrc={newImages[(lightboxIndex + 1) % newImages.length].image}
+          prevSrc={newImages[(lightboxIndex + newImages.length - 1) % newImages.length].image}
+          onCloseRequest={closeLightbox}
+          onMovePrevRequest={() => setLightboxIndex((lightboxIndex + newImages.length - 1) % newImages.length)}
+          onMoveNextRequest={() => setLightboxIndex((lightboxIndex + 1) % newImages.length)}
+        />
+      )}
+    </div>
+  );
+}
+
+// import "@splidejs/splide/dist/css/themes/splide-default.min.css";
+
+// import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
+// import "@splidejs/splide/dist/css/splide.min.css";
+// import "@splidejs/splide/dist/css/splide-core.min.css";
+/* <Splide
         id="thumbnails"
         options={{
           fixedWidth: 100,
@@ -48,6 +71,10 @@ export default function PropertyImgSlider({ images }) {
           pagination: false,
         }}
         aria-label="Thumbnails Carousel"
+                // onMoved={(splide, newIndex) => {
+        //   console.log("moved", newIndex);
+        //   console.log("length", splide.length);
+        // }}
       >
         {newImages.map((image, index) => (
           <SplideSlide key={index}>
@@ -59,7 +86,4 @@ export default function PropertyImgSlider({ images }) {
             />
           </SplideSlide>
         ))}
-      </Splide> */}
-    </div>
-  );
-}
+      </Splide> */

@@ -27,6 +27,7 @@ const Footer = () => {
             className={` -mt-5 lg:w-[300px]  w-[200px] ${
               language ? "-mr-6 md:-mr-5 lg:-mr-9" : "-ml-6 md:-ml-5 lg:-ml-9"
             }`}
+            priority
             src={logo}
           />
           <p className="md:w-[78%]">
