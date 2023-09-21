@@ -1,7 +1,7 @@
-// import Image from "next/image";
-import { Image } from "@nextui-org/react";
-import faqImg from "../../../public/faq.svg";
-import heroImg from "../../../public/hero.png";
+// // import Image from "next/image";
+// import { Image } from "@nextui-org/react";
+// import faqImg from "../../../public/faq.svg";
+// import heroImg from "../../../public/hero.png";
 import React, { useEffect, useMemo, useState } from "react";
 
 import { Accordion, AccordionItem } from "@nextui-org/react";
