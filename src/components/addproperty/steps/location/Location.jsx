@@ -10,6 +10,7 @@ const Location = ({ propertyDetils, setData }) => {
       <h3 className="text-2xl text-darkGreen font-bold mb-1">
         {language ? "موقع العقار" : "Property Location"}
       </h3>
+
       <MapComp propertyDetils={propertyDetils} setData={setData} />
     </div>
   );

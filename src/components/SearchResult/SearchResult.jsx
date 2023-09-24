@@ -7,7 +7,7 @@ import {
   showMore,
 } from "@/redux-store/features/searchSlice";
 import SearchMap from "./SearchMap";
-import ShowMap from "@/Shared/map/ShowMap";
+// import ShowMap from "@/Shared/map/ShowMap";
 import ShowMapSearch from "@/Shared/map/ShowMapSearch";
 function SearchResult() {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ function SearchResult() {
   const InputKeywords = useSelector((state) => state.Search.setInputKeyword);
   const searchResultSearch = useSelector((state) => state.Search.searchResult);
   const [searchResult, setSearchResult] = useState(null);
+  const [showMap, SetShowMap] = useState(false);
 
   const handleLoadMore = () => {
     dispatch(showMore());
@@ -23,13 +24,17 @@ function SearchResult() {
   useEffect(() => {
     setSearchResult(searchResultSearch);
 
-    // console.log(searchResult);
+    // console.log(searchResult?.searchResults);
+    // console.log(searchResultSearch);
   }, [handleLoadMore, page, dispatch]);
   return (
-    <div>
+    <div className="relative">
+      {/* <button className="bg-darkGreen text-white sticky top-3   mx-auto w-[300px] z-[100] p-2">
+        view map
+      </button> */}
       {searchResult?.code === 200 ? (
         <div>
-          <div className="grid  md:grid-cols-1 lg:grid-cols-2 justify-around relative">
+          <div className="grid  md:grid-cols-1 lg:grid-cols-2 justify-around relative h-fit">
             <div className=" p-2 mt-5 justify-center  gap-10 grid grid-cols-1 max-h-fit">
               <div className=" grid sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-2 2xl:flex 2xl:flex-wrap grid-cols-1  gap-7 gap-x-10 justify-center justify-items-center">
                 {searchResult.searchResults.map((result) => (
@@ -43,9 +48,18 @@ function SearchResult() {
               )}
             </div>
             {/* map */}
-            <div className="md:block hidden h-[80dvh]">
+            <div
+              className={`lg:block hidden sticky top-20 h-[91vh] ${
+                showMap && "block"
+              }`}
+            >
               {/* <SearchMap searchResult={searchResult} /> */}
-              <ShowMapSearch />
+              {searchResult?.searchResults && (
+                <ShowMapSearch
+                  className=""
+                  searchResult={searchResult?.searchResults}
+                />
+              )}
             </div>
           </div>
         </div>

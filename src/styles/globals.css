@@ -195,3 +195,25 @@ border: #309da0 solid 1px !important;
     padding: 5px !important;
   }
 }
+/* gm-style-iw-d */
+.gm-style-iw-d{
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+padding-bottom: 10px !important;
+}
+
+.gm-style .gm-style-iw-c{
+  border-radius: 30px !important;
+  padding-right: 0 !important;
+  padding: 0!important;
+  /* padding: 5px !important; */
+}
+.gm-style-iw-d{
+  padding-bottom: 0px !important;
+}
+
+.gm-style-iw + button {display: none !important; }
+.gm-ui-hover-effect{
+  display: none !important;
+}

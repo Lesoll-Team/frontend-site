@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData }) {
+  console.log(propertyDetils);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: libraries,
@@ -29,6 +30,7 @@ const Map = ({ propertyDetils, setData }) => {
   // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selected, setSelected] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   // const handleMapClick = async (e) => {
   //   // const { latLng } = e;
@@ -43,6 +45,58 @@ const Map = ({ propertyDetils, setData }) => {
   //   console.log(getLatLng(result[0]));
   //   setSelected({ lat, lng });
   // };
+
+  const handleMapDoubleClick = async (event) => {
+    const { latLng } = event;
+    const lat = latLng.lat();
+    const lng = latLng.lng();
+    setSelected({ lat, lng });
+    console.log(selected);
+    const query = `${lat},${lng}`;
+    // Use getGeocode to retrieve place details including place_id
+    // const result = await getGeocode(selected);
+    const result = await getGeocode({ address: query });
+    console.log(result);
+    console.log(result[0]);
+    const { place_id, formatted_address, address_components } = result[0];
+
+    let governrate = "";
+    let region = "";
+    address_components.forEach((component) => {
+      const { long_name, types } = component;
+
+      if (types.includes("administrative_area_level_1")) {
+        governrate = long_name;
+      } else if (types.includes("administrative_area_level_2")) {
+        region = long_name;
+      }
+    });
+    // const { lat, lng } = getLatLng(result[0]);
+    setSelected({ lat, lng });
+    // console.log(result[0]);
+    setData({
+      ...propertyDetils,
+      address: {
+        ...propertyDetils.address,
+        placeId: result[0]?.place_id,
+        name: result[0]?.formatted_address,
+        governrate: governrate,
+        region: region,
+        longitude: lng,
+        latitude: lat,
+      },
+    });
+    setInputValue(propertyDetils.address.name);
+
+    // setBlah(result);
+    // console.log(getGeocode(selected));
+    // const { place_id } = result[0];
+    // console.log(place_id);
+
+    // setSelected({ lat, lng });
+
+    // You can perform additional actions or update your data here
+  };
   return (
     <div className=" mx-auto  space-y-4 ">
       <div className="w-full  pt-4">
@@ -50,6 +104,8 @@ const Map = ({ propertyDetils, setData }) => {
           {language ? "الموقع" : "Location"}
         </h2>
         <PlacesAutoComplete
+          inputValue={inputValue}
+          setInputValue={setInputValue}
           setSelected={setSelected}
           propertyDetils={propertyDetils}
           setData={setData}
@@ -60,13 +116,18 @@ const Map = ({ propertyDetils, setData }) => {
           // streetView={false}
           // mapTypeId="roadmap"
           options={{
-            disableDefaultUI: true, // Hide the default UI controls
+            // disableDefaultUI: true, // Hide the default UI controls
             mapTypeControl: false, // Disable the map type control
+            gestureHandling: "greedy",
+            mapTypeControl: false,
+            streetViewControl: false,
           }}
           zoom={selected ? 13 : 9}
           center={selected || center}
           mapContainerClassName="map"
           // onDblClick={handleMapClick}
+
+          onDblClick={handleMapDoubleClick}
         >
           {selected && <Marker position={selected} />}
         </GoogleMap>
@@ -75,7 +136,13 @@ const Map = ({ propertyDetils, setData }) => {
   );
 };
 
-const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
+const PlacesAutoComplete = ({
+  setSelected,
+  propertyDetils,
+  setData,
+  inputValue,
+  setInputValue,
+}) => {
   const {
     ready,
     value,
@@ -88,7 +155,7 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
   const handleSelect = async (address) => {
     setValue(address, false);
     clearSuggestions();
-
+    console.log(address);
     const result = await getGeocode({ address });
     const { place_id, formatted_address, address_components } = result[0];
 
@@ -104,6 +171,7 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
         region = long_name;
       }
     });
+    setInputValue("");
 
     const { lat, lng } = getLatLng(result[0]);
     setSelected({ lat, lng });
@@ -130,8 +198,10 @@ const PlacesAutoComplete = ({ setSelected, propertyDetils, setData }) => {
     <Combobox onSelect={handleSelect} className="w-full">
       <ComboboxInput
         placeholder={language ? "أدخل موفع العقار" : "Select the location"}
-        value={value}
+        defaultValue={propertyDetils.address.name}
+        value={inputValue || value}
         onChange={(e) => {
+          setInputValue(e.target.value);
           setValue(e.target.value);
           // setData({
           //   ...propertyDetils,

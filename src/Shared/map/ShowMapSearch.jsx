@@ -1,18 +1,31 @@
-import { useState, useEffect } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { useState, useEffect, useRef } from "react";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  MarkerF,
+  InfoWindow,
+} from "@react-google-maps/api";
+import RealtyCard from "@/components/realtyCard/RealtyCard";
+import { HiMiniXMark, HiOutlineXMark } from "react-icons/hi2";
+const center = { lat: 30.0444, lng: 31.2357 };
+export default function ShowMapSearch({ searchResult }) {
+  //   console.log(searchResult);
 
-export default function ShowMapSearch({ center }) {
+  useEffect(() => {
+    // console.log(searchResult[0].address.latitude);
+  }, [searchResult]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
   });
 
   if (!isLoaded) return <div>Loading...</div>;
-  return <Map center={center} />;
+  return <Map searchResult={searchResult} />;
 }
 
-function Map({ center }) {
+function Map({ searchResult }) {
   const [renderMarker, setRenderMarker] = useState(false);
-
+  const infoWindowRef = useRef(null);
   useEffect(() => {
     const markerTimer = setTimeout(() => {
       setRenderMarker(true);
@@ -22,36 +35,95 @@ function Map({ center }) {
       clearTimeout(markerTimer);
     };
   }, []);
-  // console.log(center);
-  const locations = [
-    { lat: 30.0444, lng: 31.2357 }, // Cairo
-    { lat: 30.0596, lng: 31.223 }, // Giza
-    { lat: 30.0595, lng: 31.262 }, // Zamalek
-    { lat: 30.0562, lng: 31.2395 }, // Downtown Cairo
-    { lat: 30.0608, lng: 31.214 }, // Pyramids of Giza
-    { lat: 30.0634, lng: 31.2169 }, // Sphinx
-    { lat: 30.0599, lng: 31.2283 }, // Egyptian Museum
-    { lat: 30.0629, lng: 31.2497 }, // Khan el-Khalili Bazaar
-  ];
+  const [seletedPlace, setSeletedPlace] = useState();
+  const [property, setProperty] = useState();
+  const handleMapClick = (e) => {
+    // Check if the InfoWindow is open and the click is outside of it
+    if (infoWindowRef.current) {
+      setSeletedPlace(null);
+    }
+  };
   return (
     <GoogleMap
+      onZoomChanged={() => {
+        // console.log("zoom");
+      }}
       options={{
         zoomControlOptions: true,
         panControlOptions: false,
-        gestureHandling: "cooperative",
+        gestureHandling: "greedy",
+
+        mapTypeControl: false,
+        streetViewControl: false,
       }}
-      zoom={10}
-      center={{ lat: 30.0444, lng: 31.2357 }}
+      zoom={8}
+      center={center}
       mapContainerClassName="map"
+      onClick={handleMapClick}
     >
       {renderMarker &&
-        locations.map((location, index) => {
+        searchResult &&
+        searchResult.map((location, index) => {
+          //   console.log(location.address.latitude, location.address.longitude);
+          const lat = parseFloat(location.address.latitude);
+          const lng = parseFloat(location.address.longitude);
           return (
-            <Marker key={index} position={location}>
-              hi
-            </Marker>
+            <Marker
+              key={index}
+              position={{
+                lat: lat,
+                lng: lng,
+              }}
+              onClick={() => {
+                // setSeletedPlace({lat:location.address.latitude,lng:})
+                setSeletedPlace({ lat: lat, lng: lng });
+                setProperty(location);
+                // console.log(seletedPlace);
+              }}
+            />
           );
         })}
+      {seletedPlace && (
+        <InfoWindow
+          className="relative"
+          position={{ lat: seletedPlace.lat, lng: seletedPlace.lng }}
+          zIndex={1}
+          options={{
+            pixelOffset: {
+              width: 0,
+              height: -40,
+            },
+            // Remove the padding and set other styles as needed
+          }}
+          ref={infoWindowRef}
+        >
+          <div className="w-full relative">
+            <div className="w-full flex h-2 absolute justify-end px-3 top-3 z-[500]">
+              <button
+                onClick={() => {
+                  setSeletedPlace(null);
+                }}
+              >
+                <HiMiniXMark className=" text-xl bg-white rounded-full" />
+              </button>
+            </div>
+            <RealtyCard propertyDetails={property} />
+          </div>
+          {/* <h2 className="font-bold text-2xl w-96">hi</h2> */}
+        </InfoWindow>
+        // <div className="absolute top-0 right-0 animate-drip-expand">
+        //   <div
+        //     onClick={() => {
+        //       setSeletedPlace(null);
+        //     }}
+        //     className="absolute z-[100] left-3 top-3 bg-white rounded-full p-1 cursor-pointer font-bold"
+        //   >
+        //     {" "}
+        //     <HiOutlineXMark className="text-red-700 font-bold" />{" "}
+        //   </div>
+        //   <RealtyCard propertyDetails={property} />
+        // </div>
+      )}
     </GoogleMap>
   );
 }

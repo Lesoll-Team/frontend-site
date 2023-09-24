@@ -60,8 +60,11 @@ const Map = ({ propertyDetils, setData }) => {
           // streetView={false}
           // mapTypeId="roadmap"
           options={{
-            disableDefaultUI: true, // Hide the default UI controls
+            // disableDefaultUI: true, // Hide the default UI controls
             mapTypeControl: false, // Disable the map type control
+            gestureHandling: "greedy",
+            mapTypeControl: false,
+            streetViewControl: false,
           }}
           zoom={selected ? 13 : 9}
           center={selected || center}

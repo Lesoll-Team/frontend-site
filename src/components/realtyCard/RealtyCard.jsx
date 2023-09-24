@@ -2,7 +2,7 @@
 // import testImg from "../../../public/testimg.webp";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
-
+import { useDispatch } from "react-redux";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { TbRulerMeasure } from "react-icons/tb";
@@ -10,14 +10,17 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useEffect, useState, memo } from "react";
+import { fetchUserData } from "@/redux-store/features/globalState";
 const RealtyCardRent = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const [loved, setLoved] = useState(false);
+  const dispatch = useDispatch();
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
+      // dispatch(fetchUserData());
 
       // Handle success (e.g., show a success message)
     } catch (error) {
@@ -34,7 +37,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
   // console.log("Rent :", propertyDetails);
   // console.log(propertyDetails);
   return (
-    <div className="md:max-w-[310px] lg:w-[350px] w-[310px] min-h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className="md:max-w-[310px] lg:w-[350px] w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
       {/* number of views */}
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
@@ -48,6 +51,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
                   className="text-red-500"
                   onClick={() => {
                     addToFAv();
+
                     setLoved(!loved);
                   }}
                 />

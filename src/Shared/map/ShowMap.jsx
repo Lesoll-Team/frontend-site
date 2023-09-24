@@ -28,6 +28,9 @@ function Map({ center }) {
       options={{
         zoomControlOptions: true,
         panControlOptions: false,
+        gestureHandling: "greedy",
+        mapTypeControl: false,
+        streetViewControl: false,
       }}
       zoom={15}
       center={center}
