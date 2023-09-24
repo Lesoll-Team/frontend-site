@@ -5,16 +5,16 @@ import {
   MdOutlineShare,
   MdReportProblem,
   MdKeyboardArrowRight,
-  MdCheckCircleOutline,
+  // MdCheckCircleOutline,
 } from "react-icons/md";
 import { Tooltip, Button } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
-import { BsPlus, BsSlashCircle } from "react-icons/bs";
+// import { BsPlus, BsSlashCircle } from "react-icons/bs";
 import { PiEye, PiEyeClosed, PiEyeLight } from "react-icons/pi";
 import { HiPlusSm } from "react-icons/hi";
 import { TiTick } from "react-icons/ti";
-import { AddCompareCard } from "@/redux-store/features/compareSlice";
-import { fetchUserData } from "@/redux-store/features/globalState";
+// import { AddCompareCard } from "@/redux-store/features/compareSlice";
+// import { fetchUserData } from "@/redux-store/features/globalState";
 
 function PropertyTitle({ singleTitle }) {
   const dispatch=useDispatch()
@@ -24,10 +24,10 @@ function PropertyTitle({ singleTitle }) {
 
   // const [compare, setCompare] = useState(false);
 
-const addPropertyToCompared=()=>{
-  dispatch(AddCompareCard(singleTitle._id))
-  dispatch(fetchUserData())
-}
+// const addPropertyToCompared=()=>{
+//   dispatch(AddCompareCard(singleTitle._id))
+//   dispatch(fetchUserData())
+// }
 
 
 
@@ -101,7 +101,7 @@ const addPropertyToCompared=()=>{
           </div> */}
           </div>
 
-          <div className=" flex sm:justify-end justify-center sm:mx-5 mx-0 pt-3 ">
+          {/* <div className=" flex sm:justify-end justify-center sm:mx-5 mx-0 pt-3 ">
             <Button onClick={addPropertyToCompared} className="bg-lightGreen w-36 font-bold text-white">
            {userInfo?.compared.includes(singleTitle?._id)?
             <TiTick className="font-bold text-white text-xl" />
@@ -109,10 +109,10 @@ const addPropertyToCompared=()=>{
 
             <HiPlusSm className="font-bold text-white text-xl" />
             }
-              {/* <TiTick/> */}
+             
               <p>{language ? "مقارنة" : "Compare"}</p>
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 
