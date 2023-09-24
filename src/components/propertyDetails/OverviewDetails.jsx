@@ -241,12 +241,12 @@ function OverviewDetails({ singleOverviewDetails }) {
                 <div className="md:flex  w-full justify-center  ">
                   <div className=" w-full m-auto ">{/**md:w-6/12 p-*/}
                     <div className=" flex sm:w-full  w-9/12 m-auto  ">
-                      <p className=" font-semibold sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center md:text-start ">
+                      <p className=" bg-gray-100 font-semibold sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center md:text-start ">
                         {language
                           ? ar.property.saleOption
                           : en.property.saleOption}
                       </p>
-                      <p className="  sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center">
+                      <p className="  sm:text-sm bg-gray-100 md:text-medium lg:text-lg text-xs w-6/12 text-center">
                         {language
                           ? ar.property.installmentCash
                           : en.property.installmentCash}

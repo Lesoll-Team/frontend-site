@@ -49,10 +49,10 @@ const Faq = () => {
     // console.log()
   }, [faq]);
 
-  console.log(faq);
-  console.log(generalFaq);
-  console.log(ownerFaq);
-  console.log(buyerFaq);
+  // console.log(faq);
+  // console.log(generalFaq);
+  // console.log(ownerFaq);
+  // console.log(buyerFaq);
   return (
     <div className="py-10 min-h-screen">
       {/* <div className="flex flex-col md:flex-row relative justify-between ">

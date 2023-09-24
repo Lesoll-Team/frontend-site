@@ -16,17 +16,20 @@ export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
-  const memoizedFetchUserData = useMemo(() => {
-    return () => dispatch(fetchUserData());
-  }, [dispatch]);
+  // const memoizedFetchUserData = useMemo(() => {
+  //   return () => dispatch(fetchUserData());
+  // }, [dispatch]);
 
   // const dispatchFetchUserData = useCallback(() => {
   //   memoizedFetchUserData();
   // }, [memoizedFetchUserData]);
 
-  useEffect(() => {
-    memoizedFetchUserData();
-  }, [memoizedFetchUserData]);
+  // useEffect(() => {
+  //   memoizedFetchUserData();
+  // }, [memoizedFetchUserData]);
+    // useEffect(() => {
+      dispatch(fetchUserData())
+  // }, [dispatch]);
   return (
 
       <div
