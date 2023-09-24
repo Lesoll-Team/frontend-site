@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   MdOutlineFavorite,
   MdOutlineShare,
@@ -8,19 +8,30 @@ import {
   MdCheckCircleOutline,
 } from "react-icons/md";
 import { Tooltip, Button } from "@nextui-org/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsPlus, BsSlashCircle } from "react-icons/bs";
 import { PiEye, PiEyeClosed, PiEyeLight } from "react-icons/pi";
 import { HiPlusSm } from "react-icons/hi";
 import { TiTick } from "react-icons/ti";
+import { AddCompareCard } from "@/redux-store/features/compareSlice";
+import { fetchUserData } from "@/redux-store/features/globalState";
 
-// import { ar } from "../../language/ar/common";
-// import { en } from "../../language/en/common";
-// import { useRouter } from "next/router";
 function PropertyTitle({ singleTitle }) {
+  const dispatch=useDispatch()
   const language = useSelector((state) => state.GlobalState.languageIs);
+  // const isCompare = useSelector((state) => state.Compare.propertyIs);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
 
-  // console.log(singleTitle);
+  // const [compare, setCompare] = useState(false);
+
+const addPropertyToCompared=()=>{
+  dispatch(AddCompareCard(singleTitle._id))
+  dispatch(fetchUserData())
+}
+
+
+
+  // console.log(userInfo);
   const [isOpen, setIsOpen] = useState(false);
   const copyLinkPage = () => {
     const urlToCopy = window.location.href;
@@ -91,10 +102,14 @@ function PropertyTitle({ singleTitle }) {
           </div>
 
           <div className=" flex sm:justify-end justify-center sm:mx-5 mx-0 pt-3 ">
-            {" "}
-            <Button className="bg-lightGreen w-36 font-bold text-white">
+            <Button onClick={addPropertyToCompared} className="bg-lightGreen w-36 font-bold text-white">
+           {userInfo?.compared.includes(singleTitle?._id)?
+            <TiTick className="font-bold text-white text-xl" />
+            :
+
+            <HiPlusSm className="font-bold text-white text-xl" />
+            }
               {/* <TiTick/> */}
-              <HiPlusSm className="font-bold text-white text-xl" />
               <p>{language ? "مقارنة" : "Compare"}</p>
             </Button>
           </div>
