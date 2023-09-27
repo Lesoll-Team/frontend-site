@@ -20,7 +20,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
-      // dispatch(fetchUserData());
+      dispatch(fetchUserData());
 
       // Handle success (e.g., show a success message)
     } catch (error) {
@@ -37,7 +37,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
   // console.log("Rent :", propertyDetails);
   // console.log(propertyDetails);
   return (
-    <div className="md:max-w-[310px] lg:w-[350px] w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className="md:max-w-[310px] lg:w-[350px] w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
@@ -48,7 +48,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
             {userInfo ? (
               loved ? (
                 <AiFillHeart
-                  className="text-red-500"
+                  className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
 
@@ -57,7 +57,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
                 />
               ) : (
                 <AiOutlineHeart
-                  className="text-red-500"
+                  className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
                     setLoved(!loved);

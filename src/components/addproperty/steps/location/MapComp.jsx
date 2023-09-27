@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData }) {
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: libraries,

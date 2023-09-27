@@ -3,6 +3,9 @@ import axios from "axios";
 import { useEffect, useState, memo, useCallback } from "react";
 import FavCard from "./realtyCards/FavCard";
 import { useSelector } from "react-redux";
+import Link from "next/link";
+import { BsHouseAddFill } from "react-icons/bs";
+import { DotPulse } from "@uiball/loaders";
 
 const FavoriteAds = () => {
   const [fav, setFav] = useState([]);
@@ -27,7 +30,7 @@ const FavoriteAds = () => {
   useEffect(() => {
     getFav();
     // console.log(fav);
-  }, [getFav]); // Use the memoized getFav function in the dependency array
+  }, []); // Use the memoized getFav function in the dependency array
 
   const handleRemoveFromFavorites = (propertyIdToRemove) => {
     // Filter out the removed property from the 'fav' state
@@ -40,16 +43,32 @@ const FavoriteAds = () => {
       <h2 className="text-center font-bold text-lightGreen text-4xl">
         {language ? "المفضلة" : "Favorites"}
       </h2>
-      <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center ">
-        {fav &&
-          fav.map((favData) => (
+      {!fav ? (
+        <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
+          <DotPulse size={50} speed={1.3} color="#309da0" />
+        </div>
+      ) : fav.length > 0 ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
+          {fav.map((favData) => (
             <FavCard
               key={favData._id}
               propDetails={favData}
               onRemove={handleRemoveFromFavorites}
             />
           ))}
-      </div>
+        </div>
+      ) : (
+        fav &&
+        fav.length === 0 && (
+          <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
+            <Link className="flex flex-col items-center" href={"/"}>
+              <h3 className="font-semibold text-3xl">
+                {language ? "لا يوجد عقارات " : "Add Property"}
+              </h3>
+            </Link>
+          </div>
+        )
+      )}
     </div>
   );
 };
