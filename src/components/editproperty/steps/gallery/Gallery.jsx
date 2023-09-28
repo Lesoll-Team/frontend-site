@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { TiDelete } from "react-icons/ti";
 import { useSelector } from "react-redux";
-import Compressor from "compressorjs";
+
 import { MdOutlineRemoveCircle } from "react-icons/md";
 import { GrAddCircle } from "react-icons/gr";
 import { IoAddCircle } from "react-icons/io5";

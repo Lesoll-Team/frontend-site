@@ -1,4 +1,6 @@
 import React from "react";
+import { AiOutlinePercentage } from "react-icons/ai";
+import { BsCash } from "react-icons/bs";
 import { useSelector } from "react-redux";
 const AddPropInput = ({
   type,
@@ -11,6 +13,9 @@ const AddPropInput = ({
   m2,
   isLand,
   period,
+  choices,
+  setChoices,
+  propertyDetils,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -52,7 +57,8 @@ const AddPropInput = ({
             ) : (
               <span>m&#178;</span>
             ))}
-          {egp && <span>EGP</span>}
+
+          {egp && (language ? <span>جنية</span> : <span>EGP</span>)}
         </p>
 
         {/* Period  */}
@@ -72,6 +78,34 @@ const AddPropInput = ({
               EGP
             </p>
           </p>
+        </div>
+      )}
+      {choices && (
+        <div
+          className={`absolute bottom-[15px] text-darkGreen font-extrabold border-2 border-darkGreen  flex items-center overflow-hidden rounded-lg ${
+            language ? "left-3 " : "right-0"
+          }`}
+        >
+          <button
+            onClick={() => {
+              setChoices({ ...propertyDetils, downPaymentType: "percentage" });
+            }}
+            className={`px-2 py-1 ${
+              choices === "percentage" && "text-white bg-darkGreen"
+            }`}
+          >
+            <AiOutlinePercentage />
+          </button>
+          <button
+            onClick={() => {
+              setChoices({ ...propertyDetils, downPaymentType: "cash" });
+            }}
+            className={`px-2 py-1 ${
+              choices === "cash" && "text-white bg-darkGreen"
+            }`}
+          >
+            <BsCash />
+          </button>
         </div>
       )}
     </div>

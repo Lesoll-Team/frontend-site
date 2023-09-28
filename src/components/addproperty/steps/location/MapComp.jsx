@@ -97,6 +97,7 @@ const Map = ({ propertyDetils, setData }) => {
 
     // You can perform additional actions or update your data here
   };
+
   return (
     <div className=" mx-auto  space-y-4 ">
       <div className="w-full  pt-4">
@@ -126,7 +127,6 @@ const Map = ({ propertyDetils, setData }) => {
           center={selected || center}
           mapContainerClassName="map"
           // onDblClick={handleMapClick}
-
           onDblClick={handleMapDoubleClick}
         >
           {selected && <Marker position={selected} />}

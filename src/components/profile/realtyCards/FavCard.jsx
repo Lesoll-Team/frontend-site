@@ -14,23 +14,26 @@ import {
 import Link from "next/link";
 import { useMemo, memo } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "@/redux-store/features/globalState";
 
 const FavCard = ({ propDetails, onRemove }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const dispatch = useDispatch();
 
   const addToFAv = async () => {
     try {
       await AddToFavorites(propDetails?._id);
       // After successfully adding to favorites, trigger the removal callback
       onRemove(propDetails._id);
+      dispatch(fetchUserData());
     } catch (error) {
       console.error("Error add to fav:", error);
     }
   };
   return (
-    <div className="w-[300px]   min-h-[410px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className="w-[300px]   h-[420px] rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}
       <div className="flex items-center justify-between absolute w-full top-10">
         {/* <div className=" bg-white text-lightOrange font-medium top-9 text-sm w-20 text-center px-2 py-1   rounded-l-full">
@@ -53,8 +56,10 @@ const FavCard = ({ propDetails, onRemove }) => {
         </div>
       </div>
       {/* card img */}
-      <Link href={`/propertyDetails/${propDetails._id}`}>
+      <Link href={`/propertyDetails/${propDetails?.slug}`}>
         <Image
+          isZoomed="true"
+          radius="none"
           alt="Realty"
           src={propDetails?.thumbnail}
           loading="lazy"
@@ -77,10 +82,10 @@ const FavCard = ({ propDetails, onRemove }) => {
               : "For Rent"}
           </p>
         </div>
-        <Link href={`/propertyDetails/${propDetails._id}`}>
-          <div className="-mt-10 text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
-            {propDetails?.title.substring(0, 40)}
-            {propDetails?.title.length > 40 && "..."}
+        <Link href={`/propertyDetails/${propDetails?.slug}`}>
+          <div className="-mt-10 hover:underline text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
+            {propDetails?.title.substring(0, 30)}
+            {propDetails?.title.length > 30 && "..."}
           </div>
         </Link>
         <div className="-mt-10 text-lightGreen h-20 pt-12 px-7 flex  justify-start gap-5 mb-5">
@@ -122,8 +127,8 @@ const FavCard = ({ propDetails, onRemove }) => {
         <div className="px-7 mb-1 flex justify-between items-center ">
           <p className="text-sm  text-darkGray">
             {" "}
-            {propDetails?.address?.name.substring(0, 40)}{" "}
-            {propDetails?.address?.name.length > 40 && "..."}
+            {propDetails?.address?.name.substring(0, 30)}{" "}
+            {propDetails?.address?.name.length > 30 && "..."}
           </p>
         </div>
         {/* {type === "draft" ? (

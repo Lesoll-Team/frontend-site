@@ -11,12 +11,16 @@ const Price = dynamic(() => import("./steps/price/Price"));
 const Gallery = dynamic(() => import("./steps/gallery/Gallery"));
 const Features = dynamic(() => import("./steps/features/Features"));
 const SellerInfo = dynamic(() => import("./steps/sellerInfo/SellerInfo"));
-const Appointment = dynamic(() => import("./steps/appointment/Appointment"));
+// const Appointment = dynamic(() => import("./steps/appointment/Appointment"));
 const Location = dynamic(() => import("./steps/location/Location"));
 import useAddPropValidation from "@/Hooks/useAddPropValidation";
 import Head from "next/head";
 import Accepted from "./Accepted";
+import { DotPulse } from "@uiball/loaders";
+
 const AddProperty = () => {
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  console.log(userInfo);
   const [propertyDetils, setPropertyDetils] = useState({
     title: "",
     offer: "",
@@ -36,7 +40,9 @@ const AddProperty = () => {
     realEstateFinance: false,
     downPayment: 0,
     maintenancePayment: 0,
-
+    deliveryDate: "",
+    sellerName: userInfo?.fullname,
+    sellerEmail: userInfo?.email,
     rooms: 0,
     bathRooms: 0,
     description: "",
@@ -57,7 +63,7 @@ const AddProperty = () => {
       postalCode: "",
     },
 
-    connectPhoneNumber: "",
+    connectPhoneNumber: userInfo?.phone,
     countryCode: "",
     status: "Pending",
     reason: "",
@@ -66,6 +72,8 @@ const AddProperty = () => {
     finishingType: "",
     isRegisterd: false,
     isFurnished: false,
+    downPaymentType: "percentage",
+    downPaymentAmount: 0,
   });
   // console.log(propertyDetils);
   const isLoading = useSelector((state) => state.Auth.isLoding);
@@ -113,6 +121,8 @@ const AddProperty = () => {
     formData.append("rooms", propertyDetils.rooms);
     formData.append("bathRooms", propertyDetils.bathRooms);
     formData.append("description", propertyDetils.description);
+    formData.append("level", propertyDetils.level);
+    formData.append("deliveryDate", propertyDetils.deliveryDate);
     propertyDetils.service.map((service) => {
       formData.append("service", service);
     });
@@ -150,11 +160,11 @@ const AddProperty = () => {
   return (
     <div
       // dir={language ? "ltr" : "rtl"}
-      className="container mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
+      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
     >
       <h1 className="text-center text-5xl font-bold text-white mb-4"></h1>
       <div
-        className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200 ${
+        className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200  ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
         }`}
       >
@@ -171,11 +181,15 @@ const AddProperty = () => {
                   setData={setPropertyDetils}
                 />
                 <hr />
-                <Price
-                  propertyDetils={propertyDetils}
-                  setData={setPropertyDetils}
-                />
-                <hr />
+                {propertyDetils.offer !== "For Investment" && (
+                  <div className="animate-appearance-in space-y-10">
+                    <Price
+                      propertyDetils={propertyDetils}
+                      setData={setPropertyDetils}
+                    />
+                    <hr />
+                  </div>
+                )}
                 <PropertyInfo
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
@@ -205,7 +219,7 @@ const AddProperty = () => {
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
-                <hr />
+
                 {/* <Appointment
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
@@ -223,15 +237,11 @@ const AddProperty = () => {
                   className="bg-lightGreen mx-auto text-xl h-10 rounded-xl w-full md:w-96 py-1 sm:py-2  px-3 text-white font-medium  text-center"
                 >
                   {isLading ? (
-                    <Progress
-                      size="md"
-                      isIndeterminate
-                      aria-label="Loading..."
-                      className="w-200"
-                      color="success"
-                    />
+                    <DotPulse size={50} speed={1.3} color="#fff" />
+                  ) : language ? (
+                    "أضف العقار"
                   ) : (
-                    "submit"
+                    "Add Property"
                   )}
                 </button>
               ) : (

@@ -23,7 +23,19 @@ const Cash = ({ propertyDetils, setData }) => {
       <div className="space-y-4 md:w-[48%]">
         <AddPropDropdown
           title={!language ? "Sale Option" : "نظام البيع"}
-          value={propertyDetils.saleOption}
+          value={
+            propertyDetils.saleOption === "Cash"
+              ? language
+                ? "كاش"
+                : "Cash"
+              : propertyDetils.saleOption === "Installment"
+              ? language
+                ? "تقسيط"
+                : "Installment"
+              : language
+              ? "كاش وتقسيط"
+              : "Cash & Installment"
+          }
           setValue={(e) => {
             setData({ ...propertyDetils, saleOption: e });
           }}

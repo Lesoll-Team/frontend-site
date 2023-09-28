@@ -15,6 +15,33 @@ function useAddPropValidation() {
     if (!propertyDetails.unitType) {
       newErrors.push("Unit Type is missing.");
     }
+    if (propertyDetails.offer !== "For Investment") {
+      if (propertyDetails.offer === "For Rent") {
+        if (!propertyDetails.rentalPeriod) {
+          newErrors.push("Rental Period is missing.");
+        }
+      }
+      if (propertyDetails.offer === "For Sale") {
+        if (propertyDetails.saleOption === "Cash") {
+          if (!propertyDetails.price) {
+            newErrors.push("Price is missing.");
+          }
+        } else {
+          if (!propertyDetails.price) {
+            newErrors.push("Price is missing.");
+          }
+          if (!propertyDetails.downPayment) {
+            newErrors.push("Down Payment is missing.");
+          }
+          if (!propertyDetails.installmentOption.period) {
+            newErrors.push("Period is missing.");
+          }
+          if (!propertyDetails.installmentOption.amount) {
+            newErrors.push("Amount is missing.");
+          }
+        }
+      }
+    }
     if (!propertyDetails.area) {
       newErrors.push("Area is missing.");
     }
@@ -35,31 +62,7 @@ function useAddPropValidation() {
     if (!propertyDetails.description) {
       newErrors.push("Description is missing.");
     }
-    if (propertyDetails.offer === "For Rent") {
-      if (!propertyDetails.rentalPeriod) {
-        newErrors.push("Rental Period is missing.");
-      }
-    }
-    if (propertyDetails.offer === "For Sale") {
-      if (propertyDetails.saleOption === "Cash") {
-        if (!propertyDetails.price) {
-          newErrors.push("Price is missing.");
-        }
-      } else {
-        if (!propertyDetails.price) {
-          newErrors.push("Price is missing.");
-        }
-        if (!propertyDetails.downPayment) {
-          newErrors.push("Down Payment is missing.");
-        }
-        if (!propertyDetails.installmentOption.period) {
-          newErrors.push("Period is missing.");
-        }
-        if (!propertyDetails.installmentOption.amount) {
-          newErrors.push("Amount is missing.");
-        }
-      }
-    }
+
     if (!propertyDetails.mainImage) {
       newErrors.push("Main image is missing.");
     }

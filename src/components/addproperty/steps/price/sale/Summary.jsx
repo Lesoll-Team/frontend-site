@@ -6,7 +6,9 @@ const Summary = ({ propertyDetils, setData }) => {
 
   return (
     <div className="w-full  flex flex-col justify-stretch items-stretch space-y-3 ">
-      <h3 className="text-xl text-darkGreen font-bold">Summary</h3>
+      <h3 className="text-xl text-darkGreen font-bold">
+        {language ? "الملخص" : "Summary "}
+      </h3>
 
       {/* <div>
           <div className="text-lightOrange font-bold  space-x-2 whitespace-nowrap">
@@ -26,12 +28,14 @@ const Summary = ({ propertyDetils, setData }) => {
             {language ? "السعر : " : "Price : "}
           </h4>
           <p>
-            {!propertyDetils.price
-              ? "0"
-              : parseInt(propertyDetils.price).toLocaleString()}
+            {propertyDetils.price
+              ? language
+                ? parseInt(propertyDetils.price).toLocaleString("ar-Eg")
+                : parseInt(propertyDetils.price).toLocaleString()
+              : "0"}
           </p>
         </div>
-        <p>EGP</p>
+        <p>{language ? "جنية" : "EGP"}</p>
       </div>
       <div className="w-full font-semibold  md:text-lg flex items-center justify-between gap-6 focus:outline-none   bg-darkGreen text-white  border-lightGreen rounded-xl p-[12px] px-3 drop-shadow-xl  whitespace-nowrap">
         <div className="flex space-x-2">
@@ -40,11 +44,13 @@ const Summary = ({ propertyDetils, setData }) => {
           </h4>
           <p>
             {propertyDetils.downPayment
-              ? parseInt(propertyDetils.downPayment).toLocaleString()
+              ? language
+                ? parseInt(propertyDetils.downPayment).toLocaleString("ar-Eg")
+                : parseInt(propertyDetils.downPayment).toLocaleString()
               : "0"}
           </p>
         </div>
-        <p>EGP</p>
+        <p>{language ? "جنية" : "EGP"}</p>
       </div>
       <div className="w-full font-semibold  md:text-lg  items-center justify-between gap-6 focus:outline-none   bg-darkGreen text-white  border-lightGreen rounded-xl p-[12px] px-3 drop-shadow-xl  whitespace-nowrap">
         <div className="flex space-x-1 justify-between lg:flex-row flex-col  ">
@@ -61,6 +67,13 @@ const Summary = ({ propertyDetils, setData }) => {
                   parseInt(propertyDetils.downPayment) +
                     parseInt(propertyDetils.maintenancePayment)
                   ? "0"
+                  : language
+                  ? parseInt(
+                      (propertyDetils.price -
+                        propertyDetils.downPayment -
+                        propertyDetils?.maintenancePayment) /
+                        propertyDetils.installmentOption.period
+                    ).toLocaleString("ar-Eg")
                   : parseInt(
                       (propertyDetils.price -
                         propertyDetils.downPayment -

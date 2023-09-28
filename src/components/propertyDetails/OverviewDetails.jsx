@@ -5,7 +5,7 @@ import { MdCheckCircleOutline } from "react-icons/md";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { BsCalendar3 } from "react-icons/bs";
 import { BsSlashCircle } from "react-icons/bs";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 import { useSelector } from "react-redux";
@@ -16,11 +16,11 @@ function formatDate(dateString) {
 }
 function OverviewDetails({ singleOverviewDetails }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-// console.log(singleOverviewDetails);
+  // console.log(singleOverviewDetails);
   const formattedDate = formatDate(singleOverviewDetails?.createdAt);
   return (
-    <div className="  p-5 lg:p-10  bg-gray-100 rounded-3xl">
-      <div className="lg:flex justify-between ">
+    <div className="   rounded-lg">
+      {/* <div className="lg:flex justify-between ">
         <div className="flex justify-center items-center">
           <b className="sm:text-3xl text-lg">
             {language ? ar.property.overview : en.property.overview}
@@ -35,12 +35,11 @@ function OverviewDetails({ singleOverviewDetails }) {
             <div></div>
           </span>
         </div>
-      </div>
-      <br />
+      </div> */}
+      {/* <br />
       <hr />
-      <br />
-      <div>
-
+      <br /> */}
+      {/* <div>
         <div className=" flex flex-wrap items-center justify-center  gap-10 ">
           <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
@@ -51,7 +50,7 @@ function OverviewDetails({ singleOverviewDetails }) {
               {singleOverviewDetails?.rooms}
             </p>
           </div>
-          
+
           <div className="shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg">
             <p className="items-center  text-center text-[15px] font-bold">
               {" "}
@@ -74,9 +73,11 @@ function OverviewDetails({ singleOverviewDetails }) {
             </p>
           </div>
 
-
-
-          <div className={`${singleOverviewDetails?.level?"":"hidden"} shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg`}>
+          <div
+            className={`${
+              singleOverviewDetails?.level ? "" : "hidden"
+            } shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg`}
+          >
             <p className="items-center  text-center text-[15px] font-bold">
               {language ? ar.property.level : en.property.level}
             </p>
@@ -92,13 +93,11 @@ function OverviewDetails({ singleOverviewDetails }) {
               {language ? ar.property.furnished : en.property.furnished}
             </p>
 
-            {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
             <p className=" flex h-[50px] items-center justify-center text-center text-[15px] font-bold">
               {singleOverviewDetails?.isFurnished ? (
                 <MdCheckCircleOutline />
               ) : (
                 <BsSlashCircle />
-
               )}
             </p>
           </div>
@@ -108,48 +107,46 @@ function OverviewDetails({ singleOverviewDetails }) {
               {language ? ar.property.region : en.property.region}
             </p>
 
-            {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
             <p className=" flex h-[50px] items-center justify-center text-center text-[15px] font-bold">
               {singleOverviewDetails?.address.region}
             </p>
           </div>
 
-          <div className={`${singleOverviewDetails?.unitType?"":"hidden"} shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg`}>
+          <div
+            className={`${
+              singleOverviewDetails?.unitType ? "" : "hidden"
+            } shadow-md bg-white w-[90px] h-[80px] flex-col p-1 justify-center items-center rounded-lg`}
+          >
             <p className="items-center  text-center text-[15px] font-bold">
               {language ? ar.property.uintType : en.property.uintType}
             </p>
 
-            {/* <SiLevelsdotfyi className=" m-auto w-full my-1" /> */}
+
             <p className=" flex h-[50px] items-center justify-center text-center text-[15px] font-bold">
-              {language?singleOverviewDetails?.unitType?.title.ar||"لم يحدد":singleOverviewDetails?.unitType?.title.en||"not selected"}
+              {language
+                ? singleOverviewDetails?.unitType?.title.ar || "لم يحدد"
+                : singleOverviewDetails?.unitType?.title.en || "not selected"}
             </p>
           </div>
-
-
-
         </div>
-      </div>
+      </div> */}
 
-      <br />
-      <hr />
-      <br />
       <div className="">
         <div className="flex md:justify-normal justify-center items-center ">
-          <p className="sm:text-3xl text-lg font-bold">
+          <p className="sm:text-4xl text-lg font-bold text-lightOrange">
             {language ? ar.property.payment : en.property.payment}
           </p>
         </div>
         <div className="mt-5">
           {singleOverviewDetails?.saleOption[0] === "Cash" ||
           singleOverviewDetails?.saleOption[0] === "" ? (
-
-
-
-            <div className="md:flex  w-full  bg-white shadow-md rounded-xl md:min-h-[200px] min-h-[auto] items-center">
-              <div className="   flex justify-center items-center m-auto 
-                              md:min-h-[100px] min-h-auto  md:w-4/12 w-full">
+            <div className="md:flex  w-full  bg-gray-100  shadow-md rounded-xl md:min-h-[200px] min-h-[auto] items-center">
+              <div
+                className="   flex justify-center items-center m-auto 
+                              md:min-h-[100px] min-h-auto  md:w-4/12 w-full"
+              >
                 <div className="md:block gap-3 flex items-center justify-center">
-                  <div className="font-bold  sm:text-3xl text-lg">
+                  <div className="font-bold  sm:text-xl text-lg">
                     {language ? ar.property.price : en.property.price}
                   </div>
                   <div className="flex">
@@ -173,7 +170,9 @@ function OverviewDetails({ singleOverviewDetails }) {
                           ? ar.property.saleOption
                           : en.property.saleOption}
                       </p>
-                      <p className="font-bold sm:text-sm md:text-medium lg:text-lg text-xs  md:justify-normal justify-center flex items-center">Cash</p>
+                      <p className="font-bold sm:text-sm md:text-medium lg:text-lg text-xs  md:justify-normal justify-center flex items-center">
+                        Cash
+                      </p>
                     </div>
                   </div>
 
@@ -198,23 +197,14 @@ function OverviewDetails({ singleOverviewDetails }) {
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
           ) : null}
           {singleOverviewDetails?.saleOption[0] === "Installment" ? (
-            <div  className="md:flex  w-full shadow-md  bg-white rounded-xl md:min-h-[200px] min-h-[auto] items-center">
-              <div className="flex justify-center items-center  
-                              md:min-h-[100px] min-h-auto  md:w-4/12  w-full">{/**m-auto */}
+            <div className="md:flex  w-full shadow-md  bg-white rounded-xl md:min-h-[200px] min-h-[auto] items-center">
+              <div
+                className="flex justify-center items-center  
+                              md:min-h-[100px] min-h-auto  md:w-4/12  w-full"
+              >
+                {/**m-auto */}
                 <div className="md:block gap-3 flex items-center justify-center">
                   <div className=" font-bold  sm:text-sm md:text-medium lg:text-2xl text-sm ">
                     {language
@@ -231,15 +221,12 @@ function OverviewDetails({ singleOverviewDetails }) {
                     </p>
                   </div>
                 </div>
-
               </div>
-
-
-
 
               <div className=" min-h-[100px] flex  w-full justify-center ">
                 <div className="md:flex  w-full justify-center  ">
-                  <div className=" w-full m-auto ">{/**md:w-6/12 p-*/}
+                  <div className=" w-full m-auto ">
+                    {/**md:w-6/12 p-*/}
                     <div className=" flex sm:w-full  w-9/12 m-auto  ">
                       <p className=" bg-gray-100 font-semibold sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center md:text-start ">
                         {language
@@ -288,9 +275,11 @@ function OverviewDetails({ singleOverviewDetails }) {
                           : en.property.installmentAmount}
                       </p>
                       <div className="sm:text-sm md:text-medium lg:text-lg text-xs w-6/12  flex  justify-center">
-                        <p>{singleOverviewDetails?.installmentOption.amount.toLocaleString()}</p>
+                        <p>
+                          {singleOverviewDetails?.installmentOption.amount.toLocaleString()}
+                        </p>
 
-                      <p className="mx-1">  EGP</p>
+                        <p className="mx-1"> EGP</p>
                       </div>
                     </div>
 
@@ -308,7 +297,6 @@ function OverviewDetails({ singleOverviewDetails }) {
                         )}
                       </p>
                     </div>
-                    
                   </div>
                 </div>
               </div>

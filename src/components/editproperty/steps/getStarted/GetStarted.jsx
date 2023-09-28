@@ -129,8 +129,14 @@ const GetStarted = ({ setData, propertyDetils }) => {
                   ? "سكنى"
                   : "Residential"
                 : propertyDetils.propType === "Commercial"
-                ? "تجارى"
-                : "Commercial"
+                ? language
+                  ? "تجارى"
+                  : "Commercial"
+                : propertyDetils.propType === "Land"
+                ? language
+                  ? "ارض"
+                  : "Land"
+                : ""
             }
             setValue={(e) => {
               setData({ ...propertyDetils, propType: e });

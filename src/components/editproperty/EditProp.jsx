@@ -136,7 +136,7 @@ const EditProp = ({ propData, setPropData }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.2 }}
       // dir={language ? "ltr" : "rtl"}
-      className="container mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
+      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
     >
       <h1 className="text-center text-5xl font-bold text-white mb-4"></h1>
       <div

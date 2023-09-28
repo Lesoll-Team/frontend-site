@@ -18,7 +18,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
         { value: "63cc939746d6193aa1f50fd7", name: "Floor" },
         { value: "63cc93ab46d6193aa1f50fe2", name: "Furnished Apartment" },
         { value: "642449f07502ee416a864e95", name: "Residential Building" },
-        { value: "645376a84ef5131a0a061888", name:"Home"},
+        { value: "645376a84ef5131a0a061888", name: "Home" },
         { value: "63cc940a46d6193aa1f51014", name: "Chalete" },
         { value: "63cc941646d6193aa1f5101f", name: "Cabin" },
         { value: "63cc93c546d6193aa1f50fed", name: "Village" },
@@ -87,23 +87,25 @@ const GetStarted = ({ setData, propertyDetils }) => {
     ar: [
       { value: "Residential", name: "سكنى" },
       { value: "Commercial", name: "تجارى" },
-      // { value: "Land", name: "أرض" },
+      { value: "Land", name: "أرض" },
     ],
   };
   const offer = {
     en: [
       { value: "For Sale", name: "For Sale" },
       { value: "For Rent", name: "For Rent" },
+      { value: "For Investment", name: "For Investment" },
     ],
     ar: [
       { value: "For Sale", name: "للبيع" },
       { value: "For Rent", name: "للإيجار" },
+      { value: "For Investment", name: "للإستثمار" },
     ],
   };
 
   // console.log(unitOptions);
   // console.log(propertyDetils.propType);
-
+  console.log(propertyDetils);
   return (
     <div className="flex flex-col  w-full space-y-5">
       <h3 className="text-center text-4xl text-darkGreen mt-3 font-bold">
@@ -122,19 +124,50 @@ const GetStarted = ({ setData, propertyDetils }) => {
       <div className="flex flex-col md:flex-row gap-4">
         <AddPropDropdown
           title={!language ? "Property type" : "نوع العقار"}
-          value={propertyDetils.propType}
+          value={
+            propertyDetils.propType === "Residential"
+              ? language
+                ? "سكنى"
+                : "Residential"
+              : propertyDetils.propType === "Commercial"
+              ? language
+                ? "تجارى"
+                : "Commercial"
+              : propertyDetils.propType === "Land"
+              ? language
+                ? "ارض"
+                : "Land"
+              : ""
+          }
           setValue={(e) => {
-            setData({ ...propertyDetils, propType: e });
+            if (propertyDetils.propType !== e) {
+              setData({
+                ...propertyDetils,
+                propType: e,
+                unitType: "",
+                landType: "",
+              });
+            } else {
+              setData({
+                ...propertyDetils,
+                propType: e,
+              });
+            }
           }}
           placeholder={"unit type"}
           options={propType}
         />
+
         <AddPropDropdown
           disabled={propertyDetils.propType}
           title={!language ? "Unit Type" : "نوع الوحدة"}
           value={propertyDetils.unitType}
           setValue={(e) => {
-            setData({ ...propertyDetils, unitType: e });
+            if (propertyDetils.propType !== "Land") {
+              setData({ ...propertyDetils, unitType: e });
+            } else {
+              setData({ ...propertyDetils, landType: e });
+            }
           }}
           placeholder={"unit type"}
           options={
@@ -146,6 +179,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
               ? unitType.Land
               : unitType.Residential
           }
+          updateTitleOnClear={true}
         />
         <AddPropDropdown
           title={!language ? "Listing Option" : "إختار العرض"}
