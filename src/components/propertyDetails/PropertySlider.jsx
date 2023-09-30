@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css"; // Import the styles
-import { Image } from "@nextui-org/react";
+import Image from "next/image";
 
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -65,7 +65,7 @@ export default function PropertyImgSlider({ images }) {
           <div className="embla__container">
             {newImages.map((img, index) => (
               <div className="embla__slide" key={index}>
-                <Image
+                <img
                   onClick={() => {
                     openLightbox(index);
                   }}
@@ -74,7 +74,6 @@ export default function PropertyImgSlider({ images }) {
                   className="embla__slide__img"
                   src={img?.image}
                   alt="Your alt text"
-                  height={500}
                 />
               </div>
             ))}

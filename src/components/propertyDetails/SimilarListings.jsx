@@ -15,30 +15,20 @@ function SimilarListings({ recommendationsProperty }) {
     <div
       className={`${
         recommendationsProperty.length <= 0 ? "hidden" : ""
-      } overflow-x-hidden p-4 px-0  mb-5  rounded-xl bg-gray-100 shadow-insideShadow`}
+      } space-y-4 mt-16`}
     >
-      {/* <div><h1>Similar Listings</h1></div> */}
-      {/* <div className="font-bold mb-6 ml-5">
-        {" "}
-        <b className="sm:text-3xl text-lg p-3">
-          {language ? "قوائم مماثلة" : "Similar Listings"}
-        </b>
-      </div> */}
-      {/* <div className="lg:flex overflow-x-auto">
-        {recommendationsProperty.map((recommendations) => (
-          <div key={recommendations._id} className=" m-5">
-        
-            <RealtyCard propertyDetails={recommendations} />
+      <h3 className="sm:text-4xl text-lg  font-bold text-lightOrange ">
+        {language ? "عقارات مشابهة" : "similar Properties"}
+      </h3>
+      <div className="overflow-x-hidden p-4 px-0  mb-5  rounded-xl bg border bg-white drop-shadow-lg">
+        <div className="" ref={emblaRef} dir="ltr">
+          <div className="flex gap-10 p-3">
+            {recommendationsProperty.map((recommendations) => (
+              <div key={recommendations._id} className=" flex p-2 px-3">
+                <RealtyCard propertyDetails={recommendations} />
+              </div>
+            ))}
           </div>
-        ))}
-      </div> */}
-      <div className="" ref={emblaRef} dir="ltr">
-        <div className="flex gap-10">
-          {recommendationsProperty.map((recommendations) => (
-            <div key={recommendations._id} className=" flex p-2 px-3">
-              <RealtyCard propertyDetails={recommendations} />
-            </div>
-          ))}
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ function PropertyDetailsMain({ singleProperty }) {
             <div className="\">
               <AddressLocation singleAddressLocation={singleProperty} />
             </div>
-            <div className="">
+            <div className="mt-4">
               <SimilarListings recommendationsProperty={recommendations} />
             </div>
           </div>
