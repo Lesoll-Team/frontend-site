@@ -88,24 +88,22 @@ function PropertyTitle({ singleTitle }) {
               <PiEye className={`text-xl mx-2`} />
             </div>
 
-            <button
-              onClick={() => {
-                addToFAv();
+            {userInfo && (
+              <button
+                onClick={() => {
+                  addToFAv();
 
-                setLoved(!loved);
-              }}
-              className=" border-2 text-xl border-lightGreen rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightGreen   "
-            >
-              {userInfo ? (
-                loved ? (
+                  setLoved(!loved);
+                }}
+                className=" border-2 text-xl border-lightGreen rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightGreen   "
+              >
+                {loved ? (
                   <AiFillHeart className="text-red-500  animate-appearance-in" />
                 ) : (
                   <AiOutlineHeart className="text-red-500 animate-appearance-in" />
-                )
-              ) : (
-                ""
-              )}
-            </button>
+                )}
+              </button>
+            )}
             {/* </div>
           </div> */}
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
-import { Progress } from "@nextui-org/react";
 import Link from "next/link";
 import { createNewProperty } from "../../utils/propertyAPI";
 const GetStarted = dynamic(() => import("./steps/getStarted/GetStarted"));
@@ -14,13 +13,12 @@ const SellerInfo = dynamic(() => import("./steps/sellerInfo/SellerInfo"));
 // const Appointment = dynamic(() => import("./steps/appointment/Appointment"));
 const Location = dynamic(() => import("./steps/location/Location"));
 import useAddPropValidation from "@/Hooks/useAddPropValidation";
-import Head from "next/head";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 
 const AddProperty = () => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  console.log(userInfo);
+  // console.log(userInfo);
   const [propertyDetils, setPropertyDetils] = useState({
     title: "",
     offer: "",
@@ -52,7 +50,6 @@ const AddProperty = () => {
       period: 0,
       amount: 0,
     },
-
     address: {
       name: "",
       governrate: "",
@@ -74,7 +71,17 @@ const AddProperty = () => {
     isFurnished: false,
     downPaymentType: "percentage",
     downPaymentAmount: 0,
+    installmentPeriodType: "yearly",
+    // installmentPeriod: 0,
   });
+  useEffect(() => {
+    setPropertyDetils((prevDetails) => ({
+      ...prevDetails,
+      sellerName: userInfo?.fullname,
+      sellerEmail: userInfo?.email,
+      connectPhoneNumber: userInfo?.phone,
+    }));
+  }, [userInfo]);
   // console.log(propertyDetils);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
@@ -155,12 +162,12 @@ const AddProperty = () => {
 
     setLading(false);
   };
-  // z
+  console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div
       // dir={language ? "ltr" : "rtl"}
-      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
+      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh] pb-20  flex flex-col justify-center items-center"
     >
       <h1 className="text-center text-5xl font-bold text-white mb-4"></h1>
       <div
@@ -169,7 +176,7 @@ const AddProperty = () => {
         }`}
       >
         <div
-          className={`flex flex-col justify-between min-h-[500px] space-y-10 ${
+          className={`flex flex-col justify-between min-h-[500px] space-y-10 z-[1000] ${
             sended && " items-center justify-center h-[500px]"
           }`}
         >
@@ -219,7 +226,6 @@ const AddProperty = () => {
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
-
                 {/* <Appointment
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}

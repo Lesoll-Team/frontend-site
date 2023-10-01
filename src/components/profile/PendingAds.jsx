@@ -39,7 +39,7 @@ const PendingAds = () => {
   return (
     <div className="w-full">
       <h2 className="text-center font-bold text-lightGreen text-4xl">
-        {language ? "تحت المراجعة" : "Pending"}
+        {language ? (language ? "تحت المراجعة" : "Pending") : "تحت المراجعة"}
       </h2>
       {!pendingAdds ? (
         <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">

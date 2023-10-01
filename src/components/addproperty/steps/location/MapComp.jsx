@@ -198,7 +198,7 @@ const PlacesAutoComplete = ({
     <Combobox onSelect={handleSelect} className="w-full">
       <ComboboxInput
         placeholder={language ? "أدخل موفع العقار" : "Select the location"}
-        defaultValue={propertyDetils.address.name}
+        defaultValue={propertyDetils?.address?.name || ""}
         value={inputValue || value}
         onChange={(e) => {
           setInputValue(e.target.value);

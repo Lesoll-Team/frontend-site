@@ -11,12 +11,12 @@ const Installment = ({ propertyDetils, setData }) => {
     en: [
       { value: "Cash", name: "Cash" },
       { value: "Installment", name: "Installment" },
-      { value: "Cash & Installment", name: "Cash & Installment" },
+      // { value: "Cash & Installment", name: "Cash & Installment" },
     ],
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Cash & Installment", name: "كاش وتقسيط" },
+      // { value: "Cash & Installment", name: "كاش وتقسيط" },
     ],
   };
   const installmentTypeOptions = {
@@ -39,7 +39,6 @@ const Installment = ({ propertyDetils, setData }) => {
     const downPayment = parseInt(propertyDetils.downPayment);
     const maintenancePayment = parseInt(propertyDetils.maintenancePayment);
     const period = parseInt(propertyDetils.installmentOption.period);
-
     // Check if all values are valid numbers
     if (
       !isNaN(price) &&
@@ -74,6 +73,24 @@ const Installment = ({ propertyDetils, setData }) => {
     propertyDetils.price,
     propertyDetils.maintenancePayment,
   ]);
+
+  useEffect(() => {
+    const price = parseInt(propertyDetils.price);
+    const downPayment = parseInt(propertyDetils.downPayment);
+    const maintenancePayment = parseInt(propertyDetils.maintenancePayment);
+    const period = parseInt(propertyDetils.installmentOption.period);
+    if (
+      !isNaN(price) &&
+      !isNaN(downPayment) &&
+      !isNaN(maintenancePayment) &&
+      !isNaN(period) &&
+      price > downPayment + maintenancePayment
+    ) {
+      if (propertyDetils.installmentOption.type === "Yearly") {
+      }
+    }
+  });
+  //set down payment
   useEffect(() => {
     if (
       propertyDetils.downPaymentType === "percentage" &&
@@ -134,7 +151,7 @@ const Installment = ({ propertyDetils, setData }) => {
           propertyDetils={propertyDetils}
           choices={propertyDetils.downPaymentType}
           type={"number"}
-          setChoices={setData}
+          setData={setData}
           title={language ? "المقدم" : "Down Payment"}
           placeholder={
             propertyDetils.downPaymentType === "percentage"
@@ -176,7 +193,7 @@ const Installment = ({ propertyDetils, setData }) => {
       { value: "6 Monthly", name: "6 شهور" },
     ], */}
       <div className=" gap-4 md:w-[48%]  flex flex-col items-stretch">
-        <AddPropDropdown
+        {/* <AddPropDropdown
           title={language ? "نظام التقسيط" : "Installment Type"}
           value={
             propertyDetils.installmentOption.type === "Yearly"
@@ -191,7 +208,11 @@ const Installment = ({ propertyDetils, setData }) => {
               ? language
                 ? "3 شهور"
                 : "3 Month"
-              : ""
+              : propertyDetils.installmentOption.type === "6 Monthly"
+              ? language
+                ? "6 شهور"
+                : "6 Month"
+              : "أختر نظام التقسيط"
           }
           setValue={(e) => {
             setData({
@@ -203,30 +224,32 @@ const Installment = ({ propertyDetils, setData }) => {
             });
           }}
           options={installmentTypeOptions}
-        />
+        /> */}
         <AddPropInput
-          choices={true}
+          // choices={true}
           type={"number"}
           title={language ? "مدة التقسيط" : "Installment Period"}
           placeholder={
-            propertyDetils.installmentOption.type === "Yearly"
+            propertyDetils.installmentPeriodType === "yearly"
               ? language
                 ? "عدد السنين"
-                : "Number Years"
+                : " Years"
               : language
               ? "عدد الشهور"
               : "Months"
           }
+          setData={setData}
+          yearMonthes={propertyDetils.installmentOption.type}
           value={propertyDetils.installmentOption.period}
-          setValue={(e) =>
+          setValue={(e) => {
             setData({
               ...propertyDetils,
               installmentOption: {
                 ...propertyDetils.installmentOption,
                 period: e.target.value,
               },
-            })
-          }
+            });
+          }}
         />
         <Summary propertyDetils={propertyDetils} setData={setData} />
       </div>

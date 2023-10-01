@@ -63,7 +63,7 @@ const FavCard = ({ propDetails, onRemove }) => {
           alt="Realty"
           src={propDetails?.thumbnail}
           loading="lazy"
-          className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
+          className="w-[300px] rounded-none h-[220px] overflow-hidden   object-cover"
         />
       </Link>
       {/* card body  */}

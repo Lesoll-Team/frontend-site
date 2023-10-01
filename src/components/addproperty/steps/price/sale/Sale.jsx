@@ -9,12 +9,12 @@ const Sale = ({ propertyDetils, setData }) => {
     en: [
       { value: "Cash", name: "Cash" },
       { value: "Installment", name: "Installment" },
-      { value: "Cash & Installment", name: "Cash & Installment" },
+      // { value: "Cash & Installment", name: "Cash & Installment" },
     ],
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Cash & Installment", name: "قاش وتقسيط" },
+      // { value: "Cash & Installment", name: "قاش وتقسيط" },
     ],
   };
   return (

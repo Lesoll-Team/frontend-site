@@ -94,12 +94,12 @@ const GetStarted = ({ setData, propertyDetils }) => {
     en: [
       { value: "For Sale", name: "For Sale" },
       { value: "For Rent", name: "For Rent" },
-      { value: "For Investment", name: "For Investment" },
+      // { value: "For Investment", name: "For Investment" },
     ],
     ar: [
       { value: "For Sale", name: "للبيع" },
       { value: "For Rent", name: "للإيجار" },
-      { value: "For Investment", name: "للإستثمار" },
+      // { value: "For Investment", name: "للإستثمار" },
     ],
   };
 

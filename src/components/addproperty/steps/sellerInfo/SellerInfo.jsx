@@ -48,8 +48,9 @@ const SellerInfo = ({ propertyDetils, setData }) => {
               backgroundColor: "white",
             }}
             containerStyle={{
-              overflow: "hidden",
+              zIndex: "10000000000000",
             }}
+            disableCountryCode={true}
             // countryCodeEditable={false}
             placeholder={language ? "رقم الهاتف" : "Phone Number"}
             className=" z-30"
@@ -58,8 +59,11 @@ const SellerInfo = ({ propertyDetils, setData }) => {
             excludeCountries={["IL"]}
             value={propertyDetils.connectPhoneNumber}
             onChange={
-              (e) => setData({ ...propertyDetils, connectPhoneNumber: e })
-
+              (e, info) => {
+                setData({ ...propertyDetils, connectPhoneNumber: e });
+                console.log(e);
+                console.log(info.dialCode);
+              }
               // setCountry(country);
               // console.log(phone);
               // console.log(country);
