@@ -12,7 +12,18 @@ export async function fetchAllProperty(userToken) {
     );
     return response.data.result;
   } catch (error) {
-    throw error.response.data;
+    throw error.response.massage;
+  }
+}
+
+export async function fetchActiveProperty(rowsPerPage,page,userToken) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?limit=${rowsPerPage}&page=${page}&token=${userToken}`);
+
+    return response.data;
+  } catch (error) {
+    throw error.response.massage;
   }
 }
 
@@ -29,7 +40,26 @@ export async function deleteProperties(propertyID) {
     );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw error.response.massage;
+  }
+}
+
+
+
+export async function deleteActiveProperty(propertyID) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/deleteforever/${propertyID}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.massage;
   }
 }
 
@@ -42,7 +72,7 @@ export async function acceptProperties(propertyID) {
     );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw error.response.massage;
   }
 }
 

@@ -73,7 +73,7 @@ const DropdownUintType = ({
       </div>
       {menuIsOpen && (
         <div
-          className={`absolute animate-appearance-in z-10 w-full  mt-1 bg-white duration-200
+          className={`absolute animate-appearance-in z-10 w-auto right-0 min-w-[150px] text-center mt-1 bg-white duration-200
            drop-shadow-xl border overflow-y-auto rounded-xl max-h-[150px]`}
         >
           {propertyType == "Residential"

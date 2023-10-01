@@ -7,8 +7,8 @@ import React from 'react'
 function index() {
   return (
     <div className='min-h-[90dvh] '>
-    <CompareHeader />
-    <CompareCards />
+    {/* <CompareHeader />
+    <CompareCards /> */}
     {/* <CompareDetails /> */}
     </div>
   )

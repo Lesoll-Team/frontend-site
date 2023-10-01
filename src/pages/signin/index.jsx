@@ -1,4 +1,5 @@
 import SignInForm from "../../components/signin/SignInForm";
+
 // import dynamic from "next/dynamic";
 // const SignInForm = dynamic(() => import("../../components/signin/SigninForm"));
 import Link from "next/link";
@@ -9,6 +10,9 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 const SignIn = () => {
+  // const {data:session}=useSession()
+// console.log("data",data);
+// console.log("S",session);
   const router = useRouter();
   const isLoading = useSelector((state) => state.Auth.isLoding);
   const language = useSelector((state) => state.GlobalState.languageIs);

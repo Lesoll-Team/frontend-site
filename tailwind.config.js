@@ -15,7 +15,6 @@ module.exports = {
     container: {
       padding: "2rem",
     },
-
     extend: {
       colors: {
         lightOrange: "#d2512d",

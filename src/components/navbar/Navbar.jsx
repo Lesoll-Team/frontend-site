@@ -12,6 +12,9 @@ import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
 
+
+// import { useSession, signIn, signOut } from "next-auth/react"
+
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 // import NotificationMenu from "./notificationMenu";
@@ -21,6 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
 export default function Navbar() {
+  // const {data:session}=useSession()
+
   const dispatch = useDispatch();
   const [countNotifications, setCountNotifications] = useState(0);
 
@@ -92,14 +97,14 @@ export default function Navbar() {
         </ul>
 
         {/*nav link web page */}
-        <ul className={` md:flex  w-5/12 space-x-2 hidden`}>
+        <ul className={` lg:flex  w-5/12 space-x-2 hidden`}>
           {/**${
             searchVisible ? "hidden" : "md:flex"
           }  */}
           <LinksNavbar />
         </ul>
         <ul
-          className={`md:w-4/12 w-8/12  flex justify-end md:justify-center  mr-4  space-x-2 items-center`}
+          className={`lg:w-4/12 w-8/12  flex justify-end lg:justify-center  mr-4  space-x-2 items-center`}
         >
           {/* <Link href="/search"> */}
             {/* <Button isIconOnly className="bg-inherit" aria-label="Search"> */}
@@ -109,8 +114,8 @@ export default function Navbar() {
           {/* </Link> */}
 
           {/*button language*/}
-          <li className={`  md:flex hidden`}>
-            {/**${searchVisible ? "hidden" : " md:flex hidden"} */}
+          <li className={`  lg:flex hidden`}>
+            {/**${searchVisible ? "hidden" : " lg:flex hidden"} */}
             <button
               onClick={() => dispatch(handleLanguage())}
               className="
@@ -179,7 +184,7 @@ export default function Navbar() {
         </ul>
 
         {/*button mobile links*/}
-        <ul className="flex  w-1-12  mx-2 justify-center  md:hidden">
+        <ul className="flex  w-1-12  mx-2 justify-center  lg:hidden">
           {/* <li className=""> */}
           <button
             className="flex justify-center "
@@ -232,7 +237,7 @@ export default function Navbar() {
           // dir="ltr"
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
-          }   h-[500px] overflow-auto md:absolute rounded-md p-2 md:w-3/12 w-full `}
+          }   h-[500px] overflow-auto lg:absolute rounded-md p-2 lg:w-3/12 w-full `}
         >
           <NotificationMenu sendCount={calcCount} notificationsMenuRef={notificationsMenuRef}/>
         </ul>

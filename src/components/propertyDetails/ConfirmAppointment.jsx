@@ -1,8 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import {
-  User,
-  Button,
-} from "@nextui-org/react";
+import { User, Button } from "@nextui-org/react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
@@ -13,7 +10,7 @@ function ConfirmAppointment({ userAppointment }) {
 
   const message = `
    مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
-   ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN+router.asPath} `;
+   ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN + router.asPath} `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userAppointment?.connectPhoneNumber
   }&text=${encodeURIComponent(message)}`;
@@ -33,7 +30,8 @@ function ConfirmAppointment({ userAppointment }) {
       <div className="">
         {/*user info*/}
         <div className="grid  grid-cols-1">
-          <div className=" flex items-center justify-center mt-1">{/**flex items-center text-center bg-blue-500 overflow-hidden */}
+          <div className=" flex items-center justify-center mt-1">
+            {/**flex items-center text-center bg-blue-500 overflow-hidden */}
             <User
               // className=" "
               avatarProps={{
@@ -42,8 +40,8 @@ function ConfirmAppointment({ userAppointment }) {
               }}
             />
             <div className="flex flex-col">
-            <p className="font-bold">{userAppointment?.user.fullname}</p>
-            <p className="text-default-700">{userAppointment?.user.email}</p>
+              <p className="font-bold">{userAppointment?.user.fullname}</p>
+              <p className="text-default-700">{userAppointment?.user.email}</p>
             </div>
           </div>
           <center className=" ">
@@ -52,7 +50,8 @@ function ConfirmAppointment({ userAppointment }) {
                 <Button
                   radius="sm"
                   type="submit"
-                  className="mx-2 bg-lightGreen text-white">
+                  className="mx-2 bg-lightGreen text-white"
+                >
                   <b>
                     {language ? ar.property.sendWtsApp : en.property.sendWtsApp}
                   </b>

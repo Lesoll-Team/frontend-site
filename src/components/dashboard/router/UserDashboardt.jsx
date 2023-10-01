@@ -205,7 +205,7 @@ export default function UserDashboard() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {usersLength} users
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -216,8 +216,8 @@ export default function UserDashboard() {
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
-              <option value="30">15</option>
-              <option value="60">15</option>
+              <option value="30">30</option>
+              <option value="60">60</option>
               {/* <option value={`${usersLength/2}`}>All</option> */}
             </select>
           </label>
