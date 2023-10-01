@@ -8,6 +8,7 @@ import {
 } from "@react-google-maps/api";
 import RealtyCard from "@/components/realtyCard/RealtyCard";
 import { HiMiniXMark, HiOutlineXMark } from "react-icons/hi2";
+import locationIcon from "../../../public/icons/location-icon.png";
 const center = { lat: 30.0444, lng: 31.2357 };
 export default function ShowMapSearch({ searchResult }) {
   //   console.log(searchResult);
@@ -56,7 +57,7 @@ function Map({ searchResult }) {
         mapTypeControl: false,
         streetViewControl: false,
       }}
-      zoom={8}
+      zoom={6}
       center={center}
       mapContainerClassName="map"
       onClick={handleMapClick}
@@ -69,6 +70,13 @@ function Map({ searchResult }) {
           const lng = parseFloat(location.address.longitude);
           return (
             <Marker
+              icon={{
+                url: "https://cdn.discordapp.com/attachments/1124959275895230576/1158099242573905960/locationIcom.png?ex=651b0377&is=6519b1f7&hm=c008e991ee0862483ff799aacbc53e32bc9101769ce9e1f18155e57074012566&",
+
+                anchor: new google.maps.Point(17, 46),
+
+                scaledSize: new google.maps.Size(37, 37),
+              }}
               key={index}
               position={{
                 lat: lat,

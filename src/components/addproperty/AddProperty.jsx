@@ -15,8 +15,34 @@ const Location = dynamic(() => import("./steps/location/Location"));
 import useAddPropValidation from "@/Hooks/useAddPropValidation";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
+import { useRouter } from "next/router";
 
 const AddProperty = () => {
+  // const router = useRouter();
+  // const router = useRouter();
+  // console.log(router.pathname);
+  // useEffect(() => {
+  //   const exitingFunction = (event) => {
+  //     // display a confirmation dialog with a message
+  //     const confirmExit = window.confirm(
+  //       "Are you sure you want to leave this page?"
+  //     );
+
+  //     // if the user clicks Cancel, prevent the page from unloading
+  //     if (!confirmExit) {
+  //       router.preventDefault();
+  //       event.returnValue = ""; // For some older browsers
+  //     }
+  //   };
+
+  //   window.addEventListener("beforeunload", exitingFunction);
+
+  //   return () => {
+  //     console.log("unmounting component...");
+  //     window.removeEventListener("beforeunload", exitingFunction);
+  //   };
+  // }, []);
+
   const userInfo = useSelector((state) => state.GlobalState.userData);
   // console.log(userInfo);
   const [propertyDetils, setPropertyDetils] = useState({
@@ -240,7 +266,7 @@ const AddProperty = () => {
                 <button
                   onClick={handleSubmit}
                   disabled={isLading}
-                  className="bg-lightGreen mx-auto text-xl h-10 rounded-xl w-full md:w-96 py-1 sm:py-2  px-3 text-white font-medium  text-center"
+                  className="bg-lightGreen mx-auto text-xl h-10 rounded-xl w-full md:w-96 py-1 sm:py-2  px-3 text-white font-medium  text-center flex justify-center items-center"
                 >
                   {isLading ? (
                     <DotPulse size={50} speed={1.3} color="#fff" />

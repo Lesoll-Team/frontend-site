@@ -32,7 +32,9 @@ function SearchResult() {
 
   useEffect(() => {
     // Trigger the propertyFromSearch action when the component mounts
-    dispatch(propertyFromSearch({ InputKeywords: InputKeyword, page: currentPage }));
+    dispatch(
+      propertyFromSearch({ InputKeywords: InputKeyword, page: currentPage })
+    );
   }, [dispatch, InputKeyword, currentPage]);
 
   useEffect(() => {
@@ -70,12 +72,11 @@ function SearchResult() {
                 nextLabel={"next"}
                 nextClassName={styles.paginationNext}
                 disabledClassName={styles.paginationDisabled}
-                
               />
             </div>
           </div>
 
-          <div className={`lg:block hidden sticky  top-20 h-[91vh] `}>
+          <div className={`lg:block hidden sticky  top-20 h-[93vh] `}>
             {searchResult?.searchResults && (
               <ShowMapSearch
                 className=""

@@ -182,7 +182,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
           updateTitleOnClear={true}
         />
         <AddPropDropdown
-          title={!language ? "Listing Option" : "إختار العرض"}
+          title={!language ? "Listing Option" : "اختر العرض"}
           value={propertyDetils.offer}
           setValue={(e) => {
             setData({ ...propertyDetils, offer: e });

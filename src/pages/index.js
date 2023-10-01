@@ -38,8 +38,8 @@ export default function Home({ propertyForRent, propertyForBuy }) {
       <Main />
       <SearchBar />
 
-      <RecentPropertyRent propertiesRent={propertyForRent} />
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
+      <RecentPropertyRent propertiesRent={propertyForRent} />
     </main>
   );
 }

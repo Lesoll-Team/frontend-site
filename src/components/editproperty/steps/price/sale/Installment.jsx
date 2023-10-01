@@ -11,12 +11,12 @@ const Installment = ({ propertyDetils, setData }) => {
     en: [
       { value: "Cash", name: "Cash" },
       { value: "Installment", name: "Installment" },
-      { value: "Cash & Installment", name: "Cash & Installment" },
+      // { value: "Cash & Installment", name: "Cash & Installment" },
     ],
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Cash & Installment", name: "كاش وتقسيط" },
+      // { value: "Cash & Installment", name: "كاش وتقسيط" },
     ],
   };
   const installmentTypeOptions = {
@@ -92,6 +92,29 @@ const Installment = ({ propertyDetils, setData }) => {
     propertyDetils.price,
     propertyDetils.maintenancePayment,
   ]);
+  useEffect(() => {
+    if (
+      propertyDetils.downPaymentType === "percentage" &&
+      propertyDetils.price
+    ) {
+      setData({
+        ...propertyDetils,
+        downPayment:
+          (parseFloat(propertyDetils.downPaymentAmount) *
+            propertyDetils.price) /
+          100,
+      });
+    } else if (propertyDetils.downPaymentType === "cash") {
+      setData({
+        ...propertyDetils,
+        downPayment: propertyDetils.downPaymentAmount,
+      });
+    }
+  }, [
+    propertyDetils.price,
+    propertyDetils.downPaymentAmount,
+    propertyDetils.downPaymentType,
+  ]);
 
   return (
     <div className="space-y-4 md:space-y-0 w-full flex flex-col md:flex-row md:justify-between items-stretch ">
@@ -115,19 +138,37 @@ const Installment = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropInput
+          propertyDetils={propertyDetils}
+          choices={propertyDetils.downPaymentType}
           type={"number"}
+          setData={setData}
           title={language ? "المقدم" : "Down Payment"}
-          placeholder={language ? "المقدم" : "Down Payment"}
-          egp={true}
-          value={propertyDetils.downPayment}
-          setValue={(e) =>
-            setData({ ...propertyDetils, downPayment: e.target.value })
+          placeholder={
+            propertyDetils.downPaymentType === "percentage"
+              ? language
+                ? "النسبة"
+                : "Percentage"
+              : language
+              ? "السعر"
+              : "Price"
           }
+          // egp={true}
+          value={propertyDetils.downPaymentAmount}
+          setValue={(e) => {
+            setData({
+              ...propertyDetils,
+              downPaymentAmount: e.target.value,
+              // downPayment:
+              //   (parseFloat(downPaymentAmount) *
+              //     parseInt(propertyDetils.price)) /
+              //   100,
+            });
+          }}
         />
         <AddPropInput
           type={"number"}
-          title={language ? " المقدم 2" : "Maintenance Payment"}
-          placeholder={"Price"}
+          title={language ? "  دفعة التأمين" : "Maintenance Payment"}
+          placeholder={language ? "السعر" : " Price"}
           egp={true}
           value={propertyDetils.maintenancePayment}
           setValue={(e) =>
@@ -142,42 +183,31 @@ const Installment = ({ propertyDetils, setData }) => {
       { value: "3 Month", name: "3 شهور" },
       { value: "6 Month", name: "6 شهور" },
     ] */}
-        <AddPropDropdown
-          title={language ? "نظام التقسيط" : "Installment Type"}
-          value={installmentTypeHandle()}
-          setValue={(e) => {
-            setData({
-              ...propertyDetils,
-              installmentOption: {
-                ...propertyDetils.installmentOption,
-                type: e,
-              },
-            });
-          }}
-          options={installmentTypeOptions}
-        />
         <AddPropInput
+          // choices={true}
           type={"number"}
           title={language ? "مدة التقسيط" : "Installment Period"}
           placeholder={
-            propertyDetils.installmentOption.type === "Yearly"
+            propertyDetils.installmentPeriodType === "yearly"
               ? language
                 ? "عدد السنين"
-                : "Number Years"
+                : " Years"
               : language
               ? "عدد الشهور"
               : "Months"
           }
+          setData={setData}
+          yearMonthes={propertyDetils.installmentOption.type}
           value={propertyDetils.installmentOption.period}
-          setValue={(e) =>
+          setValue={(e) => {
             setData({
               ...propertyDetils,
               installmentOption: {
                 ...propertyDetils.installmentOption,
                 period: e.target.value,
               },
-            })
-          }
+            });
+          }}
         />
         <Summary propertyDetils={propertyDetils} setData={setData} />
       </div>

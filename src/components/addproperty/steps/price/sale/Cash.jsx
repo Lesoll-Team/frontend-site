@@ -43,8 +43,8 @@ const Cash = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={!language ? "Rental Price" : "السعر "}
-          placeholder={"Price"}
+          title={language ? "السعر " : "Rental Price"}
+          placeholder={language ? "السعر" : "Price"}
           egp={true}
           value={propertyDetils.price}
           setValue={(e) =>
@@ -54,7 +54,7 @@ const Cash = ({ propertyDetils, setData }) => {
       </div>
       <div className="space-y-4 md:w-[48%]">
         <AddPropCheck
-          title={!language ? "negotiable" : "قابل للتفاوض"}
+          title={language ? "قابل للتفاوض" : "negotiable"}
           value={propertyDetils.negotiable}
           setValue={(e) =>
             setData({
@@ -64,7 +64,7 @@ const Cash = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropCheck
-          title={!language ? "Real Estate Finance" : "متاح للتمويل العقارى"}
+          title={language ? "متاح للتمويل العقارى" : "Real Estate Finance"}
           value={propertyDetils.realEstateFinance}
           setValue={(e) =>
             setData({

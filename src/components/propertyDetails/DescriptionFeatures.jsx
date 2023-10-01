@@ -35,7 +35,7 @@ function DescriptionFeatures({ singleDescriptionFeatures }) {
               singleDescriptionFeatures.description.length > 200 &&
               "...."}
           </p>
-          {singleDescriptionFeatures.description.length > 100 && (
+          {singleDescriptionFeatures.description.length > 200 && (
             <button
               onClick={toggleDescription}
               className="text-lightGreen hover:underline"
