@@ -3,6 +3,8 @@ import { useState } from "react"; //useEffect
 import { useDispatch, useSelector } from "react-redux";
 import "react-phone-input-2/lib/style.css";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import { Button } from "@nextui-org/react";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
 const SignUpForm = () => {
@@ -95,7 +97,7 @@ const SignUpForm = () => {
   //     dispatch(getAllUserData(userToken))
   //  },[userToken,dispatch])
   return (
-    <div className="animate-appearance-in">
+    <div className="animate-appearance-in ">
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
         <button
           onClick={setIndividual}
@@ -159,6 +161,7 @@ const SignUpForm = () => {
           : "To get started, please select your registration role from these options"}
       </p>
       {showForm && (
+        <div>
         <form
           onSubmit={handleRegistration}
           className="flex flex-col w-80 animate-appearance-in md:w-96 py-5 justify-center space-y-4"
@@ -283,6 +286,19 @@ const SignUpForm = () => {
           </button>
           {registrationError && <p>Error: {registrationError}</p>}
         </form>
+        <div className="flex items-center  px-14 ">
+      <hr className=" border-[1px] w-full border-default-300"/>
+      <span className="px-2 font-medium">or</span>
+      <hr className=" border-[1px] w-full border-default-300"/>
+      </div>
+      <div className="flex items-center px-4 justify-center">
+      <Button variant="bordered" isIconOnly radius="sm" className="w-full py-5 text-lg mt-3 ">
+      Log In With Google
+      <FcGoogle className="text-2xl mx-3"/>
+
+      </Button>
+      </div>
+      </div>
       )}
     </div>
   );

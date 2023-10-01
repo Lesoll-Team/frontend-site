@@ -4,16 +4,22 @@ import {
   saleOptionsData,
   propertyTypeData,
   unitTypeData,
+  sortedData,
 } from "./dropdown/dataDropdown";
 import { LuSearch } from "react-icons/lu";
 import Dropdown from "./dropdown/Dropdown";
 import DropdownMore from "./dropdown/DropdownMore";
-import DropdownPrice from "./dropdown/DropdownPrice";
-import DropdownRooms from "./dropdown/DropdownRooms";
-import { propertyFromSearch, setInputKeywords } from "../../redux-store/features/searchSlice";
+// import DropdownPrice from "./dropdown/DropdownPrice";
+// import DropdownRooms from "./dropdown/DropdownRooms";
+import {
+  propertyFromSearch,
+  setInputKeywords,
+} from "../../redux-store/features/searchSlice";
 import DropdownUintType from "./dropdown/DropdownUintType";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { FaSortNumericDown } from "react-icons/fa";
+import DropdownSort from "./dropdown/DropdownSort";
 
 export function SearchBar() {
   const dispatch = useDispatch();
@@ -35,112 +41,132 @@ export function SearchBar() {
   let [finishingOptions, setFinishingOptions] = useState("");
   let [unitType, setUnitType] = useState("");
   let [propertyType, setPropertyType] = useState("");
+  let [sortProp, setSortProp] = useState("");
   let [isFurnished, setFurnished] = useState(false);
-  let page = useSelector((state) => state.Search.page);
+  const InputKeywords = {
+    saleOptions,
+    propertyType,
+    unitType,
+    paymentMethod,
+    countBathrooms,
+    countBedrooms,
+    isFurnished,
+    finishingOptions,
+    toPrice,
+    fromPrice,
+    keywords,
+    fromArea,
+    toArea,
+    propertyFinance,
+    sortProp,
+  };
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
+    dispatch(setInputKeywords(InputKeywords));
+    router.push("/search");
+  };
 
-  const handleSubmitSearch = useCallback(
-    (e) => {
-      e.preventDefault();
-      const InputKeywords = {
-        saleOptions,
-        propertyType,
-        unitType,
-        paymentMethod,
-        countBathrooms,
-        countBedrooms,
-        isFurnished,
-        finishingOptions,
-        toPrice,
-        fromPrice,
-        keywords,
-      };
-      dispatch(propertyFromSearch({ InputKeywords, page }));
-      dispatch(setInputKeywords(InputKeywords));
-      router.push("/search");
-    },
-    [
-      saleOptions,
-      propertyType,
-      unitType,
-      paymentMethod,
-      countBathrooms,
-      countBedrooms,
-      isFurnished,
-      finishingOptions,
-      toPrice,
-      fromPrice,
-      keywords,
-      router,
-      page,
-      dispatch,
-    ]
-  );
+
+  // console.log(propertyType);
 
   return (
     <form onSubmit={handleSubmitSearch}>
-      <div dir="ltr" className=" w-full flex justify-center ">
-        <div className="p-2 flex  flex-col md:w-8/12 w-full  ">
-          {/*bg-blue-200 grid lg:grid-cols-3 grid-cols-2 items-center */}
-          <div className="p-1 ">
-            <Input
-              className=" h-full "
-              size="md"
-              isClearable
-              placeholder="Search by City, Region or Unit type"
-              onValueChange={setKeywords}
-            />
+      <div dir="ltr" className=" w-full flex justify-center  mt-10 mb-10">
+          <div className="flex  gap-x-1 md:w-9/12  items-end">
+          
+            <div className=" w-8/12">
+            <div className="flex">
+            <button
+  
+              className={` ${
+                saleOptions == ""
+                  ? "bg-white border-2 border-lightOrange text-lightOrange "
+                  : " bg-lightOrange text-white "
+              }  font-bold  px-2 mx-1  rounded-t-medium`}
+              onClick={() => setSaleOptions("")}
+            >
+              {languageIs ? "الكل" : "All"}
+            </button>
+            <button
+              onClick={() => setSaleOptions("For Rent")}
+  
+              className={` ${
+                saleOptions == "For Rent"
+                  ? "text-lightGreen border-2 border-lightGreen bg-white"
+                  : "text-white bg-lightGreen"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للإيجار" : "Rent"}
+            </button>
+            <button
+              onClick={() => setSaleOptions("For Sale")}
+  
+              className={` ${
+                saleOptions == "For Sale"
+                  ? "text-lightGreen border-2 border-lightGreen bg-white"
+                  : "text-white bg-lightGreen"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للبيع" : "Buy"}
+            </button>
+
+            <button
+              onClick={() => setSaleOptions("For Investment")}
+  
+              className={` ${
+                saleOptions == "For Investment"
+                  ? "text-lightGreen border-2 border-lightGreen bg-white"
+                  : "text-white bg-lightGreen"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للإستثمار" : "Investment"}
+            </button>
           </div>
-          <div className=" flex items-center justify-around ">
+              <Input
+                className=" h-full  "
+                size="md"
+                isClearable
+                placeholder="Search by City, Region or Unit type"
+                onValueChange={setKeywords}
+              />
+            </div>
+            <div className="flex items-end">
             <Dropdown
-              valueDefault={`${languageIs ? "خيار البيع" : "Sale Option"}`}
-              classNames="max-w-[200px]"
-              value={saleOptions}
-              options={saleOptionsData}
-              setValue={setSaleOptions}
-            />
-            <Dropdown
-              classNames=" max-w-[200px]"
+              classNames=" w-[auto]  sm:block hidden"
               value={propertyType}
               options={propertyTypeData}
               setValue={setPropertyType}
               valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
             />
             <DropdownUintType
-              classNames="max-w-[200px]  sm:block hidden"
+              classNames=" w-[auto]  sm:block hidden"
               value={unitType}
               options={unitTypeData}
               propertyType={propertyType}
               setValue={setUnitType}
               valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
             />
-            <DropdownRooms
-              classNames="lg:block hidden max-w-[200px]"
-              name={`${
-                languageIs ? "الغرف & الحمامات " : "Bedrooms & Bathrooms"
-              }`}
-              setCountBedrooms={setCountBedrooms}
-              setCountBathroom={setCountBathroom}
-              countBedrooms={countBedrooms}
-              countBathrooms={countBathrooms}
+
+              <DropdownSort
+              classNames=" w-[auto] "
+              // dropdownIcons={false}
+              InputKeywords={InputKeywords}
+              value={sortProp}
+              options={sortedData}
+              setValue={setSortProp}
+              valueDefault={<FaSortNumericDown/> }
             />
-            <DropdownPrice
-              name={`${languageIs ? "السعر " : "Price"}`}
-              classNames="max-w-[200px] lg:block hidden"
-              valueToPrice={toPrice}
-              setFromPrice={setFromPrice}
-              setToPrice={setToPrice}
-              valueFromPrice={fromPrice}
-            />
-            <DropdownMore
+              <DropdownMore
+              setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
+              setFinishingOptions={setFinishingOptions}
               finishingOptions={finishingOptions}
+              setUnitType={setUnitType}
               unitType={unitType}
+              setPropertyType={setPropertyType}
               propertyType={propertyType}
               isFurnished={isFurnished}
-              setPaymentMethod={setPaymentMethod}
-              setFinishingOptions={setFinishingOptions}
-              setUnitType={setUnitType}
-              setPropertyType={setPropertyType}
               setFurnished={setFurnished}
               countBedrooms={countBedrooms}
               setCountBedrooms={setCountBedrooms}
@@ -148,7 +174,6 @@ export function SearchBar() {
               setCountBathroom={setCountBathroom}
               setPropertyFinance={setPropertyFinance}
               propertyFinance={propertyFinance}
-              // name="More"
               fromPrice={fromPrice}
               setFromPrice={setFromPrice}
               toPrice={toPrice}
@@ -159,13 +184,12 @@ export function SearchBar() {
               setToArea={setToArea}
               classNames="max-w-[40px]"
             />
+          <button type="submit" className="rounded-xl p-3 bg-lightGreen">
+            <LuSearch className="lg:text-3xl text-xl text-white" />
+          </button>
           </div>
-        </div>
-        <div className="flex items-center justify-center py-3">
-          <Button type="submit" className="h-full bg-lightGreen">
-            <LuSearch className="lg:text-5xl text-2xl text-white" />
-          </Button>
-        </div>
+          </div>
+        
       </div>
     </form>
   );

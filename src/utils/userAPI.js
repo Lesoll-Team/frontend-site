@@ -144,5 +144,38 @@ export async function sendResetNewPassword(userNewPassword) {
     throw error.response.data;
   }
 }
+// export async function getTokenGoogle(){
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// }
+export async function signWithGoogle(){
+  try {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`)
+  const authUrl = response.data.Link;
+  window.location.href=authUrl
+  // window.open(authUrl,"_blank");
+// console.log("response",response.data);
+  // return response
+} catch (error) {
+    console.log(error);
+}
+  // console.log(response);
+}
+
+// export async function signWithGoogle(){
+// try {
+//   const newWindow = window.open("http://ec2-184-73-152-95.compute-1.amazonaws.com/api/auth/google", "_blank");
+//   if (!newWindow) {
+//     console.error("Popup blocked by the browser");
+//   }
+// } catch (error) {
+//   console.log(error);
+// }
+// }
+
+
 
 

@@ -22,7 +22,7 @@ const SignUp = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div>
+    <div className="">
       <Head>
         <title>{language ? "الإشتراك" : "Sign Up"}</title>
         <meta
@@ -34,7 +34,7 @@ const SignUp = () => {
       {!loading ? (
         <div className="flex flex-col md:flex-row ">
           {/* form div*/}
-          <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
+          <div className="flex flex-col space-y-3 pb-10 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
             <h2 className="text-6xl sm:text-7xl mb-5 text-lightGreen font-black text-left">
               {language ? "التسجيل" : "Sign Up"}
             </h2>

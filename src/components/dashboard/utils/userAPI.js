@@ -4,9 +4,7 @@ export async function getAllUsers(rowsPerPage,page,userToken) {
 // console.log(rowsPerPage,page,userToken);
     try {
       const response = await axios.get(
-        `${
-          process.env.NEXT_PUBLIC_API_URL
-        }/admin/getallusers?limit=${rowsPerPage}&page=${page}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/getallusers?limit=${rowsPerPage}&page=${page}`,
         {
           headers: {
             token: userToken,

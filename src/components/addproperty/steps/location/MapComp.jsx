@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData }) {
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: libraries,
@@ -51,13 +51,13 @@ const Map = ({ propertyDetils, setData }) => {
     const lat = latLng.lat();
     const lng = latLng.lng();
     setSelected({ lat, lng });
-    console.log(selected);
+    // console.log(selected);
     const query = `${lat},${lng}`;
     // Use getGeocode to retrieve place details including place_id
     // const result = await getGeocode(selected);
     const result = await getGeocode({ address: query });
-    console.log(result);
-    console.log(result[0]);
+    // console.log(result);
+    // console.log(result[0]);
     const { place_id, formatted_address, address_components } = result[0];
 
     let governrate = "";
@@ -155,7 +155,7 @@ const PlacesAutoComplete = ({
   const handleSelect = async (address) => {
     setValue(address, false);
     clearSuggestions();
-    console.log(address);
+    // console.log(address);
     const result = await getGeocode({ address });
     const { place_id, formatted_address, address_components } = result[0];
 

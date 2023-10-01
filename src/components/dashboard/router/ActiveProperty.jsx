@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, Image } from "@nextui-org/react";
 import {
-  fetchAllProperty,
-  deleteProperties,
+    fetchActiveProperty,
+  deleteActiveProperty,
   acceptProperties,
 } from "../utils/propertyData";
 import {
@@ -29,26 +29,36 @@ const columns = [
   { name: "Address", uid: "address" },
   { name: "ACTIONS", uid: "actions" },
 ];
-export default function PropertyDashboard() {
+export default function ActiveProperty() {
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+
   const [property, setProperty] = useState([]);
+  console.log("sdsdsdsd",property);
+
+  const [propertyLength, setPropertyLength] = useState(0);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
-        const getProperties = await fetchAllProperty(userToken);
-        setProperty(getProperties);
-        setProperty(getProperties);
+        const getProperties = await fetchActiveProperty(rowsPerPage, page, userToken);
+        // const getProperties = await fetchActiveProperty(userToken);
+        setProperty(getProperties.Property);
+        setPropertyLength(getProperties.resultCount);
       } catch (error) {
         console.error("Error fetching Properties:", error);
       }
     };
     fetchAllProperties();
-  }, []);
+  }, [page, rowsPerPage]);
+  
   const [filterValue, setFilterValue] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortDescriptor] = useState({});
-  const [page, setPage] = useState(1);
-  const pages = Math.ceil(property.length / rowsPerPage);
+
+  const [sortDescriptor, setSortDescriptor] = useState({});
+
+
+  const pages = Math.ceil(propertyLength / rowsPerPage);
   const hasSearchFilter = Boolean(filterValue);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
@@ -71,11 +81,18 @@ export default function PropertyDashboard() {
     return filteredUsers;
   }, [property, filterValue]);
 
+//   const items = useMemo(() => {
+//     const start = (page - 1) * rowsPerPage;
+//     const end = start + rowsPerPage;
+
+//     return filteredItems.slice(start, end);
+//   }, [page, filteredItems, rowsPerPage]);
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
+    return filteredItems.slice(start, end)&&filteredItems;
+    // return filteredItems
 
-    return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = useMemo(() => {
@@ -198,7 +215,7 @@ export default function PropertyDashboard() {
               >
                 <DropdownItem
                   textValue="Delete Property"
-                  onClick={async () => await deleteProperties(blog._id)}
+                  onClick={async () => await deleteActiveProperty(blog._id)}
                 >
                   Delete
                 </DropdownItem>
@@ -251,8 +268,8 @@ export default function PropertyDashboard() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total property pending:{" "}
-            <b className="text-lightOrange"> {property.length}</b>
+            Total property Active:
+            <b className="text-lightOrange">{propertyLength}</b>
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -263,6 +280,8 @@ export default function PropertyDashboard() {
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="60">60</option>
             </select>
           </label>
         </div>
@@ -291,9 +310,14 @@ export default function PropertyDashboard() {
           variant="light"
           onChange={setPage}
         />
+                <span className="text-small text-default-400">
+          {selectedKeys === "all"
+            ? "All items selected"
+            : `${selectedKeys.size} of ${items.length} selected`}
+        </span>
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages, hasSearchFilter, selectedKeys]);
 
   const classNames = useMemo(
     () => ({
@@ -324,8 +348,13 @@ export default function PropertyDashboard() {
       }}
       classNames={classNames}
       sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
+      onSelectionChange={setSelectedKeys}
+      selectedKeys={selectedKeys}
+
+
     >
       <TableHeader columns={headerColumns}>
         {(column) => (

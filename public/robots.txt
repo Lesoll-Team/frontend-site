@@ -1,0 +1,9 @@
+
+User-agent: *
+Disallow: /dashboard
+Disallow: /editproperty
+Disallow: /profile
+
+
+User-agent: *
+Allow: /

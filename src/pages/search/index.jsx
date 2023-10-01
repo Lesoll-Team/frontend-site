@@ -1,5 +1,5 @@
 // import Search from "@/components/search/Search";
-import { SearchBar } from "@/Shared/search/SearchBar";
+// import { SearchBar } from "@/Shared/search/SearchBar";
 import SearchResult from "@/components/SearchResult/SearchResult";
 import Head from "next/head";
 import { useSelector } from "react-redux";
@@ -16,7 +16,7 @@ const search = () => {
         />
       </Head>
       <div className="min-h-[100dvh]">
-        <SearchBar />
+        {/* <SearchBar /> */}
         <SearchResult />
       </div>
     </>

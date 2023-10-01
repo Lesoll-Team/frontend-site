@@ -27,8 +27,11 @@ function UserModule() {
   const [titleAR, setTitleAR] = useState("");
   const [titleEN, setTitleEN] = useState("");
   const [userDataInfo, setUserDataInfo] = useState({});
-  const [descriptionAR, setDescriptionAR] = useState("");
-  const [descriptionEN, setDescriptionEN] = useState("");
+  const [descriptionAR, setDescriptionAR] = useState(``);
+  const [descriptionEN, setDescriptionEN] = useState(``);
+
+  const [metDescriptionAR, setMetDescriptionAR] = useState("");
+  const [metDescriptionEN, setMetDescriptionEN] = useState("");
 
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
@@ -57,8 +60,8 @@ function UserModule() {
     e.preventDefault();
     const formData = new FormData();
     const metaDescription = {
-      ar: descriptionAR,
-      en: descriptionEN,
+      ar: metDescriptionAR,
+      en: metDescriptionEN,
     };
     const description = {
       ar: descriptionAR,
@@ -70,9 +73,9 @@ function UserModule() {
     };
 
     formData.append("img", selectedImage);
-    formData.append("title", title );
-    formData.append("metaDescription",metaDescription);
-    formData.append("description",description);
+    formData.append("title", JSON.stringify(title) );
+    formData.append("metaDescription",JSON.stringify(metaDescription));
+    formData.append("description",JSON.stringify(description));
     dispatch(
       createBlogs({ userToken: userDataInfo?.token, blogData: formData }) //, blogData: formData
     );
@@ -93,14 +96,14 @@ function UserModule() {
         onOpenChange={onOpenChange}
         radius="2xl"
         size="5xl"
-        className=" bg-lightGreenHover  "
+        className=" "
         classNames={{
-          body: " ",
-          base: "m-auto",
+          body: "overflow-y-auto h-[300px]",
+          base: "",
           header: "border-b-[1px] p-1",
         }}
       >
-        <ModalContent className="model">
+        <ModalContent className="model mt-96">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 w-[1000px]">
@@ -132,7 +135,7 @@ function UserModule() {
 
                   <div className=" my-5 gap-5 flex">
                     <Input
-                      color="success"
+                      color="default"
                       type="text"
                       placeholder="set Title Arabic here"
                       labelPlacement="outside"
@@ -140,7 +143,7 @@ function UserModule() {
                       onChange={(e) => setTitleAR(e.target.value)}
                     />
                     <Input
-                      color="success"
+                      color="default"
                       type="text"
                       placeholder="set Title English here"
                       labelPlacement="outside"
@@ -148,18 +151,34 @@ function UserModule() {
                       onChange={(e) => setTitleEN(e.target.value)}
                     />
                   </div>
-                  <div className=" flex gap-5">
+                  <div className=" flex flex-col gap-5">
                     <Textarea
-                      color="success"
+                      color="default"
                       onChange={(e) => setDescriptionAR(e.target.value)}
                       label=<b>Description Arabic</b>
                       labelPlacement="outside"
                       placeholder="حقل إدخال الوصف "
                     />
                     <Textarea
-                      color="success"
+                      color="default"
                       onChange={(e) => setDescriptionEN(e.target.value)}
                       label=<b>Description English</b>
+                      labelPlacement="outside"
+                      placeholder="Enter your description"
+                    />
+                  </div>
+                  <div className=" flex gap-5">
+                    <Textarea
+                      color="primary"
+                      onChange={(e) => setMetDescriptionAR(e.target.value)}
+                      label=<b>Meta Description Arabic <span className="text-lightOrange">{metDescriptionAR.length}</span></b>
+                      labelPlacement="outside"
+                      placeholder="حقل إدخال الوصف "
+                    />
+                    <Textarea
+                      color="primary"
+                      onChange={(e) => setMetDescriptionEN(e.target.value)}
+                      label=<b>Meta Description English <span className="text-lightOrange">{metDescriptionEN.length}</span></b>
                       labelPlacement="outside"
                       placeholder="Enter your description"
                     />

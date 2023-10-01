@@ -1,6 +1,6 @@
 // store/SignUpSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { registerUser, loginUser } from "../../utils/userAPI";
+import { registerUser, loginUser, signWithGoogle, getTokenGoogle } from "../../utils/userAPI";
 import axios from 'axios';
 
 const getUserTokenFromLocalStorage = () => {
@@ -13,8 +13,8 @@ const getUserTokenFromLocalStorage = () => {
 
 const getUserAuthFromLocalStorage = () => {
   if (typeof window !== "undefined") {
-    const userToken = localStorage.getItem("userIsLogin");
-    return userToken ? JSON.parse(userToken) : null;
+    const userIsLogin = localStorage.getItem("userIsLogin");
+    return userIsLogin ? JSON.parse(userIsLogin) : null;
   }
   return null;
 };
@@ -29,6 +29,7 @@ export const loginUserAsync = createAsyncThunk(
   "Auth/loginUser",
   async (userData) => {
     const response = await loginUser(userData);
+    // console.log("sginin",response);
     return response.token; // Assuming your API returns user data upon successful login
   }
 );
@@ -38,6 +39,23 @@ export const signupUserAsync = createAsyncThunk(
   async (userData) => {
     const response = await registerUser(userData);
     return response.token; // Assuming your API returns user data upon successful signup
+  }
+);
+
+export const signInWithGoogle = createAsyncThunk(
+  "Auth/signWithGoogle",
+  async (token) => {
+    // try {
+      localStorage.setItem("userToken", JSON.stringify(token))
+    //   localStorage.setItem("userIsLogin", JSON.stringify(true))
+    // } catch (error) {
+    //   // localStorage.setItem("userToken", JSON.stringify(token));
+    //   localStorage.setItem("userIsLogin", JSON.stringify(false));
+    // }
+    // const response = await getTokenGoogle(token);
+  // const authUrl = response.data.Link;
+  // return response
+   // Assuming your API returns user data upon successful signup
   }
 );
 
@@ -122,6 +140,30 @@ const AuthSlice = createSlice({
         state.isLoding = true;
         // state.registrationError = action.error;
       })
+
+
+
+      // .addCase(signInWithGoogle.pending,(state)=>{
+      //   state.isRegistering = true;
+      //   state.registrationError = null;
+      //   state.isLoding = false;
+      // })
+      .addCase(signInWithGoogle.fulfilled,(state,action)=>{
+      const  useToken=localStorage.getItem("userToken");
+        if (useToken) {
+          state.isRegistering = false;
+          state.userToken = action.payload;
+          state.isLoding = true;
+          // localStorage.setItem("userToken", JSON.stringify(action.payload));
+          localStorage.setItem("userIsLogin", JSON.stringify(state.isLoding));
+        }
+
+      })
+      // .addCase(signInWithGoogle.rejected,(state)=>{
+      //   state.isRegistering = false;
+      //   state.registrationError = action.error.message;
+      //   state.isLoding = false;
+      // })
     //end case delete account
     //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*//
 

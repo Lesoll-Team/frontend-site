@@ -1,7 +1,10 @@
 import React from 'react'
 import {Card, CardBody, CardFooter, CardHeader, Image} from "@nextui-org/react";
+import { useSelector } from 'react-redux';
 
 function BlogSinglePage({BlogData}) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   // console.log(BlogData);
   return (
     <div>
@@ -25,11 +28,11 @@ function BlogSinglePage({BlogData}) {
                 
             
               <CardFooter className=''>      
-                 <p dir={true?"rtl":"ltr"} className=' text-lg text-darkGray text-justify px-10 rounded-2xl'>
-                 {
-                  BlogData.getBlogs.description.ar
-                 }
-              </p>
+              <div
+            dir={language ? "rtl" : "ltr"}
+            className='text-lg text-darkGray text-justify px-10 rounded-2xl'
+            dangerouslySetInnerHTML={language?{ __html: BlogData.getBlogs.description.ar }:{ __html: BlogData.getBlogs.description.en }}
+          />
               </CardFooter>
               </Card>
             
