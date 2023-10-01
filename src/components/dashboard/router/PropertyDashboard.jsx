@@ -22,6 +22,7 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
+import Link from "next/link";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -31,6 +32,7 @@ const columns = [
 ];
 export default function PropertyDashboard() {
   const [property, setProperty] = useState([]);
+  console.log(property);
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {
@@ -207,6 +209,14 @@ export default function PropertyDashboard() {
                   onClick={async () => await acceptProperties(blog._id)}
                 >
                   Accept
+                </DropdownItem>
+                <DropdownItem
+                  textValue="Accept Property"
+                  // onClick={async () => await acceptProperties(blog._id)}
+                >
+                <Link href={`editproperty/${blog.slug}`}>
+               edit
+                </Link>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>

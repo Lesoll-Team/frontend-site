@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, Image } from "@nextui-org/react";
+import { useRouter } from "next/router";
 import {
     fetchActiveProperty,
   deleteActiveProperty,
@@ -22,6 +23,7 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
+import Link from "next/link";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -104,7 +106,7 @@ export default function ActiveProperty() {
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-
+const router = useRouter()
   const renderCell = useCallback((blog, columnKey) => {
     switch (columnKey) {
       case "address":
@@ -224,6 +226,17 @@ export default function ActiveProperty() {
                   onClick={async () => await acceptProperties(blog._id)}
                 >
                   Accept
+                </DropdownItem>
+                <DropdownItem
+                  textValue="edit Property"
+                  // onClick={async () => await acceptProperties(blog._id)}
+                  onClick={()=>{
+                    router.push("/editproperty/"+blog.slug)
+                  }}
+                >
+                <Link href={`/editproperty/${blog.slug}`} className="w-full h-full">
+               edit
+                </Link>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
