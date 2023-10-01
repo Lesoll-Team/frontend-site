@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 function BlogSinglePage({BlogData}) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  // console.log(BlogData);
+  console.log(BlogData);
   return (
     <div>
 
@@ -23,7 +23,7 @@ function BlogSinglePage({BlogData}) {
                 />
                 </CardBody>
                 <CardHeader className=''>
-                  <b className=' text-3xl text-lightGreen w-full  text-center rounded-2xl'>{BlogData.getBlogs.title.ar}</b>
+                  <b className=' text-3xl text-lightGreen w-full  text-center rounded-2xl'>{language?BlogData.getBlogs.title.ar:BlogData.getBlogs.title.en}</b>
                 </CardHeader>
                 
             

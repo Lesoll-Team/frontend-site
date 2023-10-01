@@ -82,9 +82,9 @@ const ForgetPassword = () => {
           src={lock}
           className="md:hidden w-40 relative mx-auto -mt-20"
         />
-        <h1 className="md:text-4xl text-3xl text-center mb-5 text-lightGreen font-black">
+        <p className="md:text-4xl text-3xl text-center mb-5 text-lightGreen font-black">
          {language?` تغير كلمة المرور`:` Reset password`}
-        </h1>
+        </p>
         {/* Form inputs */}
         <div>
           <input

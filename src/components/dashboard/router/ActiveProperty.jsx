@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, Image } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import {
-    fetchActiveProperty,
+  fetchActiveProperty,
   deleteActiveProperty,
   acceptProperties,
 } from "../utils/propertyData";
@@ -35,7 +35,7 @@ export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
 
   const [property, setProperty] = useState([]);
-  console.log("sdsdsdsd",property);
+  console.log("sdsdsdsd", property);
 
   const [propertyLength, setPropertyLength] = useState(0);
   const [page, setPage] = useState(1);
@@ -44,7 +44,11 @@ export default function ActiveProperty() {
     const fetchAllProperties = async () => {
       try {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
-        const getProperties = await fetchActiveProperty(rowsPerPage, page, userToken);
+        const getProperties = await fetchActiveProperty(
+          rowsPerPage,
+          page,
+          userToken
+        );
         // const getProperties = await fetchActiveProperty(userToken);
         setProperty(getProperties.Property);
         setPropertyLength(getProperties.resultCount);
@@ -54,11 +58,10 @@ export default function ActiveProperty() {
     };
     fetchAllProperties();
   }, [page, rowsPerPage]);
-  
+
   const [filterValue, setFilterValue] = useState("");
 
   const [sortDescriptor, setSortDescriptor] = useState({});
-
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
   const hasSearchFilter = Boolean(filterValue);
@@ -83,18 +86,17 @@ export default function ActiveProperty() {
     return filteredUsers;
   }, [property, filterValue]);
 
-//   const items = useMemo(() => {
-//     const start = (page - 1) * rowsPerPage;
-//     const end = start + rowsPerPage;
+  //   const items = useMemo(() => {
+  //     const start = (page - 1) * rowsPerPage;
+  //     const end = start + rowsPerPage;
 
-//     return filteredItems.slice(start, end);
-//   }, [page, filteredItems, rowsPerPage]);
+  //     return filteredItems.slice(start, end);
+  //   }, [page, filteredItems, rowsPerPage]);
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return filteredItems.slice(start, end)&&filteredItems;
+    return filteredItems.slice(start, end) && filteredItems;
     // return filteredItems
-
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = useMemo(() => {
@@ -106,7 +108,7 @@ export default function ActiveProperty() {
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-const router = useRouter()
+  const router = useRouter();
   const renderCell = useCallback((blog, columnKey) => {
     switch (columnKey) {
       case "address":
@@ -223,20 +225,22 @@ const router = useRouter()
                 </DropdownItem>
                 <DropdownItem
                   textValue="Accept Property"
-                  onClick={async () => await acceptProperties(blog._id)}
+                  onClick={() => {
+                    router.push(`/propertyDetails/${blog.slug}`);
+                  }}
                 >
-                  Accept
+                  Visit
                 </DropdownItem>
                 <DropdownItem
                   textValue="edit Property"
                   // onClick={async () => await acceptProperties(blog._id)}
-                  onClick={()=>{
-                    router.push("/editproperty/"+blog.slug)
+                  onClick={() => {
+                    router.push(`/editproperty/${blog.slug}`);
                   }}
                 >
-                <Link href={`/editproperty/${blog.slug}`} className="w-full h-full">
-               edit
-                </Link>
+                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
+                  edit
+                  {/* </Link> */}
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -323,7 +327,7 @@ const router = useRouter()
           variant="light"
           onChange={setPage}
         />
-                <span className="text-small text-default-400">
+        <span className="text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
             : `${selectedKeys.size} of ${items.length} selected`}
@@ -366,8 +370,6 @@ const router = useRouter()
       topContentPlacement="outside"
       onSelectionChange={setSelectedKeys}
       selectedKeys={selectedKeys}
-
-
     >
       <TableHeader columns={headerColumns}>
         {(column) => (

@@ -38,9 +38,10 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 export default function BlogDashboard() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const router = useRouter();
   const [blogs, setBlogs] = React.useState([]);
+  // console.log(blogs);
   useEffect(() => {
     const fetchBlogsData = async () => {
       try {

@@ -8,10 +8,10 @@ const About = () => {
   return (
     <div className="relative min-h-screen py-10 container mx-auto  space-y-20 mb-10">
       <div className="space-y-5 ">
-        <h2 className="text-8xl md:text-9xl font-bold text-darkGray ">
+        <p className="text-8xl md:text-9xl font-bold text-darkGray ">
           About
           <span className="text-lightGreen"> Us</span>
-        </h2>
+        </p>
         <p className="text-xl leading-loose md:text-justify">
           Lesoll is a leading online real estate marketplace in Egypt that
           provides a seamless digital experience for buying, selling, and
@@ -42,9 +42,9 @@ const About = () => {
             />
           </div>
           <div className="md:w-3/4 space-y-3 md:space-y-5 pt-5 md:order-1">
-            <h2 className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
+            <p className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               Our Mission
-            </h2>
+            </p>
             <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose">
               Our vision is to become the ultimate destination for real estate
               transactions in Egypt. We envision Lesoll as the go-to online

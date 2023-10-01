@@ -138,7 +138,7 @@ const EditProp = ({ propData, setPropData }) => {
       // dir={language ? "ltr" : "rtl"}
       className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
     >
-      <h1 className="text-center text-5xl font-bold text-white mb-4"></h1>
+
       <div
         className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200 ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
