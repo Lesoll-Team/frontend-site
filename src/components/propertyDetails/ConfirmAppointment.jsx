@@ -17,10 +17,10 @@ function ConfirmAppointment({ userAppointment }) {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userAppointment?.connectPhoneNumber
   }&text=${encodeURIComponent(message)}`;
-  console.log(userAppointment);
+  // console.log(userAppointment);
 
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(userAppointment);
+  // console.log(userAppointment);
   function formatDate(dateString) {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     if (language) {
@@ -30,7 +30,7 @@ function ConfirmAppointment({ userAppointment }) {
     }
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
-  console.log(userAppointment);
+  // console.log(userAppointment);
   return (
     <div className="  p-5 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
       <h2 className=" text-lightGreen text-lg md:text-4xl font-bold text-center">

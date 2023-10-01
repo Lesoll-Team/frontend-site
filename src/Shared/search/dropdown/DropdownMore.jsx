@@ -74,7 +74,7 @@ const DropdownMore = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         className="w-[30px] font-semibold text-darkGreen text-md flex items-center 
-          focus:outline-lightGreen bg-white py-2       "
+          focus:outline-lightGreen  py-2       "
       >
         <MdOutlineMoreVert className="text-3xl " />
       </div>
@@ -121,12 +121,12 @@ const DropdownMore = ({
               valueFromPrice={fromPrice}
             />
             <DropdownArea
-              name={`${languageIs ? "المنطقة " : "Area"}`}
+              name={`${languageIs ? "المساحة " : "Area"}`}
               classNames="my-1"
-              setFromPrice={setFromArea}
-              valueFromPrice={fromArea}
-              setToPrice={setToArea}
-              valueToPrice={toArea}
+              setFromArea={setFromArea}
+              valueFromArea={fromArea}
+              setToArea={setToArea}
+              valueToArea={toArea}
             />
             <Dropdown
               classNames="my-1"
@@ -158,7 +158,7 @@ const DropdownMore = ({
                 setValue={setPropertyFinance}
               />
             {/* </div> */}
-            <div className="flex items-center justify-center">
+            {/* <div className="flex items-center justify-center">
               <span className="font-bold mx-3 select-none ">
                 {languageIs ? "مفروشة" : "Furnished"}
               </span>
@@ -168,7 +168,7 @@ const DropdownMore = ({
                 onClick={() => setFurnished(!isFurnished)}
                 isSelected={isFurnished}
               />
-            </div>
+            </div> */}
             {/* </div> */}
           </div>
         </div>

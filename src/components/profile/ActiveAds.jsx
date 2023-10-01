@@ -25,8 +25,8 @@ const ActiveAds = () => {
       setActiveAdds(response.data.confirmedRealty);
       setTotalActive(response.data.resultConfirmed);
       setTotalPages(Math.ceil(response.data.resultConfirmed / 2));
-      console.log(response.data);
-      console.log(response.data.confirmedRealty);
+      // console.log(response.data);
+      // console.log(response.data.confirmedRealty);
     } catch (err) {
       console.log(err);
     }

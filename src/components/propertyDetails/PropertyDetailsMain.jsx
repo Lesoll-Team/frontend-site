@@ -30,7 +30,7 @@ function PropertyDetailsMain({ singleProperty }) {
     }
     fetchRecommendations();
   }, [singleProperty]);
-  console.log(singleProperty);
+  // console.log(singleProperty);
   return (
     <>
       <Head>

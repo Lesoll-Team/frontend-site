@@ -39,7 +39,7 @@ export function SearchBar() {
       paymentMethod,
       countBathrooms,
       countBedrooms,
-      isFurnished,
+      // isFurnished,
       finishingOptions,
       toPrice,
       fromPrice,
@@ -93,7 +93,7 @@ export function SearchBar() {
             >
               {languageIs ? "للبيع" : "Buy"}
             </button>
-            <button
+            {/* <button
               onClick={() => setSaleOptions("For Investment")}
   
               className={` ${
@@ -103,15 +103,15 @@ export function SearchBar() {
               }  font-bold  px-2 mx-1 rounded-t-medium`}
             >
               {languageIs ? "للإستثمار" : "Investment"}
-            </button>
+            </button> */}
           </div>
           <div className="flex items-center">
-            <div className="w-full">
+            <div  className="w-full">
               <Input
                 className="w-full select-none"
                 size="lg"
                 isClearable
-                placeholder="Search by City, Region..."
+                placeholder={languageIs?" ...بحث بالمنطة او عنوان ":"Search by City or title..."}
                 onValueChange={setKeywords}
               />
             </div>
@@ -149,6 +149,7 @@ export function SearchBar() {
             >
               {languageIs ? "بـحـث" : "Search"}
             </button>
+
           </div>
         </div>
       </div>

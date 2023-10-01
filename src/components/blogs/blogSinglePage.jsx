@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 function BlogSinglePage({BlogData}) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  console.log(BlogData);
+  // console.log(BlogData);
   return (
     <div>
 

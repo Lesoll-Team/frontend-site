@@ -32,7 +32,7 @@ const columns = [
 ];
 export default function PropertyDashboard() {
   const [property, setProperty] = useState([]);
-  console.log(property);
+  // console.log(property);
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {

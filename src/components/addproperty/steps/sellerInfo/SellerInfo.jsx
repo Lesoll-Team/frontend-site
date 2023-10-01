@@ -61,8 +61,8 @@ const SellerInfo = ({ propertyDetils, setData }) => {
             onChange={
               (e, info) => {
                 setData({ ...propertyDetils, connectPhoneNumber: e });
-                console.log(e);
-                console.log(info.dialCode);
+                // console.log(e);
+                // console.log(info.dialCode);
               }
               // setCountry(country);
               // console.log(phone);
