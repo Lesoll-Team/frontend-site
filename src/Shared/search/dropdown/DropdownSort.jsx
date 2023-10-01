@@ -68,14 +68,14 @@ const DropdownSort = ({ classNames, options ,valueDefault,InputKeywords}) => {
   //   router.push("/search");
   // };
   return (
-    <div className={`${classNames} relative w-full `}>
+    <div className={`${classNames} relative  `}>
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
 
         className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white border-[3px]  rounded-xl p-3 cursor-pointer whitespace-nowrap">
-        {valueDefault}
+        {selectoption||valueDefault}
         <div >{/**className={dropdownIcons?"":"hidden"} */}
           <AiFillCaretDown
             className={`text-darkGreen duration-150 ${

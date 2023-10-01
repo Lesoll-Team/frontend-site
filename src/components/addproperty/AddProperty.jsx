@@ -188,7 +188,7 @@ const AddProperty = () => {
 
     setLading(false);
   };
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div

@@ -61,14 +61,16 @@ export const propertyTypeData = {
     { value: "Residential", name: "Residential" },
     { value: "Commercial", name: "Commercial" },
     { value: "Land", name: "Land" },
-  ],
+  ]
+,
   ar: [
-    { value: "", name: "الكل" },
-    { value: "Residential", name: "سكني" },
-    { value: "Commercial", name: "تجاري" },
-    { value: "Land", name: "أرض" },
-  ],
+      { value: "", name: "الكل" },
+      { value: "Residential", name: "سكني" },
+      { value: "Commercial", name: "تجاري" },
+      { value: "Land", name: "أرض" },
+    ]
 };
+
 export const unitTypeData = {
   en: {
     Residential: [
@@ -148,16 +150,16 @@ export const unitTypeData = {
 export const sortedData = {
   en: [
     { value: "", name: " All" },
-    { value: "min_price", name: "Low-High" },
-    { value: "max_price", name: "High-Low" },
+    { value: "min_price", name: "Low Price" },
+    { value: "max_price", name: "High Price" },
     { value: "min_view", name: "Most viewed" },
     { value: "max_view", name: "Less viewed" },
     { value: "old_prop", name: "Old" },
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "min_price", name: "أصغر-أكبر" },
-    { value: "max_price", name: "أكبر-أصغر" },
+    { value: "min_price", name: "أقل سعر" },
+    { value: "max_price", name: "أكثر سعر" },
     { value: "min_view", name: "أكثر مشاهدة" },
     { value: "max_view", name: "أقل مشاهدة" },
     { value: "old_prop", name: "أقدم" },

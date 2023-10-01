@@ -42,7 +42,7 @@ export function SearchBar() {
   let [unitType, setUnitType] = useState("");
   let [propertyType, setPropertyType] = useState("");
   let [sortProp, setSortProp] = useState("");
-  let [isFurnished, setFurnished] = useState(false);
+  let [isFurnished, setFurnished] = useState(null);
   const InputKeywords = {
     saleOptions,
     propertyType,
@@ -50,7 +50,7 @@ export function SearchBar() {
     paymentMethod,
     countBathrooms,
     countBedrooms,
-    isFurnished,
+    // isFurnished,
     finishingOptions,
     toPrice,
     fromPrice,
@@ -67,18 +67,35 @@ export function SearchBar() {
     router.push("/search");
   };
 
+  const handelClearFilter = () => {
+    // Reset all state variables to their default values
+    setSaleOptions("");
+    setFromPrice(0.0);
+    setToPrice(0.0);
+    setFromArea(0);
+    setToArea(0);
+    setCountBedrooms(0);
+    setCountBathroom(0);
+    setPropertyFinance("");
+    setPaymentMethod("");
+    setKeywords("");
+    setFinishingOptions("");
+    setUnitType("");
+    setPropertyType("");
+    setSortProp("");
+    setFurnished(null);
+  };
 
-  // console.log(propertyType);
+
 
   return (
-    <form onSubmit={handleSubmitSearch}>
-      <div dir="ltr" className=" w-full flex justify-center  mt-10 mb-10">
+    <form onSubmit={handleSubmitSearch} className="  h-72 grid  ">
+      <div dir="ltr" className=" w-full flex justify-center  mt-5 mb-14  ">
           <div className="flex  gap-x-1 md:w-9/12  items-end">
           
             <div className=" w-8/12">
             <div className="flex">
             <button
-  
               className={` ${
                 saleOptions == ""
                   ? "bg-white border-2 border-lightOrange text-lightOrange "
@@ -111,7 +128,7 @@ export function SearchBar() {
               {languageIs ? "للبيع" : "Buy"}
             </button>
 
-            <button
+            {/* <button
               onClick={() => setSaleOptions("For Investment")}
   
               className={` ${
@@ -121,21 +138,23 @@ export function SearchBar() {
               }  font-bold  px-2 mx-1 rounded-t-medium`}
             >
               {languageIs ? "للإستثمار" : "Investment"}
-            </button>
+            </button> */}
           </div>
               <Input
                 className=" h-full  "
                 size="md"
                 isClearable
-                placeholder="Search by City, Region or Unit type"
+                placeholder={languageIs?" ...بحث بالمنطة او عنوان ":"Search by City or title..."}
                 onValueChange={setKeywords}
               />
             </div>
             <div className="flex items-end">
             <Dropdown
               classNames=" w-[auto]  sm:block hidden"
+              ifSaleOptions={saleOptions}
               value={propertyType}
               options={propertyTypeData}
+              moreOptions={saleOptions}
               setValue={setPropertyType}
               valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
             />
@@ -148,15 +167,7 @@ export function SearchBar() {
               valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
             />
 
-              <DropdownSort
-              classNames=" w-[auto] "
-              // dropdownIcons={false}
-              InputKeywords={InputKeywords}
-              value={sortProp}
-              options={sortedData}
-              setValue={setSortProp}
-              valueDefault={<FaSortNumericDown/> }
-            />
+
               <DropdownMore
               setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
@@ -184,13 +195,36 @@ export function SearchBar() {
               setToArea={setToArea}
               classNames="max-w-[40px]"
             />
-          <button type="submit" className="rounded-xl p-3 bg-lightGreen">
-            <LuSearch className="lg:text-3xl text-xl text-white" />
+            <div className="flex gap-x-3">
+          <button type="submit" className="rounded-xl p-3 bg-lightGreen flex items-center">
+          <span className="font-medium text-white">{languageIs ? "بحث" : "search"}</span>
+
+            {/* <LuSearch className="lg:text-3xl text-xl text-white" /> */}
           </button>
+          <button
+              // type="submit"
+              onClick={handelClearFilter}
+              className="border-3 border-lightOrange text-lightOrange font-semibold  p-1 rounded-lg   select-none"
+            >
+              {languageIs ? "إزالة" : "clear"}
+            </button>
+            </div>
           </div>
           </div>
         
       </div>
+<div className="  flex items-center gap-x-2 w-10/12 m-auto ">
+<h6 className="text-default-500 font-medium">{languageIs?"الترتيب حسب:":"Sort Buy"}</h6>
+<DropdownSort
+              classNames=" w-[130px] "
+              // dropdownIcons={false}
+              InputKeywords={InputKeywords}
+              value={sortProp}
+              options={sortedData}
+              setValue={setSortProp}
+              valueDefault={<FaSortNumericDown/> }
+            />
+</div>
     </form>
   );
 }

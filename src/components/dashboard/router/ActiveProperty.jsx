@@ -35,7 +35,7 @@ export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
 
   const [property, setProperty] = useState([]);
-  console.log("sdsdsdsd", property);
+  // console.log("sdsdsdsd", property);
 
   const [propertyLength, setPropertyLength] = useState(0);
   const [page, setPage] = useState(1);
