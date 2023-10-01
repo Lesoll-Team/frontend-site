@@ -11,16 +11,17 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useEffect, useState, memo } from "react";
 import { fetchUserData } from "@/redux-store/features/globalState";
+
 const RealtyCardRent = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const dispatch = useDispatch();
 
   const [loved, setLoved] = useState(false);
-  const dispatch = useDispatch();
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
-      // dispatch(fetchUserData());
+      dispatch(fetchUserData());
 
       // Handle success (e.g., show a success message)
     } catch (error) {
@@ -37,7 +38,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
   // console.log("Rent :", propertyDetails);
   // console.log(propertyDetails);
   return (
-    <div className="md:max-w-[310px] lg:w-[350px] w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className=" w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
@@ -48,7 +49,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
             {userInfo ? (
               loved ? (
                 <AiFillHeart
-                  className="text-red-500"
+                  className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
 
@@ -57,7 +58,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
                 />
               ) : (
                 <AiOutlineHeart
-                  className="text-red-500"
+                  className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
                     setLoved(!loved);
@@ -73,10 +74,11 @@ const RealtyCardRent = ({ propertyDetails }) => {
       </div>
 
       {/* card img */}
-      <div className="z-10">
+      <div className="z-10 w-full">
         <Link
           key={propertyDetails?._id}
           href={`/propertyDetails/${propertyDetails?.slug}`}
+          className="w-full"
         >
           <Image
             // isZoomed="true"
@@ -84,7 +86,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
             radius="none"
             src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
             loading="lazy"
-            className="w-full h-[220px] rounded-none overflow-hidden   object-cover"
+            className=" w-[310px] h-[225px] rounded-none overflow-hidden    object-cover"
           />
         </Link>
       </div>

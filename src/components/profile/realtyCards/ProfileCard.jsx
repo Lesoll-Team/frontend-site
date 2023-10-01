@@ -23,7 +23,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
   };
   // console.log(propertyDetails);
   return (
-    <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[430px]  rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl">
+    <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[420px]  rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}
       <div
         className={`flex items-center z-[100] absolute w-full top-10 right-0 ${
@@ -56,7 +56,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
             radius="none"
             src={propertyDetails.thumbnail}
             loading="lazy"
-            className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
+            className="w-[300px]rounded-none h-[220px] overflow-hidden   object-cover"
           />
         </Link>
       ) : (
@@ -100,7 +100,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
             </p>
           )}
         </div>
-        <div className=" text-lightGreen   px-5 flex  justify-start gap-5">
+        <div className=" text-lightGreen   px-5 flex  justify-between gap-5">
           <div className="flex items-center justify-start gap-1">
             {" "}
             <BiSolidBed className="text-xl " />{" "}
@@ -138,8 +138,8 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
     </div> */}
         <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
           <p className="text-sm  text-darkGray">
-            {propertyDetails?.address?.name.substring(0, 40)}{" "}
-            {propertyDetails?.address?.name.length > 40 && "..."}
+            {propertyDetails?.address?.name.substring(0, 30)}{" "}
+            {propertyDetails?.address?.name.length > 30 && "..."}
           </p>
           <div className="flex gap-3 items-center">
             <ConfirmModal

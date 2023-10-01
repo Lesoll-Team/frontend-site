@@ -3,6 +3,7 @@ import { MdCheckCircleOutline } from "react-icons/md";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 import { useSelector } from "react-redux";
+import { Chip } from "@nextui-org/react";
 
 function DescriptionFeatures({ singleDescriptionFeatures }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -12,41 +13,57 @@ function DescriptionFeatures({ singleDescriptionFeatures }) {
     setIsExpanded(!isExpanded);
   };
   return (
-    <div className=" sm:p-10 p-0 px-0 sm:px-14  bg-gray-100 rounded-3xl">
-<div className="sm:mt-0 mt-3 sm:px-0 px-2">
-  <b className="sm:text-3xl text-lg">
-    {/* Description */}
-    {language ? ar.property.description : en.property.description}
-  </b>
-  <div className="">
-    <p    className={`lg:text-lg md:text-medium sm:text-small text-sm ${isExpanded ? 'expanded' : 'collapsed'}`}>
-      {isExpanded ? singleDescriptionFeatures?.description : singleDescriptionFeatures?.description.slice(0, 100)}
-    </p>
-    {singleDescriptionFeatures.description.length > 100 && (
-      <button onClick={toggleDescription} className="text-lightGreen hover:underline">
-        {isExpanded ? 'Read Less' : 'Read More'}
-      </button>
-    )}
-  </div>
-</div>
-      <br />
-      <hr />
-      <br />
-      <b className="sm:text-3xl text-lg sm:px-0 px-2">
-        {language ? ar.property.features : en.property.features}
-      </b>
-
-      <div className=" grid xl:grid-cols-6 lg:grid-cols-4  grid-cols-3  ">
-        {singleDescriptionFeatures.service.map((services) => (
-          <div key={services._id}>
-            <div className=" flex items-center  sm:text-xl text-sm   sm:p-3 py-2   ">
-           <span>   <MdCheckCircleOutline className="mx-2 w-[23px] h-[23px] text-lightGreen" /></span>
-        <span>      {language ? services.name.ar : services.name.en}</span>
-            </div>
-          </div>
-        ))}
+    <div className="  p-0 px-0   rounded-xl space-y-4">
+      <div className="  space-y-3">
+        <h3 className="sm:text-4xl text-lg  font-bold text-lightOrange ">
+          {/* Description */}
+          {language ? ar.property.description : en.property.description}
+        </h3>
+        <div className="bg-white drop-shadow-lg border p-10 rounded-xl ">
+          <p
+            style={{
+              lineHeight: "2",
+            }}
+            className={`lg:text-lg md:text-medium sm:text-small text-sm  font-medium  ${
+              isExpanded ? "expanded" : "collapsed"
+            }`}
+          >
+            {isExpanded
+              ? singleDescriptionFeatures?.description
+              : singleDescriptionFeatures?.description.slice(0, 200)}
+            {!isExpanded &&
+              singleDescriptionFeatures.description.length > 200 &&
+              "...."}
+          </p>
+          {singleDescriptionFeatures.description.length > 100 && (
+            <button
+              onClick={toggleDescription}
+              className="text-lightGreen hover:underline"
+            >
+              {isExpanded ? "Read Less" : "Read More"}
+            </button>
+          )}
+        </div>
       </div>
-
+      {singleDescriptionFeatures?.service.length > 0 && (
+        <div className="space-y-3">
+          <h3 className="sm:text-4xl text-lg sm:px-0 px-2 font-bold text-lightOrange">
+            {language ? "المميزات" : en.property.features}
+          </h3>
+          <div className=" flex flex-wrap gap-2  bg-white drop-shadow-xl p-10 rounded-lg border">
+            {singleDescriptionFeatures.service.map((services) => (
+              <div
+                key={services._id}
+                className="bg-lightGreen px-3 py-1 rounded-lg"
+              >
+                <p className="text-white font-semibold">
+                  {language ? services.name.ar : services.name.en}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

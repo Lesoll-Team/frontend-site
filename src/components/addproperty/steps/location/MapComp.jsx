@@ -97,6 +97,7 @@ const Map = ({ propertyDetils, setData }) => {
 
     // You can perform additional actions or update your data here
   };
+
   return (
     <div className=" mx-auto  space-y-4 ">
       <div className="w-full  pt-4">
@@ -126,7 +127,6 @@ const Map = ({ propertyDetils, setData }) => {
           center={selected || center}
           mapContainerClassName="map"
           // onDblClick={handleMapClick}
-
           onDblClick={handleMapDoubleClick}
         >
           {selected && <Marker position={selected} />}
@@ -198,7 +198,7 @@ const PlacesAutoComplete = ({
     <Combobox onSelect={handleSelect} className="w-full">
       <ComboboxInput
         placeholder={language ? "أدخل موفع العقار" : "Select the location"}
-        defaultValue={propertyDetils.address.name}
+        defaultValue={propertyDetils?.address?.name || ""}
         value={inputValue || value}
         onChange={(e) => {
           setInputValue(e.target.value);

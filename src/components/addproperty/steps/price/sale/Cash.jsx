@@ -10,12 +10,12 @@ const Cash = ({ propertyDetils, setData }) => {
     en: [
       { value: "Cash", name: "Cash" },
       { value: "Installment", name: "Installment" },
-      { value: "Cash & Installment", name: "Cash & Installment" },
+      // { value: "Cash & Installment", name: "Cash & Installment" },
     ],
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Installment", name: "قاش وتقسيط" },
+      // { value: "Installment", name: "قاش وتقسيط" },
     ],
   };
   return (
@@ -23,7 +23,19 @@ const Cash = ({ propertyDetils, setData }) => {
       <div className="space-y-4 md:w-[48%]">
         <AddPropDropdown
           title={!language ? "Sale Option" : "نظام البيع"}
-          value={propertyDetils.saleOption}
+          value={
+            propertyDetils.saleOption === "Cash"
+              ? language
+                ? "كاش"
+                : "Cash"
+              : propertyDetils.saleOption === "Installment"
+              ? language
+                ? "تقسيط"
+                : "Installment"
+              : language
+              ? "كاش وتقسيط"
+              : "Cash & Installment"
+          }
           setValue={(e) => {
             setData({ ...propertyDetils, saleOption: e });
           }}

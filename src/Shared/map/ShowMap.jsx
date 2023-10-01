@@ -1,13 +1,34 @@
 import { useState, useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { BsFillPinMapFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { FaMapMarked } from "react-icons/fa";
+import { HiMiniMapPin } from "react-icons/hi2";
 
 export default function ShowMap({ center }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
   });
-
+  const openDirectionsInGoogleMaps = () => {
+    if (center && center.lat && center.lng) {
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${center.lat},${center.lng}`;
+      window.open(url, "_blank");
+    }
+  };
   if (!isLoaded) return <div>Loading...</div>;
-  return <Map center={center} />;
+  return (
+    <>
+      <button
+        className="px-4 py-1 border-2 text-lightGreen  rounded-lg mb-2 mx-2 flex items-center justify-center gap-1 hover:border-lightGreen hover:bg-lightGreen hover:text-white duration-150"
+        onClick={openDirectionsInGoogleMaps}
+      >
+        {language ? "الإتجهات" : "Directions"} <HiMiniMapPin />
+      </button>
+      <Map center={center} />
+    </>
+  );
 }
 
 function Map({ center }) {

@@ -14,7 +14,7 @@ const Footer = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <footer dir={`${language ? "rtl" : ""}`}>
+    <footer className="z-10" dir={`${language ? "rtl" : ""}`}>
       <div className="container mx-auto md:grid  drop-shadow-2xl lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
         {/* Discription */}
         <div className="col-span-3 lg:col-span-2 space-y-3 relative">
@@ -122,7 +122,10 @@ const Footer = () => {
 
           {/* <Link href="/about">Address Cairo, Heliopolis</Link> */}
           <address className="not-italic	">
-            <Link href="https://maps.app.goo.gl/3atQvrpBzq9Awpss6" target="_blank">
+            <Link
+              href="https://maps.app.goo.gl/3atQvrpBzq9Awpss6"
+              target="_blank"
+            >
               Address Cairo, Heliopolis
             </Link>
           </address>

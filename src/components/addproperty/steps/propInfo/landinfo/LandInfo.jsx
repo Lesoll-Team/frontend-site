@@ -7,9 +7,9 @@ const LandInfo = ({ propertyDetils, setData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const areaType = {
     en: [
-      { value: "m", name: "meter" },
+      { value: "meter", name: "Meter" },
       { value: "carat", name: "Carat" },
-      { value: "acre", name: "acre" },
+      { value: "acre", name: "Acre" },
     ],
     ar: [
       { value: "meter", name: "متر" },
@@ -31,9 +31,25 @@ const LandInfo = ({ propertyDetils, setData }) => {
 
       <AddPropDropdown
         title={language ? "نوع المساحة" : "Area type"}
-        value={propertyDetils.areaType}
+        value={
+          propertyDetils.areaType === "meter"
+            ? language
+              ? "متر"
+              : "Meter"
+            : propertyDetils.areaType === "Carat"
+            ? language
+              ? "قيراط"
+              : "Carat"
+            : propertyDetils.areaType === "acre"
+            ? language
+              ? "فدان"
+              : "Acre"
+            : language
+            ? "اختر نوع المساحة"
+            : "Select area type"
+        }
         options={areaType}
-        setValue={(e) => setData({ ...propertyDetils, areaType: m })}
+        setValue={(e) => setData({ ...propertyDetils, areaType: e })}
       />
       <AddPropCheck
         className="md:w-[48%]"

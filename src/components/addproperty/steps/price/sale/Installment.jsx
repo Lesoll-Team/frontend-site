@@ -11,26 +11,26 @@ const Installment = ({ propertyDetils, setData }) => {
     en: [
       { value: "Cash", name: "Cash" },
       { value: "Installment", name: "Installment" },
-      { value: "Cash & Installment", name: "Cash & Installment" },
+      // { value: "Cash & Installment", name: "Cash & Installment" },
     ],
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Cash & Installment", name: "كاش وتقسيط" },
+      // { value: "Cash & Installment", name: "كاش وتقسيط" },
     ],
   };
   const installmentTypeOptions = {
     en: [
       { value: "Yearly", name: "Yearly" },
       { value: "Monthly", name: "Monthly" },
-      { value: "3 Month", name: "3 Month" },
-      { value: "6 Month", name: "6 Month" },
+      { value: "3 Monthly", name: "3 Month" },
+      { value: "6 Monthly", name: "6 Month" },
     ],
     ar: [
       { value: "Yearly", name: "سنوى" },
       { value: "Monthly", name: "شهرى" },
-      { value: "3 Month", name: "3 شهور" },
-      { value: "6 Month", name: "6 شهور" },
+      { value: "3 Monthly", name: "3 شهور" },
+      { value: "6 Monthly", name: "6 شهور" },
     ],
   };
   useEffect(() => {
@@ -39,7 +39,6 @@ const Installment = ({ propertyDetils, setData }) => {
     const downPayment = parseInt(propertyDetils.downPayment);
     const maintenancePayment = parseInt(propertyDetils.maintenancePayment);
     const period = parseInt(propertyDetils.installmentOption.period);
-
     // Check if all values are valid numbers
     if (
       !isNaN(price) &&
@@ -75,12 +74,64 @@ const Installment = ({ propertyDetils, setData }) => {
     propertyDetils.maintenancePayment,
   ]);
 
+  useEffect(() => {
+    const price = parseInt(propertyDetils.price);
+    const downPayment = parseInt(propertyDetils.downPayment);
+    const maintenancePayment = parseInt(propertyDetils.maintenancePayment);
+    const period = parseInt(propertyDetils.installmentOption.period);
+    if (
+      !isNaN(price) &&
+      !isNaN(downPayment) &&
+      !isNaN(maintenancePayment) &&
+      !isNaN(period) &&
+      price > downPayment + maintenancePayment
+    ) {
+      if (propertyDetils.installmentOption.type === "Yearly") {
+      }
+    }
+  });
+  //set down payment
+  useEffect(() => {
+    if (
+      propertyDetils.downPaymentType === "percentage" &&
+      propertyDetils.price
+    ) {
+      setData({
+        ...propertyDetils,
+        downPayment:
+          (parseFloat(propertyDetils.downPaymentAmount) *
+            propertyDetils.price) /
+          100,
+      });
+    } else if (propertyDetils.downPaymentType === "cash") {
+      setData({
+        ...propertyDetils,
+        downPayment: propertyDetils.downPaymentAmount,
+      });
+    }
+  }, [
+    propertyDetils.price,
+    propertyDetils.downPaymentAmount,
+    propertyDetils.downPaymentType,
+  ]);
   return (
     <div className="space-y-4 md:space-y-0 w-full flex flex-col md:flex-row md:justify-between items-stretch ">
       <div className="w-full md:w-[48%] space-y-4 flex flex-col items-stretch ">
         <AddPropDropdown
           title={language ? "نظام البيع" : "Payment Method"}
-          value={propertyDetils.saleOption}
+          value={
+            propertyDetils.saleOption === "Cash"
+              ? language
+                ? "كاش"
+                : "Cash"
+              : propertyDetils.saleOption === "Installment"
+              ? language
+                ? "تقسيط"
+                : "Installment"
+              : language
+              ? "كاش وتقسيط"
+              : "Cash & Installment"
+          }
           setValue={(e) => {
             setData({ ...propertyDetils, saleOption: e });
           }}
@@ -97,19 +148,37 @@ const Installment = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropInput
+          propertyDetils={propertyDetils}
+          choices={propertyDetils.downPaymentType}
           type={"number"}
+          setData={setData}
           title={language ? "المقدم" : "Down Payment"}
-          placeholder={language ? "المقدم" : "Down Payment"}
-          egp={true}
-          value={propertyDetils.downPayment}
-          setValue={(e) =>
-            setData({ ...propertyDetils, downPayment: e.target.value })
+          placeholder={
+            propertyDetils.downPaymentType === "percentage"
+              ? language
+                ? "النسبة"
+                : "Percentage"
+              : language
+              ? "السعر"
+              : "Price"
           }
+          // egp={true}
+          value={propertyDetils.downPaymentAmount}
+          setValue={(e) => {
+            setData({
+              ...propertyDetils,
+              downPaymentAmount: e.target.value,
+              // downPayment:
+              //   (parseFloat(downPaymentAmount) *
+              //     parseInt(propertyDetils.price)) /
+              //   100,
+            });
+          }}
         />
         <AddPropInput
           type={"number"}
-          title={language ? " المقدم 2" : "Maintenance Payment"}
-          placeholder={"Price"}
+          title={language ? "  دفعة التأمين" : "Maintenance Payment"}
+          placeholder={language ? "السعر" : " Price"}
           egp={true}
           value={propertyDetils.maintenancePayment}
           setValue={(e) =>
@@ -117,10 +186,34 @@ const Installment = ({ propertyDetils, setData }) => {
           }
         />
       </div>
+      {/* ar: [
+      { value: "Yearly", name: "سنوى" },
+      { value: "Monthly", name: "شهرى" },
+      { value: "3 Monthly", name: "3 شهور" },
+      { value: "6 Monthly", name: "6 شهور" },
+    ], */}
       <div className=" gap-4 md:w-[48%]  flex flex-col items-stretch">
-        <AddPropDropdown
+        {/* <AddPropDropdown
           title={language ? "نظام التقسيط" : "Installment Type"}
-          value={propertyDetils.installmentOption.type}
+          value={
+            propertyDetils.installmentOption.type === "Yearly"
+              ? language
+                ? "سنوى"
+                : "Yearly"
+              : propertyDetils.installmentOption.type === "Monthly"
+              ? language
+                ? "شهرى"
+                : "Monthly"
+              : propertyDetils.installmentOption.type === "3 Monthly"
+              ? language
+                ? "3 شهور"
+                : "3 Month"
+              : propertyDetils.installmentOption.type === "6 Monthly"
+              ? language
+                ? "6 شهور"
+                : "6 Month"
+              : "أختر نظام التقسيط"
+          }
           setValue={(e) => {
             setData({
               ...propertyDetils,
@@ -131,29 +224,32 @@ const Installment = ({ propertyDetils, setData }) => {
             });
           }}
           options={installmentTypeOptions}
-        />
+        /> */}
         <AddPropInput
+          // choices={true}
           type={"number"}
           title={language ? "مدة التقسيط" : "Installment Period"}
           placeholder={
-            propertyDetils.installmentOption.type === "Yearly"
+            propertyDetils.installmentPeriodType === "yearly"
               ? language
                 ? "عدد السنين"
-                : "Number Years"
+                : " Years"
               : language
               ? "عدد الشهور"
               : "Months"
           }
+          setData={setData}
+          yearMonthes={propertyDetils.installmentOption.type}
           value={propertyDetils.installmentOption.period}
-          setValue={(e) =>
+          setValue={(e) => {
             setData({
               ...propertyDetils,
               installmentOption: {
                 ...propertyDetils.installmentOption,
                 period: e.target.value,
               },
-            })
-          }
+            });
+          }}
         />
         <Summary propertyDetils={propertyDetils} setData={setData} />
       </div>

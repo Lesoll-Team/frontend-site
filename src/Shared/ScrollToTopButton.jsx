@@ -47,7 +47,7 @@ function ScrollToTopButton() {
     <>
       <div
         className={`fixed bottom-5 drop-shadow-xl right-4 md:right-7 cursor-pointer ${
-          isVisible ? "block" : "hidden"
+          isVisible ? "block animate-appearance-in" : "hidden"
         } bg-lightGreen p-4 rounded-full`}
         onClick={scrollToTop}
         aria-label="Scroll to Top"
