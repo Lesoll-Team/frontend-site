@@ -10,21 +10,17 @@ const Rent = ({ propertyDetils, setData }) => {
     en: [
       { value: "Monthly", name: "Monthly" },
       { value: "Daily", name: "Daily" },
-      { value: "Weekly", name: "Weekly" },
       { value: "Yearly", name: "Yearly" },
     ],
     ar: [
       { value: "Monthly", name: "شهري" },
       { value: "Daily", name: "يومي" },
-      { value: "Weekly", name: "اسبوعي" },
       { value: "Yearly", name: "سنوي" },
     ],
   };
   const rentalPeriodValueLang = () => {
     if (propertyDetils.rentalPeriod === "Daily") {
       return language ? "يومي" : "Daily";
-    } else if (propertyDetils.rentalPeriod === "Weekly") {
-      return language ? "اسبوعي" : "Weekly";
     } else if (propertyDetils.rentalPeriod === "Monthly") {
       return language ? "شهري" : "Monthly";
     } else if (propertyDetils.rentalPeriod === "Yearly") {

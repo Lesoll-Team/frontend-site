@@ -30,7 +30,7 @@ const Rent = ({ propertyDetils, setData }) => {
         return language ? "سنوي" : "Yearly";
         break;
       default:
-        return language ? "سنوي" : "Yearly";
+        return language ? "اختر نوع الإيجار" : "Choose Rental Type";
     }
   };
   return (
@@ -39,7 +39,7 @@ const Rent = ({ propertyDetils, setData }) => {
         <AddPropInput
           type={"number"}
           title={language ? "سعر الإيجار" : "Rental Price"}
-          placeholder={"Price"}
+          placeholder={language ? "السعر" : "Price"}
           egp={true}
           value={propertyDetils.price}
           setValue={(e) =>

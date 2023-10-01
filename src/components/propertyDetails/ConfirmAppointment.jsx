@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { IoCallOutline } from "react-icons/io5";
 import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
+import { BiSolidBed } from "react-icons/bi";
+import { TbRulerMeasure } from "react-icons/tb";
+import { FaBath } from "react-icons/fa";
 
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
@@ -17,10 +20,10 @@ function ConfirmAppointment({ userAppointment }) {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userAppointment?.connectPhoneNumber
   }&text=${encodeURIComponent(message)}`;
-  console.log(userAppointment);
+  // console.log(userAppointment);
 
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(userAppointment);
+  // console.log(userAppointment);
   function formatDate(dateString) {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     if (language) {
@@ -30,11 +33,11 @@ function ConfirmAppointment({ userAppointment }) {
     }
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
-  console.log(userAppointment);
+  // console.log(userAppointment);
   return (
     <div className="  p-5 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
       <h2 className=" text-lightGreen text-lg md:text-4xl font-bold text-center">
-        {language ? "معلومات العقار" : "About Property"}
+        {language ? "ملخص" : "OverView"}
       </h2>
 
       {/*user info module*/}
@@ -78,13 +81,13 @@ function ConfirmAppointment({ userAppointment }) {
           </a>
         </div>
       </div>
-      <div className="bg-white rounded-lg p-6 md:px-12 space-y-4">
+      <div className="bg-white rounded-lg p-6 md:px-10 space-y-4">
         <div className="flex justify-between items-center">
           <h3 className="font-bold  rounded-lg py-1 px-3 flex items-center gap-1">
-            {language ? "العرض" : "Offer"} {""}{" "}
             <MdLocalOffer className="text-darkGreen" />
+            {language ? "العرض" : "Offer"} {""}{" "}
           </h3>
-          <p className="">
+          <p className="font-semibold">
             {" "}
             {userAppointment.offer === "For Sale"
               ? language
@@ -98,10 +101,10 @@ function ConfirmAppointment({ userAppointment }) {
         <hr />
         <div className="flex justify-between">
           <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
-            {language ? "نوع الوحدة" : "Unit Type"}{" "}
             <MdMapsHomeWork className="text-darkGreen text-lg" />
+            {language ? "نوع الوحدة" : "Unit Type"}{" "}
           </h3>
-          <p>
+          <p className="font-semibold">
             {language
               ? userAppointment?.unitType?.title?.ar
               : userAppointment?.unitType?.title?.en}
@@ -109,39 +112,64 @@ function ConfirmAppointment({ userAppointment }) {
         </div>
         <hr />
         <div className="flex justify-between">
-          <h3 className="font-bold   rounded-lg py-1 px-3">
+          <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+            <TbRulerMeasure className="text-darkGreen text-lg" />
             {language ? "المساحة" : "Area"}
           </h3>
-          <p>
+          <p className="font-semibold">
             {userAppointment?.area.toLocaleString("ar-Eg")}
             {""}
-            {language ? (
+            {userAppointment?.landType === "carat" ? (
+              language ? (
+                "قيراط"
+              ) : (
+                "carat"
+              )
+            ) : userAppointment?.landType === "acre" ? (
+              language ? (
+                "فدان"
+              ) : (
+                "acre"
+              )
+            ) : language ? (
               <span>
                 م<sup>{(2).toLocaleString("ar-Eg")}</sup>
               </span>
             ) : (
-              ""
+              <span>
+                m<sup>2</sup>
+              </span>
             )}
           </p>
         </div>
-        <hr />
+        {userAppointment?.propType !== "Land" && (
+          <>
+            <hr />
 
-        <div className="flex justify-between">
-          <h3 className="font-bold  rounded-lg py-1 px-3">
-            {language ? " الغرف" : "Rooms"}
-          </h3>
-          <p>{userAppointment?.rooms.toLocaleString("ar-Eg")}</p>
-        </div>
-        <hr />
-        <div className="flex justify-between">
-          <h3 className="font-bold  rounded-lg py-1 px-3">
-            {language ? "الحمامات" : "Bathrooms"}
-          </h3>
-          <p>{userAppointment?.bathRooms.toLocaleString("ar-Eg")}</p>
-        </div>
+            <div className="flex justify-between">
+              <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+                <BiSolidBed className="text-darkGreen text-lg " />{" "}
+                {language ? " الغرف" : "Rooms"}
+              </h3>
+              <p className="font-semibold">
+                {userAppointment?.rooms.toLocaleString("ar-Eg")}
+              </p>
+            </div>
+            <hr />
+            <div className="flex justify-between">
+              <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+                <FaBath className="text-darkGreen text-lg " />
+                {language ? "الحمامات" : "Bathrooms"}
+              </h3>
+              <p className="font-semibold">
+                {userAppointment?.bathRooms.toLocaleString("ar-Eg")}
+              </p>
+            </div>
+          </>
+        )}
       </div>
       <div className="flex justify-end">
-        <p>
+        <p className="text-xs font-semibold">
           <span className=" text-sm tracking-widest"> {formattedDate}</span>
         </p>
       </div>

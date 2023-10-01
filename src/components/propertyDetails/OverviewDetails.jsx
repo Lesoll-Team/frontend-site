@@ -134,83 +134,77 @@ function OverviewDetails({ singleOverviewDetails }) {
       <div className="">
         <div className="flex md:justify-normal justify-center items-center ">
           <p className="sm:text-4xl text-lg font-bold text-lightOrange">
-            {language ? ar.property.payment : en.property.payment}
+            {language ? "نظام التقسيط" : "Installment System"}
           </p>
         </div>
         <div className="mt-5">
-          {singleOverviewDetails?.saleOption[0] === "Cash" ||
-          singleOverviewDetails?.saleOption[0] === "" ? (
-            <div className="md:flex  w-full  bg-gray-100  shadow-md rounded-xl md:min-h-[200px] min-h-[auto] items-center">
-              <div
-                className="   flex justify-center items-center m-auto 
-                              md:min-h-[100px] min-h-auto  md:w-4/12 w-full"
-              >
-                <div className="md:block gap-3 flex items-center justify-center">
-                  <div className="font-bold  sm:text-xl text-lg">
-                    {language ? ar.property.price : en.property.price}
-                  </div>
-                  <div className="flex">
-                    <span className="font-bold sm:text-3xl">
-                      {singleOverviewDetails?.price.toLocaleString()}
-                    </span>
-                    <span className=" font-bold sm:text-3xl">
-                      {language ? ar.property.egy : en.property.egy}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="   flex md:w-7/12 w-full justify-center ">
-                <div className=" md:flex w-11/12 justify-center ">
-                  <div className=" md:w-6/12 w-full m-auto ">
-                    <div className=" grid grid-cols-2 sm:w-full w-9/12 m-auto py-3 ">
-                      <p className="font-bold sm:text-sm md:text-medium lg:text-lg text-xs  md:justify-normal justify-center flex items-center">
-                        {/*sm:w-7/12 w-5/12 */}
-                        {language
-                          ? ar.property.saleOption
-                          : en.property.saleOption}
-                      </p>
-                      <p className="font-bold sm:text-sm md:text-medium lg:text-lg text-xs  md:justify-normal justify-center flex items-center">
-                        Cash
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className=" md:w-5/12 w-full m-auto  ">
-                    <div className="flex sm:w-full w-9/12  m-auto py-3">
-                      <p className="font-bold  md:justify-normal  flex justify-center  sm:text-sm md:text-medium lg:text-lg text-xs w-6/12">
-                        {/*sm:w-7/12 w-5/12 */}
-
-                        {language
-                          ? ar.property.negotiable
-                          : en.property.negotiable}
-                      </p>
-                      <p className="lg:justify-normal  justify-center sm:text-sm md:text-medium lg:text-lg text-xs w-6/12  flex items-center  ">
-                        {singleOverviewDetails?.negotiable ? (
-                          <MdCheckCircleOutline className="mx-2 w-[23px] h-[23px]  text-lightGreen" />
-                        ) : (
-                          <BsSlashCircle className="mx-2 w-[23px] h-[23px] text-lightOrange" />
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="md:flex  w-full shadow-md border p-12  bg-white rounded-xl md:min-h-[200px] min-h-[auto] items-center grid md:grid-cols-4 justify-center sm:grid-cols-2 md:justify-between gap-3">
+            <div className="text-center flex justify-center items-center gap-2 flex-col">
+              <h3 className="font-bold text-darkGreen text-2xl">
+                {language ? "الدفعة الأولى" : "Down Payment"}
+              </h3>
+              <p className="font-semibold text-xl">
+                {" "}
+                {language
+                  ? singleOverviewDetails?.downPayment.toLocaleString("ar-Eg")
+                  : singleOverviewDetails?.downPayment.toLocaleString()}{" "}
+                {language ? "جنية" : "Egp"}
+              </p>
             </div>
-          ) : null}
-          {singleOverviewDetails?.saleOption[0] === "Installment" ? (
-            <div className="md:flex  w-full shadow-md  bg-white rounded-xl md:min-h-[200px] min-h-[auto] items-center">
-              <div
+            <div className="text-center flex justify-center items-center gap-2 flex-col">
+              <h3 className="font-bold text-darkGreen text-2xl">
+                {language ? "نوع التقسيط" : "Installment Type"}
+              </h3>
+              <p className="font-semibold text-xl">
+                {singleOverviewDetails?.installmentOption.type === "Monthly"
+                  ? language
+                    ? "شهرى"
+                    : "Monthly"
+                  : singleOverviewDetails?.installmentOption.type === "Yearly"
+                  ? language
+                    ? "سنوى"
+                    : "yearly"
+                  : "سنوى"}
+              </p>
+            </div>
+            <div className="text-center flex justify-center items-center gap-2 flex-col">
+              <h3 className="font-bold text-darkGreen text-2xl">
+                {language ? "فترة التقسيط" : "Installment Period"}
+              </h3>
+              <p className="font-semibold text-xl">
+                {singleOverviewDetails?.installmentOption.period}{" "}
+                {singleOverviewDetails?.installmentOption.type === "Monthly"
+                  ? language
+                    ? "شهر"
+                    : "Month"
+                  : singleOverviewDetails?.installmentOption.type === "Yearly"
+                  ? language
+                    ? "سنة"
+                    : "year"
+                  : "سنة"}
+              </p>
+            </div>
+            <div className="text-center flex justify-center items-center gap-2 flex-col">
+              <h3 className="font-bold text-darkGreen text-2xl">
+                {language ? "مبلغ التقسيط" : "Installment Amount"}
+              </h3>
+              <p className="font-semibold text-xl">
+                {singleOverviewDetails?.installmentOption.amount}{" "}
+                {language ? "جنية" : "Egp"}
+              </p>
+            </div>
+
+            {/* <div
                 className="flex justify-center items-center  
                               md:min-h-[100px] min-h-auto  md:w-4/12  w-full"
               >
-                {/**m-auto */}
+             
                 <div className="md:block gap-3 flex items-center justify-center">
-                  <div className=" font-bold  sm:text-sm md:text-medium lg:text-2xl text-sm ">
+                  <h3 className=" font-bold  sm:text-sm md:text-medium lg:text-2xl text-sm ">
                     {language
                       ? ar.property.downPayment
                       : en.property.downPayment}
-                  </div>
+                  </h3>
                   <div className="flex items-center">
                     <p className="font-bold  sm:text-sm md:text-medium lg:text-2xl text-sm ">
                       {singleOverviewDetails?.downPayment.toLocaleString()}
@@ -226,7 +220,7 @@ function OverviewDetails({ singleOverviewDetails }) {
               <div className=" min-h-[100px] flex  w-full justify-center ">
                 <div className="md:flex  w-full justify-center  ">
                   <div className=" w-full m-auto ">
-                    {/**md:w-6/12 p-*/}
+                   
                     <div className=" flex sm:w-full  w-9/12 m-auto  ">
                       <p className=" bg-gray-100 font-semibold sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center md:text-start ">
                         {language
@@ -253,7 +247,6 @@ function OverviewDetails({ singleOverviewDetails }) {
 
                     <div className=" flex sm:w-full items-center w-9/12 m-auto">
                       <p className="  font-semibold sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center md:text-start">
-                        {/*sm:w-7/12 w-5/12 */}
 
                         {language
                           ? ar.property.installmentPeriod
@@ -268,7 +261,6 @@ function OverviewDetails({ singleOverviewDetails }) {
                   <div className="w-full m-auto">
                     <div className=" flex sm:w-full items-center w-9/12 m-auto">
                       <p className="font-semibold sm:text-sm md:text-medium lg:text-lg text-xs w-6/12 text-center md:text-start">
-                        {/*sm:w-7/12 w-5/12 */}
 
                         {language
                           ? ar.property.installmentAmount
@@ -299,9 +291,8 @@ function OverviewDetails({ singleOverviewDetails }) {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ) : null}
+              </div> */}
+          </div>
         </div>
       </div>
     </div>

@@ -87,7 +87,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
     ar: [
       { value: "Residential", name: "سكنى" },
       { value: "Commercial", name: "تجارى" },
-      // { value: "Land", name: "أرض" },
+      { value: "Land", name: "أرض" },
     ],
   };
   const offer = {
@@ -139,7 +139,19 @@ const GetStarted = ({ setData, propertyDetils }) => {
                 : ""
             }
             setValue={(e) => {
-              setData({ ...propertyDetils, propType: e });
+              if (propertyDetils.propType !== e) {
+                setData({
+                  ...propertyDetils,
+                  propType: e,
+                  unitType: "",
+                  landType: "",
+                });
+              } else {
+                setData({
+                  ...propertyDetils,
+                  propType: e,
+                });
+              }
             }}
             placeholder={"unit type"}
             options={propType}
@@ -170,7 +182,7 @@ const GetStarted = ({ setData, propertyDetils }) => {
             }
           />
           <AddPropDropdown
-            title={!language ? "Listing Option" : "إختار العرض"}
+            title={!language ? "Listing Option" : "اختر العرض"}
             value={
               propertyDetils?.offer === "For Sale"
                 ? language

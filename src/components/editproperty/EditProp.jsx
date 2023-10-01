@@ -13,6 +13,7 @@ import { editProperty } from "@/utils/propertyAPI";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import { motion } from "framer-motion";
+import useAddPropValidation from "@/Hooks/useAddPropValidation";
 
 const EditProp = ({ propData, setPropData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -42,6 +43,7 @@ const EditProp = ({ propData, setPropData }) => {
   }, []);
   useEffect(() => {
     if (propData) {
+      setPropData({ ...propData, downPaymentType: "Yearly" });
       // console.log(propData?.unitType?._id);
       if (propData?.service[0]?._id) {
         setPropData({
@@ -51,9 +53,15 @@ const EditProp = ({ propData, setPropData }) => {
       }
     }
   }, [propData?.service]);
+  // console.log(propData);
+  // console.log(propData.service[0]._id);\
+  const { errors, validateProperty } = useAddPropValidation();
 
-  // console.log(propData.service[0]._id);
   const handleSubmit = async (e) => {
+    const isValid = validateProperty(propData);
+    if (!isValid) {
+      return;
+    }
     setIsSubmitting(true);
     // e.preventDefault();
     const formData = new FormData();
@@ -175,6 +183,9 @@ const EditProp = ({ propData, setPropData }) => {
               {/* {errors && (
               <p className="text-center text-red-500">{errors[0]}</p>
             )} */}
+              {errors && (
+                <p className="text-center text-red-500">{errors[0]}</p>
+              )}
               {isAuth ? (
                 <button
                   onClick={handleSubmit}

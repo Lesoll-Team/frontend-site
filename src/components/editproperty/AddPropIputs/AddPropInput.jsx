@@ -1,4 +1,6 @@
 import React from "react";
+import { AiOutlinePercentage } from "react-icons/ai";
+import { BsCash } from "react-icons/bs";
 import { useSelector } from "react-redux";
 const AddPropInput = ({
   type,
@@ -11,9 +13,13 @@ const AddPropInput = ({
   m2,
   isLand,
   period,
+  choices,
+  setData,
+  propertyDetils,
+  yearMonthes,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  // console.log(yearMonthes);
   return (
     <div className="relative">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
@@ -52,7 +58,7 @@ const AddPropInput = ({
             ) : (
               <span>m&#178;</span>
             ))}
-          {egp && <span>EGP</span>}
+          {egp && (language ? <p className="roboto">جنية</p> : <p>EGP</p>)}
         </p>
 
         {/* Period  */}
@@ -72,6 +78,96 @@ const AddPropInput = ({
               EGP
             </p>
           </p>
+        </div>
+      )}
+      {choices && (
+        <div
+          className={`absolute bottom-[15px] text-darkGreen font-extrabold border-2 border-darkGreen  flex items-center overflow-hidden rounded-lg ${
+            language ? "left-3 " : "right-3"
+          }`}
+        >
+          <button
+            onClick={() => {
+              setData((prevState) => ({
+                ...prevState,
+                downPaymentType: "percentage",
+              }));
+
+              // setData({ ...propertyDetils, installmentPeriodType: "yearly" });
+            }}
+            // onClick={() => {
+            //   setData({ ...propertyDetils, downPaymentType: "percentage" });
+            // }}
+            className={`px-2 py-1 ${
+              propertyDetils.downPaymentType === "percentage" &&
+              "text-white bg-darkGreen"
+            }`}
+          >
+            <AiOutlinePercentage />
+          </button>
+          <button
+            onClick={() => {
+              setData((prevState) => ({
+                ...prevState,
+                downPaymentType: "cash",
+              }));
+
+              // setData({ ...propertyDetils, installmentPeriodType: "yearly" });
+            }}
+            // onClick={() => {
+            //   setData({ ...propertyDetils, downPaymentType: "cash" });
+            // }}
+            className={`px-2 py-1 ${
+              propertyDetils.downPaymentType === "cash" &&
+              "text-white bg-darkGreen"
+            }`}
+          >
+            <BsCash />
+          </button>
+        </div>
+      )}
+      {yearMonthes && (
+        <div
+          className={`absolute bottom-[15px] text-sm text-darkGreen font-extrabold border-2 border-darkGreen  flex items-center overflow-hidden rounded-lg ${
+            language ? "left-3 " : "right-3"
+          }`}
+        >
+          <button
+            onClick={() => {
+              setData((prevState) => ({
+                ...prevState,
+                installmentOption: {
+                  ...prevState.installmentOption,
+                  type: "Yearly",
+                },
+              }));
+
+              // setData({ ...propertyDetils, installmentPeriodType: "yearly" });
+            }}
+            className={`px-2 py-1 ${
+              yearMonthes === "Yearly" && "text-white bg-darkGreen"
+            }`}
+          >
+            {language ? "سنين" : "Years"}
+          </button>
+          <button
+            onClick={() => {
+              setData((prevState) => ({
+                ...prevState,
+                installmentOption: {
+                  ...prevState.installmentOption,
+                  type: "Monthly",
+                },
+              }));
+
+              // setData({ ...propertyDetils, installmentPeriodType: "monthly" });
+            }}
+            className={`px-2 py-1 ${
+              yearMonthes === "Monthly" && "text-white bg-darkGreen"
+            }`}
+          >
+            {language ? "شهور" : "Monthes"}
+          </button>
         </div>
       )}
     </div>

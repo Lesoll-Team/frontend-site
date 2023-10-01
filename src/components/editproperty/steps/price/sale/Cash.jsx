@@ -10,19 +10,19 @@ const Cash = ({ propertyDetils, setData }) => {
     en: [
       { value: "Cash", name: "Cash" },
       { value: "Installment", name: "Installment" },
-      { value: "Cash & Installment", name: "Cash & Installment" },
+      // { value: "Cash & Installment", name: "Cash & Installment" },
     ],
     ar: [
       { value: "Cash", name: "كاش" },
       { value: "Installment", name: "تقسيط" },
-      { value: "Installment", name: "قاش وتقسيط" },
+      // { value: "Installment", name: "قاش وتقسيط" },
     ],
   };
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       <div className="space-y-4 md:w-[48%]">
         <AddPropDropdown
-          title={!language ? "Sale Option" : "نظام البيع"}
+          title={language ? "نظام البيع" : "Sale Option"}
           value={language ? "كاش" : "Cash"}
           setValue={(e) => {
             setData({ ...propertyDetils, saleOption: [e] });
@@ -31,8 +31,8 @@ const Cash = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={!language ? "Rental Price" : "السعر "}
-          placeholder={"Price"}
+          title={language ? "السعر " : "Rental Price"}
+          placeholder={language ? "السعر" : "Price"}
           egp={true}
           value={propertyDetils.price}
           setValue={(e) =>
@@ -42,7 +42,7 @@ const Cash = ({ propertyDetils, setData }) => {
       </div>
       <div className="space-y-4 md:w-[48%]">
         <AddPropCheck
-          title={!language ? "negotiable" : "قابل للتفاوض"}
+          title={language ? "قابل للتفاوض" : "negotiable"}
           value={propertyDetils.negotiable}
           setValue={(e) =>
             setData({
@@ -52,7 +52,7 @@ const Cash = ({ propertyDetils, setData }) => {
           }
         />
         <AddPropCheck
-          title={!language ? "Real Estate Finance" : "متاح للتمويل العقارى"}
+          title={language ? "متاح للتمويل العقارى" : "Real Estate Finance"}
           value={propertyDetils.realEstateFinance}
           setValue={(e) =>
             setData({
