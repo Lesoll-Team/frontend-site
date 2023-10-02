@@ -66,7 +66,7 @@ export function SearchBar() {
                 saleOptions == ""
                   ? "bg-white border-2 border-lightOrange text-lightOrange "
                   : " bg-lightOrange text-white "
-              } mx-1 font-bold px-2  rounded-t-medium`}
+              } mx-1 font-bold py-[4px] px-3   rounded-t-medium`}
               onClick={() => setSaleOptions("")}
             >
               {languageIs ? "الكل" : "All"}

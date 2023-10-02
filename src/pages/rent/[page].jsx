@@ -36,7 +36,7 @@ export default function PropertyRent({ propertyForRent }) {
       </div>
 
       <div>
-        <div className="py-2 px-2 flex justify-between items-center">
+      <div className="py-2 px-2 flex  justify-center items-center">
           <PaginationPage
             hrefRout={"rent"}
             currentPage={currentPage}
@@ -56,7 +56,8 @@ export async function getServerSideProps(context) {
   const dataRent = await resRent.json();
 
   return {
-    props: { propertyForRent: dataRent },
+    props: { propertyForRent: dataRent,
+      revalidate: 1 }
   };
 }
 

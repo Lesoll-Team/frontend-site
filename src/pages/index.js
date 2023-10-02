@@ -9,10 +9,13 @@ const RecentPropertyBuy = dynamic(() =>
 const RecentPropertyRent = dynamic(() =>
   import("@/components/homePage/RecentPropertyRent")
 );
+const RecentPropertyForView = dynamic(() =>
+  import("@/components/homePage/RecentPropertyForView")
+);
 import { useSelector } from "react-redux";
 
 import Head from "next/head";
-export default function Home({ propertyForRent, propertyForBuy }) {
+export default function Home({ propertyForRent, propertyForBuy,propertyForView }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <main>
@@ -40,23 +43,26 @@ export default function Home({ propertyForRent, propertyForBuy }) {
 
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
       <RecentPropertyRent propertiesRent={propertyForRent} />
+      <RecentPropertyForView propertyOfView={propertyForView} />
     </main>
   );
 }
 
 export async function getStaticProps() {
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`,
-    { credentials: "include" }
-  );
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`);
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`,
-    { credentials: "include" }
-  );
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`);
+
+  const res = await fetch(    
+    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=6&page=${1}`);
+
   const dataRent = await resRent.json();
   const dataBuy = await resBuy.json();
+  const data = await res.json();
+
   return {
-    props: { propertyForRent: dataRent.result, propertyForBuy: dataBuy.result },
+    props: { propertyForRent: dataRent.result, propertyForBuy: dataBuy.result,propertyForView: data.result },
     revalidate: 1,
   };
 }

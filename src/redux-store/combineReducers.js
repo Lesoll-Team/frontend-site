@@ -5,6 +5,7 @@ import propertyReducer from './features/propertySlice';
 import contactReducer from './features/contactSlice';
 // import compareReducer from './features/compareSlice';
 import searchReducer from './features/searchSlice';
+import profileReducer from './features/profileSlice';
 import blogDashboardReducer from './features/dashboard/blogDashboardSlice';
 
  
@@ -16,5 +17,6 @@ export default combineReducers({
     Contact:contactReducer,
     BlogDashboard:blogDashboardReducer,
     Search:searchReducer,
+    Profile:profileReducer,
     // Compare:compareReducer,
 })

@@ -3,22 +3,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchCard from "../realtyCard/RealtyCard";
-// import { GrFormNext } from "@nextui-org/react";
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 
 import {
   setCurrentPage,
   propertyFromSearch,
-  // setInputKeywords,
 } from "@/redux-store/features/searchSlice";
 import ShowMapSearch from "@/Shared/map/ShowMapSearch";
 import { SearchBar } from "@/Shared/search/SearchBar";
-// import { GrFormNext } from "react-icons/gr";
 
 function SearchResult() {
-  // const language = useSelector((state) => state.GlobalState.languageIs);
-
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.Search.currentPage);
   const totalPages = useSelector((state) => state.Search.totalPages);
@@ -29,17 +24,16 @@ function SearchResult() {
   const handlePageChange = (selectedPage) => {
     dispatch(setCurrentPage(selectedPage + 1));
   };
-
   useEffect(() => {
-    // Trigger the propertyFromSearch action when the component mounts
     dispatch(
       propertyFromSearch({ InputKeywords: InputKeyword, page: currentPage })
     );
-  }, [dispatch, InputKeyword, currentPage]);
+  }, [ InputKeyword, currentPage]);
 
   useEffect(() => {
     setSearchResult(searchResultSearch);
-  }, [currentPage, dispatch, searchResultSearch]);
+  }, [currentPage,  searchResultSearch]);
+
   return (
     <div className="relative">
       {searchResult?.code === 200 ? (

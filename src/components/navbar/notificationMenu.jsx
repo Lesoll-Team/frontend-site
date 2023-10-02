@@ -67,11 +67,11 @@ export default function NotificationMenu({sendCount,notificationsMenuRef }) {
 
           <ul className="  flex-col p-3 rounded-3xl my-3 drop-shadow-xl bg-white w-full ">
             <li className=" flex text-lightGreen text-lg ">
-              <h2 className="">
+              <h6 className="">
                 <b>
                   {languageIs ? notification.title.ar : notification.title.en}
                 </b>
-              </h2>
+              </h6>
               <div>
                 {notification.isVisited ? (
                   <IoCheckmarkDoneSharp className="text-lightGreen" />
@@ -82,7 +82,7 @@ export default function NotificationMenu({sendCount,notificationsMenuRef }) {
             </li>
 
             <li className="text-sm text-gray-500">
-              <h5 className="truncate "> {notification.createdAt}</h5>
+              <p className="truncate "> {notification.createdAt}</p>
             </li>
           </ul>
         </Link>

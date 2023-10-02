@@ -2,13 +2,15 @@ import { propertyFromSearch } from "@/redux-store/features/searchSlice";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-const DropdownSort = ({ classNames, options ,valueDefault,InputKeywords}) => {
+const DropdownSort = ({ classNames, options,setValue ,valueDefault,InputKeywords}) => {
   const dispatch = useDispatch();
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const choices = language ? options.ar : options.en;
+  const currentPage = useSelector((state) => state.Search.currentPage);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -41,8 +43,8 @@ const DropdownSort = ({ classNames, options ,valueDefault,InputKeywords}) => {
 
   const handelSorted=(value)=>{
     // e.preventDefault();
-    InputKeywords.sortProp = value;
-    dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
+    setValue(value)
+    // dispatch(propertyFromSearch({ InputKeywords, page: currentPage }));
     // console.log("done");
     }
   //     const handleSubmitSearch = (e) => {

@@ -95,4 +95,30 @@ export async function getRecommendRealty(propertyid) {
     // console.log();
   }
 }
+
+
+
+
+
+
+
+export async function GetActiveProp(page) {
+  try {
+    // const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=2w&page=${page}`,
+      {
+        headers: {
+          token: JSON.parse(localStorage.getItem("userToken")),
+        },
+      }
+    );
+    //?token=${userToken}
+    return response.data.recommendedData;
+  } catch (error) {
+    throw error.response.data;
+    // console.log();
+  }
+}
 ///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2

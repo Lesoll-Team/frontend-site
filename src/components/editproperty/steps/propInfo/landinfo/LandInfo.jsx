@@ -17,7 +17,7 @@ const LandInfo = ({ propertyDetils, setData }) => {
       { value: "acre", name: "فدان" },
     ],
   };
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
 
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-[4%]">

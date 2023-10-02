@@ -165,16 +165,22 @@ export async function signWithGoogle(){
   // console.log(response);
 }
 
-// export async function signWithGoogle(){
-// try {
-//   const newWindow = window.open("http://ec2-184-73-152-95.compute-1.amazonaws.com/api/auth/google", "_blank");
-//   if (!newWindow) {
-//     console.error("Popup blocked by the browser");
-//   }
-// } catch (error) {
-//   console.log(error);
-// }
-// }
+export async function GetActiveProp(page){
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=1&page=${page}`,
+      {
+        headers: {
+          token: JSON.parse(localStorage.getItem("userToken")),
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
 
 
 

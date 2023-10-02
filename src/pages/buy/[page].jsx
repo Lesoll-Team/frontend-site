@@ -56,7 +56,10 @@ export async function getServerSideProps(context) {
   );
   const dataBuy = await resBuy.json();
   return {
-    props: { propertyForBuy: dataBuy },
+    props: { propertyForBuy: dataBuy 
+    ,
+    revalidate: 1},
+    
   };
 }
 
