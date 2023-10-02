@@ -6,7 +6,7 @@ import UserDashboard from "./router/UserDashboardt";
 // UserDashboard
 import PropertyDashboard from "./router/PropertyDashboard";
 // import OverviewDetailsDashboard from "./router/OverviewDetailsDashboard";
-import ActiveProperty from "./router/activeProperty";
+import ActiveProperty from "./router/ActiveProperty";
 function Dashboard() {
   return (
     <div className="flex w-full flex-col ">
