@@ -116,12 +116,14 @@ const AddProperty = () => {
   const [sended, setSended] = useState(false);
 
   const [isLading, setLading] = useState(false);
+  const [PhoneTitleError, setPhoneTitleError] = useState(false);
 
   useEffect(() => {
     setAuth(isLoading);
 
     // console.log(userDataInfo);
   });
+
   const { errors, validateProperty } = useAddPropValidation();
   const handleSubmit = async (e) => {
     const isValid = validateProperty(propertyDetils);
@@ -183,7 +185,11 @@ const AddProperty = () => {
       // Handle success (e.g., show a success message)
     } catch (error) {
       // Handle error (e.g., display an error message)
-      console.error("Error creating property:", error);
+      // console.error("Error creating property:", error.message);
+      // console.log(error.message.includes("Phone number"));
+      if (error.message.includes("Phone number")) {
+        setPhoneTitleError(true);
+      }
     }
 
     setLading(false);
@@ -195,7 +201,6 @@ const AddProperty = () => {
       // dir={language ? "ltr" : "rtl"}
       className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh] pb-20  flex flex-col justify-center items-center"
     >
-
       <div
         className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200  ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
@@ -261,6 +266,13 @@ const AddProperty = () => {
               </div>
               {errors && (
                 <p className="text-center text-red-500">{errors[0]}</p>
+              )}
+              {PhoneTitleError && (
+                <p className="text-center text-red-500">
+                  {language
+                    ? "غير مسموح بإضافة الرقم فى العنوان"
+                    : "Phon Number is Not allowed to be added the title"}
+                </p>
               )}
               {isAuth ? (
                 <button

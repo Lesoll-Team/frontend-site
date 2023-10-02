@@ -14,6 +14,7 @@ import {
 } from "@/redux-store/features/searchSlice";
 import ShowMapSearch from "@/Shared/map/ShowMapSearch";
 import { SearchBar } from "@/Shared/search/SearchBar";
+import { FaMapMarked } from "react-icons/fa";
 // import { GrFormNext } from "react-icons/gr";
 
 function SearchResult() {
@@ -25,7 +26,7 @@ function SearchResult() {
   const InputKeyword = useSelector((state) => state.Search.setInputKeyword);
   const searchResultSearch = useSelector((state) => state.Search.searchResult);
   const [searchResult, setSearchResult] = useState(null);
-
+  const [showMap, setShowMap] = useState(false);
   const handlePageChange = (selectedPage) => {
     dispatch(setCurrentPage(selectedPage + 1));
   };
@@ -41,59 +42,89 @@ function SearchResult() {
     setSearchResult(searchResultSearch);
   }, [currentPage, dispatch, searchResultSearch]);
   return (
-    <div className="relative">
-      {searchResult?.code === 200 ? (
-        <div className="grid grid-cols-3">
-          <div className="flex flex-col lg:col-span-2  col-span-3  ">
-            <SearchBar />
+    <>
+      <div className="relative">
+        <button
+          onClick={() => {
+            setShowMap((prevState) => !prevState);
+            // console.log(showMap);
+          }}
+          className="z-[100] block lg:hidden fixed bottom-5 bg-lightOrange rounded-full text-white mx-auto left-[10px] p-5"
+        >
+          <FaMapMarked />
+        </button>
+        {searchResult?.code === 200 ? (
+          <div className="grid grid-cols-3">
+            <div className="flex flex-col lg:col-span-2  col-span-3  ">
+              <SearchBar />
 
-            <div className=" flex flex-wrap justify-center  gap-10">
-              {searchResult.searchResults.map((result) => (
-                <SearchCard key={result._id} propertyDetails={result} />
-              ))}
+              <div className=" flex flex-wrap justify-center  gap-10">
+                {searchResult.searchResults.map((result) => (
+                  <SearchCard key={result._id} propertyDetails={result} />
+                ))}
+              </div>
+              <div
+                className={
+                  "flex justify-center items-center  m-4 " + styles.pagination
+                }
+              >
+                <ReactPaginate
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={totalPages}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={1}
+                  onPageChange={(data) => handlePageChange(data.selected)}
+                  containerClassName={styles.paginationContainer} // Use the styles from the CSS module
+                  pageClassName={styles.paginationPage}
+                  activeClassName={styles.activePage}
+                  previousLabel={"back"}
+                  previousClassName={styles.paginationPrevious}
+                  nextLabel={"next"}
+                  nextClassName={styles.paginationNext}
+                  disabledClassName={styles.paginationDisabled}
+                />
+              </div>
             </div>
+
             <div
-              className={
-                "flex justify-center items-center  m-4 " + styles.pagination
-              }
+              className={`lg:block   md:sticky  md:top-20 h-[93vh] absolute top-0 w-screen $`}
             >
-              <ReactPaginate
-                breakLabel={"..."}
-                breakClassName={"break-me"}
-                pageCount={totalPages}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={1}
-                onPageChange={(data) => handlePageChange(data.selected)}
-                containerClassName={styles.paginationContainer} // Use the styles from the CSS module
-                pageClassName={styles.paginationPage}
-                activeClassName={styles.activePage}
-                previousLabel={"back"}
-                previousClassName={styles.paginationPrevious}
-                nextLabel={"next"}
-                nextClassName={styles.paginationNext}
-                disabledClassName={styles.paginationDisabled}
-              />
+              {" "}
+              {searchResult?.searchResults && (
+                <ShowMapSearch
+                  className=""
+                  searchResult={searchResult?.searchResults}
+                />
+              )}
             </div>
-          </div>
-
-          <div className={`lg:block hidden sticky  top-20 h-[93vh] `}>
-            {searchResult?.searchResults && (
-              <ShowMapSearch
-                className=""
-                searchResult={searchResult?.searchResults}
-              />
+            {showMap && (
+              <div className="lg:hidden block">
+                <div
+                  className={`fixed top-0 left-0 w-full h-[100vh] lg:hidden${
+                    !showMap && "hidden"
+                  }`}
+                >
+                  {searchResult?.searchResults && (
+                    <ShowMapSearch
+                      className=""
+                      searchResult={searchResult?.searchResults}
+                    />
+                  )}
+                </div>
+              </div>
             )}
           </div>
-        </div>
-      ) : (
-        <div>
-          <SearchBar />
-          <div className="w-full p-36 text-2xl text-default-500 text-center">
-            Not found property
+        ) : (
+          <div>
+            <SearchBar />
+            <div className="w-full p-36 text-2xl text-default-500 text-center ">
+              Not found property
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 export default SearchResult;

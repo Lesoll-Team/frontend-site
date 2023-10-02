@@ -147,14 +147,14 @@ function PropertyTitle({ singleTitle }) {
       </div>
 
       <div className="">
-        <div className="sm:flex text-2xl justify-between p-5 sm:text-4xl font-bold gap-3 ">
+        <div className="sm:flex text-2xl justify-between p-5 sm:text-4xl font-bold gap-4 space-y-4 md:space-y-0">
           <div className="flex sm:justify-start justify-center sm:w-6/12 w-full ">
-            <h2 className="sm:text-start text-center text-lightOrange">
+            <h2 className="sm:text-start text-center text-lightOrange  leading-tight     ">
               {singleTitle?.title}
             </h2>
           </div>
           <div className="flex justify-center">
-            <div className="flex flex-col md:flex-row md:items-end  gap-1 text-darkGreen">
+            <div className="flex flex-col md:flex-row md:items-end items-center   gap-1 text-darkGreen">
               {" "}
               {/* <p>{language ? "جنية/" : "EGP/"}</p> */}
               <p>
@@ -179,7 +179,7 @@ function PropertyTitle({ singleTitle }) {
               singleTitle.address.longitude
             );
           }}
-          className=" sm:my-5 p-0  flex sm:justify-normal justify-center text-[#636363] sm:text-sm text-xs cursor-pointer w-fit h-fit hover:underline"
+          className=" sm:my-5 p-0 text-center flex sm:justify-normal justify-center text-[#636363] sm:text-sm text-xs cursor-pointer w-fit h-fit hover:underline"
         >
           {singleTitle?.address.name}
         </p>

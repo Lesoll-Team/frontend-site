@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react"; //useEffect
 import { useDispatch, useSelector } from "react-redux";
 // import { GoogleLogin } from 'react-google-login';
@@ -11,17 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
 import { loginUserAsync } from "../../redux-store/features/authSlice";
-import { FcGoogle} from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import { signWithGoogle } from "@/utils/userAPI";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 // import AuthGoogleLogin from "../google/googlelogin";
 // import AuthGoogleLogout from "../google/googlelogout";
 // import { useSession, signIn, signOut } from "next-auth/react"
 
 const SignInForm = () => {
   // const {data:session}=useSession()
-  
+
   const dispatch = useDispatch();
   const isRegistering = useSelector((state) => state.Auth.isRegistering);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -36,6 +35,7 @@ const SignInForm = () => {
   const [emailValidError, setEmailValidError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
   const isValidEmail = (email) => {
     // Regular expression for a valid email address
 
@@ -72,20 +72,21 @@ const SignInForm = () => {
   // }
   // const userData2 = { email:session?.user?.email, password:"123456" };
 
-// useEffect(() => {
-//   dispatch(loginUserAsync(userData2));
+  // useEffect(() => {
+  //   dispatch(loginUserAsync(userData2));
 
-// }, [handleLoginWithGoogle])
+  // }, [handleLoginWithGoogle])
 
   // dispatch(loginUserAsync(userData2));
 
   // const toggleShowPassword = () => [setShowPassword(!showPassword)];
-const handleGoogleAuth=async()=>{
-  // e.preventDefault();
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+  const handleGoogleAuth = async () => {
+    // e.preventDefault();
 
-await signWithGoogle();
-// console.log(res);
-}
+    await signWithGoogle();
+    // console.log(res);
+  };
   // useEffect(()=>{
   //    dispatch(getAllUserData(userToken))
   // },[userToken,dispatch])
@@ -128,19 +129,32 @@ await signWithGoogle();
             </p>
           )}
         </div>
-        <div>
+        <div className="flex items-center">
           <input
             placeholder={language ? "كلمة السر" : "Password"}
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
           />
-        <Link href={"/forgetpassword"} className="text-blue-500 text-xs">{language?"نسيت كلمة المرور؟":"Reset Password?"}</Link>
 
+          {showPassword ? (
+            <AiOutlineEye
+              onClick={toggleShowPassword}
+              className="-mx-8 cursor-pointer text-darkGray text-xl"
+            />
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={toggleShowPassword}
+              className="-mx-8 cursor-pointer text-darkGray text-xl"
+            />
+          )}
         </div>
+        <Link href={"/forgetpassword"} className="text-blue-500 text-xs">
+          {language ? "نسيت كلمة المرور؟" : "Reset Password?"}
+        </Link>
         <button
           type="submit"
           disabled={isRegistering}
@@ -157,28 +171,32 @@ await signWithGoogle();
         {registrationError && <div>{registrationError}</div>}
       </form>
       <div className="flex items-center mt-4 px-14 ">
-      <hr className=" border-[1px] w-full border-default-300"/>
-      <span className="px-2 font-medium text-default-600">or</span>
-      <hr className=" border-[1px] w-full border-default-300"/>
+        <hr className=" border-[1px] w-full border-default-300" />
+        <span className="px-2 font-medium text-default-600">or</span>
+        <hr className=" border-[1px] w-full border-default-300" />
       </div>
       <div className="flex items-center px-4 justify-center">
-      <Button  onClick={handleGoogleAuth} variant="bordered" isIconOnly radius="sm" className="w-full py-5 text-lg mt-3 ">{/**onClick={handleGoogleAuth} */}
-  <span>{language?"تسجيل الدخول بجوجل":"Log In With Google"}</span>
-      <FcGoogle className="text-2xl mx-3"/>
-      </Button>
-      {/* <Button onPress={()=>signOut()}>logout</Button> */}
-      {/* <AuthGoogleLogin/>
+        <Button
+          onClick={handleGoogleAuth}
+          variant="bordered"
+          isIconOnly
+          radius="sm"
+          className="w-full py-5 text-lg mt-3 "
+        >
+          {/**onClick={handleGoogleAuth} */}
+          <span>{language ? "تسجيل الدخول بجوجل" : "Log In With Google"}</span>
+          <FcGoogle className="text-2xl mx-3" />
+        </Button>
+        {/* <Button onPress={()=>signOut()}>logout</Button> */}
+        {/* <AuthGoogleLogin/>
       onPress={handleLoginWithGoogle}
       <AuthGoogleLogout/> */}
       </div>
-
     </div>
   );
 };
 
 export default SignInForm;
-
-
 
 // import React, { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";

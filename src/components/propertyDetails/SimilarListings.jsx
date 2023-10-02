@@ -20,14 +20,17 @@ function SimilarListings({ recommendationsProperty }) {
       <h3 className="sm:text-4xl text-lg  font-bold text-lightOrange ">
         {language ? "عقارات مشابهة" : "similar Properties"}
       </h3>
-      <div className="overflow-x-hidden p-4 px-0  mb-5  rounded-xl bg border bg-white drop-shadow-lg">
+      <div className="overflow-x-hidden p-4 px-0  mb-5  rounded-xl bg border bg-white drop-shadow-lg ">
         <div className="" ref={emblaRef} dir="ltr">
           <div className="flex gap-10 p-3">
-            {recommendationsProperty.map((recommendations) => (
-              <div key={recommendations._id} className=" flex p-2 px-3">
-                <RealtyCard propertyDetails={recommendations} />
-              </div>
-            ))}
+            <div className=" flex p-2 px-3 gap-10 ">
+              {recommendationsProperty.map((recommendations) => (
+                <RealtyCard
+                  key={recommendations._id}
+                  propertyDetails={recommendations}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

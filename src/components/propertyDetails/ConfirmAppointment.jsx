@@ -37,7 +37,7 @@ function ConfirmAppointment({ userAppointment }) {
   return (
     <div className="  p-5 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
       <h2 className=" text-lightGreen text-lg md:text-4xl font-bold text-center">
-        {language ? "ملخص" : "OverView"}
+        {language ? "ملخص" : "Overview"}
       </h2>
 
       {/*user info module*/}
@@ -83,10 +83,10 @@ function ConfirmAppointment({ userAppointment }) {
       </div>
       <div className="bg-white rounded-lg p-6 md:px-10 space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="font-bold  rounded-lg py-1 px-3 flex items-center gap-1">
+          <p className="font-bold  rounded-lg py-1 px-3 flex items-center gap-1">
             <MdLocalOffer className="text-darkGreen" />
             {language ? "العرض" : "Offer"} {""}{" "}
-          </h3>
+          </p>
           <p className="font-semibold">
             {" "}
             {userAppointment.offer === "For Sale"
@@ -100,10 +100,10 @@ function ConfirmAppointment({ userAppointment }) {
         </div>
         <hr />
         <div className="flex justify-between">
-          <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+          <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
             <MdMapsHomeWork className="text-darkGreen text-lg" />
             {language ? "نوع الوحدة" : "Unit Type"}{" "}
-          </h3>
+          </p>
           <p className="font-semibold">
             {language
               ? userAppointment?.unitType?.title?.ar
@@ -112,10 +112,10 @@ function ConfirmAppointment({ userAppointment }) {
         </div>
         <hr />
         <div className="flex justify-between">
-          <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+          <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
             <TbRulerMeasure className="text-darkGreen text-lg" />
             {language ? "المساحة" : "Area"}
-          </h3>
+          </p>
           <p className="font-semibold">
             {userAppointment?.area.toLocaleString("ar-Eg")}
             {""}
@@ -147,20 +147,20 @@ function ConfirmAppointment({ userAppointment }) {
             <hr />
 
             <div className="flex justify-between">
-              <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+              <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
                 <BiSolidBed className="text-darkGreen text-lg " />{" "}
                 {language ? " الغرف" : "Rooms"}
-              </h3>
+              </p>
               <p className="font-semibold">
                 {userAppointment?.rooms.toLocaleString("ar-Eg")}
               </p>
             </div>
             <hr />
             <div className="flex justify-between">
-              <h3 className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+              <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
                 <FaBath className="text-darkGreen text-lg " />
                 {language ? "الحمامات" : "Bathrooms"}
-              </h3>
+              </p>
               <p className="font-semibold">
                 {userAppointment?.bathRooms.toLocaleString("ar-Eg")}
               </p>

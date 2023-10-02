@@ -7,7 +7,7 @@ const Accepted = () => {
     <div className="flex flex-col justify-center h-full items-center w-full space-y-8 ">
       <div className="space-y-3 flex flex-col justify-center items-center">
         <AiFillCheckCircle className="text-green-500 text-8xl  animate-appearance-in" />
-        <h3 className="text-2xl font-semibold text-darkGreen">
+        <h3 className="text-2xl font-semibold text-darkGreen text-center ">
           تمت تعديل العقار بنجاح
         </h3>
         <p className="text-xl font-semibold text-darkGray text-center">

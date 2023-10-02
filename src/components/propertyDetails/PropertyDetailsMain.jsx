@@ -9,6 +9,7 @@ import DescriptionFeatures from "./DescriptionFeatures";
 import { getRecommendRealty } from "@/utils/propertyAPI";
 import Head from "next/head";
 import { useSelector } from "react-redux";
+import PropDetailsSkeleton from "./PropDetailsSkeleton";
 
 // import {ar} from "../../language/ar/common"
 // import {en} from "../../language/en/common"
@@ -40,37 +41,45 @@ function PropertyDetailsMain({ singleProperty }) {
         <meta property="og:description" content={singleProperty?.description} />
       </Head>
       <div className="sm:container px-2 sm:px-0 mx-auto mb-16  ">
-        <div className="mb-5">
-          <PropertyTitle singleTitle={singleProperty} />
-        </div>
+        {singleProperty ? (
+          <>
+            <div className="mb-5">
+              <PropertyTitle singleTitle={singleProperty} />
+            </div>
 
-        <div className="lg:grid grid-cols-7 gap-3 items-start relative space-y-10 lg:space-y-0  mb">
-          <div className="col-span-5  space-y-4">
-            <PropertyImgSlider images={singleProperty} />
-            <hr />
-          </div>
-          <div className="col-span-2 relative h-full row-span-2 ">
-            {/* <AddressLocation singleAddressLocation={singleProperty} /> */}
-            <ConfirmAppointment userAppointment={singleProperty} />
-          </div>
-
-          <div className="col-span-5 space-y-8">
-            {singleProperty?.saleOption[0] === "Installment" && (
-              <div className="\ ">
-                <OverviewDetails singleOverviewDetails={singleProperty} />
+            <div className="lg:grid grid-cols-7 gap-3 items-start relative space-y-10 lg:space-y-0  mb">
+              <div className="col-span-5  space-y-4">
+                <PropertyImgSlider images={singleProperty} />
+                <hr />
               </div>
-            )}
-            <div className="\">
-              <DescriptionFeatures singleDescriptionFeatures={singleProperty} />
+              <div className="col-span-2 relative h-full row-span-2 ">
+                {/* <AddressLocation singleAddressLocation={singleProperty} /> */}
+                <ConfirmAppointment userAppointment={singleProperty} />
+              </div>
+
+              <div className="col-span-5 space-y-8">
+                {singleProperty?.saleOption[0] === "Installment" && (
+                  <div className="\ ">
+                    <OverviewDetails singleOverviewDetails={singleProperty} />
+                  </div>
+                )}
+                <div className="\">
+                  <DescriptionFeatures
+                    singleDescriptionFeatures={singleProperty}
+                  />
+                </div>
+                <div className="\">
+                  <AddressLocation singleAddressLocation={singleProperty} />
+                </div>
+                <div className="mt-4">
+                  <SimilarListings recommendationsProperty={recommendations} />
+                </div>
+              </div>
             </div>
-            <div className="\">
-              <AddressLocation singleAddressLocation={singleProperty} />
-            </div>
-            <div className="mt-4">
-              <SimilarListings recommendationsProperty={recommendations} />
-            </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          <PropDetailsSkeleton />
+        )}
       </div>
     </>
   );
