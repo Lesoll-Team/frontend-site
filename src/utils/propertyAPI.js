@@ -57,6 +57,26 @@ export async function AddToFavorites(propertyid) {
     throw error.response.data;
   }
 }
+export async function WhatsAppBtn(propertyid) {
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function CallBtn(propertyid) {
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${propertyid}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
 export async function deleteProperty(propertyid) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));

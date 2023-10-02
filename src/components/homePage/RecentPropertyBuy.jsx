@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 const RealtyCard = dynamic(() => import("../realtyCard/RealtyCard"));
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { Skeleton } from "@nextui-org/react";
 
 const RecentPropertyBuy = ({ propertiesBuy }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -14,11 +15,32 @@ const RecentPropertyBuy = ({ propertiesBuy }) => {
           {language ? "أحدث العقارات للبيع" : "Recent Properties For Buy"}
         </h2>
         <div className="container mx-auto items-center py-5 grid gap-x-5 lg:grid-cols-3 md:grid-cols-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
-          {propertiesBuy
-            ? propertiesBuy.map((property) => (
-                <RealtyCard key={property._id} propertyDetails={property} />
-              ))
-            : "No properties found"}
+          {propertiesBuy ? (
+            propertiesBuy.map((property) => (
+              <RealtyCard key={property._id} propertyDetails={property} />
+            ))
+          ) : (
+            <>
+              <Skeleton className="rounded-[25px]">
+                <div className="w-[310px] h-[420px] "></div>
+              </Skeleton>
+              <Skeleton className="rounded-[25px]">
+                <div className="w-[310px] h-[420px] "></div>
+              </Skeleton>
+              <Skeleton className="rounded-[25px]">
+                <div className="w-[310px] h-[420px] "></div>
+              </Skeleton>
+              <Skeleton className="rounded-[25px]">
+                <div className="w-[310px] h-[420px] "></div>
+              </Skeleton>
+              <Skeleton className="rounded-[25px]">
+                <div className="w-[310px] h-[420px] "></div>
+              </Skeleton>
+              <Skeleton className="rounded-[25px]">
+                <div className="w-[310px] h-[420px] "></div>
+              </Skeleton>
+            </>
+          )}
         </div>
         <div className="flex justify-center mt-5">
           <Link

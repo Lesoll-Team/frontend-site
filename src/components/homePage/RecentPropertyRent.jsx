@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 const RealtyCard = dynamic(() => import("../realtyCard/RealtyCard"));
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { Skeleton } from "@nextui-org/react";
 const RecentPropertyRent = ({ propertiesRent }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   // console.log(property);
@@ -15,11 +16,32 @@ const RecentPropertyRent = ({ propertiesRent }) => {
         </h2>
       </div>
       <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
-        {propertiesRent
-          ? propertiesRent.map((property) => (
-              <RealtyCard key={property.slug} propertyDetails={property} />
-            ))
-          : "No properties found"}
+        {propertiesRent ? (
+          propertiesRent.map((property) => (
+            <RealtyCard key={property.slug} propertyDetails={property} />
+          ))
+        ) : (
+          <>
+            <Skeleton className="rounded-[25px]">
+              <div className="w-[310px] h-[420px] "></div>
+            </Skeleton>
+            <Skeleton className="rounded-[25px]">
+              <div className="w-[310px] h-[420px] "></div>
+            </Skeleton>
+            <Skeleton className="rounded-[25px]">
+              <div className="w-[310px] h-[420px] "></div>
+            </Skeleton>
+            <Skeleton className="rounded-[25px]">
+              <div className="w-[310px] h-[420px] "></div>
+            </Skeleton>
+            <Skeleton className="rounded-[25px]">
+              <div className="w-[310px] h-[420px] "></div>
+            </Skeleton>
+            <Skeleton className="rounded-[25px]">
+              <div className="w-[310px] h-[420px] "></div>
+            </Skeleton>
+          </>
+        )}
       </div>
       <div className="flex justify-center mt-7">
         <Link

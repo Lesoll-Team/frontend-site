@@ -69,7 +69,7 @@ export default function PropertyImgSlider({ images }) {
                   onClick={() => {
                     openLightbox(index);
                   }}
-                  classNames=" w-full h-full"
+                  // className=" w-full h-full"
                   loading="lazy"
                   className="embla__slide__img"
                   src={img?.image}

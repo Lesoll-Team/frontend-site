@@ -36,6 +36,8 @@ const EditProp = ({ propData, setPropData }) => {
   const [sended, setSended] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [PhoneTitleError, setPhoneTitleError] = useState(false);
+
   useEffect(() => {
     setAuth(isLoading);
 
@@ -133,6 +135,9 @@ const EditProp = ({ propData, setPropData }) => {
     } catch (error) {
       // Handle error (e.g., display an error message)
       console.error("Error creating property:", error);
+      if (error.message.includes("Phone number")) {
+        setPhoneTitleError(true);
+      }
     }
 
     setIsSubmitting(false);
@@ -146,7 +151,6 @@ const EditProp = ({ propData, setPropData }) => {
       // dir={language ? "ltr" : "rtl"}
       className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
     >
-
       <div
         className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200 ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
@@ -185,6 +189,13 @@ const EditProp = ({ propData, setPropData }) => {
             )} */}
               {errors && (
                 <p className="text-center text-red-500">{errors[0]}</p>
+              )}
+              {PhoneTitleError && (
+                <p className="text-center text-red-500">
+                  {language
+                    ? "غير مسموح بإضافة الرقم فى العنوان"
+                    : "Phon Number is Not allowed to be added the title"}
+                </p>
               )}
               {isAuth ? (
                 <button
