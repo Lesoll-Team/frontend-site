@@ -11,6 +11,7 @@ import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
 import { BiSolidBed } from "react-icons/bi";
 import { TbRulerMeasure } from "react-icons/tb";
 import { FaBath } from "react-icons/fa";
+import { CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
 
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
@@ -34,6 +35,12 @@ function ConfirmAppointment({ userAppointment }) {
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
   // console.log(userAppointment);
+  const whatsBtnClick = () => {
+    WhatsAppBtn(userAppointment._id);
+  };
+  const CallBtnClick = () => {
+    CallBtn(userAppointment._id);
+  };
   return (
     <div className="  p-5 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
       <h2 className=" text-lightGreen text-lg md:text-4xl font-bold text-center">
@@ -62,6 +69,9 @@ function ConfirmAppointment({ userAppointment }) {
         <div className="flex ">
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             <Button
+              onClick={() => {
+                whatsBtnClick();
+              }}
               radius="sm"
               type="submit"
               className="mx-2 bg-lightGreen text-white hover:bg-gray-100 hover:text-lightGreen border-2 border-lightGreen focus:outline-none focus:ring-0 "
@@ -72,6 +82,9 @@ function ConfirmAppointment({ userAppointment }) {
 
           <a href={`tel:${userAppointment?.connectPhoneNumber}`}>
             <Button
+              onClick={() => {
+                CallBtnClick();
+              }}
               radius="sm"
               variant="bordered"
               className="border-2 border-lightGreen text-lightGreen hover:text-white hover:bg-lightGreen focus:outline-none focus:ring-0 "

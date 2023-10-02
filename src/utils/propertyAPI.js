@@ -67,7 +67,7 @@ export async function WhatsAppBtn(propertyid) {
     throw error.response.data;
   }
 }
-export async function CallsBtn(propertyid) {
+export async function CallBtn(propertyid) {
   try {
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${propertyid}`
