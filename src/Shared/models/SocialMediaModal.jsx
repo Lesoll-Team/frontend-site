@@ -46,16 +46,17 @@ export default function SocialMediaModal({ children, title }) {
                 <div className="flex items-center justify-center gap-8 text-4xl ">
                   <BsFacebook
                     onClick={shareOnFacebook}
-                    className="text-[#0165E1]"
+                    className="text-[#0165E1] cursor-pointer"
                   />
                   <a href={`whatsapp://send?text=${window.location.href}`}>
-                    <BsWhatsapp className="text-[#25D366]" />
+                    <BsWhatsapp className="text-[#25D366] cursor-pointer" />
                   </a>
+
                   <BsTwitter
                     onClick={shareOnTwitter}
-                    className="text-[#1DA1F2]"
+                    className="text-[#1DA1F2] cursor-pointer"
                   />
-                  <BiCopy onClick={copyLinkPage} />
+                  <BiCopy onClick={copyLinkPage} className="cursor-pointer" />
                 </div>
               </ModalBody>
             </>
