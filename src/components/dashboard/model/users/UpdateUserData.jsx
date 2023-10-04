@@ -20,7 +20,7 @@ import {
 function UserUpdateModule({ userID }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isAdmin, setAdmin] = useState(false);
-  const [selectedKeys, setSelectedKeys] = useState(new Set(["text"]));
+  const [selectedKeys, setSelectedKeys] = useState(new Set(["individual"]));
   const typeOfUser = useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]

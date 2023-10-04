@@ -5,22 +5,9 @@ import { getAllNotifications, visitNotifications } from "@/utils/notifications";
 import { useSelector } from "react-redux";
 
 
-export default function NotificationMenu({sendCount,notificationsMenuRef }) {
-  // const notificationMenuRef = useRef(null); // Create a new ref
+export default function NotificationMenu({sendCount,notificationsMenuRef,setNotificationsOpen }) {
 
-  // useEffect(() => {
-  //   function handleClickInside(event) {
-  //     if (notificationsMenuRef.current && notificationsMenuRef.current.contains(event.target)) {
-  //       // Handle click inside the menu here
-  //     }
-  //   }
-
-  //   document.addEventListener("mousedown", handleClickInside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickInside);
-  //   };
-  // }, [notificationsMenuRef]);
-
+// const [open,setopen]=useState(false)
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [notifications, setNotifications] = useState([]);
@@ -30,17 +17,17 @@ export default function NotificationMenu({sendCount,notificationsMenuRef }) {
       const getNotification = await getAllNotifications();
       setNotifications(getNotification);
       sendCount(getNotification.length)
-      // console.log(getNotification);
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
-  }, []); // Empty dependency array, indicating that this callback doesn't depend on any props or state
+  }, []);
 
   const handleUserVisit = useCallback(
     async (_id) => {
+      setNotificationsOpen(false)
+
       try {
         await visitNotifications(_id);
-        // After visiting, fetch updated notifications
         fetchNotifications();
       } catch (error) {
         console.error("Error visiting notification:", error);
@@ -56,6 +43,7 @@ export default function NotificationMenu({sendCount,notificationsMenuRef }) {
   return (
     <div 
     ref={notificationsMenuRef}
+    className={`mb-40 `}
     >
      {notifications.length === 0 ? (
         <div className=" p-2 h-full flex items-center justify-center">
@@ -86,7 +74,10 @@ export default function NotificationMenu({sendCount,notificationsMenuRef }) {
             </li>
           </ul>
         </Link>
+        
       ))}
+
+      
     </div>
   );
 }

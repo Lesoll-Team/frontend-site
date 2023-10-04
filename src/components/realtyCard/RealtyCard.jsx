@@ -77,7 +77,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
       <div className="z-10 w-full">
         <Link
           key={propertyDetails?._id}
-          href={`/propertyDetails/${propertyDetails?.slug}`}
+          href={`/property-details/${propertyDetails?.slug}`}
           className="w-full"
         >
           <Image
@@ -113,7 +113,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
         </div>
         <Link
           key={propertyDetails?._id}
-          href={`/propertyDetails/${propertyDetails?.slug}`}
+          href={`/property-details/${propertyDetails?.slug}`}
         >
           <div
             dir="rtl"

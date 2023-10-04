@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import {
   fetchActiveProperty,
   deleteActiveProperty,
-  acceptProperties,
 } from "../utils/propertyData";
 import {
   Table,
@@ -35,29 +34,36 @@ export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
 
   const [property, setProperty] = useState([]);
-  // console.log("sdsdsdsd", property);
-
+  const [refreshProperty, setRefreshProperty] = useState(false);
   const [propertyLength, setPropertyLength] = useState(0);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   useEffect(() => {
-    const fetchAllProperties = async () => {
-      try {
-        const userToken = JSON.parse(localStorage.getItem("userToken"));
-        const getProperties = await fetchActiveProperty(
-          rowsPerPage,
-          page,
-          userToken
-        );
-        // const getProperties = await fetchActiveProperty(userToken);
-        setProperty(getProperties.Property);
-        setPropertyLength(getProperties.resultCount);
-      } catch (error) {
-        console.error("Error fetching Properties:", error);
-      }
-    };
     fetchAllProperties();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, refreshProperty]);
+  const fetchAllProperties = async () => {
+    try {
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const getProperties = await fetchActiveProperty(
+        rowsPerPage,
+        page,
+        userToken
+      );
+      setProperty(getProperties.Property);
+      setPropertyLength(getProperties.resultCount);
+    } catch (error) {
+      console.error("Error fetching Properties:", error);
+    }
+  };
+  const handleDeleteProperty = async (propertyId) => {
+    try {
+      await deleteActiveProperty(propertyId);
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties();
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
 
   const [filterValue, setFilterValue] = useState("");
 
@@ -219,14 +225,14 @@ export default function ActiveProperty() {
               >
                 <DropdownItem
                   textValue="Delete Property"
-                  onClick={async () => await deleteActiveProperty(blog._id)}
+                  onClick={() => handleDeleteProperty(blog._id)}
                 >
                   Delete
                 </DropdownItem>
                 <DropdownItem
                   textValue="Accept Property"
                   onClick={() => {
-                    router.push(`/propertyDetails/${blog.slug}`);
+                    router.push(`/property-details/${blog.slug}`);
                   }}
                 >
                   Visit

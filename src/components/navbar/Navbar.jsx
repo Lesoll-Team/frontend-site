@@ -12,19 +12,15 @@ import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
 
-
-// import { useSession, signIn, signOut } from "next-auth/react"
-
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
-// import NotificationMenu from "./notificationMenu";
-// import UserMenu from "./userMenu";
-// import UserDropdown from "./userDropdown";
+
 import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
+import { useRouter } from "next/router";
 export default function Navbar() {
-  // const {data:session}=useSession()
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const [countNotifications, setCountNotifications] = useState(0);
@@ -35,19 +31,17 @@ export default function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [open, setOpen] = useState(true);
+  
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
-  // const [userDataInfo, setUserDataInfo] = useState({});
   const [isAuth, setAuth] = useState(false);
 
   useEffect(() => {
     setAuth(isLoading);
-    // setUserDataInfo(userInfo);
-    // console.log(userDataInfo);
   });
   const mobileMenuRef = useRef(null);
   const notificationsMenuRef = useRef(null);
@@ -57,19 +51,32 @@ export default function Navbar() {
   };
   useEffect(() => {
     function handleClickOutside(event) {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
         setOpen(true);
       }
-      if (notificationsMenuRef.current && !notificationsMenuRef.current.contains(event.target)) {
+      if (
+        notificationsMenuRef.current &&
+        !notificationsMenuRef.current.contains(event.target)
+      ) {
         setNotifications(false);
       }
     }
+    function handleRouteChangeStart() {
+      setNotifications(false);
+      setOpen(true)
+    }
 
     document.addEventListener("mousedown", handleClickOutside);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      router.events.off("routeChangeStart", handleRouteChangeStart);
     };
-  }, []);
+  }, [mobileMenuRef, notificationsMenuRef, router]);
   return (
     <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md ">
       <section
@@ -79,11 +86,7 @@ export default function Navbar() {
         {/*Logo */}
         <ul className=" flex w-3/12  md:justify-center ">
           <li className="sm:w-[150px] w-[100px] flex  justify-center">
-            <Link
-              className=""
-              href={"/"}
-              // onClick={() => setOpenUserMenu(setOpen(true))}
-            >
+            <Link className="" href={"/"}>
               <Image
                 src={logoNavbar}
                 width={"auto"}
@@ -98,24 +101,16 @@ export default function Navbar() {
 
         {/*nav link web page */}
         <ul className={` lg:flex  w-5/12 space-x-2 hidden`}>
-          {/**${
-            searchVisible ? "hidden" : "md:flex"
-          }  */}
           <LinksNavbar />
         </ul>
         <ul
           className={`lg:w-4/12 w-8/12  flex justify-end lg:justify-center  mr-4  space-x-2 items-center`}
         >
-          {/* <Link href="/search"> */}
-            {/* <Button isIconOnly className="bg-inherit" aria-label="Search"> */}
-              {/* <FaSearch className="text-1xl  text-lightOrange" /> */}
-              <SearchModel/>
-            {/* </Button> */}
-          {/* </Link> */}
+          {/*button search*/}
+          <SearchModel />
 
           {/*button language*/}
           <li className={`  lg:flex hidden`}>
-            {/**${searchVisible ? "hidden" : " lg:flex hidden"} */}
             <button
               onClick={() => dispatch(handleLanguage())}
               className="
@@ -146,11 +141,7 @@ export default function Navbar() {
           </li>
 
           {/*button Notifications */}
-          <li  className={` ${isAuth ? " " : "hidden"} relative`}
-          // ref={notificationsMenuRef}
-          
-          >
-            {/**` ${searchVisible ? "hidden" : " "}` */}
+          <li className={` ${isAuth ? " " : "hidden"} relative`}>
             <Badge content={countNotifications} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
@@ -167,7 +158,6 @@ export default function Navbar() {
 
           {/*button SignUp*/}
           <li className={`  ${isAuth ? "hidden" : ``} `}>
-            {/*${searchVisible ? "hidden" : " "} */}
             <button className="">
               <Link
                 className="  py-1 px-5 text-md font-semibold  border-lightOrange border-[2px] sm:text-md bg-white 
@@ -185,7 +175,6 @@ export default function Navbar() {
 
         {/*button mobile links*/}
         <ul className="flex  w-1-12  mx-2 justify-center  lg:hidden">
-          {/* <li className=""> */}
           <button
             className="flex justify-center "
             onClick={() => setOpen(!open)}
@@ -196,12 +185,12 @@ export default function Navbar() {
               <MdClear className=" text-darkGreen 	 text-4xl" />
             )}
           </button>
-          {/* </li> */}
         </ul>
       </section>
 
       {/*links in menu mobile button*/}
       <section
+      id="menu-mobile"
         dir={`${languageIs ? "rtl" : "ltr"}`}
         className="  flex justify-end  relative"
       >
@@ -214,9 +203,8 @@ export default function Navbar() {
           ref={mobileMenuRef}
         >
           <div className="items-center overflow-hidden ">
-            <MobileMenu onInputClick={handleInputClick}/>
+            <MobileMenu onInputClick={handleInputClick} />
             <div className={` flex  justify-center`}>
-
               <button
                 onClick={() => dispatch(handleLanguage())}
                 className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
@@ -228,18 +216,21 @@ export default function Navbar() {
                   </div>
                 </div>
               </button>
-
             </div>
           </div>
         </div>
-
+        {/*dropdown notifications */}
         <ul
-          // dir="ltr"
+        id="notifications-data"
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
-          }   h-[500px] overflow-auto lg:absolute rounded-md p-2 lg:w-3/12 w-full `}
+          }   h-screen  overflow-auto lg:absolute rounded-md p-2 lg:w-3/12 w-full `}
         >
-          <NotificationMenu sendCount={calcCount} notificationsMenuRef={notificationsMenuRef}/>
+          <NotificationMenu
+            sendCount={calcCount}
+            setNotificationsOpen={setNotifications}
+            notificationsMenuRef={notificationsMenuRef}
+          />
         </ul>
       </section>
     </nav>

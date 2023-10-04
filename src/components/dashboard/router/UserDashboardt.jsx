@@ -32,7 +32,10 @@ export default function UserDashboard() {
   const [usersLength, setUsersLength] = useState(0);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  useEffect(() => {
+  const [refreshUsers, setRefreshUsers] = useState(false);
+
+
+
     const fetchUsersData = async () => {
       try {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -43,9 +46,19 @@ export default function UserDashboard() {
         console.error("Error fetching users:", error);
       }
     };
-    fetchUsersData();
-  }, [page, rowsPerPage]);
-
+    useEffect(() => {
+      fetchUsersData()
+      // console.log(users);
+    }, [page, rowsPerPage,refreshUsers]);
+  const handleDeleteUser = async (UserId) => {
+    try {
+      await deleteUsers(UserId)
+      await fetchUsersData();
+     setRefreshUsers(!refreshUsers);
+  } catch (error) {
+    console.error("Error deleting Users:", error);
+  }
+  };
   const [filterValue, setFilterValue] = useState("");
 
   const [sortDescriptor, setSortDescriptor] = useState({});
@@ -155,18 +168,19 @@ export default function UserDashboard() {
               >
                 <DropdownItem
                   textValue="Delete"
-                  onClick={async () => await deleteUsers(user._id)}
+                  onClick={()=>handleDeleteUser(user._id)}
                 >
                   Delete
                 </DropdownItem>
-                <DropdownItem
+                {/* <DropdownItem
                   textValue="Ban"
                   onClick={async () => await banUser(user._id)}
                 >
                   Ban
-                </DropdownItem>
+                </DropdownItem> */}
               </DropdownMenu>
             </Dropdown>
+            {/* {console.log(user)} */}
             <UserUpdateModule userID={user._id} isAdmin={false} />
           </div>
         );

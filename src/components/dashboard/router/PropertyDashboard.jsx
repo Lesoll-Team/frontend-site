@@ -32,8 +32,18 @@ const columns = [
 ];
 export default function PropertyDashboard() {
   const [property, setProperty] = useState([]);
-  // console.log(property);
+
+  const [refreshProperty, setRefreshProperty] = useState(false);
+  const [filterValue, setFilterValue] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [sortDescriptor] = useState({});
+  const [page, setPage] = useState(1);
+  const pages = Math.ceil(property.length / rowsPerPage);
+  const hasSearchFilter = Boolean(filterValue);
   useEffect(() => {
+    fetchAllProperties();
+  }, [page, rowsPerPage, refreshProperty]);
+
     const fetchAllProperties = async () => {
       try {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -41,17 +51,32 @@ export default function PropertyDashboard() {
         setProperty(getProperties);
         setProperty(getProperties);
       } catch (error) {
-        console.error("Error fetching Properties:", error);
+        console.error("Error fetching Properties in Dashboard:", error);
       }
     };
-    fetchAllProperties();
-  }, []);
-  const [filterValue, setFilterValue] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortDescriptor] = useState({});
-  const [page, setPage] = useState(1);
-  const pages = Math.ceil(property.length / rowsPerPage);
-  const hasSearchFilter = Boolean(filterValue);
+  const handleAcceptProperty = async (propertyId) => {
+    try {
+
+    await acceptProperties(propertyId)
+    setRefreshProperty(!refreshProperty);
+    await fetchAllProperties();
+  } catch (error) {
+    console.error("Error deleting property:", error);
+  }
+  };
+
+  const handleDeleteProperty = async (propertyId) => {
+    try {
+
+    await deleteProperties(propertyId)
+    setRefreshProperty(!refreshProperty);
+    await fetchAllProperties();
+  } catch (error) {
+    console.error("Error deleting property:", error);
+  }
+  };
+
+
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
@@ -200,18 +225,18 @@ export default function PropertyDashboard() {
               >
                 <DropdownItem
                   textValue="Delete Property"
-                  onClick={async () => await deleteProperties(blog._id)}
+                  onClick={async () =>handleDeleteProperty(blog._id)}
                 >
                   Delete
                 </DropdownItem>
                 <DropdownItem
                   textValue="Accept Property"
-                  onClick={async () => await acceptProperties(blog._id)}
+                  onClick={async()=>handleAcceptProperty(blog._id)}
                 >
                   Accept
                 </DropdownItem>
                 <DropdownItem
-                  textValue="Accept Property"
+                  textValue="edit Property"
                   // onClick={async () => await acceptProperties(blog._id)}
                 >
                 <Link href={`editproperty/${blog.slug}`}>
