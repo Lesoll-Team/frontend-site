@@ -20,7 +20,7 @@ export default function property({ propertyHome }) {
       <h2>
         {propertyHome.map((property) => (
           <div key={property._id}>
-            <Link href={`/propertyDetails/${property._id}`}>
+            <Link href={`/property-details/${property._id}`}>
               <div>{property._id}</div>
             </Link>
           </div>

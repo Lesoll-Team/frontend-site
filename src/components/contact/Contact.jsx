@@ -1,10 +1,11 @@
 import { sendUserMassage } from "@/redux-store/features/contactSlice";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { AiFillCheckCircle, AiOutlineArrowLeft } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-
+import { deleteMessage } from "../../redux-store/features/contactSlice";
+import { useRouter } from "next/router";
 export default function Contact() {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -18,17 +19,34 @@ export default function Contact() {
   const [phone, setPhone] = useState("");
   const [subject, setSubject] = useState("");
   const [massage, setMassage] = useState("");
+  const router = useRouter();
   const handleConfirmMassage = async (e) => {
     e.preventDefault();
     const userMassage = { fullName, email, phone, subject, massage };
     dispatch(sendUserMassage(userMassage));
-
     setFullName("");
     setEmail("");
     setPhone("");
     setSubject("");
     setMassage("");
   };
+
+  const handleNewMassage = () => {
+    dispatch(deleteMessage());
+  };
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      dispatch(deleteMessage());
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router, dispatch]);
 
   return (
     <Fragment>
@@ -44,23 +62,35 @@ export default function Contact() {
               </h3>
             </div>
 
-            <Link
-              className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
-              href={"/"}
+            <div
+              dir="ltr"
+              className="flex items-center  w-full gap-10 justify-center"
             >
-              العودة الى الرئيسية
-              <AiOutlineArrowLeft />
-            </Link>
+              <Link
+                className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
+                href={"/"}
+              >
+                <AiOutlineArrowLeft />
+                {language ? "العودة الى الرئيسية" : "Back to home"}
+              </Link>
+              <Link
+                className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
+                href={"/contact"}
+                onClick={handleNewMassage}
+              >
+                {language ? "إرسال رد أخر" : "Send another reply"}
+              </Link>
+            </div>
           </div>
         </div>
       ) : (
         <div className="md:container mt-14 mb-14 mx-auto md:flex ">
           <div className="md:w-7/12 ">
             <h2 className="text-6xl mb-5 text-lightGreen">
-              <b>Contact</b>
+              <b>{language ? "التواصل" : "Contact Us"}</b>
             </h2>
             <h6 className="text-lightGreen mb-5 ml-4">
-              <b> Contact information </b>
+              <b>{language ? "معلومات التواصل" : " Contact information"} </b>
             </h6>
             <form
               onSubmit={handleConfirmMassage}
@@ -70,14 +100,14 @@ export default function Contact() {
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Full name"
+                    placeholder={language ? "الاسم بالكامل " : "full name"}
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     className=" placeholder:text-gray-500 focus:outline-none  w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
                   />
                   <input
                     type="email"
-                    placeholder="Email"
+                    placeholder={language ? "البريد الإلكترونى" : "Email"}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="placeholder:text-gray-500 focus:outline-none   w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
@@ -86,14 +116,14 @@ export default function Contact() {
                 <div className="flex gap-2">
                   <input
                     type="number"
-                    placeholder="Phone"
+                    placeholder={language ? "الهاتف" : "Phone"}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="placeholder:text-gray-500 focus:outline-none   w-[48%] focus:border-lightGreen  border-2 rounded-xl px-4 py-2"
                   />
                   <input
                     type="text"
-                    placeholder="Subject "
+                    placeholder={language ? "الموضوع بشأن" : "Subject"}
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className="placeholder:text-gray-500 focus:outline-none  
@@ -104,7 +134,7 @@ export default function Contact() {
               {/* <input type='' placeholder='Massage'/> */}
               <center className=" w-full">
                 <textarea
-                  placeholder="Massage"
+                  placeholder={language ? "الرسالة" : "Massage"}
                   value={massage}
                   onChange={(e) => setMassage(e.target.value)}
                   className="placeholder:text-gray-500  focus:outline-none max-h-56 h-36  focus:border-lightGreen w-[97%] ml-2 border-2 rounded-2xl px-4 py-2"
@@ -114,7 +144,13 @@ export default function Contact() {
                   disabled={isSending}
                   className="rounded-3xl w-10/12  bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
                 >
-                  {isSending ? "submitting In..." : "Submit"}
+                  {isSending
+                    ? language
+                      ? "يتم الإرسال ..."
+                      : "submitting In..."
+                    : language
+                    ? "ارسال"
+                    : "submit"}
                 </button>
                 {errorMassage && <div>{errorMassage}</div>}
                 {confirmMassage && <div>{confirmMassage}</div>}
@@ -127,7 +163,8 @@ export default function Contact() {
               width="500"
               height="500"
               alt="contact image"
-              loading="lazy"
+              // loading="lazy"
+              priority={true}
             />
           </div>
         </div>

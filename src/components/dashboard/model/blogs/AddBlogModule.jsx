@@ -95,23 +95,24 @@ function UserModule() {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         radius="2xl"
-        size="5xl"
+        size="full"
         className=" "
         classNames={{
-          body: "overflow-y-auto h-[300px]",
-          base: "",
+          body: "",
+          base: "py-24",
           header: "border-b-[1px] p-1",
+          footer: " m-0 min-h-[50px] flex justify-center ",
         }}
       >
         <ModalContent className="model mt-96">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 w-[1000px]">
+              <ModalHeader className="py-5 bg-default-200">
                 Add Blog
               </ModalHeader>
               <form onSubmit={handleBlogButton}>
 
-              <ModalBody>
+              <ModalBody className="overflow-y-auto h-[400px] px-5 bg-default-200 pb-10">
                   <div className="">
                     <Input
                       type="file"
@@ -184,7 +185,7 @@ function UserModule() {
                     />
                   </div>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className="bg-default-300">
                 <Button color="foreground" variant="light" onClick={onClose}>
                   Close
                 </Button>

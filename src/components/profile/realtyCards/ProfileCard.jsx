@@ -49,7 +49,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
       {/* card img */}
 
       {type === "active" ? (
-        <Link href={`/propertyDetails/${propertyDetails.slug}`}>
+        <Link href={`/property-details/${propertyDetails.slug}`}>
           <Image
             isZoomed="true"
             alt="Realty"
@@ -87,7 +87,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
         </div>
         <div className=" text-lightOrange   px-5 flex justify-between  font-bold">
           {type === "active" ? (
-            <Link href={`/propertyDetails/${propertyDetails.slug}`}>
+            <Link href={`/property-details/${propertyDetails.slug}`}>
               <p>
                 {propertyDetails?.title.substring(0, 30)}
                 {propertyDetails?.title.length > 30 && "..."}

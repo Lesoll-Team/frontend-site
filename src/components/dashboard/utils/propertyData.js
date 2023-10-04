@@ -50,7 +50,7 @@ export async function deleteActiveProperty(propertyID) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/deleteforever/${propertyID}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/deleteforever/${propertyID}`,
       {
         headers: {
           token: userToken,

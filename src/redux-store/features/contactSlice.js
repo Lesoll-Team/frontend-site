@@ -18,7 +18,9 @@ const initialState = {
     name:"Contact",
     initialState,
     reducers:{
-
+deleteMessage: (state) => {
+  state.massage = null;
+},
     },
     extraReducers:(builder) => {
         builder 
@@ -37,5 +39,5 @@ const initialState = {
           })
     }
   })
-//   export const {} = contactSlice.actions;
+  export const {deleteMessage} = contactSlice.actions;
   export default contactSlice.reducer;

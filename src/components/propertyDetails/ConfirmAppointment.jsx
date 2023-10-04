@@ -1,13 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
 import { User, Button } from "@nextui-org/react";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 import { useRouter } from "next/router";
 import { AiOutlineWhatsApp } from "react-icons/ai";
-import { IoCallOutline } from "react-icons/io5";
-import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
 import { BiSolidBed } from "react-icons/bi";
 import { TbRulerMeasure } from "react-icons/tb";
 import { FaBath } from "react-icons/fa";
@@ -23,8 +20,6 @@ function ConfirmAppointment({ userAppointment }) {
   }${
     userAppointment?.connectPhoneNumber || userAppointment?.user?.phone
   }&text=${encodeURIComponent(message)}`;
-  // console.log(userAppointment);
-
   const language = useSelector((state) => state.GlobalState.languageIs);
   // console.log(userAppointment);
   function formatDate(dateString) {
