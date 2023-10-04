@@ -172,7 +172,7 @@ const SignInForm = () => {
       </form>
       <div className="flex items-center mt-4 px-14 ">
         <hr className=" border-[1px] w-full border-default-300" />
-        <span className="px-2 font-medium text-default-600">or</span>
+        <span className="px-2 font-medium text-default-600">{language?"او":"or"}</span>
         <hr className=" border-[1px] w-full border-default-300" />
       </div>
       <div className="flex items-center px-4 justify-center">

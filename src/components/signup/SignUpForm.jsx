@@ -97,7 +97,12 @@ const SignUpForm = () => {
   //   useEffect(()=>{
   //     dispatch(getAllUserData(userToken))
   //  },[userToken,dispatch])
-  // console.log(countryCode);
+  const handleGoogleAuth = async () => {
+    // e.preventDefault();
+
+    await signWithGoogle();
+    // console.log(res);
+  };
   return (
     <div className="animate-appearance-in ">
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">
@@ -219,22 +224,6 @@ const SignUpForm = () => {
             </div>
 
             <div>
-              <input
-                inputMode="numeric"
-                // type="number"
-                id="phoneNumber"
-                value={phoneNumber}
-                placeholder={language ? "رقم التليفون" : "Phone Number"}
-                onChange={(e) => {
-                  setPhoneNumber(e.target.value);
-                  if (e.target.value) {
-                    setFormError({ ...formError, phoneNumberError: false });
-                  }
-                }}
-                className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-lg px-4 py-2 ${
-                  formError.phoneNumberError && "border-red-500"
-                }`}
-              />
               {formError.phoneNumberError && (
                 <p className="text-red-500">please enter your phone</p>
               )}
@@ -330,17 +319,18 @@ const SignUpForm = () => {
           </form>
           <div className="flex items-center  px-14 ">
             <hr className=" border-[1px] w-full border-default-300" />
-            <span className="px-2 font-medium">or</span>
+            <span className="px-2 font-medium">{language?"او":"or"}</span>
             <hr className=" border-[1px] w-full border-default-300" />
           </div>
           <div className="flex items-center px-4 justify-center">
             <Button
+            onClick={handleGoogleAuth}
               variant="bordered"
               isIconOnly
               radius="sm"
               className="w-full py-5 text-lg mt-3 "
             >
-              Log In With Google
+          <span>{language ? "تسجيل الدخول بجوجل" : "Log In With Google"}</span>
               <FcGoogle className="text-2xl mx-3" />
             </Button>
           </div>

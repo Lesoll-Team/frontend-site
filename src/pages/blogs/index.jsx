@@ -17,7 +17,7 @@ function Blog({ blogs }) {
         />
       </Head>
       <div className="py-20">
-        <b className="text-7xl text-lightGreen  ">Blog</b>
+        <b className="text-7xl text-lightGreen  ">{language ? "المقالات" : "Blogs"}</b>
       </div>
       <BlogsInPage blogData={blogs} />
     </div>

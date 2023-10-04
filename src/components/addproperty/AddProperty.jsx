@@ -44,7 +44,7 @@ const AddProperty = () => {
   // }, []);
 
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  console.log(userInfo);
+  // console.log(userInfo);
   const [propertyDetils, setPropertyDetils] = useState({
     title: "",
     offer: "",

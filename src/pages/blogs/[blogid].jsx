@@ -1,13 +1,16 @@
 import BlogSinglePage from "@/components/blogs/blogSinglePage";
 import axios from "axios";
 import React from "react";
+import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
   // console.log(singleBlog);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="container mx-auto">
       <div className="py-10">
-        <b className="text-7xl text-lightGreen  ">Blog Details</b>
+        <b className="text-7xl text-lightGreen  ">{language ? "تفاصيل المقال" : "Blog Details"}</b>
       </div>
       <div className="mb-20">
         <BlogSinglePage BlogData={singleBlog} />
