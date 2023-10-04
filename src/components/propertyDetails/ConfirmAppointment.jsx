@@ -36,7 +36,7 @@ function ConfirmAppointment({ userAppointment }) {
     }
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
-  console.log(userAppointment);
+  // console.log(userAppointment);
   const whatsBtnClick = () => {
     WhatsAppBtn(userAppointment._id);
   };
