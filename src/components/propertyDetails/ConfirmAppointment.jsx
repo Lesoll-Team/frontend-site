@@ -9,6 +9,7 @@ import { BiSolidBed } from "react-icons/bi";
 import { TbRulerMeasure } from "react-icons/tb";
 import { FaBath } from "react-icons/fa";
 import { CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
+import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
 
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
