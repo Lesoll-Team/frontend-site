@@ -15,23 +15,30 @@ const RecentPropertyForView = dynamic(() =>
 import { useSelector } from "react-redux";
 
 import Head from "next/head";
-export default function Home({ propertyForRent, propertyForBuy,propertyForView }) {
+export default function Home({
+  propertyForRent,
+  propertyForBuy,
+  propertyForView,
+}) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <main>
       <Head>
         <title>
-          {language ? "ليسول | تسويق عقارى" : "Lesoll | RealEstate Hub"}
+          {language
+            ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
+            : "Lesoll Real Estate Hup Eg | Buy - Sell - Rent Properties"}
         </title>
+
         <meta
           name="description"
-          content="ليسول هو موقع عقارات مصري متكامل يقدم خدمة التجربة الرقمية سواء لشراء أو بيع أو تأجير العقارات مع خدمة شاملة تقدم تفاصيل عن العقار من خلال خريطة تفاعلية"
+          content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:image" content="../../public/socialApperance.svg" />
         <meta
           property="og:description"
-          content="ليسول هو موقع عقارات مصري متكامل يقدم خدمة التجربة الرقمية سواء لشراء أو بيع أو تأجير العقارات مع خدمة شاملة تقدم تفاصيل عن العقار من خلال خريطة تفاعلية"
+          content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر"
         />
         <meta
           name="keywords"
@@ -50,19 +57,26 @@ export default function Home({ propertyForRent, propertyForBuy,propertyForView }
 
 export async function getStaticProps() {
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`);
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`
+  );
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`);
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`
+  );
 
-  const res = await fetch(    
-    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=6&page=${1}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=6&page=${1}`
+  );
 
   const dataRent = await resRent.json();
   const dataBuy = await resBuy.json();
   const data = await res.json();
 
   return {
-    props: { propertyForRent: dataRent.result, propertyForBuy: dataBuy.result,propertyForView: data.result },
+    props: {
+      propertyForRent: dataRent.result,
+      propertyForBuy: dataBuy.result,
+      propertyForView: data.result,
+    },
     revalidate: 1,
   };
 }

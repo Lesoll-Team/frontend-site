@@ -16,6 +16,7 @@ import { TiTick } from "react-icons/ti";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { fetchUserData } from "@/redux-store/features/globalState";
+import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 
 function PropertyTitle({ singleTitle }) {
   const dispatch = useDispatch();
@@ -31,10 +32,7 @@ function PropertyTitle({ singleTitle }) {
 
   // console.log(userInfo);
   const [isOpen, setIsOpen] = useState(false);
-  const copyLinkPage = () => {
-    const urlToCopy = window.location.href;
-    navigator.clipboard.writeText(urlToCopy);
-  };
+
   const addToFAv = async () => {
     try {
       await AddToFavorites(singleTitle?._id);
@@ -108,21 +106,17 @@ function PropertyTitle({ singleTitle }) {
           </div> */}
 
             {/* <div className="border-2 border-lightGreen flex justify-center items-center w-[50px] rounded-md"> */}
-            <Tooltip
-              isOpen={isOpen}
-              onOpenChange={(open) => setIsOpen(open)}
-              content="Copy Link"
-              placement="bottom"
-              size="md"
+            <SocialMediaModal
+              title={language ? "مشاركة العقار" : "Share property"}
             >
               <button
-                onClick={copyLinkPage}
                 size="sm"
                 className=" border-2 border-lightGreen hover:bg-lightGreen rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightGreen  "
               >
                 <MdOutlineShare className="text-2xl" />
               </button>
-            </Tooltip>
+            </SocialMediaModal>
+
             {/* </div> */}
 
             {/* <div className="border-2 w-[50px]  bg-lightOrangeHover p-1 rounded-md">
@@ -147,9 +141,9 @@ function PropertyTitle({ singleTitle }) {
       </div>
 
       <div className="">
-        <div className="sm:flex text-2xl justify-between p-5 sm:text-4xl font-bold gap-4 space-y-4 md:space-y-0">
+        <div className="sm:flex text-2xl justify-between py-5 sm:text-4xl font-bold gap-4 space-y-4 md:space-y-0">
           <div className="flex sm:justify-start justify-center sm:w-6/12 w-full ">
-            <h2 className="sm:text-start text-center text-lightOrange  leading-tight     ">
+            <h2 className="sm:text-start text-center text-3xl md:text-4xl text-lightOrange  leading-tight     ">
               {singleTitle?.title}
             </h2>
           </div>

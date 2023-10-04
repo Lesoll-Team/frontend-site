@@ -121,10 +121,10 @@ const Footer = () => {
           {/* <Link href="/about">Address Cairo, Heliopolis</Link> */}
           <address className="not-italic	">
             <Link
-              href="https://maps.app.goo.gl/3atQvrpBzq9Awpss6"
+              href="https://maps.app.goo.gl/P71VgHcHPUaiVo2FA"
               target="_blank"
             >
-              Address Cairo, Heliopolis
+              Address: Cairo, Naser City
             </Link>
           </address>
           <Link href="mailto:info@lesoll.com">Email:info@lesoll.com</Link>

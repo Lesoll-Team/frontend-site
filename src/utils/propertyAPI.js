@@ -134,4 +134,24 @@ export async function GetActiveProp(page) {
     // console.log();
   }
 }
+export async function GetEditAds(slug) {
+  try {
+    // const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/updatepending/${slug}`,
+      {
+        headers: {
+          token: JSON.parse(localStorage.getItem("userToken")),
+        },
+      }
+    );
+    //?token=${userToken}
+    return response.data.find;
+  } catch (error) {
+    throw error.response.data;
+    // console.log();
+  }
+}
+
 ///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2

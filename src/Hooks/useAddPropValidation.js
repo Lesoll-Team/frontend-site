@@ -127,7 +127,8 @@ const useAddPropValidation = () => {
           if (!propertyDetails.price) {
             newErrors.push(translateErrorMessage("price"));
           }
-        } else {
+        }
+        if (propertyDetails.saleOption === "Installment") {
           if (!propertyDetails.price) {
             newErrors.push(translateErrorMessage("price"));
           }
@@ -165,11 +166,56 @@ const useAddPropValidation = () => {
     }
 
     if (!propertyDetails.mainImage) {
-      newErrors.push(translateErrorMessage("mainImage"));
+      if (!propertyDetails.thumbnail) {
+        newErrors.push(translateErrorMessage("mainImage"));
+      }
     }
 
-    if (!propertyDetails.multiImage || propertyDetails.multiImage.length < 3) {
-      newErrors.push(translateErrorMessage("multiImage"));
+    // if (
+    //   (!propertyDetails?.multiImage ||
+    //     propertyDetails?.multiImage?.length < 3) &&
+    //   (!propertyDetails?.album ||
+    //     propertyDetails?.multiImage?.length + propertyDetails?.album?.length <
+    //       3)
+    // ) {
+    //   newErrors.push(translateErrorMessage("multiImage"));
+    // }
+    // if (!propertyDetails.multiImage) {
+    //   if (!propertyDetails.album || propertyDetails?.album?.length + propertyDetails.multiImage < 3){
+
+    //     newErrors.push(translateErrorMessage("multiImage"));
+    //   }
+    // }
+    // if (propertyDetails.album ) {
+    //   if (
+    //     (propertyDetails?.multiImage || 0) + propertyDetails.album.length <
+    //     3
+    //   ) {
+    //     newErrors.push(translateErrorMessage("multiImage"));
+    //   }
+    // } else {
+    //   if (
+    //     !propertyDetails.multiImage ||
+    //     propertyDetails?.multiImage.length > 3
+    //   ) {
+    //     newErrors.push(translateErrorMessage("multiImage"));
+    //   }
+    // }
+    if (!propertyDetails.album) {
+      if (
+        !propertyDetails.multiImage ||
+        propertyDetails.multiImage.length < 3
+      ) {
+        newErrors.push(translateErrorMessage("multiImage"));
+      }
+    } else {
+      if (
+        propertyDetails?.album?.length +
+          (propertyDetails?.multiImage?.length || 0) <
+        3
+      ) {
+        newErrors.push(translateErrorMessage("multiImage"));
+      }
     }
     if (!propertyDetails.address.name) {
       newErrors.push(translateErrorMessage("address"));

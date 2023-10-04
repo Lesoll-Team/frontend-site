@@ -16,6 +16,8 @@ import { motion } from "framer-motion";
 import useAddPropValidation from "@/Hooks/useAddPropValidation";
 
 const EditProp = ({ propData, setPropData }) => {
+  console.log(propData);
+  console.log(propData?.album?.length + (propData?.multiImage?.length || 0));
   const language = useSelector((state) => state.GlobalState.languageIs);
   const propType = {
     en: [

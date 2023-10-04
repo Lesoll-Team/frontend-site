@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import EditProp from "@/components/editproperty/EditProp";
+import { GetEditAds } from "@/utils/propertyAPI";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
@@ -11,26 +12,12 @@ const EditProperty = () => {
   const [propData, setPropData] = useState("");
   const propertyId = router.query.id;
   const getProperty = async () => {
-    await axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_URL}/property/get/property/singlepage/${propertyId}`
-      )
-      .then((res) => {
-        setPropData(res.data.find);
-      });
+    const data = await GetEditAds(propertyId);
+    setPropData(data);
   };
   useEffect(() => {
     if (propertyId) {
       getProperty();
-      // console.log(propData);
-      // console.log(propData?.user?._id);
-      // console.log(userInfo?._id);
-      // setTimeout(() => {
-      //   if (userInfo?._id !== propData?.user?._id) {
-      //     console.log("not");
-      //     router.push("/");
-      //   }
-      // }, 1000);
     }
   }, [propertyId]);
   // console.log(propData);
