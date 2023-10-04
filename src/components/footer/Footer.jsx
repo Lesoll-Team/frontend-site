@@ -82,43 +82,41 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-5 flex flex-col">
-          <h3 className="text-1xl font-bold">
+          <p className="text-1xl font-bold">
             {language ? "روابط مساعدة" : "Useful Links"}
-          </h3>
+          </p>
 
-          <Link href="/about" className=" font-semibold text-darkGray">
+          <Link href="/about" className="  text-darkGray">
             {language ? "عنا" : "About"}
           </Link>
 
-          <Link href="/blogs" className="font-semibold text-darkGray">
+          <Link href="/blogs" className=" text-darkGray">
             {language ? "المقالات" : "Blogs"}
           </Link>
 
-          <Link href="/contact" className="font-semibold text-darkGray">
+          <Link href="/contact" className=" text-darkGray">
             {language ? "تواصل معنا" : "Contact"}
           </Link>
         </div>
         <div className="space-y-5 flex flex-col">
-          <h3 className="text-1xl font-bold">
-            {language ? "مساعدة؟" : "Help?"}
-          </h3>
+          <p className="text-1xl font-bold">{language ? "مساعدة؟" : "Help?"}</p>
 
-          <Link className=" font-semibold text-darkGray" href="/faq">
+          <Link className="  text-darkGray" href="/faq">
             {language ? "الأسئلة الشائعة" : "FAQ"}
           </Link>
 
-          <Link className=" font-semibold text-darkGray" href="/termsofservice">
+          <Link className="  text-darkGray" href="/termsofservice">
             {language ? "الشروط والأحكام" : "Terms & Conditions"}
           </Link>
 
-          <Link className=" font-semibold text-darkGray" href="/privacypolicy">
+          <Link className="  text-darkGray" href="/privacypolicy">
             {language ? "سياسة الخصوصية" : "Privacy Policy"}
           </Link>
         </div>
         <div className="space-y-5 flex flex-col">
-          <h3 className="text-1xl font-bold">
+          <p className="text-1xl font-bold">
             {language ? "التواصل" : "Contact"}
-          </h3>
+          </p>
 
           {/* <Link href="/about">Address Cairo, Heliopolis</Link> */}
           <address className="not-italic	">

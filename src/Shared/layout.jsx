@@ -37,7 +37,9 @@ export default function Layout({ children }) {
     >
       <Head>
         <title>
-          {language ? "ليسول | تسويق عقارى" : "Lesoll | RealEstate Hub"}
+          {language
+            ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
+            : "Lesoll Real Estate Hup Eg | Buy - Sell - Rent Properties"}
         </title>
         <meta
           name="description"

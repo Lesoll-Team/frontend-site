@@ -30,11 +30,11 @@ function SearchResult() {
     dispatch(
       propertyFromSearch({ InputKeywords: InputKeyword, page: currentPage })
     );
-  }, [ InputKeyword, currentPage]);
+  }, [InputKeyword, currentPage]);
 
   useEffect(() => {
     setSearchResult(searchResultSearch);
-  }, [currentPage,  searchResultSearch]);
+  }, [currentPage, searchResultSearch]);
 
   return (
     <>
@@ -83,7 +83,7 @@ function SearchResult() {
             </div>
 
             <div
-              className={`lg:block   md:sticky  md:top-20 h-[93vh] absolute top-0 w-screen $`}
+              className={`lg:block hidden md:sticky  md:top-20 h-[93vh] absolute top-0 w-screen $`}
             >
               {" "}
               {searchResult?.searchResults && (
@@ -96,8 +96,8 @@ function SearchResult() {
             {showMap && (
               <div className="lg:hidden block">
                 <div
-                  className={`fixed top-0 left-0 w-full h-[100vh] lg:hidden${
-                    !showMap && "hidden"
+                  className={`fixed top-0 left-0 w-full h-[100vh] n${
+                    showMap ? "block" : "hidden"
                   }`}
                 >
                   {searchResult?.searchResults && (

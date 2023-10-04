@@ -127,7 +127,7 @@ const Map = ({ propertyDetils, setData }) => {
           center={selected || center}
           mapContainerClassName="map"
           // onDblClick={handleMapClick}
-          onDblClick={handleMapDoubleClick}
+          onClick={handleMapDoubleClick}
         >
           {selected && <Marker position={selected} />}
         </GoogleMap>

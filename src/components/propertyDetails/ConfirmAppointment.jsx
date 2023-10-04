@@ -19,7 +19,9 @@ function ConfirmAppointment({ userAppointment }) {
    مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN + router.asPath} `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
-    userAppointment?.connectPhoneNumber
+    "+20" + userAppointment.user.code
+  }${
+    userAppointment?.connectPhoneNumber || userAppointment?.user?.phone
   }&text=${encodeURIComponent(message)}`;
   // console.log(userAppointment);
 
@@ -34,7 +36,7 @@ function ConfirmAppointment({ userAppointment }) {
     }
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
-  // console.log(userAppointment);
+  console.log(userAppointment);
   const whatsBtnClick = () => {
     WhatsAppBtn(userAppointment._id);
   };
@@ -80,7 +82,12 @@ function ConfirmAppointment({ userAppointment }) {
             </Button>
           </a>
 
-          <a href={`tel:${userAppointment?.connectPhoneNumber}`}>
+          <a
+            href={`tel:${userAppointment.user.code}${
+              userAppointment?.connectPhoneNumber ||
+              userAppointment?.user?.phone
+            }`}
+          >
             <Button
               onClick={() => {
                 CallBtnClick();

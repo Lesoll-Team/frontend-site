@@ -62,9 +62,8 @@ export async function WhatsAppBtn(propertyid) {
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`
     );
-    return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw error;
   }
 }
 export async function CallBtn(propertyid) {
@@ -115,12 +114,6 @@ export async function getRecommendRealty(propertyid) {
     // console.log();
   }
 }
-
-
-
-
-
-
 
 export async function GetActiveProp(page) {
   try {

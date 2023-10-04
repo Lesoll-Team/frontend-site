@@ -65,45 +65,38 @@ export async function updateUserDataInfo(userID, userToken, userUpdate) {
   return null;
 }
 
-
-
-
 export async function changePassword(userNewPassword) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-    try {
-      const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/update/changepassword`,userNewPassword,
-        {
-          headers: {
-            token: userToken,
-          },
-        }
-      );
-      // console.log("yes out 1:",response.data);
-      return response.data;
-    } catch (error) {
-      // console.log(error);
-      // console.log("error out 2:",error);
-      return error.response.data;
-    }
-  
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/update/changepassword`,
+      userNewPassword,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    // console.log("yes out 1:",response.data);
+    return response.data;
+  } catch (error) {
+    // console.log(error);
+    // console.log("error out 2:",error);
+    return error.response.data;
+  }
 }
-
-
-
-
-
 
 export async function verifyEmail() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify?token=${userToken}`
-    // {
-    //   headers:{
-    //     token:userToken
-    //   }
-    // }
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify?token=${userToken}`
+      // {
+      //   headers:{
+      //     token:userToken
+      //   }
+      // }
     );
     return response.data;
   } catch (error) {
@@ -111,34 +104,39 @@ export async function verifyEmail() {
   }
 }
 
-
 export async function sendCodeVerifyEmail(codenumber) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/getverify?token=${userToken}`,codenumber);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/getverify?token=${userToken}`,
+      codenumber
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
-
-
 
 export async function sendEmailResetPassword(email) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/reset-password?token=${userToken}&lang=AR`,email);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/reset-password?token=${userToken}&lang=AR`,
+      email
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-
 export async function sendResetNewPassword(userNewPassword) {
   // const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/user/changepassword?chps=${userNewPassword.token}`,{password:userNewPassword.password});
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/changepassword?chps=${userNewPassword.token}`,
+      { password: userNewPassword.password }
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -146,29 +144,31 @@ export async function sendResetNewPassword(userNewPassword) {
 }
 // export async function getTokenGoogle(){
 //   try {
-    
+
 //   } catch (error) {
-    
+
 //   }
 // }
-export async function signWithGoogle(){
+export async function signWithGoogle() {
   try {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`)
-  const authUrl = response.data.Link;
-  window.location.href=authUrl
-  // window.open(authUrl,"_blank");
-// console.log("response",response.data);
-  // return response
-} catch (error) {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+    );
+    const authUrl = response.data.Link;
+    window.location.href = authUrl;
+    // window.open(authUrl,"_blank");
+    // console.log("response",response.data);
+    // return response
+  } catch (error) {
     console.log(error);
-}
+  }
   // console.log(response);
 }
 
-export async function GetActiveProp(page){
+export async function GetActiveProp(page) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=1&page=${page}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=9&page=${page}`,
       {
         headers: {
           token: JSON.parse(localStorage.getItem("userToken")),
@@ -180,8 +180,3 @@ export async function GetActiveProp(page){
     throw error.response.data;
   }
 }
-
-
-
-
-

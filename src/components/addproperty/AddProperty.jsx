@@ -44,7 +44,7 @@ const AddProperty = () => {
   // }, []);
 
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  // console.log(userInfo);
+  console.log(userInfo);
   const [propertyDetils, setPropertyDetils] = useState({
     title: "",
     offer: "",
@@ -86,7 +86,8 @@ const AddProperty = () => {
       postalCode: "",
     },
 
-    connectPhoneNumber: userInfo?.phone,
+    connectPhoneNumber: "",
+
     countryCode: "",
     status: "Pending",
     reason: "",
@@ -95,7 +96,7 @@ const AddProperty = () => {
     finishingType: "",
     isRegisterd: false,
     isFurnished: false,
-    downPaymentType: "percentage",
+    downPaymentType: "cash",
     downPaymentAmount: 0,
     installmentPeriodType: "yearly",
     // installmentPeriod: 0,
@@ -105,7 +106,7 @@ const AddProperty = () => {
       ...prevDetails,
       sellerName: userInfo?.fullname,
       sellerEmail: userInfo?.email,
-      connectPhoneNumber: userInfo?.phone,
+      connectPhoneNumber: `${userInfo?.code + userInfo?.phone}`,
     }));
   }, [userInfo]);
   // console.log(propertyDetils);

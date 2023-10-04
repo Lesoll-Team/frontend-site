@@ -50,8 +50,9 @@ const SellerInfo = ({ propertyDetils, setData }) => {
             containerStyle={{
               zIndex: "10000000000000",
             }}
-            disableCountryCode={true}
+            // disableCountryCode={true}
             // countryCodeEditable={false}
+            countryCodeEditable={false}
             placeholder={language ? "رقم الهاتف" : "Phone Number"}
             className=" z-30"
             enableSearch={true}

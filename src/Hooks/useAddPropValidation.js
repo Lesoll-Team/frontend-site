@@ -75,8 +75,8 @@ const useAddPropValidation = () => {
       ar: "الصورة الرئيسية مفقودة.",
     },
     multiImage: {
-      en: "Multi-images are missing and should not be less than 4.",
-      ar: "الصور المتعددة مفقودة ولا ينبغي أن تقل عن 4.",
+      en: "Multi-images are missing and should not be less than 3.",
+      ar: "الصور المتعددة مفقودة ولا ينبغي أن تقل عن 3.",
     },
     address: {
       en: "Address is missing.",
@@ -168,7 +168,7 @@ const useAddPropValidation = () => {
       newErrors.push(translateErrorMessage("mainImage"));
     }
 
-    if (!propertyDetails.multiImage || propertyDetails.multiImage.length < 4) {
+    if (!propertyDetails.multiImage || propertyDetails.multiImage.length < 3) {
       newErrors.push(translateErrorMessage("multiImage"));
     }
     if (!propertyDetails.address.name) {

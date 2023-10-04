@@ -97,7 +97,7 @@ const SignUpForm = () => {
   //   useEffect(()=>{
   //     dispatch(getAllUserData(userToken))
   //  },[userToken,dispatch])
-  console.log(countryCode);
+  // console.log(countryCode);
   return (
     <div className="animate-appearance-in ">
       <div className="flex justify-evenly w-80 md:w-96 md:gap-3 gap-1">

@@ -147,12 +147,19 @@ const Installment = ({ propertyDetils, setData }) => {
             setData({ ...propertyDetils, price: e.target.value })
           }
         />
+        <a href="whatsapp://send?text=Your%20Message%20Here%20https://lesoll.com">
+          Share on WhatsApp
+        </a>
+        <a href="fb-messenger://share/?text=Your%20Message%20Here%20https://lesoll.com">
+          Share on Messenger
+        </a>
+
         <AddPropInput
           propertyDetils={propertyDetils}
           choices={propertyDetils.downPaymentType}
           type={"number"}
           setData={setData}
-          title={language ? "المقدم" : "Down Payment"}
+          title={language ? "الدفعة الأولى" : "Down Payment"}
           placeholder={
             propertyDetils.downPaymentType === "percentage"
               ? language
@@ -177,7 +184,7 @@ const Installment = ({ propertyDetils, setData }) => {
         />
         <AddPropInput
           type={"number"}
-          title={language ? "  دفعة التأمين" : "Maintenance Payment"}
+          title={language ? "  دفعة الإستلام" : "Maintenance Payment"}
           placeholder={language ? "السعر" : " Price"}
           egp={true}
           value={propertyDetils.maintenancePayment}
@@ -230,7 +237,7 @@ const Installment = ({ propertyDetils, setData }) => {
           type={"number"}
           title={language ? "مدة التقسيط" : "Installment Period"}
           placeholder={
-            propertyDetils.installmentPeriodType === "yearly"
+            propertyDetils.installmentOption.type === "Yearly"
               ? language
                 ? "عدد السنين"
                 : " Years"
