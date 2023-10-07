@@ -109,7 +109,7 @@ const AddProperty = () => {
       connectPhoneNumber: `${userInfo?.code + userInfo?.phone}`,
     }));
   }, [userInfo]);
-  // console.log(propertyDetils);
+  console.log(propertyDetils);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [isAuth, setAuth] = useState(false);

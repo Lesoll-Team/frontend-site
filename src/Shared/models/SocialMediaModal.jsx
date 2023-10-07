@@ -56,7 +56,13 @@ export default function SocialMediaModal({ children, title }) {
                     onClick={shareOnTwitter}
                     className="text-[#1DA1F2] cursor-pointer"
                   />
-                  <BiCopy onClick={copyLinkPage} className="cursor-pointer" />
+                  <BiCopy
+                    onClick={() => {
+                      copyLinkPage();
+                      onClose();
+                    }}
+                    className="cursor-pointer"
+                  />
                 </div>
               </ModalBody>
             </>

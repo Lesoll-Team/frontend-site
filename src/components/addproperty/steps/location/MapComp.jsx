@@ -12,7 +12,7 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const libraries = ["places"];
@@ -97,7 +97,9 @@ const Map = ({ propertyDetils, setData }) => {
 
     // You can perform additional actions or update your data here
   };
-
+  useEffect(() => {
+    setInputValue(propertyDetils.address.name);
+  }, [propertyDetils.address.name]);
   return (
     <div className=" mx-auto  space-y-4 ">
       <div className="w-full  pt-4">
@@ -198,7 +200,7 @@ const PlacesAutoComplete = ({
     <Combobox onSelect={handleSelect} className="w-full">
       <ComboboxInput
         placeholder={language ? "أدخل موفع العقار" : "Select the location"}
-        defaultValue={propertyDetils?.address?.name || ""}
+        defaultValue={inputValue || ""}
         value={inputValue || value}
         onChange={(e) => {
           setInputValue(e.target.value);

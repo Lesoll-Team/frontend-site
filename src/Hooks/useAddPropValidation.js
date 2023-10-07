@@ -8,83 +8,125 @@ const useAddPropValidation = () => {
   const errorMessages = {
     title: {
       en: "Title is missing.",
-      ar: "العنوان مفقود.",
+
+      ar: " يرجى كتابة العنوان .",
     },
+
     propType: {
       en: "Property type is missing.",
-      ar: "نوع العقار مفقود.",
+
+      ar: "يرجى تحديد نوع العقار .",
     },
+
     offer: {
       en: "Offer is missing.",
-      ar: "العرض مفقود.",
+
+      ar: "يرجى اختيار العرض بيع أو إيجار.",
     },
+
     landType: {
       en: "Land type is missing.",
-      ar: "نوع الأرض مفقود.",
+
+      ar: "يرجى تحديد نوع الأرض .",
     },
+
     areaType: {
-      en: "Area type is missing.",
-      ar: "نوع المنطقة مفقود.",
+      en: "Land Area Unit is missing.",
+
+      ar: "يرجى اختيار وحدة مساحة الأرض .",
     },
+
     unitType: {
       en: "Unit type is missing.",
-      ar: "نوع الوحدة مفقود.",
+
+      ar: "يرجى تحديد نوع الوحدة .",
+    },
+    saleOption: {
+      en: "Sale option is missing.",
+      ar: "يرجى تحديد نظام البيع",
     },
     rentalPeriod: {
-      en: "Rental period is missing.",
-      ar: "فترة الإيجار مفقودة.",
+      en: "Rental type is missing.",
+
+      ar: "يرجى تحديد نوع الإيجار .",
     },
+
     price: {
       en: "Price is missing.",
-      ar: "السعر مفقود.",
+
+      ar: "يرجى كتابة السعر .",
     },
+
     downPayment: {
       en: "Down payment is missing.",
-      ar: "الدفعة الأولى مفقودة.",
+
+      ar: "يرجى كتابة الدفعة الأولى .",
     },
+
     period: {
-      en: "Period is missing.",
-      ar: "الفترة مفقودة.",
+      en: "Installment Period is missing.",
+
+      ar: "يرجى كتابة مدة التقسيط.",
     },
+
     amount: {
-      en: "Amount is missing.",
-      ar: "المبلغ مفقود.",
+      en: "Down payment is greater than the total price.",
+
+      ar: "  الدفعه الأولى أكبر من السعر الكلي للعقار.",
     },
+
     area: {
-      en: "Area is missing.",
-      ar: "المساحة مفقودة.",
+      en: "Property Area is missing.",
+
+      ar: "يرجى كتابة مساحة العقار .",
     },
+
     rooms: {
-      en: "Rooms are missing.",
-      ar: "الغرف مفقودة.",
+      en: "Number of Rooms are missing.",
+
+      ar: " يرجى كتابة عدد الغرف .",
     },
+
     bathRooms: {
-      en: "Bathrooms are missing.",
-      ar: "الحمامات مفقودة.",
+      en: "Number of Bathrooms are missing.",
+
+      ar: "يرجى كتابة عدد الحمامات .",
     },
+
     finishingType: {
       en: "Finishing type is missing.",
-      ar: "نوع التشطيب مفقود.",
+
+      ar: "يرجى تحديد نوع التشطيب .",
     },
+
     description: {
       en: "Description is missing.",
-      ar: "الوصف مفقود.",
+
+      ar: "يرجى كتابة وصف تفصيلي للعقار.",
     },
+
     mainImage: {
       en: "Main image is missing.",
-      ar: "الصورة الرئيسية مفقودة.",
+
+      ar: "يرجى رفع الصورة الرئيسية .",
     },
+
     multiImage: {
       en: "Multi-images are missing and should not be less than 3.",
-      ar: "الصور المتعددة مفقودة ولا ينبغي أن تقل عن 3.",
+
+      ar: " لا ينبغي أن تقل الصور المتعددة عن 3 صور .",
     },
+
     address: {
       en: "Address is missing.",
-      ar: "العنوان مفقود.",
+
+      ar: "يرجى ادخال موقع العقار في الخريطه.",
     },
+
     connectPhoneNumber: {
-      en: "Connect Phone Number is missing.",
-      ar: "رقم الهاتف غير متصل.",
+      en: "Seller Phone Number is missing.",
+
+      ar: "يرجى ادخال رقم هاتف المعلن   .",
     },
   };
 
@@ -101,9 +143,7 @@ const useAddPropValidation = () => {
     if (!propertyDetails.propType) {
       newErrors.push(translateErrorMessage("propType"));
     }
-    if (!propertyDetails.offer) {
-      newErrors.push(translateErrorMessage("offer"));
-    }
+
     if (propertyDetails.propType === "Land") {
       if (!propertyDetails.landType) {
         newErrors.push(translateErrorMessage("landType"));
@@ -116,34 +156,49 @@ const useAddPropValidation = () => {
         newErrors.push(translateErrorMessage("unitType"));
       }
     }
-    if (propertyDetails.offer !== "For Investment") {
-      if (propertyDetails.offer === "For Rent") {
-        if (!propertyDetails.rentalPeriod) {
-          newErrors.push(translateErrorMessage("rentalPeriod"));
-        }
+    if (!propertyDetails.offer) {
+      newErrors.push(translateErrorMessage("offer"));
+    }
+    if (propertyDetails.offer === "For Rent") {
+      if (!propertyDetails.rentalPeriod) {
+        newErrors.push(translateErrorMessage("rentalPeriod"));
       }
-      if (propertyDetails.offer === "For Sale") {
-        if (propertyDetails.saleOption === "Cash") {
-          if (!propertyDetails.price) {
-            newErrors.push(translateErrorMessage("price"));
-          }
-        }
-        if (propertyDetails.saleOption === "Installment") {
-          if (!propertyDetails.price) {
-            newErrors.push(translateErrorMessage("price"));
-          }
-          if (!propertyDetails.downPayment) {
-            newErrors.push(translateErrorMessage("downPayment"));
-          }
-          if (!propertyDetails.installmentOption.period) {
-            newErrors.push(translateErrorMessage("period"));
-          }
-          if (!propertyDetails.installmentOption.amount) {
-            newErrors.push(translateErrorMessage("amount"));
-          }
-        }
+      if (!propertyDetails.price) {
+        newErrors.push(translateErrorMessage("price"));
       }
     }
+    if (propertyDetails.offer === "For Sale") {
+      if (
+        propertyDetails.saleOption === "Cash" ||
+        propertyDetails?.saleOption[0] === "Cash"
+      ) {
+        if (!propertyDetails.price) {
+          newErrors.push(translateErrorMessage("price"));
+        }
+      }
+      if (
+        propertyDetails.saleOption === "Installment" ||
+        propertyDetails?.saleOption[0] === "Installment"
+      ) {
+        if (!propertyDetails.price) {
+          newErrors.push(translateErrorMessage("price"));
+        }
+        if (!propertyDetails.downPayment) {
+          newErrors.push(translateErrorMessage("downPayment"));
+        }
+        if (!propertyDetails.installmentOption.period) {
+          newErrors.push(translateErrorMessage("period"));
+        }
+        if (!propertyDetails.installmentOption.amount) {
+          newErrors.push(translateErrorMessage("amount"));
+        }
+      }
+      if (!propertyDetails.saleOption) {
+        newErrors.push(translateErrorMessage("saleOption"));
+      }
+    }
+    // if (propertyDetails.offer !== "For Investment") {
+    // }
     if (!propertyDetails.area) {
       newErrors.push(translateErrorMessage("area"));
     }

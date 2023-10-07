@@ -39,7 +39,7 @@ const UserSettings = () => {
               </h2>
               <Link
                 href={"/profile"}
-                className=" relative top-1 text-sm w-36 sm:w-32 text-center md:text-md px-2 sm:px-3 py-[5px] text-lightGreen border-2 border-lightGreen rounded-md flex justify-center items-center gap-1"
+                className=" relative top-1 text-sm w-36 sm:w-32 text-center md:text-md px-2 sm:px-3 py-[5px] text-lightGreen border-2 font-semibold border-lightGreen rounded-md flex justify-center items-center gap-1"
               >
                 <AiOutlineUser className=" " />
                 {language ? "الصفحة الشخصية" : "View Profile"}

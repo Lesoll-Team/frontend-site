@@ -9,10 +9,15 @@ import { Avatar } from "@nextui-org/react";
 import ConfirmModal from "@/Shared/models/ConfirmModal";
 import { verifyEmail } from "@/utils/userAPI";
 import EmailVerificationModal from "@/Shared/models/EmailVerificationModal";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 const PersonalInfo = () => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+
   // const [emailVerified] = useState(false);
   const [modelVerified, setModelVerified] = useState(false);
   const userInfo = useSelector((state) => state.GlobalState.userData);
@@ -26,13 +31,24 @@ const PersonalInfo = () => {
   useEffect(() => {
     setUserDataInfo(userInfo);
     setUserName(userInfo?.fullname);
-    setPhonenumber(userInfo?.phone);
+    setPhonenumber(`${userInfo?.code + userInfo?.phone}`);
+    setCountryCode(userInfo?.code);
   }, [dispatch, userInfo]);
+  const phoneNumberwithoutCode = () => {
+    if (phonenumber.startsWith(countryCode)) {
+      // Remove the code by using the length of the code
+      let result = phonenumber.substring(countryCode.length);
+      return result;
+    } else {
+      return phonenumber;
+    }
+  };
   const handleFormSubmit = async (e) => {
     const formData = new FormData();
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
-    formData.append("phone", phonenumber);
+    formData.append("phone", phoneNumberwithoutCode());
+    formData.append("code", countryCode);
     // console.log(formData);
     try {
       dispatch(
@@ -42,6 +58,7 @@ const PersonalInfo = () => {
           userUpdate: formData,
         })
       );
+      // console.log(phoneNumberwithoutCode());
     } catch (error) {
       console.error(error);
     }
@@ -157,14 +174,56 @@ const PersonalInfo = () => {
             <p className="font-semibold text-xl  mb-2">
               {language ? "رقم الهاتف" : "Phone Number"}
             </p>
-            <input
+            {/* <input
               // type="number"
               name="Phone Number"
               placeholder="Phone"
               value={phonenumber || ""}
               onChange={(e) => setPhonenumber(e.target.value)}
               className="block placeholder:text-gray-500 focus:outline-none  font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
-            />
+            /> */}
+            <div dir="ltr">
+              <PhoneInput
+                inputStyle={{
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                  height: "45px",
+                  fontSize: "16px",
+                  color: "#1b6e6d",
+                  borderRadius: "8px",
+                  border: "1px",
+                }}
+                buttonStyle={{
+                  height: "45px",
+
+                  backgroundColor: "white",
+                }}
+                containerStyle={{
+                  border: "1px",
+                  zIndex: "10000000000000",
+                }}
+                dropdownStyle={{
+                  height: "150px",
+                }}
+                // disableCountryCode={true}
+                autocompleteSearch={true}
+                countryCodeEditable={false}
+                placeholder={language ? "رقم الهاتف" : "Phone Number"}
+                className=" z-30"
+                enableSearch={true}
+                country={"eg"}
+                excludeCountries={["IL"]}
+                value={phonenumber}
+                onChange={(e, info) => {
+                  setPhonenumber(e);
+                  setCountryCode(info.dialCode);
+                  console.log(info);
+                  // if (e) {
+                  //   setFormError({ ...formError, phoneNumberError: false });
+                  // }
+                }}
+              />
+            </div>
           </div>
           <span>{updateError}</span>
 

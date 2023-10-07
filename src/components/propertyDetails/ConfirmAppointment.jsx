@@ -10,18 +10,21 @@ import { TbRulerMeasure } from "react-icons/tb";
 import { FaBath } from "react-icons/fa";
 import { CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
 import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
+import Link from "next/link";
+import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
 
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
   const message = `
-   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
+  مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN + router.asPath} `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
-    "+20" + userAppointment.user.code
-  }${
-    userAppointment?.connectPhoneNumber || userAppointment?.user?.phone
+    userAppointment?.connectPhoneNumber
+      ? userAppointment?.connectPhoneNumber
+      : userAppointment?.user?.code + userAppointment?.user?.phone
   }&text=${encodeURIComponent(message)}`;
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
   // console.log(userAppointment);
   function formatDate(dateString) {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -33,12 +36,16 @@ function ConfirmAppointment({ userAppointment }) {
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
   // console.log(userAppointment);
+  // console.log(userAppointment?.user?.phone);
+  // console.log(userAppointment?.user?.code);
   const whatsBtnClick = () => {
     WhatsAppBtn(userAppointment._id);
   };
   const CallBtnClick = () => {
     CallBtn(userAppointment._id);
   };
+  // console.log(userInfo);
+  console.log(userInfo);
   return (
     <div className="  p-5 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
       <h2 className=" text-lightGreen text-lg md:text-4xl font-bold text-center">
@@ -60,41 +67,119 @@ function ConfirmAppointment({ userAppointment }) {
             }}
           />
           <div className="flex flex-col">
-            <p className="font-bold">{userAppointment?.user.fullname}</p>
-            <p className="text-default-700">{userAppointment?.user.email}</p>
+            <p className="font-bold text-xl">
+              {userAppointment?.user.fullname}
+            </p>
+            {/* <p className="text-default-700">{userAppointment?.user.email}</p> */}
           </div>
         </div>
         <div className="flex ">
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            <Button
-              onClick={() => {
-                whatsBtnClick();
-              }}
-              radius="sm"
-              type="submit"
-              className="mx-2 bg-lightGreen text-white hover:bg-gray-100 hover:text-lightGreen border-2 border-lightGreen focus:outline-none focus:ring-0 "
-            >
-              {language ? ar.property.sendWtsApp : en.property.sendWtsApp}
-            </Button>
-          </a>
+          {!userInfo ? (
+            <>
+              <ContactBtnsModal
+                signup={true}
+                description={
+                  language
+                    ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجبل الدخول"
+                    : "You can't contact with the seller with out signing in "
+                }
+              >
+                <button
+                  radius="sm"
+                  type="submit"
+                  className="mx-2 w-20 h-10 rounded-lg duration-150 bg-lightGreen text-white hover:bg-gray-100 hover:text-lightGreen border-2 border-lightGreen focus:outline-none focus:ring-0 "
+                >
+                  {language ? ar.property.sendWtsApp : en.property.sendWtsApp}
+                </button>
+              </ContactBtnsModal>
 
-          <a
-            href={`tel:${userAppointment.user.code}${
-              userAppointment?.connectPhoneNumber ||
-              userAppointment?.user?.phone
-            }`}
-          >
-            <Button
-              onClick={() => {
-                CallBtnClick();
-              }}
-              radius="sm"
-              variant="bordered"
-              className="border-2 border-lightGreen text-lightGreen hover:text-white hover:bg-lightGreen focus:outline-none focus:ring-0 "
-            >
-              {language ? ar.property.sendCall : en.property.sendCall}
-            </Button>
-          </a>
+              <ContactBtnsModal
+                signup={true}
+                description={
+                  language
+                    ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجبل الدخول"
+                    : "You can't contact with the seller with out signing in "
+                }
+              >
+                <button
+                  radius="sm"
+                  variant="bordered"
+                  className="border-2  w-20 h-10 rounded-lg duration-150 border-lightGreen text-lightGreen hover:text-white hover:bg-lightGreen focus:outline-none focus:ring-0 "
+                >
+                  {language ? ar.property.sendCall : en.property.sendCall}
+                </button>
+              </ContactBtnsModal>
+            </>
+          ) : userInfo?.phone ? (
+            <>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <button
+                  onClick={() => {
+                    whatsBtnClick();
+                  }}
+                  radius="sm"
+                  type="submit"
+                  className="mx-2  w-20 h-10 rounded-lg duration-150 bg-lightGreen text-white hover:bg-gray-100 hover:text-lightGreen border-2 border-lightGreen focus:outline-none focus:ring-0 "
+                >
+                  {language ? ar.property.sendWtsApp : en.property.sendWtsApp}
+                </button>
+              </a>
+
+              <a
+                href={`tel:${userAppointment.user.code}${
+                  userAppointment?.connectPhoneNumber ||
+                  userAppointment?.user?.phone
+                }`}
+              >
+                <button
+                  onClick={() => {
+                    CallBtnClick();
+                  }}
+                  radius="sm"
+                  variant="bordered"
+                  className="border-2  w-20 h-10 rounded-lg duration-150 border-lightGreen text-lightGreen hover:text-white hover:bg-lightGreen focus:outline-none focus:ring-0 "
+                >
+                  {language ? ar.property.sendCall : en.property.sendCall}
+                </button>
+              </a>
+            </>
+          ) : (
+            <>
+              <ContactBtnsModal
+                phone={true}
+                description={
+                  language
+                    ? "لا يمكن التواصل مع المعلن فى حالة عدم وجود رقم فى هانف خاص بك لدينا "
+                    : "You can't contact with the seller with out completeing your account phone number "
+                }
+              >
+                <button
+                  radius="sm"
+                  type="submit"
+                  className="mx-2 w-20 h-10 rounded-lg duration-150 bg-lightGreen text-white hover:bg-gray-100 hover:text-lightGreen border-2 border-lightGreen focus:outline-none focus:ring-0 "
+                >
+                  {language ? ar.property.sendWtsApp : en.property.sendWtsApp}
+                </button>
+              </ContactBtnsModal>
+
+              <ContactBtnsModal
+                phone={true}
+                description={
+                  language
+                    ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجبل الدخول"
+                    : "You can't contact with the seller with out signing in "
+                }
+              >
+                <button
+                  radius="sm"
+                  variant="bordered"
+                  className="border-2  w-20 h-10 rounded-lg duration-150 border-lightGreen text-lightGreen hover:text-white hover:bg-lightGreen focus:outline-none focus:ring-0 "
+                >
+                  {language ? ar.property.sendCall : en.property.sendCall}
+                </button>
+              </ContactBtnsModal>
+            </>
+          )}
         </div>
       </div>
       <div className="bg-white rounded-lg p-6 md:px-10 space-y-4">
@@ -104,7 +189,6 @@ function ConfirmAppointment({ userAppointment }) {
             {language ? "العرض" : "Offer"} {""}{" "}
           </p>
           <p className="font-semibold">
-            {" "}
             {userAppointment.offer === "For Sale"
               ? language
                 ? "للبيع"

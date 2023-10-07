@@ -41,13 +41,13 @@ const Footer = () => {
               language ? "left-0" : "right-0"
             }`}
           >
-            <div className=" flex justify-center items-center">
+            <div className=" flex justify-center items-center text-3xl md:text-4xl">
               <Link
                 target="_blank"
                 href="https://www.facebook.com/LesollRealestate"
                 className="text-white"
               >
-                <AiFillFacebook className="text-darkGreen text-3xl md:text-5xl" />
+                <AiFillFacebook className="text-darkGreen text-3xl md:text-4xl" />
               </Link>
             </div>
             <div className="  flex justify-center items-center">
@@ -56,9 +56,9 @@ const Footer = () => {
                 href="https://www.instagram.com/lesollrealestate/"
                 className="text-white"
               >
-                <AiFillInstagram className="text-darkGreen text-3xl md:text-5xl" />
+                <AiFillInstagram className="text-darkGreen text-3xl md:text-4xl" />
 
-                {/* <BsFacebook className="text-darkGreen text-3xl md:text-5xl" /> */}
+                {/* <BsFacebook className="text-darkGreen text-3xl md:text-4xl" /> */}
               </Link>
             </div>
             <div className="  flex justify-center items-center">
@@ -67,7 +67,7 @@ const Footer = () => {
                 href="https://wa.me/+201032362898"
                 className="text-white"
               >
-                <AiOutlineWhatsApp className="text-darkGreen text-3xl md:text-5xl" />
+                <AiOutlineWhatsApp className="text-darkGreen text-3xl md:text-4xl" />
               </Link>
             </div>
             <div className="  flex justify-center items-center">
@@ -76,7 +76,7 @@ const Footer = () => {
                 href="https://twitter.com/LesollRealstate"
                 className="text-white"
               >
-                <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-5xl" />
+                <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-4xl" />
               </Link>
             </div>
           </div>

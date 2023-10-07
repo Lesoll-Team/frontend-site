@@ -57,7 +57,7 @@ const EditProp = ({ propData, setPropData }) => {
       }
     }
   }, [propData?.service]);
-  // console.log(propData);
+  console.log(propData);
   // console.log(propData.service[0]._id);\
   const { errors, validateProperty } = useAddPropValidation();
 

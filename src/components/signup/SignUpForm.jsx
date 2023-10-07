@@ -6,6 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { Button, code } from "@nextui-org/react";
 import PhoneInput from "react-phone-input-2";
+import { signWithGoogle } from "@/utils/userAPI";
 // import {getAllUserData}from "../../redux-store/features/globalState"
 
 const SignUpForm = () => {
@@ -34,7 +35,15 @@ const SignUpForm = () => {
     passwordError: false,
     validEmail: false,
   });
-
+  const phoneNumberwithoutCode = () => {
+    if (phoneNumber.startsWith(countryCode)) {
+      // Remove the code by using the length of the code
+      let result = phoneNumber.substring(countryCode.length);
+      return result;
+    } else {
+      return phoneNumber;
+    }
+  };
   const setIndividual = () => {
     setTypeOfUser("individual");
     setShowForm(true);
@@ -62,11 +71,12 @@ const SignUpForm = () => {
       password,
       email,
       code: countryCode,
-      phone: phoneNumber,
+      phone: phoneNumberwithoutCode(),
       typeOfUser,
     };
     if (fullname && password && email && phoneNumber && isValidEmail(email)) {
       dispatch(signupUserAsync(userData));
+      // console.log(userData);
     }
     if (!password) {
       setFormError({ ...formError, passwordError: true });
@@ -249,8 +259,12 @@ const SignUpForm = () => {
                   border: "1px",
                   zIndex: "10000000000000",
                 }}
-                disableCountryCode={true}
-                // countryCodeEditable={false}
+                dropdownStyle={{
+                  height: "150px",
+                }}
+                // disableCountryCode={true}
+                autocompleteSearch={true}
+                countryCodeEditable={false}
                 placeholder={language ? "رقم الهاتف" : "Phone Number"}
                 className=" z-30"
                 enableSearch={true}
@@ -260,6 +274,7 @@ const SignUpForm = () => {
                 onChange={(e, info) => {
                   setPhoneNumber(e);
                   setCountryCode(info.dialCode);
+                  // console.log(info);
                   if (e) {
                     setFormError({ ...formError, phoneNumberError: false });
                   }
@@ -319,18 +334,20 @@ const SignUpForm = () => {
           </form>
           <div className="flex items-center  px-14 ">
             <hr className=" border-[1px] w-full border-default-300" />
-            <span className="px-2 font-medium">{language?"او":"or"}</span>
+            <span className="px-2 font-medium">{language ? "او" : "or"}</span>
             <hr className=" border-[1px] w-full border-default-300" />
           </div>
           <div className="flex items-center px-4 justify-center">
             <Button
-            onClick={handleGoogleAuth}
+              onClick={handleGoogleAuth}
               variant="bordered"
               isIconOnly
               radius="sm"
               className="w-full py-5 text-lg mt-3 "
             >
-          <span>{language ? "تسجيل الدخول بجوجل" : "Log In With Google"}</span>
+              <span>
+                {language ? "تسجيل الدخول بجوجل" : "Log In With Google"}
+              </span>
               <FcGoogle className="text-2xl mx-3" />
             </Button>
           </div>

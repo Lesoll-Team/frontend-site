@@ -6,10 +6,11 @@ import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
 import { useSelector } from "react-redux";
 function SimilarListings({ recommendationsProperty }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [emblaRef] = useEmblaCarousel({
-    slidesToScroll: 2,
+
+  const [emblaThumbsRef] = useEmblaCarousel({
+    containScroll: "keepSnaps",
+    dragFree: true,
     align: "start",
-    loop: true,
   });
   return (
     <div
@@ -20,17 +21,17 @@ function SimilarListings({ recommendationsProperty }) {
       <h3 className="sm:text-4xl text-lg  font-bold text-lightOrange ">
         {language ? "عقارات مشابهة" : "similar Properties"}
       </h3>
-      <div className="overflow-x-hidden p-4 px-0  mb-5  rounded-xl bg border bg-white drop-shadow-lg ">
-        <div className="" ref={emblaRef} dir="ltr">
-          <div className="flex gap-10 p-3">
-            <div className=" flex p-2 px-3 gap-10 ">
-              {recommendationsProperty.map((recommendations) => (
+      <div className="overflow-x-hidden p-4  mb-5  rounded-xl bg border bg-white drop-shadow-lg ">
+        <div dir="ltr" className="e" ref={emblaThumbsRef}>
+          <div className="flex gap-5 p-2">
+            {recommendationsProperty.map((recommendations) => (
+              <div className="w-[310px] h-[420px]">
                 <RealtyCard
                   key={recommendations._id}
                   propertyDetails={recommendations}
                 />
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
