@@ -43,8 +43,8 @@ const PersonalInfo = () => {
       return phonenumber;
     }
   };
-  const handleFormSubmit = async (e) => {
-    const formData = new FormData();
+  const handleFormSubmit = async () => {   
+     const formData = new FormData();
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
     formData.append("phone", phoneNumberwithoutCode());
@@ -72,7 +72,7 @@ const PersonalInfo = () => {
     // console.log(resVerify);
   };
 
-  const deleteUserAccount = (e) => {
+  const deleteUserAccount = () => {
     dispatch(
       deleteAccount({
         userID: userDataInfo?._id,

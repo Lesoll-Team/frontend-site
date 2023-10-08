@@ -20,7 +20,7 @@ export default function PropertyRent({ propertyForRent }) {
           content="استكشف مجموعة واسعة من العقارات المتاحة للإيجار على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات تجارية للإيجار في المواقع الرئيسية. ابحث عن العقار المؤجَّر المثالي اليوم!"
         />
       </Head>
-      <SearchBar />
+      <SearchBar pageSaleOption="For Rent"/>
       <div>
         <h2 className="font-bold text-5xl pt-20 md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات للإيجار" : " Properties for Rent"}

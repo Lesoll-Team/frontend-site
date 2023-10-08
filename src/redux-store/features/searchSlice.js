@@ -7,18 +7,19 @@ const initialState = {
     searchingMassage:null,
     currentPage: 1, // Add current page state
     totalPages: 0,  // Add total pages state
+    // linkSearch:null,
 
   };
 
   export const propertyFromSearch = createAsyncThunk(
     "Search/getPropertyFromSearch",
      ({ InputKeywords, page }) => {
-      // try {
+      try {
         const response =  getPropertyFromSearch(InputKeywords, page);
         return response;
-      // } catch (error) {
-      //   return rejectWithValue(error.response.data);
-      // }
+      } catch (error) {
+        return error.response.data
+      }
     }
   );
 
@@ -33,6 +34,9 @@ const initialState = {
       setCurrentPage: (state, action) => {
         state.currentPage = action.payload;
       },
+      // setLinkSearchKeywords: (state, action) => {
+      //   state.linkSearch = action.payload;
+      // },
     },
     extraReducers: (builder) => {
       builder
@@ -55,6 +59,6 @@ const initialState = {
     },
   });
   
-  export const { setInputKeywords, setCurrentPage } = SearchSlice.actions;
+  export const { setInputKeywords, setCurrentPage,setLinkSearchKeywords } = SearchSlice.actions;
   
   export default SearchSlice.reducer;

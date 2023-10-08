@@ -33,77 +33,77 @@ export function SearchBar() {
   const handleSubmitSearch = (e) => {
     e.preventDefault();
     const InputKeywords = {
-      saleOptions,
-      propertyType,
-      unitType,
-      paymentMethod,
-      countBathrooms,
-      countBedrooms,
+      offer:saleOptions,
+      propType:propertyType,
+      unitType:unitType,
+      saleOption:paymentMethod,
+      bathRooms:countBathrooms,
+      rooms:countBedrooms,
       // isFurnished,
-      finishingOptions,
-      toPrice,
-      fromPrice,
+      finishingType:finishingOptions,
+      maxPrice:toPrice,
+      minPrice:fromPrice,
       keywords,
-      fromArea,
-      toArea,
-      propertyFinance,
+      minArea:fromArea,
+      maxArea:toArea,
+      MortgagePrice:propertyFinance,
+      // sort_by:sortProp,
     };
     dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
     dispatch(setInputKeywords(InputKeywords));
     router.push("/search");
   }
-// console.log(propertyFinance);
-// console.log(fromArea);
-// console.log(toArea);
+
+  
+const setForSaleButton=(e)=>{
+  e.preventDefault();
+  setSaleOptions("For Sale")
+}
+
+const setForRentButton=(e)=>{
+  e.preventDefault();
+  setSaleOptions("For Rent")
+}
+const setForAllButton=(e)=>{
+  e.preventDefault();
+  setSaleOptions("")
+}
   return (
     <form onSubmit={handleSubmitSearch}>
       <div dir="ltr" className=" w-full flex justify-center ">
         <div className="  md:w-8/12 w-11/12 ">
           <div className="">
             <button
-              // radius="none"
               className={` ${
                 saleOptions == ""
-                  ? "bg-white border-2 border-lightOrange text-lightOrange "
-                  : " bg-lightOrange text-white "
+                  ? " bg-lightOrange text-white "
+                  : "bg-white border-2 border-lightOrange text-lightOrange "
               } mx-1 font-bold py-[4px] px-3   rounded-t-medium`}
-              onClick={() => setSaleOptions("")}
+              onClick={setForAllButton}
             >
               {languageIs ? "الكل" : "All"}
             </button>
             <button
-              onClick={() => setSaleOptions("For Rent")}
-              // radius="none"
+              onClick={setForRentButton}
               className={` ${
                 saleOptions == "For Rent"
-                  ? "text-lightGreen border-2 border-lightGreen bg-white"
-                  : "text-white bg-lightGreen"
+                  ? "text-white bg-lightGreen"
+                  : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
             >
               {languageIs ? "للإيجار" : "Rent"}
             </button>
             <button
-              onClick={() => setSaleOptions("For Sale")}
-              // radius="none"
+              onClick={setForSaleButton}
               className={` ${
                 saleOptions == "For Sale"
-                  ? "text-lightGreen border-2 border-lightGreen bg-white"
-                  : "text-white bg-lightGreen"
+                  ? "text-white bg-lightGreen"
+                  : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
             >
               {languageIs ? "للبيع" : "Buy"}
             </button>
-            {/* <button
-              onClick={() => setSaleOptions("For Investment")}
-  
-              className={` ${
-                saleOptions == "For Investment"
-                  ? "text-lightGreen border-2 border-lightGreen bg-white"
-                  : "text-white bg-lightGreen"
-              }  font-bold  px-2 mx-1 rounded-t-medium`}
-            >
-              {languageIs ? "للإستثمار" : "Investment"}
-            </button> */}
+
           </div>
           <div className="flex items-center">
             <div  className="w-full">

@@ -103,48 +103,49 @@ export const unitTypeData = {
     ],
 
     Land: [
-      { value: "Agriculture", name: "Agrarian" },
       { value: "Building", name: "Land for building" },
+      { value: "Agriculture", name: "Agrarian" },
     ],
   },
 
   ar: {
     Residential: [
-      { value: "63cc933946d6193aa1f50f95", name: "شقة" },
-      { value: "63cc934b46d6193aa1f50fa0", name: "شقة بحديقة" },
-      { value: "63cc935946d6193aa1f50fab", name: "دوبلكس" },
-      { value: "63cc936946d6193aa1f50fb6", name: "ستوديو" },
-      { value: "63cc937b46d6193aa1f50fc1", name: "بينتهاوس" },
-      { value: "63cc938b46d6193aa1f50fcc", name: "شقق فندقية" },
-      { value: "63cc939746d6193aa1f50fd7", name: "أرضى" },
-      { value: "63cc93ab46d6193aa1f50fe2", name: "شقق مفروشة" },
-      { value: "642449f07502ee416a864e95", name: "عمارة" },
-      { value: "645376a84ef5131a0a061888", name: "بيت" },
-      { value: "63cc940a46d6193aa1f51014", name: "شالية" },
-      { value: "63cc941646d6193aa1f5101f", name: "كابينة" },
-      { value: "63cc93c546d6193aa1f50fed", name: "فيلا" },
-      { value: "63cc93d346d6193aa1f50ff8", name: "تاون هاوس" },
-      { value: "63cc93f846d6193aa1f51009", name: "توين هاوس" },
+      { value: "شقة", name: "شقة" },
+      { value: "شقة بحديقة", name: "شقة بحديقة" },
+      { value: "دوبلكس", name: "دوبلكس" },
+      { value: "ستوديو", name: "ستوديو" },
+      { value: "بينتهاوس", name: "بينتهاوس" },
+      { value: "شقق فندقية", name: "شقق فندقية" },
+      { value: "أرضى", name: "أرضى" },
+      { value: "شقق مفروشة", name: "شقق مفروشة" },
+      // { value: "642449f07502ee416a864e95", name: "عمارة" },
+      { value: "بيت", name: "بيت" },
+      { value: "شالية", name: "شالية" },
+      { value: "كابينة", name: "كابينة" },
+      { value: "فيلا", name: "فيلا" },
+      { value: "تاون هاوس", name: "تاون هاوس" },
+      { value: "توين هاوس", name: "توين هاوس" },
     ],
-
+  
     Commercial: [
-      { value: "63cc942c46d6193aa1f5102a", name: "عيادة" },
-      { value: "63cc944446d6193aa1f51035", name: "مكتب" },
-      { value: "63cc945646d6193aa1f51040", name: "جراج" },
-      { value: "63cc946146d6193aa1f5104b", name: "مصنع" },
-      { value: "63cc947546d6193aa1f5105c", name: "مستودع" },
-      { value: "63cc948146d6193aa1f51067", name: "ريتيل" },
-      { value: "63cc949246d6193aa1f51072", name: "مطعم" },
-      { value: "63cc949e46d6193aa1f51077", name: "كافية" },
-      { value: "645375df4ef5131a0a061886", name: "محل" },
+      { value: "عياده", name: "عيادة" },
+      { value: "مكتب", name: "مكتب" },
+      { value: "جراج", name: "جراج" },
+      { value: "مصنع", name: "مصنع" },
+      { value: "مستودع", name: "مستودع" },
+      { value: "ريتيل", name: "ريتيل" },
+      { value: "مطعم", name: "مطعم" },
+      { value: "كافية", name: "كافية" },
+      { value: "محل", name: "محل" },
     ],
-
+  
     Land: [
-      { value: "Agriculture", name: "زراعى" },
-      { value: "Building", name: "ارض للبناء" },
+      { value: "زراعية", name: "زراعى" },
+      { value: "مبانى", name: "ارض للبناء" },
     ],
   },
 };
+
 
 export const sortedData = {
   en: [

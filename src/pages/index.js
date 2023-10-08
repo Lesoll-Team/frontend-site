@@ -15,12 +15,15 @@ const RecentPropertyForView = dynamic(() =>
 import { useSelector } from "react-redux";
 
 import Head from "next/head";
+import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 export default function Home({
   propertyForRent,
   propertyForBuy,
   propertyForView,
+  bestSearch,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  // console.log(bestSearch);
   return (
     <main>
       <Head>
@@ -55,6 +58,11 @@ export default function Home({
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
       <RecentPropertyRent propertiesRent={propertyForRent} />
       <RecentPropertyForView propertyOfView={propertyForView} />
+      <BestLinksInHome
+        PopularSearches={bestSearch.POPULAR_SEARCHES}
+        MostArea={bestSearch.Most_Area}
+        MostGovernorate={bestSearch.Most_Governorate}
+      />
     </main>
   );
 }
@@ -71,15 +79,21 @@ export async function getStaticProps() {
     `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=6&page=${1}`
   );
 
+  const linkHome = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+  );
+
   const dataRent = await resRent.json();
   const dataBuy = await resBuy.json();
   const data = await res.json();
+  const linkInHome = await linkHome.json();
 
   return {
     props: {
       propertyForRent: dataRent.result,
       propertyForBuy: dataBuy.result,
       propertyForView: data.result,
+      bestSearch: linkInHome,
     },
     revalidate: 1,
   };

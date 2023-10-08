@@ -18,6 +18,7 @@ import { PlusIcon } from "../../icon/PlusIcon";
 import { useDispatch, useSelector } from "react-redux";
 
 function UserModule() {
+  //{refreshProperty,setRefreshProperty,onBlogAdded}
   const dispatch=useDispatch()
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const blogSending = useSelector((state) => state.BlogDashboard.blogSending);
@@ -56,7 +57,7 @@ function UserModule() {
     setImage(null);
     setImagePrev(null);
   };
-  const handleBlogButton = (e) => {
+  const handleBlogButton = async(e) => {
     e.preventDefault();
     const formData = new FormData();
     const metaDescription = {
@@ -79,6 +80,11 @@ function UserModule() {
     dispatch(
       createBlogs({ userToken: userDataInfo?.token, blogData: formData }) //, blogData: formData
     );
+    
+  //  await setRefreshProperty(!refreshProperty)
+
+  //   await onBlogAdded();
+
   };
   return (
     <div className="">

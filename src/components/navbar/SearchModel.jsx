@@ -10,7 +10,10 @@ import {
 } from "@nextui-org/react";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { propertyFromSearch } from "@/redux-store/features/searchSlice";
+import {
+  propertyFromSearch,
+  setInputKeywords,
+} from "@/redux-store/features/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function SearchModel() {
@@ -18,25 +21,29 @@ export default function SearchModel() {
 
   const [keywords, setKeyword] = useState("");
 
-  const InputKeywords = {
-    keywords,
-    saleOptions: "",
-    propertyType: "",
-    unitType: "",
-    paymentMethod: "",
-    countBathrooms: 0,
-    countBedrooms: 0,
-    isFurnished: null,
-    finishingOptions: "",
-    toPrice: 0,
-    fromPrice: 0,
-  };
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const page = useSelector((state) => state.Search.page);
+  // const page = useSelector((state) => state.Search.page);
 
   const handelSearchButton = () => {
-    dispatch(propertyFromSearch({ InputKeywords, page }));
+    const InputKeywords = {
+      keywords,
+      // saleOption: "",
+      // propType: "",
+      // unitType: "",
+      // offer: "",
+      // bathRooms: 0,
+      // rooms: 0,
+      // maxPrice: 0,
+      // minPrice: 0,
+      // minArea: "",
+      // maxArea: "",
+      // MortgagePrice: "",
+      // sort_by: "",
+    };
+    dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
+    dispatch(setInputKeywords(InputKeywords));
+
     onOpenChange(onOpenChange);
     router.push("/search");
   };

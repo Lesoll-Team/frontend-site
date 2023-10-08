@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, User } from "@nextui-org/react";
-import { getAllUsers, deleteUsers, banUser } from "../utils/userAPI";
+import { getAllUsers, deleteUsers } from "../utils/userAPI";
 import {
   Table,
   TableHeader,
@@ -164,10 +164,11 @@ export default function UserDashboard() {
               </DropdownTrigger>
               <DropdownMenu
                 aria-label="Options Menu User"
-                aria-labelledbyl="Options Menu User"
               >
                 <DropdownItem
                   textValue="Delete"
+                aria-labelledbyl="Options Menu User"
+
                   onClick={()=>handleDeleteUser(user._id)}
                 >
                   Delete
@@ -180,8 +181,7 @@ export default function UserDashboard() {
                 </DropdownItem> */}
               </DropdownMenu>
             </Dropdown>
-            {/* {console.log(user)} */}
-            <UserUpdateModule userID={user._id} isAdmin={false} />
+            <UserUpdateModule typeUser={user.typeOfUser} userID={user._id} userIsAdmin={user.isAdmin} />
           </div>
         );
     }
