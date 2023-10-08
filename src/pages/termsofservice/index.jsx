@@ -1,9 +1,10 @@
 import TermsOfService from "@/components/termsofservice/TermsOfService";
 import Head from "next/head";
 import { useSelector } from "react-redux";
-const language = useSelector((state) => state.GlobalState.languageIs);
 
 const index = () => {
+const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <>
       <Head>

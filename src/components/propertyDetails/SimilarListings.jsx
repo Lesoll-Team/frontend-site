@@ -25,9 +25,8 @@ function SimilarListings({ recommendationsProperty }) {
         <div dir="ltr" className="e" ref={emblaThumbsRef}>
           <div className="flex gap-5 p-2">
             {recommendationsProperty.map((recommendations) => (
-              <div className="w-[310px] h-[420px]">
+              <div key={recommendations._id} className="w-[310px] h-[420px]">
                 <RealtyCard
-                  key={recommendations._id}
                   propertyDetails={recommendations}
                 />
               </div>

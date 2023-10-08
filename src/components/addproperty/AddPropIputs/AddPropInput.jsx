@@ -34,8 +34,9 @@ const AddPropInput = ({
       </h3>
       <div className="relative ">
         <input
-          inputMode={type === "number" ? "numeric" : undefined}
-          type={type === "number" && "number"}
+          // inputMode={type === "number" ? "numeric" : undefined}
+          // type={type === "number" && "number"}
+          type={type}
           value={value || ""}
           onChange={setValue}
           className={` w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 ${

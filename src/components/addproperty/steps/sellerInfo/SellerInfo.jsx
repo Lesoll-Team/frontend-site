@@ -81,63 +81,62 @@ const SellerInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
           </div>
         </div>
       )}
-      {propertyDetils.phoneChoice === "other" ||
-        (!userInfo.phone && (
-          <>
-            <div className="animate-appearance-in" dir="ltr">
-              {" "}
-              <PhoneInput
-                inputStyle={{
-                  paddingTop: "10px",
-                  paddingBottom: "10px",
-                  height: "55px",
-                  fontSize: "18px",
-                  color: "#1b6e6d",
-                  borderRadius: "11px",
-                }}
-                buttonStyle={{
-                  height: "55px",
+      {(propertyDetils.phoneChoice === "other" || !userInfo.phone) && (
+        <>
+          <div className="animate-appearance-in" dir="ltr">
+            {" "}
+            <PhoneInput
+              inputStyle={{
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                height: "55px",
+                fontSize: "18px",
+                color: "#1b6e6d",
+                borderRadius: "11px",
+              }}
+              buttonStyle={{
+                height: "55px",
 
-                  backgroundColor: "white",
-                }}
-                containerStyle={{
-                  zIndex: "",
-                }}
-                dropdownStyle={{
-                  height: "150px",
-                }}
-                // disableCountryCode={true}
-                // countryCodeEditable={false}
-                countryCodeEditable={false}
-                placeholder={language ? "رقم الهاتف" : "Phone Number"}
-                className=" z-30"
-                enableSearch={true}
-                country={"eg"}
-                excludeCountries={["IL"]}
-                value={propertyDetils.connectPhoneNumber}
-                onChange={
-                  (e, info) => {
-                    setData({ ...propertyDetils, connectPhoneNumber: e });
-                    if (e) {
-                      setPropErrors((prevState) => ({
-                        ...prevState,
-                        phone: false,
-                      }));
-                    }
-                    // console.log(e);
-                    // console.log(info.dialCode);
+                backgroundColor: "white",
+              }}
+              containerStyle={{
+                zIndex: "",
+              }}
+              dropdownStyle={{
+                height: "150px",
+              }}
+              // disableCountryCode={true}
+              // countryCodeEditable={false}
+              countryCodeEditable={false}
+              placeholder={language ? "رقم الهاتف" : "Phone Number"}
+              className=" z-30"
+              enableSearch={true}
+              country={"eg"}
+              excludeCountries={["IL"]}
+              value={propertyDetils.connectPhoneNumber}
+              onChange={
+                (e, info) => {
+                  setData({ ...propertyDetils, connectPhoneNumber: e });
+                  if (e) {
+                    setPropErrors((prevState) => ({
+                      ...prevState,
+                      phone: false,
+                    }));
                   }
-                  // setCountry(country);
-                  // console.log(phone);
-                  // console.log(country);
+                  // console.log(e);
+                  // console.log(info.dialCode);
                 }
-              />
-            </div>
-            {propErrors.phone && (
-              <p className="text-red-500"> {language ? "مطلوب" : "Requird"} </p>
-            )}
-          </>
-        ))}
+                // setCountry(country);
+                // console.log(phone);
+                // console.log(country);
+              }
+            />
+          </div>
+          {propErrors.phone && (
+            <p className="text-red-500"> {language ? "مطلوب" : "Requird"} </p>
+          )}
+        </>
+      )}
     </div>
   );
 };

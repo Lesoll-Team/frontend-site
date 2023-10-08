@@ -117,9 +117,9 @@ const Faq = () => {
                       language ? `${item?.question.ar}` : `${item?.question.en}`
                     }
                   >
-                    {item.answers.map((answer) => {
+                    {item.answers.map((answer,index) => {
                       return (
-                        <p className="my-1">
+                        <p key={index} className="my-1">
                           {language ? answer.ar : answer.en}
                         </p>
                       );
@@ -138,9 +138,9 @@ const Faq = () => {
                       language ? `${item?.question.ar}` : `${item?.question.en}`
                     }
                   >
-                    {item.answers.map((answer) => {
+                    {item.answers.map((answer,index) => {
                       return (
-                        <p className="my-1">
+                        <p key={index} className="my-1">
                           {language ? answer.ar : answer.en}
                         </p>
                       );
@@ -159,9 +159,9 @@ const Faq = () => {
                       language ? `${item?.question.ar}` : `${item?.question.en}`
                     }
                   >
-                    {item.answers.map((answer) => {
+                    {item.answers.map((answer,index) => {
                       return (
-                        <p className="my-1">
+                        <p key={index} className="my-1">
                           {language ? answer.ar : answer.en}
                         </p>
                       );

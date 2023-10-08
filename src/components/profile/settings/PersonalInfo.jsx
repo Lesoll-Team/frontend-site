@@ -245,7 +245,7 @@ const PersonalInfo = () => {
           <b>{language ? " حذف الحساب" : "Delete Account"}</b>
         </p>
         <p className="text-darkGray ">
-          {language ? " الباب يفوت جمل" : "The door misses a camel"}
+          {language ? " سيتم فقد جميع البيانات والعقارات لديك عند إزالة الحساب"  : "All your data will be deleted including your properties"}
         </p>
         <ConfirmModal
           title={language ? "تأكيد إزالة الحساب" : "Confirm Account Deletion "}
