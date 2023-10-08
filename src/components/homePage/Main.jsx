@@ -31,10 +31,10 @@ const Main = () => {
                 : " an Egyptian RealEstate marketplace. lesoll offers customers a digital experiance for buying sending and renting properties with end to end service"}
             </p>
           </div>
-          <img
+          <Image
             src={heroImg}
             // Use "eager" to prioritize loading
-            // priority // Add the "priority" property to the image
+            priority // Add the "priority" property to the image
             height={"auto"}
             width={"auto"}
             className="w-[100%] md:w-1/2 md:justify-self-end-end"
