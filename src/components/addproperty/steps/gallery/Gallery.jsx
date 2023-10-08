@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { MdOutlineRemoveCircle } from "react-icons/md";
 import { GrAddCircle } from "react-icons/gr";
 import { IoAddCircle } from "react-icons/io5";
-const Gallery = ({ propertyDetils, setData }) => {
+const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   const [imgMaxError, setImgMaxError] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const mainImageInputRef = useRef(null);
@@ -38,7 +38,13 @@ const Gallery = ({ propertyDetils, setData }) => {
   };
   const handleAddMultiImage = (e) => {
     const newFiles = e.target.files;
-
+    if (
+      newFiles.length +
+        (propertyDetils.multiImage ? propertyDetils.multiImage.length : 0) >=
+      2
+    ) {
+      setPropErrors((prevErrors) => ({ ...prevErrors, multiImage: false }));
+    }
     // Check if the total number of selected files is greater than 14
     if (
       newFiles.length +
@@ -76,7 +82,11 @@ const Gallery = ({ propertyDetils, setData }) => {
       </h3>
       <div className="flex flex-col items-center gap-4 justify-between">
         {/* Add Main Image */}
-        <div className="w-full border-[3px]  rounded-lg flex flex-col justify-center gap-4 items-center p-5 bg">
+        <div
+          className={`w-full border-[3px]  rounded-lg flex flex-col justify-center gap-4 items-center p-5 bg ${
+            propErrors.mainImage && "border-red-500"
+          } `}
+        >
           <div
             className="flex flex-col items-center cursor-pointer"
             onClick={() => {
@@ -100,6 +110,10 @@ const Gallery = ({ propertyDetils, setData }) => {
                 ...propertyDetils,
                 mainImage: e.target.files[0],
               });
+              setPropErrors((prevErrors) => ({
+                ...prevErrors,
+                mainImage: false,
+              }));
             }}
           />
           {propertyDetils.mainImage && (
@@ -115,9 +129,15 @@ const Gallery = ({ propertyDetils, setData }) => {
             </div>
           )}
         </div>
-
+        {propErrors?.mainImage && (
+          <p className="text-red-500">{language ? "  مطلوب " : " Requird"}</p>
+        )}
         {/* Add Multi Images */}
-        <div className="w-full border-[3px]  rounded-lg flex flex-col justify-center gap-4 items-center min-h-[200px] p-5 bg">
+        <div
+          className={`w-full border-[3px]  rounded-lg flex flex-col justify-center gap-4 items-center min-h-[200px] p-5 bg ${
+            propErrors.multiImage && "border-red-500"
+          }`}
+        >
           <div
             className="flex flex-col items-center cursor-pointer"
             onClick={() => {
@@ -167,6 +187,13 @@ const Gallery = ({ propertyDetils, setData }) => {
             </p>
           )}
         </div>
+        {propErrors?.multiImage && (
+          <p className="text-red-500">
+            {language
+              ? "  يجب الا يقل عدد الصور الاخرى عن 2 "
+              : " The number of other photos must not be less than 2"}
+          </p>
+        )}
       </div>
     </div>
   );

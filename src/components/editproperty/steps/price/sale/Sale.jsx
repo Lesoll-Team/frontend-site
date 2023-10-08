@@ -3,7 +3,7 @@ import Cash from "./Cash";
 import Installment from "./Installment";
 import AddPropDropdown from "@/components/addproperty/AddPropIputs/AddPropDropdown";
 import { useSelector } from "react-redux";
-const Sale = ({ propertyDetils, setData }) => {
+const Sale = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const saleOptions = {
     en: [
@@ -21,9 +21,19 @@ const Sale = ({ propertyDetils, setData }) => {
   return (
     <>
       {propertyDetils.saleOption && propertyDetils.saleOption[0] === "Cash" ? (
-        <Cash propertyDetils={propertyDetils} setData={setData} />
+        <Cash
+          propErrors={propErrors}
+          setPropErrors={setPropErrors}
+          propertyDetils={propertyDetils}
+          setData={setData}
+        />
       ) : (
-        <Installment propertyDetils={propertyDetils} setData={setData} />
+        <Installment
+          propErrors={propErrors}
+          setPropErrors={setPropErrors}
+          propertyDetils={propertyDetils}
+          setData={setData}
+        />
       )}
     </>
   );

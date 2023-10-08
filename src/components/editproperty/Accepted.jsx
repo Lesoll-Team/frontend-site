@@ -4,7 +4,7 @@ import { AiFillCheckCircle } from "react-icons/ai";
 
 const Accepted = () => {
   return (
-    <div className="flex flex-col justify-center h-full items-center w-full space-y-8 ">
+    <div className="flex flex-col justify-center h-full items-center w-full space-y-8 border rounded-xl shadow-xl ">
       <div className="space-y-3 flex flex-col justify-center items-center">
         <AiFillCheckCircle className="text-green-500 text-8xl  animate-appearance-in" />
         <h3 className="text-2xl font-semibold text-darkGreen text-center ">

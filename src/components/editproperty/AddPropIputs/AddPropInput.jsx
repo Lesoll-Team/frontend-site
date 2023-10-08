@@ -17,20 +17,30 @@ const AddPropInput = ({
   setData,
   propertyDetils,
   yearMonthes,
+  error,
+  optinal,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   // console.log(yearMonthes);
   return (
     <div className="relative">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
-        {title}
+        {title}{" "}
+        {optinal && (
+          <span className="text-darkGray text-sm">
+            {language ? "(إختيارى)" : "(Optional)"}
+          </span>
+        )}
       </h3>
       <div className="relative ">
         <input
           inputMode={type === "number" ? "numeric" : undefined}
+          type={type === "number" && "number"}
           value={value || ""}
           onChange={setValue}
-          className=" w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 "
+          className={` w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 ${
+            error && "border-red-500 focus:border-red-500"
+          }`}
           placeholder={placeholder}
           // type={type}
         />

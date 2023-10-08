@@ -4,7 +4,7 @@ import AddPropInput from "@/components/editproperty/AddPropIputs/AddPropInput";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Cash = ({ propertyDetils, setData }) => {
+const Cash = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const saleOptions = {
     en: [
@@ -29,16 +29,30 @@ const Cash = ({ propertyDetils, setData }) => {
           }}
           options={saleOptions}
         />
-        <AddPropInput
-          type={"number"}
-          title={language ? "السعر " : "Rental Price"}
-          placeholder={language ? "السعر" : "Price"}
-          egp={true}
-          value={propertyDetils.price}
-          setValue={(e) =>
-            setData({ ...propertyDetils, price: e.target.value })
-          }
-        />
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.price}
+            type={"number"}
+            title={language ? "السعر " : " Price"}
+            placeholder={language ? "السعر" : "Price"}
+            egp={true}
+            value={propertyDetils.price}
+            setValue={(e) => {
+              setData({ ...propertyDetils, price: e.target.value });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  price: false,
+                }));
+              }
+            }}
+          />
+          {propErrors.price && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
       </div>
       <div className="space-y-4 md:w-[48%]">
         <AddPropCheck

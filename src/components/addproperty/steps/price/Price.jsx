@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Rent from "./rent/Rent";
 import Sale from "./sale/Sale";
 
-const Price = ({ propertyDetils, setData }) => {
+const Price = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -12,9 +12,19 @@ const Price = ({ propertyDetils, setData }) => {
         {language ? "السعر" : "Price"}
       </h3>
       {propertyDetils.offer === "For Sale" ? (
-        <Sale propertyDetils={propertyDetils} setData={setData} />
+        <Sale
+          propErrors={propErrors}
+          setPropErrors={setPropErrors}
+          propertyDetils={propertyDetils}
+          setData={setData}
+        />
       ) : propertyDetils.offer === "For Rent" ? (
-        <Rent propertyDetils={propertyDetils} setData={setData} />
+        <Rent
+          propErrors={propErrors}
+          setPropErrors={setPropErrors}
+          propertyDetils={propertyDetils}
+          setData={setData}
+        />
       ) : (
         <div>
           <p className="text-center font-semibold text-gray-500">

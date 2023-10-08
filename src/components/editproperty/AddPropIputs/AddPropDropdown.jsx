@@ -7,6 +7,7 @@ const AddPropDropdown = ({
   setValue,
   options,
   disabled = true,
+  error,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
@@ -51,7 +52,7 @@ const AddPropDropdown = ({
         onClick={handleMenuOpen}
         className={`w-full font-semibold text-darkGreen text-lg flex items-center justify-between gap-6 focus:outline-lightGreen bg-white border-[3px]   rounded-xl p-4   whitespace-nowrap ${
           !disabled && "opacity-50"
-        }`}
+        } ${error && "border-red-500"}`}
       >
         {selectoption || title}
         <AiFillCaretDown

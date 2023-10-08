@@ -11,7 +11,7 @@ const Main = () => {
       <section className="py-3 ">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
           <div
-            className={`lg:space-y-2 flex flex-col justify-center items-center mt-5 sm:mt-0 md:items-start   md:shadow-lg md:min-h-[200px] md:border-2  md:pl-7 pr-2 md:py-10 ${
+            className={`lg:space-y-5 flex flex-col justify-center items-center mt-5 sm:mt-0 md:items-start   md:shadow-lg md:min-h-[200px] md:border-2  md:pl-7 pr-2 md:py-10 ${
               language
                 ? "md:pl-0 pr-0 md:pr-7 pl-2 md:rounded-l-[70px] text-start  "
                 : "md:rounded-r-[70px]"
@@ -33,8 +33,8 @@ const Main = () => {
           </div>
           <Image
             src={heroImg}
- // Use "eager" to prioritize loading
-           priority // Add the "priority" property to the image
+            // Use "eager" to prioritize loading
+            priority // Add the "priority" property to the image
             height={"auto"}
             width={"auto"}
             className="w-[100%] md:w-1/2 md:justify-self-end-end"

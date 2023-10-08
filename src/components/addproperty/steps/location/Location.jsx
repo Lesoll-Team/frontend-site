@@ -1,8 +1,13 @@
-import React from "react";
+import { useEffect } from "react";
 import MapComp from "./MapComp";
 import { useSelector } from "react-redux";
 
-const Location = ({ propertyDetils, setData }) => {
+const Location = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
+  useEffect(() => {
+    if (propertyDetils?.address?.name) {
+      setPropErrors((prevErrors) => ({ ...prevErrors, address: false }));
+    }
+  }, [propertyDetils.address.name]);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -11,7 +16,12 @@ const Location = ({ propertyDetils, setData }) => {
         {language ? "موقع العقار" : "Property Location"}
       </h3>
 
-      <MapComp propertyDetils={propertyDetils} setData={setData} />
+      <MapComp
+        propErrors={propErrors}
+        setPropErrors={setPropErrors}
+        propertyDetils={propertyDetils}
+        setData={setData}
+      />
     </div>
   );
 };

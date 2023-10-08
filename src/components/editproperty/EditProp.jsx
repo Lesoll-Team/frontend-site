@@ -57,10 +57,22 @@ const EditProp = ({ propData, setPropData }) => {
       }
     }
   }, [propData?.service]);
-  console.log(propData);
-  // console.log(propData.service[0]._id);\
-  const { errors, validateProperty } = useAddPropValidation();
+  useEffect(() => {
+    if (!propData.connectPhoneNumber) {
+      setPropData({ ...propData, phoneChoice: "same" });
+    } else {
+      setPropData({ ...propData, phoneChoice: "other" });
+    }
+  }, [propData?.title]);
+  // console.log(propData);
+  const [propErrors, setPropErrors] = useState({});
 
+  // console.log(propData.service[0]._id);\
+  const { errors, validateProperty } = useAddPropValidation(
+    propErrors,
+    setPropErrors
+  );
+  // console.log(propData);
   const handleSubmit = async (e) => {
     const isValid = validateProperty(propData);
     if (!isValid) {
@@ -118,7 +130,11 @@ const EditProp = ({ propData, setPropData }) => {
     );
     formData.append("address", JSON.stringify(propData.address));
 
-    formData.append("connectPhoneNumber", propData.connectPhoneNumber);
+    if (propData.phoneChoice === "other") {
+      formData.append("connectPhoneNumber", propData.connectPhoneNumber);
+    } else {
+      formData.append("connectPhoneNumber", "");
+    }
     formData.append("status", propData.status);
     formData.append("negotiable", propData.negotiable);
     formData.append("finishingType", propData.finishingType);
@@ -145,16 +161,18 @@ const EditProp = ({ propData, setPropData }) => {
     setIsSubmitting(false);
   };
   // console.log(propData);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+
   return propData ? (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.2 }}
       // dir={language ? "ltr" : "rtl"}
-      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh]   flex flex-col justify-center items-center"
+      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh] pb-20  flex flex-col justify-center items-center"
     >
       <div
-        className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200 ${
+        className={` w-full  rounded-3xl  py-5  mx-auto px-7  duration-200 ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
         }`}
       >
@@ -166,23 +184,58 @@ const EditProp = ({ propData, setPropData }) => {
           {!sended ? (
             <>
               <div className="flex flex-col space-y-10 justify-between ">
-                <GetStarted propertyDetils={propData} setData={setPropData} />
+                <GetStarted
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
                 <hr />
 
-                <Price propertyDetils={propData} setData={setPropData} />
+                <Price
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
                 <hr />
-                <PropertyInfo propertyDetils={propData} setData={setPropData} />
+                <PropertyInfo
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
                 <hr />
-                <Description propertyDetils={propData} setData={setPropData} />
+                <Description
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
                 <hr />
-                <Gallery propertyDetils={propData} setData={setPropData} />
+                <Gallery
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
                 <hr />
                 <Features propertyDetils={propData} setData={setPropData} />
                 <hr />
-                <Location propertyDetils={propData} setData={setPropData} />
+                <Location
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
                 <hr />
-                <SellerInfo propertyDetils={propData} setData={setPropData} />
-                <hr />
+                <SellerInfo
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                />
+                {/* <hr /> */}
                 {/* <hr /> */}
                 {/* <Review /> */}
               </div>
@@ -203,7 +256,7 @@ const EditProp = ({ propData, setPropData }) => {
                 <button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className={`bg-lightGreen mx-auto text-xl h-10 rounded-xl w-full md:w-96 py-1   px-3 text-white font-semibold  text-center flex justify-center items-center ${
+                  className={`bg-lightGreen mx-auto text-xl  rounded-xl w-full  py-2 hover:bg-lightGreenHover duration-150   px-3 text-white font-semibold  text-center flex justify-center items-center ${
                     isSubmitting && "opacity-70"
                   }`}
                 >
@@ -221,7 +274,7 @@ const EditProp = ({ propData, setPropData }) => {
                   href={"/signin"}
                   className="text-center bg-lightOrange py-2 text-white font-semibold rounded-xl"
                 >
-                  Sign In
+                  {language ? "سجل الدخول" : "Sign In"}
                 </Link>
               )}
             </>

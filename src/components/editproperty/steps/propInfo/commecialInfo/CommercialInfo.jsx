@@ -5,7 +5,12 @@ import AddPropInput from "../../../AddPropIputs/AddPropInput";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-const CommercialInfo = ({ propertyDetils, setData }) => {
+const CommercialInfo = ({
+  propertyDetils,
+  setData,
+  propErrors,
+  setPropErrors,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [startDate, setStartDate] = useState();
 
@@ -63,35 +68,83 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       <div className="space-y-4 md:w-[48%]">
-        <AddPropInput
-          title={language ? "المساحة" : "Area"}
-          placeholder={language ? "المساحة" : "Area"}
-          type={"number"}
-          value={propertyDetils.area}
-          setValue={(e) => setData({ ...propertyDetils, area: e.target.value })}
-          m2={true}
-        />
-        <AddPropInput
-          title={language ? "عدد الغرف" : "Number of rooms"}
-          placeholder={language ? "عدد الغرف" : "Number of rooms"}
-          type={"number"}
-          value={propertyDetils.rooms}
-          setValue={(e) =>
-            setData({ ...propertyDetils, rooms: e.target.value })
-          }
-        />
-        <AddPropInput
-          title={language ? "عدد الحمامات" : "Number of bathrooms"}
-          placeholder={language ? "عدد الحمامات" : "Number of bathrooms"}
-          type={"number"}
-          value={propertyDetils.bathRooms}
-          setValue={(e) =>
-            setData({ ...propertyDetils, bathRooms: e.target.value })
-          }
-        />
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.area}
+            className="md:w-[48%]"
+            title={language ? "المساحة" : "Area"}
+            placeholder={language ? "المساحة" : "Area"}
+            type={"number"}
+            value={propertyDetils.area}
+            setValue={(e) => {
+              setData({ ...propertyDetils, area: e.target.value });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  area: false,
+                }));
+              }
+            }}
+            // m2={true}
+          />
+          {propErrors.area && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.rooms}
+            title={language ? "عدد الغرف" : "Number of rooms"}
+            placeholder={language ? "عدد الغرف" : "Number of rooms"}
+            type={"number"}
+            value={propertyDetils.rooms}
+            setValue={(e) => {
+              setData({ ...propertyDetils, rooms: e.target.value });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  rooms: false,
+                }));
+              }
+            }}
+          />
+          {propErrors.rooms && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.bathRooms}
+            title={language ? "عدد الحمامات" : "Number of bathrooms"}
+            placeholder={language ? "عدد الحمامات" : "Number of bathrooms"}
+            type={"number"}
+            value={propertyDetils.bathRooms}
+            setValue={(e) => {
+              setData({ ...propertyDetils, bathRooms: e.target.value });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  bathRooms: false,
+                }));
+              }
+            }}
+          />
+          {propErrors.bathRooms && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
         <div className="w-full">
           <h3 className=" text-lg md:text-2xl text-darkGreen font-semibold mb-2">
-            {language ? "سنة التسليم" : "Delivery Date"}
+            {language ? "سنة التسليم" : "Delivery Date"}{" "}
+            <span className="text-darkGray text-sm">
+              {language ? "(إختيارى)" : "(Optional)"}
+            </span>
           </h3>
 
           <div
@@ -120,6 +173,7 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
       </div>
       <div className="space-y-4 md:w-[48%]">
         <AddPropInput
+          optinal={true}
           title={language ? "الدور" : "Level"}
           placeholder={language ? "الدور" : "Level"}
           type={"number"}
@@ -128,14 +182,26 @@ const CommercialInfo = ({ propertyDetils, setData }) => {
             setData({ ...propertyDetils, level: e.target.value })
           }
         />
-        <AddPropDropdown
-          options={finishedOprions}
-          title={language ? "نوع التشطيب" : "Finishing options"}
-          value={finishingTypeLang()}
-          setValue={(e) => {
-            setData({ ...propertyDetils, finishingType: e });
-          }}
-        />
+        <div className="w-full">
+          <AddPropDropdown
+            error={propErrors.finishingType}
+            options={finishedOprions}
+            title={language ? "نوع التشطيب" : "Finishing options"}
+            value={finishingTypeLang()}
+            setValue={(e) => {
+              setData({ ...propertyDetils, finishingType: e });
+              setPropErrors((prevErrors) => ({
+                ...prevErrors,
+                finishingType: false,
+              }));
+            }}
+          />
+          {propErrors.finishingType && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
         <AddPropCheck
           title={language ? "مفروش" : "Furnished"}
           value={propertyDetils.isFurnished}

@@ -100,15 +100,10 @@ const AddProperty = () => {
     downPaymentAmount: 0,
     installmentPeriodType: "yearly",
     // installmentPeriod: 0,
+    phoneChoice: "same", // "same" , "other"
   });
-  useEffect(() => {
-    setPropertyDetils((prevDetails) => ({
-      ...prevDetails,
-      sellerName: userInfo?.fullname,
-      sellerEmail: userInfo?.email,
-      connectPhoneNumber: `${userInfo?.code + userInfo?.phone}`,
-    }));
-  }, [userInfo]);
+  const [propErrors, setPropErrors] = useState({});
+
   console.log(propertyDetils);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
@@ -125,7 +120,10 @@ const AddProperty = () => {
     // console.log(userDataInfo);
   });
 
-  const { errors, validateProperty } = useAddPropValidation();
+  const { errors, validateProperty } = useAddPropValidation(
+    propErrors,
+    setPropErrors
+  );
   const handleSubmit = async (e) => {
     const isValid = validateProperty(propertyDetils);
     if (!isValid) {
@@ -168,7 +166,9 @@ const AddProperty = () => {
     );
     formData.append("address", JSON.stringify(propertyDetils.address));
 
-    formData.append("connectPhoneNumber", propertyDetils.connectPhoneNumber);
+    if (propertyDetils.phoneChoice === "other") {
+      formData.append("connectPhoneNumber", propertyDetils.connectPhoneNumber);
+    }
     formData.append("status", propertyDetils.status);
     formData.append("negotiable", propertyDetils.negotiable);
     formData.append("finishingType", propertyDetils.finishingType);
@@ -190,12 +190,20 @@ const AddProperty = () => {
       // console.log(error.message.includes("Phone number"));
       if (error.message.includes("Phone number")) {
         setPhoneTitleError(true);
+        setPropErrors((prevState) => ({ ...prevState, title: ture }));
       }
     }
 
     setLading(false);
   };
   // console.log(propertyDetils);
+  useEffect(() => {
+    if (userInfo?.phone) {
+      if (!userInfo?.phone) {
+        setPropertyDetils({ ...propertyDetils, phoneChoice: "other" });
+      }
+    }
+  }, [userInfo?.phone]);
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div
@@ -203,7 +211,7 @@ const AddProperty = () => {
       className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh] pb-20  flex flex-col justify-center items-center"
     >
       <div
-        className={` w-full  rounded-3xl  border-2 py-5  mx-auto px-7 bg-white drop-shadow-2xl duration-200  ${
+        className={` w-full  rounded-3xl  py-5  mx-auto px-7  duration-200  ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
         }`}
       >
@@ -216,6 +224,8 @@ const AddProperty = () => {
             <>
               <div className="flex flex-col space-y-10 justify-between ">
                 <GetStarted
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
@@ -223,6 +233,8 @@ const AddProperty = () => {
                 {propertyDetils.offer !== "For Investment" && (
                   <div className="animate-appearance-in space-y-10">
                     <Price
+                      propErrors={propErrors}
+                      setPropErrors={setPropErrors}
                       propertyDetils={propertyDetils}
                       setData={setPropertyDetils}
                     />
@@ -230,34 +242,48 @@ const AddProperty = () => {
                   </div>
                 )}
                 <PropertyInfo
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
                 <hr />
                 <Description
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
                 <hr />
                 <Gallery
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
                 <hr />
                 <Features
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
                 <hr />
                 <Location
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
                 />
                 <hr />
-                <SellerInfo
-                  propertyDetils={propertyDetils}
-                  setData={setPropertyDetils}
-                />
+                {userInfo && (
+                  <SellerInfo
+                    propErrors={propErrors}
+                    setPropErrors={setPropErrors}
+                    propertyDetils={propertyDetils}
+                    setData={setPropertyDetils}
+                  />
+                )}
                 {/* <Appointment
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
@@ -279,7 +305,7 @@ const AddProperty = () => {
                 <button
                   onClick={handleSubmit}
                   disabled={isLading}
-                  className="bg-lightGreen mx-auto text-xl h-10 rounded-xl w-full md:w-96 py-1 sm:py-2  px-3 text-white font-medium  text-center flex justify-center items-center"
+                  className="bg-lightGreen mx-auto text-xl rounded-xl w-full  py-2 hover:bg-lightGreenHover duration-150  px-3 text-white font-medium  text-center flex justify-center items-center"
                 >
                   {isLading ? (
                     <DotPulse size={50} speed={1.3} color="#fff" />
@@ -294,7 +320,7 @@ const AddProperty = () => {
                   href={"/signin"}
                   className="text-center bg-lightOrange py-2 text-white font-semibold rounded-xl"
                 >
-                  Sign In
+                  {language ? "سجل الدخول" : "Sign In"}
                 </Link>
               )}
             </>

@@ -16,17 +16,23 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const libraries = ["places"];
-export default function MapComp({ propertyDetils, setData }) {
+export default function MapComp({ propertyDetils, setData, propErrors }) {
   // console.log(propertyDetils);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: libraries,
   });
   if (!isLoaded) return <div>loading ....</div>;
-  return <Map propertyDetils={propertyDetils} setData={setData} />;
+  return (
+    <Map
+      propertyDetils={propertyDetils}
+      setData={setData}
+      propErrors={propErrors}
+    />
+  );
 }
 const center = { lat: 30, lng: 31.4 };
-const Map = ({ propertyDetils, setData }) => {
+const Map = ({ propertyDetils, setData, propErrors }) => {
   // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selected, setSelected] = useState(null);
@@ -107,6 +113,7 @@ const Map = ({ propertyDetils, setData }) => {
           {language ? "الموقع" : "Location"}
         </h2>
         <PlacesAutoComplete
+          propErrors={propErrors}
           inputValue={inputValue}
           setInputValue={setInputValue}
           setSelected={setSelected}
@@ -144,6 +151,7 @@ const PlacesAutoComplete = ({
   setData,
   inputValue,
   setInputValue,
+  propErrors,
 }) => {
   const {
     ready,
@@ -197,41 +205,48 @@ const PlacesAutoComplete = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <Combobox onSelect={handleSelect} className="w-full">
-      <ComboboxInput
-        placeholder={language ? "أدخل موفع العقار" : "Select the location"}
-        defaultValue={inputValue || ""}
-        value={inputValue || value}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          setValue(e.target.value);
-          // setData({
-          //   ...propertyDetils,
-          //   address: {
-          //     ...propertyDetils.address,
-          //     placeId: result[0]?.place_id,
-          //   },
-          // });
-          // console.log(data);
-        }}
-        disabled={!ready}
-        className=" w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-gra placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 "
-      />
-      {status === "OK" && (
-        <ComboboxPopover className=" rounded-lg mt-2 drop-shadow-lg ">
-          <ComboboxList className="rounded-lg sapce-y-4">
-            {data.map(({ place_id, description }) => {
-              return (
-                <ComboboxOption
-                  key={place_id}
-                  value={description}
-                  className="text-darkGray "
-                />
-              );
-            })}
-          </ComboboxList>
-        </ComboboxPopover>
+    <>
+      <Combobox onSelect={handleSelect} className="w-full">
+        <ComboboxInput
+          placeholder={language ? "أدخل موفع العقار" : "Select the location"}
+          defaultValue={inputValue || ""}
+          value={inputValue || value}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setValue(e.target.value);
+            // setData({
+            //   ...propertyDetils,
+            //   address: {
+            //     ...propertyDetils.address,
+            //     placeId: result[0]?.place_id,
+            //   },
+            // });
+            // console.log(data);
+          }}
+          disabled={!ready}
+          className={` w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-gra placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 ${
+            propErrors.address && "border-red-500 focus:border-red-500"
+          }`}
+        />
+        {status === "OK" && (
+          <ComboboxPopover className=" rounded-lg mt-2 drop-shadow-lg ">
+            <ComboboxList className="rounded-lg sapce-y-4">
+              {data.map(({ place_id, description }) => {
+                return (
+                  <ComboboxOption
+                    key={place_id}
+                    value={description}
+                    className="text-darkGray "
+                  />
+                );
+              })}
+            </ComboboxList>
+          </ComboboxPopover>
+        )}
+      </Combobox>
+      {propErrors?.address && (
+        <p className="text-red-500">{language ? "  مطلوب " : " Requird"}</p>
       )}
-    </Combobox>
+    </>
   );
 };

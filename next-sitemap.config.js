@@ -1,3 +1,3 @@
 module.exports = {
-  siteUrl: "https://lesoll.com",
+  siteUrl: "http://localhost:3000",
 };

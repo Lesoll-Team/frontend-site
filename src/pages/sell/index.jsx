@@ -6,7 +6,8 @@ const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
+    // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
+    <div className="  ">
       <Head>
         <title>{language ? "إضافة عقار" : "Add property"}</title>
         <meta name="description" content="إضافة عقار لموقع ليسول" />

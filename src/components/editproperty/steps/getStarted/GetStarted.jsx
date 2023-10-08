@@ -3,7 +3,7 @@ import AddPropInput from "../../AddPropIputs/AddPropInput";
 import AddPropDropdown from "../../AddPropIputs/AddPropDropdown";
 import { useSelector } from "react-redux";
 
-const GetStarted = ({ setData, propertyDetils }) => {
+const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
   // const [unitOptions, setUnitOptions] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const unitType = {
@@ -69,12 +69,12 @@ const GetStarted = ({ setData, propertyDetils }) => {
     },
     Land: {
       en: [
-        { value: "Agriculture", name: "Agriculture" },
-        { value: "Building", name: "Building" },
+        { value: "652123e7ebfe0a232b1ef10f", name: "Agriculture" },
+        { value: "6521242cebfe0a232b1ef112", name: "Building" },
       ],
       ar: [
-        { value: "Agriculture", name: "زراعية" },
-        { value: "Building", name: "مبانى" },
+        { value: "652123e7ebfe0a232b1ef10f", name: "زراعية" },
+        { value: "6521242cebfe0a232b1ef112", name: "مبانى" },
       ],
     },
   };
@@ -108,95 +108,128 @@ const GetStarted = ({ setData, propertyDetils }) => {
     propertyDetils && (
       <div className="flex flex-col  w-full space-y-5">
         <h3 className="text-center text-4xl text-darkGreen mt-3 font-bold">
-          {language ? "أضف عقارك" : "Add Property"}
+          {language ? "عدل عقارك" : "Edit Property"}
         </h3>
         <div className="w-full">
           <AddPropInput
+            error={propErrors?.title}
             title={!language ? "Property Title" : "عنوان الاعلان"}
             setValue={(e) => {
               setData({ ...propertyDetils, title: e.target.value });
-            }}
-            value={propertyDetils.title}
-            placeholder={!language ? "Property Title" : "عنوان الاعلان"}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row gap-4">
-          <AddPropDropdown
-            title={!language ? "Property type" : "نوع العقار"}
-            value={
-              propertyDetils.propType === "Residential"
-                ? language
-                  ? "سكنى"
-                  : "Residential"
-                : propertyDetils.propType === "Commercial"
-                ? language
-                  ? "تجارى"
-                  : "Commercial"
-                : propertyDetils.propType === "Land"
-                ? language
-                  ? "ارض"
-                  : "Land"
-                : ""
-            }
-            setValue={(e) => {
-              if (propertyDetils.propType !== e) {
-                setData({
-                  ...propertyDetils,
-                  propType: e,
-                  unitType: "",
-                  landType: "",
-                });
-              } else {
-                setData({
-                  ...propertyDetils,
-                  propType: e,
-                });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  title: false,
+                }));
               }
             }}
-            placeholder={"unit type"}
-            options={propType}
+            value={propertyDetils?.title}
+            placeholder={!language ? "Property Title" : "عنوان الاعلان"}
           />
+          {propErrors?.title && (
+            <p className="text-red-500">
+              {language ? "يرجى كتابة العنوان " : "Title is missing"}
+            </p>
+          )}
+        </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="w-full">
+            <AddPropDropdown
+              error={propErrors.propType}
+              title={!language ? "Property type" : "نوع العقار"}
+              value={
+                propertyDetils.propType === "Residential"
+                  ? language
+                    ? "سكنى"
+                    : "Residential"
+                  : propertyDetils.propType === "Commercial"
+                  ? language
+                    ? "تجارى"
+                    : "Commercial"
+                  : propertyDetils.propType === "Land"
+                  ? language
+                    ? "ارض"
+                    : "Land"
+                  : ""
+              }
+              setValue={(e) => {
+                if (propertyDetils.propType !== e) {
+                  setData({
+                    ...propertyDetils,
+                    propType: e,
+                    unitType: "",
+                    landType: "",
+                  });
+                } else {
+                  setData({
+                    ...propertyDetils,
+                    propType: e,
+                  });
+                }
+              }}
+              placeholder={"unit type"}
+              options={propType}
+            />
+            {propErrors.propType && (
+              <p className="text-red-500">
+                {language
+                  ? "يرجى تحديد نوع العقار "
+                  : "TProperty type is missing."}
+              </p>
+            )}
+          </div>
 
-          <AddPropDropdown
-            disabled={propertyDetils.propType}
-            title={!language ? "Unit Type" : "نوع الوحدة"}
-            value={
-              propertyDetils.unitType.title
-                ? language
-                  ? propertyDetils?.unitType.title.ar
-                  : propertyDetils?.unitType.title.en
-                : propertyDetils.unitType
-            }
-            setValue={(e) => {
-              setData({ ...propertyDetils, unitType: e });
-            }}
-            placeholder={"unit type"}
-            options={
-              propertyDetils.propType === "Residential"
-                ? unitType.Residential
-                : propertyDetils.propType === "Commercial"
-                ? unitType.Commercial
-                : propertyDetils.propType === "Land"
-                ? unitType.Land
-                : unitType.Residential
-            }
-          />
-          <AddPropDropdown
-            title={!language ? "Listing Option" : "اختر العرض"}
-            value={
-              propertyDetils?.offer === "For Sale"
-                ? language
-                  ? "للبيع"
-                  : "For Sale"
-                : language
-                ? "للإيجار"
-                : "For Rent"
-            }
-            setValue={(e) => {
-              setData({ ...propertyDetils, offer: e });
-            }}
-            options={offer}
-          />
+          <div className="w-full">
+            <AddPropDropdown
+              error={propErrors.unitType}
+              disabled={propertyDetils.propType}
+              title={!language ? "Unit Type" : "نوع الوحدة"}
+              value={
+                propertyDetils?.unitType?.title
+                  ? language
+                    ? propertyDetils?.unitType.title.ar
+                    : propertyDetils?.unitType.title.en
+                  : propertyDetils.unitType
+              }
+              setValue={(e) => {
+                setData({ ...propertyDetils, unitType: e });
+              }}
+              placeholder={"unit type"}
+              options={
+                propertyDetils.propType === "Residential"
+                  ? unitType.Residential
+                  : propertyDetils.propType === "Commercial"
+                  ? unitType.Commercial
+                  : propertyDetils.propType === "Land"
+                  ? unitType.Land
+                  : unitType.Residential
+              }
+            />
+          </div>
+          {propErrors.unitType && (
+            <p className="text-red-500">{language ? "مطلوب" : "Requird."}</p>
+          )}
+          <div className="w-full">
+            <AddPropDropdown
+              title={!language ? "Listing Option" : "اختر العرض"}
+              value={
+                propertyDetils?.offer === "For Sale"
+                  ? language
+                    ? "للبيع"
+                    : "For Sale"
+                  : language
+                  ? "للإيجار"
+                  : "For Rent"
+              }
+              setValue={(e) => {
+                setData({ ...propertyDetils, offer: e });
+              }}
+              options={offer}
+            />
+            {propErrors.offer && (
+              <p className="text-red-500">{language ? "مطلوب" : "Requird."}</p>
+            )}
+          </div>
         </div>
       </div>
     )

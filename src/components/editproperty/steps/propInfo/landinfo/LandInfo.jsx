@@ -3,7 +3,7 @@ import AddPropDropdown from "../../../AddPropIputs/AddPropDropdown";
 import AddPropCheck from "../../../AddPropIputs/AddPropCheck";
 import AddPropInput from "../../../AddPropIputs/AddPropInput";
 import { useSelector } from "react-redux";
-const LandInfo = ({ propertyDetils, setData }) => {
+const LandInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const areaType = {
     en: [
@@ -21,15 +21,31 @@ const LandInfo = ({ propertyDetils, setData }) => {
 
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-[4%]">
-      <AddPropInput
-        className="md:w-[48%]"
-        title={language ? "المساحة" : "Area"}
-        placeholder={language ? "المساحة" : "Area"}
-        type={"number"}
-        value={propertyDetils.area}
-        setValue={(e) => setData({ ...propertyDetils, area: e.target.value })}
-        // m2={true}
-      />
+      <div className="w-full">
+        <AddPropInput
+          error={propErrors.area}
+          className="md:w-[48%]"
+          title={language ? "المساحة" : "Area"}
+          placeholder={language ? "المساحة" : "Area"}
+          type={"number"}
+          value={propertyDetils.area}
+          setValue={(e) => {
+            setData({ ...propertyDetils, area: e.target.value });
+            if (e.target.value) {
+              setPropErrors((prevErrors) => ({
+                ...prevErrors,
+                area: false,
+              }));
+            }
+          }}
+          // m2={true}
+        />
+        {propErrors.area && (
+          <p className="text-red-500 animate-appearance-in">
+            {language ? "مطلوب" : "Requird."}
+          </p>
+        )}
+      </div>
 
       <AddPropDropdown
         title={language ? "نوع المساحة" : "Area type"}

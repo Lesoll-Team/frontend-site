@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const useAddPropValidation = () => {
+const useAddPropValidation = (propErrors, setPropErrors) => {
   const [errors, setErrors] = useState([]);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -122,7 +122,10 @@ const useAddPropValidation = () => {
 
       ar: "يرجى ادخال موقع العقار في الخريطه.",
     },
-
+    insurance: {
+      en: "insurance is messing",
+      ar: "برجى ادخال سعر التأمين",
+    },
     connectPhoneNumber: {
       en: "Seller Phone Number is missing.",
 
@@ -139,32 +142,35 @@ const useAddPropValidation = () => {
 
     if (!propertyDetails.title) {
       newErrors.push(translateErrorMessage("title"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, title: true }));
     }
     if (!propertyDetails.propType) {
       newErrors.push(translateErrorMessage("propType"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, propType: true }));
     }
 
-    if (propertyDetails.propType === "Land") {
-      if (!propertyDetails.landType) {
-        newErrors.push(translateErrorMessage("landType"));
-      }
-      if (!propertyDetails.areaType) {
-        newErrors.push(translateErrorMessage("areaType"));
-      }
-    } else {
-      if (!propertyDetails.unitType) {
-        newErrors.push(translateErrorMessage("unitType"));
-      }
+    if (!propertyDetails.unitType) {
+      newErrors.push(translateErrorMessage("unitType"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, unitType: true }));
     }
+
     if (!propertyDetails.offer) {
       newErrors.push(translateErrorMessage("offer"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, offer: true }));
     }
     if (propertyDetails.offer === "For Rent") {
-      if (!propertyDetails.rentalPeriod) {
-        newErrors.push(translateErrorMessage("rentalPeriod"));
-      }
       if (!propertyDetails.price) {
         newErrors.push(translateErrorMessage("price"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
+      }
+
+      if (!propertyDetails.rentalPeriod) {
+        newErrors.push(translateErrorMessage("rentalPeriod"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, rentalPeriod: true }));
+      }
+      if (!propertyDetails.insurance) {
+        newErrors.push(translateErrorMessage("insurance"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, insurance: true }));
       }
     }
     if (propertyDetails.offer === "For Sale") {
@@ -174,6 +180,7 @@ const useAddPropValidation = () => {
       ) {
         if (!propertyDetails.price) {
           newErrors.push(translateErrorMessage("price"));
+          setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
         }
       }
       if (
@@ -182,25 +189,43 @@ const useAddPropValidation = () => {
       ) {
         if (!propertyDetails.price) {
           newErrors.push(translateErrorMessage("price"));
+          setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
         }
-        if (!propertyDetails.downPayment) {
+        if (
+          !propertyDetails.downPayment ||
+          propertyDetails.downPayment == "0"
+        ) {
           newErrors.push(translateErrorMessage("downPayment"));
+          setPropErrors((prevErrors) => ({ ...prevErrors, downPayment: true }));
         }
-        if (!propertyDetails.installmentOption.period) {
+        if (
+          !propertyDetails.installmentOption.period ||
+          propertyDetails.installmentOption.period == "0"
+        ) {
           newErrors.push(translateErrorMessage("period"));
+          setPropErrors((prevErrors) => ({
+            ...prevErrors,
+            installmentPeriod: true,
+          }));
         }
         if (!propertyDetails.installmentOption.amount) {
           newErrors.push(translateErrorMessage("amount"));
+          setPropErrors((prevErrors) => ({
+            ...prevErrors,
+            installmentAmount: true,
+          }));
         }
       }
       if (!propertyDetails.saleOption) {
         newErrors.push(translateErrorMessage("saleOption"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, saleOption: true }));
       }
     }
     // if (propertyDetails.offer !== "For Investment") {
     // }
     if (!propertyDetails.area) {
       newErrors.push(translateErrorMessage("area"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, area: true }));
     }
     if (
       propertyDetails.propType === "Residential" ||
@@ -208,21 +233,26 @@ const useAddPropValidation = () => {
     ) {
       if (!propertyDetails.rooms) {
         newErrors.push(translateErrorMessage("rooms"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, rooms: true }));
       }
       if (!propertyDetails.bathRooms) {
         newErrors.push(translateErrorMessage("bathRooms"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, bathRooms: true }));
       }
       if (!propertyDetails.finishingType) {
         newErrors.push(translateErrorMessage("finishingType"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, finishingType: true }));
       }
     }
     if (!propertyDetails.description) {
       newErrors.push(translateErrorMessage("description"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, description: true }));
     }
 
     if (!propertyDetails.mainImage) {
       if (!propertyDetails.thumbnail) {
         newErrors.push(translateErrorMessage("mainImage"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, mainImage: true }));
       }
     }
 
@@ -262,6 +292,7 @@ const useAddPropValidation = () => {
         propertyDetails.multiImage.length < 3
       ) {
         newErrors.push(translateErrorMessage("multiImage"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, multiImage: true }));
       }
     } else {
       if (
@@ -270,13 +301,18 @@ const useAddPropValidation = () => {
         3
       ) {
         newErrors.push(translateErrorMessage("multiImage"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, multiImage: true }));
       }
     }
     if (!propertyDetails.address.name) {
       newErrors.push(translateErrorMessage("address"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, address: true }));
     }
-    if (!propertyDetails.connectPhoneNumber) {
-      newErrors.push(translateErrorMessage("connectPhoneNumber"));
+    if (propertyDetails.phoneChoice === "other") {
+      if (!propertyDetails.connectPhoneNumber) {
+        newErrors.push(translateErrorMessage("connectPhoneNumber"));
+        setPropErrors((prevErrors) => ({ ...prevErrors, phone: true }));
+      }
     }
 
     setErrors(newErrors);

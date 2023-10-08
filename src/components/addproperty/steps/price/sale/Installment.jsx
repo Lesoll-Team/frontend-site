@@ -4,7 +4,12 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Summary from "./Summary";
 
-const Installment = ({ propertyDetils, setData }) => {
+const Installment = ({
+  propertyDetils,
+  setData,
+  propErrors,
+  setPropErrors,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const saleOptions = {
@@ -137,52 +142,75 @@ const Installment = ({ propertyDetils, setData }) => {
           }}
           options={saleOptions}
         />
-        <AddPropInput
-          type={"number"}
-          title={language ? "السعر" : " Price"}
-          placeholder={language ? "السعر" : " Price"}
-          egp={true}
-          value={propertyDetils.price}
-          setValue={(e) =>
-            setData({ ...propertyDetils, price: e.target.value })
-          }
-        />
-        <a href="whatsapp://send?text=Your%20Message%20Here%20https://lesoll.com">
-          Share on WhatsApp
-        </a>
-        <a href="fb-messenger://share/?text=Your%20Message%20Here%20https://lesoll.com">
-          Share on Messenger
-        </a>
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.price}
+            type={"number"}
+            title={language ? "السعر " : "Rental Price"}
+            placeholder={language ? "السعر" : "Price"}
+            egp={true}
+            value={propertyDetils.price}
+            setValue={(e) => {
+              setData({ ...propertyDetils, price: e.target.value });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  price: false,
+                }));
+              }
+            }}
+          />
+          {propErrors.price && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
 
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.downPayment}
+            propertyDetils={propertyDetils}
+            choices={propertyDetils.downPaymentType}
+            type={"number"}
+            setData={setData}
+            title={language ? "الدفعة الأولى" : "Down Payment"}
+            placeholder={
+              propertyDetils.downPaymentType === "percentage"
+                ? language
+                  ? "النسبة"
+                  : "Percentage"
+                : language
+                ? "السعر"
+                : "Price"
+            }
+            // egp={true}
+            value={propertyDetils.downPaymentAmount}
+            setValue={(e) => {
+              setData({
+                ...propertyDetils,
+                downPaymentAmount: e.target.value,
+                // downPayment:
+                //   (parseFloat(downPaymentAmount) *
+                //     parseInt(propertyDetils.price)) /
+                //   100,
+              });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  downPayment: false,
+                }));
+              }
+            }}
+          />
+          {propErrors.downPayment && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
         <AddPropInput
-          propertyDetils={propertyDetils}
-          choices={propertyDetils.downPaymentType}
-          type={"number"}
-          setData={setData}
-          title={language ? "الدفعة الأولى" : "Down Payment"}
-          placeholder={
-            propertyDetils.downPaymentType === "percentage"
-              ? language
-                ? "النسبة"
-                : "Percentage"
-              : language
-              ? "السعر"
-              : "Price"
-          }
-          // egp={true}
-          value={propertyDetils.downPaymentAmount}
-          setValue={(e) => {
-            setData({
-              ...propertyDetils,
-              downPaymentAmount: e.target.value,
-              // downPayment:
-              //   (parseFloat(downPaymentAmount) *
-              //     parseInt(propertyDetils.price)) /
-              //   100,
-            });
-          }}
-        />
-        <AddPropInput
+          optinal={true}
           type={"number"}
           title={language ? "  دفعة الإستلام" : "Maintenance Payment"}
           placeholder={language ? "السعر" : " Price"}
@@ -200,64 +228,46 @@ const Installment = ({ propertyDetils, setData }) => {
       { value: "6 Monthly", name: "6 شهور" },
     ], */}
       <div className=" gap-4 md:w-[48%]  flex flex-col items-stretch">
-        {/* <AddPropDropdown
-          title={language ? "نظام التقسيط" : "Installment Type"}
-          value={
-            propertyDetils.installmentOption.type === "Yearly"
-              ? language
-                ? "سنوى"
-                : "Yearly"
-              : propertyDetils.installmentOption.type === "Monthly"
-              ? language
-                ? "شهرى"
-                : "Monthly"
-              : propertyDetils.installmentOption.type === "3 Monthly"
-              ? language
-                ? "3 شهور"
-                : "3 Month"
-              : propertyDetils.installmentOption.type === "6 Monthly"
-              ? language
-                ? "6 شهور"
-                : "6 Month"
-              : "أختر نظام التقسيط"
-          }
-          setValue={(e) => {
-            setData({
-              ...propertyDetils,
-              installmentOption: {
-                ...propertyDetils.installmentOption,
-                type: e,
-              },
-            });
-          }}
-          options={installmentTypeOptions}
-        /> */}
-        <AddPropInput
-          // choices={true}
-          type={"number"}
-          title={language ? "مدة التقسيط" : "Installment Period"}
-          placeholder={
-            propertyDetils.installmentOption.type === "Yearly"
-              ? language
-                ? "عدد السنين"
-                : " Years"
-              : language
-              ? "عدد الشهور"
-              : "Months"
-          }
-          setData={setData}
-          yearMonthes={propertyDetils.installmentOption.type}
-          value={propertyDetils.installmentOption.period}
-          setValue={(e) => {
-            setData({
-              ...propertyDetils,
-              installmentOption: {
-                ...propertyDetils.installmentOption,
-                period: e.target.value,
-              },
-            });
-          }}
-        />
+        <div className="w-full">
+          <AddPropInput
+            error={propErrors.installmentPeriod}
+            // choices={true}
+            type={"number"}
+            title={language ? "مدة التقسيط" : "Installment Period"}
+            placeholder={
+              propertyDetils.installmentOption.type === "Yearly"
+                ? language
+                  ? "عدد السنين"
+                  : " Years"
+                : language
+                ? "عدد الشهور"
+                : "Months"
+            }
+            setData={setData}
+            yearMonthes={propertyDetils.installmentOption.type}
+            value={propertyDetils.installmentOption.period}
+            setValue={(e) => {
+              setData({
+                ...propertyDetils,
+                installmentOption: {
+                  ...propertyDetils.installmentOption,
+                  period: e.target.value,
+                },
+              });
+              if (e.target.value) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  installmentPeriod: false,
+                }));
+              }
+            }}
+          />
+          {propErrors.installmentPeriod && (
+            <p className="text-red-500 animate-appearance-in">
+              {language ? "مطلوب" : "Requird."}
+            </p>
+          )}
+        </div>
         <Summary propertyDetils={propertyDetils} setData={setData} />
       </div>
     </div>

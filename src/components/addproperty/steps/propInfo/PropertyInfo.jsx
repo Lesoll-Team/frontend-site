@@ -3,7 +3,12 @@ import LandInfo from "./landinfo/LandInfo";
 import CommercialInfo from "./commecialInfo/CommercialInfo";
 import { useSelector } from "react-redux";
 
-const PropertyInfo = ({ propertyDetils, setData }) => {
+const PropertyInfo = ({
+  propertyDetils,
+  setData,
+  propErrors,
+  setPropErrors,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -12,9 +17,19 @@ const PropertyInfo = ({ propertyDetils, setData }) => {
         {language ? "تفاصيل العقار" : "Property Info"}
       </h3>
       {propertyDetils.propType === "Land" ? (
-        <LandInfo propertyDetils={propertyDetils} setData={setData} />
+        <LandInfo
+          propErrors={propErrors}
+          setPropErrors={setPropErrors}
+          propertyDetils={propertyDetils}
+          setData={setData}
+        />
       ) : (
-        <CommercialInfo propertyDetils={propertyDetils} setData={setData} />
+        <CommercialInfo
+          propErrors={propErrors}
+          setPropErrors={setPropErrors}
+          propertyDetils={propertyDetils}
+          setData={setData}
+        />
       )}
     </div>
   );
