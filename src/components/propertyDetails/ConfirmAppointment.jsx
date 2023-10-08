@@ -182,7 +182,7 @@ function ConfirmAppointment({ userAppointment }) {
           )}
         </div>
       </div>
-      <div className="bg-white rounded-lg p-6 md:px-10 space-y-4">
+      <div className="bg-white rounded-lg p-6 md:px-5 space-y-4">
         <div className="flex justify-between items-center">
           <p className="font-bold  rounded-lg py-1 px-3 flex items-center gap-1">
             <MdLocalOffer className="text-darkGreen" />
@@ -217,7 +217,9 @@ function ConfirmAppointment({ userAppointment }) {
             {language ? "المساحة" : "Area"}
           </p>
           <p className="font-semibold">
-            {userAppointment?.area.toLocaleString("ar-Eg")}
+            {language
+              ? userAppointment?.area.toLocaleString("ar-Eg")
+              : userAppointment?.area.toLocaleString()}
             {""}
             {userAppointment?.landType === "carat" ? (
               language ? (
@@ -252,7 +254,9 @@ function ConfirmAppointment({ userAppointment }) {
                 {language ? " الغرف" : "Rooms"}
               </p>
               <p className="font-semibold">
-                {userAppointment?.rooms.toLocaleString("ar-Eg")}
+                {language
+                  ? userAppointment?.rooms.toLocaleString("ar-Eg")
+                  : userAppointment?.rooms.toLocaleString()}
               </p>
             </div>
             <hr />
@@ -262,7 +266,9 @@ function ConfirmAppointment({ userAppointment }) {
                 {language ? "الحمامات" : "Bathrooms"}
               </p>
               <p className="font-semibold">
-                {userAppointment?.bathRooms.toLocaleString("ar-Eg")}
+                {language
+                  ? userAppointment?.bathRooms.toLocaleString("ar-Eg")
+                  : userAppointment?.bathRooms.toLocaleString()}
               </p>
             </div>
           </>

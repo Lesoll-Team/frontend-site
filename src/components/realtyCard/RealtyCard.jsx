@@ -143,7 +143,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
               {language
                 ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
                 : propertyDetails?.bathRooms.toLocaleString()}{" "}
-              {language ? "حمام" : "Bathroom"}
+              {language ? "حمام" : "Bath"}
             </p>
           </div>
           <div className="flex items-center gap-1">
