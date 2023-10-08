@@ -32,7 +32,11 @@ export default function Home({
 
         <meta
           name="description"
-          content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر"
+          content={
+            language
+              ? "موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر "
+              : "Lesoll is an Egyptian online real estate marketplace. Find Apartments, Villas, Houses, and more…for rent and sale in Cairo, Giza, Alexandria, and all over Egypt "
+          }
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:image" content="../../public/socialApperance.svg" />

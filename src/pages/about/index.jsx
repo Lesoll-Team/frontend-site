@@ -9,10 +9,16 @@ export default function about() {
   return (
     <div>
       <Head>
-        <title>{language ? "عنا" : "About Us"}</title>
+        <title>
+          {language ? "اعرف عن ليسول | ليسول  " : "About Lesoll | lesoll "}
+        </title>
         <meta
           name="description"
-          content="بيسول هو موقع عقارات مصري متكامل يقدم خدمة التجربة الرقمية سواء لشراء أو بيع أو تأجير العقارات مع خدمة شاملة تقدم تفاصيل عن العقار من خلال خريطة تفاعلية"
+          content={
+            language
+              ? "ليسول تقدم خدمة البحث الرقمي بتجربة مختلفة لتسهيل شراء، بيع وتأجير العقارات في مصر، مع خدمة شاملة تسهل عليك تحقيق الصفقة في أي مكان في مصر سواء مالك أو مشتري "
+              : "Lesoll offers customers an online search to buy, sell, or rent properties in Egypt, helping owners and buyers discover upcoming real estate deals across Egypt "
+          }
         />
       </Head>
       <About />

@@ -77,8 +77,8 @@ const PrivacyPolicy = () => {
             </h3>
             <p className="">
               {language
-                ? "قد نستخدم المعلومات والبيانات الشخصية الخاص بك للأغراض التالية: "
-                : "We may use your personal information and IP address for the following purposes:  "}
+                ? "قد نستخدم المعلومات و البيانات الشخصية الخاصة بك وعنوان بروتكول الانترنت (IP) للأغراض التاليه:"
+                : "We may use your personal information and IP address for the following purposes:   "}
             </p>
             <ul className="list-disc space-y-2">
               <li>
@@ -106,13 +106,25 @@ const PrivacyPolicy = () => {
           <div className="space-y-2">
             <h3 className="text-2xl text-darkGray font-bold">
               {language
+                ? "البيانات المالية وبيانات الدفع واالئتمان: "
+                : "Financial Data and Payment Information:"}
+            </h3>
+            <p>
+              {language
+                ? "قد نجمع بيانات الدفع التي يقوم المستخدم بإدخالها عند االشتراك في الخدمات مدفوعة االجر . وقد يحتوي ذلك على رقم وسيلة الدفع الخاصة بالمستخدم )على سبيل المثال: بطاقة االئتمان وبطاقة الخصم( واسمه وعنوان إرسال الفواتير ورمز األمان ألداة الدفع الخاصة به )على سبيل .المثال: رمز التحقق من البطاقة (، وقد نقوم بجمع المعلومات والبيانات المتعلقة بالدفع وسجل المعامالت ومعلومات وبيانات الفواتير. "
+                : "We may gather payment data provided by users when subscribing to our paid services. This information may include the user's payment method, such as (credit card or debit card details), their name, billing address, and the security code associated with their payment method. Additionally, we may collect transaction history and invoice details. "}
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-2xl text-darkGray font-bold">
+              {language
                 ? "أمن معلوماتك وبياناتك"
                 : "Security of your information "}
             </h3>
             <p>
               {language
-                ? "يقر ويتعهد ليسول بالحفاظ على أمن بياناتك ومعلوماتك المستخدمة ومنع الوصول اليها في غير الغرض المصرح به، وكذلك يتعهد باتخاذ كافة الاحتياطات والإجراءات اللازمة لحماية تلك المعلومات والبيانات وعدم افشاءها، أو تغييرها، أو اتلافها، أو استخدامها بأي شكل غير قانوني. وفي حالة قيامك بإنشاء كلمة مرور للحساب الخاص بك على موقع ليسول يتحمل وحده مسؤولية الحفاظ على سريته. وفي جميع الأحوال يتعهد ليسول ببذل أقصى جهد وعناية في حماية وتأمين معلوماتك وبياناتك بصفة دائمة"
-                : "Lesoll is committed to keeping your used personal information secure and preventing access to it other than for authorized purposes, as well as committed to taking all necessary precautions and procedures to protect your information and not to disclose, change, destroy or use them in any illegal way. And in the case of creating a password for your account on Lesoll website, it is solely responsible for keeping its confidentiality. And in all cases, Lesoll is committed to making the best effort in protecting and securing your information permanently. "}
+                ? "يقر ويتعهد ليسول بالحفاظ على أمن بياناتك ومعلوماتك المستخدمة ومنع الوصول اليها في غير الغرض المصرح به، وكذلك يتعهد باتخاذ كافة الاحتياطات والإجراءات اللازمة لحماية تلك المعلومات والبيانات وعدم افشاءها، أو تغييرها، أو اتلافها، أو استخدامها بأي شكل غير قانوني. وفي حالة قيامك بإنشاء كلمة مرور للحساب الخاص بك على موقع ليسول يتحمل وحده مسؤولية الحفاظ على سريته. وفي جميع الأحوال يتعهد ليسول ببذل أقصى جهد وعناية في حماية وتأمين معلوماتك وبياناتك بصفة دائمة."
+                : "Lesoll is committed to keeping your used personal information secure and preventing access to it other than for authorized purposes, as well as committed to taking all necessary precautions and procedures to protect your information and not to disclose, change, destroy or use them in any illegal way. And in the case of creating a password for your account on Lesoll website, it is solely responsible for keeping its confidentiality. And in all cases, Lesoll is committed to making the best effort in protecting and securing your information permanently."}
             </p>
           </div>
           <div className="space-y-2">

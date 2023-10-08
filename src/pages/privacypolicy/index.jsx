@@ -8,10 +8,16 @@ const index = () => {
   return (
     <>
       <Head>
-        <title>{language ? "سياسة الخصوصية" : "Privacy & Policy"} </title>
+        <title>
+          {language ? "سياسة الخصوصية | ليسول " : "Privacy & Policy | Lesoll "}{" "}
+        </title>
         <meta
           name="description"
-          content="استكشف مجموعة واسعة من العقارات المتاحة للإيجار على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات تجارية للإيجار في المواقع الرئيسية. ابحث عن العقار المؤجَّر المثالي اليوم!"
+          content={
+            language
+              ? "تعرف على سياسة خصوصية الموقع عند استخدامك خدماتنا في موقع ليسول والتي تضمن حماية بياناتك الشخصية واستخدامها على نحو يحافظ على سلامتها "
+              : "Our privacy policy in Lesoll sets out how we protect your information when using Lesoll website "
+          }
         />
       </Head>
       <PrivacyPolicy />
