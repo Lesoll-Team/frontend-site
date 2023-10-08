@@ -9,8 +9,28 @@ import {
 import RealtyCard from "@/components/realtyCard/RealtyCard";
 import { HiMiniXMark, HiOutlineXMark } from "react-icons/hi2";
 import locationIcon from "../../../public/icons/location-icon.png";
-const center = { lat: 30.0444, lng: 31.2357 };
+// const center = { lat: 30.0444, lng: 31.2357 };
+// console.log(window.screen.width);
+
+// console.log()
 export default function ShowMapSearch({ searchResult }) {
+  // const center = () => {
+  //   if (window.screen.width > 1025) {
+  //     return { lat: 30.0444, lng: 17 };
+  //   } else {
+  //     return { lat: 30.0444, lng: 31.2357 };
+  //   }
+  // };
+  const [center, setCenter] = useState();
+  useEffect(() => {
+    if (window.screen.width > 1025) {
+      setCenter({ lat: 30.0444, lng: 17 });
+    } else {
+      // setCenter({ lat: 30.0444, lng: 17 });
+      setCenter({ lat: 30.0444, lng: 31.2357 });
+    }
+  }, [window?.screen?.width]);
+  // console.log(center());
   //   console.log(searchResult);
 
   useEffect(() => {
@@ -21,10 +41,10 @@ export default function ShowMapSearch({ searchResult }) {
   });
 
   if (!isLoaded) return <div>Loading...</div>;
-  return <Map searchResult={searchResult} />;
+  return <Map center={center} searchResult={searchResult} />;
 }
 
-function Map({ searchResult }) {
+function Map({ searchResult, center }) {
   const [renderMarker, setRenderMarker] = useState(false);
   const infoWindowRef = useRef(null);
   useEffect(() => {

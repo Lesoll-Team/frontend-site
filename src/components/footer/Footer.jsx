@@ -87,7 +87,7 @@ const Footer = () => {
           </p>
 
           <Link href="/about" className="  text-darkGray">
-            {language ? "عنا" : "About"}
+            {language ? "من نحن" : "About Us"}
           </Link>
 
           <Link href="/blogs" className=" text-darkGray">
