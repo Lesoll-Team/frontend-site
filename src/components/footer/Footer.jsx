@@ -1,14 +1,14 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-// import logo from "../../../public/icons/logoNavbar.png";
+import logo from "../../../public/icons/logoNavbar.png";
 import {
   AiFillFacebook,
   AiFillInstagram,
   AiFillTwitterCircle,
   AiOutlineWhatsApp,
 } from "react-icons/ai";
-// import { BsFacebook, BsWhatsapp } from "react-icons/bs";
+import { BsFacebook, BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
 const Footer = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -17,18 +17,18 @@ const Footer = () => {
     <footer className="" dir={`${language ? "rtl" : ""}`}>
       <div className="container mx-auto md:grid  drop-shadow-2xl lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
         {/* Discription */}
-        <div className="col-span-3  lg:col-span-2 space-y-3 relative">
+        <div className="col-span-3 lg:col-span-2 space-y-3 relative">
           {/* logo */}
-          <Image
+          <img
             alt="Logo"
-            width={"100"}
-            height={"100"}
+            width={"auto"}
+            height={"auto"}
             // className=" "
             className={` -mt-5 lg:w-[300px]  w-[200px] ${
               language ? "-mr-6 md:-mr-5 lg:-mr-9" : "-ml-6 md:-ml-5 lg:-ml-9"
             }`}
             priority
-            src={"/icons/logoNavbar.png"}
+            src={logo}
           />
           <p className="md:w-[78%]">
             {language
