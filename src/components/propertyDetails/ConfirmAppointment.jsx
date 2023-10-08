@@ -45,7 +45,7 @@ function ConfirmAppointment({ userAppointment }) {
     CallBtn(userAppointment._id);
   };
   // console.log(userInfo);
-  console.log(userInfo);
+  // console.log(userInfo);
   return (
     <div className="  p-5 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
       <h2 className=" text-lightGreen text-lg md:text-4xl font-bold text-center">

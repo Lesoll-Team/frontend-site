@@ -11,7 +11,7 @@ const SellerInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
 
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  console.log(userInfo);
+  // console.log(userInfo);
   return (
     <div className="space-y-4">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">

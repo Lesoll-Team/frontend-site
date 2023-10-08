@@ -58,7 +58,16 @@ function Map({ center }) {
       mapContainerClassName="map"
     >
       {renderMarker && center && (
-        <Marker position={{ lat: center.lat, lng: center.lng }} />
+        <Marker
+          icon={{
+            url: "https://cdn.discordapp.com/attachments/1124959275895230576/1158099242573905960/locationIcom.png?ex=651b0377&is=6519b1f7&hm=c008e991ee0862483ff799aacbc53e32bc9101769ce9e1f18155e57074012566&",
+
+            anchor: new google.maps.Point(17, 46),
+
+            scaledSize: new google.maps.Size(37, 37),
+          }}
+          position={{ lat: center.lat, lng: center.lng }}
+        />
       )}
     </GoogleMap>
   );

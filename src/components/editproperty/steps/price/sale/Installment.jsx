@@ -56,7 +56,7 @@ const Installment = ({
         return language ? "سنوى" : "Yearly";
     }
   };
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
   useEffect(() => {
     // Convert input values to numbers
     const price = parseInt(propertyDetils.price);

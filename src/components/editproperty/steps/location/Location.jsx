@@ -12,10 +12,10 @@ const Location = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-2xl text-darkGreen font-bold mb-1">
+      {/* <h3 className="text-2xl text-darkGreen font-bold mb-1">
         {language ? "موقع العقار" : "Property Location"}
-      </h3>
-      <p className="text-xl font-medium">{propertyDetils?.address?.name}</p>
+      </h3> */}
+      {/* <p className="text-xl font-medium">{propertyDetils?.address?.name}</p> */}
       <MapComp
         propErrors={propErrors}
         setPropErrors={setPropErrors}
