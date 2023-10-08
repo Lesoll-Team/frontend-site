@@ -5,25 +5,17 @@ import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
+import { useEffect} from "react";
+
 
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUserData());
+    // setUserDataInfo(userInfo);
+  }, [dispatch, language, children]);
 
-  // const memoizedFetchUserData = useMemo(() => {
-  //   return () => dispatch(fetchUserData());
-  // }, [dispatch]);
-
-  // const dispatchFetchUserData = useCallback(() => {
-  //   memoizedFetchUserData();
-  // }, [memoizedFetchUserData]);
-
-  // useEffect(() => {
-  //   memoizedFetchUserData();
-  // }, [memoizedFetchUserData]);
-  // useEffect(() => {
-  dispatch(fetchUserData());
-  // }, [dispatch]);
   return (
     <div
       style={{
@@ -32,7 +24,6 @@ export default function Layout({ children }) {
         display: "flex",
         flexDirection: "column",
       }}
-      // className={`globalBody bg-gradient,${inter.className}`}
       className={`globalBody bg-gradient`}
     >
       <Head>

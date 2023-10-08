@@ -20,7 +20,7 @@ export default function PropertyBuy({ propertyForBuy }) {
           content="استكشف مجموعة واسعة من العقارات المتاحة للبيع على منصتنا للعقارات. ابحث عن منازل وشقق وعقارات تجارية للبيع في المواقع الرئيسية. ابحث عن العقار الذي تحلم به للبيع اليوم!"
         />
       </Head>
-      <SearchBar />
+      <SearchBar pageSaleOption="For Sale"/>
 
       <div>
         <h2 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">

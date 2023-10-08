@@ -45,18 +45,8 @@ export const signupUserAsync = createAsyncThunk(
 export const signInWithGoogle = createAsyncThunk(
   "Auth/signWithGoogle",
   async (token) => {
-    // try {
       localStorage.setItem("userToken", JSON.stringify(token))
-    //   localStorage.setItem("userIsLogin", JSON.stringify(true))
-    // } catch (error) {
-    //   // localStorage.setItem("userToken", JSON.stringify(token));
-    //   localStorage.setItem("userIsLogin", JSON.stringify(false));
-    // }
-    // const response = await getTokenGoogle(token);
-  // const authUrl = response.data.Link;
-  // return response
-   // Assuming your API returns user data upon successful signup
-  }
+}
 );
 
 export const deleteAccount = createAsyncThunk(

@@ -28,7 +28,7 @@ const PersonalInfo = () => {
     setUserName(userInfo?.fullname);
     setPhonenumber(userInfo?.phone);
   }, [dispatch, userInfo]);
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async () => {
     const formData = new FormData();
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
@@ -55,7 +55,7 @@ const PersonalInfo = () => {
     // console.log(resVerify);
   };
 
-  const deleteUserAccount = (e) => {
+  const deleteUserAccount = () => {
     dispatch(
       deleteAccount({
         userID: userDataInfo?._id,

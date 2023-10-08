@@ -17,10 +17,10 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 
-function UserUpdateModule({ userID }) {
+function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [isAdmin, setAdmin] = useState(false);
-  const [selectedKeys, setSelectedKeys] = useState(new Set(["individual"]));
+  const [isAdmin, setAdmin] = useState(userIsAdmin);
+  const [selectedKeys, setSelectedKeys] = useState(new Set([typeUser]));
   const typeOfUser = useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
@@ -86,7 +86,7 @@ function UserUpdateModule({ userID }) {
                     aria-label="set Admin"
                     size="lg"
                     onClick={() => setAdmin(!isAdmin)}
-                    isSelected={isAdmin}>
+                    isSelected={userIsAdmin}>
                     set Admin
                   </Checkbox>
 

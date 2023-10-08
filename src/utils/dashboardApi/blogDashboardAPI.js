@@ -19,6 +19,8 @@ export async function addBlogs(userToken,blogData) {
     }
   }
 
+  
+
   export async function getAllBlogs() {
     try {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admin/blog/allblogs`);
