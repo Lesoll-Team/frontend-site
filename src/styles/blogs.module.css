@@ -1,0 +1,64 @@
+.genericDiv h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.genericDiv h3 {
+  /* font-size: clamp(2rem, 4vw, 3rem); */
+  font-size: clamp(1.2rem, 3vw, 2.5rem);
+
+}
+
+.genericDiv h4 {
+  /* font-size: clamp(2rem, 3vw, 2rem); */
+  font-size: clamp(1rem, 2.5vw, 2rem);
+
+}
+
+.genericDiv h5 {
+  /* font-size: clamp(2rem, 2vw, 1rem); */
+  font-size: clamp(0.9rem, 2vw, 1.8rem);
+
+}
+
+.genericDiv h6 {
+  /* font-size: clamp(2rem, 1vw, 1rem); */
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+
+}
+
+/* .genericDiv p,ul,li,ol,dl,dt{
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+.genericDiv h2,h3,h4,h5,h6 {
+  color: #000;
+} */
+
+@media (min-width: 768px) {
+
+  .genericDiv h2 {
+    font-size: 2rem;
+  }
+
+  .genericDiv h3 {
+    font-size: 1.5rem;
+  }
+
+  .genericDiv h4 {
+    font-size: 1.25rem;
+  }
+
+  .genericDiv h5 {
+    font-size: 1.2rem;
+  }
+
+  .genericDiv h6 {
+    font-size: 1rem;
+  }
+
+
+  /* .genericDiv p,ul ,li,ol,dl,dt {
+    font-size: 1.25rem;
+  } */
+}
+
+

@@ -53,12 +53,7 @@ const PersonalInfo = () => {
     try {
       dispatch(
         updateUserData({
-          userID: userDataInfo?._id,
-          userToken: userDataInfo?.token,
-          userUpdate: formData,
-        })
-      );
-      // console.log(phoneNumberwithoutCode());
+          userID:userDataInfo?._id,userUpdate: formData}));
     } catch (error) {
       console.error(error);
     }

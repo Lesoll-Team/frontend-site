@@ -8,7 +8,7 @@ import { BiSolidLogIn, BiSolidLogInCircle } from "react-icons/bi";
 const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  console.log(Boolean("userInfo"));
+  // console.log(Boolean("userInfo"));
   return (
     // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
     <div className=" ">
