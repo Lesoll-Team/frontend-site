@@ -78,7 +78,7 @@ function UserModule() {
     formData.append("metaDescription",JSON.stringify(metaDescription));
     formData.append("description",JSON.stringify(description));
     dispatch(
-      createBlogs({ userToken: userDataInfo?.token, blogData: formData }) //, blogData: formData
+      createBlogs({blogData:formData}) //, blogData: formData
     );
     
   //  await setRefreshProperty(!refreshProperty)

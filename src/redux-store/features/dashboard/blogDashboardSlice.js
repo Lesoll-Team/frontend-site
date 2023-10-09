@@ -11,7 +11,7 @@ const initialState = {
   export const createBlogs = createAsyncThunk(
     "BlogDashboard/addBlogs",
     async (data) => {
-      const response = await addBlogs(data.userToken,data.blogData);
+      const response = await addBlogs(data.blogData);
       return response; // Assuming your API returns user data upon successful signup
     }
   );

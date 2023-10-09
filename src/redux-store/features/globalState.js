@@ -31,6 +31,7 @@ export const updateUserData = createAsyncThunk(
   "GlobalState/updateUserData",
   async (data) => {
     try {
+      // console.log("createAsyncThunk",data);
       const response = await updateUserDataInfo(
         data.userID,
         // data.userToken,
