@@ -33,7 +33,7 @@ export const updateUserData = createAsyncThunk(
     try {
       const response = await updateUserDataInfo(
         data.userID,
-        data.userToken,
+        // data.userToken,
         data.userUpdate
       );
       return response;

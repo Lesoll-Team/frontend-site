@@ -32,16 +32,12 @@ const PersonalInfo = () => {
     const formData = new FormData();
     formData.append("img", selectedImage);
     formData.append("fullname", userName);
-    formData.append("phone", phonenumber);
+    formData.append("phone", "phonenumber");
     // console.log(formData);
     try {
       dispatch(
         updateUserData({
-          userID: userDataInfo?._id,
-          userToken: userDataInfo?.token,
-          userUpdate: formData,
-        })
-      );
+          userID:userDataInfo?._id,userUpdate: formData}));
     } catch (error) {
       console.error(error);
     }

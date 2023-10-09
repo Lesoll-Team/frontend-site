@@ -1,6 +1,7 @@
 import React from 'react'
 import {Card, CardBody, CardFooter, CardHeader, Image} from "@nextui-org/react";
 import { useSelector } from 'react-redux';
+import styles from '../../styles/blogs.module.css';
 
 function BlogSinglePage({BlogData}) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -23,14 +24,14 @@ function BlogSinglePage({BlogData}) {
                 />
                 </CardBody>
                 <CardHeader className=''>
-                  <b className=' text-3xl text-lightGreen w-full  text-center rounded-2xl'>{language?BlogData.getBlogs.title.ar:BlogData.getBlogs.title.en}</b>
+                  <h2 className='text-3xl md:text-4xl lg:text-5xl text-lightGreen w-full  text-center rounded-2xl'>{language?BlogData.getBlogs.title.ar:BlogData.getBlogs.title.en}</h2>
                 </CardHeader>
                 
             
               <CardFooter className=''>      
               <div
             dir={language ? "rtl" : "ltr"}
-            className='text-lg text-darkGray text-justify px-10 rounded-2xl'
+            className={`text-lg text-darkGray text-justify px-10 rounded-2xl ${styles.genericDiv}`}
             dangerouslySetInnerHTML={language?{ __html: BlogData.getBlogs.description.ar }:{ __html: BlogData.getBlogs.description.en }}
           />
               </CardFooter>

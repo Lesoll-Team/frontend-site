@@ -44,8 +44,10 @@ export async function getUserData() {
   return null;
 }
 
-export async function updateUserDataInfo(userID, userToken, userUpdate) {
-  if (userToken != null || userID != null || userUpdate != null) {
+export async function updateUserDataInfo(userID, userUpdate) {
+  // if (userToken != null || userID != null || userUpdate != null) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}?token=${userToken}`,
@@ -61,7 +63,7 @@ export async function updateUserDataInfo(userID, userToken, userUpdate) {
       console.error(error);
       return null;
     }
-  }
+  // }
   return null;
 }
 

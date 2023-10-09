@@ -8,11 +8,11 @@ function blogId({ singleBlog }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="container mx-auto">
+    <div className="lg:container mx-auto bg-red-200">
       <div className="py-10">
-        <b className="text-7xl text-lightGreen  ">{language ? "تفاصيل المقال" : "Blog Details"}</b>
+        <b className="text-4xl md:text-5xl lg:text-6xl text-lightGreen  ">{language ? "تفاصيل المقال" : "Blog Details"}</b>
       </div>
-      <div className="mb-20">
+      <div className="md:mb-20 mb-10">
         <BlogSinglePage BlogData={singleBlog} />
       </div>
     </div>
