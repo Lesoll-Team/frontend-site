@@ -31,7 +31,7 @@ export default function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const [open, setOpen] = useState(true);
-  
+
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -66,7 +66,7 @@ export default function Navbar() {
     }
     function handleRouteChangeStart() {
       setNotifications(false);
-      setOpen(true)
+      setOpen(true);
     }
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -160,7 +160,7 @@ export default function Navbar() {
           <li className={`  ${isAuth ? "hidden" : ``} `}>
             <button className="">
               <Link
-                className="  py-1 px-5 text-md font-semibold  border-lightOrange border-[2px] sm:text-md bg-white 
+                className="  py-1 px-1 sm:px-5 text-sm sm:text-md font-semibold  border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
@@ -190,7 +190,7 @@ export default function Navbar() {
 
       {/*links in menu mobile button*/}
       <section
-      id="menu-mobile"
+        id="menu-mobile"
         dir={`${languageIs ? "rtl" : "ltr"}`}
         className="  flex justify-end  relative"
       >
@@ -221,7 +221,7 @@ export default function Navbar() {
         </div>
         {/*dropdown notifications */}
         <ul
-        id="notifications-data"
+          id="notifications-data"
           className={`bg-gray-200 ${
             notifications ? "" : "hidden"
           }   h-screen  overflow-auto lg:absolute rounded-md p-2 lg:w-3/12 w-full `}
