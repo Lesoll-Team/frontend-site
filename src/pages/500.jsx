@@ -10,10 +10,10 @@ const Custom505 = () => {
       <Head>
         <title> {language ? "خطأ فى السيرفر" : "Server Error"} </title>
       </Head>
-      <div className="w-full h-[92dvh] grid place-content-center ">
+      <div className="w-full h-[92dvh] grid place-content-center space-y-4 ">
         <img
-          src="/500.webp"
-          className="w-[95%] sm:w-[80%] md:w-[60%] mx-auto"
+          src="/500.svg"
+          className="w-[95%] sm:w-[500px%] md:w-[500px] mx-auto"
         />
         <h2 className="text-center font-bold text-lightOrange">
           {language ? "حدث خطأ فى السيرفر" : "Server-side error occurred"}

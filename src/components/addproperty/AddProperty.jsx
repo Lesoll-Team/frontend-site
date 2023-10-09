@@ -166,7 +166,7 @@ const AddProperty = () => {
     );
     formData.append("address", JSON.stringify(propertyDetils.address));
 
-    if (propertyDetils.phoneChoice === "other") {
+    if (propertyDetils.connectPhoneNumber) {
       formData.append("connectPhoneNumber", propertyDetils.connectPhoneNumber);
     }
     formData.append("status", propertyDetils.status);
