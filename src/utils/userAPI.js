@@ -25,11 +25,9 @@ export async function loginUser(userData) {
 
 export async function getUserData() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-  if (userToken != null) {
+  if (userToken ){
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/profile`,
-        {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`,{
           headers: {
             token: userToken,
           },
@@ -41,7 +39,7 @@ export async function getUserData() {
       return null;
     }
   }
-  return null;
+  return null
 }
 
 export async function updateUserDataInfo(userID, userUpdate) {
@@ -49,12 +47,14 @@ export async function updateUserDataInfo(userID, userUpdate) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     try {
+      // console.log("updateUserDataInfo",userID,userToken,userUpdate,);
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}?token=${userToken}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}`,
         userUpdate,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            token:userToken,
           },
         }
       );
@@ -93,12 +93,12 @@ export async function verifyEmail() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify?token=${userToken}`
-      // {
-      //   headers:{
-      //     token:userToken
-      //   }
-      // }
+      `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify`,
+      {
+        headers:{
+          token:userToken
+        }
+      }
     );
     return response.data;
   } catch (error) {
@@ -110,8 +110,13 @@ export async function sendCodeVerifyEmail(codenumber) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/getverify?token=${userToken}`,
-      codenumber
+      `${process.env.NEXT_PUBLIC_API_URL}/user/getverify`,
+      codenumber,
+      {
+        headers:{
+          token:userToken,
+        }
+      }
     );
     return response.data;
   } catch (error) {

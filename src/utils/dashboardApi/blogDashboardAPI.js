@@ -2,8 +2,11 @@ import axios from 'axios';
 
 
 
-export async function addBlogs(userToken,blogData) {
+export async function addBlogs(blogData) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
     try {
+      // console.log(userToken);
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin/blog/add`,blogData
       ,{
         headers:{

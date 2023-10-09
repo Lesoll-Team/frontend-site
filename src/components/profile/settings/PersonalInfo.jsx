@@ -212,7 +212,7 @@ const PersonalInfo = () => {
                 onChange={(e, info) => {
                   setPhonenumber(e);
                   setCountryCode(info.dialCode);
-                  console.log(info);
+                  // console.log(info);
                   // if (e) {
                   //   setFormError({ ...formError, phoneNumberError: false });
                   // }

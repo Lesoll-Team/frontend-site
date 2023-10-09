@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export async function getAllNotifications() {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  if (userToken) {
+    
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/notification/get/user`,
-      {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/notification/get/user`,{
         headers: {
           token: userToken,
         },
@@ -15,6 +15,8 @@ export async function getAllNotifications() {
   } catch (error) {
     throw error.response.data;
   }
+}
+return []
 }
 
 
