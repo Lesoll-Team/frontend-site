@@ -60,8 +60,8 @@ function ConfirmAppointment({ userAppointment }) {
       {/*user info module*/}
 
       {/*user info*/}
-
-      <div className=" flex  flex-col 2xl:flex-row 2xl:flex-wrap items-center justify-between gap-2 ">
+      <div className=" flex  flex-col items-center md:items-start justify-between gap-2 px-5">
+        {/* <div className=" flex  flex-col 2xl:flex-row 2xl:flex-wrap items-center justify-between gap-2 "> */}
         {/**flex items-center text-center bg-blue-500 overflow-hidden */}
         <div className="flex items-center">
           <User
