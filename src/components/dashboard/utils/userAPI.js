@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function getAllUsers(rowsPerPage,page,userToken) {
-// console.log(rowsPerPage,page,userToken);
+
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/admin/getallusers?limit=${rowsPerPage}&page=${page}`,
@@ -18,16 +18,23 @@ export async function getAllUsers(rowsPerPage,page,userToken) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
+export async function searchUsersApi(rowsPerPage,page,filterUser) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchuser?keywords=${filterUser}&limit=${rowsPerPage}&page=${page}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    throw error.response.massage;
+  }
+}
 
 
 export async function deleteUsers(userID) {

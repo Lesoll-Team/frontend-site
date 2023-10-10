@@ -16,16 +16,63 @@ export async function fetchAllProperty(userToken) {
   }
 }
 
-export async function fetchActiveProperty(rowsPerPage,page,userToken) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function fetchActiveProperty(rowsPerPage,page,filterUser) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?limit=${rowsPerPage}&page=${page}&token=${userToken}`);
-
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?keywords=${filterUser}&limit=${rowsPerPage}&page=${page}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    // console.log(response);
     return response.data;
   } catch (error) {
     throw error.response.massage;
   }
 }
+
+
+
+// export async function fetchActiveProperty(rowsPerPage,page,userToken) {
+//   try {
+//     const response = await axios.get(
+//       `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?limit=${rowsPerPage}&page=${page}&token=${userToken}`);
+
+//     return response.data;
+//   } catch (error) {
+//     throw error.response.massage;
+//   }
+// }
 
 export async function deleteProperties(propertyID) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));

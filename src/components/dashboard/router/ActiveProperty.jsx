@@ -28,7 +28,7 @@ const columns = [
   { name: "Title", uid: "title" },
   { name: "Details", uid: "details" },
   { name: "Address", uid: "address" },
-  { name: "ACTIONS", uid: "actions" },
+  { name: "ACTIONS & User Info", uid: "actions" },
 ];
 export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
@@ -36,23 +36,30 @@ export default function ActiveProperty() {
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
   const [propertyLength, setPropertyLength] = useState(0);
+  const [propertyLengthAPI, setPropertyLengthAPI] = useState(0);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [filterValue, setFilterValue] = useState("");
+
   useEffect(() => {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
   const fetchAllProperties = async () => {
     try {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const getProperties = await fetchActiveProperty(
         rowsPerPage,
         page,
-        userToken
+        filterValue,
+
+        // userToken
       );
       setProperty(getProperties.Property);
       setPropertyLength(getProperties.resultCount);
+      setPropertyLengthAPI(getProperties.resultCount);
     } catch (error) {
       console.error("Error fetching Properties:", error);
+      setPropertyLength(0)
+      setProperty([])
     }
   };
   const handleDeleteProperty = async (propertyId) => {
@@ -65,12 +72,11 @@ export default function ActiveProperty() {
     }
   };
 
-  const [filterValue, setFilterValue] = useState("");
 
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
-  const hasSearchFilter = Boolean(filterValue);
+  const hasSearchFilter = Boolean(pages<=1);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
@@ -120,6 +126,7 @@ export default function ActiveProperty() {
       case "address":
         return (
           <div className="flex flex-col w-[300px]">
+          
             <p className="text-bold grid grid-cols-2 text-medium capitalize">
               <b>Address:</b>
               {blog.address.name}
@@ -204,8 +211,24 @@ export default function ActiveProperty() {
         );
       case "actions":
         return (
-          <div className="relative flex justify-start items-center w-[200px] gap-2">
-            <div className="text-medium font-bold">{blog._id}</div>
+          <div className="relative flex justify-start items-center w-[350px] gap-2">
+            <div className="">
+            <p className="text-bold grid grid-cols-2 text-medium capitalize">
+              <b>ID:</b>
+              {blog._id}
+            </p>
+            <hr />
+
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>Name</b>
+              {blog.user[0].fullname}
+            </p>
+            <hr />
+            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+              <b>User name</b>
+              {blog.user[0].username}
+            </p>
+            </div>
             <Dropdown
               aria-label="Options Menu Property"
               aria-labelledbyl="Options Menu Property"
@@ -272,7 +295,38 @@ export default function ActiveProperty() {
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
+              <div className="flex  gap-3 items-center justify-center">
+        <div className=" w-8/12  ">
+            <form
+              className="flex items-center gap-x-2"
+              onSubmit={(e) => {
+                e.preventDefault(); // Prevents the default form submission behavior
+                fetchAllProperties(); // Call your search function
+              }}
+            >
+              <Input
+                isClearable
+                className="w-full"
+                // classNames={{
+                //   base: "w-full sm:max-w-[44%]",
+                //   inputWrapper: "border-1",
+                // }}
+                placeholder="phone, email ,full name,type Of User..."
+                label="Search For All Users"
+                size="sm"
+                startContent={<SearchIcon className="text-default-300" />}
+                value={filterValue}
+                variant="bordered"
+                onClear={() => setFilterValue("")}
+                onChange={(e) => onSearchChange(e.target.value)}
+              />
+              <Button color="primary" type="submit">
+                Search
+              </Button>
+            </form>
+          </div>
+        </div>
+        {/* <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
             classNames={{
@@ -287,12 +341,12 @@ export default function ActiveProperty() {
             onClear={() => setFilterValue("")}
             onValueChange={onSearchChange}
           />
-          <div className="flex gap-3">{/* <AddBlogModule /> */}</div>
-        </div>
+          <div className="flex gap-3"> <AddBlogModule /> </div>
+        </div> */}
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
             Total property Active:
-            <b className="text-lightOrange">{propertyLength}</b>
+            <b className="text-lightOrange">{propertyLengthAPI}</b>
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:

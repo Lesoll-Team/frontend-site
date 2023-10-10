@@ -81,12 +81,11 @@ const RealtyCardRent = ({ propertyDetails }) => {
           className="w-full"
         >
           <Image
-            // isZoomed="true"
             alt="Realty"
             radius="none"
-            src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
+            src={propertyDetails?.thumbnail}
             loading="lazy"
-            className=" w-[310px] h-[225px] rounded-none overflow-hidden    object-cover"
+            className=" w-[310px] h-[225px] rounded-none overflow-hidden object-cover"
           />
         </Link>
       </div>

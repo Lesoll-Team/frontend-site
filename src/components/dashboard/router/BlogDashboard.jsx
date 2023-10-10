@@ -24,6 +24,7 @@ import {
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const columns = [
   { name: "Image", uid: "BlogImage" },
@@ -33,6 +34,8 @@ const columns = [
 ];
 export default function BlogDashboard() {
   // const dispatch = useDispatch();
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const router = useRouter();
   const [blogs, setBlogs] = React.useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -117,7 +120,7 @@ export default function BlogDashboard() {
           <Image
             width={200}
             height={200}
-            src={blog.BlogImage}
+            src={blog.BlogImage||""}
             fallbackSrc="https://via.placeholder.com/300x200"
             alt="NextUI Image with fallback"
           />
@@ -150,7 +153,7 @@ export default function BlogDashboard() {
                 </DropdownItem>
                 <DropdownItem
                   textValue="View Blog"
-                  onClick={() => router.push(`/blogs/${blog._id}`)}
+                  onClick={() => router.push(`/blogs/${language?blog.slug.ar:blog.slug.en}`)}
                 >
                   View
                 </DropdownItem>

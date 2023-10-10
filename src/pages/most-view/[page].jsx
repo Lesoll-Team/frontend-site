@@ -25,7 +25,7 @@ function MostView({ propertyForView }) {
         </h2>
       </div>
 
-      <div className="items-center py-5 grid lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
+      <div className="flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
         {propertyForView && propertyForView.result
           ? propertyForView.result.map((property) => (
               <RealtyCardMostView key={property?._id} propertyDetails={property} />
@@ -52,7 +52,7 @@ export default MostView
 export async function getServerSideProps(context) {
   const { page } = context.query;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=9&page=${page || 1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=20&page=${page || 1}`
   );
   const data = await res.json();
   return {
