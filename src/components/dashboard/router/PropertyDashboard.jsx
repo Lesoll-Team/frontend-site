@@ -28,7 +28,7 @@ const columns = [
   { name: "Title", uid: "title" },
   { name: "Details", uid: "details" },
   { name: "Address", uid: "address" },
-  { name: "ACTIONS", uid: "actions" },
+  { name: "ACTIONS & User Info", uid: "actions" },
 ];
 export default function PropertyDashboard() {
   const [property, setProperty] = useState([]);
@@ -202,51 +202,80 @@ export default function PropertyDashboard() {
             <p className="font-bold text-medium text-center">{blog.title}</p>
           </div>
         );
-      case "actions":
-        return (
-          <div className="relative flex justify-start items-center w-[200px] gap-2">
-            <div className="text-medium font-bold">{blog._id}</div>
-            <Dropdown
-              aria-label="Options Menu Property"
-              aria-labelledbyl="Options Menu Property"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
+        case "actions":
+          return (
+            <div className="relative flex justify-start items-center w-[350px] gap-2">
+              <div className="">
+              <hr />
+              <p className="text-bold grid grid-cols-2 text-medium capitalize">
+                <b>ID:</b>
+                {blog._id}
+              </p>
+              <hr />
+              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+                <b>Email</b>
+                {blog.user.email}
+              </p>
+              <hr />
+              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+                <b>Name</b>
+                {blog.user.fullname}
+              </p>
+              <hr />
+              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+                <b>Phone</b>
+                {blog.user.phone
+}
+              </p>
+              <hr />
+
+              </div>
+              <Dropdown
                 aria-label="Options Menu Property"
                 aria-labelledbyl="Options Menu Property"
+                className="bg-background border-1 border-default-200"
               >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Options Menu Property"
-                aria-labelledbyl="Options Menu Property"
-              >
-                <DropdownItem
-                  textValue="Delete Property"
-                  onClick={async () =>handleDeleteProperty(blog._id)}
+                <DropdownTrigger
+                  aria-label="Options Menu Property"
+                  aria-labelledbyl="Options Menu Property"
                 >
-                  Delete
-                </DropdownItem>
-                <DropdownItem
-                  textValue="Accept Property"
-                  onClick={async()=>handleAcceptProperty(blog._id)}
+                  <Button isIconOnly radius="full" size="sm" variant="light">
+                    <VerticalDotsIcon className="text-default-400" />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Options Menu Property"
+                  aria-labelledbyl="Options Menu Property"
                 >
-                  Accept
-                </DropdownItem>
-                <DropdownItem
-                  textValue="edit Property"
-                  // onClick={async () => await acceptProperties(blog._id)}
-                >
-                <Link href={`editproperty/${blog.slug}`}>
-               edit
-                </Link>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
+                  <DropdownItem
+                    textValue="Delete Property"
+                    onClick={() => handleDeleteProperty(blog._id)}
+                  >
+                    Delete
+                  </DropdownItem>
+                  <DropdownItem
+                    textValue="Accept Property"
+                    onClick={() => {
+                      router.push(`/property-details/${blog.slug}`);
+                    }}
+                  >
+                    Visit
+                  </DropdownItem>
+                  <DropdownItem
+                    textValue="edit Property"
+                    // onClick={async () => await acceptProperties(blog._id)}
+                    onClick={() => {
+                      router.push(`/editproperty/${blog.slug}`);
+                    }}
+                  >
+                    {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
+                    edit
+                    {/* </Link> */}
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          );
     }
   }, []);
 

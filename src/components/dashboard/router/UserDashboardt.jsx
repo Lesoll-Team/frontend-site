@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, User } from "@nextui-org/react";
-import { getAllUsers, deleteUsers } from "../utils/userAPI";
+import {deleteUsers, searchUsersApi } from "../utils/userAPI";
 import {
   Table,
   TableHeader,
@@ -30,64 +30,90 @@ export default function UserDashboard() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [users, setUsers] = useState([]);
   const [usersLength, setUsersLength] = useState(0);
+  const [usersLengthOfAPI, setUsersLengthOfAPI] = useState(0);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [refreshUsers, setRefreshUsers] = useState(false);
 
+  // const [filterValue, setFilterValue] = useState("");
+  const [filterUser, setFilterUser] = useState("");
 
+  // const fetchUsersData = async () => {
+  //   try {usersLengthOfAPI
+  //     const userToken = JSON.parse(localStorage.getItem("userToken"));
+  //     const getUsers = await getAllUsers(rowsPerPage, page, userToken);
+  //     setUsers(getUsers.data);
+  //     setUsersLength(getUsers.nPages);
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //   }
+  // };
 
-    const fetchUsersData = async () => {
-      try {
-        const userToken = JSON.parse(localStorage.getItem("userToken"));
-        const getUsers = await getAllUsers(rowsPerPage, page, userToken);
-        setUsers(getUsers.data);
-        setUsersLength(getUsers.nPages);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    useEffect(() => {
-      fetchUsersData()
-      // console.log(users);
-    }, [page, rowsPerPage,refreshUsers]);
+  const searchUsers = async () => {
+    try {
+      const getUser = await searchUsersApi(rowsPerPage, page, filterUser);
+      setUsers(getUser.User);
+      setUsersLength(getUser.resultCount);
+      setUsersLengthOfAPI(getUser.resultCount)
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setUsers([])
+      setUsersLength(0)
+    }
+  };
+
   const handleDeleteUser = async (UserId) => {
     try {
-      await deleteUsers(UserId)
-      await fetchUsersData();
-     setRefreshUsers(!refreshUsers);
-  } catch (error) {
-    console.error("Error deleting Users:", error);
-  }
+      await deleteUsers(UserId);
+      // await fetchUsersData();
+      await searchUsers();
+      setRefreshUsers(!refreshUsers);
+    } catch (error) {
+      console.error("Error deleting Users:", error);
+    }
   };
-  const [filterValue, setFilterValue] = useState("");
+  useEffect(() => {
+    // fetchUsersData();
+    searchUsers();
+  }, [page, rowsPerPage, refreshUsers]);
 
   const [sortDescriptor, setSortDescriptor] = useState({});
   const pages = Math.ceil(usersLength / rowsPerPage);
-  const hasSearchFilter = Boolean(filterValue);
+  // const hasSearchFilter = Boolean(filterValue);
+  const hasSearchAllUser = Boolean(pages<=1);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
   const filteredItems = useMemo(() => {
     let filteredUsers = [...users];
-    if (hasSearchFilter) {
+    // if (hasSearchFilter) {
+    //   filteredUsers = filteredUsers.filter(
+    //     (user) =>
+    //       user.fullname.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       user.email.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       user.phone.toLowerCase().includes(filterValue.toLowerCase())
+    //   );
+    // }
+// console.log("filteredUsers",filteredUsers);
+    if (hasSearchAllUser) {
       filteredUsers = filteredUsers.filter(
         (user) =>
-          user.fullname.toLowerCase().includes(filterValue.toLowerCase()) ||
-          user.email.toLowerCase().includes(filterValue.toLowerCase()) ||
-          user.phone.toLowerCase().includes(filterValue.toLowerCase())
+          user.fullname.toLowerCase().includes(filterUser.toLowerCase()) ||
+          user.email.toLowerCase().includes(filterUser.toLowerCase()) ||
+          user.phone.toLowerCase().includes(filterUser.toLowerCase())||
+          user.typeOfUser.toLowerCase().includes(filterUser.toLowerCase())
       );
     }
     return filteredUsers;
-  }, [users, filterValue]);
+  }, [users,filterUser]);
 
-  // console.log("filteredItems", filteredItems);//allows update 
+  // console.log("filteredItems", filteredItems);//allows update
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return filteredItems.slice(start, end)&&filteredItems;
+    return filteredItems.slice(start, end) && filteredItems;
     // return filteredItems
-
   }, [page, filteredItems, rowsPerPage]);
   // console.log("itme dot length", items);
 
@@ -162,14 +188,11 @@ export default function UserDashboard() {
                   <VerticalDotsIcon className="text-default-400" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Options Menu User"
-              >
+              <DropdownMenu aria-label="Options Menu User">
                 <DropdownItem
                   textValue="Delete"
-                aria-labelledbyl="Options Menu User"
-
-                  onClick={()=>handleDeleteUser(user._id)}
+                  aria-labelledbyl="Options Menu User"
+                  onClick={() => handleDeleteUser(user._id)}
                 >
                   Delete
                 </DropdownItem>
@@ -181,7 +204,11 @@ export default function UserDashboard() {
                 </DropdownItem> */}
               </DropdownMenu>
             </Dropdown>
-            <UserUpdateModule typeUser={user.typeOfUser} userID={user._id} userIsAdmin={user.isAdmin} />
+            <UserUpdateModule
+              typeUser={user.typeOfUser}
+              userID={user._id}
+              userIsAdmin={user.isAdmin}
+            />
           </div>
         );
     }
@@ -190,36 +217,54 @@ export default function UserDashboard() {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
   }, []);
-  const onSearchChange = useCallback((value) => {
+
+  const onSearch = useCallback((value) => {
     if (value) {
-      setFilterValue(value);
+      setFilterUser(value);
       setPage(1);
     } else {
-      setFilterValue("");
+      setFilterUser("");
     }
   }, []);
+
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
-          <Input
-            isClearable
-            classNames={{
-              base: "w-full sm:max-w-[44%]",
-              inputWrapper: "border-1",
-            }}
-            placeholder="Search by name..."
-            size="sm"
-            startContent={<SearchIcon className="text-default-300" />}
-            value={filterValue}
-            variant="bordered"
-            onClear={() => setFilterValue("")}
-            onValueChange={onSearchChange}
-          />
+        <div className="flex  gap-3 items-center justify-center ">
+
+          <div className=" w-8/12  ">
+            <form
+              className="flex items-center gap-x-2"
+              onSubmit={(e) => {
+                e.preventDefault(); // Prevents the default form submission behavior
+                searchUsers(); // Call your search function
+              }}
+            >
+              <Input
+                isClearable
+                className="w-full"
+                // classNames={{
+                //   base: "w-full sm:max-w-[44%]",
+                //   inputWrapper: "border-1",
+                // }}
+                placeholder="phone, email ,full name,type Of User..."
+                label="Search For All Users"
+                size="sm"
+                startContent={<SearchIcon className="text-default-300" />}
+                value={filterUser}
+                variant="bordered"
+                onClear={() => setFilterUser("")}
+                onChange={(e) => onSearch(e.target.value)}
+              />
+              <Button color="primary" type="submit">
+                Search
+              </Button>
+            </form>
+          </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {usersLength} users
+            Total {usersLengthOfAPI} users
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -239,11 +284,13 @@ export default function UserDashboard() {
       </div>
     );
   }, [
-    filterValue,
-    onSearchChange,
+    filterUser,
+    onSearch,
+    // onSearchChange,
     onRowsPerPageChange,
     usersLength,
-    hasSearchFilter,
+    // hasSearchFilter,
+    hasSearchAllUser,
   ]);
   const bottomContent = useMemo(() => {
     return (
@@ -254,7 +301,7 @@ export default function UserDashboard() {
             cursor: "bg-foreground text-background",
           }}
           color="default"
-          isDisabled={hasSearchFilter}
+          isDisabled={hasSearchAllUser}
           page={page}
           total={pages}
           variant="light"
@@ -267,7 +314,7 @@ export default function UserDashboard() {
         </span>
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter, selectedKeys]);
+  }, [items.length, page, pages,hasSearchAllUser, selectedKeys]);
   const classNames = useMemo(
     () => ({
       wrapper: ["max-h-[382px]", "max-w-3xl"],
