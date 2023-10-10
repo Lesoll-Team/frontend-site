@@ -24,7 +24,7 @@ export default function ContactBtnsModal({
   //   const [modalPlacement, setModalPlacement] = useState("bottom-center");
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col  w-full gap-2">
       <div onClick={onOpen} className=" w-full">
         {children}
       </div>

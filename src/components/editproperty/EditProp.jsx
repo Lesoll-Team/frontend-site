@@ -45,18 +45,34 @@ const EditProp = ({ propData, setPropData }) => {
 
     // console.log(userDataInfo);
   }, []);
+  // console.log(propData);
   useEffect(() => {
     if (propData) {
-      setPropData({ ...propData, downPaymentType: "Yearly" });
+      // console.log(propData.service.map((obj) => obj._id));
+      // setPropData({ ...propData, downPaymentType: "Yearly" });
       // console.log(propData?.unitType?._id);
+      // console.log(Boolean(propData?.service));
       if (propData?.service[0]?._id) {
-        setPropData({
-          ...propData,
-          service: propData.service.map((obj) => obj._id),
-        });
+        const service = propData.service.map((obj) => obj._id);
+        // console.log(service);
+        // setPropData({
+        //   ...propData,
+        //   service: service,
+        // });
+        setTimeout(() => {
+          setPropData((prevData) => ({ ...prevData, service: service }));
+        }, 50);
       }
     }
-  }, [propData?.service]);
+  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (propData.downPayment === null) {
+  //       setPropData((prevData) => ({ ...prevData, downPayment: 0 }));
+  //     }
+  //   }, 50);
+  // }, [propData?.downPayment]);
+  // console.log(propData?.service);
   useEffect(() => {
     if (!propData.connectPhoneNumber) {
       setPropData({ ...propData, phoneChoice: "same" });
@@ -163,7 +179,7 @@ const EditProp = ({ propData, setPropData }) => {
   // console.log(propData);
   const userInfo = useSelector((state) => state.GlobalState.userData);
 
-  return propData ? (
+  return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -284,10 +300,6 @@ const EditProp = ({ propData, setPropData }) => {
         </div>
       </div>
     </motion.div>
-  ) : (
-    <div className="h-[90vh] flex items-center justify-center">
-      <DotPulse size={60} speed={1.3} color="#309da0" />
-    </div>
   );
 };
 

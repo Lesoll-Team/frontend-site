@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 import { useRouter } from "next/router";
-import { AiOutlineWhatsApp } from "react-icons/ai";
+import {
+  AiFillCheckCircle,
+  AiFillEdit,
+  AiOutlineWhatsApp,
+} from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { TbRulerMeasure } from "react-icons/tb";
 import { FaBath } from "react-icons/fa";
@@ -12,6 +16,7 @@ import { CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
 import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
 import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
+import { HiMiniXMark } from "react-icons/hi2";
 
 function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
@@ -271,10 +276,37 @@ function ConfirmAppointment({ userAppointment }) {
                   : userAppointment?.bathRooms.toLocaleString()}
               </p>
             </div>
+            {!userAppointment?.saleOption.includes("Installment") && (
+              <>
+                {" "}
+                <hr />
+                <div className="flex justify-between items-center">
+                  <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
+                    {language ? "قابل للتفاوض" : "Bathrooms"}
+                  </p>
+
+                  <div className="text-xl">
+                    {userAppointment.negotiable ? (
+                      <AiFillCheckCircle className="text-green-600" />
+                    ) : (
+                      <HiMiniXMark className="text-red-600" />
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </>
         )}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-between flex-row-reverse items-center">
+        {userInfo && userInfo.isAdmin && (
+          <Link
+            href={`/editproperty/${userAppointment.slug}`}
+            className="text-lightGreen font-bold text-lg hover:text-lightOrange duration-200"
+          >
+            <AiFillEdit />
+          </Link>
+        )}
         <p className="text-xs font-semibold">
           <span className=" text-sm tracking-widest"> {formattedDate}</span>
         </p>

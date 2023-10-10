@@ -17,18 +17,20 @@ const Sale = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       { value: "Cash & Installment", name: "قاش وتقسيط" },
     ],
   };
+  // console.log(propertyDetils.saleOption.includes("Installment"));
   // console.log(propertyDetils.saleOption);
   return (
     <>
-      {propertyDetils.saleOption && propertyDetils.saleOption[0] === "Cash" ? (
-        <Cash
+      {propertyDetils.saleOption &&
+      propertyDetils.saleOption.includes("Installment") ? (
+        <Installment
           propErrors={propErrors}
           setPropErrors={setPropErrors}
           propertyDetils={propertyDetils}
           setData={setData}
         />
       ) : (
-        <Installment
+        <Cash
           propErrors={propErrors}
           setPropErrors={setPropErrors}
           propertyDetils={propertyDetils}

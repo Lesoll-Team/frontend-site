@@ -138,7 +138,7 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
               error={propErrors.propType}
               title={!language ? "Property type" : "نوع العقار"}
               value={
-                propertyDetils.propType === "Residential"
+                propertyDetils?.propType === "Residential"
                   ? language
                     ? "سكنى"
                     : "Residential"
@@ -181,8 +181,8 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
 
           <div className="w-full">
             <AddPropDropdown
-              error={propErrors.unitType}
-              disabled={propertyDetils.propType}
+              error={propErrors?.unitType}
+              disabled={propertyDetils?.propType}
               title={!language ? "Unit Type" : "نوع الوحدة"}
               value={
                 propertyDetils?.unitType?.title

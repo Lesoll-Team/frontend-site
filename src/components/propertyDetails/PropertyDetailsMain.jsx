@@ -58,7 +58,7 @@ function PropertyDetailsMain({ singleProperty }) {
               </div>
 
               <div className="col-span-5 space-y-8">
-                {singleProperty?.saleOption[0] === "Installment" && (
+                {singleProperty?.saleOption.includes("Installment") && (
                   <div className="\ ">
                     <OverviewDetails singleOverviewDetails={singleProperty} />
                   </div>

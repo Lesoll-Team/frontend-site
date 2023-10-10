@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import EditProp from "@/components/editproperty/EditProp";
 import { GetEditAds } from "@/utils/propertyAPI";
+import { DotPulse } from "@uiball/loaders";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
@@ -28,7 +29,13 @@ const EditProperty = () => {
       <p>{JSON.stringify(propData)}</p> */}
       {/* <EditProperty/> */}
       {/* <EditProp propData={propData} /> */}
-      <EditProp propData={propData} setPropData={setPropData} />
+      {propData ? (
+        <EditProp propData={propData} setPropData={setPropData} />
+      ) : (
+        <div className="h-[90vh] flex items-center justify-center">
+          <DotPulse size={60} speed={1.3} color="#309da0" />
+        </div>
+      )}
     </div>
   );
 };

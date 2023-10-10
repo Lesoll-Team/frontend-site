@@ -19,14 +19,14 @@ function Dashboard() {
 
   // Render DashboardAdmin only if userInfo is not null and userInfo.isAdmin is true
   return userInfo && userInfo.isAdmin ? (
-    <div dir="ltr">
+    <div className="min-h-[90dvh]" dir="ltr">
       <Head>
         <title>{language ? "لوحة القيادة" : "Dashboard"}</title>
       </Head>
       <DashboardAdmin />
     </div>
   ) : (
-    <div className="w-full items-center flex justify-center text-center">
+    <div className="w-full items-center min-h-[90dvh]  flex justify-center text-center">
       Loading...
     </div>
   );

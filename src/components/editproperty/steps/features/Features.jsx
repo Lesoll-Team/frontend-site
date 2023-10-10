@@ -12,9 +12,7 @@ const Features = ({ propertyDetils, setData }) => {
   const [features, setFeatures] = useState([]);
   const getFeatures = () => {
     axios
-      .get(
-        "http://ec2-184-73-152-95.compute-1.amazonaws.com:9000/api/admin/service/getall"
-      )
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/service/getall`)
       .then((res) => {
         setFeatures(res.data.service);
       });

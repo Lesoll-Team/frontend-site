@@ -112,8 +112,7 @@ function SearchResult() {
           </div>
         ) : (
           <div>
-
-            <SearchBar pageSaleOption={InputKeyword?.offer}/>
+            <SearchBar pageSaleOption={InputKeyword?.offer} />
             <div className="w-full p-36 text-2xl text-default-500 text-center ">
               Not found property
             </div>

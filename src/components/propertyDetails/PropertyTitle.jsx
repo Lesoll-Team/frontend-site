@@ -163,11 +163,6 @@ function PropertyTitle({ singleTitle }) {
                   : singleTitle?.price.toLocaleString()}{" "}
                 <span className="">{language ? "جنية" : "EGP"}</span>
               </p>
-              {singleTitle?.negotiable && (
-                <p className="text-xs text-lightOrange">
-                  {language ? "قابل للتفاوض" : "Negotiable"}
-                </p>
-              )}
             </div>
           </div>
         </div>

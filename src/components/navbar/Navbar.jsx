@@ -136,7 +136,7 @@ export default function Navbar() {
                   />
                 )}
               </ul>
-              <ul className="mx-1">{languageIs ? `English` : `عربى`}</ul>
+              <ul className="mx-1">{languageIs ? `عربى` : `English`}</ul>
             </button>
           </li>
 
@@ -212,7 +212,7 @@ export default function Navbar() {
                 <div className="flex items-center">
                   <IoLanguage />
                   <div className="mx-2">
-                    {languageIs ? "  عربى  " : "English"}
+                    {languageIs ? "English" : "  عربى "}
                   </div>
                 </div>
               </button>

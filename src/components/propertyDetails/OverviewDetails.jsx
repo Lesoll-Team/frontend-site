@@ -26,7 +26,7 @@ function OverviewDetails({ singleOverviewDetails }) {
         </p>
         <div className="flex md:justify-normal justify-center items-center "></div>
         <div className="mt-5">
-          <div className="md:flex  w-full shadow-md border p-12  bg-white rounded-xl md:min-h-[200px] min-h-[auto] items-center grid md:grid-cols-4 justify-center grid-cols-2 md:justify-between gap-3">
+          <div className="md:flex  w-full shadow-md border px-5 py-10 md:p-12  bg-white rounded-xl md:min-h-[200px] min-h-[auto] items-center grid md:grid-cols-4 justify-center grid-cols-2 md:justify-between gap-5">
             <div className="text-center flex justify-center items-center gap-2 flex-col">
               <h3 className="font-bold text-darkGreen text-2xl">
                 {language ? "الدفعة الأولى" : "Down Payment"}
@@ -77,7 +77,11 @@ function OverviewDetails({ singleOverviewDetails }) {
                 {language ? "مبلغ التقسيط" : "Installment Amount"}
               </h3>
               <p className="font-semibold text-xl">
-                {singleOverviewDetails?.installmentOption.amount}{" "}
+                {language
+                  ? singleOverviewDetails?.installmentOption.amount.toLocaleString(
+                      "ar-Eg"
+                    )
+                  : singleOverviewDetails?.installmentOption.amount.toLocaleString()}{" "}
                 {language ? "جنية" : "Egp"}
               </p>
             </div>
