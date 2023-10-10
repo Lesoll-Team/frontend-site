@@ -27,7 +27,8 @@ export default function PropertyRent({ propertyForRent }) {
         </h2>
       </div>
 
-      <div className="items-center py-5 grid lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
+      <div className=" flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
+      {/**items-center py-5 grid lg:grid-cols-4 md:grid-cols-3 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 */}
         {propertyForRent && propertyForRent.result
           ? propertyForRent.result.map((property) => (
               <RealtyCardRent key={property?._id} propertyDetails={property} />
@@ -51,7 +52,7 @@ export default function PropertyRent({ propertyForRent }) {
 export async function getServerSideProps(context) {
   const { page } = context.query;
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=9&page=${page || 1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=20&page=${page || 1}`
   );
   const dataRent = await resRent.json();
 
@@ -89,7 +90,7 @@ export async function getServerSideProps(context) {
 //         </h2>
 //       </div>
 
-//       <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
+//       <div className="items-center py-5  grid  lg:grid-cols-4 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
 //         {/* {propertyForRent
 //           ? propertyForRent.result.map((property) => (
 //               <RealtyCardRent key={property?._id} propertyDetails={property} />

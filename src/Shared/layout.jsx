@@ -13,7 +13,6 @@ export default function Layout({ children }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
-    // setUserDataInfo(userInfo);
   }, [dispatch, language, children]);
 
   return (

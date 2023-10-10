@@ -14,7 +14,6 @@ export default function PropertyBuy({ propertyForBuy }) {
     <div className="container mx-auto">
       <Head>
         <title>{language ? "عقارات للبيع" : "properties for sale"}</title>
-
         <meta
           name="description"
           content="استكشف مجموعة واسعة من العقارات المتاحة للبيع على منصتنا للعقارات. ابحث عن منازل وشقق وعقارات تجارية للبيع في المواقع الرئيسية. ابحث عن العقار الذي تحلم به للبيع اليوم!"
@@ -27,13 +26,12 @@ export default function PropertyBuy({ propertyForBuy }) {
           {language ? "عقارات للبيع" : " Properties for Buy"}
         </h2>
       </div>
-      <div className="items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
+      <div className=" flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 ">
         {propertyForBuy
           ? propertyForBuy.result.map((property) => (
               <RealtyCardBuy key={property._id} propertyDetails={property} />
             ))
           : "no property found"}
-        {/* <Link  href={`/propertyDetails/${property._id}`}>   </Link> */}
       </div>
 
       <div>
@@ -52,7 +50,7 @@ export default function PropertyBuy({ propertyForBuy }) {
 export async function getServerSideProps(context) {
   const { page } = context.query;
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${page}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=20&page=${page}`
   );
   const dataBuy = await resBuy.json();
   return {
