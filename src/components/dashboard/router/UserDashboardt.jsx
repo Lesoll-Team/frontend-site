@@ -100,8 +100,8 @@ export default function UserDashboard() {
         (user) =>
           user.fullname.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.email.toLowerCase().includes(filterUser.toLowerCase()) ||
-          user.phone.toLowerCase().includes(filterUser.toLowerCase())||
-          user.typeOfUser.toLowerCase().includes(filterUser.toLowerCase())
+          user.phone.toLowerCase().includes(filterUser.toLowerCase())
+          // user.typeOfUser.toLowerCase().includes(filterUser.toLowerCase())
       );
     }
     return filteredUsers;

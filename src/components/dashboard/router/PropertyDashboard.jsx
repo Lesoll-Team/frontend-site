@@ -23,6 +23,7 @@ import {
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import Link from "next/link";
+import { useRouter } from "next/router";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -31,6 +32,7 @@ const columns = [
   { name: "ACTIONS & User Info", uid: "actions" },
 ];
 export default function PropertyDashboard() {
+  const router=useRouter()
   const [property, setProperty] = useState([]);
 
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -116,6 +118,7 @@ export default function PropertyDashboard() {
   }, [sortDescriptor, items]);
 
   const renderCell = useCallback((blog, columnKey) => {
+    // console.log(blog?.slug)
     switch (columnKey) {
       case "address":
         return (
@@ -255,11 +258,9 @@ export default function PropertyDashboard() {
                   </DropdownItem>
                   <DropdownItem
                     textValue="Accept Property"
-                    onClick={() => {
-                      router.push(`/property-details/${blog.slug}`);
-                    }}
+                    onClick={() =>handleAcceptProperty(blog._id)}
                   >
-                    Visit
+                    Accept
                   </DropdownItem>
                   <DropdownItem
                     textValue="edit Property"
