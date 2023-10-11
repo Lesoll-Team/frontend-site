@@ -106,12 +106,12 @@ const PrivacyPolicy = () => {
           <div className="space-y-2">
             <h3 className="text-2xl text-darkGray font-bold">
               {language
-                ? "البيانات المالية وبيانات الدفع واالئتمان: "
+                ? "البيانات المالية وبيانات الدفع والائتمان: "
                 : "Financial Data and Payment Information:"}
             </h3>
             <p>
               {language
-                ? "قد نجمع بيانات الدفع التي يقوم المستخدم بإدخالها عند االشتراك في الخدمات مدفوعة االجر . وقد يحتوي ذلك على رقم وسيلة الدفع الخاصة بالمستخدم )على سبيل المثال: بطاقة االئتمان وبطاقة الخصم( واسمه وعنوان إرسال الفواتير ورمز األمان ألداة الدفع الخاصة به )على سبيل .المثال: رمز التحقق من البطاقة (، وقد نقوم بجمع المعلومات والبيانات المتعلقة بالدفع وسجل المعامالت ومعلومات وبيانات الفواتير. "
+                ? "قد نجمع بيانات الدفع التي يقوم المستخدم بإدخالها عند الاشتراك في الخدمات مدفوعة الاجر. وقد يحتوي ذلك على رقم وسيلة الدفع الخاصة بالمستخدم (على سبيل المثال: بطاقة الائتمان وبطاقة الخصم) واسمه وعنوان إرسال الفواتير ورمز الأمان لأداة الدفع الخاصة به (على سبيل المثال: رمز التحقق من البطاقة)، وقد نقوم بجمع المعلومات والبيانات المتعلقة بالدفع وسجل المعاملات ومعلومات وبيانات الفواتير."
                 : "We may gather payment data provided by users when subscribing to our paid services. This information may include the user's payment method, such as (credit card or debit card details), their name, billing address, and the security code associated with their payment method. Additionally, we may collect transaction history and invoice details. "}
             </p>
           </div>

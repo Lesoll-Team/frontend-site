@@ -7,3 +7,5 @@ Disallow: /profile
 
 User-agent: *
 Allow: /
+
+Sitemap:https://lesoll.com/sitemap.xml

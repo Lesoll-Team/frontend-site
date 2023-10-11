@@ -14,13 +14,21 @@ export default function PropertyRent({ propertyForRent }) {
   return (
     <div className="container mx-auto">
       <Head>
-        <title>{language ? "عقارات للإيجار" : "properties for rent"}</title>
+        <title>
+          {language
+            ? "عقارات للإيجار في مصر | ليسول "
+            : "Properties for rent in Egypt | Lesoll "}
+        </title>
         <meta
           name="description"
-          content="استكشف مجموعة واسعة من العقارات المتاحة للإيجار على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات تجارية للإيجار في المواقع الرئيسية. ابحث عن العقار المؤجَّر المثالي اليوم!"
+          content={
+            language
+              ? "ابحث عن عقارات للإيجار في مصر، ابحث عن شقق او فلل او اراضي او شاليهات للإيجار سواء كاش او تقسيط في القاهرة و الجيزة والاسكندرية و جميع محافظات مصر "
+              : "search for available properties for rent in Egypt, including apartments, villas, lands, or chalets in Cairo, Giza, Alexandria, and all over Egypt. "
+          }
         />
       </Head>
-      <SearchBar pageSaleOption="For Rent"/>
+      <SearchBar pageSaleOption="For Rent" />
       <div>
         <h2 className="font-bold text-5xl pt-20 md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات للإيجار" : " Properties for Rent"}
@@ -28,7 +36,7 @@ export default function PropertyRent({ propertyForRent }) {
       </div>
 
       <div className=" flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
-      {/**items-center py-5 grid lg:grid-cols-4 md:grid-cols-3 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 */}
+        {/**items-center py-5 grid lg:grid-cols-4 md:grid-cols-3 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 */}
         {propertyForRent && propertyForRent.result
           ? propertyForRent.result.map((property) => (
               <RealtyCardRent key={property?._id} propertyDetails={property} />
@@ -37,7 +45,7 @@ export default function PropertyRent({ propertyForRent }) {
       </div>
 
       <div>
-      <div className="py-2 px-2 flex  justify-center items-center">
+        <div className="py-2 px-2 flex  justify-center items-center">
           <PaginationPage
             hrefRout={"rent"}
             currentPage={currentPage}
@@ -52,13 +60,14 @@ export default function PropertyRent({ propertyForRent }) {
 export async function getServerSideProps(context) {
   const { page } = context.query;
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=20&page=${page || 1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=20&page=${
+      page || 1
+    }`
   );
   const dataRent = await resRent.json();
 
   return {
-    props: { propertyForRent: dataRent,
-      revalidate: 1 }
+    props: { propertyForRent: dataRent, revalidate: 1 },
   };
 }
 
@@ -123,7 +132,6 @@ export async function getServerSideProps(context) {
 //   );
 //   const dataRent = await resRent.json();
 //   console.log(dataRent);
-
 
 //   return {
 //     props: { propertyForRent: dataRent },

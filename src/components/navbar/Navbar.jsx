@@ -136,7 +136,7 @@ export default function Navbar() {
                   />
                 )}
               </ul>
-              <ul className="mx-1">{languageIs ? `عربى` : `English`}</ul>
+              <ul className="mx-1">{languageIs ?`English`  :  `عربى`}</ul>
             </button>
           </li>
 

@@ -13,13 +13,21 @@ export default function PropertyBuy({ propertyForBuy }) {
   return (
     <div className="container mx-auto">
       <Head>
-        <title>{language ? "عقارات للبيع" : "properties for sale"}</title>
+        <title>
+          {language
+            ? "عقارات للبيع في مصر | ليسول "
+            : "Properties for sale in Egypt | Lesoll "}
+        </title>
         <meta
           name="description"
-          content="استكشف مجموعة واسعة من العقارات المتاحة للبيع على منصتنا للعقارات. ابحث عن منازل وشقق وعقارات تجارية للبيع في المواقع الرئيسية. ابحث عن العقار الذي تحلم به للبيع اليوم!"
+          content={
+            language
+              ? "ابحث عن عقارات للبيع في مصر، ابحث عن شقق او فلل او اراضي او شاليهات للبيع سواء كاش او تقسيط او تمويل عقاري في القاهرة و الجيزة والاسكندرية و جميع محافظات مصر "
+              : "search for available properties for sale in Egypt, including apartments, villas, lands, or chalets in Cairo, Giza, Alexandria, and all over Egypt. "
+          }
         />
       </Head>
-      <SearchBar pageSaleOption="For Sale"/>
+      <SearchBar pageSaleOption="For Sale" />
 
       <div>
         <h2 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
@@ -54,13 +62,9 @@ export async function getServerSideProps(context) {
   );
   const dataBuy = await resBuy.json();
   return {
-    props: { propertyForBuy: dataBuy 
-    ,
-    revalidate: 1},
-    
+    props: { propertyForBuy: dataBuy, revalidate: 1 },
   };
 }
-
 
 /**import Head from "next/head";
 import React, { useState } from "react";
