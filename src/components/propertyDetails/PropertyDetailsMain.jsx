@@ -39,6 +39,12 @@ function PropertyDetailsMain({ singleProperty }) {
         <meta name="description" content={singleProperty?.description} />
         <meta property="og:title" content={singleProperty?.title} />
         <meta property="og:description" content={singleProperty?.description} />
+        <meta
+          property="og:image"
+          content={`${
+            singleProperty.thumbnail || singleProperty?.album[0]?.image
+          }`}
+        />
       </Head>
       <div className="sm:container px-2 sm:px-0 mx-auto mb-16  ">
         {singleProperty ? (
