@@ -33,6 +33,7 @@ const columns = [
 export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
 
+
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
   const [propertyLength, setPropertyLength] = useState(0);
