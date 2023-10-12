@@ -29,8 +29,8 @@ export default function Home({
       <Head>
         <title>
           {language
-            ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
-            : "Lesoll Real Estate Hup Eg | Buy - Sell - Rent Properties"}
+            ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
+            : "Lesoll Real Estate EGY| Buy - Sell - Rent Properties"}
         </title>
 
         <meta

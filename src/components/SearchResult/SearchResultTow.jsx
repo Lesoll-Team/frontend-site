@@ -1,40 +1,46 @@
 // SearchResult.js
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchCard from "../realtyCard/RealtyCard";
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 
-import {
-    setCurrentPage,
-//   propertyFromSearch,
-} from "@/redux-store/features/searchingSlice";
+import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 import ShowMapSearch from "@/Shared/map/ShowMapSearch";
-import { SearchBar } from "@/Shared/search/SearchBar";
 import { FaMapMarked } from "react-icons/fa";
 import { useRouter } from "next/router";
-// import { GrFormNext } from "react-icons/gr";
+import { DotPulse } from "@uiball/loaders";
 
 function SearchResult() {
-    const router=useRouter();
+  const router = useRouter();
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.Searching.currentPage);
   const totalPages = useSelector((state) => state.Searching.totalPages);
-  const InputKeyword = useSelector((state) => state.Searching.setInputKeyword);
-  const searchResultSearch = useSelector((state) => state.Searching.searchResult);
-  const [searchResult, setSearchResult] = useState(null);
+  // const InputKeyword = useSelector((state) => state.Searching.setInputKeyword);
+  const searchResult = useSelector(
+    (state) => state.Searching.searchResult
+  );
+  const searchingError = useSelector(
+    (state) => state.Searching.searchingError
+  );
+  const isSearching = useSelector(
+    (state) => state.Searching.isSearching
+  );
+  // const [searchResult, setSearchResult] = useState(null);
   const [showMap, setShowMap] = useState(false);
   const handlePageChange = (selectedPage) => {
     dispatch(setCurrentPage(selectedPage + 1));
   };
   useEffect(() => {
-    router.push(`/searching/${router.query.keyword}`)
+    router.push(`/searching/${router.query.keyword}`);
   }, [currentPage]);
 
-  useEffect(() => {
-    setSearchResult(searchResultSearch);
-  }, [currentPage, searchResultSearch]);
+  // useEffect(() => {
+    // setSearchResult(searchResultSearch);
+  // }, [currentPage, searchResultSearch]);
+  // console.log("searchingError",searchingError);
+  // console.log("isSearching",isSearching);
   return (
     <>
       <div className="relative">
@@ -47,17 +53,20 @@ function SearchResult() {
         >
           <FaMapMarked />
         </button>
-        {searchResult?.code === 200 ? (
+        {!isSearching? (
           <div className="grid grid-cols-3">
-            <div className="flex flex-col lg:col-span-2  col-span-3  ">
-              {/* <SearchBar /> */}
-
+            <div className={`flex flex-col ${searchingError==="rejected"?" ":"lg:col-span-2 "}  col-span-3 `}>
               <div className=" flex flex-wrap justify-center  gap-10">
-                {searchResult.searchResults.map((result) => (
+                {searchResult?.searchResults.map((result) => (
                   <SearchCard key={result._id} propertyDetails={result} />
                 ))}
               </div>
-              <div
+              { searchingError=="rejected"? (
+          <div className="w-full p-36 text-2xl text-default-500 text-center ">
+            Not found property
+          </div>
+        ): 
+        <div
                 className={
                   "flex justify-center items-center  m-4 " + styles.pagination
                 }
@@ -79,12 +88,13 @@ function SearchResult() {
                   disabledClassName={styles.paginationDisabled}
                 />
               </div>
+        }
+
             </div>
 
             <div
-              className={`lg:block hidden md:sticky  md:top-20 h-[93vh] absolute top-0 w-screen $`}
+              className={`lg:block hidden md:sticky  md:top-20 ${searchingError==="rejected"?"":"h-[93vh]"}  absolute top-0 w-screen $`}
             >
-              {" "}
               {searchResult?.searchResults && (
                 <ShowMapSearch
                   className=""
@@ -109,15 +119,19 @@ function SearchResult() {
               </div>
             )}
           </div>
-        ) : (
-          <div>
-
-            {/* <SearchBar pageSaleOption={InputKeyword?.offer}/> */}
-            <div className="w-full p-36 text-2xl text-default-500 text-center ">
-              Not found property
-            </div>
+        ) :(
+          <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
+         
+            {/* { searchingError==="rejected"? (
+          <div className="w-full p-36 text-2xl text-default-500 text-center ">
+            Not found property
+          </div>
+        ):   */}
+         <DotPulse size={50} speed={1.3} color="#309da0" />
+         {/* } */}
           </div>
         )}
+
       </div>
     </>
   );

@@ -2,9 +2,12 @@ import { foundKeyword } from "@/utils/searchAPI";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   searchResult: null,
+  searchingError:null,
+  isSearching:false,
   currentPage: 1, // Add current page state
   totalPages: 0, // Add total pages state
-  setInputKeyword:null,
+
+  // setInputKeyword:null,
 };
 
 export const dataFoundFromSearch = createAsyncThunk(
@@ -29,10 +32,27 @@ const SearchingSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(dataFoundFromSearch.fulfilled, (state, action) => {
+    builder.addCase(dataFoundFromSearch.pending, (state) => {
+      state.isSearching = true;
+      state.searchResult = null;
+
+      // state.totalPages = action.payload.totalPages;
+      // state.currentPage = state.currentPage;
+    })
+    .addCase(dataFoundFromSearch.fulfilled, (state, action) => {
       state.searchResult = action.payload;
       state.totalPages = action.payload.totalPages;
       state.currentPage = state.currentPage;
+      state.searchingError = null;
+      state.isSearching = false;
+
+    })
+    .addCase(dataFoundFromSearch.rejected, (state, action) => {
+      state.searchingError = action.meta.requestStatus;
+      state.isSearching = false;
+
+      // state.totalPages = action.payload.totalPages;
+      // state.currentPage = state.currentPage;
     });
   },
 });

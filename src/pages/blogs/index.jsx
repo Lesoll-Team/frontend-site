@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 function Blog({ blogs }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+// console.log("blogs",blogs);
   return (
     <div className="container mx-auto  p-5">
       <Head>
@@ -29,6 +29,6 @@ export async function getStaticProps() {
   const blogs = await getAllBlogs();
   return {
     props: { blogs: blogs },
-    revalidate: 10,
+    revalidate: 1,
   };
 }

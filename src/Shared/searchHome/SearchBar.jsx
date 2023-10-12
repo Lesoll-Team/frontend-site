@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import DropdownMore from "./dropdown/DropdownMore";
 import {
@@ -12,9 +12,9 @@ import { useRouter } from "next/router";
 export function SearchBar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const router = useRouter();
-  const [saleOptions, setSaleOptions] = useState("");
+  const [saleOptions, setSaleOptions] = useState(" ");
   const [fromPrice, setFromPrice] = useState(0.0);
   const [toPrice, setToPrice] = useState(0.0);
   const [fromArea, setFromArea] = useState(0);
@@ -28,46 +28,52 @@ export function SearchBar() {
   let [unitType, setUnitType] = useState("");
   let [propertyType, setPropertyType] = useState("");
   let [isFurnished, setFurnished] = useState(false);
+  let [selectoption, setSelectedOption] = useState("");
+
   // const page = useSelector((state) => state.Search.page);
-  
+  const InputKeywords = {
+    offer: saleOptions,
+    propType: propertyType,
+    unitType: unitType,
+    saleOption: paymentMethod,
+    bathRooms: countBathrooms,
+    rooms: countBedrooms,
+    // isFurnished,
+    finishingType: finishingOptions,
+    maxPrice: toPrice,
+    minPrice: fromPrice,
+    keywords,
+    minArea: fromArea,
+    maxArea: toArea,
+    MortgagePrice: propertyFinance,
+    // sort_by:sortProp,
+  };
   const handleSubmitSearch = (e) => {
+    e?.preventDefault();
+    const filteredKeywords = Object.fromEntries(
+      Object.entries(InputKeywords).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
+    const queryString = Object.keys(filteredKeywords)
+      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+      .join("&");
+    router.push(`/searching/${queryString}`);
+  };
+
+  const setForSaleButton = (e) => {
     e.preventDefault();
-    const InputKeywords = {
-      offer:saleOptions,
-      propType:propertyType,
-      unitType:unitType,
-      saleOption:paymentMethod,
-      bathRooms:countBathrooms,
-      rooms:countBedrooms,
-      // isFurnished,
-      finishingType:finishingOptions,
-      maxPrice:toPrice,
-      minPrice:fromPrice,
-      keywords,
-      minArea:fromArea,
-      maxArea:toArea,
-      MortgagePrice:propertyFinance,
-      // sort_by:sortProp,
-    };
-    dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
-    dispatch(setInputKeywords(InputKeywords));
-    router.push("/search");
-  }
+    setSaleOptions("For Sale");
+  };
 
-  
-const setForSaleButton=(e)=>{
-  e.preventDefault();
-  setSaleOptions("For Sale")
-}
-
-const setForRentButton=(e)=>{
-  e.preventDefault();
-  setSaleOptions("For Rent")
-}
-const setForAllButton=(e)=>{
-  e.preventDefault();
-  setSaleOptions("")
-}
+  const setForRentButton = (e) => {
+    e.preventDefault();
+    setSaleOptions("For Rent");
+  };
+  const setForAllButton = (e) => {
+    e.preventDefault();
+    setSaleOptions(" ");
+  };
   return (
     <form onSubmit={handleSubmitSearch}>
       <div dir="ltr" className=" w-full flex justify-center ">
@@ -75,7 +81,7 @@ const setForAllButton=(e)=>{
           <div className="">
             <button
               className={` ${
-                saleOptions == ""
+                saleOptions == " "
                   ? " bg-lightOrange text-white "
                   : "bg-white border-2 border-lightOrange text-lightOrange "
               } mx-1 font-bold py-[4px] px-3   rounded-t-medium`}
@@ -103,15 +109,18 @@ const setForAllButton=(e)=>{
             >
               {languageIs ? "للبيع" : "Buy"}
             </button>
-
           </div>
           <div className="flex items-center">
-            <div  className="w-full">
+            <div className="w-full">
               <Input
                 className="w-full select-none"
                 size="lg"
                 isClearable
-                placeholder={languageIs?" ...بحث بالمنطة او عنوان ":"Search by City or title..."}
+                placeholder={
+                  languageIs
+                    ? " ...بحث بالمنطة او عنوان "
+                    : "Search by City or title..."
+                }
                 onValueChange={setKeywords}
               />
             </div>
@@ -141,6 +150,9 @@ const setForAllButton=(e)=>{
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
+
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               classNames="max-w-[40px]"
             />
             <button
@@ -149,7 +161,6 @@ const setForAllButton=(e)=>{
             >
               {languageIs ? "بـحـث" : "Search"}
             </button>
-
           </div>
         </div>
       </div>

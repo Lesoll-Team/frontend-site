@@ -13,6 +13,7 @@ import {
 import ShowMapSearch from "@/Shared/map/ShowMapSearch";
 import { SearchBar } from "@/Shared/search/SearchBar";
 import { FaMapMarked } from "react-icons/fa";
+import { DotPulse } from "@uiball/loaders";
 // import { GrFormNext } from "react-icons/gr";
 
 function SearchResult() {
@@ -35,7 +36,7 @@ function SearchResult() {
   useEffect(() => {
     setSearchResult(searchResultSearch);
   }, [currentPage, searchResultSearch]);
-
+// console.log(searchResult);
   return (
     <>
       <div className="relative">
@@ -48,11 +49,10 @@ function SearchResult() {
         >
           <FaMapMarked />
         </button>
-        {searchResult?.code === 200 ? (
+        { searchResult?.searchResults?.length > 0 ? (
           <div className="grid grid-cols-3">
             <div className="flex flex-col lg:col-span-2  col-span-3  ">
               <SearchBar />
-
               <div className=" flex flex-wrap justify-center  gap-10">
                 {searchResult.searchResults.map((result) => (
                   <SearchCard key={result._id} propertyDetails={result} />
@@ -110,14 +110,23 @@ function SearchResult() {
               </div>
             )}
           </div>
-        ) : (
+        ) :!searchResult ? (
           <div>
-
             <SearchBar pageSaleOption={InputKeyword?.offer}/>
+            {/* <div className="w-full p-36 text-2xl text-default-500 text-center ">
+              Not found property
+            </div> */}
+            <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
+          <DotPulse size={50} speed={1.3} color="#309da0" />
+        </div>
+          </div>
+        ):(
+          <>
+          <SearchBar pageSaleOption={InputKeyword?.offer}/>
             <div className="w-full p-36 text-2xl text-default-500 text-center ">
               Not found property
             </div>
-          </div>
+            </>
         )}
       </div>
     </>

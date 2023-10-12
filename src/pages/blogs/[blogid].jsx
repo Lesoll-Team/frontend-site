@@ -1,17 +1,27 @@
 import BlogSinglePage from "@/components/blogs/blogSinglePage";
 import axios from "axios";
+import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
-  // console.log(singleBlog);
+  // console.log("singleBlog", singleBlog);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <div className="lg:container mx-auto ">
-      <div className="py-10">
-        <b className="text-4xl md:text-5xl lg:text-6xl text-lightGreen  ">{language ? "تفاصيل المقال" : "Blog Details"}</b>
-      </div>
+      <Head>
+        <title> {language?`تفاصيل المقال عن ${singleBlog?.getBlogs.title.ar}`:` Article details about ${singleBlog?.getBlogs.title.en}`}</title>
+        <meta
+          name="description"
+          content={language?`${singleBlog?.getBlogs.metaDescription.ar}`:`${singleBlog?.getBlogs.metaDescription.en}`}
+        />
+      </Head>
+      {/* <div className="py-10">
+        <b className="text-4xl md:text-5xl lg:text-6xl text-lightGreen  ">
+          {language ? "تفاصيل المقال" : "Blog Details"}
+        </b>
+      </div> */}
       <div className="md:mb-20 mb-10">
         <BlogSinglePage BlogData={singleBlog} />
       </div>
@@ -28,6 +38,6 @@ export async function getServerSideProps(context) {
   const data = await res.data;
   return {
     props: { singleBlog: data },
-    // revalidate:10,
+    // revalidate:1,
   };
 }

@@ -14,31 +14,58 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FaSortNumericDown } from "react-icons/fa";
 import DropdownSort from "./dropdown/DropdownSort";
+import { MdClear } from "react-icons/md";
 
-export function SearchBar({ pageSaleOption }) {
+export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
   let [sortPropChanged, setSortPropChanged] = useState(false);
 
-  let [saleOptions, setSaleOptions] = useState(pageSaleOption || " ");
+  let [saleOptions, setSaleOptions] = useState(
+    reversedFilteredKeywords?.offer || " "
+  );
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
 
-  let [fromPrice, setFromPrice] = useState(0.0);
-  let [toPrice, setToPrice] = useState(0.0);
+  let [fromPrice, setFromPrice] = useState(
+    reversedFilteredKeywords?.minPrice || 0.0
+  );
+  let [toPrice, setToPrice] = useState(
+    reversedFilteredKeywords?.maxPrice || 0.0
+  );
 
-  let [fromArea, setFromArea] = useState(0);
-  let [toArea, setToArea] = useState(0);
+  let [fromArea, setFromArea] = useState(
+    reversedFilteredKeywords?.minArea || 0
+  );
+  let [toArea, setToArea] = useState(reversedFilteredKeywords?.maxArea || 0);
   let [selectoption, setSelectedOption] = useState("");
-  let [countBedrooms, setCountBedrooms] = useState(0);
-  let [countBathrooms, setCountBathroom] = useState(0);
-  let [propertyFinance, setPropertyFinance] = useState("");
-  let [paymentMethod, setPaymentMethod] = useState("");
-  let [keywords, setKeywords] = useState("");
-  let [finishingOptions, setFinishingOptions] = useState("");
-  let [unitType, setUnitType] = useState("");
-  let [propertyType, setPropertyType] = useState("");
-  let [sortProp, setSortProp] = useState("");
+  let [countBedrooms, setCountBedrooms] = useState(
+    reversedFilteredKeywords?.rooms || 0
+  );
+  let [countBathrooms, setCountBathroom] = useState(
+    reversedFilteredKeywords?.bathRooms || 0
+  );
+  let [propertyFinance, setPropertyFinance] = useState(
+    reversedFilteredKeywords?.MortgagePrice || ""
+  );
+  let [paymentMethod, setPaymentMethod] = useState(
+    reversedFilteredKeywords?.saleOption || ""
+  );
+  let [keywords, setKeywords] = useState(
+    reversedFilteredKeywords?.keywords || ""
+  );
+  let [finishingOptions, setFinishingOptions] = useState(
+    reversedFilteredKeywords?.finishingType || ""
+  );
+  let [unitType, setUnitType] = useState(
+    reversedFilteredKeywords?.unitType || ""
+  );
+  let [propertyType, setPropertyType] = useState(
+    reversedFilteredKeywords?.propType || ""
+  );
+  let [sortProp, setSortProp] = useState(
+    reversedFilteredKeywords?.sort_by || ""
+  );
   let [isFurnished, setFurnished] = useState(null);
-
+  // setSaleOptions(reversedFilteredKeywords.offer||" ")
   const InputKeywords = {
     offer: saleOptions,
     propType: propertyType,
@@ -66,38 +93,38 @@ export function SearchBar({ pageSaleOption }) {
     const queryString = Object.keys(filteredKeywords)
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
-      router.push(`/searching/${queryString}`);
+    router.push(`/searching/${queryString}`);
 
-// const KeywordsBeforeReversed = router.query.keyword;
-//           if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
+    // const KeywordsBeforeReversed = router.query.keyword;
+    //           if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
 
-// console.log(KeywordsBeforeReversed);
-//             router.push(`/searching/${KeywordsBeforeReversed}`);
+    // console.log(KeywordsBeforeReversed);
+    //             router.push(`/searching/${KeywordsBeforeReversed}`);
 
-//           }else  
+    //           }else
 
-      // const KeywordsBeforeReversed = router.query.keyword; // Replace this with your actual queryString
-// console.log("queryString",queryString);
-// console.log("router.query.keyword",router.query.keyword);
-  //   if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
+    // const KeywordsBeforeReversed = router.query.keyword; // Replace this with your actual queryString
+    // console.log("queryString",queryString);
+    // console.log("router.query.keyword",router.query.keyword);
+    //   if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
 
-  //     // Reverse the mapping
-  //     const keyValuePairs = KeywordsBeforeReversed
-  //       .split("&")
-  //       .map((pair) => pair.split("="));
+    //     // Reverse the mapping
+    //     const keyValuePairs = KeywordsBeforeReversed
+    //       .split("&")
+    //       .map((pair) => pair.split("="));
 
-  //     // Reverse the filtering
-  //     const reversedFilteredKeywords = Object.fromEntries(
-  //       keyValuePairs.filter(
-  //         ([_, value]) => value != null && value !== "" && value !== "0"
-  //       )
-  //     );
-  // InputKeywords = reversedFilteredKeywords
-  //     console.log(InputKeywords);
-  //     console.log("reversed",reversedFilteredKeywords)
-  //   // router.push(`/searching/${reversedFilteredKeywords}`);
+    //     // Reverse the filtering
+    //     const reversedFilteredKeywords = Object.fromEntries(
+    //       keyValuePairs.filter(
+    //         ([_, value]) => value != null && value !== "" && value !== "0"
+    //       )
+    //     );
+    // InputKeywords = reversedFilteredKeywords
+    //     console.log(InputKeywords);
+    //     console.log("reversed",reversedFilteredKeywords)
+    //   // router.push(`/searching/${reversedFilteredKeywords}`);
 
-  //   }
+    //   }
 
     // router.push(`/searching/${queryString}`);
   };
@@ -117,7 +144,7 @@ export function SearchBar({ pageSaleOption }) {
     setUnitType("");
     setPropertyType("");
     setSortProp("");
-    setSelectedOption("")
+    setSelectedOption("");
   };
   const setForSaleButton = (e) => {
     e.preventDefault();
@@ -152,6 +179,8 @@ export function SearchBar({ pageSaleOption }) {
     setSortProp(value);
     setSortPropChanged(true);
   };
+  console.log(pageSaleOption);
+
   return (
     <form onSubmit={handleSubmitSearch} className="  h-72 grid  ">
       <div dir="ltr" className=" w-full flex justify-center  mt-5 mb-14  ">
@@ -199,32 +228,33 @@ export function SearchBar({ pageSaleOption }) {
                   ? " ...بحث بالمنطة او عنوان "
                   : "Search by City or title..."
               }
+              value={keywords}
               onValueChange={setKeywords}
             />
           </div>
           <div className="flex items-end">
-          <div dir={languageIs?"rtl":"ltr"} className="flex">
-            <Dropdown
-              classNames=" w-[auto]  sm:block hidden"
-              ifSaleOptions={saleOptions}
-              value={propertyType}
-              options={propertyTypeData}
-              moreOptions={saleOptions}
-              setValue={setPropertyType}
-              selectoption={selectoption}
-              setSelectedOption={setSelectedOption}
-              valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
-            />
-            <DropdownUintType
-              classNames=" w-[auto]  sm:block hidden"
-              value={unitType}
-              options={unitTypeData}
-              propertyType={propertyType}
-              setValue={setUnitType}
-              // selectoption={selectoption}
-              // setSelectedOption={setSelectedOption}
-              valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
-            />
+            <div dir={languageIs ? "rtl" : "ltr"} className="flex">
+              <Dropdown
+                classNames=" w-[auto]  sm:block hidden"
+                ifSaleOptions={saleOptions}
+                value={propertyType}
+                options={propertyTypeData}
+                moreOptions={saleOptions}
+                setValue={setPropertyType}
+                selectoption={selectoption}
+                setSelectedOption={setSelectedOption}
+                valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
+              />
+              <DropdownUintType
+                classNames=" w-[auto]  sm:block hidden"
+                value={unitType}
+                options={unitTypeData}
+                propertyType={propertyType}
+                setValue={setUnitType}
+                // selectoption={selectoption}
+                // setSelectedOption={setSelectedOption}
+                valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
+              />
             </div>
             <DropdownMore
               setPaymentMethod={setPaymentMethod}
@@ -251,7 +281,6 @@ export function SearchBar({ pageSaleOption }) {
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
-
               selectoption={selectoption}
               setSelectedOption={setSelectedOption}
               classNames="max-w-[40px]"
@@ -264,15 +293,34 @@ export function SearchBar({ pageSaleOption }) {
                 <LuSearch className="lg:text-3xl text-xl text-white" />
               </button>
               <button
-                // type="submit"
                 onClick={handelClearFilter}
-                className="border-3 border-lightOrange text-lightOrange font-semibold  p-1 rounded-lg   select-none"
+                className=" bg-lightOrange rounded-xl p-3 flex  items-center"
               >
-                {languageIs ? "إزالة" : "clear"}
+                <MdClear className="lg:text-3xl text-xl text-white" />
               </button>
             </div>
           </div>
         </div>
+      </div>
+
+      <div
+        className={` ${
+          pageSaleOption == undefined ? "" : "hidden"
+        } flex items-center gap-x-2 w-10/12 m-auto `}
+      >
+        <h6 className="text-default-500 font-medium">
+          {languageIs
+            ? `${reversedFilteredKeywords?.unitType || "عقارات"} ${
+                reversedFilteredKeywords?.offer == " "
+                  ? "للبيع والإيجار"
+                  : reversedFilteredKeywords?.offer || "للبيع والإيجار"
+              } فى مصر `
+            : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
+                reversedFilteredKeywords?.offer == " "
+                  ? "For Rent Or Buy"
+                  : reversedFilteredKeywords?.offer || "for rent or buy"
+              } In Egypt`}
+        </h6>
       </div>
       <div className="  flex items-center gap-x-2 w-10/12 m-auto ">
         <h6 className="text-default-500 font-medium">

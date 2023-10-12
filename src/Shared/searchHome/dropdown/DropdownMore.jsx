@@ -40,7 +40,7 @@ const DropdownMore = ({
   setFromArea,
   fromArea,
   setToArea,
-  toArea,
+  toArea,setSelectedOption,selectoption,
 }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -93,6 +93,8 @@ const DropdownMore = ({
               valueDefault={languageIs ? "نوع العقار" : "Property Type"}
               options={propertyTypeData}
               setValue={setPropertyType}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
             />
 
             <DropdownUintType
@@ -136,9 +138,13 @@ const DropdownMore = ({
               value={paymentMethod}
               setValue={setPaymentMethod}
               options={paymentMethodData}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
             />
             <Dropdown
               classNames="my-1"
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               value={finishingOptions}
               setValue={setFinishingOptions}
               options={finishingOptionsData}
@@ -158,6 +164,8 @@ const DropdownMore = ({
                 }`}
                 options={percentageProperty}
                 setValue={setPropertyFinance}
+                selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               />
             {/* </div> */}
             {/* <div className="flex items-center justify-center">
