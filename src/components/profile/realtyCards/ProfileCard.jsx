@@ -49,7 +49,10 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
       {/* card img */}
 
       {type === "active" ? (
-        <Link href={`/property-details/${propertyDetails.slug}`}>
+        <Link
+          title={propertyDetails?.title}
+          href={`/property-details/${propertyDetails.slug}`}
+        >
           <Image
             isZoomed="true"
             alt="Realty"
@@ -87,7 +90,10 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
         </div>
         <div className=" text-lightOrange   px-5 flex justify-between  font-bold">
           {type === "active" ? (
-            <Link href={`/property-details/${propertyDetails.slug}`}>
+            <Link
+              title={propertyDetails?.title}
+              href={`/property-details/${propertyDetails.slug}`}
+            >
               <p>
                 {propertyDetails?.title.substring(0, 30)}
                 {propertyDetails?.title.length > 30 && "..."}
@@ -150,7 +156,10 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
               <AiFillDelete className="text-xl  md:text-2xl text-red-600 cursor-pointer" />
             </ConfirmModal>
 
-            <Link href={`/editproperty/${propertyDetails.slug}`}>
+            <Link
+              title={language ? "تعديل العقار" : "Edit Property"}
+              href={`/editproperty/${propertyDetails.slug}`}
+            >
               <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
             </Link>
           </div>

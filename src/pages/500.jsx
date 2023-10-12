@@ -19,6 +19,7 @@ const Custom505 = () => {
           {language ? "حدث خطأ فى السيرفر" : "Server-side error occurred"}
         </h2>
         <Link
+          title={language ? "العودة الى الصفحة الرئيسية" : "Back to home page"}
           href={"/"}
           className="text-center font-semibold text-lightGreen underline mt-5 "
         >

@@ -22,6 +22,9 @@ const RecentPropertyForView = ({ propertyOfView }) => {
         </div>
         <div className="flex justify-center mt-5">
           <Link
+            title={
+              language ? "العقارات الأكثر مشاهدة" : "Most viewed properties"
+            }
             className="text-lightGreen font-semibold text-xl border-lightGreen border-2 py-2 px-4 rounded-lg hover:bg-lightGreen hover:text-white duration-300"
             href={"/most-view/1"}
           >

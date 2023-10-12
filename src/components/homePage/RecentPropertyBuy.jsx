@@ -44,6 +44,9 @@ const RecentPropertyBuy = ({ propertiesBuy }) => {
         </div>
         <div className="flex justify-center mt-5">
           <Link
+            title={
+              language ? "أحدث العقارات للبيع" : "Recent Properties For Buy"
+            }
             className="text-lightGreen font-semibold text-xl border-lightGreen border-2 py-2 px-4 rounded-lg hover:bg-lightGreen hover:text-white duration-300"
             href={"/buy/1"}
           >

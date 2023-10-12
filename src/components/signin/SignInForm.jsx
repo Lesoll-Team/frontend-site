@@ -152,7 +152,11 @@ const SignInForm = () => {
             />
           )}
         </div>
-        <Link href={"/forgetpassword"} className="text-blue-500 text-xs">
+        <Link
+          title={language ? "نسيت كلمة المرور؟" : "Reset Password?"}
+          href={"/forgetpassword"}
+          className="text-blue-500 text-xs"
+        >
           {language ? "نسيت كلمة المرور؟" : "Reset Password?"}
         </Link>
         <button
@@ -172,7 +176,9 @@ const SignInForm = () => {
       </form>
       <div className="flex items-center mt-4 px-14 ">
         <hr className=" border-[1px] w-full border-default-300" />
-        <span className="px-2 font-medium text-default-600">{language?"او":"or"}</span>
+        <span className="px-2 font-medium text-default-600">
+          {language ? "او" : "or"}
+        </span>
         <hr className=" border-[1px] w-full border-default-300" />
       </div>
       <div className="flex items-center px-4 justify-center">

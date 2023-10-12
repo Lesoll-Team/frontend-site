@@ -61,9 +61,13 @@ const FavoriteAds = () => {
         fav &&
         fav.length === 0 && (
           <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
-            <Link className="flex flex-col items-center" href={"/"}>
+            <Link
+              title={language ? "لا يوجد عقارات " : "No Property"}
+              className="flex flex-col items-center"
+              href={"/"}
+            >
               <h3 className="font-semibold text-3xl">
-                {language ? "لا يوجد عقارات " : "Add Property"}
+                {language ? "لا يوجد عقارات " : "No Property"}
               </h3>
             </Link>
           </div>

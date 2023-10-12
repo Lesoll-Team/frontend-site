@@ -44,6 +44,7 @@ const SignUp = () => {
             <p className="">
               {language ? "تمتلك حساب بالفعل؟" : "Alraedy have an account?"}
               <Link
+                title={language ? "سجل الدخول" : "Sign in"}
                 className="text-lightOrange mx-1 font-semibold"
                 href={"/signin"}
               >

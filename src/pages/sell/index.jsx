@@ -32,12 +32,14 @@ const index = () => {
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <Link
+                title={language ? "سجل الدخول" : "Sign In"}
                 className="text-xl bg-lightOrange px-5 border-[3px] items-center flex justify-center border-lightOrange text-white font-medium py-1 rounded-full w-[180px] text-center hover:text-lightOrange hover:bg-white"
                 href={"/signin"}
               >
                 {language ? "سجل الدخول" : "Sign In"}
               </Link>
               <Link
+                title={language ? "سجل الان" : "Sign Up"}
                 className="text-xl border-2 items-center flex justify-center hover:text-white hover:bg-lightOrange border-lightOrange px-5 text-lightOrange  font-medium py-1 rounded-full w-[180px] text-center"
                 href={"/signup"}
               >

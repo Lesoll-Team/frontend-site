@@ -38,6 +38,7 @@ const UserSettings = () => {
                 {language ? "اعدادات الحساب" : "Account Settings"}
               </h2>
               <Link
+                title={language ? "الصفحة الشخصية" : "View Profile"}
                 href={"/profile"}
                 className=" relative top-1 text-sm w-36 sm:w-32 text-center md:text-md px-2 sm:px-3 py-[5px] text-lightGreen border-2 font-semibold border-lightGreen rounded-md flex justify-center items-center gap-1"
               >

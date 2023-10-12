@@ -12,6 +12,7 @@ export default function LinksNavbar() {
   return (
     <div className="flex items-center gap-1">
       <Link
+        title={language ? " الرئيسية" : "Home"}
         className=" flex p-1   px-3   text-md rounded-3xl gap-1
                          duration-300 text-darkGray hover:bg-lightGreen
                           hover:text-white  active:scale-95 items-start "
@@ -22,6 +23,7 @@ export default function LinksNavbar() {
       </Link>
 
       <Link
+        title={language ? "للإيجار" : "Rent"}
         className=" flex p-1  px-3   text-md rounded-3xl gap-1
                          duration-300 text-darkGray hover:bg-lightGreen
                           hover:text-white  active:scale-95 items-start "
@@ -33,6 +35,7 @@ export default function LinksNavbar() {
       </Link>
 
       <Link
+        title={language ? "للبيع" : "Buy"}
         className=" flex p-1  px-3   text-md rounded-3xl gap-1
                          duration-300 text-darkGray hover:bg-lightGreen
                           hover:text-white  active:scale-95 items-start "
@@ -44,6 +47,7 @@ export default function LinksNavbar() {
       </Link>
 
       <Link
+        title={language ? "إضافة عقار" : "Sell"}
         className=" flex p-1  px-3   text-md rounded-3xl gap-1
                          duration-300 text-darkGray hover:bg-lightGreen
                           hover:text-white  active:scale-95 items-start "

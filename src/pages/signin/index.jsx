@@ -11,8 +11,8 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const SignIn = () => {
   // const {data:session}=useSession()
-// console.log("data",data);
-// console.log("S",session);
+  // console.log("data",data);
+  // console.log("S",session);
   const router = useRouter();
   const isLoading = useSelector((state) => state.Auth.isLoding);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -47,6 +47,7 @@ const SignIn = () => {
             <p className="">
               {language ? "لا تملك حساب؟" : "Don't have an account?"}
               <Link
+                title={language ? "سجل الأن" : "Sign Up"}
                 className="text-lightOrange mx-1 font-semibold"
                 href={"/signup"}
               >

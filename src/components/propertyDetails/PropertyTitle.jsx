@@ -60,11 +60,24 @@ function PropertyTitle({ singleTitle }) {
         {/**sm:flex  sm:justify-between p-5 */}
         <div className="flex sm:justify-start  justify-center py-5 sm:mx-5 mx-0">
           <span className="text-[#636363] md:text-sm text-xs  flex items-center	">
-            <Link href="/" className="text-blue-400 ">
+            <Link
+              title={language ? "الرئيسية" : "home"}
+              href="/"
+              className="text-blue-400 "
+            >
               {language ? "الرئيسية" : "home"}
             </Link>
             <MdKeyboardArrowRight />
             <Link
+              title={
+                singleTitle.offer === "For Sale"
+                  ? language
+                    ? "للبيع"
+                    : "Sale"
+                  : language
+                  ? "للإيجار"
+                  : "Rent"
+              }
               href={singleTitle.offer === "For Sale" ? "/buy/1" : "/rent/1"}
               className="text-blue-400"
             >

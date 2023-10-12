@@ -69,6 +69,7 @@ export default function Contact() {
               <Link
                 className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
                 href={"/"}
+                title={language ? "العودة الى الرئيسية" : "Back to home"}
               >
                 <AiOutlineArrowLeft />
                 {language ? "العودة الى الرئيسية" : "Back to home"}
@@ -77,6 +78,7 @@ export default function Contact() {
                 className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
                 href={"/contact"}
                 onClick={handleNewMassage}
+                title={language ? "إرسال رد أخر" : "Send another reply"}
               >
                 {language ? "إرسال رد أخر" : "Send another reply"}
               </Link>

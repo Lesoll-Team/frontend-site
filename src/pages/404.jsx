@@ -19,6 +19,7 @@ const Custom404 = () => {
           {language ? "صفحة غير موجودة" : "Page not Found"}
         </h3>
         <Link
+          title={language ? "العودة الى الصفحة الرئيسية" : "Back to home page"}
           href={"/"}
           className="text-center font-semibold text-lightGreen underline mt-5 "
         >

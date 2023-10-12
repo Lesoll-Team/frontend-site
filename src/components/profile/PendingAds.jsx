@@ -58,7 +58,11 @@ const PendingAds = () => {
         </div>
       ) : (
         <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
-          <Link className="flex flex-col items-center" href={"/sell"}>
+          <Link
+            title={language ? "أضف عقار" : "Add Property"}
+            className="flex flex-col items-center"
+            href={"/sell"}
+          >
             <BsHouseAddFill className="text-darkGreen text-7xl" />
             <h3 className="font-semibold text-3xl">
               {language ? "أضف عقار" : "Add Property"}

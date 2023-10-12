@@ -6,10 +6,12 @@ import {
   AiFillFacebook,
   AiFillInstagram,
   AiFillTwitterCircle,
+  AiOutlineMail,
   AiOutlineWhatsApp,
 } from "react-icons/ai";
 import { BsFacebook, BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { ImLocation2 } from "react-icons/im";
 const Footer = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -46,6 +48,7 @@ const Footer = () => {
                 target="_blank"
                 href="https://www.facebook.com/LesollRealestate"
                 className="text-white"
+                title="Facebook"
               >
                 <AiFillFacebook className="text-darkGreen text-3xl md:text-4xl" />
               </Link>
@@ -55,6 +58,7 @@ const Footer = () => {
                 target="_blank"
                 href="https://www.instagram.com/lesollrealestate/"
                 className="text-white"
+                title="Instagram"
               >
                 <AiFillInstagram className="text-darkGreen text-3xl md:text-4xl" />
 
@@ -66,6 +70,7 @@ const Footer = () => {
                 target="_blank"
                 href="https://wa.me/+201032362898"
                 className="text-white"
+                title="WhatsApp"
               >
                 <AiOutlineWhatsApp className="text-darkGreen text-3xl md:text-4xl" />
               </Link>
@@ -75,6 +80,7 @@ const Footer = () => {
                 target="_blank"
                 href="https://twitter.com/LesollRealstate"
                 className="text-white"
+                title="Twitter"
               >
                 <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-4xl" />
               </Link>
@@ -86,30 +92,54 @@ const Footer = () => {
             {language ? "روابط مساعدة" : "Useful Links"}
           </p>
 
-          <Link href="/about" className="  text-darkGray">
+          <Link
+            title={language ? "من نحن" : "About Us"}
+            href="/about"
+            className="  text-darkGray"
+          >
             {language ? "من نحن" : "About Us"}
           </Link>
 
-          <Link href="/blogs" className=" text-darkGray">
+          <Link
+            title={language ? "المقالات" : "Blogs"}
+            href="/blogs"
+            className=" text-darkGray"
+          >
             {language ? "المقالات" : "Blogs"}
           </Link>
 
-          <Link href="/contact" className=" text-darkGray">
+          <Link
+            title={language ? "تواصل معنا" : "Contact"}
+            href="/contact"
+            className=" text-darkGray"
+          >
             {language ? "تواصل معنا" : "Contact"}
           </Link>
         </div>
         <div className="space-y-5 flex flex-col">
           <p className="text-1xl font-bold">{language ? "مساعدة؟" : "Help?"}</p>
 
-          <Link className="  text-darkGray" href="/faq">
+          <Link
+            title={language ? "الأسئلة الشائعة" : "FAQ"}
+            className="  text-darkGray"
+            href="/faq"
+          >
             {language ? "الأسئلة الشائعة" : "FAQ"}
           </Link>
 
-          <Link className="  text-darkGray" href="/termsofservice">
+          <Link
+            title={language ? "الشروط والأحكام" : "Terms & Conditions"}
+            className="  text-darkGray"
+            href="/termsofservice"
+          >
             {language ? "الشروط والأحكام" : "Terms & Conditions"}
           </Link>
 
-          <Link className="  text-darkGray" href="/privacypolicy">
+          <Link
+            title={language ? "سياسة الخصوصية" : "Privacy Policy"}
+            className="  text-darkGray"
+            href="/privacypolicy"
+          >
             {language ? "سياسة الخصوصية" : "Privacy Policy"}
           </Link>
         </div>
@@ -121,13 +151,24 @@ const Footer = () => {
           {/* <Link href="/about">Address Cairo, Heliopolis</Link> */}
           <address className="not-italic	">
             <Link
+              title="Cairo, Naser City"
+              className="flex gap-1 items-center"
               href="https://maps.app.goo.gl/P71VgHcHPUaiVo2FA"
               target="_blank"
             >
-              Address: Cairo, Naser City
+              <ImLocation2 className="text-lightGreen text-lg" /> Cairo, Naser
+              City
             </Link>
           </address>
-          <Link href="mailto:info@lesoll.com">Email:info@lesoll.com</Link>
+          <Link
+            title="info@lesoll.com"
+            href="mailto:info@lesoll.com"
+            className="flex gap-1 items-center"
+          >
+            {" "}
+            <AiOutlineMail className="text-lightGreen text-lg" />
+            info@lesoll.com
+          </Link>
         </div>
       </div>
       {/* policy & copy Rights */}
@@ -135,14 +176,22 @@ const Footer = () => {
         <div className="container mx-auto sm:flex-row flex-col-reverse flex justify-between items-center ">
           <p dir="ltr">
             © {new Date().getFullYear()},{` `}
-            <Link href="https://lesoll.com">Lesoll.com</Link>
+            <Link title="lesoll.com" href="https://lesoll.com">
+              Lesoll.com
+            </Link>
           </p>
           <div className="">
-            <Link href="/termsofservice">
+            <Link
+              href="/termsofservice"
+              title={language ? "الشروط والاحكام" : "Terms & conditions"}
+            >
               {language ? "الشروط والاحكام" : "Terms & conditions"}
             </Link>
             <span className="px-2">|</span>
-            <Link href="/privacypolicy">
+            <Link
+              href="/privacypolicy"
+              title={language ? "سياسة الخصوصية" : "Privacy Policy"}
+            >
               {language ? "سياسة الخصوصية" : "Privacy Policy"}
             </Link>
           </div>

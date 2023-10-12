@@ -18,12 +18,14 @@ const Accepted = () => {
         <Link
           className="text-xl bg-lightGreen px-5 border-[3px] items-center flex justify-center border-lightGreen text-white font-medium py-1 rounded-lg w-[180px] text-center"
           href={"/"}
+          title={language ? "الرئيسية" : "Home"}
         >
           الرئيسية
         </Link>
         <Link
           className="text-xl border-2 items-center flex justify-center hover:text-white hover:bg-lightGreen border-lightGreen px-5 text-lightGreen  font-medium py-1 rounded-lg w-[180px] text-center"
           href={"/profile"}
+          title={language ? "الصفحة الشخصية" : "Profile"}
         >
           الصفحة الشخصية
         </Link>

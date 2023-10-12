@@ -136,7 +136,7 @@ export default function Navbar() {
                   />
                 )}
               </ul>
-              <ul className="mx-1">{languageIs ?`English`  :  `عربى`}</ul>
+              <ul className="mx-1">{languageIs ? `English` : `عربى`}</ul>
             </button>
           </li>
 
@@ -160,6 +160,7 @@ export default function Navbar() {
           <li className={`  ${isAuth ? "hidden" : ``} `}>
             <button className="">
               <Link
+                title={isAuth ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
                 className="  py-1 px-1 sm:px-5 text-sm sm:text-md font-semibold  border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"

@@ -133,7 +133,11 @@ const ForgetPassword = () => {
           )}
 
           <div className="flex justify-center mt-4">
-            <Link href={"/signin"} className="">
+            <Link
+              title={language ? `تسجيل الدخول` : `sign in`}
+              href={"/signin"}
+              className=""
+            >
               <p className="text-lightGreen font-bold">
                 {language ? `تسجيل الدخول` : `sign in`}
               </p>

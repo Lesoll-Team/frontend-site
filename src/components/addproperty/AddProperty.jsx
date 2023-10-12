@@ -319,6 +319,7 @@ const AddProperty = () => {
                 <Link
                   href={"/signin"}
                   className="text-center bg-lightOrange py-2 text-white font-semibold rounded-xl"
+                  title={language ? "سجل الدخول" : "Sign In"}
                 >
                   {language ? "سجل الدخول" : "Sign In"}
                 </Link>

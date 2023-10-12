@@ -56,7 +56,10 @@ const FavCard = ({ propDetails, onRemove }) => {
         </div>
       </div>
       {/* card img */}
-      <Link href={`/property-details/${propDetails?.slug}`}>
+      <Link
+        title={propDetails?.title}
+        href={`/property-details/${propDetails?.slug}`}
+      >
         <Image
           isZoomed="true"
           radius="none"
@@ -82,7 +85,10 @@ const FavCard = ({ propDetails, onRemove }) => {
               : "For Rent"}
           </p>
         </div>
-        <Link href={`/property-details/${propDetails?.slug}`}>
+        <Link
+          title={propDetails?.title}
+          href={`/property-details/${propDetails?.slug}`}
+        >
           <div className="-mt-10 hover:underline text-lightOrange rounded-b-[40px] h-20 pt-12 px-6 flex justify-between mb-1 font-bold">
             {propDetails?.title.substring(0, 30)}
             {propDetails?.title.length > 30 && "..."}

@@ -301,6 +301,7 @@ function ConfirmAppointment({ userAppointment }) {
       <div className="flex justify-between flex-row-reverse items-center">
         {userInfo && userInfo.isAdmin && (
           <Link
+            title={language ? " تعديل العقار" : "Edit Property"}
             href={`/editproperty/${userAppointment.slug}`}
             className="text-lightGreen font-bold text-lg hover:text-lightOrange duration-200"
           >

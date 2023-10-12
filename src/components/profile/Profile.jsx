@@ -104,6 +104,7 @@ const Profile = () => {
                 </div>
               </div>
               <Link
+                title={language ? "الإعدادات" : "Edit Profile"}
                 href={"/profile/settings"}
                 className=" mt-3 right-4 top-[83px] font-semibold text-sm w-36 sm:w-32 text-center md:text-md px-2 sm:px-3 py-[5px] text-lightGreen border-2 border-lightGreen rounded-md flex justify-center items-center gap-1"
               >

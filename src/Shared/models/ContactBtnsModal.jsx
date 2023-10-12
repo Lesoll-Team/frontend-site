@@ -44,12 +44,14 @@ export default function ContactBtnsModal({
                 {signup && (
                   <div className="flex p-3 gap-5 justify-center">
                     <Link
+                      title={language ? "سجل الدخول" : "Sign in"}
                       href={"/signin"}
                       className="border-2 px-3 py-1 border-lightOrange rounded-full bg-white text-lightOrange hover:bg-lightOrange hover:text-white duration-150 font-semibold "
                     >
                       {language ? "سجل الدخول" : "Sign In"}
                     </Link>
                     <Link
+                      title={language ? "اشترك الأن" : "Sign Up"}
                       href={"/signup"}
                       className="border-2 px-3 py-1 border-lightOrange rounded-full bg-lightOrange text-white hover:bg-white hover:text-lightOrange duration-150 font-semibold "
                     >
@@ -60,6 +62,7 @@ export default function ContactBtnsModal({
                 {phone && (
                   <div className="flex p-3 gap-5 justify-center">
                     <Link
+                      title={language ? "الإعدادات" : "settings"}
                       href={"/profile/settings"}
                       className="border-2 px-3 py-1 border-lightOrange rounded-full bg-white text-lightOrange hover:bg-lightOrange hover:text-white duration-150 font-semibold "
                     >
