@@ -83,7 +83,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
           <Image
             alt="Realty"
             radius="none"
-            src={propertyDetails?.thumbnail}
+            src={propertyDetails?.thumbnail||propertyDetails?.album[0].image}
             loading="lazy"
             className=" w-[310px] h-[225px] rounded-none overflow-hidden object-cover"
           />
