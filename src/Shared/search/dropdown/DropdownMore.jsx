@@ -19,13 +19,13 @@ const DropdownMore = ({
   classNames,
   propertyType,
   paymentMethod,
-  isFurnished,
+  // isFurnished,
   setPaymentMethod,
   setFinishingOptions,
   setUnitType,
   setPropertyType,
   finishingOptions,
-  setFurnished,
+  // setFurnished,
   unitType,
   countBedrooms,
   countBathrooms,
@@ -40,7 +40,8 @@ const DropdownMore = ({
   setFromArea,
   fromArea,
   setToArea,
-  toArea,
+  toArea
+  ,setSelectedOption,selectoption,
 }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -91,6 +92,8 @@ const DropdownMore = ({
               valueDefault={languageIs ? "نوع العقار" : "Property Type"}
               options={propertyTypeData}
               setValue={setPropertyType}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
             />
 
             <DropdownUintType
@@ -134,6 +137,8 @@ const DropdownMore = ({
               value={paymentMethod}
               setValue={setPaymentMethod}
               options={paymentMethodData}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
             />
             <Dropdown
               classNames="my-1"
@@ -141,6 +146,8 @@ const DropdownMore = ({
               setValue={setFinishingOptions}
               options={finishingOptionsData}
               valueDefault={`${languageIs ? "التشطيب" : "Finishing"}`}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
             />
             {/* <div className="lg:col-span-2 col-span-1 grid lg:grid-cols-2  grid-cols-1"> */}
             {/* <div
@@ -156,6 +163,8 @@ const DropdownMore = ({
                 }`}
                 options={percentageProperty}
                 setValue={setPropertyFinance}
+                selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               />
             {/* </div> */}
             {/* <div className="flex items-center justify-center">

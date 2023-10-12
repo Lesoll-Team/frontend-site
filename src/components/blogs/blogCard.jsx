@@ -24,7 +24,7 @@ function BlogCard({blogData}) {
                 />
               </CardBody>
               <CardFooter className="text-small justify-center">
-              <div>         <b className='text-lightGreen text-xl'>{language?item.title.ar:item.title.en}</b>
+              <div>         <h2 className='text-lightGreen text-xl'>{language?item.title.ar:item.title.en}</h2>
               </div>
               </CardFooter>
             </Card>

@@ -14,17 +14,17 @@ function BlogSinglePage({BlogData}) {
                 
                 <CardBody className=' '>
                 
-                {/* <Image
+                <Image
                   radius="lg"
                   width="100%"
                   alt={"item.title"}
                   className="w-full h-[450px] object-cover"
                   src={BlogData.getBlogs.BlogImage}
       
-                /> */}
+                />
                 </CardBody>
                 <CardHeader className=''>
-                  {/* <h2 className='text-3xl md:text-4xl lg:text-5xl text-lightGreen w-full  text-center rounded-2xl'>{language?BlogData.getBlogs.title.ar:BlogData.getBlogs.title.en}</h2> */}
+                  <h2 className='text-3xl md:text-4xl lg:text-5xl text-lightGreen w-full  text-center rounded-2xl'>{language?BlogData.getBlogs.title.ar:BlogData.getBlogs.title.en}</h2>
                 </CardHeader>
                 
             

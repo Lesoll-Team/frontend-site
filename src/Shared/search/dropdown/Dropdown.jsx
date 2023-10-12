@@ -2,7 +2,7 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
-const Dropdown = ({ classNames, setValue, options ,valueDefault,moreOptions}) => {
+const Dropdown = ({ classNames, setValue, options,value ,setSelectedOption,valueDefault,moreOptions}) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -27,7 +27,7 @@ const Dropdown = ({ classNames, setValue, options ,valueDefault,moreOptions}) =>
   const handleMenuOpen = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-  const [selectoption, setSelectedOption] = useState();
+
 
   const setSelectedOptionBasedOnLanguage = useCallback(() => {
     setSelectedOption(language ? options.ar.name : options.en.name);
@@ -43,7 +43,7 @@ const Dropdown = ({ classNames, setValue, options ,valueDefault,moreOptions}) =>
         onClick={handleMenuOpen}
         className="font-semibold text-darkGreen text-md flex items-center justify-between
            focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap">
-        {selectoption|| valueDefault}
+        {value|| valueDefault}
         <div>
           <AiFillCaretDown
             className={`text-darkGreen duration-150 ${

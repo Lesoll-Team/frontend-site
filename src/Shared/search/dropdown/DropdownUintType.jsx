@@ -6,6 +6,7 @@ const DropdownUintType = ({
   classNames,
   setValue,
   options,
+  value,
   valueDefault,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -60,9 +61,8 @@ const DropdownUintType = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         className="select-none w-full font-semibold text-darkGreen text-md flex items-center justify-between
-          focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap"
-      >
-        {selectoption || valueDefault}
+          focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap">
+        {value || valueDefault}
         <div>
           <AiFillCaretDown
             className={`text-darkGreen duration-150 ${

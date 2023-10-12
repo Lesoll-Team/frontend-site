@@ -2,10 +2,9 @@ import axios from "axios";
 
 export async function foundKeyword(keyword, page) {
   try {
+    // console.log("keyword:::",keyword);
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/search/get?${keyword}&limit=30&page=${
-        page || 1
-      }`
+      `${process.env.NEXT_PUBLIC_API_URL}/search/get?${keyword}&limit=6&page=${page || 1}`
     );
     return response.data;
   } catch (error) {
@@ -37,6 +36,10 @@ export async function getPropertyFromSearch(InputKeywords, page) {
     throw error.response.data;
   }
 }
+
+
+
+
 
 // export async function getPropertyFromSearch(InputKeywords, page) {
 //   try {

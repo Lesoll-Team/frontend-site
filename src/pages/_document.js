@@ -11,11 +11,25 @@ export default function Document() {
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-T876WFM');
           `}} />
+          
         </Head>
       <body>
-      <noscript dangerouslySetInnerHTML={{ __html: `
-            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T876WFM" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-          `}} />
+      <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              function loadGTM() {
+                var gtmIframe = document.createElement('iframe');
+                gtmIframe.src = 'https://www.googletagmanager.com/ns.html?id=GTM-T876WFM';
+                gtmIframe.height = 0;
+                gtmIframe.width = 0;
+                gtmIframe.style.display = 'none';
+                gtmIframe.style.visibility = 'hidden';
+                document.body.appendChild(gtmIframe);
+              }
+              window.addEventListener('load', loadGTM);
+            `,
+          }}
+        />
         <Main />
         <NextScript />
       </body>

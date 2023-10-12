@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import { Button, Input } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { Input } from "@nextui-org/react";
 import {
-  saleOptionsData,
+  // saleOptionsData,
   propertyTypeData,
   unitTypeData,
   sortedData,
@@ -9,34 +9,25 @@ import {
 import { LuSearch } from "react-icons/lu";
 import Dropdown from "./dropdown/Dropdown";
 import DropdownMore from "./dropdown/DropdownMore";
-
-import {
-  propertyFromSearch,
-  setInputKeywords,
-} from "../../redux-store/features/searchSlice";
 import DropdownUintType from "./dropdown/DropdownUintType";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FaSortNumericDown } from "react-icons/fa";
 import DropdownSort from "./dropdown/DropdownSort";
 
 export function SearchBar({ pageSaleOption }) {
-  const dispatch = useDispatch();
   const router = useRouter();
-  const InputKeyword = useSelector((state) => state.Search.setInputKeyword);
-  const [sortPropChanged, setSortPropChanged] = useState(false);
+  let [sortPropChanged, setSortPropChanged] = useState(false);
 
-  const [saleOptions, setSaleOptions] = useState(
-    pageSaleOption || InputKeyword?.offer
-  );
-  const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  // console.log("ss",saleOptions);
-  const [fromPrice, setFromPrice] = useState(0.0);
-  const [toPrice, setToPrice] = useState(0.0);
+  let [saleOptions, setSaleOptions] = useState(pageSaleOption || " ");
+  let languageIs = useSelector((state) => state.GlobalState.languageIs);
 
-  const [fromArea, setFromArea] = useState(0);
-  const [toArea, setToArea] = useState(0);
+  let [fromPrice, setFromPrice] = useState(0.0);
+  let [toPrice, setToPrice] = useState(0.0);
 
+  let [fromArea, setFromArea] = useState(0);
+  let [toArea, setToArea] = useState(0);
+  let [selectoption, setSelectedOption] = useState("");
   let [countBedrooms, setCountBedrooms] = useState(0);
   let [countBathrooms, setCountBathroom] = useState(0);
   let [propertyFinance, setPropertyFinance] = useState("");
@@ -58,26 +49,61 @@ export function SearchBar({ pageSaleOption }) {
     maxPrice: toPrice,
     minPrice: fromPrice,
     keywords,
-    finishingType:finishingOptions,
+    finishingType: finishingOptions,
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
   };
+
   const handleSubmitSearch = (e) => {
-      e?.preventDefault(); // Ensure that e is not null before calling preventDefault
+    e?.preventDefault();
+    const filteredKeywords = Object.fromEntries(
+      Object.entries(InputKeywords).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
+    const queryString = Object.keys(filteredKeywords)
+      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+      .join("&");
+      router.push(`/searching/${queryString}`);
 
-      let mergeKeyword = Object.assign({}, InputKeyword, InputKeywords);
-      dispatch(propertyFromSearch({ InputKeywords:mergeKeyword, page: 1 }));
-      dispatch(setInputKeywords(mergeKeyword));
+// const KeywordsBeforeReversed = router.query.keyword;
+//           if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
 
-      router.asPath !== "/search" ? router.push("/search") : null;
-    };
+// console.log(KeywordsBeforeReversed);
+//             router.push(`/searching/${KeywordsBeforeReversed}`);
 
+//           }else  
+
+      // const KeywordsBeforeReversed = router.query.keyword; // Replace this with your actual queryString
+// console.log("queryString",queryString);
+// console.log("router.query.keyword",router.query.keyword);
+  //   if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
+
+  //     // Reverse the mapping
+  //     const keyValuePairs = KeywordsBeforeReversed
+  //       .split("&")
+  //       .map((pair) => pair.split("="));
+
+  //     // Reverse the filtering
+  //     const reversedFilteredKeywords = Object.fromEntries(
+  //       keyValuePairs.filter(
+  //         ([_, value]) => value != null && value !== "" && value !== "0"
+  //       )
+  //     );
+  // InputKeywords = reversedFilteredKeywords
+  //     console.log(InputKeywords);
+  //     console.log("reversed",reversedFilteredKeywords)
+  //   // router.push(`/searching/${reversedFilteredKeywords}`);
+
+  //   }
+
+    // router.push(`/searching/${queryString}`);
+  };
 
   const handelClearFilter = () => {
-    // Reset all state variables to their default values
-    setSaleOptions("");
+    setSaleOptions(" ");
     setFromPrice(0.0);
     setToPrice(0.0);
     setFromArea(0);
@@ -91,7 +117,7 @@ export function SearchBar({ pageSaleOption }) {
     setUnitType("");
     setPropertyType("");
     setSortProp("");
-    setFurnished(null);
+    setSelectedOption("")
   };
   const setForSaleButton = (e) => {
     e.preventDefault();
@@ -104,26 +130,27 @@ export function SearchBar({ pageSaleOption }) {
   };
   const setForAllButton = (e) => {
     e.preventDefault();
-    setSaleOptions("");
+    setSaleOptions(" ");
   };
   useEffect(() => {
     if (sortPropChanged) {
-      const updatedInputKeywords = {
-        ...InputKeywords,
-        sort_by: sortProp,
-      };
-  
-      dispatch(setInputKeywords(updatedInputKeywords));
-      dispatch(propertyFromSearch({ InputKeywords: updatedInputKeywords, page: 1 }));
-      router.asPath !== "/search" ? router.push("/search") : null;
-  
-      setSortPropChanged(false); // Reset the flag after updating InputKeywords
+      const filteredKeywords = Object.fromEntries(
+        Object.entries(InputKeywords).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
+
+      const queryString = Object.keys(filteredKeywords)
+        .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+        .join("&");
+      router.push(`/searching/${queryString}`);
+      setSortPropChanged(false);
     }
-  }, [sortPropChanged, sortProp])
+  }, [sortPropChanged, sortProp]);
 
   const handleSortPropChange = (value) => {
     setSortProp(value);
-    setSortPropChanged(true); // Set the flag to true when sortProp changes
+    setSortPropChanged(true);
   };
   return (
     <form onSubmit={handleSubmitSearch} className="  h-72 grid  ">
@@ -133,7 +160,7 @@ export function SearchBar({ pageSaleOption }) {
             <div className="flex">
               <button
                 className={` ${
-                  saleOptions == "" || saleOptions == undefined
+                  saleOptions == " " || saleOptions == undefined
                     ? " bg-lightOrange text-white "
                     : "bg-white border-2 border-lightOrange text-lightOrange "
                 }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
@@ -162,18 +189,6 @@ export function SearchBar({ pageSaleOption }) {
               >
                 {languageIs ? "للبيع" : "Buy"}
               </button>
-
-              {/* <button
-              onClick={() => setSaleOptions("For Investment")}
-  
-              className={` ${
-                saleOptions == "For Investment"
-                  ? "text-lightGreen border-2 border-lightGreen bg-white"
-                  : "text-white bg-lightGreen"
-              }  font-bold  px-2 mx-1 rounded-t-medium`}
-            >
-              {languageIs ? "للإستثمار" : "Investment"}
-            </button> */}
             </div>
             <Input
               className=" h-full  "
@@ -188,6 +203,7 @@ export function SearchBar({ pageSaleOption }) {
             />
           </div>
           <div className="flex items-end">
+          <div dir={languageIs?"rtl":"ltr"} className="flex">
             <Dropdown
               classNames=" w-[auto]  sm:block hidden"
               ifSaleOptions={saleOptions}
@@ -195,6 +211,8 @@ export function SearchBar({ pageSaleOption }) {
               options={propertyTypeData}
               moreOptions={saleOptions}
               setValue={setPropertyType}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
             />
             <DropdownUintType
@@ -203,9 +221,11 @@ export function SearchBar({ pageSaleOption }) {
               options={unitTypeData}
               propertyType={propertyType}
               setValue={setUnitType}
+              // selectoption={selectoption}
+              // setSelectedOption={setSelectedOption}
               valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
             />
-
+            </div>
             <DropdownMore
               setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
@@ -231,6 +251,9 @@ export function SearchBar({ pageSaleOption }) {
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
+
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               classNames="max-w-[40px]"
             />
             <div className="flex gap-x-3">
@@ -238,8 +261,6 @@ export function SearchBar({ pageSaleOption }) {
                 type="submit"
                 className="rounded-xl p-3 bg-lightGreen flex items-center"
               >
-                {/* <span className="font-medium text-white">{languageIs ? "بحث" : "search"}</span> */}
-
                 <LuSearch className="lg:text-3xl text-xl text-white" />
               </button>
               <button
@@ -259,9 +280,6 @@ export function SearchBar({ pageSaleOption }) {
         </h6>
         <DropdownSort
           classNames=" w-[130px] "
-          // dropdownIcons={false}
-          // InputKeywords={InputKeywords}
-          // handleSubmitSearch={(e) => handleSubmitSearch(e)}
           value={sortProp}
           options={sortedData}
           setValue={handleSortPropChange}
