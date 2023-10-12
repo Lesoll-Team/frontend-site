@@ -12,6 +12,7 @@ import Link from "next/link";
 import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
+import { io } from "socket.io-client";
 
 function UserDropdown({classNamed}) {
   const router = useRouter();
@@ -27,6 +28,11 @@ function UserDropdown({classNamed}) {
     localStorage.clear();
     router.push("/signin")
   };
+  if(userDataInfo?._id){
+    const socket = io('http://ec2-3-87-159-22.compute-1.amazonaws.com:9000')
+    socket.emit('online', { userId: userDataInfo?._id})
+  }
+
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">
@@ -61,11 +67,6 @@ function UserDropdown({classNamed}) {
             {languageIs ? "إعداداتى" : "My Settings"}
 
           </DropdownItem>
-
-          {/* <DropdownItem textValue="Favorite" key="Favorite" onPress={() => router.push("/profile")}>
-            
-            {languageIs ? "المفضل" : "Favorite"}
-          </DropdownItem> */}
           <DropdownItem
           textValue="dashboard"
             onPress={() => router.push("/dashboard")}
