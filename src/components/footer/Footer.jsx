@@ -32,7 +32,7 @@ const Footer = () => {
             priority
             src={logo}
           />
-          <p className="md:w-[78%]">
+          <p className="md:w-[78%] text-darkGray">
             {language
               ? "ليسول هو موقع عقارات مصري متكامل يقدم خدمة التجربة الرقمية سواء لشراء أو بيع أو تأجير العقارات مع خدمة شاملة تقدم تفاصيل عن العقار من خلال خريطة تفاعلية"
               : " Lesoll is an Egyptian RealEstate marketplace. lesoll offers customers a digital experiance for buying sending and renting properties with end to end service"}
@@ -88,7 +88,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-5 flex flex-col">
-          <p className="text-1xl font-bold">
+          <p className="text-xl font-bold">
             {language ? "روابط مساعدة" : "Useful Links"}
           </p>
 
@@ -117,7 +117,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="space-y-5 flex flex-col">
-          <p className="text-1xl font-bold">{language ? "مساعدة؟" : "Help?"}</p>
+          <p className="text-xl font-bold">{language ? "مساعدة؟" : "Help?"}</p>
 
           <Link
             title={language ? "الأسئلة الشائعة" : "FAQ"}
@@ -144,7 +144,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="space-y-5 flex flex-col">
-          <p className="text-1xl font-bold">
+          <p className="text-xl font-bold">
             {language ? "التواصل" : "Contact"}
           </p>
 
@@ -152,7 +152,7 @@ const Footer = () => {
           <address className="not-italic	">
             <Link
               title="Cairo, Naser City"
-              className="flex gap-1 items-center"
+              className="flex gap-1 items-center "
               href="https://maps.app.goo.gl/P71VgHcHPUaiVo2FA"
               target="_blank"
             >

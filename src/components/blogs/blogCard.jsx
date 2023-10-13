@@ -8,14 +8,14 @@ function BlogCard({ blogData }) {
 
   // console.log(blogData);
   return (
-    <div className="gap-10 grid grid-cols-1  md:grid-cols-3 ">
+    <div className="gap-10 flex flex-wrap justify-center ">
       {blogData.map((item) => (
         <Link
           title={language ? item.title.ar : item.title.en}
           key={item._id}
           href={`/blogs/${language ? item.slug.ar : item.slug.en}`}
         >
-          <Card className="" shadow="sm" key={item._id} isPressable>
+          <Card className="w-[300px]" shadow="sm" key={item._id} isPressable>
             <CardBody className="overflow-visible p-0">
               <Image
                 shadow="sm"
@@ -30,9 +30,9 @@ function BlogCard({ blogData }) {
             <CardFooter className="text-small justify-center">
               <div>
                 {" "}
-                <b className="text-lightGreen text-xl">
+                <h2 className="text-lightGreen sm:text-xl text-lg md:text-2xl lg:text-4xl ">
                   {language ? item.title.ar : item.title.en}
-                </b>
+                </h2>
               </div>
             </CardFooter>
           </Card>
