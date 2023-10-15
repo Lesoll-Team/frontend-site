@@ -34,7 +34,7 @@ function BlogSinglePage({ BlogData }) {
         <CardFooter className="">
           <div
             dir={language ? "rtl" : "ltr"}
-            className={`text-lg text-darkGray text-justify px-10 rounded-2xl ${styles.genericDiv}`}
+            className={`text-md sm:text-lg text-darkGray sm:px-10 px-0  ${styles.genericDiv}`}
             dangerouslySetInnerHTML={
               language
                 ? { __html: BlogData.getBlogs.description.ar }
