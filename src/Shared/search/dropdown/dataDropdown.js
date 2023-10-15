@@ -7,8 +7,8 @@ export const paymentMethodData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "Cash", name: "نقدى" },
-    { value: "Installment", name: "تقسيط" },
+    { value: "نقدى", name: "نقدى" },
+    { value: "تقسيط", name: "تقسيط" },
     // { value: "Real_Estate_Finance", name: "تمويل عقارى" },
   ],
 };
@@ -36,10 +36,10 @@ export const finishingOptionsData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "Super Lux", name: "سوبر لوكس" },
-    { value: "Lux", name: "لوكس" },
-    { value: "Finished", name: "نصف تشطيب" },
-    { value: "Not Finished", name: "بدون تشطيب" },
+    { value: "سوبر لوكس", name: "سوبر لوكس" },
+    { value:  "لوكس", name: "لوكس" },
+    { value: "نصف تشطيب", name: "نصف تشطيب" },
+    { value: "بدون تشطيب", name: "بدون تشطيب" },
   ],
 };
 
@@ -51,8 +51,8 @@ export const saleOptionsData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "For Sale", name: "للبيع" },
-    { value: "For Rent", name: "للإيحار" },
+    { value: "للبيع", name: "للبيع" },
+    { value: "للإيحار", name: "للإيحار" },
   ],
 };
 export const propertyTypeData = {
@@ -65,9 +65,9 @@ export const propertyTypeData = {
 ,
   ar: [
       { value: "", name: "الكل" },
-      { value: "Residential", name: "سكني" },
-      { value: "Commercial", name: "تجاري" },
-      { value: "Land", name: "أرض" },
+      { value: "سكني", name: "سكني" },
+      { value: "تجاري", name: "تجاري" },
+      { value: "أرض", name: "أرض" },
     ]
 };
 
@@ -158,11 +158,11 @@ export const sortedData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "min_price", name: "أقل سعر" },
-    { value: "max_price", name: "أكثر سعر" },
-    { value: "max_view", name: "أكثر مشاهدة" },
-    { value: "min_view", name: "أقل مشاهدة" },
-    { value: "old_prop", name: "أقدم" },
+    { value: "أقل سعر",  name:  "أقل سعر" },
+    { value: "أكثر سعر"  , name: "أكثر سعر" },
+    { value: "أكثر مشاهدة"   , name: "أكثر مشاهدة" },
+    { value: "أقل مشاهدة"  ,  name: "أقل مشاهدة" },
+    { value: "أقدم"  ,  name: "أقدم" },
   ],
 };
 
