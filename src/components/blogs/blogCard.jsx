@@ -8,7 +8,7 @@ function BlogCard({ blogData }) {
 
   // console.log(blogData);
   return (
-    <div className="gap-10 flex flex-wrap justify-center ">
+    <div className="gap-10 flex flex-wrap  ">
       {blogData.map((item) => (
         <Link
           title={language ? item.title.ar : item.title.en}
@@ -27,11 +27,15 @@ function BlogCard({ blogData }) {
                 src={item.BlogImage}
               />
             </CardBody>
-            <CardFooter className="text-small justify-center">
-              <div>
-                {" "}
-                <h2 className="text-lightGreen sm:text-xl text-lg md:text-2xl lg:text-4xl ">
-                  {language ? item.title.ar : item.title.en}
+            <CardFooter className="text-small">
+              <div className="">
+                <h2 className="text-lightGreen sm:text-lg text-sm text-md md:text-xl lg:text-2xl ">
+                  {language ? item.title.ar.substring(0, 30) : 
+                  item.title.en.substring(0, 30)
+                  }
+                  {language ? item.title.ar.length > 30 && "..." : 
+                  item.title.en.length > 30 && "..."
+                  }
                 </h2>
               </div>
             </CardFooter>

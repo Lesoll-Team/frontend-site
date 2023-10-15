@@ -19,6 +19,6 @@ module.exports = async () => {
    */
   const nextConfig = {
     /* config options here */
-  }
-  return nextConfig
-}
+  };
+  return nextConfig;
+};

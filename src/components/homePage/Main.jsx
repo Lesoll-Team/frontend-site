@@ -18,12 +18,12 @@ const Main = () => {
             }`}
           >
             <div className="flex flex-col md:flex-row items-center md:items-baseline">
-              <h1 className="text-4xl p-x relative lg:text-8xl text-lightGreen font-semibold text-center md:text-left">
+              <h1 className="text-4xl  relative lg:text-8xl text-lightGreen font-semibold text-center md:text-start">
                 {language ? " ليسول" : "Lesoll"}
+                <span className="text-3xl block lg:text-4xl lg:inline font-semibold text-lightOrange ">
+                  {language ? " طريقك لبيتك" : "The Way You Home "}
+                </span>
               </h1>
-              <h2 className="text-3xl block lg:text-4xl lg:inline font-semibold text-lightOrange px-2">
-                {language ? "طريقك لبيتك" : "The Way You Home"}
-              </h2>
             </div>
             <p className="w-[95%] text-center hidden md:block font-light md:text-start lg:text-lg">
               {language

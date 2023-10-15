@@ -26,7 +26,7 @@ function BlogSinglePage({ BlogData }) {
           />
         </CardBody>
         <CardHeader className="">
-          <h1 className="overflow-hidden text-lightGreen w-full  text-center rounded-2xl">
+          <h1 className="overflow-hidden text-lightGreen sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl">
             {language ? BlogData.getBlogs.title.ar : BlogData.getBlogs.title.en}
           </h1>
         </CardHeader>
@@ -34,7 +34,7 @@ function BlogSinglePage({ BlogData }) {
         <CardFooter className="">
           <div
             dir={language ? "rtl" : "ltr"}
-            className={`text-lg text-darkGray text-justify px-10 rounded-2xl ${styles.genericDiv}`}
+            className={`text-md sm:text-lg text-darkGray sm:px-10 px-0  ${styles.genericDiv}`}
             dangerouslySetInnerHTML={
               language
                 ? { __html: BlogData.getBlogs.description.ar }

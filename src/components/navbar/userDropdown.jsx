@@ -14,7 +14,7 @@ import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
 import { io } from "socket.io-client";
 
-function UserDropdown({classNamed}) {
+function UserDropdown({ classNamed }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
@@ -26,12 +26,12 @@ function UserDropdown({classNamed}) {
   const handleLogout = () => {
     dispatch(logoutUserToken()); // Dispatch the logout action
     localStorage.clear();
-    router.push("/signin")
+    router.push("/signin");
   };
-  if(userDataInfo?._id){
-    const socket = io('http://ec2-3-87-159-22.compute-1.amazonaws.com:9000')
-    socket.emit('online', { userId: userDataInfo?._id})
-  }
+  // if(userDataInfo?._id){
+  //   const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`)
+  //   socket.emit('online', { userId: userDataInfo?._id})
+  // }
 
   return (
     <div className={`${classNamed}`}>
@@ -45,30 +45,34 @@ function UserDropdown({classNamed}) {
             src={userDataInfo?.avatarUrl}
           />
         </DropdownTrigger>
-        <DropdownMenu aria-label="Profile Actions" variant="flat" >
-          <DropdownItem variant={"light"} isReadOnly={true} shouldFocusWrap={true} textValue="email" key="email"  className="h-14 gap-2 cursor-text hover:bg-white">
+        <DropdownMenu aria-label="Profile Actions" variant="flat">
+          <DropdownItem
+            variant={"light"}
+            isReadOnly={true}
+            shouldFocusWrap={true}
+            textValue="email"
+            key="email"
+            className="h-14 gap-2 cursor-text hover:bg-white"
+          >
             <p className="font-semibold select-none	">Signed in as</p>
             <p className="font-semibold">{userDataInfo?.email}</p>
           </DropdownItem>
-          <DropdownItem 
-          textValue="profile"
-          
-          onPress={() => router.push("/profile")} key="profile">
-            
+          <DropdownItem
+            textValue="profile"
+            onPress={() => router.push("/profile")}
+            key="profile"
+          >
             {languageIs ? "الصفحة الشخصية" : "Profile"}
-
           </DropdownItem>
           <DropdownItem
-          textValue="profile_setting"
+            textValue="profile_setting"
             onPress={() => router.push("/profile/settings")}
             key="settings"
           >
-            
             {languageIs ? "إعداداتى" : "My Settings"}
-
           </DropdownItem>
           <DropdownItem
-          textValue="dashboard"
+            textValue="dashboard"
             onPress={() => router.push("/dashboard")}
             className={`${
               userDataInfo && userDataInfo.isAdmin === false ? "hidden" : ""
@@ -77,7 +81,12 @@ function UserDropdown({classNamed}) {
           >
             {languageIs ? "لوحة القيادة" : "Dashboard"}
           </DropdownItem>
-          <DropdownItem textValue="logout" key="logout" color="danger" onPress={handleLogout}>
+          <DropdownItem
+            textValue="logout"
+            key="logout"
+            color="danger"
+            onPress={handleLogout}
+          >
             <div className="flex">
               <div>
                 <HiOutlineArrowRightOnRectangle />
