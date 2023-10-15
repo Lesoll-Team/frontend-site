@@ -1,4 +1,4 @@
-import { SearchBar } from "@/Shared/searchHome/SearchBar";
+import { SearchBar } from "@/Shared/search/SearchBarHome";
 import dynamic from "next/dynamic";
 
 const Main = dynamic(() => import("@/components/homePage/Main"));

@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
-import DropdownMore from "./dropdown/DropdownMore";
-import {
-  propertyFromSearch,
-  setInputKeywords,
-} from "../../redux-store/features/searchSlice";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import DropdownMoreHome from "./dropdown/DropdownMoreHome";
 
 export function SearchBar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-
-  // const dispatch = useDispatch();
   const router = useRouter();
   const [saleOptions, setSaleOptions] = useState("all");
   const [fromPrice, setFromPrice] = useState(0.0);
@@ -30,7 +23,6 @@ export function SearchBar() {
   let [isFurnished, setFurnished] = useState(false);
   let [selectoption, setSelectedOption] = useState("");
 
-  // const page = useSelector((state) => state.Search.page);
   const InputKeywords = {
     offer: saleOptions,
     propType: propertyType,
@@ -38,7 +30,6 @@ export function SearchBar() {
     saleOption: paymentMethod,
     bathRooms: countBathrooms,
     rooms: countBedrooms,
-    // isFurnished,
     finishingType: finishingOptions,
     maxPrice: toPrice,
     minPrice: fromPrice,
@@ -46,7 +37,6 @@ export function SearchBar() {
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
-    // sort_by:sortProp,
   };
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
@@ -63,16 +53,16 @@ export function SearchBar() {
 
   const setForSaleButton = (e) => {
     e.preventDefault();
-    setSaleOptions("For Sale");
+    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For Sale");
   };
 
   const setForRentButton = (e) => {
     e.preventDefault();
-    setSaleOptions("For Rent");
+    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For Rent");
   };
   const setForAllButton = (e) => {
     e.preventDefault();
-    setSaleOptions("all");
+    languageIs ? setSaleOptions("كل") : setSaleOptions("all");
   };
   return (
     <form onSubmit={handleSubmitSearch}>
@@ -81,7 +71,7 @@ export function SearchBar() {
           <div className="">
             <button
               className={` ${
-                saleOptions == "all"
+                saleOptions == "all"||saleOptions == "كل"
                   ? " bg-lightOrange text-white "
                   : "bg-white border-2 border-lightOrange text-lightOrange "
               } mx-1 font-bold py-[4px] px-3   rounded-t-medium`}
@@ -92,7 +82,7 @@ export function SearchBar() {
             <button
               onClick={setForRentButton}
               className={` ${
-                saleOptions == "For Rent"
+                saleOptions == "For Rent"||saleOptions == "للايجار"
                   ? "text-white bg-lightGreen"
                   : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
@@ -102,7 +92,7 @@ export function SearchBar() {
             <button
               onClick={setForSaleButton}
               className={` ${
-                saleOptions == "For Sale"
+                saleOptions == "For Sale"||saleOptions == "للبيع"
                   ? "text-white bg-lightGreen"
                   : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
@@ -113,19 +103,20 @@ export function SearchBar() {
           <div className="flex items-center">
             <div className="w-full">
               <Input
+                    dir={languageIs ? "rtl" : "ltr"}
                 className="w-full select-none"
                 size="lg"
                 isClearable
                 placeholder={
                   languageIs
-                    ? " ...بحث بالمنطة او عنوان "
+                  ? " بحث بالمنطة او عنوان... "
                     : "Search by City or title..."
                 }
                 onValueChange={setKeywords}
               />
             </div>
 
-            <DropdownMore
+            <DropdownMoreHome
               setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
               setFinishingOptions={setFinishingOptions}

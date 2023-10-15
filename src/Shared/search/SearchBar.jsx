@@ -94,39 +94,6 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
     router.push(`/searching/${queryString}`);
-
-    // const KeywordsBeforeReversed = router.query.keyword;
-    //           if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
-
-    // console.log(KeywordsBeforeReversed);
-    //             router.push(`/searching/${KeywordsBeforeReversed}`);
-
-    //           }else
-
-    // const KeywordsBeforeReversed = router.query.keyword; // Replace this with your actual queryString
-    // console.log("queryString",queryString);
-    // console.log("router.query.keyword",router.query.keyword);
-    //   if (queryString=="offer=%20"&&router.query.keyword!=="offer= ") {
-
-    //     // Reverse the mapping
-    //     const keyValuePairs = KeywordsBeforeReversed
-    //       .split("&")
-    //       .map((pair) => pair.split("="));
-
-    //     // Reverse the filtering
-    //     const reversedFilteredKeywords = Object.fromEntries(
-    //       keyValuePairs.filter(
-    //         ([_, value]) => value != null && value !== "" && value !== "0"
-    //       )
-    //     );
-    // InputKeywords = reversedFilteredKeywords
-    //     console.log(InputKeywords);
-    //     console.log("reversed",reversedFilteredKeywords)
-    //   // router.push(`/searching/${reversedFilteredKeywords}`);
-
-    //   }
-
-    // router.push(`/searching/${queryString}`);
   };
 
   const handelClearFilter = () => {
@@ -148,16 +115,16 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   };
   const setForSaleButton = (e) => {
     e.preventDefault();
-    setSaleOptions("For Sale");
+    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For Sale");
   };
 
   const setForRentButton = (e) => {
     e.preventDefault();
-    setSaleOptions("For Rent");
+    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For Rent");
   };
   const setForAllButton = (e) => {
     e.preventDefault();
-    setSaleOptions("all");
+    languageIs ? setSaleOptions("كل") : setSaleOptions("all");
   };
   useEffect(() => {
     if (sortPropChanged) {
@@ -189,7 +156,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
             <div className="flex">
               <button
                 className={` ${
-                  saleOptions == "all" 
+                  saleOptions == "all"||saleOptions == "كل"
                     ? " bg-lightOrange text-white "
                     : "bg-white border-2 border-lightOrange text-lightOrange "
                 }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
@@ -201,7 +168,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               <button
                 onClick={setForRentButton}
                 className={` ${
-                  saleOptions == "For Rent"
+                  saleOptions == "For Rent"||saleOptions == "للايجار"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
@@ -211,7 +178,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               <button
                 onClick={setForSaleButton}
                 className={` ${
-                  saleOptions == "For Sale"
+                  saleOptions == "For Sale"||saleOptions == "للبيع"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
@@ -220,12 +187,13 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               </button>
             </div>
             <Input
+            dir={languageIs ? "rtl" : "ltr"}
               className=" h-full  "
               size="md"
               isClearable
               placeholder={
                 languageIs
-                  ? " ...بحث بالمنطة او عنوان "
+                  ? " بحث بالمنطة او عنوان... "
                   : "Search by City or title..."
               }
               value={keywords}
@@ -251,8 +219,6 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 options={unitTypeData}
                 propertyType={propertyType}
                 setValue={setUnitType}
-                // selectoption={selectoption}
-                // setSelectedOption={setSelectedOption}
                 valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
               />
             </div>
@@ -310,13 +276,13 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
       >
         <h6 className="text-default-500 font-medium">
           {languageIs
-            ? `${reversedFilteredKeywords?.unitType || "عقارات"} ${
-                reversedFilteredKeywords?.offer == "all"
+            ? `${reversedFilteredKeywords.unitType=="شقة"?"شقق":reversedFilteredKeywords.unitType || "عقارات"} ${
+                reversedFilteredKeywords?.offer == "all"||reversedFilteredKeywords?.offer == "كل"
                   ? "للبيع والإيجار"
                   : reversedFilteredKeywords?.offer || "للبيع والإيجار"
               } فى مصر `
             : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
-                reversedFilteredKeywords?.offer == "all"
+                reversedFilteredKeywords?.offer == "all"||reversedFilteredKeywords?.offer == "كل"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords?.offer || "for rent or buy"
               } In Egypt`}

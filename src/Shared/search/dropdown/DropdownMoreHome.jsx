@@ -15,7 +15,7 @@ import DropdownPrice from "./DropdownPrice";
 import { useSelector } from "react-redux";
 import DropdownArea from "./DropdownArea";
 import DropdownUintType from "./DropdownUintType";
-const DropdownMore = ({
+const DropdownMoreHome = ({
   classNames,
   propertyType,
   paymentMethod,
@@ -25,7 +25,7 @@ const DropdownMore = ({
   setUnitType,
   setPropertyType,
   finishingOptions,
-  setFurnished,
+  // setFurnished,
   unitType,
   countBedrooms,
   countBathrooms,
@@ -187,4 +187,4 @@ const DropdownMore = ({
   );
 };
 
-export default memo(DropdownMore);
+export default memo(DropdownMoreHome);

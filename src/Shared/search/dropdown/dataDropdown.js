@@ -7,8 +7,8 @@ export const paymentMethodData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "Cash", name: "نقدى" },
-    { value: "Installment", name: "تقسيط" },
+    { value: "كاش", name: "نقدى" },
+    { value: "تقسيط", name: "تقسيط" },
     // { value: "Real_Estate_Finance", name: "تمويل عقارى" },
   ],
 };
@@ -20,8 +20,8 @@ export const percentageProperty = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "3_Real_Estate_Finance", name: "3% تمويل عقارى" },
-    { value: "8_Real_Estate_Finance", name: "8% تمويل عقارى " },
+    { value: "تمويل عقاري 3 بالمئة", name: "3% تمويل عقارى" },
+    { value: "تمويل عقاري 8 بالمئة", name: "8% تمويل عقارى " },
   ],
 };
 export const finishingOptionsData = {
@@ -34,10 +34,10 @@ export const finishingOptionsData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "Super Lux", name: "سوبر لوكس" },
-    { value: "Lux", name: "لوكس" },
-    { value: "Finished", name: "نصف تشطيب" },
-    { value: "Not Finished", name: "بدون تشطيب" },
+    { value: "سوبر لوكس", name: "سوبر لوكس" },
+    { value: "لوكس", name: "لوكس" },
+    { value: "نصف تشطيب", name: "نصف تشطيب" },
+    { value: "بدون تشطيب", name: "بدون تشطيب" },
   ],
 };
 
@@ -48,9 +48,9 @@ export const saleOptionsData = {
     { value: "For Rent", name: "For Rent" },
   ],
   ar: [
-    { value: "all", name: "الكل" },
-    { value: "For Sale", name: "للبيع" },
-    { value: "For Rent", name: "للإيحار" },
+    { value: "كل", name: "الكل" },
+    { value: "للبيع", name: "للبيع" },
+    { value: "للايجار", name: "للإيحار" },
   ],
 };
 export const propertyTypeData = {
@@ -62,10 +62,10 @@ export const propertyTypeData = {
   ]
 ,
   ar: [
-      // { value: "", name: "الكل" },
-      { value: "Residential", name: "سكني" },
-      { value: "Commercial", name: "تجاري" },
-      { value: "Land", name: "أرض" },
+      { value: "", name: "الكل" },
+      { value: "سكني", name: "سكني" },
+      { value: "تجاري", name: "تجاري" },
+      { value: "أرض", name: "أرض" },
     ]
 };
 

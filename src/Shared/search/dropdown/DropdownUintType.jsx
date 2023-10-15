@@ -39,22 +39,11 @@ const DropdownUintType = ({
   const handleMenuOpen = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-  const [selectoption, setSelectedOption] = useState();
 
-  const setSelectedOptionBasedOnLanguage = useCallback(() => {
-    if (propertyType == "Residential") {
-      setSelectedOption(language ? Residential.name : Residential.name);
-    } else if (propertyType == "Commercial") {
-      setSelectedOption(language ? Commercial.name : Commercial.name);
-    } else if (propertyType == "Land") {
-      setSelectedOption(language ? Land.name : Land.name);
-    }
-    // setSelectedOption(language ? options.ar.name : options.en.name);
-  }, [language, propertyType]);
+  if (propertyType=="") {
+    setValue("")
+  }
 
-  useEffect(() => {
-    setSelectedOptionBasedOnLanguage();
-  }, [language, setSelectedOptionBasedOnLanguage]);
   return (
     <div className={`${classNames} relative w-full `}>
       <div
@@ -76,13 +65,12 @@ const DropdownUintType = ({
           className={`absolute animate-appearance-in z-10 w-auto right-0 min-w-[150px] text-center mt-1 bg-white duration-200
            drop-shadow-xl border overflow-y-auto rounded-xl max-h-[150px]`}
         >
-          {propertyType == "Residential"
+          {propertyType == "Residential"||propertyType == "سكني"
             ? Residential.map((option, i) => (
                 <p
                   key={i}
                   onClick={() => {
                     setValue(option.value);
-                    setSelectedOption(option.name);
                   }}
                   className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
                 >
@@ -90,13 +78,12 @@ const DropdownUintType = ({
                 </p>
               ))
             : null}
-          {propertyType == "Commercial"
+          {propertyType == "Commercial"||propertyType == "تجاري"
             ? Commercial.map((option, i) => (
                 <p
                   key={i}
                   onClick={() => {
                     setValue(option.value);
-                    setSelectedOption(option.name);
                   }}
                   className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
                 >
@@ -104,13 +91,12 @@ const DropdownUintType = ({
                 </p>
               ))
             : null}
-          {propertyType == "Land"
+          {propertyType == "Land"||propertyType == "أرض"
             ? Land.map((option, i) => (
                 <p
                   key={i}
                   onClick={() => {
                     setValue(option.value);
-                    setSelectedOption(option.name);
                   }}
                   className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
                 >

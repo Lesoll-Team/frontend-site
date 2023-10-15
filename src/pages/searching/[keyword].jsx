@@ -38,8 +38,8 @@ export default function Searching({ keyword }) {
   return (
     <>
           <Head>
-        <title>{language ? `ابحث عن ${reversedFilteredKeywords.unitType||"عقارات" } ${reversedFilteredKeywords.offer==" "?"للبيع والإيجار":reversedFilteredKeywords.offer||"للبيع والإيجار"} فى مصر ` :
-        `Search About ${reversedFilteredKeywords.unitType||"Properties"} ${reversedFilteredKeywords.offer==" "?"For Rent Or Buy":reversedFilteredKeywords.offer|| "for rent or buy"} In Egypt`}</title>
+        <title>{language ? `ابحث عن ${reversedFilteredKeywords.unitType=="شقة"?"شقق":reversedFilteredKeywords.unitType||"عقارات" } ${reversedFilteredKeywords.offer=="كل"?"للبيع والإيجار":reversedFilteredKeywords.offer||"للبيع والإيجار"} فى مصر ` :
+        `Search About ${reversedFilteredKeywords.unitType||"Properties"} ${reversedFilteredKeywords.offer=="all"?"For Rent Or Buy":reversedFilteredKeywords.offer|| "for rent or buy"} In Egypt`}</title>
         <meta
           name="description"
           content={`
