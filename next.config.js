@@ -39,6 +39,16 @@ module.exports = async () => {
       defaultLocale: "ar", // Default locale
     },
     trailingSlash: true,
+    async redirects() {
+      return [
+        {
+          source: "/:path*",
+          destination: "https://lesoll.com/:path*",
+          permanent: true,
+        },
+      ];
+    },
   };
+
   return nextConfig;
 };
