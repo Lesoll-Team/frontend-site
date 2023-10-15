@@ -29,7 +29,7 @@ function UserDropdown({classNamed}) {
     router.push("/signin")
   };
   if(userDataInfo?._id){
-    const socket = io('http://ec2-3-87-159-22.compute-1.amazonaws.com:9000')
+    const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`)
     socket.emit('online', { userId: userDataInfo?._id})
   }
 
