@@ -27,6 +27,7 @@ export default function Home({
   return (
     <main>
       <Head>
+        <html lang="ar" />
         <title>
           {language
             ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
