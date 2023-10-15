@@ -27,6 +27,7 @@ export default function Home({
   return (
     <main>
       <Head>
+        <link rel="icon" href="/favicon.ico" />
         <html lang="ar" />
         <title>
           {language

@@ -38,6 +38,7 @@ module.exports = async () => {
       locales: ["ar"], // Array of supported locales
       defaultLocale: "ar", // Default locale
     },
+    trailingSlash: true,
   };
   return nextConfig;
 };
