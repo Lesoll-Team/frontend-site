@@ -43,12 +43,12 @@ export const finishingOptionsData = {
 
 export const saleOptionsData = {
   en: [
-    { value: "", name: " All" },
+    { value: "all", name: " All" },
     { value: "For Sale", name: "For Sale" },
     { value: "For Rent", name: "For Rent" },
   ],
   ar: [
-    { value: "", name: "الكل" },
+    { value: "all", name: "الكل" },
     { value: "For Sale", name: "للبيع" },
     { value: "For Rent", name: "للإيحار" },
   ],
@@ -156,10 +156,10 @@ export const sortedData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "min_price", name: "أقل سعر" },
-    { value: "max_price", name: "أكثر سعر" },
-    { value: "max_view", name: "أكثر مشاهدة" },
-    { value: "min_view", name: "أقل مشاهدة" },
-    { value: "old_prop", name: "أقدم" },
+    { value: "أقل سعر", name: "أقل سعر" },
+    { value: "أكثر سعر", name: "أكثر سعر" },
+    { value: "أكثر مشاهدة", name: "أكثر مشاهدة" },
+    { value: "أقل مشاهدة", name: "أقل مشاهدة" },
+    { value: "أقدم", name: "أقدم" },
   ],
 };

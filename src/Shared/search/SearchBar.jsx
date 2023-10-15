@@ -21,7 +21,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   let [sortPropChanged, setSortPropChanged] = useState(false);
 
   let [saleOptions, setSaleOptions] = useState(
-    reversedFilteredKeywords?.offer || " "
+    reversedFilteredKeywords?.offer || "all"
   );
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
 
@@ -130,7 +130,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   };
 
   const handelClearFilter = () => {
-    setSaleOptions(" ");
+    setSaleOptions("all");
     setFromPrice(0.0);
     setToPrice(0.0);
     setFromArea(0);
@@ -157,7 +157,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   };
   const setForAllButton = (e) => {
     e.preventDefault();
-    setSaleOptions(" ");
+    setSaleOptions("all");
   };
   useEffect(() => {
     if (sortPropChanged) {
@@ -189,7 +189,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
             <div className="flex">
               <button
                 className={` ${
-                  saleOptions == " " || saleOptions == undefined
+                  saleOptions == "all" 
                     ? " bg-lightOrange text-white "
                     : "bg-white border-2 border-lightOrange text-lightOrange "
                 }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
@@ -311,12 +311,12 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
         <h6 className="text-default-500 font-medium">
           {languageIs
             ? `${reversedFilteredKeywords?.unitType || "عقارات"} ${
-                reversedFilteredKeywords?.offer == " "
+                reversedFilteredKeywords?.offer == "all"
                   ? "للبيع والإيجار"
                   : reversedFilteredKeywords?.offer || "للبيع والإيجار"
               } فى مصر `
             : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
-                reversedFilteredKeywords?.offer == " "
+                reversedFilteredKeywords?.offer == "all"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords?.offer || "for rent or buy"
               } In Egypt`}

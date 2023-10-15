@@ -12,7 +12,7 @@ export const paymentMethodData = {
 };
 export const percentageProperty = {
   en: [
-    { value: "", name: " All Options" },
+    { value: "", name: " All" },
     { value: "3_Real_Estate_Finance", name: " CBE 3% Initiative" },
 
     { value: "8_Real_Estate_Finance", name: "CBE 8% Initiative" },

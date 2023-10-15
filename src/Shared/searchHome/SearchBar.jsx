@@ -14,7 +14,7 @@ export function SearchBar() {
 
   // const dispatch = useDispatch();
   const router = useRouter();
-  const [saleOptions, setSaleOptions] = useState(" ");
+  const [saleOptions, setSaleOptions] = useState("all");
   const [fromPrice, setFromPrice] = useState(0.0);
   const [toPrice, setToPrice] = useState(0.0);
   const [fromArea, setFromArea] = useState(0);
@@ -72,7 +72,7 @@ export function SearchBar() {
   };
   const setForAllButton = (e) => {
     e.preventDefault();
-    setSaleOptions(" ");
+    setSaleOptions("all");
   };
   return (
     <form onSubmit={handleSubmitSearch}>
@@ -81,7 +81,7 @@ export function SearchBar() {
           <div className="">
             <button
               className={` ${
-                saleOptions == " "
+                saleOptions == "all"
                   ? " bg-lightOrange text-white "
                   : "bg-white border-2 border-lightOrange text-lightOrange "
               } mx-1 font-bold py-[4px] px-3   rounded-t-medium`}
