@@ -146,7 +146,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     setSortProp(value);
     setSortPropChanged(true);
   };
-  console.log(pageSaleOption);
+  // console.log(pageSaleOption);
 
   return (
     <form onSubmit={handleSubmitSearch} className="  h-72 grid  ">

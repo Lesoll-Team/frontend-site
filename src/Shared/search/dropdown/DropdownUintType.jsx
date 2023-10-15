@@ -40,9 +40,12 @@ const DropdownUintType = ({
     setMenuIsOpen(!menuIsOpen);
   };
 
-  if (propertyType=="") {
-    setValue("")
-  }
+  useEffect(() => {
+    // Check if propertyType is empty and setValue accordingly
+    if (propertyType === "") {
+      setValue("");
+    }
+  }, [propertyType, setValue]);
 
   return (
     <div className={`${classNames} relative w-full `}>

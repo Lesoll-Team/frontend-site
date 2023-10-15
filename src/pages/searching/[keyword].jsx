@@ -34,7 +34,7 @@ export default function Searching({ keyword }) {
       );
     }
   }, [router]);
-  console.log(reversedFilteredKeywords);
+  // console.log(reversedFilteredKeywords);
   return (
     <>
           <Head>
