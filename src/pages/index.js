@@ -29,6 +29,7 @@ export default function Home({
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="canonical" href="https://www.lesoll.com/" />
         <html lang="ar" />
         <title>
           {language
@@ -56,11 +57,7 @@ export default function Home({
           content="Real estate, Property listings, Homes for sale, Apartments for rent, Commercial properties, Realtor, Real estate agent, House hunting, Real estate market, Property management, Real estate investment, Rental properties, Property search, Buy a house, Sell a house, Foreclosures, Mortgage rates, Property valuation, Open house, Home inspection, عقارات, قائمة العقارات, منازل للبيع, شقق للإيجار, عقارات تجارية, وكيل عقاري, سوق العقارات, إدارة العقارات, استثمار العقارات, عقارات للإيجار, البحث عن عقار, شراء منزل, بيع منزل, العقارات المستصرفة, أسعار الرهن العقاري, تقييم العقار, منازل مفتوحة للزيارة, فحص المنزل"
         />
       </Head>
-      <NextSeo
-        canonical="https://example.com" // Replace with your canonical URL
-        title="Your Webpage Title"
-        /* Other SEO-related props go here */
-      />
+
       <Main />
       <SearchBar />
 

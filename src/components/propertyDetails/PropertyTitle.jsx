@@ -162,9 +162,9 @@ function PropertyTitle({ singleTitle }) {
       <div className="">
         <div className="sm:flex text-2xl justify-between py-5 sm:text-4xl font-bold gap-4 space-y-4 md:space-y-0">
           <div className="flex sm:justify-start justify-center sm:w-6/12 w-full ">
-            <h2 className="sm:text-start text-center text-3xl md:text-4xl text-lightOrange  leading-tight     ">
+            <h1 className="sm:text-start text-center text-3xl md:text-4xl text-lightOrange  leading-tight     ">
               {singleTitle?.title}
-            </h2>
+            </h1>
           </div>
           <div className="flex justify-center">
             <div className="flex flex-col md:flex-row md:items-end items-center   gap-1 text-darkGreen">
