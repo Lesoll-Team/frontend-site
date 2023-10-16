@@ -216,18 +216,18 @@ export default function ActiveProperty() {
             <div className="">
             <p className="text-bold grid grid-cols-2 text-medium capitalize">
               <b>ID:</b>
-              {blog._id}
+              {blog?._id}
             </p>
             <hr />
 
             <p className="text-bold  capitalize grid grid-cols-2 text-medium">
               <b>Name</b>
-              {blog.user[0].fullname}
+              {blog.user[0]?.fullname}
             </p>
             <hr />
             <p className="text-bold  capitalize grid grid-cols-2 text-medium">
               <b>User name</b>
-              {blog.user[0].username}
+              {blog.user[0]?.username}
             </p>
             </div>
             <Dropdown

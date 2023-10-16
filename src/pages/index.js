@@ -30,7 +30,7 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="canonical" href="https://www.lesoll.com/" />
-        <html lang="ar" />
+       
         <title>
           {language
             ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
