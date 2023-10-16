@@ -62,6 +62,8 @@ export const globalState = createSlice({
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.userData = action.payload;
         state.userLod = false;
+        // localStorage.setItem("userID", JSON.stringify(state.userData?._id))
+
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.userErr = action.error.message;

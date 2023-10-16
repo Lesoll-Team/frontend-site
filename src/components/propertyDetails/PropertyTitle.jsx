@@ -126,6 +126,7 @@ function PropertyTitle({ singleTitle }) {
 
             {/* <div className="border-2 border-lightGreen flex justify-center items-center w-[50px] rounded-md"> */}
             <SocialMediaModal
+              slug={singleTitle?.slug}
               title={language ? "مشاركة العقار" : "Share property"}
             >
               <button

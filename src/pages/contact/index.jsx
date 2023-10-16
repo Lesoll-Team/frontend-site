@@ -2,7 +2,6 @@ import React from "react";
 import Contact from "@/components/contact/Contact";
 import Head from "next/head";
 import { useSelector } from "react-redux";
-
 export default function contact() {
   const language = useSelector((state) => state.GlobalState.languageIs);
 

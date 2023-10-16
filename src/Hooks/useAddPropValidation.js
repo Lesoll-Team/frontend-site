@@ -57,6 +57,17 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
       ar: "يرجى كتابة السعر .",
     },
 
+    priceLowRent: {
+      en: "Price must not be less than 100.",
+
+      ar: "يجب ألا يقل السعر عن 100.",
+    },
+    priceLowSale: {
+      en: "Price must not be less than 100.",
+
+      ar: "يجب ألا يقل السعر عن 1000.",
+    },
+
     downPayment: {
       en: "Down payment is missing.",
 
@@ -158,12 +169,16 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
       newErrors.push(translateErrorMessage("offer"));
       setPropErrors((prevErrors) => ({ ...prevErrors, offer: true }));
     }
+
     if (propertyDetails.offer === "For Rent") {
       if (!propertyDetails.price) {
         newErrors.push(translateErrorMessage("price"));
         setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
       }
-
+      if (parseInt(propertyDetails.price) < 100) {
+        setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
+        newErrors.push(translateErrorMessage("priceLowRent"));
+      }
       if (!propertyDetails.rentalPeriod) {
         newErrors.push(translateErrorMessage("rentalPeriod"));
         setPropErrors((prevErrors) => ({ ...prevErrors, rentalPeriod: true }));
@@ -182,6 +197,10 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
           newErrors.push(translateErrorMessage("price"));
           setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
         }
+        if (parseInt(propertyDetails.price) < 1000) {
+          setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
+          newErrors.push(translateErrorMessage("priceLowSale"));
+        }
       }
       if (
         propertyDetails.saleOption === "Installment" ||
@@ -190,6 +209,10 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
         if (!propertyDetails.price) {
           newErrors.push(translateErrorMessage("price"));
           setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
+        }
+        if (parseInt(propertyDetails.price) < 1000) {
+          setPropErrors((prevErrors) => ({ ...prevErrors, price: true }));
+          newErrors.push(translateErrorMessage("priceLowSale"));
         }
         if (
           !propertyDetails.downPayment ||

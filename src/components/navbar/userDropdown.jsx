@@ -33,6 +33,10 @@ function UserDropdown({ classNamed }) {
   //   socket.emit('online', { userId: userDataInfo?._id})
   // }
 
+  // if (userDataInfo?._id) {
+  //   const socket = io(`${process.env.NEXT_PUBLIC_API_URL_LOCAL}`);
+  //   socket.emit("online", { userId: userDataInfo?._id });
+  // }
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">

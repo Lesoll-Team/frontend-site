@@ -8,6 +8,7 @@ export async function getAllNotifications() {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/notification/get/user`,{
         headers: {
           token: userToken,
+          // mode: 'cors',
         },
       }
     );

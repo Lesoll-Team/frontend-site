@@ -12,7 +12,7 @@ import { FiCopy } from "react-icons/fi";
 import { LuClipboardCopy } from "react-icons/lu";
 import { BiCopy } from "react-icons/bi";
 
-export default function SocialMediaModal({ children, title }) {
+export default function SocialMediaModal({ children, title, slug }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [modalPlacement, setModalPlacement] = React.useState("auto");
   //   const url = window.location.href;
@@ -48,7 +48,9 @@ export default function SocialMediaModal({ children, title }) {
                     onClick={shareOnFacebook}
                     className="text-[#0165E1] cursor-pointer"
                   />
-                  <a href={`whatsapp://send?text=${window.location.href}`}>
+                  <a
+                    href={`whatsapp://send?text=https://lesoll.com/property-details/${slug}`}
+                  >
                     <BsWhatsapp className="text-[#25D366] cursor-pointer" />
                   </a>
 

@@ -2,7 +2,7 @@ import{ Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="ar">
     <Head>
           <script dangerouslySetInnerHTML={{ __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -11,6 +11,7 @@ export default function Document() {
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-T876WFM');
           `}} />
+          
         </Head>
       <body>
       <script
@@ -29,7 +30,6 @@ export default function Document() {
             `,
           }}
         />
-
         <Main />
         <NextScript />
       </body>

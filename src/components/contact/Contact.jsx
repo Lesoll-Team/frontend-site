@@ -1,4 +1,4 @@
-import { sendUserMassage } from "@/redux-store/features/contactSlice";
+import { sendUserMessage } from "@/redux-store/features/contactSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, useEffect, useState } from "react";
@@ -8,30 +8,30 @@ import { deleteMessage } from "../../redux-store/features/contactSlice";
 import { useRouter } from "next/router";
 export default function Contact() {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+// assage
   const dispatch = useDispatch();
   const isSending = useSelector((state) => state.Contact.sending);
-  const errorMassage = useSelector((state) => state.Contact.errorMassage);
-  const confirmMassage = useSelector((state) => state.Contact.massage);
-  // dispatch(sendUserMassage)
+  const errorMessage = useSelector((state) => state.Contact.errorMessage);
+  const confirmMessage = useSelector((state) => state.Contact.message);
+  // dispatch(sendUserMessage)
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [subject, setSubject] = useState("");
-  const [massage, setMassage] = useState("");
+  const [message, setMessage] = useState("");
   const router = useRouter();
-  const handleConfirmMassage = async (e) => {
+  const handleConfirmMessage = async (e) => {
     e.preventDefault();
-    const userMassage = { fullName, email, phone, subject, massage };
-    dispatch(sendUserMassage(userMassage));
+    const userMessage = { fullName, email, phone, subject, message };
+    dispatch(sendUserMessage(userMessage));
     setFullName("");
     setEmail("");
     setPhone("");
     setSubject("");
-    setMassage("");
+    setMessage("");
   };
 
-  const handleNewMassage = () => {
+  const handleNewMessage = () => {
     dispatch(deleteMessage());
   };
 
@@ -50,7 +50,7 @@ export default function Contact() {
 
   return (
     <Fragment>
-      {confirmMassage ? (
+      {confirmMessage ? (
         <div className="w-full h-[80dvh] flex justify-center items-center">
           <div className="flex flex-col justify-center h-[60%] items-center bg-white drop-shadow-xl rounded-lg  border w-[90%] md:w-[60%] space-y-8 ">
             <div className="space-y-3 flex flex-col justify-center items-center">
@@ -77,8 +77,7 @@ export default function Contact() {
               <Link
                 className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
                 href={"/contact"}
-                onClick={handleNewMassage}
-                title={language ? "إرسال رد أخر" : "Send another reply"}
+                onClick={handleNewMessage}
               >
                 {language ? "إرسال رد أخر" : "Send another reply"}
               </Link>
@@ -95,7 +94,7 @@ export default function Contact() {
               <b>{language ? "معلومات التواصل" : " Contact information"} </b>
             </h6>
             <form
-              onSubmit={handleConfirmMassage}
+              onSubmit={handleConfirmMessage}
               className=" flex flex-col justify-end items-start  gap-2"
             >
               <center className="flex flex-col gap-3 w-full">
@@ -136,9 +135,9 @@ export default function Contact() {
               {/* <input type='' placeholder='Massage'/> */}
               <center className=" w-full">
                 <textarea
-                  placeholder={language ? "الرسالة" : "Massage"}
-                  value={massage}
-                  onChange={(e) => setMassage(e.target.value)}
+                  placeholder={language ? "الرسالة" : "Message"}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="placeholder:text-gray-500  focus:outline-none max-h-56 h-36  focus:border-lightGreen w-[97%] ml-2 border-2 rounded-2xl px-4 py-2"
                 ></textarea>
                 <button
@@ -154,8 +153,8 @@ export default function Contact() {
                     ? "ارسال"
                     : "submit"}
                 </button>
-                {errorMassage && <div>{errorMassage}</div>}
-                {confirmMassage && <div>{confirmMassage}</div>}
+                {errorMessage && <div>{errorMessage}</div>}
+                {confirmMessage && <div>{confirmMessage}</div>}
               </center>
             </form>
           </div>

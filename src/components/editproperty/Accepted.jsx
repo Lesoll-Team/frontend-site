@@ -1,8 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 const Accepted = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="flex flex-col justify-center h-full items-center w-full space-y-8 border rounded-xl shadow-xl ">
       <div className="space-y-3 flex flex-col justify-center items-center">

@@ -125,6 +125,7 @@ export default function Navbar() {
                     cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
                     cdnSuffix="svg"
                     title="US"
+                    alt="US-lan"
                   />
                 ) : (
                   <ReactCountryFlag
@@ -133,6 +134,7 @@ export default function Navbar() {
                     cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
                     cdnSuffix="svg"
                     title="US"
+                    alt="EG-lan"
                   />
                 )}
               </ul>

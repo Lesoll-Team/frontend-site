@@ -1,4 +1,4 @@
-import { SearchBar } from "@/Shared/searchHome/SearchBar";
+import { SearchBar } from "@/Shared/search/SearchBarHome";
 import dynamic from "next/dynamic";
 
 const Main = dynamic(() => import("@/components/homePage/Main"));
@@ -27,10 +27,14 @@ export default function Home({
   return (
     <main>
       <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="canonical" href="https://www.lesoll.com/" />
+       
         <title>
           {language
-            ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
-            : "Lesoll Real Estate Hup Eg | Buy - Sell - Rent Properties"}
+            ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
+            : "Lesoll Real Estate EGY| Buy - Sell - Rent Properties"}
         </title>
 
         <meta
@@ -42,7 +46,8 @@ export default function Home({
           }
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:image" content="../../public/socialApperance.svg" />
+
+        <meta property="og:image" content="/socialApperance.png" />
         <meta
           property="og:description"
           content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر"
@@ -52,6 +57,7 @@ export default function Home({
           content="Real estate, Property listings, Homes for sale, Apartments for rent, Commercial properties, Realtor, Real estate agent, House hunting, Real estate market, Property management, Real estate investment, Rental properties, Property search, Buy a house, Sell a house, Foreclosures, Mortgage rates, Property valuation, Open house, Home inspection, عقارات, قائمة العقارات, منازل للبيع, شقق للإيجار, عقارات تجارية, وكيل عقاري, سوق العقارات, إدارة العقارات, استثمار العقارات, عقارات للإيجار, البحث عن عقار, شراء منزل, بيع منزل, العقارات المستصرفة, أسعار الرهن العقاري, تقييم العقار, منازل مفتوحة للزيارة, فحص المنزل"
         />
       </Head>
+
       <Main />
       <SearchBar />
 
@@ -69,14 +75,14 @@ export default function Home({
 
 export async function getStaticProps() {
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=8&page=${1}`
   );
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=8&page=${1}`
   );
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=6&page=${1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=8&page=${1}`
   );
 
   const linkHome = await fetch(
