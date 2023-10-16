@@ -52,8 +52,8 @@ export const signInWithGoogle = createAsyncThunk(
 export const deleteAccount = createAsyncThunk(
   "Auth/deleteUserAccount",
   async (data, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
     try {
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/delete/${data.userID}?token=${userToken}`);
       return response.data;
     } catch (error) {

@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { Button, Input } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { Input } from "@nextui-org/react";
 import {
-  saleOptionsData,
   propertyTypeData,
   unitTypeData,
   sortedData,
@@ -9,45 +8,68 @@ import {
 import { LuSearch } from "react-icons/lu";
 import Dropdown from "./dropdown/Dropdown";
 import DropdownMore from "./dropdown/DropdownMore";
-
-import {
-  propertyFromSearch,
-  setInputKeywords,
-} from "../../redux-store/features/searchSlice";
 import DropdownUintType from "./dropdown/DropdownUintType";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FaSortNumericDown } from "react-icons/fa";
 import DropdownSort from "./dropdown/DropdownSort";
+import { MdClear } from "react-icons/md";
 
-export function SearchBar({ pageSaleOption }) {
-  const dispatch = useDispatch();
+export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
-  const InputKeyword = useSelector((state) => state.Search.setInputKeyword);
-  const [sortPropChanged, setSortPropChanged] = useState(false);
+  let [sortPropChanged, setSortPropChanged] = useState(false);
 
-  const [saleOptions, setSaleOptions] = useState(
-    pageSaleOption || InputKeyword?.offer
+
+
+  let languageIs = useSelector((state) => state.GlobalState.languageIs);
+  let [saleOptions, setSaleOptions] = useState(
+    reversedFilteredKeywords?.offer ||"all"
   );
-  const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  // console.log("ss",saleOptions);
-  const [fromPrice, setFromPrice] = useState(0.0);
-  const [toPrice, setToPrice] = useState(0.0);
+  const propLengthResult = useSelector(
+    (state) => state.Searching.propLengthResult
+  );
 
-  const [fromArea, setFromArea] = useState(0);
-  const [toArea, setToArea] = useState(0);
+  let [fromPrice, setFromPrice] = useState(
+    reversedFilteredKeywords?.minPrice || 0.0
+  );
+  let [toPrice, setToPrice] = useState(
+    reversedFilteredKeywords?.maxPrice || 0.0
+  );
 
-  let [countBedrooms, setCountBedrooms] = useState(0);
-  let [countBathrooms, setCountBathroom] = useState(0);
-  let [propertyFinance, setPropertyFinance] = useState("");
-  let [paymentMethod, setPaymentMethod] = useState("");
-  let [keywords, setKeywords] = useState("");
-  let [finishingOptions, setFinishingOptions] = useState("");
-  let [unitType, setUnitType] = useState("");
-  let [propertyType, setPropertyType] = useState("");
-  let [sortProp, setSortProp] = useState("");
-  let [isFurnished, setFurnished] = useState(null);
-
+  let [fromArea, setFromArea] = useState(
+    reversedFilteredKeywords?.minArea || 0
+  );
+  let [toArea, setToArea] = useState(reversedFilteredKeywords?.maxArea || 0);
+  let [selectoption, setSelectedOption] = useState("");
+  let [countBedrooms, setCountBedrooms] = useState(
+    reversedFilteredKeywords?.rooms || 0
+  );
+  let [countBathrooms, setCountBathroom] = useState(
+    reversedFilteredKeywords?.bathRooms || 0
+  );
+  let [propertyFinance, setPropertyFinance] = useState(
+    reversedFilteredKeywords?.MortgagePrice || ""
+  );
+  let [paymentMethod, setPaymentMethod] = useState(
+    reversedFilteredKeywords?.saleOption || ""
+  );
+  let [keywords, setKeywords] = useState(
+    reversedFilteredKeywords?.keywords || ""
+  );
+  let [finishingOptions, setFinishingOptions] = useState(
+    reversedFilteredKeywords?.finishingType || ""
+  );
+  let [unitType, setUnitType] = useState(
+    reversedFilteredKeywords?.unitType || ""
+  );
+  let [propertyType, setPropertyType] = useState(
+    reversedFilteredKeywords?.propType || ""
+  );
+  let [sortProp, setSortProp] = useState(
+    reversedFilteredKeywords?.sort_by || ""
+  );
+  // let [isFurnished, setFurnished] = useState(null);
+  // setSaleOptions(reversedFilteredKeywords.offer||" ")
   const InputKeywords = {
     offer: saleOptions,
     propType: propertyType,
@@ -58,26 +80,29 @@ export function SearchBar({ pageSaleOption }) {
     maxPrice: toPrice,
     minPrice: fromPrice,
     keywords,
-    finishingType:finishingOptions,
+    finishingType: finishingOptions,
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
+    // isFurnished,
   };
+
   const handleSubmitSearch = (e) => {
-      e?.preventDefault(); // Ensure that e is not null before calling preventDefault
-
-      let mergeKeyword = Object.assign({}, InputKeyword, InputKeywords);
-      dispatch(propertyFromSearch({ InputKeywords:mergeKeyword, page: 1 }));
-      dispatch(setInputKeywords(mergeKeyword));
-
-      router.asPath !== "/search" ? router.push("/search") : null;
-    };
-
+    e?.preventDefault();
+    const filteredKeywords = Object.fromEntries(
+      Object.entries(InputKeywords).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
+    const queryString = Object.keys(filteredKeywords)
+      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+      .join("&");
+    router.push(`/searching/${queryString}`);
+  };
 
   const handelClearFilter = () => {
-    // Reset all state variables to their default values
-    setSaleOptions("");
+    setSaleOptions("all");
     setFromPrice(0.0);
     setToPrice(0.0);
     setFromArea(0);
@@ -91,40 +116,46 @@ export function SearchBar({ pageSaleOption }) {
     setUnitType("");
     setPropertyType("");
     setSortProp("");
-    setFurnished(null);
+    setSelectedOption("");
   };
   const setForSaleButton = (e) => {
     e.preventDefault();
-    setSaleOptions("For Sale");
+    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For Sale");
   };
 
   const setForRentButton = (e) => {
     e.preventDefault();
-    setSaleOptions("For Rent");
+    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For Rent");
+    setPropertyFinance("");
+    setFinishingOptions("");
+
   };
   const setForAllButton = (e) => {
     e.preventDefault();
-    setSaleOptions("");
+    languageIs ? setSaleOptions("كل") : setSaleOptions("all");
   };
   useEffect(() => {
     if (sortPropChanged) {
-      const updatedInputKeywords = {
-        ...InputKeywords,
-        sort_by: sortProp,
-      };
-  
-      dispatch(setInputKeywords(updatedInputKeywords));
-      dispatch(propertyFromSearch({ InputKeywords: updatedInputKeywords, page: 1 }));
-      router.asPath !== "/search" ? router.push("/search") : null;
-  
-      setSortPropChanged(false); // Reset the flag after updating InputKeywords
+      const filteredKeywords = Object.fromEntries(
+        Object.entries(InputKeywords).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
+
+      const queryString = Object.keys(filteredKeywords)
+        .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+        .join("&");
+      router.push(`/searching/${queryString}`);
+      setSortPropChanged(false);
     }
-  }, [sortPropChanged, sortProp])
+  }, [sortPropChanged, sortProp]);
 
   const handleSortPropChange = (value) => {
     setSortProp(value);
-    setSortPropChanged(true); // Set the flag to true when sortProp changes
+    setSortPropChanged(true);
   };
+  // console.log(pageSaleOption);
+
   return (
     <form onSubmit={handleSubmitSearch} className="  h-72 grid  ">
       <div dir="ltr" className=" w-full flex justify-center  mt-5 mb-14  ">
@@ -133,7 +164,7 @@ export function SearchBar({ pageSaleOption }) {
             <div className="flex">
               <button
                 className={` ${
-                  saleOptions == "" || saleOptions == undefined
+                  saleOptions == "all" || saleOptions == "كل"
                     ? " bg-lightOrange text-white "
                     : "bg-white border-2 border-lightOrange text-lightOrange "
                 }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
@@ -145,7 +176,7 @@ export function SearchBar({ pageSaleOption }) {
               <button
                 onClick={setForRentButton}
                 className={` ${
-                  saleOptions == "For Rent"
+                  saleOptions == "For Rent" || saleOptions == "للايجار"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
@@ -155,57 +186,50 @@ export function SearchBar({ pageSaleOption }) {
               <button
                 onClick={setForSaleButton}
                 className={` ${
-                  saleOptions == "For Sale"
+                  saleOptions == "For Sale" || saleOptions == "للبيع"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
               >
                 {languageIs ? "للبيع" : "Buy"}
               </button>
-
-              {/* <button
-              onClick={() => setSaleOptions("For Investment")}
-  
-              className={` ${
-                saleOptions == "For Investment"
-                  ? "text-lightGreen border-2 border-lightGreen bg-white"
-                  : "text-white bg-lightGreen"
-              }  font-bold  px-2 mx-1 rounded-t-medium`}
-            >
-              {languageIs ? "للإستثمار" : "Investment"}
-            </button> */}
             </div>
             <Input
+              dir={languageIs ? "rtl" : "ltr"}
               className=" h-full  "
               size="md"
               isClearable
               placeholder={
                 languageIs
-                  ? " ...بحث بالمنطة او عنوان "
+                  ? " بحث بالمنطة او عنوان... "
                   : "Search by City or title..."
               }
+              value={keywords}
               onValueChange={setKeywords}
             />
           </div>
           <div className="flex items-end">
-            <Dropdown
-              classNames=" w-[auto]  sm:block hidden"
-              ifSaleOptions={saleOptions}
-              value={propertyType}
-              options={propertyTypeData}
-              moreOptions={saleOptions}
-              setValue={setPropertyType}
-              valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
-            />
-            <DropdownUintType
-              classNames=" w-[auto]  sm:block hidden"
-              value={unitType}
-              options={unitTypeData}
-              propertyType={propertyType}
-              setValue={setUnitType}
-              valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
-            />
-
+            <div dir={languageIs ? "rtl" : "ltr"} className="flex">
+              <Dropdown
+                classNames=" w-[auto]  sm:block hidden"
+                ifSaleOptions={saleOptions}
+                value={propertyType}
+                options={propertyTypeData}
+                moreOptions={saleOptions}
+                setValue={setPropertyType}
+                selectoption={selectoption}
+                setSelectedOption={setSelectedOption}
+                valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
+              />
+              <DropdownUintType
+                classNames=" w-[auto]  sm:block hidden"
+                value={unitType}
+                options={unitTypeData}
+                propertyType={propertyType}
+                setValue={setUnitType}
+                valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
+              />
+            </div>
             <DropdownMore
               setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
@@ -215,8 +239,8 @@ export function SearchBar({ pageSaleOption }) {
               unitType={unitType}
               setPropertyType={setPropertyType}
               propertyType={propertyType}
-              isFurnished={isFurnished}
-              setFurnished={setFurnished}
+              // isFurnished={isFurnished}
+              // setFurnished={setFurnished}
               countBedrooms={countBedrooms}
               setCountBedrooms={setCountBedrooms}
               countBathrooms={countBathrooms}
@@ -231,6 +255,9 @@ export function SearchBar({ pageSaleOption }) {
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
+              offer={saleOptions}
+              selectoption={selectoption}
+              setSelectedOption={setSelectedOption}
               classNames="max-w-[40px]"
             />
             <div className="flex gap-x-3">
@@ -238,20 +265,52 @@ export function SearchBar({ pageSaleOption }) {
                 type="submit"
                 className="rounded-xl p-3 bg-lightGreen flex items-center"
               >
-                {/* <span className="font-medium text-white">{languageIs ? "بحث" : "search"}</span> */}
-
                 <LuSearch className="lg:text-3xl text-xl text-white" />
               </button>
               <button
-                // type="submit"
                 onClick={handelClearFilter}
-                className="border-3 border-lightOrange text-lightOrange font-semibold  p-1 rounded-lg   select-none"
+                className=" bg-lightOrange rounded-xl p-3 flex  items-center"
               >
-                {languageIs ? "إزالة" : "clear"}
+                <MdClear className="lg:text-3xl text-xl text-white" />
               </button>
             </div>
           </div>
         </div>
+      </div>
+
+      <div
+        className={` ${
+          pageSaleOption == undefined ? "" : "hidden"
+        } flex items-center gap-x-2 w-10/12 m-auto `}
+      >
+        <h6 className="text-default-500 font-medium">
+          {languageIs
+            ? `${
+                reversedFilteredKeywords?.unitType == "شقة"
+                  ? "شقق"
+                  : reversedFilteredKeywords?.unitType || "عقارات"
+              } ${
+                reversedFilteredKeywords?.offer == "all" ||
+                reversedFilteredKeywords?.offer == "كل"
+                  ? "للبيع والإيجار"
+                  : reversedFilteredKeywords?.offer || "للبيع والإيجار"
+              } فى مصر `
+            : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
+                reversedFilteredKeywords?.offer == "all" ||
+                reversedFilteredKeywords?.offer == "كل"
+                  ? "For Rent Or Buy"
+                  : reversedFilteredKeywords?.offer || "for rent or buy"
+              } In Egypt`}
+        </h6>
+        <p className={`${propLengthResult ? "text-default-500" : "hidden"} `}>
+          {languageIs
+            ? `( ${propLengthResult} ${
+                reversedFilteredKeywords?.unitType || "عقارات"
+              })  `
+            : `( ${propLengthResult} ${
+                reversedFilteredKeywords?.unitType || "Properties"
+              })`}
+        </p>
       </div>
       <div className="  flex items-center gap-x-2 w-10/12 m-auto ">
         <h6 className="text-default-500 font-medium">
@@ -259,9 +318,6 @@ export function SearchBar({ pageSaleOption }) {
         </h6>
         <DropdownSort
           classNames=" w-[130px] "
-          // dropdownIcons={false}
-          // InputKeywords={InputKeywords}
-          // handleSubmitSearch={(e) => handleSubmitSearch(e)}
           value={sortProp}
           options={sortedData}
           setValue={handleSortPropChange}

@@ -10,42 +10,35 @@ import {
 } from "@nextui-org/react";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/router";
-import {
-  propertyFromSearch,
-  setInputKeywords,
-} from "@/redux-store/features/searchSlice";
+// import {
+//   propertyFromSearch,
+//   setInputKeywords,
+// } from "@/redux-store/features/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function SearchModel() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [keywords, setKeyword] = useState("");
+  const [keywords, setKeyword] = useState(" ");
 
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   // const page = useSelector((state) => state.Search.page);
 
-  const handelSearchButton = () => {
-    const InputKeywords = {
-      keywords,
-      // saleOption: "",
-      // propType: "",
-      // unitType: "",
-      // offer: "",
-      // bathRooms: 0,
-      // rooms: 0,
-      // maxPrice: 0,
-      // minPrice: 0,
-      // minArea: "",
-      // maxArea: "",
-      // MortgagePrice: "",
-      // sort_by: "",
-    };
-    dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
-    dispatch(setInputKeywords(InputKeywords));
+  const handelSearchButton = (e) => {
+    e.preventDefault();
+    // const InputKeywords = {
+    //   keywords,
+    // };
+    // dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
+    // dispatch(setInputKeywords(InputKeywords));
 
     onOpenChange(onOpenChange);
-    router.push("/search");
+    // if (keywords==="") {
+    // router.push(`/searching/offer=r`);
+      
+    // }
+    router.push(`/searching/keywords=${keywords}`);
   };
 
   return (
@@ -90,7 +83,7 @@ export default function SearchModel() {
             <>
               <ModalHeader className="flex flex-col gap-1">Search</ModalHeader>
               <ModalBody>
-                <div className="flex items-center gap-2">
+                <form onSubmit={handelSearchButton} className="flex items-center gap-2">
                   <Input
                     isClearable
                     placeholder="search by city..."
@@ -98,12 +91,13 @@ export default function SearchModel() {
                     onChange={(e) => setKeyword(e.target.value)}
                   />
                   <Button
-                    onClick={handelSearchButton}
+                    // onClick={handelSearchButton}
+                    type="submit"
                     className="w-[20p] h-[20px] bg-lightOrange py-5 text-white font-bold"
                   >
                     بحث
                   </Button>
-                </div>
+                </form>
               </ModalBody>
             </>
           )}

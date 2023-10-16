@@ -1,4 +1,4 @@
-import { SearchBar } from "@/Shared/searchHome/SearchBar";
+import { SearchBar } from "@/Shared/search/SearchBarHome";
 import dynamic from "next/dynamic";
 
 const Main = dynamic(() => import("@/components/homePage/Main"));
@@ -29,8 +29,8 @@ export default function Home({
       <Head>
         <title>
           {language
-            ? "بيع - شراء - إيجار العقارات فى مصر | ليسول"
-            : "Lesoll Real Estate Hup Eg | Buy - Sell - Rent Properties"}
+            ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
+            : "Lesoll Real Estate EGY| Buy - Sell - Rent Properties"}
         </title>
 
         <meta
@@ -69,14 +69,14 @@ export default function Home({
 
 export async function getStaticProps() {
   const resBuy = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=6&page=${1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=8&page=${1}`
   );
   const resRent = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=6&page=${1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=8&page=${1}`
   );
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=6&page=${1}`
+    `${process.env.NEXT_PUBLIC_API_URL}/property/mostview?limit=8&page=${1}`
   );
 
   const linkHome = await fetch(
