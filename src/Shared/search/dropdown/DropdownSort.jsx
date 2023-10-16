@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-const DropdownSort = ({ classNames, options,setValue ,valueDefault}) => {
+const DropdownSort = ({ classNames, options,setValue,value ,valueDefault}) => {
   
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
@@ -46,7 +46,7 @@ const DropdownSort = ({ classNames, options,setValue ,valueDefault}) => {
 
         className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white border-[3px]  rounded-xl p-3 cursor-pointer whitespace-nowrap">
-        {selectoption||valueDefault}
+        {value||valueDefault}
         <div >
           <AiFillCaretDown
             className={`text-darkGreen duration-150 ${

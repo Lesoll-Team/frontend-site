@@ -15,7 +15,7 @@ const RecentPropertyRent = ({ propertiesRent }) => {
           {language ? "أحدث العقارات للإيجار" : "Recent Properties For Rent"}
         </h2>
       </div>
-      <div className="container mx-auto items-center py-5  grid  lg:grid-cols-3 md:grid-cols-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12  ">
+      <div className="container mx-auto justify-center flex flex-wrap gap-16 md:mt-16 mt-5 ">
         {propertiesRent ? (
           propertiesRent.map((property) => (
             <RealtyCard key={property.slug} propertyDetails={property} />

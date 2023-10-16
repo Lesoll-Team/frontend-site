@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
-  User,
+  // User,
 } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
 import { io } from "socket.io-client";
-
+// const userID = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('userID')) : null;
 function UserDropdown({ classNamed }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -28,11 +28,12 @@ function UserDropdown({ classNamed }) {
     localStorage.clear();
     router.push("/signin");
   };
-  // if(userDataInfo?._id){
-  //   const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`)
-  //   socket.emit('online', { userId: userDataInfo?._id})
-  // }
+  // const userID = JSON.parse(localStorage.getItem("userID"));
 
+  if (userDataInfo?._id) {
+    const socket = io(`${process.env.NEXT_PUBLIC_API_URL_LOCAL}`);
+    socket.emit("online", { userId: userDataInfo?._id });
+  }
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">

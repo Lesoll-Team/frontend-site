@@ -1,15 +1,15 @@
 import { createAsyncThunk ,createSlice } from "@reduxjs/toolkit";
-import { sendMassage } from "@/utils/contactAPI";
+import { sendMessage } from "@/utils/contactAPI";
 const initialState = {
-    massage:null,
+    message:null,
     sending:false,
-    errorMassage:null
+    errorMessage:null
   };
 
-  export const sendUserMassage = createAsyncThunk(
+  export const sendUserMessage = createAsyncThunk(
     "Contact/registerUser",
     async (data) => {
-      const response = await sendMassage(data);
+      const response = await sendMessage(data);
       return response.message; // Assuming your API returns user data upon successful signup
     }
   );
@@ -19,22 +19,22 @@ const initialState = {
     initialState,
     reducers:{
 deleteMessage: (state) => {
-  state.massage = null;
+  state.message = null;
 },
     },
     extraReducers:(builder) => {
         builder 
 
-        .addCase(sendUserMassage.pending, (state) => {
+        .addCase(sendUserMessage.pending, (state) => {
             state.sending=true
           })
-          .addCase(sendUserMassage.fulfilled, (state,action) => {
+          .addCase(sendUserMessage.fulfilled, (state,action) => {
             state.sending=false
-            state.massage=action.payload
+            state.message=action.payload
           })
-          .addCase(sendUserMassage.rejected, (state,action) => {
+          .addCase(sendUserMessage.rejected, (state,action) => {
             state.sending=false
-            state.errorMassage=action.error.message
+            state.errorMessage=action.error.message
 
           })
     }

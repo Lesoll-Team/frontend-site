@@ -11,6 +11,7 @@ export default function Document() {
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-T876WFM');
           `}} />
+          
         </Head>
       <body>
       <script
@@ -29,7 +30,6 @@ export default function Document() {
             `,
           }}
         />
-
         <Main />
         <NextScript />
       </body>
