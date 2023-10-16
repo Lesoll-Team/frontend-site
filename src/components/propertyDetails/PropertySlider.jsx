@@ -62,7 +62,12 @@ export default function PropertyImgSlider({ images }) {
     <div dir="ltr" className="animate-appearance-in bg-white">
       <div className="embla">
         <div className="embla__viewport" ref={emblaMainRef}>
-          <div className="embla__container">
+          <div
+            style={{
+              minHeight: "",
+            }}
+            className="embla__container"
+          >
             {newImages.map((img, index) => (
               <div className="embla__slide" key={index}>
                 <img

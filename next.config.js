@@ -19,21 +19,6 @@ module.exports = async () => {
    */
   const nextConfig = {
     /* config options here */
-    i18n: {
-      locales: ["ar"], // Array of supported locales
-      defaultLocale: "ar", // Default locale
-    },
-    trailingSlash: true,
-    // async redirects() {
-    //   return [
-    //     {
-    //       source: "/:path*",
-    //       destination: "https://lesoll.com/:path*",
-    //       permanent: true,
-    //     },
-    //   ];
-    // },
   };
-
   return nextConfig;
 };

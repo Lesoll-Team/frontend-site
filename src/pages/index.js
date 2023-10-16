@@ -1,6 +1,6 @@
 import { SearchBar } from "@/Shared/searchHome/SearchBar";
 import dynamic from "next/dynamic";
-import { NextSeo } from "next-seo";
+
 const Main = dynamic(() => import("@/components/homePage/Main"));
 
 const RecentPropertyBuy = dynamic(() =>
