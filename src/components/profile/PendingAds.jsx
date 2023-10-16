@@ -12,11 +12,13 @@ const PendingAds = () => {
 
   const getPending = useCallback(async () => {
     try {
+      const userToken =JSON.parse(localStorage.getItem("userToken"))
+
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
         {
           headers: {
-            token: JSON.parse(localStorage.getItem("userToken")),
+            token: userToken,
           },
         }
       );

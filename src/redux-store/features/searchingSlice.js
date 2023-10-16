@@ -6,8 +6,7 @@ const initialState = {
   isSearching:false,
   currentPage: 1, // Add current page state
   totalPages: 0, // Add total pages state
-
-  // setInputKeyword:null,
+  propLengthResult:null,
 };
 
 export const dataFoundFromSearch = createAsyncThunk(
@@ -35,6 +34,7 @@ const SearchingSlice = createSlice({
     builder.addCase(dataFoundFromSearch.pending, (state) => {
       state.isSearching = true;
       state.searchResult = null;
+      state.propLengthResult = null;
 
       // state.totalPages = action.payload.totalPages;
       // state.currentPage = state.currentPage;
@@ -43,6 +43,7 @@ const SearchingSlice = createSlice({
       state.searchResult = action.payload;
       state.totalPages = action.payload.totalPages;
       state.currentPage = state.currentPage;
+      state.propLengthResult=action.payload.resultCount
       state.searchingError = null;
       state.isSearching = false;
 
@@ -50,6 +51,7 @@ const SearchingSlice = createSlice({
     .addCase(dataFoundFromSearch.rejected, (state, action) => {
       state.searchingError = action.meta.requestStatus;
       state.isSearching = false;
+      state.propLengthResult = null;
 
       // state.totalPages = action.payload.totalPages;
       // state.currentPage = state.currentPage;

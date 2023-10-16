@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Input } from "@nextui-org/react";
 import {
-  // saleOptionsData,
   propertyTypeData,
   unitTypeData,
   sortedData,
@@ -20,10 +19,15 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
   let [sortPropChanged, setSortPropChanged] = useState(false);
 
-  let [saleOptions, setSaleOptions] = useState(
-    reversedFilteredKeywords?.offer || "all"
-  );
+
+
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
+  let [saleOptions, setSaleOptions] = useState(
+    reversedFilteredKeywords?.offer ||"all"
+  );
+  const propLengthResult = useSelector(
+    (state) => state.Searching.propLengthResult
+  );
 
   let [fromPrice, setFromPrice] = useState(
     reversedFilteredKeywords?.minPrice || 0.0
@@ -64,7 +68,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   let [sortProp, setSortProp] = useState(
     reversedFilteredKeywords?.sort_by || ""
   );
-  let [isFurnished, setFurnished] = useState(null);
+  // let [isFurnished, setFurnished] = useState(null);
   // setSaleOptions(reversedFilteredKeywords.offer||" ")
   const InputKeywords = {
     offer: saleOptions,
@@ -81,6 +85,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     maxArea: toArea,
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
+    // isFurnished,
   };
 
   const handleSubmitSearch = (e) => {
@@ -121,6 +126,9 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const setForRentButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("للايجار") : setSaleOptions("For Rent");
+    setPropertyFinance("");
+    setFinishingOptions("");
+
   };
   const setForAllButton = (e) => {
     e.preventDefault();
@@ -156,7 +164,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
             <div className="flex">
               <button
                 className={` ${
-                  saleOptions == "all"||saleOptions == "كل"
+                  saleOptions == "all" || saleOptions == "كل"
                     ? " bg-lightOrange text-white "
                     : "bg-white border-2 border-lightOrange text-lightOrange "
                 }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
@@ -168,7 +176,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               <button
                 onClick={setForRentButton}
                 className={` ${
-                  saleOptions == "For Rent"||saleOptions == "للايجار"
+                  saleOptions == "For Rent" || saleOptions == "للايجار"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
@@ -178,7 +186,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               <button
                 onClick={setForSaleButton}
                 className={` ${
-                  saleOptions == "For Sale"||saleOptions == "للبيع"
+                  saleOptions == "For Sale" || saleOptions == "للبيع"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
@@ -187,7 +195,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               </button>
             </div>
             <Input
-            dir={languageIs ? "rtl" : "ltr"}
+              dir={languageIs ? "rtl" : "ltr"}
               className=" h-full  "
               size="md"
               isClearable
@@ -231,8 +239,8 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               unitType={unitType}
               setPropertyType={setPropertyType}
               propertyType={propertyType}
-              isFurnished={isFurnished}
-              setFurnished={setFurnished}
+              // isFurnished={isFurnished}
+              // setFurnished={setFurnished}
               countBedrooms={countBedrooms}
               setCountBedrooms={setCountBedrooms}
               countBathrooms={countBathrooms}
@@ -247,6 +255,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
+              offer={saleOptions}
               selectoption={selectoption}
               setSelectedOption={setSelectedOption}
               classNames="max-w-[40px]"
@@ -276,17 +285,32 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
       >
         <h6 className="text-default-500 font-medium">
           {languageIs
-            ? `${reversedFilteredKeywords.unitType=="شقة"?"شقق":reversedFilteredKeywords.unitType || "عقارات"} ${
-                reversedFilteredKeywords?.offer == "all"||reversedFilteredKeywords?.offer == "كل"
+            ? `${
+                reversedFilteredKeywords?.unitType == "شقة"
+                  ? "شقق"
+                  : reversedFilteredKeywords?.unitType || "عقارات"
+              } ${
+                reversedFilteredKeywords?.offer == "all" ||
+                reversedFilteredKeywords?.offer == "كل"
                   ? "للبيع والإيجار"
                   : reversedFilteredKeywords?.offer || "للبيع والإيجار"
               } فى مصر `
             : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
-                reversedFilteredKeywords?.offer == "all"||reversedFilteredKeywords?.offer == "كل"
+                reversedFilteredKeywords?.offer == "all" ||
+                reversedFilteredKeywords?.offer == "كل"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords?.offer || "for rent or buy"
               } In Egypt`}
         </h6>
+        <p className={`${propLengthResult ? "text-default-500" : "hidden"} `}>
+          {languageIs
+            ? `( ${propLengthResult} ${
+                reversedFilteredKeywords?.unitType || "عقارات"
+              })  `
+            : `( ${propLengthResult} ${
+                reversedFilteredKeywords?.unitType || "Properties"
+              })`}
+        </p>
       </div>
       <div className="  flex items-center gap-x-2 w-10/12 m-auto ">
         <h6 className="text-default-500 font-medium">

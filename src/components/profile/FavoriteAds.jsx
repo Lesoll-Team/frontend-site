@@ -13,11 +13,12 @@ const FavoriteAds = () => {
   // Define a memoized function to fetch favorites
   const getFav = useCallback(async () => {
     try {
+      const userToken =JSON.parse(localStorage.getItem("userToken"))
       const response = await axios.get(
         ` ${process.env.NEXT_PUBLIC_API_URL}/user/favorites/get`,
         {
           headers: {
-            token: JSON.parse(localStorage.getItem("userToken")),
+            token: userToken,
           },
         }
       );

@@ -12,6 +12,18 @@ export const paymentMethodData = {
     // { value: "Real_Estate_Finance", name: "تمويل عقارى" },
   ],
 };
+// export const FurnishedOptions = {
+//   en: [
+//     { value: null, name: " All" },
+//     { value: true, name: "Furnished" },
+//     { value: false, name: "Unfurnished" },
+//   ],
+//   ar: [
+//     { value: null, name: "الكل" },
+//     { value: true, name: "مفروش" },
+//     // { value: null, name: "غير مفروش" },
+//   ],
+// };
 export const percentageProperty = {
   en: [
     { value: "", name: " All" },

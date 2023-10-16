@@ -1,7 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-// import { AiFillCaretDown } from "react-icons/ai";
 import Dropdown from "./Dropdown";
-import { Checkbox } from "@nextui-org/react";
 import { MdOutlineMoreVert } from "react-icons/md";
 import {
   paymentMethodData,
@@ -19,13 +17,12 @@ const DropdownMoreHome = ({
   classNames,
   propertyType,
   paymentMethod,
-  isFurnished,
+  offer,
   setPaymentMethod,
   setFinishingOptions,
   setUnitType,
   setPropertyType,
   finishingOptions,
-  // setFurnished,
   unitType,
   countBedrooms,
   countBathrooms,
@@ -58,16 +55,12 @@ const DropdownMoreHome = ({
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  // console.log(paymentMethod);
-  // let [countBedrooms, setCountBedrooms] = useState(0);
-  // let [countBathrooms, setCountBathroom] = useState(0);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const dropdownContentRef = useRef(null);
   const handleMenuOpen = () => {
     setMenuIsOpen(!menuIsOpen);
   };
-  // const [value, setValue] = useState("");
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -132,6 +125,8 @@ const DropdownMoreHome = ({
               setToArea={setToArea}
               valueToArea={toArea}
             />
+            <div className={offer=="للايجار"||offer=="For Rent"?"hidden":""}>
+
             <Dropdown
               classNames="my-1"
               valueDefault={`${languageIs ? "طريقة السداد" : "Payment Method"}`}
@@ -141,6 +136,8 @@ const DropdownMoreHome = ({
               selectoption={selectoption}
               setSelectedOption={setSelectedOption}
             />
+              </div>
+
             <Dropdown
               classNames="my-1"
               selectoption={selectoption}
@@ -150,12 +147,8 @@ const DropdownMoreHome = ({
               options={finishingOptionsData}
               valueDefault={`${languageIs ? "التشطيب" : "Finishing"}`}
             />
-            {/* <div className="lg:col-span-2 col-span-1 grid lg:grid-cols-2  grid-cols-1"> */}
-            {/* <div
-              className={`${
-                paymentMethod == "Real_Estate_Finance" ? "" : "hidden"
-              }`}
-            > */}
+            <div className={offer=="للايجار"||offer=="For Rent"?"hidden":""}>
+
               <Dropdown
                 classNames="my-1"
                 value={propertyFinance}
@@ -167,19 +160,7 @@ const DropdownMoreHome = ({
                 selectoption={selectoption}
               setSelectedOption={setSelectedOption}
               />
-            {/* </div> */}
-            {/* <div className="flex items-center justify-center">
-              <span className="font-bold mx-3 select-none ">
-                {languageIs ? "مفروشة" : "Furnished"}
-              </span>
-              <Checkbox
-                className="my-1 "
-                size="lg"
-                onClick={() => setFurnished(!isFurnished)}
-                isSelected={isFurnished}
-              />
-            </div> */}
-            {/* </div> */}
+              </div>
           </div>
         </div>
       )}

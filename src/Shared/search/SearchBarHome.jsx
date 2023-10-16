@@ -117,6 +117,7 @@ export function SearchBar() {
             </div>
 
             <DropdownMoreHome
+            offer={saleOptions}
               setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
               setFinishingOptions={setFinishingOptions}
