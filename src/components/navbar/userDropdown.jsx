@@ -23,7 +23,7 @@ function UserDropdown({ classNamed }) {
     setUserDataInfo(userInfo);
   });
   const handleLogout = () => {
-    dispatch(logoutUserToken()); // Dispatch the logout action
+    dispatch(logoutUserToken()); 
     localStorage.clear();
     router.push("/signin");
   };

@@ -1,7 +1,7 @@
 
 import "@/styles/globals.css";
 import Layout from "@/Shared/layout";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "../redux-store/store";
 import {NextUIProvider} from '@nextui-org/react'
 import io from 'socket.io-client'
