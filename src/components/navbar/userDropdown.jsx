@@ -29,7 +29,7 @@ function UserDropdown({ classNamed }) {
   };
   
   useEffect(() => {
-    const socket = io('ws://ec2-3-87-159-22.compute-1.amazonaws.com:9000');
+    const socket = io('ws://api.lesoll.com');
 
     if (userDataInfo?._id) {
         socket.emit('online', { userId: userDataInfo._id });

@@ -15,7 +15,7 @@ function App({ Component,pageProps}) {
         .toString()
         .replace(".", "")
     );
-    const socket = io('ws://ec2-3-87-159-22.compute-1.amazonaws.com:9000')
+    const socket = io('ws://api.lesoll.com')
     React.useEffect(() => {
       if (!localStorage.getItem("user-key")) {
         localStorage.setItem("user-key", userKey);
