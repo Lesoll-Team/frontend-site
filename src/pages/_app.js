@@ -1,20 +1,27 @@
 
-
 import "@/styles/globals.css";
 import Layout from "@/Shared/layout";
 import { Provider, useSelector } from "react-redux";
 import { store } from "../redux-store/store";
-// import io from 'socket.io-client'
 import {NextUIProvider} from '@nextui-org/react'
-// import { SessionProvider } from "next-auth/react";
-// SessionProvider
-function App({ Component,pageProps}) {
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
+import io from 'socket.io-client'
 
-  // function App({ Component,   pageProps:{session,...pageProps} }) {
-    // const socket = io(`http://ec2-184-73-152-95.compute-1.amazonaws.com:9000`);
-    // socket.emit("online",{ userId:"651e7cb9a406c5030e971faf"});
-    // socket.emit('online', { userId:"651e7cb9a406c5030e971faf"})
+
+function App({ Component,pageProps}) {
+
+    const userKey = parseInt(
+      Math.ceil(Math.random() * Date.now())
+        .toPrecision(16)
+        .toString()
+        .replace(".", "")
+    );
+    const socket = io('ws://ec2-3-87-159-22.compute-1.amazonaws.com:9000')
+    React.useEffect(() => {
+      if (!localStorage.getItem("user-key")) {
+        localStorage.setItem("user-key", userKey);
+      }
+      socket.emit('users', { userRecord: JSON.parse(localStorage.getItem('user-key')) })
+    }, []);
   return (
     <Provider store={store}>
       {/* <SessionProvider  session={session}> */}
