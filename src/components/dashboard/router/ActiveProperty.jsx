@@ -411,7 +411,7 @@ export default function ActiveProperty() {
     }),
     []
   );
-
+// console.log(property);
   return (
     <Table
       isCompact

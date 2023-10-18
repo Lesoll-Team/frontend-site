@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
-// import { io } from "socket.io-client";
+import { io } from "socket.io-client";
 
 function UserDropdown({ classNamed }) {
   const router = useRouter();
@@ -28,15 +28,17 @@ function UserDropdown({ classNamed }) {
     localStorage.clear();
     router.push("/signin");
   };
-  // if(userDataInfo?._id){
-  //   const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`)
-  //   socket.emit('online', { userId: userDataInfo?._id})
-  // }
+  useEffect(() => {
+    const socket = io(`ws://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
 
-  // if (userDataInfo?._id) {
-  //   const socket = io(`${process.env.NEXT_PUBLIC_API_URL_LOCAL}`);
-  //   socket.emit("online", { userId: userDataInfo?._id });
-  // }
+    if (userDataInfo?._id) {
+        socket.emit('online', { userId: userDataInfo._id });
+    }
+
+    return () => {
+        socket.disconnect();
+    };
+}, [userDataInfo]);
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">
