@@ -25,13 +25,15 @@ export async function loginUser(userData) {
 
 export async function getUserData() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-  if (userToken ){
+  if (userToken) {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`,{
-          headers: {
-            token: userToken,
-          },
-        }
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/profile?token=${userToken}`
+        // ,{
+        //     headers: {
+        //       token: userToken,
+        //     },
+        //   }
       );
       return response.data.userData;
     } catch (error) {
@@ -39,30 +41,30 @@ export async function getUserData() {
       return null;
     }
   }
-  return null
+  return null;
 }
 
 export async function updateUserDataInfo(userID, userUpdate) {
   // if (userToken != null || userID != null || userUpdate != null) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-    try {
-      // console.log("updateUserDataInfo",userID,userToken,userUpdate,);
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}`,
-        userUpdate,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            token:userToken,
-          },
-        }
-      );
-      return response.data.userData;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
+  try {
+    // console.log("updateUserDataInfo",userID,userToken,userUpdate,);
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}`,
+      userUpdate,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: userToken,
+        },
+      }
+    );
+    return response.data.userData;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
   // }
   return null;
 }
@@ -95,9 +97,9 @@ export async function verifyEmail() {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify`,
       {
-        headers:{
-          token:userToken
-        }
+        headers: {
+          token: userToken,
+        },
       }
     );
     return response.data;
@@ -113,9 +115,9 @@ export async function sendCodeVerifyEmail(codenumber) {
       `${process.env.NEXT_PUBLIC_API_URL}/user/getverify`,
       codenumber,
       {
-        headers:{
-          token:userToken,
-        }
+        headers: {
+          token: userToken,
+        },
       }
     );
     return response.data;

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
-import io from "socket.io-client";  
+// import io from "socket.io-client";
 
 function UserDropdown({ classNamed }) {
   const router = useRouter();
@@ -23,22 +23,22 @@ function UserDropdown({ classNamed }) {
     setUserDataInfo(userInfo);
   });
   const handleLogout = () => {
-    dispatch(logoutUserToken()); 
+    dispatch(logoutUserToken());
     localStorage.clear();
     router.push("/signin");
   };
-  
-  useEffect(() => {
-    const socket = io('ws://api.lesoll.com');
 
-    if (userDataInfo?._id) {
-        socket.emit('online', { userId: userDataInfo._id });
-    }
+  //   useEffect(() => {
+  //     const socket = io('ws://api.lesoll.com');
 
-    return () => {
-        socket.disconnect();
-    };
-}, [userDataInfo?._id]);
+  //     if (userDataInfo?._id) {
+  //         socket.emit('online', { userId: userDataInfo._id });
+  //     }
+
+  //     return () => {
+  //         socket.disconnect();
+  //     };
+  // }, [userDataInfo?._id]);
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">
