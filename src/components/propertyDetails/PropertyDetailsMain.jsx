@@ -36,8 +36,14 @@ function PropertyDetailsMain({ singleProperty }) {
     <>
       <Head>
         <title>{singleProperty?.title}</title>
-        <meta name="description" content={singleProperty?.description} />
-        <meta property="og:title" content={singleProperty?.title} />
+        <meta
+          name="description"
+          content={singleProperty?.description.slice(0, 160)}
+        />
+        <meta
+          property="og:title"
+          content={singleProperty?.title.slice(0, 50)}
+        />
         <meta property="og:description" content={singleProperty?.description} />
         <meta
           property="og:image"

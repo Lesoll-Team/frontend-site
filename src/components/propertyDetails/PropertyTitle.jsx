@@ -54,6 +54,7 @@ function PropertyTitle({ singleTitle }) {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
     window.open(url, "_blank");
   };
+
   return (
     <div>
       <div className="grid pt-5 sm:grid-cols-2 grid-cols-1 ">
@@ -161,11 +162,16 @@ function PropertyTitle({ singleTitle }) {
       </div>
 
       <div className="">
-        <div className="sm:flex text-2xl justify-between py-5 sm:text-4xl font-bold gap-4 space-y-4 md:space-y-0">
-          <div className="flex sm:justify-start justify-center sm:w-6/12 w-full ">
+        <div className="sm:flex text-2xl justify-between py-5 sm:text-4xl items-center font-bold gap-4 space-y-4 md:space-y-0">
+          <div className="flex flex-col sm:justify-start justify-center sm:w-6/12 w-full space-y-2 ">
             <h1 className="sm:text-start text-center text-3xl md:text-4xl text-lightOrange  leading-tight     ">
               {singleTitle?.title}
             </h1>
+            {singleTitle?.supTitleOfProperty && (
+              <h2 className=" md:text-start text-center font-normal text-sm text-darkGray">
+                {singleTitle?.supTitleOfProperty}
+              </h2>
+            )}
           </div>
           <div className="flex justify-center">
             <div className="flex flex-col md:flex-row md:items-end items-center   gap-1 text-darkGreen">
@@ -173,10 +179,16 @@ function PropertyTitle({ singleTitle }) {
               {/* <p>{language ? "جنية/" : "EGP/"}</p> */}
               <p>
                 {language
-                  ? singleTitle?.price.toLocaleString("ar-EG")
-                  : singleTitle?.price.toLocaleString()}{" "}
+                  ? parseInt(singleTitle?.price).toLocaleString("ar-EG")
+                  : parseInt(singleTitle?.price).toLocaleString()}{" "}
                 <span className="">{language ? "جنية" : "EGP"}</span>
               </p>
+              {!singleTitle?.saleOption.includes("Installment") && (
+                <p className="text-sm text-lightOrange">
+                  {singleTitle?.negotiable &&
+                    (language ? "قابل للتفاوض" : "Negotiable")}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -190,7 +202,10 @@ function PropertyTitle({ singleTitle }) {
           }}
           className=" sm:my-5 p-0 text-center flex sm:justify-normal justify-center text-[#636363] sm:text-sm text-xs cursor-pointer w-fit h-fit hover:underline"
         >
-          {singleTitle?.address.name}
+          {/* {singleTitle?.address.name.slice(0, 50)} */}
+          {singleTitle?.address.governrate}
+          {singleTitle?.address.region && " ,"}
+          {singleTitle?.address.region}
         </p>
       </div>
     </div>

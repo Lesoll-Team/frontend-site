@@ -96,8 +96,8 @@ const RealtyCardRent = ({ propertyDetails }) => {
           <p className="font-medium">
             <span>
               {language
-                ? propertyDetails?.price.toLocaleString("ar-Eg")
-                : propertyDetails?.price.toLocaleString()}{" "}
+                ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
+                : parseInt(propertyDetails?.price).toLocaleString()}{" "}
             </span>
             {language ? "جنية" : "EGP"}
           </p>

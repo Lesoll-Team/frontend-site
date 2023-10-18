@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="col-span-3 lg:col-span-2 space-y-3 relative">
           {/* logo */}
           <Image
-            alt="Logo"
+            alt="Logo footer"
             width={"auto"}
             height={"auto"}
             // className=" "

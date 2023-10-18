@@ -276,25 +276,6 @@ function ConfirmAppointment({ userAppointment }) {
                   : userAppointment?.bathRooms.toLocaleString()}
               </p>
             </div>
-            {!userAppointment?.saleOption.includes("Installment") && (
-              <>
-                {" "}
-                <hr />
-                <div className="flex justify-between items-center">
-                  <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
-                    {language ? "قابل للتفاوض" : "Bathrooms"}
-                  </p>
-
-                  <div className="text-xl">
-                    {userAppointment.negotiable ? (
-                      <AiFillCheckCircle className="text-green-600" />
-                    ) : (
-                      <HiMiniXMark className="text-red-600" />
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
           </>
         )}
       </div>
