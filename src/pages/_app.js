@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import Layout from "@/Shared/layout";
-import { Provider} from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "../redux-store/store";
 import io from "socket.io-client";
 import { NextUIProvider } from "@nextui-org/react";
@@ -13,14 +13,16 @@ function App({ Component, pageProps }) {
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
       .toString()
-      .replace(".","")
+      .replace(".", "")
   );
-  const socket = io(`ws://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
+  const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
   useEffect(() => {
     if (!localStorage.getItem("user-key")) {
       localStorage.setItem("user-key", userKey);
     }
-    socket.emit('users', { userRecord: JSON.parse(localStorage.getItem('user-key')) })
+    socket.emit("users", {
+      userRecord: JSON.parse(localStorage.getItem("user-key")),
+    });
   }, []);
   return (
     <Provider store={store}>

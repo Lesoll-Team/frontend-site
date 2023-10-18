@@ -28,16 +28,16 @@ function UserDropdown({ classNamed }) {
     router.push("/signin");
   };
   useEffect(() => {
-    const socket = io(`ws://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
+    const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
 
     if (userDataInfo?._id) {
-        socket.emit('online', { userId: userDataInfo._id });
+      socket.emit("online", { userId: userDataInfo._id });
     }
 
     return () => {
-        socket.disconnect();
+      socket.disconnect();
     };
-}, [userDataInfo]);
+  }, [userDataInfo]);
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">
