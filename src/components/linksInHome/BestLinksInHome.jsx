@@ -1,9 +1,9 @@
-import {
-  propertyFromSearch,
-  setInputKeywords,
-} from "@/redux-store/features/searchSlice";
+// import {
+//   propertyFromSearch,
+//   setInputKeywords,
+// } from "@/redux-store/features/searchSlice";
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

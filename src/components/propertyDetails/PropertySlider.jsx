@@ -78,7 +78,7 @@ export default function PropertyImgSlider({ images }) {
                   loading="lazy"
                   className="embla__slide__img"
                   src={img?.image}
-                  alt="Your alt text"
+                  alt={images?.title + index}
                 />
               </div>
             ))}
@@ -95,6 +95,7 @@ export default function PropertyImgSlider({ images }) {
                   index={index}
                   imgSrc={img?.image}
                   key={index}
+                  title={images?.title}
                 />
               ))}
             </div>
@@ -126,7 +127,7 @@ export default function PropertyImgSlider({ images }) {
 }
 
 const Thumb = (props) => {
-  const { selected, imgSrc, index, onClick } = props;
+  const { selected, imgSrc, index, onClick, title } = props;
 
   return (
     <div
@@ -145,7 +146,7 @@ const Thumb = (props) => {
         <img
           className="embla-thumbs__slide__img"
           src={imgSrc}
-          alt="Your alt text"
+          alt={title + index + " thumbnail"}
         />
       </button>
     </div>

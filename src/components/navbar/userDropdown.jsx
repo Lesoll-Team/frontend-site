@@ -8,7 +8,6 @@ import {
   // User,
 } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
-// import Link from "next/link";
 import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
@@ -24,7 +23,7 @@ function UserDropdown({ classNamed }) {
     setUserDataInfo(userInfo);
   });
   const handleLogout = () => {
-    dispatch(logoutUserToken()); // Dispatch the logout action
+    dispatch(logoutUserToken());
     localStorage.clear();
     router.push("/signin");
   };

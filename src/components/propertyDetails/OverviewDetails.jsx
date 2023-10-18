@@ -34,8 +34,12 @@ function OverviewDetails({ singleOverviewDetails }) {
               <p className="font-semibold text-xl">
                 {" "}
                 {language
-                  ? singleOverviewDetails?.downPayment.toLocaleString("ar-Eg")
-                  : singleOverviewDetails?.downPayment.toLocaleString()}{" "}
+                  ? parseInt(singleOverviewDetails?.downPayment).toLocaleString(
+                      "ar-Eg"
+                    )
+                  : parseInt(
+                      singleOverviewDetails?.downPayment
+                    ).toLocaleString()}{" "}
                 {language ? "جنية" : "Egp"}
               </p>
             </div>
@@ -78,10 +82,12 @@ function OverviewDetails({ singleOverviewDetails }) {
               </h3>
               <p className="font-semibold text-xl">
                 {language
-                  ? singleOverviewDetails?.installmentOption.amount.toLocaleString(
-                      "ar-Eg"
-                    )
-                  : singleOverviewDetails?.installmentOption.amount.toLocaleString()}{" "}
+                  ? parseInt(
+                      singleOverviewDetails?.installmentOption.amount
+                    ).toLocaleString("ar-Eg")
+                  : parseInt(
+                      singleOverviewDetails?.installmentOption.amount
+                    ).toLocaleString()}{" "}
                 {language ? "جنية" : "Egp"}
               </p>
             </div>

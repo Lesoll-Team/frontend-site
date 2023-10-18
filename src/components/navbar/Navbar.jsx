@@ -91,7 +91,7 @@ export default function Navbar() {
                 src={logoNavbar}
                 width={"auto"}
                 height={"auto"}
-                alt="Logo"
+                alt="logo navbar"
                 loading="eager"
                 priority
               />

@@ -30,7 +30,7 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="canonical" href="https://www.lesoll.com/" />
-       
+
         <title>
           {language
             ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
@@ -56,6 +56,17 @@ export default function Home({
           name="keywords"
           content="Real estate, Property listings, Homes for sale, Apartments for rent, Commercial properties, Realtor, Real estate agent, House hunting, Real estate market, Property management, Real estate investment, Rental properties, Property search, Buy a house, Sell a house, Foreclosures, Mortgage rates, Property valuation, Open house, Home inspection, عقارات, قائمة العقارات, منازل للبيع, شقق للإيجار, عقارات تجارية, وكيل عقاري, سوق العقارات, إدارة العقارات, استثمار العقارات, عقارات للإيجار, البحث عن عقار, شراء منزل, بيع منزل, العقارات المستصرفة, أسعار الرهن العقاري, تقييم العقار, منازل مفتوحة للزيارة, فحص المنزل"
         />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={
+            language
+              ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
+              : "Lesoll Real Estate EGY| Buy - Sell - Rent Properties"
+          }
+        />
+        <meta property="og:site_name" content="Lesoll" />
+        <meta property="og:url" content="https://www.lesoll.com/" />
       </Head>
 
       <Main />
