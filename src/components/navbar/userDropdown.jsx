@@ -28,7 +28,7 @@ function UserDropdown({ classNamed }) {
     router.push("/signin");
   };
   useEffect(() => {
-    const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
+    const socket = io(`ws://api.lesoll.com`);
 
     if (userDataInfo?._id) {
       socket.emit("online", { userId: userDataInfo._id });

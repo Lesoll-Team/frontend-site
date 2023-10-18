@@ -15,7 +15,7 @@ function App({ Component, pageProps }) {
       .toString()
       .replace(".", "")
   );
-  const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
+  const socket = io(`ws://api.lesoll.com`);
   useEffect(() => {
     if (!localStorage.getItem("user-key")) {
       localStorage.setItem("user-key", userKey);
