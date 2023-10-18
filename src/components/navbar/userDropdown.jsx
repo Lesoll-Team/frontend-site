@@ -27,17 +27,17 @@ function UserDropdown({ classNamed }) {
     localStorage.clear();
     router.push("/signin");
   };
-  useEffect(() => {
-    const socket = io(`ws://api.lesoll.com`);
+  // useEffect(() => {
+  //   const socket = io(`ws://api.lesoll.com`);
 
-    if (userDataInfo?._id) {
-      socket.emit("online", { userId: userDataInfo._id });
-    }
+  //   if (userDataInfo?._id) {
+  //     socket.emit("online", { userId: userDataInfo._id });
+  //   }
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [userDataInfo]);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [userDataInfo]);
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">

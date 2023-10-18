@@ -15,15 +15,15 @@ function App({ Component, pageProps }) {
       .toString()
       .replace(".", "")
   );
-  const socket = io(`ws://api.lesoll.com`);
-  useEffect(() => {
-    if (!localStorage.getItem("user-key")) {
-      localStorage.setItem("user-key", userKey);
-    }
-    socket.emit("users", {
-      userRecord: JSON.parse(localStorage.getItem("user-key")),
-    });
-  }, []);
+  // const socket = io(`ws://api.lesoll.com`);
+  // useEffect(() => {
+  //   if (!localStorage.getItem("user-key")) {
+  //     localStorage.setItem("user-key", userKey);
+  //   }
+  //   socket.emit("users", {
+  //     userRecord: JSON.parse(localStorage.getItem("user-key")),
+  //   });
+  // }, []);
   return (
     <Provider store={store}>
       {/* <SessionProvider  session={session}> */}
