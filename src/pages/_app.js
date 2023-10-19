@@ -6,23 +6,20 @@ import io from "socket.io-client";
 import { NextUIProvider } from "@nextui-org/react";
 import React, { useEffect } from "react";
 
-// import { SessionProvider } from "next-auth/react";
-// SessionProvider
 function App({ Component, pageProps }) {
-  const userKey = parseInt(
-    Math.ceil(Math.random() * Date.now())
-      .toPrecision(16)
-      .toString()
-      .replace(".", "")
-  );
-  // const socket = io(`ws://api.lesoll.com`);
+  // const userKey = parseInt(
+  //   Math.ceil(Math.random() * Date.now())
+  //     .toPrecision(16)
+  //     .toString()
+  //     .replace(".","")
+  // );
+  // const socket = io('https://api.lesoll.com');
+  // // const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
   // useEffect(() => {
   //   if (!localStorage.getItem("user-key")) {
   //     localStorage.setItem("user-key", userKey);
   //   }
-  //   socket.emit("users", {
-  //     userRecord: JSON.parse(localStorage.getItem("user-key")),
-  //   });
+  //   socket.emit('users', { userRecord: JSON.parse(localStorage.getItem('user-key')) })
   // }, []);
   return (
     <Provider store={store}>
