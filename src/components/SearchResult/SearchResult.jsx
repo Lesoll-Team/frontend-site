@@ -1,45 +1,45 @@
 // SearchResult.js
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchCard from "../realtyCard/RealtyCard";
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 
-import { setCurrentPage } from "@/redux-store/features/searchingSlice";
+import {
+  setCurrentPage,
+  propertyFromSearch,
+} from "@/redux-store/features/searchSlice";
 import ShowMapSearch from "@/Shared/map/ShowMapSearch";
-import { FaMapMarked } from "react-icons/fa";
-import { useRouter } from "next/router";
-import { DotPulse } from "@uiball/loaders";
 import { SearchBar } from "@/Shared/search/SearchBar";
+import { FaMapMarked } from "react-icons/fa";
+import { DotPulse } from "@uiball/loaders";
+// import { GrFormNext } from "react-icons/gr";
 
-function SearchResult({reversedFilteredKeywords}) {
-  const router = useRouter();
+function SearchResult() {
   const dispatch = useDispatch();
-  const currentPage = useSelector((state) => state.Searching.currentPage);
-  const totalPages = useSelector((state) => state.Searching.totalPages);
-  // const InputKeyword = useSelector((state) => state.Searching.setInputKeyword);
-  const searchResult = useSelector(
-    (state) => state.Searching.searchResult
-  );
-  const searchingError = useSelector(
-    (state) => state.Searching.searchingError
-  );
-  const isSearching = useSelector(
-    (state) => state.Searching.isSearching
-  );
-  // const [searchResult, setSearchResult] = useState(null);
+  const currentPage = useSelector((state) => state.Search.currentPage);
+  const totalPages = useSelector((state) => state.Search.totalPages);
+  const InputKeyword = useSelector((state) => state.Search.setInputKeyword);
+  const searchResultSearch = useSelector((state) => state.Search.searchResult);
+  const [searchResult, setSearchResult] = useState(null);
   const [showMap, setShowMap] = useState(false);
   const handlePageChange = (selectedPage) => {
     dispatch(setCurrentPage(selectedPage + 1));
   };
   useEffect(() => {
-    router.push(`/searching/${router.query.keyword}`);
-  }, [currentPage]);
-// console.log(searchResult);
+    dispatch(
+      propertyFromSearch({ InputKeywords: InputKeyword, page: currentPage })
+    );
+  }, [InputKeyword, currentPage]);
+
+  useEffect(() => {
+    setSearchResult(searchResultSearch);
+  }, [currentPage, searchResultSearch]);
+  // console.log(searchResult);
   return (
     <>
-      <div className="relative ">
+      <div className="relative">
         <button
           onClick={() => {
             setShowMap((prevState) => !prevState);
@@ -49,24 +49,17 @@ function SearchResult({reversedFilteredKeywords}) {
         >
           <FaMapMarked />
         </button>
-        {!isSearching? (
-          <div className="grid grid-cols-3 ">
-
-            <div className={`  flex flex-col ${searchingError==="rejected"?" ":"lg:col-span-2 "}  col-span-3 `}>
-      <SearchBar reversedFilteredKeywords={reversedFilteredKeywords}/>
+        {searchResult?.searchResults?.length > 0 ? (
+          <div className="grid grid-cols-3">
+            <div className="flex flex-col lg:col-span-2  col-span-3  ">
+              <SearchBar />
 
               <div className=" flex flex-wrap justify-center  gap-10">
-              
-                {searchResult?.searchResults.map((result) => (
+                {searchRnesult.searchResults.map((result) => (
                   <SearchCard key={result._id} propertyDetails={result} />
                 ))}
               </div>
-              { searchingError=="rejected"? (
-          <div className="w-full p-36 text-2xl text-default-500 text-center ">
-            Not found property
-          </div>
-        ): 
-        <div
+              <div
                 className={
                   "flex justify-center items-center  m-4 " + styles.pagination
                 }
@@ -88,13 +81,12 @@ function SearchResult({reversedFilteredKeywords}) {
                   disabledClassName={styles.paginationDisabled}
                 />
               </div>
-        }
-
             </div>
 
             <div
-              className={`  lg:block hidden md:sticky  md:top-20 ${searchingError==="rejected"?"":"h-[93vh]"}  absolute top-0 w-screen $`}
+              className={`lg:block hidden md:sticky  md:top-20 h-[93vh] absolute top-0 w-screen $`}
             >
+              {" "}
               {searchResult?.searchResults && (
                 <ShowMapSearch
                   className=""
@@ -103,7 +95,7 @@ function SearchResult({reversedFilteredKeywords}) {
               )}
             </div>
             {showMap && (
-              <div className="lg:hidden block  ">
+              <div className="lg:hidden block">
                 <div
                   className={`fixed top-0 left-0 w-full h-[100vh] n${
                     showMap ? "block" : "hidden"
@@ -119,14 +111,24 @@ function SearchResult({reversedFilteredKeywords}) {
               </div>
             )}
           </div>
-        ) :(
-          <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
-
-         <DotPulse size={50} speed={1.3} color="#309da0" />
-         {/* } */}
+        ) : !searchResult ? (
+          <div>
+            <SearchBar pageSaleOption={InputKeyword?.offer} />
+            {/* <div className="w-full p-36 text-2xl text-default-500 text-center ">
+              Not found property
+            </div> */}
+            <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
+              <DotPulse size={50} speed={1.3} color="#309da0" />
+            </div>
           </div>
+        ) : (
+          <>
+            <SearchBar pageSaleOption={InputKeyword?.offer} />
+            <div className="w-full p-36 text-2xl text-default-500 text-center ">
+              Not found property
+            </div>
+          </>
         )}
-
       </div>
     </>
   );

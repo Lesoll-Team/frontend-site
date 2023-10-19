@@ -176,7 +176,7 @@ const EditProp = ({ propData, setPropData }) => {
 
     setIsSubmitting(false);
   };
-  // console.log(propData);
+  console.log(propData);
   const userInfo = useSelector((state) => state.GlobalState.userData);
 
   return (
@@ -207,14 +207,18 @@ const EditProp = ({ propData, setPropData }) => {
                   setData={setPropData}
                 />
                 <hr />
-
-                <Price
-                  propErrors={propErrors}
-                  setPropErrors={setPropErrors}
-                  propertyDetils={propData}
-                  setData={setPropData}
-                />
-                <hr />
+                {console.log(propData)}
+                {propData.offer !== "For Investment" && (
+                  <div className="animate-appearance-in space-y-10">
+                    <Price
+                      propErrors={propErrors}
+                      setPropErrors={setPropErrors}
+                      propertyDetils={propData}
+                      setData={setPropData}
+                    />
+                    <hr />
+                  </div>
+                )}
                 <PropertyInfo
                   propErrors={propErrors}
                   setPropErrors={setPropErrors}
@@ -222,6 +226,7 @@ const EditProp = ({ propData, setPropData }) => {
                   setData={setPropData}
                 />
                 <hr />
+
                 <Description
                   propErrors={propErrors}
                   setPropErrors={setPropErrors}
