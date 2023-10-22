@@ -108,6 +108,7 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
           </div>
           <input
             hidden
+            name="image"
             type="file"
             accept="image/*"
             ref={mainImageInputRef}
@@ -181,6 +182,7 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
             ref={multiImageInputRef}
             type="file"
             multiple
+            name="image"
             accept="image/*"
             label="multi Images"
             onChange={handleAddMultiImage}

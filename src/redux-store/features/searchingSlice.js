@@ -35,9 +35,6 @@ const SearchingSlice = createSlice({
       state.isSearching = true;
       state.searchResult = null;
       state.propLengthResult = null;
-
-      // state.totalPages = action.payload.totalPages;
-      // state.currentPage = state.currentPage;
     })
     .addCase(dataFoundFromSearch.fulfilled, (state, action) => {
       state.searchResult = action.payload;
@@ -46,15 +43,11 @@ const SearchingSlice = createSlice({
       state.propLengthResult=action.payload.resultCount
       state.searchingError = null;
       state.isSearching = false;
-
     })
     .addCase(dataFoundFromSearch.rejected, (state, action) => {
       state.searchingError = action.meta.requestStatus;
       state.isSearching = false;
       state.propLengthResult = null;
-
-      // state.totalPages = action.payload.totalPages;
-      // state.currentPage = state.currentPage;
     });
   },
 });

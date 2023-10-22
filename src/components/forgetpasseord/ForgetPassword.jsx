@@ -95,6 +95,7 @@ const ForgetPassword = () => {
               <div>
                 <input
                   name="email"
+            
                   type="email"
                   placeholder={language ? `البريد الإلكترونى` : `Email`}
                   value={formik.values.email}

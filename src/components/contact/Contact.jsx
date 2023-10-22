@@ -100,6 +100,7 @@ export default function Contact() {
               <center className="flex flex-col gap-3 w-full">
                 <div className="flex gap-2">
                   <input
+                  name="user-name"
                     type="text"
                     placeholder={language ? "الاسم بالكامل " : "full name"}
                     value={fullName}
@@ -107,6 +108,7 @@ export default function Contact() {
                     className=" placeholder:text-gray-500 focus:outline-none  w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
                   />
                   <input
+                  name="user-email"
                     type="email"
                     placeholder={language ? "البريد الإلكترونى" : "Email"}
                     value={email}
@@ -116,6 +118,7 @@ export default function Contact() {
                 </div>
                 <div className="flex gap-2">
                   <input
+                  name="user-phone"
                     type="number"
                     placeholder={language ? "الهاتف" : "Phone"}
                     value={phone}
@@ -124,6 +127,7 @@ export default function Contact() {
                   />
                   <input
                     type="text"
+                    name="subject"
                     placeholder={language ? "الموضوع بشأن" : "Subject"}
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}

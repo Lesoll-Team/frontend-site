@@ -103,6 +103,7 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
           <input
             hidden
             type="file"
+            name="file-img"
             accept="image/*"
             ref={mainImageInputRef}
             onChange={(e) => {
@@ -154,6 +155,7 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
           <input
             hidden
             max={14}
+            name="file-img"
             ref={multiImageInputRef}
             type="file"
             multiple

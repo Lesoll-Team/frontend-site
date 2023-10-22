@@ -177,21 +177,21 @@ export default function UserDashboard() {
             {user._id}
             <Dropdown
               aria-label="Options Menu User"
-              aria-labelledbyl="Options Menu User"
+              // aria-labelledbyl="Options Menu User"
               className="bg-background border-1 border-default-200"
             >
               <DropdownTrigger
-                aria-label="Options Menu User"
-                aria-labelledbyl="Options Menu User"
+                aria-label="Open Options Menu"
+                // aria-labelledbyl="Options Menu User"
               >
                 <Button isIconOnly radius="full" size="sm" variant="light">
                   <VerticalDotsIcon className="text-default-400" />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu aria-label="Options Menu User">
+              <DropdownMenu aria-label="User Options Menu">
                 <DropdownItem
                   textValue="Delete"
-                  aria-labelledbyl="Options Menu User"
+                  // aria-labelledbyl="Options Menu User"
                   onClick={() => handleDeleteUser(user._id)}
                 >
                   Delete
@@ -243,6 +243,8 @@ export default function UserDashboard() {
               <Input
                 isClearable
                 className="w-full"
+name="search"
+
                 // classNames={{
                 //   base: "w-full sm:max-w-[44%]",
                 //   inputWrapper: "border-1",

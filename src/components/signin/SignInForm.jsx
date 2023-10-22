@@ -100,6 +100,7 @@ const SignInForm = () => {
           <input
             placeholder={language ? "البريد  " : "Email"}
             type=""
+            
             id="email"
             name="email"
             value={email}

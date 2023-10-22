@@ -9,15 +9,17 @@ import { LuSearch } from "react-icons/lu";
 import Dropdown from "./dropdown/Dropdown";
 import DropdownMore from "./dropdown/DropdownMore";
 import DropdownUintType from "./dropdown/DropdownUintType";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { FaSortNumericDown } from "react-icons/fa";
 import DropdownSort from "./dropdown/DropdownSort";
 import { MdClear } from "react-icons/md";
+import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 
 export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
   let [sortPropChanged, setSortPropChanged] = useState(false);
+  const dispatch = useDispatch();
 
 
 
@@ -98,6 +100,8 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     const queryString = Object.keys(filteredKeywords)
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
+
+      dispatch(setCurrentPage(1))
     router.push(`/searching/${queryString}`);
   };
 
@@ -117,19 +121,28 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     setPropertyType("");
     setSortProp("");
     setSelectedOption("");
+    dispatch(setCurrentPage(1))
   };
   const setForSaleButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For Sale");
+    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For_Sale");
   };
 
   const setForRentButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For Rent");
+    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For_Rent");
     setPropertyFinance("");
     setFinishingOptions("");
 
   };
+
+  const setForInvestmentButton = (e) => {
+    e.preventDefault();
+    languageIs ? setSaleOptions("للإستثمار") : setSaleOptions("For_Investment");
+
+
+  };
+
   const setForAllButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("كل") : setSaleOptions("all");
@@ -153,6 +166,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const handleSortPropChange = (value) => {
     setSortProp(value);
     setSortPropChanged(true);
+    dispatch(setCurrentPage(1))
   };
   // console.log(pageSaleOption);
 
@@ -176,7 +190,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               <button
                 onClick={setForRentButton}
                 className={` ${
-                  saleOptions == "For Rent" || saleOptions == "للايجار"
+                  saleOptions == "For_Rent" || saleOptions == "للايجار"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
@@ -186,18 +200,32 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               <button
                 onClick={setForSaleButton}
                 className={` ${
-                  saleOptions == "For Sale" || saleOptions == "للبيع"
+                  saleOptions == "For_Sale" || saleOptions == "للبيع"
                     ? "text-white bg-lightGreen"
                     : "text-lightGreen border-2 border-lightGreen bg-white"
                 }  font-bold  px-2 mx-1 rounded-t-medium`}
               >
                 {languageIs ? "للبيع" : "Buy"}
               </button>
+
+              <button
+                onClick={setForInvestmentButton}
+                className={` ${
+                  saleOptions == "For_Investment" || saleOptions == "للإستثمار"
+                    ? "text-white bg-lightGreen"
+                    : "text-lightGreen border-2 border-lightGreen bg-white"
+                }  font-bold  px-2 mx-1 rounded-t-medium`}
+              >
+                {languageIs ? "للإستثمار" : "Investment"}
+              </button>
+
             </div>
             <Input
+              id="search"
               dir={languageIs ? "rtl" : "ltr"}
               className=" h-full  "
               size="md"
+              name="Search"
               isClearable
               placeholder={
                 languageIs
@@ -209,7 +237,8 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
             />
           </div>
           <div className="flex items-end">
-            <div dir={languageIs ? "rtl" : "ltr"} className="flex">
+            <div className="flex">
+            {/**dir={languageIs ? "rtl" : "ltr"} */}
               <Dropdown
                 classNames=" w-[auto]  sm:block hidden"
                 ifSaleOptions={saleOptions}

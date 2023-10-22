@@ -38,7 +38,7 @@ const EmailVerificationModal = ({ onClose }) => {
             type="text"
             color="primary"
             placeholder="### ###"
-            
+            name="email-veri"
             value={sixNumber}
             onChange={(e) => setSixNumber(e.target.value)}
           />

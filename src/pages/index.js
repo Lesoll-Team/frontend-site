@@ -29,7 +29,7 @@ export default function Home({
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="canonical" href="https://www.lesoll.com/" />
+        <link rel="canonical" href="https://lesoll.com" />
 
         <title>
           {language
@@ -66,7 +66,7 @@ export default function Home({
           }
         />
         <meta property="og:site_name" content="Lesoll" />
-        <meta property="og:url" content="https://www.lesoll.com/" />
+        <meta property="og:url" content="https://lesoll.com" />
       </Head>
 
       <Main />

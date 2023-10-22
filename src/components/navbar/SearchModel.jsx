@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 //   propertyFromSearch,
 //   setInputKeywords,
 // } from "@/redux-store/features/searchSlice";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 
 export default function SearchModel() {
   // const dispatch = useDispatch();
@@ -88,6 +88,7 @@ export default function SearchModel() {
                     isClearable
                     placeholder="search by city..."
                     type="search"
+                    name="search"
                     onChange={(e) => setKeyword(e.target.value)}
                   />
                   <Button

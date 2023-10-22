@@ -44,6 +44,7 @@ const token=router.query.token
             onChange={(e)=>setPassword(e.target.value)}
                         className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2`}
             placeholder='New Password'
+            name='new-password'
             type={isVisible ? "text" : "password"}
               endContent={
         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
@@ -58,7 +59,7 @@ const token=router.query.token
         <div>
             <Input 
             onChange={(e)=>setConfirmPassword(e.target.value)}
-
+name='confirm-password'
              className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2`}
             placeholder='Confirm Password'
             type={isVisible ? "text" : "password"}

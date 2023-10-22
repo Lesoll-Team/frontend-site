@@ -63,6 +63,7 @@ const DropdownArea = ({
             <Input
               className="pb-4"
               type="number"
+              name="number"
               placeholder="0.00"
               value={valueFromArea<=0?null:valueFromArea}
               labelPlacement="outside"
@@ -76,6 +77,7 @@ const DropdownArea = ({
             <Input
               className="pb-4"
               type="number"
+              name="number"
               placeholder="0.00"
               labelPlacement="outside"
               value={valueToArea<=0?null:valueToArea}

@@ -103,6 +103,7 @@ const PersonalInfo = () => {
               <input
                 hidden
                 type="file"
+                name="img-ref"
                 ref={addImgRef}
                 // accept="image/"
                 onChange={(e) => setSelectedImage(e.target.files[0])}
@@ -118,6 +119,7 @@ const PersonalInfo = () => {
             </p>
             <input
               // type="text"
+              
               name="Full Name"
               placeholder="Full Name"
               value={userName || ""}

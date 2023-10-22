@@ -27,6 +27,20 @@ function UserDropdown({ classNamed }) {
     localStorage.clear();
     router.push("/signin");
   };
+  useEffect(() => {
+    const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
+      transports: ['websocket'],
+      withCredentials: true,
+    });
+  
+    if (userDataInfo?._id) {
+      socket.emit('online', { userId: userDataInfo._id });
+  }
+
+  return () => {
+      socket.disconnect();
+  };
+  }, [userDataInfo?._id]);
 //   useEffect(() => {
 //     // const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
 //     const socket = io('https://api.lesoll.com');

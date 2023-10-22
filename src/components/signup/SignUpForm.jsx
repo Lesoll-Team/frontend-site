@@ -188,6 +188,7 @@ const SignUpForm = () => {
               <input
                 type="text"
                 id="fullname"
+                name="fullname"
                 value={fullname}
                 onChange={(e) => {
                   setFullname(e.target.value);
@@ -209,6 +210,7 @@ const SignUpForm = () => {
               <input
                 id="email"
                 value={email}
+                name="email"
                 onChange={(e) => {
                   if (e.target.value) {
                     setFormError({
@@ -289,6 +291,7 @@ const SignUpForm = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
+                  name="password"
                   value={password}
                   placeholder={language ? "كلمة السر" : "Password"}
                   onChange={(e) => {

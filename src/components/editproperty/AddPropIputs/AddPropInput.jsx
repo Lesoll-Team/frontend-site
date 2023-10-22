@@ -34,6 +34,7 @@ const AddPropInput = ({
       </h3>
       <div className="relative ">
         <input
+name="number"
           inputMode={type === "number" ? "numeric" : undefined}
           type={type === "number" && "number"}
           value={value || ""}

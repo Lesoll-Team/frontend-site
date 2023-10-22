@@ -25,6 +25,7 @@ import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import EditBlogModule from "../model/blogs/EditBlogModule";
 
 const columns = [
   { name: "Image", uid: "BlogImage" },
@@ -129,21 +130,24 @@ export default function BlogDashboard() {
         return (
           <div className="relative flex justify-end items-center gap-2">
             <Dropdown
-              aria-label="Options Menu Blog"
-              aria-labelledbyl="Options Menu Blog"
+             aria-label="Options Menu Blog"
+              // aria-label="Options Menu Blog"
+              // aria-labelledbyl="Options Menu Blog"
               className="bg-background border-1 border-default-200"
             >
               <DropdownTrigger
-                aria-label="Options Menu Blog"
-                aria-labelledby="Options Menu Blog"
+              aria-label="Open Options Menu"
+                // aria-label="Options Menu Blog"
+                // aria-labelledby="Options Menu Blog"
               >
                 <Button isIconOnly radius="full" size="sm" variant="light">
                   <VerticalDotsIcon className="text-default-400" />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
-                aria-label="Options Menu Blog"
-                aria-labelledby="Options Menu Blog"
+              aria-label="Blog Options Menu"
+                // aria-label="Options Menu Blog"
+                // aria-labelledby="Options Menu Blog"
               >
                 <DropdownItem
                   textValue="Delete Blog"
@@ -159,6 +163,8 @@ export default function BlogDashboard() {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
+          <EditBlogModule blogData={blog} blogID={blog._id}/>
+
           </div>
         );
       case "_id":
@@ -190,6 +196,8 @@ export default function BlogDashboard() {
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
+name="search"
+
             classNames={{
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",

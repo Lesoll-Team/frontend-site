@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  createBlogs,
+//   createBlogs,
+  editBlog,
   // deleteBlog,
 } from "@/redux-store/features/dashboard/blogDashboardSlice";
 import {
@@ -14,31 +15,32 @@ import {
   Input,
   Textarea,
 } from "@nextui-org/react";
-import { PlusIcon } from "../../icon/PlusIcon";
+// import { PlusIcon } from "../../icon/PlusIcon";
 import { useDispatch, useSelector } from "react-redux";
 
-function UserModule() {
+function EditBlogModule({blogID,blogData}) {
+    // console.log("blogData::",blogData);
   //{refreshProperty,setRefreshProperty,onBlogAdded}
   const dispatch=useDispatch()
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const blogSending = useSelector((state) => state.BlogDashboard.blogSending);
+//   const blogSending = useSelector((state) => state.BlogDashboard.blogSending);
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+//   const userInfo = useSelector((state) => state.GlobalState.userData);
 
-  const [titleAR, setTitleAR] = useState("");
-  const [titleEN, setTitleEN] = useState("");
-  const [userDataInfo, setUserDataInfo] = useState({});
-  const [descriptionAR, setDescriptionAR] = useState(``);
-  const [descriptionEN, setDescriptionEN] = useState(``);
+  const [titleAR, setTitleAR] = useState(blogData?.title.ar||"");
+  const [titleEN, setTitleEN] = useState(blogData?.title.en||"");
+//   const [userDataInfo, setUserDataInfo] = useState({});
+  const [descriptionAR, setDescriptionAR] = useState(blogData?.description.ar||``);
+  const [descriptionEN, setDescriptionEN] = useState(blogData?.description.en||``);
 
-  const [metDescriptionAR, setMetDescriptionAR] = useState("");
-  const [metDescriptionEN, setMetDescriptionEN] = useState("");
+  const [metDescriptionAR, setMetDescriptionAR] = useState(blogData?.metaDescription.ar||"");
+  const [metDescriptionEN, setMetDescriptionEN] = useState(blogData?.metaDescription.en||"");
 
-  const [selectedImage, setImage] = useState(null);
-  const [selectedImagePrev, setImagePrev] = useState(null);
-    useEffect(() => {
-    setUserDataInfo(userInfo);
-  }, [dispatch, userInfo]);
+  const [selectedImage, setImage] = useState(blogData?.BlogImage||null);
+  const [selectedImagePrev, setImagePrev] = useState(blogData?.BlogImage||null);
+//     useEffect(() => {
+//     setUserDataInfo(userInfo);
+//   }, [dispatch, userInfo]);
 
   const handleImgChange = (e) => {
     const newImage = e.target.files[0];
@@ -78,23 +80,19 @@ function UserModule() {
     formData.append("metaDescription",JSON.stringify(metaDescription));
     formData.append("description",JSON.stringify(description));
     dispatch(
-      createBlogs({blogData:formData}) //, blogData: formData
+        editBlog({blogData:formData,blogID:blogID}) //, blogData: formData
     );
-    
-  //  await setRefreshProperty(!refreshProperty)
-
-  //   await onBlogAdded();
-
   };
   return (
     <div className="">
       <Button
-        className="bg-foreground text-background"
-        endContent={<PlusIcon />}
+        className=" text-white font-semibold"
+        color="warning"
+        // endContent={<PlusIcon />}
         size="sm"
         onPress={onOpen}
       >
-        Add New Blog
+        Edit Blog
       </Button>
       <Modal
         backdrop="opaque"
@@ -121,13 +119,14 @@ function UserModule() {
               <ModalBody className="overflow-y-auto h-[400px] px-5 bg-default-200 pb-10">
                   <div className="">
                     <Input
-                    name="image-set"
                       type="file"
+                    name="img-file"
                       placeholder="set Image here"
                       labelPlacement="outside"
                       label="Image"
                       className="my-5"
                       onChange={handleImgChange}
+                      // value={selectedImage}
                     />
                   </div>
                   <div>
@@ -150,14 +149,17 @@ function UserModule() {
                       labelPlacement="outside"
                       label=<b>Title Arabic</b>
                       onChange={(e) => setTitleAR(e.target.value)}
+                      value={titleAR}
                     />
                     <Input
                       color="default"
-                      type="text"
                     name="title-en"
+                      type="text"
                       placeholder="set Title English here"
                       labelPlacement="outside"
                       label=<b>Title English</b>
+                      value={titleEN}
+
                       onChange={(e) => setTitleEN(e.target.value)}
                     />
                   </div>
@@ -168,6 +170,7 @@ function UserModule() {
                       label=<b>Description Arabic</b>
                       labelPlacement="outside"
                       placeholder="حقل إدخال الوصف "
+                      value={descriptionAR}
                     />
                     <Textarea
                       color="default"
@@ -175,6 +178,7 @@ function UserModule() {
                       label=<b>Description English</b>
                       labelPlacement="outside"
                       placeholder="Enter your description"
+                      value={descriptionEN}
                     />
                   </div>
                   <div className=" flex gap-5">
@@ -184,6 +188,7 @@ function UserModule() {
                       label=<b>Meta Description Arabic <span className="text-lightOrange">{metDescriptionAR.length}</span></b>
                       labelPlacement="outside"
                       placeholder="حقل إدخال الوصف "
+                      value={metDescriptionAR}
                     />
                     <Textarea
                       color="primary"
@@ -191,6 +196,8 @@ function UserModule() {
                       label=<b>Meta Description English <span className="text-lightOrange">{metDescriptionEN.length}</span></b>
                       labelPlacement="outside"
                       placeholder="Enter your description"
+                      value={metDescriptionEN}
+
                     />
                   </div>
               </ModalBody>
@@ -214,4 +221,4 @@ function UserModule() {
   );
 }
 
-export default UserModule;
+export default EditBlogModule;

@@ -9,21 +9,9 @@ export const paymentMethodData = {
     { value: "", name: "الكل" },
     { value: "كاش", name: "كاش" },
     { value: "تقسيط", name: "تقسيط" },
-    // { value: "Real_Estate_Finance", name: "تمويل عقارى" },
   ],
 };
-// export const FurnishedOptions = {
-//   en: [
-//     { value: null, name: " All" },
-//     { value: true, name: "Furnished" },
-//     { value: false, name: "Unfurnished" },
-//   ],
-//   ar: [
-//     { value: null, name: "الكل" },
-//     { value: true, name: "مفروش" },
-//     // { value: null, name: "غير مفروش" },
-//   ],
-// };
+
 export const percentageProperty = {
   en: [
     { value: "", name: " All" },
@@ -32,37 +20,39 @@ export const percentageProperty = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "تمويل عقاري 3 بالمئة", name: "3% تمويل عقارى" },
-    { value: "تمويل عقاري 8 بالمئة", name: "8% تمويل عقارى " },
+    { value: "تمويل عقاري_3_بالمئة", name: "3% تمويل عقارى" },
+    { value: "تمويل عقاري_8_بالمئة", name: "8% تمويل عقارى " },
   ],
 };
 export const finishingOptionsData = {
   en: [
     { value: "", name: " All" },
-    { value: "Super Lux", name: "Super Lux" },
+    { value: "Super_Lux", name: "Super Lux" },
     { value: "Lux", name: "Lux" },
     { value: "Finished", name: "Semi Finished" },
-    { value: "Not Finished", name: "Not Finished" },
+    { value: "Not_Finished", name: "Not Finished" },
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "سوبر لوكس", name: "سوبر لوكس" },
+    { value: "سوبر_لوكس", name: "سوبر لوكس" },
     { value: "لوكس", name: "لوكس" },
-    { value: "نصف تشطيب", name: "نصف تشطيب" },
-    { value: "بدون تشطيب", name: "بدون تشطيب" },
+    { value: "نصف_تشطيب", name: "نصف تشطيب" },
+    { value: "بدون_تشطيب", name: "بدون تشطيب" },
   ],
 };
 
 export const saleOptionsData = {
   en: [
     { value: "all", name: " All" },
-    { value: "For Sale", name: "For Sale" },
-    { value: "For Rent", name: "For Rent" },
+    { value: "For_Sale", name: "For Sale" },
+    { value: "For_Rent", name: "For Rent" },
+    { value: "For_Investment", name: "For Investment" },
   ],
   ar: [
     { value: "كل", name: "الكل" },
     { value: "للبيع", name: "للبيع" },
     { value: "للايجار", name: "للإيحار" },
+    { value: "للإستثمار", name: "للإستثمار" },
   ],
 };
 export const propertyTypeData = {
@@ -97,7 +87,7 @@ export const unitTypeData = {
       { value: "Cabin", name: "Cabin" },
       { value: "Village", name: "Village" },
       { value: "Townhouse", name: "Townhouse" },
-      { value: "Twin house", name: "Twin house" },
+      { value: "Twin_house", name: "Twin house" },
     ],
 
     Commercial: [
@@ -121,20 +111,20 @@ export const unitTypeData = {
   ar: {
     Residential: [
       { value: "شقة", name: "شقة" },
-      { value: "شقة بحديقة", name: "شقة بحديقة" },
+      { value: "شقة_بحديقة", name: "شقة بحديقة" },
       { value: "دوبلكس", name: "دوبلكس" },
       { value: "ستوديو", name: "ستوديو" },
       { value: "بينتهاوس", name: "بينتهاوس" },
-      { value: "شقق فندقية", name: "شقق فندقية" },
+      { value: "شقق_فندقية", name: "شقق فندقية" },
       { value: "أرضى", name: "أرضى" },
-      { value: "شقق مفروشة", name: "شقق مفروشة" },
+      { value: "شقق_مفروشة", name: "شقق مفروشة" },
       // { value: "642449f07502ee416a864e95", name: "عمارة" },
       { value: "بيت", name: "بيت" },
       { value: "شالية", name: "شالية" },
       { value: "كابينة", name: "كابينة" },
       { value: "فيلا", name: "فيلا" },
-      { value: "تاون هاوس", name: "تاون هاوس" },
-      { value: "توين هاوس", name: "توين هاوس" },
+      { value: "تاون_هاوس", name: "تاون هاوس" },
+      { value: "توين_هاوس", name: "توين هاوس" },
     ],
   
     Commercial: [
@@ -168,10 +158,10 @@ export const sortedData = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "أقل سعر", name: "أقل سعر" },
-    { value: "أكثر سعر", name: "أكثر سعر" },
-    { value: "أكثر مشاهدة", name: "أكثر مشاهدة" },
-    { value: "أقل مشاهدة", name: "أقل مشاهدة" },
+    { value: "أقل_سعر", name: "أقل سعر" },
+    { value: "أكثر_سعر", name: "أكثر سعر" },
+    { value: "أكثر_مشاهدة", name: "أكثر مشاهدة" },
+    { value: "أقل_مشاهدة", name: "أقل مشاهدة" },
     { value: "أقدم", name: "أقدم" },
   ],
 };

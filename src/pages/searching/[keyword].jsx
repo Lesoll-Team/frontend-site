@@ -38,7 +38,7 @@ export default function Searching({ keyword }) {
       <Head>
         <title>
           {language
-            ? `ابحث عن ${
+            ? `${
                 reversedFilteredKeywords.unitType == "شقة"
                   ? "شقق"
                   : reversedFilteredKeywords.unitType || "عقارات"
@@ -46,14 +46,14 @@ export default function Searching({ keyword }) {
                 reversedFilteredKeywords.offer == "all"||reversedFilteredKeywords.offer == "كل"
                   ? "للبيع والإيجار"
                   : reversedFilteredKeywords.offer || "للبيع والإيجار"
-              } فى مصر `
+              } فى مصر | ليسول`
             : `Search About ${
                 reversedFilteredKeywords.unitType || "Properties"
               } ${
                 reversedFilteredKeywords.offer == "all"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords.offer || "for rent or buy"
-              } In Egypt`}
+              } In Egypt | lesoll`}
         </title>
         <meta
           name="description"

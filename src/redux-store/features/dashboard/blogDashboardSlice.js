@@ -1,5 +1,5 @@
 import { createAsyncThunk ,createSlice } from "@reduxjs/toolkit";
-import { addBlogs,getAllBlogs,deleteOneBlog } from "@/utils/dashboardApi/blogDashboardAPI";
+import { addBlogs,getAllBlogs,deleteOneBlog, updateBlog } from "@/utils/dashboardApi/blogDashboardAPI";
 const initialState = {
     blogInfo:null,
     blogsData:null,
@@ -15,6 +15,13 @@ const initialState = {
       return response; // Assuming your API returns user data upon successful signup
     }
   );
+  export const editBlog = createAsyncThunk(
+    "BlogDashboard/updateBlog",
+    async (data) => {
+      const response = await updateBlog(data.blogData,data.blogID);
+      return response; // Assuming your API returns user data upon successful signup
+    }
+  );
 
   export const getBlogs = createAsyncThunk(
     "BlogDashboard/getAllBlogs",
@@ -27,9 +34,8 @@ const initialState = {
   export const deleteBlog = createAsyncThunk(
     "BlogDashboard/deleteOneBlog",
     async (blogID) => {
-      // console.log("redux slice:"+blogID);
       const response = await deleteOneBlog(blogID);
-      return response; // Assuming your API returns user data upon successful signup
+      return response;
     }
   );
 
@@ -50,6 +56,22 @@ const initialState = {
             state.blogInfo=action.payload
           })
           .addCase(createBlogs.rejected, (state,action) => {
+            state.blogSending=false
+            state.errorBlog=action.error
+
+          })
+
+          .addCase(editBlog.pending, (state) => {
+            state.blogSending=true
+            state.errorBlog=null
+
+          })
+          .addCase(editBlog.fulfilled, (state,action) => {
+            state.blogSending=false
+            state.blogInfo=action.payload
+            state.errorBlog=null
+          })
+          .addCase(editBlog.rejected, (state,action) => {
             state.blogSending=false
             state.errorBlog=action.error
 
@@ -82,5 +104,4 @@ const initialState = {
           })
     }
   })
-//   export const {} = dashBoredUserSlice.actions;
   export default blogDashboardSlice.reducer;

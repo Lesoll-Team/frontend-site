@@ -13,22 +13,15 @@ import { useRouter } from "next/router";
 import { DotPulse } from "@uiball/loaders";
 import { SearchBar } from "@/Shared/search/SearchBar";
 
-function SearchResult({reversedFilteredKeywords}) {
+function SearchResult({ reversedFilteredKeywords }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.Searching.currentPage);
   const totalPages = useSelector((state) => state.Searching.totalPages);
   // const InputKeyword = useSelector((state) => state.Searching.setInputKeyword);
-  const searchResult = useSelector(
-    (state) => state.Searching.searchResult
-  );
-  const searchingError = useSelector(
-    (state) => state.Searching.searchingError
-  );
-  const isSearching = useSelector(
-    (state) => state.Searching.isSearching
-  );
-  // const [searchResult, setSearchResult] = useState(null);
+  const searchResult = useSelector((state) => state.Searching.searchResult);
+  const searchingError = useSelector((state) => state.Searching.searchingError);
+  const isSearching = useSelector((state) => state.Searching.isSearching);
   const [showMap, setShowMap] = useState(false);
   const handlePageChange = (selectedPage) => {
     dispatch(setCurrentPage(selectedPage + 1));
@@ -36,7 +29,6 @@ function SearchResult({reversedFilteredKeywords}) {
   useEffect(() => {
     router.push(`/searching/${router.query.keyword}`);
   }, [currentPage]);
-// console.log(searchResult);
   return (
     <>
       <div className="relative ">
@@ -49,51 +41,56 @@ function SearchResult({reversedFilteredKeywords}) {
         >
           <FaMapMarked />
         </button>
-        {!isSearching? (
+        {!isSearching ? (
           <div className="grid grid-cols-3 ">
-
-            <div className={`  flex flex-col ${searchingError==="rejected"?" ":"lg:col-span-2 "}  col-span-3 `}>
-      <SearchBar reversedFilteredKeywords={reversedFilteredKeywords}/>
+            <div
+              className={`  flex flex-col ${
+                searchingError === "rejected" ? " " : "lg:col-span-2 "
+              }  col-span-3 `}
+            >
+              <SearchBar reversedFilteredKeywords={reversedFilteredKeywords} />
 
               <div className=" flex flex-wrap justify-center  gap-10">
-              
                 {searchResult?.searchResults.map((result) => (
                   <SearchCard key={result._id} propertyDetails={result} />
                 ))}
               </div>
-              { searchingError=="rejected"? (
-          <div className="w-full p-36 text-2xl text-default-500 text-center ">
-            Not found property
-          </div>
-        ): 
-        <div
-                className={
-                  "flex justify-center items-center  m-4 " + styles.pagination
-                }
-              >
-                <ReactPaginate
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={totalPages}
-                  pageRangeDisplayed={3}
-                  marginPagesDisplayed={1}
-                  onPageChange={(data) => handlePageChange(data.selected)}
-                  containerClassName={styles.paginationContainer} // Use the styles from the CSS module
-                  pageClassName={styles.paginationPage}
-                  activeClassName={styles.activePage}
-                  previousLabel={"back"}
-                  previousClassName={styles.paginationPrevious}
-                  nextLabel={"next"}
-                  nextClassName={styles.paginationNext}
-                  disabledClassName={styles.paginationDisabled}
-                />
-              </div>
-        }
-
+              {searchingError == "rejected" ? (
+                <div className="w-full p-36 min-h-[75dvh] text-2xl text-default-500 text-center ">
+                  Not found property
+                </div>
+              ) : (
+                <div
+                  className={
+                    "flex justify-center items-center  m-4 " + styles.pagination
+                  }
+                >
+                  <ReactPaginate
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={totalPages}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={1}
+                    // currentPage={currentPage}
+                    forcePage={currentPage - 1}
+                    onPageChange={(data) => handlePageChange(data.selected)}
+                    containerClassName={styles.paginationContainer} // Use the styles from the CSS module
+                    pageClassName={styles.paginationPage}
+                    activeClassName={styles.activePage}
+                    previousLabel={"back"}
+                    previousClassName={styles.paginationPrevious}
+                    nextLabel={"next"}
+                    nextClassName={styles.paginationNext}
+                    disabledClassName={styles.paginationDisabled}
+                  />
+                </div>
+              )}
             </div>
 
             <div
-              className={`  lg:block hidden md:sticky  md:top-20 ${searchingError==="rejected"?"":"h-[93vh]"}  absolute top-0 w-screen $`}
+              className={`  lg:block hidden md:sticky  md:top-20 ${
+                searchingError === "rejected" ? "" : "h-[93vh]"
+              }  absolute top-0 w-screen $`}
             >
               {searchResult?.searchResults && (
                 <ShowMapSearch
@@ -119,14 +116,12 @@ function SearchResult({reversedFilteredKeywords}) {
               </div>
             )}
           </div>
-        ) :(
-          <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
-
-         <DotPulse size={50} speed={1.3} color="#309da0" />
-         {/* } */}
+        ) : (
+          <div className="flex items-center min-h-[92dvh] justify-center h-[50dvh] flex-col gap-3">
+            <DotPulse size={50} speed={1.3} color="#309da0" />
+            {/* } */}
           </div>
         )}
-
       </div>
     </>
   );

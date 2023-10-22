@@ -3,8 +3,11 @@ import { Button, Input } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import DropdownMoreHome from "./dropdown/DropdownMoreHome";
+import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 
 export function SearchBar() {
+  const dispatch = useDispatch();
+
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const [saleOptions, setSaleOptions] = useState("all");
@@ -48,18 +51,29 @@ export function SearchBar() {
     const queryString = Object.keys(filteredKeywords)
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
+      dispatch(setCurrentPage(1))
+
     router.push(`/searching/${queryString}`);
   };
-
+  // const handlePageChange = (selectedPage) => {
+  //   dispatch(setCurrentPage(selectedPage + 1));
+  // };
   const setForSaleButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For Sale");
+    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For_Sale");
   };
 
   const setForRentButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For Rent");
+    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For_Rent");
+    setPropertyFinance("");
+    setFinishingOptions("");
   };
+  const setForInvestmentButton = (e) => {
+    e.preventDefault();
+    languageIs ? setSaleOptions("للإستثمار") : setSaleOptions("For_Investment");
+  };
+
   const setForAllButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("كل") : setSaleOptions("all");
@@ -82,7 +96,7 @@ export function SearchBar() {
             <button
               onClick={setForRentButton}
               className={` ${
-                saleOptions == "For Rent"||saleOptions == "للايجار"
+                saleOptions == "For_Rent"||saleOptions == "للايجار"
                   ? "text-white bg-lightGreen"
                   : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
@@ -92,17 +106,31 @@ export function SearchBar() {
             <button
               onClick={setForSaleButton}
               className={` ${
-                saleOptions == "For Sale"||saleOptions == "للبيع"
+                saleOptions == "For_Sale"||saleOptions == "للبيع"
                   ? "text-white bg-lightGreen"
                   : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
             >
               {languageIs ? "للبيع" : "Buy"}
             </button>
+
+            <button
+                onClick={setForInvestmentButton}
+                className={` ${
+                  saleOptions == "For_Investment" || saleOptions == "للإستثمار"
+                    ? "text-white bg-lightGreen"
+                    : "text-lightGreen border-2 border-lightGreen bg-white"
+                }  font-bold  px-2 mx-1 rounded-t-medium`}
+              >
+                {languageIs ? "للإستثمار" : "Investment"}
+              </button>
+
           </div>
           <div className="flex items-center">
             <div className="w-full">
               <Input
+              name="Home Search"
+              id="home-search"
                     dir={languageIs ? "rtl" : "ltr"}
                 className="w-full select-none"
                 size="lg"

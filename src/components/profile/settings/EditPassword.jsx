@@ -72,6 +72,7 @@ const EditPassword = () => {
             onChange={(e) => setCurrentPassword(e.target.value)}
             type="password"
             value={password}
+            name="password"
             placeholder={`${language?"كلمة المرور الحالية ":"Current password"}`}
             className="block placeholder:text-gray-500 focus:outline-none  font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"
               autoComplete="current-password"
@@ -87,6 +88,7 @@ const EditPassword = () => {
             onChange={(e) => setNewPassword(e.target.value)}
             type="password"
             value={newPassword}
+            name="new-password"
             placeholder={`${language?"كلمة المرور الجديدة ":"New Password"}`}
             className="block placeholder:text-gray-500 w-full focus:outline-none  font-medium focus:border-lightGreen  border-2 rounded-md px-4 py-2"
                        autoComplete="new-password"
@@ -99,6 +101,7 @@ const EditPassword = () => {
           <input
             onChange={(e) => setConfirmPassword(e.target.value)}
             type="password"
+            name="confirm-password"
             value={confirmPassword}
             placeholder={`${language?"تأكيد كلمة المرور الجديدة":"Confirm New Password"}`}
             className="block placeholder:text-gray-500 focus:outline-none font-medium focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2"

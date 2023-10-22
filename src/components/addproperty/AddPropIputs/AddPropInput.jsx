@@ -36,6 +36,7 @@ const AddPropInput = ({
         <input
           // inputMode={type === "number" ? "numeric" : undefined}
           // type={type === "number" && "number"}
+          name="number"
           type={type}
           value={value || ""}
           onChange={setValue}

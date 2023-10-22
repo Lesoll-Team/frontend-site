@@ -37,7 +37,6 @@ export default function Layout({ children }) {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:image" content="../../public/socialApperance.svg" />
-
         <meta
           property="og:description"
           content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر"

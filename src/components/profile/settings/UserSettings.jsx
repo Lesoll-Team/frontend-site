@@ -1,6 +1,6 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 //icons imports
 import { BsKey, BsTelephone } from "react-icons/bs";
@@ -14,6 +14,9 @@ const EditPassword = dynamic(() => import("./EditPassword"));
 // import EditPassword from "./EditPassword";
 
 const UserSettings = () => {
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const [userDataInfo, setUserDataInfo] = useState({});
+
   const [content, setContent] = useState("info");
   const language = useSelector((state) => state.GlobalState.languageIs);
   // switchcontent
@@ -26,7 +29,10 @@ const UserSettings = () => {
   const switchPhone = () => {
     setContent("phonenumber");
   };
-
+  useEffect(() => {
+    setUserDataInfo(userInfo);
+  }, [userInfo]);
+  // console.log(userDataInfo?._id );
   return (
     <>
       <div className="">
@@ -63,18 +69,20 @@ const UserSettings = () => {
                   {language ? "المعلومات العامة" : "General Info"}
                 </p>
               </div>
-              <div
+              {userDataInfo?.googleId==""&&(
+                <div
                 onClick={switchPassword}
-                className={`text-center cursor-pointer font-semibold pb-1 flex items-center gap-1 text-lg px-2 ${
+                className={`text-center  cursor-pointer font-semibold pb-1 flex items-center gap-1 text-lg px-2 ${
                   content === "password" &&
                   "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
                 }`}
               >
-                {/* <BsKey /> */}
                 <p className="flex items-center gap-1 ">
                   {language ? "كلمة السر" : "Password"}
                 </p>
               </div>
+              )}
+
             </div>
           </div>
         </div>

@@ -62,6 +62,7 @@ const DropdownPrice = ({
             <Input
               className="pb-4"
               type="number"
+              name="number"
               placeholder="0.00"
               value={valueFromPrice<=0?null:valueFromPrice}
               labelPlacement="outside"
@@ -73,6 +74,8 @@ const DropdownPrice = ({
               }
             />
             <Input
+                          name="number"
+
               className="pb-4"
               type="number"
               placeholder="0.00"
