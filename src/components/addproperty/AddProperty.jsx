@@ -196,7 +196,7 @@ const AddProperty = () => {
 
     setLading(false);
   };
-  console.log(propertyDetils);
+  // console.log(propertyDetils);
   useEffect(() => {
     if (userInfo?.phone) {
       if (!userInfo?.phone) {

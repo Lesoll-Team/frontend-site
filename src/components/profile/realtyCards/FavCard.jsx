@@ -71,18 +71,29 @@ const FavCard = ({ propDetails, onRemove }) => {
       </Link>
       {/* card body  */}
       <div className=" ">
-        <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center  z-[100]">
-          <p className=" font-bold ">
-            {propDetails?.price.toLocaleString()} {language ? "جنية" : "EGP"}
-          </p>
-          <p className="  ">
-            {propDetails.offer === "For Sale"
+        <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center relative z-[100]">
+          {propDetails?.offer !== "For Investment" && (
+            <p className="font-medium">
+              <span>
+                {language
+                  ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
+                  : parseInt(propertyDetails?.price).toLocaleString()}{" "}
+              </span>
+              {language ? "جنية" : "EGP"}
+            </p>
+          )}
+          <p className="font-semibold">
+            {propDetails?.offer === "For Sale"
               ? language
                 ? "للبيع"
                 : "For Sale"
+              : propDetails?.offer === "For Rent"
+              ? language
+                ? "للإيجار"
+                : "For Rent"
               : language
-              ? "للإيجار"
-              : "For Rent"}
+              ? "للإستثمار"
+              : "For Investment"}
           </p>
         </div>
         <Link

@@ -26,9 +26,7 @@ function SimilarListings({ recommendationsProperty }) {
           <div className="flex gap-5 p-2">
             {recommendationsProperty.map((recommendations) => (
               <div key={recommendations._id} className="w-[310px] h-[420px]">
-                <RealtyCard
-                  propertyDetails={recommendations}
-                />
+                <RealtyCard propertyDetails={recommendations} />
               </div>
             ))}
           </div>

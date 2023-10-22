@@ -124,13 +124,13 @@ const EditProp = ({ propData, setPropData }) => {
     formData.append("area", propData.area);
     formData.append("areaType", propData.areaType);
     // formData.append("RealEstateFinance", propData.realEstateFinance);
-    formData.append("downPayment", propData.downPayment);
+    formData.append("downPayment", propData?.downPayment || 0);
 
-    formData.append("maintenancePayment", propData.maintenancePayment);
+    formData.append("maintenancePayment", propData?.maintenancePayment || 0);
 
-    formData.append("rooms", propData.rooms);
-    formData.append("bathRooms", propData.bathRooms);
-    formData.append("description", propData.description);
+    formData.append("rooms", propData?.rooms);
+    formData.append("bathRooms", propData?.bathRooms);
+    formData.append("description", propData?.description);
     // propData.unitType.map((unitType) => {
     //   formData.append("unitType", unitType);
     // });
@@ -176,7 +176,6 @@ const EditProp = ({ propData, setPropData }) => {
 
     setIsSubmitting(false);
   };
-  console.log(propData);
   const userInfo = useSelector((state) => state.GlobalState.userData);
 
   return (
@@ -207,7 +206,7 @@ const EditProp = ({ propData, setPropData }) => {
                   setData={setPropData}
                 />
                 <hr />
-                {console.log(propData)}
+
                 {propData.offer !== "For Investment" && (
                   <div className="animate-appearance-in space-y-10">
                     <Price
