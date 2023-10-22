@@ -17,17 +17,19 @@ export default function SocialMediaModal({ children, title, slug }) {
   const [modalPlacement, setModalPlacement] = React.useState("auto");
   //   const url = window.location.href;
   const copyLinkPage = () => {
-    const urlToCopy = window.location.href;
+    const urlToCopy = `lesoll.com/property-details/${slug}`;
     navigator.clipboard.writeText(urlToCopy);
   };
   const shareOnTwitter = () => {
     const navUrl =
-      "https://twitter.com/intent/tweet?text=" + window.location.href;
+      "https://twitter.com/intent/tweet?text=" +
+      `lesoll.com/property-details/${slug}`;
     window.open(navUrl, "_blank");
   };
   const shareOnFacebook = () => {
     const navUrl =
-      "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href;
+      "https://www.facebook.com/sharer/sharer.php?u=" +
+      `lesoll.com/property-details/${slug}`;
     window.open(navUrl, "_blank");
   };
   return (

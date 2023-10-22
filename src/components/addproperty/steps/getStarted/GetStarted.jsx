@@ -90,22 +90,26 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
       { value: "Land", name: "أرض" },
     ],
   };
+  const PropTypeInvest = {
+    en: [{ value: "Land", name: "Land" }],
+    ar: [{ value: "Land", name: "أرض" }],
+  };
   const offer = {
     en: [
       { value: "For Sale", name: "For Sale" },
       { value: "For Rent", name: "For Rent" },
-      // { value: "For Investment", name: "For Investment" },
+      { value: "For Investment", name: "For Investment" },
     ],
     ar: [
       { value: "For Sale", name: "للبيع" },
       { value: "For Rent", name: "للإيجار" },
-      // { value: "For Investment", name: "للإستثمار" },
+      { value: "For Investment", name: "للإستثمار" },
     ],
   };
 
   // console.log(unitOptions);
   // console.log(propertyDetils.propType);
-  // console.log(propertyDetils);
+  // console.log(propertyDetils.propType);
   return (
     <div className="flex flex-col  w-full space-y-5">
       <h3 className="text-center text-5xl text-darkGreen mt-3 font-bold">
@@ -131,6 +135,24 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
         )}
       </div>
       <div className="flex flex-col md:flex-row gap-4">
+        <div className="w-full">
+          <AddPropDropdown
+            error={propErrors.offer}
+            title={language ? "نوع الإعلان" : "Listing Option"}
+            value={propertyDetils.offer}
+            setValue={(e) => {
+              setData({ ...propertyDetils, offer: e });
+              setPropErrors((prevErrors) => ({
+                ...prevErrors,
+                offer: false,
+              }));
+            }}
+            options={offer}
+          />
+          {propErrors.offer && (
+            <p className="text-red-500">{language ? "مطلوب" : "Requird."}</p>
+          )}
+        </div>
         <div className="w-full">
           <AddPropDropdown
             error={propErrors.propType}
@@ -170,7 +192,11 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
               }));
             }}
             placeholder={"unit type"}
-            options={propType}
+            options={
+              propertyDetils.offer !== "For Investment"
+                ? propType
+                : PropTypeInvest
+            }
           />
           {propErrors.propType && (
             <p className="text-red-500">{language ? "مطلوب" : "Requird"}</p>
@@ -204,24 +230,6 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
             updateTitleOnClear={true}
           />
           {propErrors.unitType && (
-            <p className="text-red-500">{language ? "مطلوب" : "Requird."}</p>
-          )}
-        </div>
-        <div className="w-full">
-          <AddPropDropdown
-            error={propErrors.offer}
-            title={!language ? "Listing Option" : "اختر العرض"}
-            value={propertyDetils.offer}
-            setValue={(e) => {
-              setData({ ...propertyDetils, offer: e });
-              setPropErrors((prevErrors) => ({
-                ...prevErrors,
-                offer: false,
-              }));
-            }}
-            options={offer}
-          />
-          {propErrors.offer && (
             <p className="text-red-500">{language ? "مطلوب" : "Requird."}</p>
           )}
         </div>

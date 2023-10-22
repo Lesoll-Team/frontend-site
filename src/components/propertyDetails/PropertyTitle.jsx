@@ -177,12 +177,16 @@ function PropertyTitle({ singleTitle }) {
             <div className="flex flex-col md:flex-row md:items-end items-center   gap-1 text-darkGreen">
               {" "}
               {/* <p>{language ? "جنية/" : "EGP/"}</p> */}
-              <p>
-                {language
-                  ? parseInt(singleTitle?.price).toLocaleString("ar-EG")
-                  : parseInt(singleTitle?.price).toLocaleString()}{" "}
-                <span className="">{language ? "جنية" : "EGP"}</span>
-              </p>
+              {singleTitle?.offer !== "For Investment" ? (
+                <p>
+                  {language
+                    ? parseInt(singleTitle?.price).toLocaleString("ar-EG")
+                    : parseInt(singleTitle?.price).toLocaleString()}{" "}
+                  <span className="">{language ? "جنية" : "EGP"}</span>
+                </p>
+              ) : (
+                <p>{language ? "للإستثمار" : "For Investment"}</p>
+              )}
               {!singleTitle?.saleOption.includes("Installment") && (
                 <p className="text-sm text-lightOrange">
                   {singleTitle?.negotiable &&
