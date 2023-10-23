@@ -10,7 +10,7 @@ const Accepted = () => {
       <div className="space-y-3 flex flex-col justify-center items-center">
         <AiFillCheckCircle className="text-green-500 text-8xl  animate-appearance-in" />
         <h3 className="text-2xl font-semibold text-darkGreen text-center">
-          {language
+          {language 
             ? " تمت إضافة العقار بنجاح"
             : "Property has been add successfully"}
         </h3>

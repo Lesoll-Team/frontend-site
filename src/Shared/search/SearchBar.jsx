@@ -21,11 +21,9 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   let [sortPropChanged, setSortPropChanged] = useState(false);
   const dispatch = useDispatch();
 
-
-
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
   let [saleOptions, setSaleOptions] = useState(
-    reversedFilteredKeywords?.offer ||"all"
+    reversedFilteredKeywords?.offer || "all"
   );
   const propLengthResult = useSelector(
     (state) => state.Searching.propLengthResult
@@ -70,6 +68,9 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   let [sortProp, setSortProp] = useState(
     reversedFilteredKeywords?.sort_by || ""
   );
+  let [locationKeyword, setLocationKeyword] = useState(
+    reversedFilteredKeywords?.cdb || ""
+  );
   // let [isFurnished, setFurnished] = useState(null);
   // setSaleOptions(reversedFilteredKeywords.offer||" ")
   const InputKeywords = {
@@ -87,6 +88,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     maxArea: toArea,
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
+    cdb: locationKeyword,
     // isFurnished,
   };
 
@@ -101,7 +103,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
 
-      dispatch(setCurrentPage(1))
+    dispatch(setCurrentPage(1));
     router.push(`/searching/${queryString}`);
   };
 
@@ -121,7 +123,8 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     setPropertyType("");
     setSortProp("");
     setSelectedOption("");
-    dispatch(setCurrentPage(1))
+    setLocationKeyword("");
+    dispatch(setCurrentPage(1));
   };
   const setForSaleButton = (e) => {
     e.preventDefault();
@@ -133,14 +136,11 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     languageIs ? setSaleOptions("للايجار") : setSaleOptions("For_Rent");
     setPropertyFinance("");
     setFinishingOptions("");
-
   };
 
   const setForInvestmentButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("للإستثمار") : setSaleOptions("For_Investment");
-
-
   };
 
   const setForAllButton = (e) => {
@@ -166,143 +166,172 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const handleSortPropChange = (value) => {
     setSortProp(value);
     setSortPropChanged(true);
-    dispatch(setCurrentPage(1))
+    dispatch(setCurrentPage(1));
   };
   // console.log(pageSaleOption);
 
   return (
-    <form onSubmit={handleSubmitSearch} className="  h-72 grid  ">
-      <div dir="ltr" className=" w-full flex justify-center  mt-5 mb-14  ">
-        <div className="flex  gap-x-1 md:w-9/12  items-end">
-          <div className=" w-8/12">
-            <div className="flex">
-              <button
-                className={` ${
-                  saleOptions == "all" || saleOptions == "كل"
-                    ? " bg-lightOrange text-white "
-                    : "bg-white border-2 border-lightOrange text-lightOrange "
-                }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
-                onClick={setForAllButton}
-              >
-                {languageIs ? "الكل" : "All"}
-              </button>
+    <form
+      onSubmit={handleSubmitSearch}
+      className="  h-72 mb-12 grid md:justify-normal justify-center "
+    >
+      <div
+        dir="ltr"
+        className="w-full flex flex-col justify-center items-center  mt-5 mb-14  "
+      >
+        <div className="flex flex-col   md:w-10/12 ">
+          <div className="flex  w-full  ">
+            <div className=" w-full">
+              <div className="flex">
+                <button
+                  className={` ${
+                    saleOptions == "all" || saleOptions == "كل"
+                      ? " bg-lightOrange text-white "
+                      : "bg-white border-2 border-lightOrange text-lightOrange "
+                  }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
+                  onClick={setForAllButton}
+                >
+                  {languageIs ? "الكل" : "All"}
+                </button>
 
-              <button
-                onClick={setForRentButton}
-                className={` ${
-                  saleOptions == "For_Rent" || saleOptions == "للايجار"
-                    ? "text-white bg-lightGreen"
-                    : "text-lightGreen border-2 border-lightGreen bg-white"
-                }  font-bold  px-2 mx-1 rounded-t-medium`}
-              >
-                {languageIs ? "للإيجار" : "Rent"}
-              </button>
-              <button
-                onClick={setForSaleButton}
-                className={` ${
-                  saleOptions == "For_Sale" || saleOptions == "للبيع"
-                    ? "text-white bg-lightGreen"
-                    : "text-lightGreen border-2 border-lightGreen bg-white"
-                }  font-bold  px-2 mx-1 rounded-t-medium`}
-              >
-                {languageIs ? "للبيع" : "Buy"}
-              </button>
+                <button
+                  onClick={setForRentButton}
+                  className={` ${
+                    saleOptions == "For_Rent" || saleOptions == "للايجار"
+                      ? "text-white bg-lightGreen"
+                      : "text-lightGreen border-2 border-lightGreen bg-white"
+                  }  font-bold  px-2 mx-1 rounded-t-medium`}
+                >
+                  {languageIs ? "للإيجار" : "Rent"}
+                </button>
+                <button
+                  onClick={setForSaleButton}
+                  className={` ${
+                    saleOptions == "For_Sale" || saleOptions == "للبيع"
+                      ? "text-white bg-lightGreen"
+                      : "text-lightGreen border-2 border-lightGreen bg-white"
+                  }  font-bold  px-2 mx-1 rounded-t-medium`}
+                >
+                  {languageIs ? "للبيع" : "Buy"}
+                </button>
 
-              <button
-                onClick={setForInvestmentButton}
-                className={` ${
-                  saleOptions == "For_Investment" || saleOptions == "للإستثمار"
-                    ? "text-white bg-lightGreen"
-                    : "text-lightGreen border-2 border-lightGreen bg-white"
-                }  font-bold  px-2 mx-1 rounded-t-medium`}
-              >
-                {languageIs ? "للإستثمار" : "Investment"}
-              </button>
-
+                <button
+                  onClick={setForInvestmentButton}
+                  className={` ${
+                    saleOptions == "For_Investment" ||
+                    saleOptions == "للإستثمار"
+                      ? "text-white bg-lightGreen"
+                      : "text-lightGreen border-2 border-lightGreen bg-white"
+                  }  font-bold  px-2 mx-1 rounded-t-medium`}
+                >
+                  {languageIs ? "للإستثمار" : "Investment"}
+                </button>
+              </div>
+              <Input
+                // id="search"
+                dir={languageIs ? "rtl" : "ltr"}
+                className=" border-2  border-default-100 rounded-large shadow-sm  "
+                size="md"
+                name="Search"
+                isClearable
+                placeholder={
+                  languageIs
+                    ? " المدينة أو البلدة أو الحي... "
+                    : "Search by City or Town or District..."
+                }
+                value={locationKeyword}
+                onValueChange={setLocationKeyword}
+              />
             </div>
+            <div className="flex items-end">
+              <div className="flex">
+                {/**dir={languageIs ? "rtl" : "ltr"} */}
+                <Dropdown
+                  classNames=" w-[auto]  sm:block hidden"
+                  ifSaleOptions={saleOptions}
+                  value={propertyType}
+                  options={propertyTypeData}
+                  moreOptions={saleOptions}
+                  setValue={setPropertyType}
+                  selectoption={selectoption}
+                  setSelectedOption={setSelectedOption}
+                  valueDefault={`${
+                    languageIs ? "نوع العقار" : "Property Type"
+                  }`}
+                />
+                <DropdownUintType
+                  classNames=" w-[auto]  sm:block hidden"
+                  value={unitType}
+                  options={unitTypeData}
+                  propertyType={propertyType}
+                  setValue={setUnitType}
+                  valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
+                />
+              </div>
+              <DropdownMore
+                setPaymentMethod={setPaymentMethod}
+                paymentMethod={paymentMethod}
+                setFinishingOptions={setFinishingOptions}
+                finishingOptions={finishingOptions}
+                setUnitType={setUnitType}
+                unitType={unitType}
+                setPropertyType={setPropertyType}
+                propertyType={propertyType}
+                // isFurnished={isFurnished}
+                // setFurnished={setFurnished}
+                countBedrooms={countBedrooms}
+                setCountBedrooms={setCountBedrooms}
+                countBathrooms={countBathrooms}
+                setCountBathroom={setCountBathroom}
+                setPropertyFinance={setPropertyFinance}
+                propertyFinance={propertyFinance}
+                fromPrice={fromPrice}
+                setFromPrice={setFromPrice}
+                toPrice={toPrice}
+                setToPrice={setToPrice}
+                fromArea={fromArea}
+                setFromArea={setFromArea}
+                toArea={toArea}
+                setToArea={setToArea}
+                offer={saleOptions}
+                selectoption={selectoption}
+                setSelectedOption={setSelectedOption}
+                classNames="max-w-[40px]"
+              />
+              <div className="flex  gap-x-3">
+                <button
+                  type="submit"
+                  className="rounded-xl p-3 bg-lightGreen flex items-center"
+                >
+                  <LuSearch className="lg:text-3xl text-xl text-white" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className=" flex   gap-x-1 mt-1 w-full justify-center items-center ">
             <Input
-              id="search"
+              // id="search"
               dir={languageIs ? "rtl" : "ltr"}
-              className=" h-full  "
+              className="border-2 border-default-100 rounded-large  shadow-sm"
               size="md"
               name="Search"
               isClearable
               placeholder={
                 languageIs
-                  ? " بحث بالمنطة او عنوان... "
-                  : "Search by City or title..."
+                  ? " كلمات بحث مثلا: شاطئ ، للإستثمار ... "
+                  : "Search by Keywords: e.g. beach, chiller free..."
               }
               value={keywords}
               onValueChange={setKeywords}
             />
-          </div>
-          <div className="flex items-end">
-            <div className="flex">
-            {/**dir={languageIs ? "rtl" : "ltr"} */}
-              <Dropdown
-                classNames=" w-[auto]  sm:block hidden"
-                ifSaleOptions={saleOptions}
-                value={propertyType}
-                options={propertyTypeData}
-                moreOptions={saleOptions}
-                setValue={setPropertyType}
-                selectoption={selectoption}
-                setSelectedOption={setSelectedOption}
-                valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
-              />
-              <DropdownUintType
-                classNames=" w-[auto]  sm:block hidden"
-                value={unitType}
-                options={unitTypeData}
-                propertyType={propertyType}
-                setValue={setUnitType}
-                valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
-              />
-            </div>
-            <DropdownMore
-              setPaymentMethod={setPaymentMethod}
-              paymentMethod={paymentMethod}
-              setFinishingOptions={setFinishingOptions}
-              finishingOptions={finishingOptions}
-              setUnitType={setUnitType}
-              unitType={unitType}
-              setPropertyType={setPropertyType}
-              propertyType={propertyType}
-              // isFurnished={isFurnished}
-              // setFurnished={setFurnished}
-              countBedrooms={countBedrooms}
-              setCountBedrooms={setCountBedrooms}
-              countBathrooms={countBathrooms}
-              setCountBathroom={setCountBathroom}
-              setPropertyFinance={setPropertyFinance}
-              propertyFinance={propertyFinance}
-              fromPrice={fromPrice}
-              setFromPrice={setFromPrice}
-              toPrice={toPrice}
-              setToPrice={setToPrice}
-              fromArea={fromArea}
-              setFromArea={setFromArea}
-              toArea={toArea}
-              setToArea={setToArea}
-              offer={saleOptions}
-              selectoption={selectoption}
-              setSelectedOption={setSelectedOption}
-              classNames="max-w-[40px]"
-            />
-            <div className="flex gap-x-3">
-              <button
-                type="submit"
-                className="rounded-xl p-3 bg-lightGreen flex items-center"
-              >
-                <LuSearch className="lg:text-3xl text-xl text-white" />
-              </button>
-              <button
-                onClick={handelClearFilter}
-                className=" bg-lightOrange rounded-xl p-3 flex  items-center"
-              >
-                <MdClear className="lg:text-3xl text-xl text-white" />
-              </button>
-            </div>
+            {/* <div className=""></div> */}
+            <button
+              onClick={handelClearFilter}
+              className=" bg-lightOrange rounded-xl p-3 flex  items-center"
+            >
+              <MdClear className="lg:text-3xl text-xl text-white" />
+            </button>
           </div>
         </div>
       </div>
@@ -312,13 +341,13 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
           pageSaleOption == undefined ? "" : "hidden"
         } flex items-center gap-x-2 w-10/12 m-auto `}
       >
-        <h6 className="text-default-500 font-medium">
+        <h6 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
           {languageIs
             ? `${
                 reversedFilteredKeywords?.unitType == "شقة"
                   ? "شقق"
-                  : reversedFilteredKeywords?.unitType || "عقارات"
-              } ${
+                  : reversedFilteredKeywords?.unitType || "عقارات "
+              }${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
                   ? "للبيع والإيجار"
@@ -329,20 +358,22 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 reversedFilteredKeywords?.offer == "كل"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords?.offer || "for rent or buy"
-              } In Egypt`}
+              } In Egypt`}{" "}
+          <span
+            className={`${propLengthResult ? "text-default-500" : "hidden"} `}
+          >
+            {languageIs
+              ? `( ${propLengthResult} ${
+                  reversedFilteredKeywords?.unitType || "عقارات"
+                })  `
+              : `( ${propLengthResult} ${
+                  reversedFilteredKeywords?.unitType || "Properties"
+                })`}
+          </span>
         </h6>
-        <p className={`${propLengthResult ? "text-default-500" : "hidden"} `}>
-          {languageIs
-            ? `( ${propLengthResult} ${
-                reversedFilteredKeywords?.unitType || "عقارات"
-              })  `
-            : `( ${propLengthResult} ${
-                reversedFilteredKeywords?.unitType || "Properties"
-              })`}
-        </p>
       </div>
       <div className="  flex items-center gap-x-2 w-10/12 m-auto ">
-        <h6 className="text-default-500 font-medium">
+        <h6 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
           {languageIs ? "الترتيب حسب:" : "Sort Buy"}
         </h6>
         <DropdownSort

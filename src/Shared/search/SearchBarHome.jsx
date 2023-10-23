@@ -25,7 +25,7 @@ export function SearchBar() {
   let [propertyType, setPropertyType] = useState("");
   let [isFurnished, setFurnished] = useState(false);
   let [selectoption, setSelectedOption] = useState("");
-
+  let [locationKeyword, setLocationKeyword] = useState("");
   const InputKeywords = {
     offer: saleOptions,
     propType: propertyType,
@@ -40,6 +40,7 @@ export function SearchBar() {
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
+    cdb:locationKeyword,
   };
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
@@ -127,20 +128,36 @@ export function SearchBar() {
 
           </div>
           <div className="flex items-center">
-            <div className="w-full">
+            <div className="w-full flex gap-x-2">
+            <Input
+              // id="search"
+              dir={languageIs ? "rtl" : "ltr"}
+              className="border-2 border-default-100 rounded-large  shadow-sm"
+              size="md"
+              name="Search"
+              isClearable
+              placeholder={
+                languageIs
+                  ? " كلمات بحث مثلا: شاطئ ، للإستثمار ... "
+                  : "Search by Keywords: e.g. beach, chiller free..."
+              }
+              value={keywords}
+              onValueChange={setKeywords}
+            />
               <Input
-              name="Home Search"
-              id="home-search"
-                    dir={languageIs ? "rtl" : "ltr"}
-                className="w-full select-none"
-                size="lg"
+                // id="search"
+                dir={languageIs ? "rtl" : "ltr"}
+                className=" border-2 w-6/12 border-default-100 rounded-large shadow-sm  "
+                size="md"
+                name="Search"
                 isClearable
                 placeholder={
                   languageIs
-                  ? " بحث بالمنطة او عنوان... "
-                    : "Search by City or title..."
+                    ? " المدينة أو البلدة أو الحي... "
+                    : "Search by City or Town or District..."
                 }
-                onValueChange={setKeywords}
+                value={locationKeyword}
+                onValueChange={setLocationKeyword}
               />
             </div>
 

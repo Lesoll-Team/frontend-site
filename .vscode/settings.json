@@ -1,6 +1,18 @@
 {
-    "cSpell.words": [
-        "عقار",
-        "واحد"
-    ]
+  "diffEditor.ignoreTrimWhitespace": true,
+  "files.autoSave": "off",
+  "workbench.colorCustomizations": {
+    "editorLineNumber.foreground": "#00ff00"},
+    "editor.autoClosingBrackets": "always",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true, "editor.wordWrap": "on",
+ "editor.cursorSmoothCaretAnimation": "on",
+ "editor.cursorStyle": "line",
+//  "editor.fontFamily": "monospace(fallback)",
+"editor.fontFamily": "'Hack NF'",
+ "editor.fontSize": 16,
+  "editor.fontLigatures":true,
+  "terminal.integrated.fontFamily":"'Hack NF'",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.cursorBlinking":true,
 }
