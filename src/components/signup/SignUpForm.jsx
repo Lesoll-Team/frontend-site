@@ -187,7 +187,7 @@ const SignUpForm = () => {
             <div>
               <input
                 type="text"
-                id="fullname"
+                // id="fullname"
                 name="fullname"
                 value={fullname}
                 onChange={(e) => {
@@ -208,7 +208,7 @@ const SignUpForm = () => {
 
             <div>
               <input
-                id="email"
+                // id="email"
                 value={email}
                 name="email"
                 onChange={(e) => {

@@ -34,7 +34,6 @@ const Description = ({
             propErrors.description && "border-red-500 focus:border-red-500"
           }`}
           name=""
-          id=""
           cols="30"
           rows="10"
         ></textarea>

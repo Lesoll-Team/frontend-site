@@ -7,7 +7,6 @@ import goalsImg from "../../../public/about/goals.svg";
 import { useSelector } from "react-redux";
 const About = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   return (
     <div className="relative min-h-screen py-10 container mx-auto  space-y-20 mb-10">
       <div className="space-y-5 ">

@@ -33,8 +33,7 @@ const Description = ({
           className={`w-full focus:border-lightGreen text-lg font-medium text-darkGreen focus:outline-none placeholder:text-darkgray placeholder:opacity-60 border-[3px]   rounded-xl p-4  max-h-[300px] resize-none ${
             propErrors.description && "border-red-500 focus:border-red-500"
           }`}
-          name=""
-          id=""
+          name="textarea"
           cols="30"
           rows="10"
         ></textarea>

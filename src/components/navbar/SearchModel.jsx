@@ -14,31 +14,35 @@ import { useRouter } from "next/router";
 //   propertyFromSearch,
 //   setInputKeywords,
 // } from "@/redux-store/features/searchSlice";
-// import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 export default function SearchModel() {
   // const dispatch = useDispatch();
 
-  const [keywords, setKeyword] = useState(" ");
+  const [keywords, setKeyword] = useState("");
+  let languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   // const page = useSelector((state) => state.Search.page);
-
+  let [locationKeyword, setLocationKeyword] = useState("");
   const handelSearchButton = (e) => {
     e.preventDefault();
-    // const InputKeywords = {
-    //   keywords,
-    // };
-    // dispatch(propertyFromSearch({ InputKeywords, page: 1 }));
-    // dispatch(setInputKeywords(InputKeywords));
+    const InputKeywords = {cdb:locationKeyword,keywords};
+    const filteredKeywords = Object.fromEntries(
+      Object.entries(InputKeywords).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
+    const queryString = Object.keys(filteredKeywords)
+      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+      .join("&");
 
     onOpenChange(onOpenChange);
-    // if (keywords==="") {
-    // router.push(`/searching/offer=r`);
-      
-    // }
-    router.push(`/searching/keywords=${keywords}`);
+    console.log(queryString);
+    if (queryString=="") {
+      router.push(`/searching/offer=all`);
+    }else router.push(`/searching/${queryString}`);
   };
 
   return (
@@ -83,14 +87,42 @@ export default function SearchModel() {
             <>
               <ModalHeader className="flex flex-col gap-1">Search</ModalHeader>
               <ModalBody>
-                <form onSubmit={handelSearchButton} className="flex items-center gap-2">
-                  <Input
-                    isClearable
-                    placeholder="search by city..."
-                    type="search"
-                    name="search"
-                    onChange={(e) => setKeyword(e.target.value)}
-                  />
+                <form
+                  onSubmit={handelSearchButton}
+                  className="flex items-center gap-2"
+                >
+                  <div className="w-full flex gap-x-2">
+                    <Input
+                      // id="search"
+                      dir={languageIs ? "rtl" : "ltr"}
+                      className="border-2 border-default-100 rounded-large  shadow-sm"
+                      size="md"
+                      name="Search"
+                      isClearable
+                      placeholder={
+                        languageIs
+                          ? " كلمات بحث مثلا: شاطئ ،للايجار اليومى ,ارض ... "
+                          : "Search by Keywords: e.g. beach, for daily rent, land..."
+                      }
+                      value={keywords}
+                      onValueChange={setKeyword}
+                    />
+                    <Input
+                      // id="search"
+                      dir={languageIs ? "rtl" : "ltr"}
+                      className=" border-2 w-6/12 border-default-100 rounded-large shadow-sm  "
+                      size="md"
+                      name="Search"
+                      isClearable
+                      placeholder={
+                        languageIs
+                          ? " المدينة أو البلدة أو الحي... "
+                          : "Search by City or Town or District..."
+                      }
+                      value={locationKeyword}
+                      onValueChange={setLocationKeyword}
+                    />
+                  </div>
                   <Button
                     // onClick={handelSearchButton}
                     type="submit"

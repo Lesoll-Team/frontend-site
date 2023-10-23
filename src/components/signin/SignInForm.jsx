@@ -101,7 +101,7 @@ const SignInForm = () => {
             placeholder={language ? "البريد  " : "Email"}
             type=""
             
-            id="email"
+            // id="email"
             name="email"
             value={email}
             onChange={(e) => {
@@ -134,7 +134,7 @@ const SignInForm = () => {
           <input
             placeholder={language ? "كلمة السر" : "Password"}
             type={showPassword ? "text" : "password"}
-            id="password"
+            // id="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
