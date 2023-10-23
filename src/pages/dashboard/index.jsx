@@ -10,7 +10,7 @@ function Dashboard() {
 
   // Check if userInfo is not null and userInfo.isAdmin is true
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin === false) {
+    if (userInfo && userInfo.isAdmin === false && userInfo.supAdmin === false) {
       // Redirect to the 404 page if userInfo.isAdmin is not true or userInfo is null
       router.push("/404"); // Assuming '/404' is the path to your 404 page
     }
@@ -18,7 +18,7 @@ function Dashboard() {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   // Render DashboardAdmin only if userInfo is not null and userInfo.isAdmin is true
-  return userInfo && userInfo.isAdmin ? (
+  return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh]" dir="ltr">
       <Head>
         <title>{language ? "لوحة القيادة" : "Dashboard"}</title>

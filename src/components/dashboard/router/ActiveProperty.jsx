@@ -23,6 +23,7 @@ import {
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -33,7 +34,6 @@ const columns = [
 export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
 
-
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
   const [propertyLength, setPropertyLength] = useState(0);
@@ -41,6 +41,7 @@ export default function ActiveProperty() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
+  const userInfo = useSelector((state) => state.GlobalState.userData);
 
   useEffect(() => {
     fetchAllProperties();
@@ -50,7 +51,7 @@ export default function ActiveProperty() {
       const getProperties = await fetchActiveProperty(
         rowsPerPage,
         page,
-        filterValue,
+        filterValue
 
         // userToken
       );
@@ -59,8 +60,8 @@ export default function ActiveProperty() {
       setPropertyLengthAPI(getProperties.resultCount);
     } catch (error) {
       console.error("Error fetching Properties:", error);
-      setPropertyLength(0)
-      setProperty([])
+      setPropertyLength(0);
+      setProperty([]);
     }
   };
   const handleDeleteProperty = async (propertyId) => {
@@ -73,11 +74,10 @@ export default function ActiveProperty() {
     }
   };
 
-
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
-  const hasSearchFilter = Boolean(pages<=1);
+  const hasSearchFilter = Boolean(pages <= 1);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
@@ -127,7 +127,6 @@ export default function ActiveProperty() {
       case "address":
         return (
           <div className="flex flex-col w-[300px]">
-          
             <p className="text-bold grid grid-cols-2 text-medium capitalize">
               <b>Address:</b>
               {blog.address.name}
@@ -214,21 +213,21 @@ export default function ActiveProperty() {
         return (
           <div className="relative flex justify-start items-center w-[350px] gap-2">
             <div className="">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>ID:</b>
-              {blog?._id}
-            </p>
-            <hr />
+              <p className="text-bold grid grid-cols-2 text-medium capitalize">
+                <b>ID:</b>
+                {blog?._id}
+              </p>
+              <hr />
 
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Name</b>
-              {blog.user[0]?.fullname}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>User name</b>
-              {blog.user[0]?.username}
-            </p>
+              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+                <b>Name</b>
+                {blog.user[0]?.fullname}
+              </p>
+              <hr />
+              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
+                <b>User name</b>
+                {blog.user[0]?.username}
+              </p>
             </div>
             <Dropdown
               aria-label="Options Menu Accept Property"
@@ -247,12 +246,16 @@ export default function ActiveProperty() {
                 aria-label="Accept Property Options Menu"
                 // aria-labelledbyl="Options Menu Property"
               >
-                <DropdownItem
-                  textValue="Delete Property"
-                  onClick={() => handleDeleteProperty(blog._id)}
-                >
-                  Delete
-                </DropdownItem>
+                {userInfo && userInfo.supAdmin ? (
+                  ""
+                ) : (
+                  <DropdownItem
+                    textValue="Delete Property"
+                    onClick={() => handleDeleteProperty(blog._id)}
+                  >
+                    Delete
+                  </DropdownItem>
+                )}
                 <DropdownItem
                   textValue="Accept Property"
                   onClick={() => {
@@ -296,8 +299,8 @@ export default function ActiveProperty() {
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-              <div className="flex  gap-3 items-center justify-center">
-        <div className=" w-8/12  ">
+        <div className="flex  gap-3 items-center justify-center">
+          <div className=" w-8/12  ">
             <form
               className="flex items-center gap-x-2"
               onSubmit={(e) => {
@@ -308,7 +311,7 @@ export default function ActiveProperty() {
               <Input
                 isClearable
                 className="w-full"
-name="search"
+                name="search"
                 placeholder="phone, email ,full name,type Of User..."
                 label="Search For All Users"
                 size="sm"
@@ -408,7 +411,7 @@ name="search"
     }),
     []
   );
-// console.log(property);
+  // console.log(property);
   return (
     <Table
       isCompact

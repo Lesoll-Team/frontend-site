@@ -24,6 +24,7 @@ import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -32,7 +33,7 @@ const columns = [
   { name: "ACTIONS & User Info", uid: "actions" },
 ];
 export default function PropertyDashboard() {
-  const router=useRouter()
+  const router = useRouter();
   const [property, setProperty] = useState([]);
 
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -45,39 +46,37 @@ export default function PropertyDashboard() {
   useEffect(() => {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
-
-    const fetchAllProperties = async () => {
-      try {
-        const userToken = JSON.parse(localStorage.getItem("userToken"));
-        const getProperties = await fetchAllProperty(userToken);
-        setProperty(getProperties);
-        setProperty(getProperties);
-      } catch (error) {
-        console.error("Error fetching Properties in Dashboard:", error);
-      }
-    };
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  // console.log(userInfo);
+  const fetchAllProperties = async () => {
+    try {
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const getProperties = await fetchAllProperty(userToken);
+      setProperty(getProperties);
+      setProperty(getProperties);
+    } catch (error) {
+      console.error("Error fetching Properties in Dashboard:", error);
+    }
+  };
   const handleAcceptProperty = async (propertyId) => {
     try {
-
-    await acceptProperties(propertyId)
-    setRefreshProperty(!refreshProperty);
-    await fetchAllProperties();
-  } catch (error) {
-    console.error("Error deleting property:", error);
-  }
+      await acceptProperties(propertyId);
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties();
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
   };
 
   const handleDeleteProperty = async (propertyId) => {
     try {
-
-    await deleteProperties(propertyId)
-    setRefreshProperty(!refreshProperty);
-    await fetchAllProperties();
-  } catch (error) {
-    console.error("Error deleting property:", error);
-  }
+      await deleteProperties(propertyId);
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties();
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
   };
-
 
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
@@ -205,10 +204,10 @@ export default function PropertyDashboard() {
             <p className="font-bold text-medium text-center">{blog.title}</p>
           </div>
         );
-        case "actions":
-          return (
-            <div className="relative flex justify-start items-center w-[350px] gap-2">
-              <div className="">
+      case "actions":
+        return (
+          <div className="relative flex justify-start items-center w-[350px] gap-2">
+            <div className="">
               <hr />
               <p className="text-bold grid grid-cols-2 text-medium capitalize">
                 <b>ID:</b>
@@ -227,56 +226,58 @@ export default function PropertyDashboard() {
               <hr />
               <p className="text-bold  capitalize grid grid-cols-2 text-medium">
                 <b>Phone</b>
-                {blog.user.phone
-}
+                {blog.user.phone}
               </p>
               <hr />
-
-              </div>
-              <Dropdown
-                aria-label="Options Menu Property"
+            </div>
+            <Dropdown
+              aria-label="Options Menu Property"
+              // aria-labelledbyl="Options Menu Property"
+              className="bg-background border-1 border-default-200"
+            >
+              <DropdownTrigger
+                aria-label="Open Options Menu"
                 // aria-labelledbyl="Options Menu Property"
-                className="bg-background border-1 border-default-200"
               >
-                <DropdownTrigger
-                  aria-label="Open Options Menu"
-                  // aria-labelledbyl="Options Menu Property"
-                >
-                  <Button isIconOnly radius="full" size="sm" variant="light">
-                    <VerticalDotsIcon className="text-default-400" />
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu
-                  aria-label="Property  Options Menu"
-                  // aria-labelledbyl="Options Menu Property"
-                >
+                <Button isIconOnly radius="full" size="sm" variant="light">
+                  <VerticalDotsIcon className="text-default-400" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="Property  Options Menu"
+                // aria-labelledbyl="Options Menu Property"
+              >
+                {userInfo && !userInfo.supAdmin && (
                   <DropdownItem
                     textValue="Delete Property"
                     onClick={() => handleDeleteProperty(blog._id)}
                   >
                     Delete
                   </DropdownItem>
+                )}
+                {userInfo && !userInfo.supAdmin && (
                   <DropdownItem
                     textValue="Accept Property"
-                    onClick={() =>handleAcceptProperty(blog._id)}
+                    onClick={() => handleAcceptProperty(blog._id)}
                   >
                     Accept
                   </DropdownItem>
-                  <DropdownItem
-                    textValue="edit Property"
-                    // onClick={async () => await acceptProperties(blog._id)}
-                    onClick={() => {
-                      router.push(`/editproperty/${blog.slug}`);
-                    }}
-                  >
-                    {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
-                    edit
-                    {/* </Link> */}
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-          );
+                )}
+                <DropdownItem
+                  textValue="edit Property"
+                  // onClick={async () => await acceptProperties(blog._id)}
+                  onClick={() => {
+                    router.push(`/editproperty/${blog.slug}`);
+                  }}
+                >
+                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
+                  edit
+                  {/* </Link> */}
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        );
     }
   }, []);
 
@@ -300,8 +301,7 @@ export default function PropertyDashboard() {
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
-name="search"
-
+            name="search"
             classNames={{
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",

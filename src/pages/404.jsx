@@ -1,9 +1,24 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Custom404 = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const router = useRouter();
+  useEffect(() => {
+    // Check if the path is '/Contact' and redirect to '/contact'
+    if (router.asPath === "/Contact") {
+      router.replace("/contact");
+    }
+    if (router.asPath === "/About") {
+      router.replace("/about");
+    }
+    if (router.asPath === "/search") {
+      router.replace("/searching/keywords=");
+    }
+  }, [router]);
 
   return (
     <>
