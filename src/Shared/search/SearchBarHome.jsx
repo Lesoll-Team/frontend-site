@@ -86,7 +86,7 @@ export function SearchBar() {
           <div className="">
             <button
               className={` ${
-                saleOptions == "all"||saleOptions == "كل"
+                saleOptions == "all" || saleOptions == "كل"
                   ? " bg-lightOrange text-white "
                   : "bg-white border-2 border-lightOrange text-lightOrange "
               } mx-1 font-bold py-[4px] px-3   rounded-t-medium`}
@@ -97,7 +97,7 @@ export function SearchBar() {
             <button
               onClick={setForRentButton}
               className={` ${
-                saleOptions == "For_Rent"||saleOptions == "للايجار"
+                saleOptions == "For_Rent" || saleOptions == "للايجار"
                   ? "text-white bg-lightGreen"
                   : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
@@ -107,7 +107,7 @@ export function SearchBar() {
             <button
               onClick={setForSaleButton}
               className={` ${
-                saleOptions == "For_Sale"||saleOptions == "للبيع"
+                saleOptions == "For_Sale" || saleOptions == "للبيع"
                   ? "text-white bg-lightGreen"
                   : "text-lightGreen border-2 border-lightGreen bg-white"
               } mx-1 px-2 font-bold  rounded-t-medium`}
@@ -116,34 +116,33 @@ export function SearchBar() {
             </button>
 
             <button
-                onClick={setForInvestmentButton}
-                className={` ${
-                  saleOptions == "For_Investment" || saleOptions == "للإستثمار"
-                    ? "text-white bg-lightGreen"
-                    : "text-lightGreen border-2 border-lightGreen bg-white"
-                }  font-bold  px-2 mx-1 rounded-t-medium`}
-              >
-                {languageIs ? "للإستثمار" : "Investment"}
-              </button>
-
+              onClick={setForInvestmentButton}
+              className={` ${
+                saleOptions == "For_Investment" || saleOptions == "للإستثمار"
+                  ? "text-white bg-lightGreen"
+                  : "text-lightGreen border-2 border-lightGreen bg-white"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للإستثمار" : "Investment"}
+            </button>
           </div>
           <div className="flex items-center">
             <div className="w-full flex gap-x-2">
-            <Input
-              // id="search"
-              dir={languageIs ? "rtl" : "ltr"}
-              className="border-2 border-default-100 rounded-large  shadow-sm"
-              size="md"
-              name="Search"
-              isClearable
-              placeholder={
-                languageIs
-                  ? " كلمات بحث مثلا: شاطئ ، للإستثمار ... "
-                  : "Search by Keywords: e.g. beach, chiller free..."
-              }
-              value={keywords}
-              onValueChange={setKeywords}
-            />
+              <Input
+                // id="search"
+                dir={languageIs ? "rtl" : "ltr"}
+                className="border-2 border-default-100 rounded-large  shadow-sm"
+                size="md"
+                name="Search"
+                isClearable
+                placeholder={
+                  languageIs
+                    ? " كلمات بحث مثلا: شاطئ ،للايجار اليومى ,ارض ... "
+                    : "Search by Keywords: e.g. beach, for daily rent, land..."
+                }
+                value={keywords}
+                onValueChange={setKeywords}
+              />
               <Input
                 // id="search"
                 dir={languageIs ? "rtl" : "ltr"}
@@ -162,7 +161,7 @@ export function SearchBar() {
             </div>
 
             <DropdownMoreHome
-            offer={saleOptions}
+              offer={saleOptions}
               setPaymentMethod={setPaymentMethod}
               paymentMethod={paymentMethod}
               setFinishingOptions={setFinishingOptions}
@@ -187,7 +186,6 @@ export function SearchBar() {
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
-
               selectoption={selectoption}
               setSelectedOption={setSelectedOption}
               classNames="max-w-[40px]"

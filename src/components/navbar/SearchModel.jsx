@@ -101,8 +101,8 @@ export default function SearchModel() {
                       isClearable
                       placeholder={
                         languageIs
-                          ? " كلمات بحث مثلا: شاطئ ، للإستثمار ... "
-                          : "Search by Keywords: e.g. beach, chiller free..."
+                          ? " كلمات بحث مثلا: شاطئ ،للايجار اليومى ,ارض ... "
+                          : "Search by Keywords: e.g. beach, for daily rent, land..."
                       }
                       value={keywords}
                       onValueChange={setKeyword}
