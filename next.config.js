@@ -1,5 +1,3 @@
-
-
 // module.exports = nextConfig;
 module.exports = async () => {
   /**
@@ -13,6 +11,11 @@ module.exports = async () => {
         {
           source: "/Details/:slug",
           destination: "/property-details/:slug",
+          permanent: true,
+        },
+        {
+          source: "/User/:slug",
+          destination: "/",
           permanent: true,
         },
         // {
