@@ -38,13 +38,8 @@ export default function Searching({ keyword }) {
       <Head>
         <title>
           {language
-            ? `${
-                reversedFilteredKeywords.unitType == "شقة"
-                  ? "شقق"
-                  : reversedFilteredKeywords.unitType || "عقارات"
-              } ${
-                reversedFilteredKeywords.offer == "all"||reversedFilteredKeywords.offer == "كل"
-                  ? "للبيع والإيجار"
+            ? ` ${reversedFilteredKeywords.unitType == "شقة"? "شقق"  : reversedFilteredKeywords.unitType||"عقارات"}  
+                ${ reversedFilteredKeywords.offer == "all"|| reversedFilteredKeywords.offer == "كل"? "للبيع والإيجار"
                   : reversedFilteredKeywords.offer || "للبيع والإيجار"
               } فى مصر | ليسول`
             : `Search About ${

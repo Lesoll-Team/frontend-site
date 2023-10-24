@@ -26,6 +26,8 @@ export function SearchBar() {
   let [isFurnished, setFurnished] = useState(false);
   let [selectoption, setSelectedOption] = useState("");
   let [locationKeyword, setLocationKeyword] = useState("");
+      // const keywordsWithDash=keywords.trim().split(" ").join("_")
+
   const InputKeywords = {
     offer: saleOptions,
     propType: propertyType,
@@ -33,14 +35,14 @@ export function SearchBar() {
     saleOption: paymentMethod,
     bathRooms: countBathrooms,
     rooms: countBedrooms,
-    finishingType: finishingOptions,
+    finishingType:finishingOptions,
     maxPrice: toPrice,
     minPrice: fromPrice,
-    keywords,
+   keywords:keywords.trim().split(" ").join("_"),
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
-    cdb:locationKeyword,
+    cdb:locationKeyword.trim().split(" ").join("_"),
   };
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
@@ -53,7 +55,8 @@ export function SearchBar() {
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
       dispatch(setCurrentPage(1))
-
+      // const keywordsDashaf=keywordsDash.join("_")
+// console.log(keywordsWithDash);
     router.push(`/searching/${queryString}`);
   };
   // const handlePageChange = (selectedPage) => {
@@ -127,11 +130,11 @@ export function SearchBar() {
             </button>
           </div>
           <div className="flex items-center">
-            <div className="w-full flex gap-x-2">
+            <div className="w-full  gap-y-3 grid lg:grid-cols-3 grid-cols-1 gap-x-2">
               <Input
                 // id="search"
                 dir={languageIs ? "rtl" : "ltr"}
-                className="border-2 border-default-100 rounded-large  shadow-sm"
+                className="border-2 lg:col-span-2 col-span-1 border-default-100 rounded-large  shadow-sm "
                 size="md"
                 name="Search"
                 isClearable
@@ -146,14 +149,14 @@ export function SearchBar() {
               <Input
                 // id="search"
                 dir={languageIs ? "rtl" : "ltr"}
-                className=" border-2 w-6/12 border-default-100 rounded-large shadow-sm  "
+                className=" border-2 col-span-1 border-default-100 rounded-large shadow-sm  "
                 size="md"
                 name="Search"
                 isClearable
                 placeholder={
                   languageIs
-                    ? " المدينة أو البلدة أو الحي... "
-                    : "Search by City or Town or District..."
+                    ? "  المدينة أو البلدة أو الحي : الجيزة , مدينة نصر ,القاهرة , المعادى ... "
+                    : "Search by City, town, or neighborhood: Giza, Nasr City, Cairo, Maadi..."
                 }
                 value={locationKeyword}
                 onValueChange={setLocationKeyword}

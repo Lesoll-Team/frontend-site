@@ -91,11 +91,11 @@ export default function SearchModel() {
                   onSubmit={handelSearchButton}
                   className="flex items-center gap-2"
                 >
-                  <div className="w-full flex gap-x-2">
+                  <div className="w-full   grid lg:grid-cols-3 grid-cols-1 gap-y-3 gap-x-2">
                     <Input
                       // id="search"
                       dir={languageIs ? "rtl" : "ltr"}
-                      className="border-2 border-default-100 rounded-large  shadow-sm"
+                      className="border-2 lg:col-span-2 col-span-1 border-default-100 rounded-large  shadow-sm"
                       size="md"
                       name="Search"
                       isClearable
@@ -110,14 +110,14 @@ export default function SearchModel() {
                     <Input
                       // id="search"
                       dir={languageIs ? "rtl" : "ltr"}
-                      className=" border-2 w-6/12 border-default-100 rounded-large shadow-sm  "
+                      className=" border-2 col-span-1 border-default-100   rounded-large shadow-sm  "
                       size="md"
                       name="Search"
                       isClearable
                       placeholder={
                         languageIs
-                          ? " المدينة أو البلدة أو الحي... "
-                          : "Search by City or Town or District..."
+                          ? "  المدينة أو البلدة أو الحي : الجيزة , مدينة نصر ,القاهرة , المعادى ... "
+                          : "Search by City, town, or neighborhood: Giza, Nasr City, Cairo, Maadi..."
                       }
                       value={locationKeyword}
                       onValueChange={setLocationKeyword}

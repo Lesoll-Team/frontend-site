@@ -54,7 +54,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     reversedFilteredKeywords?.saleOption || ""
   );
   let [keywords, setKeywords] = useState(
-    reversedFilteredKeywords?.keywords || ""
+    reversedFilteredKeywords?.keywords?reversedFilteredKeywords?.keywords.trim().split("_").join(" ") : ""
   );
   let [finishingOptions, setFinishingOptions] = useState(
     reversedFilteredKeywords?.finishingType || ""
@@ -69,10 +69,9 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     reversedFilteredKeywords?.sort_by || ""
   );
   let [locationKeyword, setLocationKeyword] = useState(
-    reversedFilteredKeywords?.cdb || ""
+    reversedFilteredKeywords?.cdb?reversedFilteredKeywords?.cdb.trim().split("_").join(" ") : ""
   );
-  // let [isFurnished, setFurnished] = useState(null);
-  // setSaleOptions(reversedFilteredKeywords.offer||" ")
+
   const InputKeywords = {
     offer: saleOptions,
     propType: propertyType,
@@ -82,13 +81,13 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     rooms: countBedrooms,
     maxPrice: toPrice,
     minPrice: fromPrice,
-    keywords,
+    keywords:keywords.trim().split(" ").join("_"),
     finishingType: finishingOptions,
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
-    cdb: locationKeyword,
+    cdb: locationKeyword.trim().split(" ").join("_"),
     // isFurnished,
   };
 
@@ -168,16 +167,15 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     setSortPropChanged(true);
     dispatch(setCurrentPage(1));
   };
-  // console.log(pageSaleOption);
 
   return (
     <form
       onSubmit={handleSubmitSearch}
-      className="  h-72 mb-12 grid md:justify-normal justify-center "
+      className="  h-72 mb-5 grid md:justify-normal justify-center "
     >
       <div
         dir="ltr"
-        className="w-full flex flex-col justify-center items-center  mt-5 mb-14  "
+        className="w-full flex flex-col justify-center items-center  mt-5 mb-9  "
       >
         <div className="flex flex-col   md:w-10/12 ">
           <div className="flex  w-full  ">
@@ -236,8 +234,8 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 isClearable
                 placeholder={
                   languageIs
-                    ? " المدينة أو البلدة أو الحي... "
-                    : "Search by City or Town or District..."
+                    ? "  المدينة أو البلدة أو الحي : الجيزة , مدينة نصر ,القاهرة , المعادى ... "
+                    : "Search by City, town, or neighborhood: Giza, Nasr City, Cairo, Maadi..."
                 }
                 value={locationKeyword}
                 onValueChange={setLocationKeyword}
@@ -345,7 +343,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
           {languageIs
             ? `${
                 reversedFilteredKeywords?.unitType == "شقة"
-                  ? "شقق"
+                  ? " شقق "
                   : reversedFilteredKeywords?.unitType || "عقارات "
               }${
                 reversedFilteredKeywords?.offer == "all" ||

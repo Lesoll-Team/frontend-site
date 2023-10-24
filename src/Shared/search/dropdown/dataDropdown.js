@@ -20,8 +20,8 @@ export const percentageProperty = {
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "تمويل عقاري_3_بالمئة", name: "3% تمويل عقارى" },
-    { value: "تمويل عقاري_8_بالمئة", name: "8% تمويل عقارى " },
+    { value: "تمويل_عقاري_3_بالمئة", name: "3% تمويل عقارى" },
+    { value: "تمويل_عقاري_8_بالمئة", name: "8% تمويل عقارى " },
   ],
 };
 export const finishingOptionsData = {
