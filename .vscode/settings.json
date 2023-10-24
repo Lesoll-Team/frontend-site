@@ -33,7 +33,7 @@
  "editor.cursorStyle": "line",
 //  "editor.fontFamily": "monospace(fallback)",
 "editor.fontFamily": "'Hack NF'",
- "editor.fontSize": 16,
+ "editor.fontSize": 15,
   "editor.fontLigatures":true,
   "terminal.integrated.fontFamily":"monospace",
   "terminal.integrated.fontSize": 16,
