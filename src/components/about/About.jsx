@@ -64,7 +64,7 @@ const About = () => {
               width={"auto"}
               height={"auto"}
               className="w-full md:h-[480px] mx-auto"
-              alt=" "
+              alt=" mission Image"
             />
           </div>
           <div className="md:w-3/4 space-y-3 md:space-y-5  md:order-1">
@@ -95,7 +95,7 @@ const About = () => {
               width={"auto"}
               height={"auto"}
               className="w-full md:h-[480px]"
-              alt=" "
+              alt=" vision Iamge"
             />
           </div>
         </div>
@@ -106,7 +106,7 @@ const About = () => {
               width={"auto"}
               height={"auto"}
               className=" w-full md:h-[480px]"
-              alt=" "
+              alt="goals image "
             />
           </div>
           <div className="md:w-3/4 space-y-3 md:space-y-5  md:order-1">
