@@ -20,13 +20,5 @@ const OldDetailsPage = () => {
   return null;
 };
 
-export const getServerSideProps = async ({ params }) => {
-  // This part is optional, but you can perform any server-side logic here if needed.
-  // For example, fetching data based on the old URL.
-
-  return {
-    props: {}, // This can be an empty object or data you want to pass to the page component
-  };
-};
 
 export default OldDetailsPage;

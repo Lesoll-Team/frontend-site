@@ -11,7 +11,7 @@ module.exports = async () => {
     async redirects() {
       return [
         {
-          source: "/Details/:slug",
+          source: "/Detail/:slug",
           destination: "/property-details/:slug",
           permanent: true,
         },

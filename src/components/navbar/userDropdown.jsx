@@ -28,7 +28,10 @@ function UserDropdown({ classNamed }) {
   };
 
   useEffect(() => {
-    const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`);
+    const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
+        transports: ['websocket'],
+        withCredentials: true,
+      });
     if (userDataInfo?._id) {
       socket.emit("online", { userId: userDataInfo._id });
     }
