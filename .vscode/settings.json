@@ -37,5 +37,15 @@
   "editor.fontLigatures":true,
   "terminal.integrated.fontFamily":"monospace",
   "terminal.integrated.fontSize": 16,
-  "terminal.integrated.cursorBlinking":true,
+  "terminal.integrated.cursorBlinking": true,
+  "cSpell.words": [
+    "nextui",
+    "signin",
+    "إعداداتى",
+    "الشخصية",
+    "الصفحة",
+    "القيادة",
+    "خروج",
+    "لوحة"
+  ],
 }

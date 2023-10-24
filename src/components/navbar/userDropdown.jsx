@@ -5,13 +5,12 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
-  // User,
 } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
-// import  io  from "socket.io-client";
+import io from "socket.io-client";
 
 function UserDropdown({ classNamed }) {
   const router = useRouter();
@@ -27,32 +26,17 @@ function UserDropdown({ classNamed }) {
     localStorage.clear();
     router.push("/signin");
   };
-  // useEffect(() => {
-  //   const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
-  //     transports: ['websocket'],
-  //     withCredentials: true,
-  //   });
 
-  //   if (userDataInfo?._id) {
-  //     socket.emit('online', { userId: userDataInfo._id });
-  // }
+  useEffect(() => {
+    const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`);
+    if (userDataInfo?._id) {
+      socket.emit("online", { userId: userDataInfo._id });
+    }
+    return () => {
+      socket.disconnect();
+    };
+  }, [userDataInfo?._id]);
 
-  // return () => {
-  //     socket.disconnect();
-  // };
-  // }, [userDataInfo?._id]);
-  //   useEffect(() => {
-  //     // const socket = io(`https://${process.env.NEXT_PUBLIC_SOCKET_URL}`);
-  //     const socket = io('https://api.lesoll.com');
-
-  //     if (userDataInfo?._id) {
-  //         socket.emit('online', { userId: userDataInfo._id });
-  //     }
-
-  //     return () => {
-  //         socket.disconnect();
-  //     };
-  // }, [userDataInfo]);
   return (
     <div className={`${classNamed}`}>
       <Dropdown placement="bottom-end">
@@ -91,20 +75,6 @@ function UserDropdown({ classNamed }) {
           >
             {languageIs ? "إعداداتى" : "My Settings"}
           </DropdownItem>
-          {/* {userDataInfo && (userDataInfo.isAdmin || userDataInfo.supAdmin) ? (
-            <DropdownItem
-              textValue="dashboard"
-              onPress={() => router.push("/dashboard")}
-              // className={`${
-              //   userDataInfo && userDataInfo.isAdmin === false ? "hidden" : ""
-              // }`}
-              key="dashboard_for_admin"
-            >
-              {languageIs ? "لوحة القيادة" : "Dashboard"}
-            </DropdownItem>
-          ) : (
-            ""
-          )} */}
           <DropdownItem
             textValue="dashboard"
             onPress={() => router.push("/dashboard")}
