@@ -15,7 +15,19 @@ const Custom404 = () => {
     if (router.asPath === "/About") {
       router.replace("/about");
     }
-    if (router.asPath === "/search") {
+    if (router.asPath === "/Blogs") {
+      router.replace("/blogs");
+    }
+    if (router.asPath === "/Q_A") {
+      router.replace("/faq");
+    }
+    if (router.asPath === "/SiteMap") {
+      router.replace("/searching/offer=all");
+    }
+    if (router.asPath === "/MostView") {
+      router.replace("/most-view");
+    }
+    if (router.asPath === "/search" || router.asPath === "/Search") {
       router.replace("/searching/offer=all");
     }
     if (router.asPath.includes("/Detail/")) {

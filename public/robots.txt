@@ -3,9 +3,12 @@ User-agent: *
 Disallow: /dashboard
 Disallow: /editproperty
 Disallow: /profile
-
-
-User-agent: *
-Allow: /
-
-Sitemap:https://lesoll.com/sitemap.xml
+Disallow: /admin/
+disallow: /signin
+disallow: /signup
+Disallow: /feed/
+Disallow: privacypolicy
+Disallow: Privacy
+Disallow: forgetpassword
+Disallow: /accountUser-agent: *
+Allow: /Sitemap:https://lesoll.com/sitemap.xml
