@@ -16,7 +16,12 @@ const Custom404 = () => {
       router.replace("/about");
     }
     if (router.asPath === "/search") {
-      router.replace("/searching/keywords=");
+      router.replace("/searching/offer=all");
+    }
+    if (router.asPath.includes("/Detail/")) {
+      const parts = router.asPath.split("/");
+      const codeID = parts[parts.length - 1];
+      router.push(`/property-details/${codeID}`);
     }
   }, [router]);
 
