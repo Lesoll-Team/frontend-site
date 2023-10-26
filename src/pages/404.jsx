@@ -21,22 +21,27 @@ const Custom404 = () => {
     if (router.asPath === "/Q_A") {
       router.replace("/faq");
     }
-    if (router.asPath === "/SiteMap") {
+    if (
+      router.asPath.includes("/SiteMap") ||
+      router.asPath.includes("/Sitemap") ||
+      router.asPath === "/Governrate" ||
+      router.asPath.includes("Realties")
+    ) {
       router.replace("/searching/offer=all");
     }
-    if (router.asPath === "/MostView") {
-      router.replace("/most-view");
-    }
-    if (router.asPath === "/search" || router.asPath === "/Search") {
-      router.replace("/searching/offer=all");
-    }
-    if (router.asPath.includes("/Detail/")) {
-      const parts = router.asPath.split("/");
-      const codeID = parts[parts.length - 1];
-      router.push(`/property-details/${codeID}`);
-    }
-  }, [router]);
 
+    if (
+      router.asPath.includes("/search") ||
+      router.asPath.includes("/Search")
+    ) {
+      router.replace("/searching/offer=all");
+    }
+    // if (router.asPath.includes("/Detail/")) {
+    //   const parts = router.asPath.split("/");
+    //   const codeID = parts[parts.length - 1];
+    //   router.replace(`/property-details/${codeID}`);
+    // }
+  }, [router]);
   return (
     <>
       <Head>

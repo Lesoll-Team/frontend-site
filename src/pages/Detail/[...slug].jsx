@@ -8,16 +8,19 @@ const OldDetailsPage = () => {
 
   useEffect(() => {
     // Redirect to the new URL
-    router.push(
-      `/property-details/${router.asPath}`,
-      `/property-details/${router.asPath}`,
-      { shallow: true }
-    );
+    const parts = router.asPath.split("/");
+    const codeID = parts[parts.length - 1];
+    router.push(`/property-details/${codeID}`);
+    
   }, [router]);
 
   // This component can be empty, as the redirection happens in useEffect
 
-  return null;
+  return (
+    <div className="h-[90dvh]">
+
+    </div>
+  );
 };
 
 export default OldDetailsPage;
