@@ -20,5 +20,4 @@ const OldDetailsPage = () => {
   return null;
 };
 
-
 export default OldDetailsPage;

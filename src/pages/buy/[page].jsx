@@ -30,9 +30,9 @@ export default function PropertyBuy({ propertyForBuy }) {
       <SearchBar pageSaleOption="For Sale" />
 
       <div>
-        <h2 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
-          {language ? "عقارات للبيع" : " Properties for Buy"}
-        </h2>
+        <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
+          {language ? "عقارات للبيع فى مصر" : " Properties for Buy in Egypt"}
+        </h1>
       </div>
       <div className=" flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 ">
         {propertyForBuy

@@ -5,9 +5,9 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="container mx-auto py-10 mb-10 min-h-[100vh]">
-      <h2 className="text-4xl md:text-6xl font-semibold  text-lightGreen">
+      <h1 className="text-4xl md:text-6xl font-semibold  text-lightGreen">
         {language ? "سياسة الخصوصية لموقع ليسول" : "Lesoll privacy policy "}
-      </h2>
+      </h1>
       <div className="text-lg space-y-10 mt-10 px-3">
         <div className="space-y-5">
           <p className="text-xl">

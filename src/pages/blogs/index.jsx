@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 function Blog({ blogs }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-// console.log("blogs",blogs);
+  // console.log("blogs",blogs);
   return (
     <div className="container mx-auto  p-5">
       <Head>
@@ -17,7 +17,9 @@ function Blog({ blogs }) {
         />
       </Head>
       <div className="py-20">
-        <b className="text-7xl text-lightGreen  ">{language ? "المقالات" : "Blogs"}</b>
+        <h1 className="text-7xl text-lightGreen  ">
+          {language ? "المقالات" : "Blogs"}
+        </h1>
       </div>
       <BlogsInPage blogData={blogs} />
     </div>

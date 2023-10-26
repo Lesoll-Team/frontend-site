@@ -73,10 +73,11 @@ const Faq = () => {
             height={"auto"}
             className="md:w-[40%]  "
             src={"/faq.svg"}
+            alt="FAQ"
           />
-          <h3 className="text-darkGreen font-semibold text-5xl md:text-8xl md:w-1/2 text-center">
+          <h1 className="text-darkGreen font-semibold text-5xl md:text-8xl md:w-1/2 text-center">
             {language ? "الأسئلة الشائعة" : "FAQ"}
-          </h3>
+          </h1>
         </div>
         <div className="w-[%] md:w-[80%] mx-auto flex justify-center bg-white drop-shadow-xl border-lightGreen rounded-full overflow-hidden border  ">
           <p
@@ -117,7 +118,7 @@ const Faq = () => {
                       language ? `${item?.question.ar}` : `${item?.question.en}`
                     }
                   >
-                    {item.answers.map((answer,index) => {
+                    {item.answers.map((answer, index) => {
                       return (
                         <p key={index} className="my-1">
                           {language ? answer.ar : answer.en}
@@ -138,7 +139,7 @@ const Faq = () => {
                       language ? `${item?.question.ar}` : `${item?.question.en}`
                     }
                   >
-                    {item.answers.map((answer,index) => {
+                    {item.answers.map((answer, index) => {
                       return (
                         <p key={index} className="my-1">
                           {language ? answer.ar : answer.en}
@@ -159,7 +160,7 @@ const Faq = () => {
                       language ? `${item?.question.ar}` : `${item?.question.en}`
                     }
                   >
-                    {item.answers.map((answer,index) => {
+                    {item.answers.map((answer, index) => {
                       return (
                         <p key={index} className="my-1">
                           {language ? answer.ar : answer.en}

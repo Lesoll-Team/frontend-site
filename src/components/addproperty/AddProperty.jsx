@@ -104,7 +104,7 @@ const AddProperty = () => {
   });
   const [propErrors, setPropErrors] = useState({});
 
-  // console.log(propertyDetils);
+  console.log(propertyDetils.address);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [isAuth, setAuth] = useState(false);

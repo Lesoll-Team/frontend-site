@@ -23,9 +23,9 @@ export const TermsOfService = () => {
   useEffect(getTerms, []);
   return (
     <div className="container mx-auto py-10 mb-10 min-h-screen">
-      <h2 className="text-6xl font-semibold  text-lightGreen">
+      <h1 className="text-6xl font-semibold  text-lightGreen">
         {language ? "الشروط والأحكام" : "Terms Of Service"}
-      </h2>
+      </h1>
       <div className="text-lg space-y-10 mt-10">
         {terms.map((term, i) => {
           return (

@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div className="relative min-h-screen py-10 container mx-auto  space-y-20 mb-10">
       <div className="space-y-5 ">
-        <h2 className="text-7xl md:text-8xl font-bold text-darkGray ">
+        <h1 className="text-7xl md:text-8xl font-bold text-darkGray ">
           {language ? (
             <span>
               من
@@ -22,7 +22,7 @@ const About = () => {
               <span className="text-lightGreen"> Us</span>
             </span>
           )}
-        </h2>
+        </h1>
         <p className="text-xl leading-loose md:text-justify">
           {language ? (
             <span>

@@ -84,18 +84,17 @@ const ForgetPassword = () => {
               className="flex flex-col  justify-center "
             >
               <Image
-                alt=""
+                alt="lock"
                 src={lock}
                 className="md:hidden w-40 relative mx-auto -mt-20"
               />
-              <p className="md:text-4xl text-3xl text-center mb-5 text-lightGreen font-black">
+              <h1 className="md:text-4xl text-3xl text-center mb-5 text-lightGreen font-black">
                 {language ? ` تغير كلمة المرور` : ` Reset password`}
-              </p>
+              </h1>
               {/* Form inputs */}
               <div>
                 <input
                   name="email"
-            
                   type="email"
                   placeholder={language ? `البريد الإلكترونى` : `Email`}
                   value={formik.values.email}

@@ -112,9 +112,9 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
   // console.log(propertyDetils.propType);
   return (
     <div className="flex flex-col  w-full space-y-5">
-      <h3 className="text-center text-5xl text-darkGreen mt-3 font-bold">
+      <h1 className="text-center text-5xl text-darkGreen mt-3 font-bold">
         {language ? "أضف عقارك" : "Add Property"}
-      </h3>
+      </h1>
       <div className="w-full">
         <AddPropInput
           error={propErrors?.title}

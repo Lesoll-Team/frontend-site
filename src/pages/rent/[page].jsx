@@ -30,9 +30,9 @@ export default function PropertyRent({ propertyForRent }) {
       </Head>
       <SearchBar pageSaleOption="For Rent" />
       <div>
-        <h2 className="font-bold text-5xl pt-20 md:flex md:justify-start flex justify-center text-lightGreen">
-          {language ? "عقارات للإيجار" : " Properties for Rent"}
-        </h2>
+        <h1 className="font-bold text-5xl pt-20 md:flex md:justify-start flex justify-center text-lightGreen">
+          {language ? "عقارات للإيجار فى مصر" : " Properties for Rent in Egypt"}
+        </h1>
       </div>
 
       <div className=" flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">

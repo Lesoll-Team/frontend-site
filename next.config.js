@@ -18,6 +18,11 @@ module.exports = async () => {
           destination: "/",
           permanent: true,
         },
+        {
+          source: "/Governrate/:slug*",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
         // {
         //   source: "/Contact",
         //   destination: "/contact",

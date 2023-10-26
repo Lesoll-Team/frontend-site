@@ -38,9 +38,9 @@ const SignIn = () => {
         <div className="flex flex-col md:flex-row ">
           {/* form div*/}
           <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
-            <h2 className="text-6xl sm:text-7xl mb-5 text-lightGreen font-black text-left">
-              {language ? "تسجيل الدخول" : "Sign Im"}
-            </h2>
+            <h1 className="text-6xl sm:text-7xl mb-5 text-lightGreen font-black text-left">
+              {language ? "تسجيل الدخول" : "Sign In"}
+            </h1>
 
             <SignInForm />
 

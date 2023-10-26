@@ -8,7 +8,7 @@ import { deleteMessage } from "../../redux-store/features/contactSlice";
 import { useRouter } from "next/router";
 export default function Contact() {
   const language = useSelector((state) => state.GlobalState.languageIs);
-// assage
+  // assage
   const dispatch = useDispatch();
   const isSending = useSelector((state) => state.Contact.sending);
   const errorMessage = useSelector((state) => state.Contact.errorMessage);
@@ -87,9 +87,9 @@ export default function Contact() {
       ) : (
         <div className="md:container mt-14 mb-14 mx-auto md:flex ">
           <div className="md:w-7/12 ">
-            <h2 className="text-6xl mb-5 text-lightGreen">
+            <h1 className="text-6xl mb-5 text-lightGreen">
               <b>{language ? "التواصل" : "Contact Us"}</b>
-            </h2>
+            </h1>
             <h6 className="text-lightGreen mb-5 ml-4">
               <b>{language ? "معلومات التواصل" : " Contact information"} </b>
             </h6>
@@ -100,7 +100,7 @@ export default function Contact() {
               <center className="flex flex-col gap-3 w-full">
                 <div className="flex gap-2">
                   <input
-                  name="user-name"
+                    name="user-name"
                     type="text"
                     placeholder={language ? "الاسم بالكامل " : "full name"}
                     value={fullName}
@@ -108,7 +108,7 @@ export default function Contact() {
                     className=" placeholder:text-gray-500 focus:outline-none  w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
                   />
                   <input
-                  name="user-email"
+                    name="user-email"
                     type="email"
                     placeholder={language ? "البريد الإلكترونى" : "Email"}
                     value={email}
@@ -118,7 +118,7 @@ export default function Contact() {
                 </div>
                 <div className="flex gap-2">
                   <input
-                  name="user-phone"
+                    name="user-phone"
                     type="number"
                     placeholder={language ? "الهاتف" : "Phone"}
                     value={phone}

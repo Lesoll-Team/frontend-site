@@ -98,13 +98,13 @@ function PropertyTitle({ singleTitle }) {
           <div className="flex sm:justify-end justify-center gap-5 sm:mx-5 mx-0   ">
             {/* <div className="border-2 w-[50px]  border-lightGreen hover:border-lightGreenHover hover:shadow-lg p-1 rounded-md">
          <div className="flex justify-center items-center "> */}
-            <div className="  bg-gray-200 rounded-lg px-2 flex items-center justify-end   text-gray-500 ">
+            {/* <div className="  bg-gray-200 rounded-lg px-2 flex items-center justify-end   text-gray-500 ">
               <p className="mx-2 text-default-700 font-semibold">
                 {" "}
                 {singleTitle?.countOfVisit ? singleTitle?.countOfVisit : 0}
               </p>
               <PiEye className={`text-xl mx-2`} />
-            </div>
+            </div> */}
 
             {userInfo && (
               <button

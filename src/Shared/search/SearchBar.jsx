@@ -54,7 +54,9 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     reversedFilteredKeywords?.saleOption || ""
   );
   let [keywords, setKeywords] = useState(
-    reversedFilteredKeywords?.keywords?reversedFilteredKeywords?.keywords.trim().split("_").join(" ") : ""
+    reversedFilteredKeywords?.keywords
+      ? reversedFilteredKeywords?.keywords.trim().split("_").join(" ")
+      : ""
   );
   let [finishingOptions, setFinishingOptions] = useState(
     reversedFilteredKeywords?.finishingType || ""
@@ -69,7 +71,9 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     reversedFilteredKeywords?.sort_by || ""
   );
   let [locationKeyword, setLocationKeyword] = useState(
-    reversedFilteredKeywords?.cdb?reversedFilteredKeywords?.cdb.trim().split("_").join(" ") : ""
+    reversedFilteredKeywords?.cdb
+      ? reversedFilteredKeywords?.cdb.trim().split("_").join(" ")
+      : ""
   );
 
   const InputKeywords = {
@@ -81,7 +85,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     rooms: countBedrooms,
     maxPrice: toPrice,
     minPrice: fromPrice,
-    keywords:keywords.trim().split(" ").join("_"),
+    keywords: keywords.trim().split(" ").join("_"),
     finishingType: finishingOptions,
     minArea: fromArea,
     maxArea: toArea,
@@ -339,7 +343,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
           pageSaleOption == undefined ? "" : "hidden"
         } flex items-center gap-x-2 w-10/12 m-auto `}
       >
-        <h6 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
+        <h1 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
           {languageIs
             ? `${
                 reversedFilteredKeywords?.unitType == "شقة"
@@ -368,7 +372,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                   reversedFilteredKeywords?.unitType || "Properties"
                 })`}
           </span>
-        </h6>
+        </h1>
       </div>
       <div className="  flex items-center gap-x-2 w-10/12 m-auto ">
         <h6 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
