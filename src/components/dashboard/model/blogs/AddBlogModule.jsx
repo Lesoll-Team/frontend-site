@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import {
   createBlogs,
-  // deleteBlog,
 } from "@/redux-store/features/dashboard/blogDashboardSlice";
 import {
   Modal,
@@ -27,7 +26,13 @@ function UserModule() {
 
   const [titleAR, setTitleAR] = useState("");
   const [titleEN, setTitleEN] = useState("");
-  const [userDataInfo, setUserDataInfo] = useState({});
+
+    const [metaTitleAR, setMetaTitleAR] = useState("");
+    const [metaTitleEN, setMetaTitleEN] = useState("");
+
+        const [slugAR, setSlugAR] = useState("");
+        const [slugEN, setSlugEN] = useState("");
+
   const [descriptionAR, setDescriptionAR] = useState(``);
   const [descriptionEN, setDescriptionEN] = useState(``);
 
@@ -36,9 +41,7 @@ function UserModule() {
 
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
-    useEffect(() => {
-    setUserDataInfo(userInfo);
-  }, [dispatch, userInfo]);
+
 
   const handleImgChange = (e) => {
     const newImage = e.target.files[0];
@@ -72,18 +75,25 @@ function UserModule() {
       ar: titleAR,
       en: titleEN,
     };
+    const slug = {
+      ar: slugAR,
+      en: slugEN,
+    };
+    const metaTitle = {
+      ar: metaTitleAR,
+      en: metaTitleEN,
+    };
 
     formData.append("img", selectedImage);
     formData.append("title", JSON.stringify(title) );
     formData.append("metaDescription",JSON.stringify(metaDescription));
     formData.append("description",JSON.stringify(description));
+    formData.append("slug", JSON.stringify(slug));
+    formData.append("metaTitle", JSON.stringify(metaTitle));
     dispatch(
       createBlogs({blogData:formData}) //, blogData: formData
     );
     
-  //  await setRefreshProperty(!refreshProperty)
-
-  //   await onBlogAdded();
 
   };
   return (
@@ -117,11 +127,10 @@ function UserModule() {
                 Add Blog
               </ModalHeader>
               <form onSubmit={handleBlogButton}>
-
-              <ModalBody className="overflow-y-auto h-[400px] px-5 bg-default-200 pb-10">
+                <ModalBody className="overflow-y-auto h-[400px] px-5 bg-default-200 pb-10">
                   <div className="">
                     <Input
-                    name="image-set"
+                      name="image-set"
                       type="file"
                       placeholder="set Image here"
                       labelPlacement="outside"
@@ -131,7 +140,10 @@ function UserModule() {
                     />
                   </div>
                   <div>
-                    <img style={{maxWidth:100,maxHeight:100}} src={selectedImagePrev} />
+                    <img
+                      style={{ maxWidth: 100, maxHeight: 100 }}
+                      src={selectedImagePrev}
+                    />
                     <button
                       type="button"
                       onClick={handleDeleteImage}
@@ -140,21 +152,21 @@ function UserModule() {
                       Delete
                     </button>
                   </div>
-
                   <div className=" my-5 gap-5 flex">
                     <Input
-                    name="title-ar"
+                      name="title-ar"
                       color="default"
                       type="text"
-                      placeholder="set Title Arabic here"
+                      placeholder="إدخال عنوان المقال باللغة العربية هنا ..."
                       labelPlacement="outside"
+                      dir="rtl"
                       label=<b>Title Arabic</b>
                       onChange={(e) => setTitleAR(e.target.value)}
                     />
                     <Input
                       color="default"
                       type="text"
-                    name="title-en"
+                      name="title-en"
                       placeholder="set Title English here"
                       labelPlacement="outside"
                       label=<b>Title English</b>
@@ -162,50 +174,114 @@ function UserModule() {
                     />
                   </div>
                   <div className=" flex flex-col gap-5">
-                    <Textarea
-                      color="default"
+                    <b>Description Arabic</b>
+                    <textarea
+                      dir="rtl"
                       onChange={(e) => setDescriptionAR(e.target.value)}
-                      label=<b>Description Arabic</b>
+                      placeholder="حقل إدخال الوصف "
+                      className="min-h-[300px] rounded-lg indent-10 "
+                    />
+                    <b>Description English</b>
+                    <textarea
+                      onChange={(e) => setDescriptionEN(e.target.value)}
+                      placeholder="Enter your description"
+                      className="min-h-[300px] rounded-lg indent-10 "
+                    />
+                  </div>
+
+                  <div className="flex gap-5 ">
+                    <Input
+                      color="primary"
+                      onChange={(e) => setMetaTitleAR(e.target.value)}
+                      label=<b>
+                        Meta Title Arabic
+                        <span className="text-lightOrange">
+                          {metaTitleAR.length}
+                        </span>
+                      </b>
                       labelPlacement="outside"
                       placeholder="حقل إدخال الوصف "
                     />
-                    <Textarea
-                      color="default"
-                      onChange={(e) => setDescriptionEN(e.target.value)}
-                      label=<b>Description English</b>
+                    <Input
+                      color="primary"
+                      onChange={(e) => setMetaTitleEN(e.target.value)}
+                      label=<b>
+                        Meta Title English
+                        <span className="text-lightOrange">
+                          {metaTitleEN.length}
+                        </span>
+                      </b>
                       labelPlacement="outside"
-                      placeholder="Enter your description"
+                      placeholder="حقل إدخال الوصف "
                     />
                   </div>
                   <div className=" flex gap-5">
                     <Textarea
                       color="primary"
                       onChange={(e) => setMetDescriptionAR(e.target.value)}
-                      label=<b>Meta Description Arabic <span className="text-lightOrange">{metDescriptionAR.length}</span></b>
+                      label=<b>
+                        Meta Description Arabic{" "}
+                        <span className="text-lightOrange">
+                          {metDescriptionAR.length}
+                        </span>
+                      </b>
                       labelPlacement="outside"
                       placeholder="حقل إدخال الوصف "
                     />
                     <Textarea
                       color="primary"
                       onChange={(e) => setMetDescriptionEN(e.target.value)}
-                      label=<b>Meta Description English <span className="text-lightOrange">{metDescriptionEN.length}</span></b>
+                      label=<b>
+                        Meta Description English{" "}
+                        <span className="text-lightOrange">
+                          {metDescriptionEN.length}
+                        </span>
+                      </b>
                       labelPlacement="outside"
                       placeholder="Enter your description"
                     />
                   </div>
-              </ModalBody>
-              <ModalFooter className="bg-default-300">
-                <Button color="foreground" variant="light" onClick={onClose}>
-                  Close
-                </Button>
-                <Button className="bg-[#6f4ef2] " type="submit" onPress={onClose}>
-                  Done
-                </Button>
-                {errorBlog && <div>{errorBlog.message}</div>}
-
-              </ModalFooter>
+                  <div className=" flex gap-5">
+                    <Input
+                      color="primary"
+                      onChange={(e) => setSlugAR(e.target.value)}
+                      label=<b>
+                        Slug Arabic{" "}
+                        <span className="text-lightOrange">
+                          {slugAR.length}
+                        </span>
+                      </b>
+                      labelPlacement="outside"
+                      placeholder="حقل إدخال الوصف "
+                    />
+                    <Input
+                      color="primary"
+                      onChange={(e) => setSlugEN(e.target.value)}
+                      label=<b>
+                        Slug English{" "}
+                        <span className="text-lightOrange">
+                          {slugEN.length}
+                        </span>
+                      </b>
+                      labelPlacement="outside"
+                      placeholder="Enter your description"
+                    />
+                  </div>
+                </ModalBody>
+                <ModalFooter className="bg-default-300">
+                  <Button color="foreground" variant="light" onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button
+                    className="bg-[#6f4ef2] "
+                    type="submit"
+                    onPress={onClose}
+                  >
+                    Done
+                  </Button>
+                  {errorBlog && <div>{errorBlog.message}</div>}
+                </ModalFooter>
               </form>
-
             </>
           )}
         </ModalContent>
