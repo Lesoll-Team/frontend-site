@@ -1,4 +1,4 @@
-import DeletedPage from "@/components/propertyDetails/DeletedPage";
+import DeletedProperty from "@/components/propertyDetails/DeletedProperty";
 import PropertyDetailsMain from "@/components/propertyDetails/PropertyDetailsMain";
 import axios from "axios";
 import React from "react";
@@ -7,7 +7,7 @@ export default function PropertyDetails({ singleProperty, RecommendedOther }) {
   return (
     <>
       {RecommendedOther ? (
-        <DeletedPage RecommendedOther={RecommendedOther} />
+        <DeletedProperty RecommendedOther={RecommendedOther} />
       ) : (
         <PropertyDetailsMain singleProperty={singleProperty} />
       )}
