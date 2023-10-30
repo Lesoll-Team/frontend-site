@@ -11,16 +11,11 @@ const OldDetailsPage = () => {
     const parts = router.asPath.split("/");
     const codeID = parts[parts.length - 1];
     router.push(`/property-details/${codeID}`);
-    
   }, [router]);
 
   // This component can be empty, as the redirection happens in useEffect
 
-  return (
-    <div className="h-[90dvh]">
-
-    </div>
-  );
+  return <div className="h-[90dvh]"></div>;
 };
 
 export default OldDetailsPage;

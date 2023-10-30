@@ -12,15 +12,15 @@ const About = () => {
       <div className="space-y-5 ">
         <h1 className="text-7xl md:text-8xl font-bold text-darkGray ">
           {language ? (
-            <span>
+            <>
               من
               <span className="text-lightGreen"> نحن</span>
-            </span>
+            </>
           ) : (
-            <span>
+            <>
               About
               <span className="text-lightGreen"> Us</span>
-            </span>
+            </>
           )}
         </h1>
         <p className="text-xl leading-loose md:text-justify">

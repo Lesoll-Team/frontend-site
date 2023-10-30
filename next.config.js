@@ -23,6 +23,73 @@ module.exports = async () => {
           destination: "/searching/offer=all",
           permanent: true,
         },
+        {
+          source: "/Q_A",
+          destination: "/faq",
+          permanent: true,
+        },
+        {
+          source: "/Realties/:slug",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+        {
+          source: "/SiteMap",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+        {
+          source: "/SiteMap/:slug",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+        {
+          source: "/Sitemap",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+        {
+          source: "/Sitemap/:slug",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+        {
+          source: "/MostView",
+          destination: "/most-view/1",
+          permanent: true,
+        },
+        {
+          source: "/Contact",
+          destination: "/contact-us",
+          permanent: true,
+        },
+        {
+          source: "/Blogs",
+          destination: "/blog",
+          permanent: true,
+        },
+        {
+          source: "/About",
+          destination: "/about-us",
+          permanent: true,
+        },
+        {
+          source: "/search",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+        {
+          source: "/search/:slug",
+          destination: "/searching/offer=all",
+          permanent: true,
+        },
+
+        // {
+        //   source: "/Blogs",
+        //   destination: "/blogs",
+        //   permanent: true,
+        // },
+
         // {
         //   source: "/Contact",
         //   destination: "/contact",

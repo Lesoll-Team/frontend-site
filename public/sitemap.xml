@@ -33,12 +33,12 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://lesoll.com/about</loc>
+  <loc>https://lesoll.com/about-us</loc>
   <lastmod>2023-10-24T13:13:58+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://lesoll.com/contact</loc>
+  <loc>https://lesoll.com/contact-us</loc>
   <lastmod>2023-10-24T13:13:58+00:00</lastmod>
   <priority>0.80</priority>
 </url>
@@ -243,7 +243,7 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://lesoll.com/blogs</loc>
+  <loc>https://lesoll.com/blog</loc>
   <lastmod>2023-10-24T13:13:58+00:00</lastmod>
   <priority>0.80</priority>
 </url>

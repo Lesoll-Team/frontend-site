@@ -94,7 +94,7 @@ const Footer = () => {
 
           <Link
             title={language ? "من نحن" : "About Us"}
-            href="/about"
+            href="/about-us"
             className="  text-darkGray"
           >
             {language ? "من نحن" : "About Us"}
@@ -102,7 +102,7 @@ const Footer = () => {
 
           <Link
             title={language ? "المقالات" : "Blogs"}
-            href="/blogs"
+            href="/blog"
             className=" text-darkGray"
           >
             {language ? "المقالات" : "Blogs"}
@@ -110,7 +110,7 @@ const Footer = () => {
 
           <Link
             title={language ? "تواصل معنا" : "Contact"}
-            href="/contact"
+            href="/contact-us"
             className=" text-darkGray"
           >
             {language ? "تواصل معنا" : "Contact"}

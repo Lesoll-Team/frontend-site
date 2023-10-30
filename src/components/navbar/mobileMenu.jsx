@@ -72,7 +72,7 @@ export default function MobileMenu({ onInputClick }) {
       <Link
         title={language ? "من نحن" : "About Us"}
         className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
-        href="/about"
+        href="/about-us"
         onClick={handleInputClick}
       >
         <b className="flex items-center">
@@ -85,7 +85,7 @@ export default function MobileMenu({ onInputClick }) {
       <Link
         title={language ? "التواصل" : "Contact"}
         className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
-        href="/contact"
+        href="/contact-us"
         onClick={handleInputClick}
       >
         <b className="flex items-center">

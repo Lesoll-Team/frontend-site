@@ -1,12 +1,14 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const ContactRedirect = () => {
+const SearchRedirect = () => {
   const router = useRouter();
+
   useEffect(() => {
-    router.push(`/contact-us`);
+    // Redirect logic
+    router.push(`/searching/offer=all`);
   }, [router]);
   return null;
 };
 
-export default ContactRedirect;
+export default SearchRedirect;
