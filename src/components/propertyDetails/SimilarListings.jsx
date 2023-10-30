@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import RealtyCard from "../realtyCard/RealtyCard";
-import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
+import useEmblaCarousel from "embla-carousel-react";
 // import { ar } from "../../language/ar/common";
 // import { en } from "../../language/en/common";
 import { useSelector } from "react-redux";
