@@ -354,7 +354,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 reversedFilteredKeywords?.offer == "كل"
                   ? "للبيع والإيجار"
                   : reversedFilteredKeywords?.offer || "للبيع والإيجار"
-              } فى ${reversedFilteredKeywords.cdb || "مصر"} `
+              } فى ${reversedFilteredKeywords?.cdb || "مصر"} `
             : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
