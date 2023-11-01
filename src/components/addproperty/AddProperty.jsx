@@ -104,7 +104,7 @@ const AddProperty = () => {
   });
   const [propErrors, setPropErrors] = useState({});
 
-  console.log(propertyDetils.address);
+  // console.log(propertyDetils.address);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [isAuth, setAuth] = useState(false);
@@ -190,7 +190,7 @@ const AddProperty = () => {
       // console.log(error.message.includes("Phone number"));
       if (error.message.includes("Phone number")) {
         setPhoneTitleError(true);
-        setPropErrors((prevState) => ({ ...prevState, title: ture }));
+        setPropErrors((prevState) => ({ ...prevState, title: true }));
       }
     }
 
@@ -297,7 +297,7 @@ const AddProperty = () => {
               {PhoneTitleError && (
                 <p className="text-center text-red-500">
                   {language
-                    ? "غير مسموح بإضافة الرقم فى العنوان"
+                    ? "غير مسموح بإضافة رقم الهاتف فى العنوان"
                     : "Phon Number is Not allowed to be added the title"}
                 </p>
               )}
