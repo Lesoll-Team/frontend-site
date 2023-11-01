@@ -106,7 +106,7 @@ function PropertyTitle({ singleTitle }) {
               <PiEye className={`text-xl mx-2`} />
             </div> */}
 
-            {userInfo && (
+            {/* {userInfo && (
               <button
                 onClick={() => {
                   addToFAv();
@@ -121,12 +121,12 @@ function PropertyTitle({ singleTitle }) {
                   <AiOutlineHeart className="text-red-500 animate-appearance-in" />
                 )}
               </button>
-            )}
+            )} */}
             {/* </div>
           </div> */}
 
             {/* <div className="border-2 border-lightGreen flex justify-center items-center w-[50px] rounded-md"> */}
-            <SocialMediaModal
+            {/* <SocialMediaModal
               slug={singleTitle?.slug}
               title={language ? "مشاركة العقار" : "Share property"}
             >
@@ -136,7 +136,7 @@ function PropertyTitle({ singleTitle }) {
               >
                 <MdOutlineShare className="text-2xl" />
               </button>
-            </SocialMediaModal>
+            </SocialMediaModal> */}
 
             {/* </div> */}
 
