@@ -5,7 +5,9 @@
 pre{
   font-family: 'roboto',sans-serif;
 }
-
+.rdrInputRanges {
+  display: none;
+}
 @layer base {
   h1 {
     @apply text-6xl;

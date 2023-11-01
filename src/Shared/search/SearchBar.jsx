@@ -354,13 +354,13 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 reversedFilteredKeywords?.offer == "كل"
                   ? "للبيع والإيجار"
                   : reversedFilteredKeywords?.offer || "للبيع والإيجار"
-              } فى مصر `
+              } فى ${reversedFilteredKeywords.cdb || "مصر"} `
             : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords?.offer || "for rent or buy"
-              } In Egypt`}{" "}
+              } In ${reversedFilteredKeywords.cdb || "Egypt"}`}{" "}
           <span
             className={`${propLengthResult ? "text-default-500" : "hidden"} `}
           >

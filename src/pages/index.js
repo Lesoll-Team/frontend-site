@@ -33,20 +33,20 @@ export default function Home({
 
         <title>
           {language
-            ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
-            : "Lesoll Real Estate EGY| Buy - Sell - Rent Properties"}
+            ? "عقارات في مصر| شقق وأراضي للبيع والايجار في مصر | ليسول"
+            : "properties in Egypt| Apartments and lands for sale and rent in Egypt | Lesoll"}
         </title>
 
         <meta
           name="description"
-          content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر "
+          content="احصل على أفضل شقق للبيع في مصر من خلال ليسول بأقل الأسعار، شقق فاخرة للايجار، شقق تمليك، شقق دوبلكس، اتصل بنا واكتشف مجموعة متنوعة من الشقق المتاحة لدينا. "
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <meta property="og:image" content="/socialApperance.png" />
         <meta
           property="og:description"
-          content="موقع عقارات مصري متكامل. يساعدك في البحث عن العقار المناسب للبيع أو الإيجار شقة او فيلا او بيت وغيره من العقارات في القاهرة، الجيزة، الاسكندرية وجميع انحاء مصر"
+          content="احصل على أفضل شقق للبيع في مصر من خلال ليسول بأقل الأسعار، شقق فاخرة للايجار، شقق تمليك، شقق دوبلكس، اتصل بنا واكتشف مجموعة متنوعة من الشقق المتاحة لدينا."
         />
         <meta
           name="keywords"
@@ -57,8 +57,8 @@ export default function Home({
           property="og:title"
           content={
             language
-              ? " ليسول للعقارات فى مصر| بيع - شراء - إيجار العقارات "
-              : "Lesoll Real Estate EGY| Buy - Sell - Rent Properties"
+              ? "عقارات في مصر| شقق وأراضي للبيع والايجار في مصر | ليسول"
+              : "properties in Egypt| Apartments and lands for sale and rent in Egypt | Lesoll"
           }
         />
         <meta property="og:site_name" content="Lesoll" />

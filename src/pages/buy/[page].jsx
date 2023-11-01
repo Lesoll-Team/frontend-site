@@ -16,15 +16,15 @@ export default function PropertyBuy({ propertyForBuy }) {
       <Head>
         <title>
           {language
-            ? "عقارات للبيع في مصر | ليسول "
-            : "Properties for sale in Egypt | Lesoll "}
+            ? "عقارات للبيع في مصر | شقق للبيع في مصر | ليسول"
+            : "Real estate for sale in Egypt | Apartments for sale in Egypt | Lesoll"}
         </title>
         <meta
           name="description"
           content={
             language
-              ? "ابحث عن عقارات للبيع في مصر، ابحث عن شقق او فلل او اراضي او شاليهات للبيع سواء كاش او تقسيط او تمويل عقاري في القاهرة و الجيزة والاسكندرية و جميع محافظات مصر "
-              : "search for available properties for sale in Egypt, including apartments, villas, lands, or chalets in Cairo, Giza, Alexandria, and all over Egypt. "
+              ? "شقق للبيع في مصر بأسعار مناسبة لجميع الميزانيات. اختر شقتك من بين مجموعة واسعة من الشقق المتاحة، بما في ذلك شقق للبيع بالتقسيط وشقق دوبلكس. احجز شقتك الآن!"
+              : "Apartments for sale in Egypt at prices suitable for all budgets. Choose your apartment from a full range of available apartments, including apartments for sale in installments and duplex apartments. Book your apartment now!"
           }
         />
         <link rel="canonical" href={`https://lesoll.com/${path}`} />
