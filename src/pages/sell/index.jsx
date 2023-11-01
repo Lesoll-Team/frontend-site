@@ -15,6 +15,7 @@ const index = () => {
       <Head>
         <title>{language ? "إضافة عقار" : "Add property"}</title>
         <meta name="description" content="إضافة عقار لموقع ليسول" />
+        <link rel="canonical" href={`https://lesoll.com/sell`} />
       </Head>
       {/* // <div className=""> */}
       {userInfo ? (

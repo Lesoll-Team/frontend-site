@@ -23,6 +23,7 @@ export default function contact() {
           name="description"
           content="تواصل معنا على صفحة اتصل بنا. اتصل بخبرائنا في مجال العقارات للاستفسارات وعروض العقارات والمساعدة. نحن هنا لمساعدتك في كل احتياجاتك في مجال العقارات. اتصل بنا اليوم!"
         />
+        <link rel="canonical" href={`https://lesoll.com/contact-us`} />
       </Head>
       <Contact />
     </div>

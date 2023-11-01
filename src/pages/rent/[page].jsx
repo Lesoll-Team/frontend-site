@@ -19,6 +19,7 @@ export default function PropertyRent({ propertyForRent }) {
             ? "عقارات للإيجار في مصر | ليسول "
             : "Properties for rent in Egypt | Lesoll "}
         </title>
+        <link rel="canonical" href={`https://lesoll.com/rent/${currentPage}`} />
         <meta
           name="description"
           content={

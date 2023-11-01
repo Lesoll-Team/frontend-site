@@ -48,7 +48,34 @@ const Faq = () => {
     setBuyerFaq(faq.filter((faq) => faq.related === "Renter/Buyer"));
     // console.log()
   }, [faq]);
+  const fun = async () => {
+    const fromDate = "2023-01-01"; // Replace with your actual from date
+    const toDate = "2023-02-01"; // Replace with your actual to date
 
+    try {
+      // Make a GET request to your Node.js backend
+      const response = await axios.get(
+        ` http://ec2-3-87-159-22.compute-1.amazonaws.com:9000/api/admin/generated/generated-user-excel?from=${fromDate}&to=${toDate}`,
+        { responseType: "arraybuffer" } // Set responseType to 'arraybuffer' to handle binary data
+      );
+
+      // Create a blob from the binary data
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      // Create a download link and trigger the download
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "userData.xlsx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading Excel file:", error);
+      // Handle the error as needed
+    }
+  };
   // console.log(faq);
   // console.log(generalFaq);
   // console.log(ownerFaq);
@@ -67,6 +94,13 @@ const Faq = () => {
         />
       </div> */}
       <div className="container mx-auto">
+        <button
+          onClick={() => {
+            fun();
+          }}
+        >
+          aaaaaaaaa
+        </button>
         <div className="flex flex-col-reverse md:flex-row justify-center items-center space-y-3">
           <img
             width={"auto"}

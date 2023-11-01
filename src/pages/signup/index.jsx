@@ -29,6 +29,7 @@ const SignUp = () => {
           name="description"
           content="أنشئ حسابًا على منصتنا للعقارات. سجِّل الدخول لحفظ بحوث العقارات، واستلم تحديثات حول القوائم الجديدة، واستمتع بتجربة شخصية. انضم إلينا اليوم!"
         />
+        <link rel="canonical" href={`https://lesoll.com/signup`} />
       </Head>
 
       {!loading ? (

@@ -151,7 +151,7 @@ const Footer = () => {
           {/* <Link href="/about">Address Cairo, Heliopolis</Link> */}
           <address className="not-italic	">
             <Link
-              title="Cairo, Naser City"
+              title="Cairo, Nasr City"
               className="flex gap-1 items-center "
               href="https://maps.app.goo.gl/P71VgHcHPUaiVo2FA"
               target="_blank"

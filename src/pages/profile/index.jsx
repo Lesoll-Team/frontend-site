@@ -21,6 +21,7 @@ const ProfilePage = () => {
       <Head>
         <title>{language ? "الصفحة الشخصية" : "Profile"}</title>
         <meta name="description" content="الصفحة الشخصية" />
+        <link rel="canonical" href={`https://lesoll.com/profile`} />
       </Head>
 
       {loading ? (

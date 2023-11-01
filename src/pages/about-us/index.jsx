@@ -20,6 +20,7 @@ export default function about() {
               : "Lesoll offers customers an online search to buy, sell, or rent properties in Egypt, helping owners and buyers discover upcoming real estate deals across Egypt "
           }
         />
+        <link rel="canonical" href="https://lesoll.com/about-us" />
       </Head>
       <About />
     </div>

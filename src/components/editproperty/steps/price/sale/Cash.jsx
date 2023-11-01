@@ -67,7 +67,7 @@ const Cash = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
         />
         <AddPropCheck
           title={language ? "متاح للتمويل العقارى" : "Real Estate Finance"}
-          value={propertyDetils.realEstateFinance}
+          value={propertyDetils.RealEstateFinance}
           setValue={(e) =>
             setData({
               ...propertyDetils,

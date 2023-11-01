@@ -10,6 +10,7 @@ export default function PropertyBuy({ propertyForBuy }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const currentPage = router.query.page;
+  const path = router.asPath;
   return (
     <div className="container mx-auto">
       <Head>
@@ -26,6 +27,7 @@ export default function PropertyBuy({ propertyForBuy }) {
               : "search for available properties for sale in Egypt, including apartments, villas, lands, or chalets in Cairo, Giza, Alexandria, and all over Egypt. "
           }
         />
+        <link rel="canonical" href={`https://lesoll.com/${path}`} />
       </Head>
       <SearchBar pageSaleOption="For Sale" />
 

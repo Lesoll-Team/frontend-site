@@ -9,6 +9,7 @@ function MostView({ propertyForView }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const currentPage = router.query.page;
+  const path = router.asPath;
   return (
     <div className="container mx-auto">
       <Head>
@@ -19,6 +20,7 @@ function MostView({ propertyForView }) {
           name="description"
           content="استكشف مجموعة واسعة من العقارات المتاحة والمميزة على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات  في المواقع الرئيسية. ابحث عن العقار المثالي اليوم!"
         />
+        <link rel="canonical" href={`https://lesoll.com/${[path]}`} />
       </Head>
       <SearchBar />
       <div>

@@ -32,6 +32,7 @@ const SignIn = () => {
           name="description"
           content="قم بتسجيل الدخول إلى حسابك على منصتنا للعقارات. احصل على وصول إلى بحوثك المحفوظة والقوائم المفضلة والمزيد. عملية تسجيل دخول آمنة ومريحة لتجربة شخصية."
         />
+        <link rel="canonical" href={`https://lesoll.com/signin`} />
       </Head>
 
       {!loading ? (

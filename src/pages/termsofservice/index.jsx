@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useSelector } from "react-redux";
 
 const index = () => {
-const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <>
@@ -21,6 +21,7 @@ const language = useSelector((state) => state.GlobalState.languageIs);
               : "Read about Lesoll’s terms and conditions when using the website to search for properties or advertise "
           }
         />
+        <link rel="canonical" href={`https://lesoll.com/termsofservice`} />
       </Head>
       <TermsOfService />
     </>

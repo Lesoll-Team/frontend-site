@@ -23,6 +23,7 @@ const index = () => {
       <Head>
         <title>{language ? "إعدادات الحساب" : "Account Settings"}</title>
         <meta name="description" content="اعدادات حسابك" />
+        <link rel="canonical" href={`https://lesoll.com/profile/settings`} />
       </Head>
 
       {loading ? (

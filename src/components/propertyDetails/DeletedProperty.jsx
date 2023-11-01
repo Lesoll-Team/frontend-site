@@ -1,13 +1,14 @@
 import React, { memo } from "react";
 import RealtyCard from "../realtyCard/RealtyCard";
-
-// import { ar } from "../../language/ar/common";
-// import { en } from "../../language/en/common";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Head from "next/head";
 import { Image } from "@nextui-org/react";
 const DeletedProperty = ({ RecommendedOther }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const router = useRouter();
+  const slug = router.query;
+
   return (
     <>
       <Head>

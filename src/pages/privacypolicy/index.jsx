@@ -19,6 +19,7 @@ const index = () => {
               : "Our privacy policy in Lesoll sets out how we protect your information when using Lesoll website "
           }
         />
+        <link rel="canonical" href={`https://lesoll.com/privacypolicy`} />
       </Head>
       <PrivacyPolicy />
     </>

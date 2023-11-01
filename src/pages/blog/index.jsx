@@ -15,6 +15,7 @@ function Blog({ blogs }) {
           name="description"
           content="استكشف مقالاتنا في مجال العقارات لقراءة مقالات مفيدة ونصائح وأدلة. ابقى على اطلاع دائم بشأن اتجاهات السوق، ونصائح شراء المنازل، واستراتيجيات الاستثمار، والمزيد. اكتشف معلومات قيمة لمساعدتك في اتخاذ قرارات مستنيرة في عالم العقارات."
         />
+        <link rel="canonical" href="https://lesoll.com/blog" />
       </Head>
       <div className="py-20">
         <h1 className="text-7xl text-lightGreen  ">
