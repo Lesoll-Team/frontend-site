@@ -13,8 +13,15 @@ const index = () => {
     // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
     <div className=" ">
       <Head>
-        <title>{language ? "إضافة عقار" : "Add property"}</title>
-        <meta name="description" content="إضافة عقار لموقع ليسول" />
+        <title>
+          {language
+            ? "اضف عقارك مع ليسول | موقع مخصص لبيع وايجار العقارات في مصر"
+            : "Add property with Lesoll dedicated to selling and renting real estate"}
+        </title>
+        <meta
+          name="description"
+          content="اضف عقارك مع ليسول، فحن متخصصون في بيع وايجار جميع أنواع العقارات، شقق للبيع، شقق للايجار، اراضي للبيع والايجار، محلات للبيع والايجار، شقق دوبلكس"
+        />
       </Head>
       {/* // <div className=""> */}
       {userInfo ? (

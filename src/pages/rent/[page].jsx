@@ -16,15 +16,15 @@ export default function PropertyRent({ propertyForRent }) {
       <Head>
         <title>
           {language
-            ? "عقارات للإيجار في مصر | ليسول "
-            : "Properties for rent in Egypt | Lesoll "}
+            ? "عقارات للايجار في مصر | شقق للايجار | شقق دوبلكس | ليسول"
+            : "Properties for rent in Egypt | Apartments for rent | Duplex apartments | Lesoll"}
         </title>
         <meta
           name="description"
           content={
             language
-              ? "ابحث عن عقارات للإيجار في مصر، ابحث عن شقق او فلل او اراضي او شاليهات للإيجار سواء كاش او تقسيط في القاهرة و الجيزة والاسكندرية و جميع محافظات مصر "
-              : "search for available properties for rent in Egypt, including apartments, villas, lands, or chalets in Cairo, Giza, Alexandria, and all over Egypt. "
+              ? "هل تبحث عن عقارات للايجارفي مصر؟ تقدم ليسول مجموعة متنوعة من الشقق الفاخرة للايجار في أفضل المناطق. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية"
+              : "Are you looking for properties for rent in Egypt? Lesoll offers a variety of luxury apartments for rent in the best areas. We have many properties in Egypt, apartments, lands, and shops"
           }
         />
       </Head>

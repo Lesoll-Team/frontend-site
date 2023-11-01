@@ -15,9 +15,9 @@ const Custom404 = () => {
     if (router.asPath === "/About") {
       router.replace("/about");
     }
-    if (router.asPath === "/Blogs") {
-      router.replace("/blogs");
-    }
+    // if (router.asPath === "/Blogs") {
+    //   router.replace("/blogs");
+    // }
     if (router.asPath === "/Q_A") {
       router.replace("/faq");
     }

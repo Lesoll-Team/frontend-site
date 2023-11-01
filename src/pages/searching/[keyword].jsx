@@ -38,23 +38,52 @@ export default function Searching({ keyword }) {
       <Head>
         <title>
           {language
-            ? ` ${reversedFilteredKeywords.unitType == "شقة"? "شقق"  : reversedFilteredKeywords.unitType||"عقارات"}  
-                ${ reversedFilteredKeywords.offer == "all"|| reversedFilteredKeywords.offer == "كل"? "للبيع والإيجار"
-                  : reversedFilteredKeywords.offer || "للبيع والإيجار"
-              } فى مصر | ليسول`
+            ? ` ${
+                reversedFilteredKeywords.unitType == "شقة"
+                  ? "شقق"
+                  : reversedFilteredKeywords.unitType || "عقارات"
+              }  
+                ${
+                  reversedFilteredKeywords.offer == "all" ||
+                  reversedFilteredKeywords.offer == "كل"
+                    ? "للبيع والإيجار"
+                    : reversedFilteredKeywords.offer || "للبيع والإيجار"
+                } فى ${reversedFilteredKeywords.cdb || "مصر"} | ليسول`
             : `Search About ${
                 reversedFilteredKeywords.unitType || "Properties"
               } ${
                 reversedFilteredKeywords.offer == "all"
                   ? "For Rent Or Buy"
                   : reversedFilteredKeywords.offer || "for rent or buy"
-              } In Egypt | lesoll`}
+              } In ${reversedFilteredKeywords.cdb || "Egypt"} | lesoll`}
         </title>
         <meta
           name="description"
-          content={`
-          
-          `}
+          content={
+            language
+              ? ` ${
+                  reversedFilteredKeywords.unitType == "شقة"
+                    ? "شقق"
+                    : reversedFilteredKeywords.unitType || "عقارات"
+                }  ${
+                  reversedFilteredKeywords.offer == "all" ||
+                  reversedFilteredKeywords.offer == "كل"
+                    ? "للبيع والإيجار"
+                    : reversedFilteredKeywords.offer || "للبيع والإيجار"
+                } فى ${reversedFilteredKeywords.cdb || "مصر"} ` +
+                " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
+              : ` ${
+                  reversedFilteredKeywords.unitType == "شقة"
+                    ? "شقق"
+                    : reversedFilteredKeywords.unitType || "عقارات"
+                }  ${
+                  reversedFilteredKeywords.offer == "all" ||
+                  reversedFilteredKeywords.offer == "كل"
+                    ? "للبيع والإيجار"
+                    : reversedFilteredKeywords.offer || "للبيع والإيجار"
+                } فى ${reversedFilteredKeywords.cdb || "مصر"} ` +
+                " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
+          }
         />
       </Head>
       {/* <h3></h3> */}
