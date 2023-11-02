@@ -6,6 +6,7 @@ const initialState = {
     blogSending:false,
     errorBlog:null,
     blogDelete:null,
+    messageEventBlog:false,
   };
 
   export const createBlogs = createAsyncThunk(
@@ -54,10 +55,13 @@ const initialState = {
           .addCase(createBlogs.fulfilled, (state,action) => {
             state.blogSending=false
             state.blogInfo=action.payload
+            state.messageEventBlog = false;
+
           })
           .addCase(createBlogs.rejected, (state,action) => {
             state.blogSending=false
             state.errorBlog=action.error
+            state.messageEventBlog=true
 
           })
 

@@ -26,6 +26,7 @@ import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import EditBlogModule from "../model/blogs/EditBlogModule";
+import { PlusIcon } from "../icon/PlusIcon";
 
 const columns = [
   { name: "Image", uid: "BlogImage" },
@@ -196,8 +197,7 @@ export default function BlogDashboard() {
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
-name="search"
-
+            name="search"
             classNames={{
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
@@ -211,7 +211,15 @@ name="search"
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-            <AddBlogModule />
+            {/* <AddBlogModule /> */}
+            <Button
+              className="bg-foreground text-background"
+              endContent={<PlusIcon />}
+              size="sm"
+              onPress={() => router.push("/dashboard/blog/add-blog")}
+            >
+              Add New Blog
+            </Button>
           </div>
         </div>
         <div className="flex justify-between items-center">
