@@ -27,7 +27,7 @@ function ConfirmAppointment({ userAppointment }) {
   const router = useRouter();
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
-   ${process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN + router.asPath} `;
+   ${"https://lesoll.com/property-details/" + userAppointment?.slug} `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userAppointment?.connectPhoneNumber
       ? userAppointment?.connectPhoneNumber
