@@ -29,6 +29,27 @@ const PropertyData = ({ propertyData }) => {
     }
   };
 
+  const offerLang = () => {
+    switch (propertyData.offer) {
+      case "For Rent":
+        return language ? "للإيجار" : "For Rent";
+        break;
+      case "For Sale":
+        return language
+          ? propertyData?.saleOption.includes("Installment")
+            ? " للبيع / تقسيط"
+            : "  للبيع / كاش"
+          : "For Sale" + propertyData?.saleOption.includes("Installment")
+          ? " / Installment"
+          : " / Cash";
+        break;
+      case "For Investment":
+        return language ? "للإستثمار" : "For Investment";
+      default:
+        return propertyData.offer;
+    }
+  };
+
   return (
     <section className="space-y-4">
       <h3 className="sm:text-4xl text-lg font-bold text-lightOrange">
@@ -41,17 +62,7 @@ const PropertyData = ({ propertyData }) => {
             <MdLocalOffer />
             {language ? "العرض" : "Offer"}
           </h4>
-          <p className="font-medium sm:text-lg text-darkGray">
-            {propertyData.offer === "For Sale"
-              ? language
-                ? "للبيع"
-                : propertyData.offer
-              : language
-              ? "للإيجار"
-              : propertyData.offer === "For Investment"
-              ? "للإستثمار"
-              : "For Investment"}
-          </p>
+          <p className="font-medium sm:text-lg text-darkGray">{offerLang()}</p>
         </div>
         <div className="flex flex-col justify-center items-center border-2 bg-white drop-shadow-lg p-3 rounded-xl gap-2">
           <h4 className="font-bold text-darkGreen text-base xl:text-xl flex items-center gap-1">
@@ -132,21 +143,24 @@ const PropertyData = ({ propertyData }) => {
                 </p>
               </div>
             )}
-            <div className="flex flex-col justify-center items-center  p-3 rounded-xl border-2 bg-white drop-shadow-lg md:gap-3 gap-2 ">
-              <h4 className="font-bold text-darkGreen text-base xl:text-xl flex items-center gap-1 text-center">
-                {/* <BsBank2 /> */}
-                {language ? "متاح تمويل عقارى" : "Real Estate Finance"}
-              </h4>
-              <div className="font-medium sm:text-lg text-darkGray">
-                {propertyData?.RealEstateFinance ? (
-                  <BsFillCheckCircleFill className="text-green-500" />
-                ) : (
-                  <div className="p-[3px] rounded-full bg-red-500">
-                    <HiMiniXMark className="text-white font-bold" />
-                  </div>
-                )}
+            {!propertyData?.saleOption.includes("Installment") && (
+              <div className="flex flex-col justify-center items-center  p-3 rounded-xl border-2 bg-white drop-shadow-lg md:gap-3 gap-2 ">
+                <h4 className="font-bold text-darkGreen text-base xl:text-xl flex items-center gap-1 text-center">
+                  {/* <BsBank2 /> */}
+                  {language ? "متاح تمويل عقارى" : "Real Estate Finance"}
+                </h4>
+                <div className="font-medium sm:text-lg text-darkGray">
+                  {propertyData?.RealEstateFinance ? (
+                    <BsFillCheckCircleFill className="text-green-500" />
+                  ) : (
+                    <div className="p-[3px] rounded-full bg-red-500">
+                      <HiMiniXMark className="text-white font-bold" />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
+
             {propertyData.level && (
               <div className="flex flex-col justify-center items-center  p-3 rounded-xl border-2 bg-white drop-shadow-lg gap-2">
                 <h4 className="font-bold text-darkGreen text-base xl:text-xl flex items-center gap-1">
