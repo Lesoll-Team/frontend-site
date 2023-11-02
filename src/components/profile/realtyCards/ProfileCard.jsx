@@ -23,7 +23,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
   };
   // console.log(propertyDetails);
   return (
-    <div className="md:max-w-[310px] lg:w-[350px] w-[295px] h-[420px]  rounded-[30px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
+    <div className="w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}
       <div
         className={`flex items-center z-[100] absolute w-full top-10 right-0 ${
@@ -59,7 +59,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
             radius="none"
             src={propertyDetails.thumbnail}
             loading="lazy"
-            className="w-[300px]rounded-none h-[220px] overflow-hidden   object-cover"
+            className="w-[310px] rounded-none h-[220px] overflow-hidden   object-cover"
           />
         </Link>
       ) : (
@@ -69,7 +69,7 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
           radius="none"
           src={propertyDetails.thumbnail}
           loading="lazy"
-          className="w-full rounded-none h-[220px] overflow-hidden   object-cover"
+          className="w-[310px] h-[225px] rounded-none overflow-hidden object-cover"
         />
       )}
       {/* card body  */}

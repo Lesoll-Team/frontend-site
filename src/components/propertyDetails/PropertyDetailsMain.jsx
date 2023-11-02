@@ -11,6 +11,7 @@ import Head from "next/head";
 import { useSelector } from "react-redux";
 import PropDetailsSkeleton from "./PropDetailsSkeleton";
 import { useRouter } from "next/router";
+import PropertyData from "./PropertyData";
 
 // import {ar} from "../../language/ar/common"
 // import {en} from "../../language/en/common"
@@ -79,19 +80,14 @@ function PropertyDetailsMain({ singleProperty, deleted }) {
               </div>
 
               <div className="col-span-5 space-y-8">
+                <PropertyData propertyData={singleProperty} />
                 {singleProperty?.saleOption.includes("Installment") && (
-                  <div className="\ ">
-                    <OverviewDetails singleOverviewDetails={singleProperty} />
-                  </div>
+                  <OverviewDetails singleOverviewDetails={singleProperty} />
                 )}
-                <div className="\">
-                  <DescriptionFeatures
-                    singleDescriptionFeatures={singleProperty}
-                  />
-                </div>
-                <div className="\">
-                  <AddressLocation singleAddressLocation={singleProperty} />
-                </div>
+                <DescriptionFeatures
+                  singleDescriptionFeatures={singleProperty}
+                />
+                <AddressLocation singleAddressLocation={singleProperty} />
                 <div className="mt-4">
                   <SimilarListings recommendationsProperty={recommendations} />
                 </div>
