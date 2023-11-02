@@ -76,8 +76,8 @@ function ConfirmAppointment({ userAppointment }) {
     }
   }, [userInfo?.favorites]);
   return (
-    <aside className="  p-5 pt-6 bg-white drop-shadow-xl border rounded-xl md:sticky md:top-24 space-y-4 ">
-      <div className="flex items-center mx-2">
+    <aside className="  p-5 pt-6 bg-white drop-shadow-lg border rounded-xl md:sticky md:top-24 space-y-4 ">
+      <div className="flex flex-col justify-center items-center mx-2">
         <User
           avatarProps={{
             size: "lg",
@@ -89,7 +89,7 @@ function ConfirmAppointment({ userAppointment }) {
         {/* <p className="text-default-700">{userAppointment?.user.email}</p> */}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2  gap-3">
         {/* call and whatsapp btns */}
         {!userInfo ? (
           <>

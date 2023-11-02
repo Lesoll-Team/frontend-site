@@ -76,8 +76,8 @@ const FavCard = ({ propDetails, onRemove }) => {
             <p className="font-medium">
               <span>
                 {language
-                  ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
-                  : parseInt(propertyDetails?.price).toLocaleString()}{" "}
+                  ? parseInt(propDetails?.price).toLocaleString("ar-Eg")
+                  : parseInt(propDetails?.price).toLocaleString()}{" "}
               </span>
               {language ? "جنية" : "EGP"}
             </p>

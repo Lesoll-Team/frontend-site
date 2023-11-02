@@ -94,77 +94,12 @@ function PropertyTitle({ singleTitle }) {
             {singleTitle?.address.governrate}
           </span>
         </div>
-        <div className="grid sm:justify-end justify-center py-5 ">
-          <div className="flex sm:justify-end justify-center gap-5 sm:mx-5 mx-0   ">
-            {/* <div className="border-2 w-[50px]  border-lightGreen hover:border-lightGreenHover hover:shadow-lg p-1 rounded-md">
-         <div className="flex justify-center items-center "> */}
-            {/* <div className="  bg-gray-200 rounded-lg px-2 flex items-center justify-end   text-gray-500 ">
-              <p className="mx-2 text-default-700 font-semibold">
-                {" "}
-                {singleTitle?.countOfVisit ? singleTitle?.countOfVisit : 0}
-              </p>
-              <PiEye className={`text-xl mx-2`} />
-            </div> */}
-
-            {/* {userInfo && (
-              <button
-                onClick={() => {
-                  addToFAv();
-
-                  setLoved(!loved);
-                }}
-                className=" border-2 text-xl border-lightGreen rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightGreen   "
-              >
-                {loved ? (
-                  <AiFillHeart className="text-red-500  animate-appearance-in" />
-                ) : (
-                  <AiOutlineHeart className="text-red-500 animate-appearance-in" />
-                )}
-              </button>
-            )} */}
-            {/* </div>
-          </div> */}
-
-            {/* <div className="border-2 border-lightGreen flex justify-center items-center w-[50px] rounded-md"> */}
-            {/* <SocialMediaModal
-              slug={singleTitle?.slug}
-              title={language ? "مشاركة العقار" : "Share property"}
-            >
-              <button
-                size="sm"
-                className=" border-2 border-lightGreen hover:bg-lightGreen rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightGreen  "
-              >
-                <MdOutlineShare className="text-2xl" />
-              </button>
-            </SocialMediaModal> */}
-
-            {/* </div> */}
-
-            {/* <div className="border-2 w-[50px]  bg-lightOrangeHover p-1 rounded-md">
-         <div className="flex justify-center items-center "> */}
-            {/* <button className="border-2 border-lightOrange hover:bg-lightOrange rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightOrange ">
-              <MdReportProblem className=" text-2xl" />
-            </button> */}
-
-            {/* </div>
-          </div> */}
-          </div>
-
-          {/* <div className=" flex sm:justify-end justify-center sm:mx-5 mx-0 pt-3 ">
-       
-            <Button className="bg-lightGreen w-36 font-bold text-white">
-             
-              <HiPlusSm className="font-bold text-white text-xl" />
-              <p>{language ? "مقارنة" : "Compare"}</p>
-            </Button>
-          </div> */}
-        </div>
       </div>
 
       <div className="">
         <div className="sm:flex text-2xl justify-between py-5 sm:text-4xl items-center font-bold gap-4 space-y-4 md:space-y-0">
           <div className="flex flex-col sm:justify-start justify-center sm:w-6/12 w-full space-y-2 ">
-            <h1 className="sm:text-start text-center text-3xl md:text-4xl text-lightOrange  leading-tight     ">
+            <h1 className="sm:text-start text-center text-xl lg:text-4xl text-lightOrange  leading-tight     ">
               {singleTitle?.title}
             </h1>
             {singleTitle?.supTitleOfProperty && (

@@ -13,7 +13,7 @@ function DescriptionFeatures({ singleDescriptionFeatures }) {
     setIsExpanded(!isExpanded);
   };
   return (
-    <div className="  p-0 px-0   rounded-xl space-y-4">
+    <div className=" rounded-xl space-y-4">
       <div className="  space-y-3">
         <h3 className="sm:text-4xl text-lg  font-bold text-lightOrange ">
           {/* Description */}
