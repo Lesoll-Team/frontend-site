@@ -28,6 +28,12 @@ import {
   getSaleView,
   getUsersView,
 } from "@/redux-store/features/dashboard/overViewSlice";
+import { Button } from "@nextui-org/react";
+import {
+  downloadUserData,
+  downloadRealtyData,
+  downloadOverviewData,
+} from "@/utils/dashboardApi/overviewDashboard";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -83,26 +89,7 @@ function Dashboard() {
     dispatch(getRentView(dates));
     dispatch(getDeleteView(dates));
     dispatch(getUsersView(dates));
-    // dispatch(getPropertiesView(dates));
-    // (async () => {
-    // const totalProperties = await fetchPropertiesView({
-    //   dateFrom: formatDate(dateRange[0].startDate.toDateString()),
-    //   dateEnd: formatDate(dateRange[0].endDate.toDateString()),
-    // });
-    // const totalSale=await fetchSaleView({
-    //   dateFrom: formatDate(dateRange[0].startDate.toDateString()),
-    //   dateEnd: formatDate(dateRange[0].endDate.toDateString()),
-    // })
-    // setCountProperties(totalProperties.resultRealtyData);
-    // setCountSale(totalProperties.resultRealty);
-    // })();
 
-    // const data =  fetchPropertiesView({
-    //   dateFrom: formatDate(dateRange[0].startDate.toDateString()),
-    //   dateEnd: formatDate(dateRange[0].endDate.toDateString()),
-    // });
-    // // console.log(data.resultRealty);
-    // setCountProperties(data.resultRealty);
   }, [dateRange]);
 
   useEffect(() => {
@@ -118,14 +105,26 @@ function Dashboard() {
         label: `Total Properties of deleted ${dataDelete?.totalCount}`,
         data: dataDelete?.resultDelete.map((item) => item.count), // عدد المستخدمين خلال ال3 ايام اللى موجدين فوق
         borderColor: "gray",
-        backgroundColor: [
-          "#d2512d",
-          "#309da0",
-          "#d55d3aff",
-          "#3ababeff",
-          "#a63626",
-          "#5c5a5a",
-        ],
+        backgroundColor: dataDelete?.resultDelete.map((item) => {
+          if (dataDelete?.totalCount < dataDelete?.resultDelete.length) {
+            return item.count >=
+              dataDelete?.resultDelete.length / dataDelete?.totalCount
+              ? "#33cc33"
+              : "#ff0000";
+          } else
+            return item.count >=
+              dataDelete?.totalCount / dataDelete?.resultDelete.length
+              ? "#33cc33"
+              : "#ff0000";
+        }),
+        // backgroundColor: [
+        //   "#d2512d",
+        //   "#309da0",
+        //   "#d55d3aff",
+        //   "#3ababeff",
+        //   "#a63626",
+        //   "#5c5a5a",
+        // ],
         tension: 0.4,
         borderWidth: 1, //border size
 
@@ -141,14 +140,18 @@ function Dashboard() {
         label: `Total  users ${dataUser?.totalCount}`,
         data: dataUser?.resultUser.map((item) => item.count), // عدد المستخدمين خلال ال3 ايام اللى موجدين فوق
         borderColor: "gray",
-        backgroundColor: [
-          "#d2512d",
-          "#309da0",
-          "#d55d3aff",
-          "#3ababeff",
-          "#a63626",
-          "#5c5a5a",
-        ],
+        backgroundColor: dataUser?.resultUser.map((item) => {
+          if (dataUser?.totalCount < dataUser?.resultUser.length) {
+            return item.count >=
+              dataUser?.resultUser.length / dataUser?.totalCount
+              ? "#33cc33"
+              : "#ff0000";
+          } else
+            return item.count >=
+              dataUser?.totalCount / dataUser?.resultUser.length
+              ? "#33cc33"
+              : "#ff0000";
+        }),
         tension: 0.4,
         borderWidth: 1, //border size
 
@@ -162,17 +165,21 @@ function Dashboard() {
     labels: dataRents?.resultRent.map((item) => item.date), // هنا بنحط الايام
     datasets: [
       {
-        label: `Total Properties of dataRent ${dataRents?.totalCount}`,
+        label: `Total Properties of Rent ${dataRents?.totalCount}`,
         data: dataRents?.resultRent.map((item) => item.count), // عدد المستخدمين خلال ال3 ايام اللى موجدين فوق
         borderColor: "gray",
-        backgroundColor: [
-          "#d2512d",
-          "#309da0",
-          "#d55d3aff",
-          "#3ababeff",
-          "#a63626",
-          "#5c5a5a",
-        ],
+        backgroundColor: dataRents?.resultRent.map((item) => {
+          if (dataRents?.totalCount < dataRents?.resultRent.length) {
+            return item.count >=
+              dataRents?.resultRent.length / dataRents?.totalCount
+              ? "#33cc33"
+              : "#ff0000";
+          } else
+            return item.count >=
+              dataRents?.totalCount / dataRents?.resultRent.length
+              ? "#33cc33"
+              : "#ff0000";
+        }),
         tension: 0.4,
         borderWidth: 1, //border size
 
@@ -189,14 +196,18 @@ function Dashboard() {
         label: `Total Properties of Sale ${dataSale?.totalCount}`,
         data: dataSale?.resultSale.map((item) => item.count), // عدد المستخدمين خلال ال3 ايام اللى موجدين فوق
         borderColor: "gray",
-        backgroundColor: [
-          "#d2512d",
-          "#309da0",
-          "#d55d3aff",
-          "#3ababeff",
-          "#a63626",
-          "#5c5a5a",
-        ],
+        backgroundColor: dataSale?.resultSale.map((item) => {
+          if (dataSale?.totalCount < dataSale?.resultSale.length) {
+            return item.count >=
+              dataSale?.resultSale.length / dataSale?.totalCount
+              ? "#33cc33"
+              : "#ff0000";
+          } else
+            return item.count >=
+              dataSale?.totalCount / dataSale?.resultSale.length
+              ? "#33cc33"
+              : "#ff0000";
+        }),
         tension: 0.4,
         borderWidth: 1, //border size
 
@@ -213,14 +224,22 @@ function Dashboard() {
         label: `Total Properties ${dataProperties?.totalCount}`,
         data: dataProperties?.resultRealtyData.map((item) => item.count), // عدد المستخدمين خلال ال3 ايام اللى موجدين فوق
         borderColor: "gray",
-        backgroundColor: [
-          "#d2512d",
-          "#309da0",
-          "#d55d3aff",
-          "#3ababeff",
-          "#a63626",
-          "#5c5a5a",
-        ],
+        backgroundColor: dataProperties?.resultRealtyData.map((item) => {
+          if (
+            dataProperties?.totalCount < dataProperties?.resultRealtyData.length
+          ) {
+            return item.count >=
+              dataProperties?.resultRealtyData.length /
+                dataProperties?.totalCount
+              ? "#33cc33"
+              : "#ff0000";
+          } else
+            return item.count >=
+              dataProperties?.totalCount /
+                dataProperties?.resultRealtyData.length
+              ? "#33cc33"
+              : "#ff0000";
+        }),
         tension: 0.4,
         borderWidth: 1, //border size
 
@@ -229,38 +248,103 @@ function Dashboard() {
       },
     ],
   };
-  // console.log("data is", data);
+  // console.log("data is", dataDelete?.resultDelete.length);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
-    <div className="min-h-[90dvh] grid grid-cols-6 relative" dir="ltr">
-      <div className="bg-lightGreenHover px-5 col-span-1">
-        <Sidebar />
+    <div className="min-h-[90dvh]  flex" dir="ltr">
+      <div className="relative">
+        <div className="bg-lightGreenHover  sticky top-0">
+          <Sidebar />
+        </div>
       </div>
-      <div className="col-span-5 grid  lg:grid-cols-2 grid-cols-1 ">
-        <div className="grid justify-center  m-5 p-5">
+      <div className=" grid  w-full lg:grid-cols-2 grid-cols-1 ">
+        <div className=" justify-center  overflow-x-auto flex   p-5">
           <DateRangePicker
-            // showDateDisplay={false}
+            className="w-10/12"
             ranges={dateRange}
             onChange={handleSelect}
           />
         </div>
-        <div className="p-5 m-10 bg-gray-200 rounded-2xl  ">
-          <Line data={dataProperty}></Line>
+
+        <div className="p-5 m-10 bg-gray-100 min-h-[300px] justify-center rounded-2xl flex flex-wrap gap-10  ">
+          <div className="text-center">
+            <p className="font-semibold"> users </p>
+            <div className="w-[70px] h-[70px] bg-blue-500 rounded-full flex items-center justify-center font-semibold text-white">
+              {dataUser?.totalCount}
+            </div>
+          </div>
+          <div className="text-center">
+            <p className="font-semibold"> Rent </p>
+            <div
+              className="w-[70px] h-[70px] bg-orange-500 rounded-full flex items-center
+             justify-center font-semibold text-white"
+            >
+              {dataRents?.totalCount}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <p className="font-semibold"> Sale </p>
+            <div className="w-[70px] h-[70px] bg-lightGreenHover rounded-full flex items-center justify-center font-semibold text-white">
+              {dataSale?.totalCount}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <p className="font-semibold"> Properties </p>
+            <div
+              className="w-[70px] h-[70px] bg-secondary-500 rounded-full flex items-center 
+            justify-center font-semibold text-white"
+            >
+              {dataProperties?.totalCount}
+            </div>
+          </div>
+
+          <div className="space-y-3 space-x-3">
+            <Button
+              onClick={() => downloadOverviewData(dates)}
+              className="font-semibold text-white "
+              color="success"
+            >
+              {" "}
+              download overview
+            </Button>
+            <Button
+              onClick={() => downloadRealtyData(dates)}
+              className="font-semibold text-white "
+              color="success"
+            >
+              {" "}
+              download realty
+            </Button>
+            <Button
+              onClick={() => downloadUserData(dates)}
+              className="font-semibold text-white "
+              color="success"
+            >
+              {" "}
+              download user
+            </Button>
+          </div>
         </div>
 
-        <div className="p-5 m-10 bg-gray-200 rounded-2xl  ">
+        <div className="p-5 m-10 bg-gray-100 min-h-[300px] rounded-2xl  ">
+          <Bar className="w-full" data={dataProperty}></Bar>
+        </div>
+
+        <div className="p-5 m-10 min-h-[300px] bg-gray-100 rounded-2xl  ">
           <Bar data={dataSales}></Bar>
         </div>
 
-        <div className="p-5 m-10 bg-gray-200 rounded-2xl  ">
-          <Line data={dataRent}></Line>
+        <div className="p-5 m-10 min-h-[300px] bg-gray-100 rounded-2xl  ">
+          <Bar data={dataRent}></Bar>
         </div>
 
-        <div className="p-5 m-10 bg-gray-200 rounded-2xl  ">
+        <div className="p-5 m-10 min-h-[300px] bg-gray-100 rounded-2xl  ">
           <Bar data={dataDeletes}></Bar>
         </div>
 
-        <div className="p-5 m-10 bg-gray-200 rounded-2xl  ">
-          <Line data={dataUsers}></Line>
+        <div className="p-5 m-10 min-h-[300px] bg-gray-100 rounded-2xl  ">
+          <Bar data={dataUsers}></Bar>
         </div>
       </div>
     </div>

@@ -238,15 +238,15 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 isClearable
                 placeholder={
                   languageIs
-                    ? "  المدينة أو البلدة أو الحي : الجيزة , مدينة نصر ,القاهرة , المعادى ... "
-                    : "Search by City, town, or neighborhood: Giza, Nasr City, Cairo, Maadi..."
+                    ? "  بحث عن المنطقة مثال : مدينة نصر , المعادى , المهندسين... "
+                    : "Search by City  Nasr City, Cairo, Maadi..."
                 }
                 value={locationKeyword}
                 onValueChange={setLocationKeyword}
               />
             </div>
             <div className="flex items-end">
-              <div className="flex">
+              <div dir={"rtl"} className="flex">
                 {/**dir={languageIs ? "rtl" : "ltr"} */}
                 <Dropdown
                   classNames=" w-[auto]  sm:block hidden"
@@ -321,8 +321,8 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
               isClearable
               placeholder={
                 languageIs
-                  ? " كلمات بحث مثلا: شاطئ ،للايجار اليومى ,ارض ... "
-                  : "Search by Keywords: e.g. beach, for daily rent, land..."
+                  ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "
+                  : "Search by Keywords: e.g. investment, Daily rent, land..."
               }
               value={keywords}
               onValueChange={setKeywords}

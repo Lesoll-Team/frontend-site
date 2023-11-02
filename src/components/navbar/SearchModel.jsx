@@ -39,7 +39,7 @@ export default function SearchModel() {
       .join("&");
 
     onOpenChange(onOpenChange);
-    console.log(queryString);
+    // console.log(queryString);
     if (queryString=="") {
       router.push(`/searching/offer=all`);
     }else router.push(`/searching/${queryString}`);
