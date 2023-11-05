@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 function EditBlogModule({ blogID, blogData }) {
-  console.log(blogData);
+  // console.log(blogData);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);

@@ -94,6 +94,10 @@ border-radius:20px;
   margin: 0px 6px 0px 0px;
 
 }
+.genericDiv a{
+  color:rgb(0, 89, 255);
+  text-decoration:underline;
+}
 
 .genericDiv ul {
   margin-bottom: 10px;

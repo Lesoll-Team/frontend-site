@@ -4,6 +4,11 @@ Disallow: /dashboard
 Disallow: /editproperty
 Disallow: /profile
 Disallow: /admin/
+Disallow: /dashboard/prop-active
+Disallow: /dashboard/prop-pending
+Disallow: /dashboard/users
+Disallow: /dashboard/blog
+Disallow: /dashboard/blog/add-blog
 disallow: /signin
 disallow: /signup
 Disallow: /feed/

@@ -140,8 +140,8 @@ export function SearchBar() {
                 isClearable
                 placeholder={
                   languageIs
-                    ? " كلمات بحث مثلا: شاطئ ،للايجار اليومى ,ارض ... "
-                    : "Search by Keywords: e.g. beach, for daily rent, land..."
+                    ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "
+                    : "Search by Keywords: e.g. investment, Daily rent, land..."
                 }
                 value={keywords}
                 onValueChange={setKeywords}
@@ -155,8 +155,8 @@ export function SearchBar() {
                 isClearable
                 placeholder={
                   languageIs
-                    ? "  المدينة أو البلدة أو الحي : الجيزة , مدينة نصر ,القاهرة , المعادى ... "
-                    : "Search by City, town, or neighborhood: Giza, Nasr City, Cairo, Maadi..."
+                    ? "  بحث عن المنطقة مثال : مدينة نصر , المعادى , المهندسين... "
+                    : "Search by City  Nasr City, Cairo, Maadi..."
                 }
                 value={locationKeyword}
                 onValueChange={setLocationKeyword}

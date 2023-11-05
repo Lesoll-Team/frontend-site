@@ -131,13 +131,13 @@ export default function BlogDashboard() {
         return (
           <div className="relative flex justify-end items-center gap-2">
             <Dropdown
-             aria-label="Options Menu Blog"
+              aria-label="Options Menu Blog"
               // aria-label="Options Menu Blog"
               // aria-labelledbyl="Options Menu Blog"
               className="bg-background border-1 border-default-200"
             >
               <DropdownTrigger
-              aria-label="Open Options Menu"
+                aria-label="Open Options Menu"
                 // aria-label="Options Menu Blog"
                 // aria-labelledby="Options Menu Blog"
               >
@@ -146,26 +146,42 @@ export default function BlogDashboard() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
-              aria-label="Blog Options Menu"
+                aria-label="Blog Options Menu"
                 // aria-label="Options Menu Blog"
                 // aria-labelledby="Options Menu Blog"
               >
                 <DropdownItem
                   textValue="Delete Blog"
-                  onClick={() =>handleDeleteBlog(blog._id)}
+                  onClick={() => handleDeleteBlog(blog._id)}
                 >
                   Delete
                 </DropdownItem>
                 <DropdownItem
                   textValue="View Blog"
-                  onClick={() => router.push(`/blogs/${language?blog.slug.ar:blog.slug.en}`)}
+                  onClick={() =>
+                    router.push(
+                      `/blog/${language ? blog.slug.ar : blog.slug.en}`
+                    )
+                  }
                 >
                   View
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          <EditBlogModule blogData={blog} blogID={blog._id}/>
-
+            {/* <EditBlogModule blogData={blog} blogID={blog._id}/> */}
+            <Button
+              className=" text-white font-semibold"
+              color="warning"
+              onClick={() =>
+                router.push(
+                  `/dashboard/blog/edit-blog/${
+                    language ? blog.slug.ar : blog.slug.en
+                  }`
+                )
+              }
+            >
+              Edit Blog
+            </Button>
           </div>
         );
       case "_id":
