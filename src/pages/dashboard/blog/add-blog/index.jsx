@@ -83,11 +83,11 @@ const AddBlog = () => {
 //  console.log(messageAddBlog);
   };
   return (
-    <div className="min-h-[90dvh] grid grid-cols-6" dir="ltr">
-      <div className=" bg-lightGreenHover px-5 col-span-1 ">
+    <div className="min-h-[90dvh] flex" dir="ltr">
+      <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>
-      <div className="col-span-5 p-10 overflow-x-auto overflow-y-hidden">
+      <div className="w-full p-10 overflow-x-auto overflow-y-hidden">
         <div className="">
           <Input
             name="image-set"

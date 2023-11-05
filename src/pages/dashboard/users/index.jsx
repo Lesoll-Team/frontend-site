@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import UserDashboard from "@/components/dashboard/router/UserDashboardt";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
-import { Button } from "@nextui-org/react";
-import axios from "axios";
+// import { Button } from "@nextui-org/react";
+// import axios from "axios";
 function Users() {
 
 
@@ -16,11 +16,11 @@ function Users() {
     }
   }, [userInfo]);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
-    <div className="min-h-[90dvh] grid grid-cols-6" dir="ltr">
-      <div className=" bg-lightGreenHover px-5 col-span-1 ">
+    <div className="min-h-[90dvh] flex" dir="ltr">
+      <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>
-      <div className="col-span-5">
+      <div className="w-full">
         {/* <Button className="font-semibold text-white " color="success" onClick={downloadUserData}>Download users Data</Button> */}
         <UserDashboard />
       </div>
