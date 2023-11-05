@@ -203,7 +203,7 @@ function ConfirmAppointment({ userAppointment }) {
         >
           <button className="border-2 w-full flex flex-col justify-center items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer">
             <AiOutlineShareAlt className="text-3xl" />
-            <p className="font-semibold">Share</p>
+            <p className="font-semibold">{language ? "مشاركة" : "Share"}</p>
           </button>
         </SocialMediaModal>
 
@@ -222,7 +222,7 @@ function ConfirmAppointment({ userAppointment }) {
             ) : (
               <AiOutlineHeart className="text-red-500 text-3xl animate-appearance-in" />
             )}
-            <p className="font-semibold">Favorite</p>
+            <p className="font-semibold">{language ? "المفضلة" : "Favorite"}</p>
           </button>
         ) : (
           <ContactBtnsModal
