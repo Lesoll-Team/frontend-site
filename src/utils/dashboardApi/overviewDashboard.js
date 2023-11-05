@@ -112,7 +112,8 @@ export async function fetchRentView(dates) {
       const userToken = JSON.parse(localStorage.getItem("userToken"));
 
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-user-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-user-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+        { responseType: "arraybuffer" }
       );
       const blob = new Blob([res.data], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -131,7 +132,8 @@ export async function fetchRentView(dates) {
         const userToken = JSON.parse(localStorage.getItem("userToken"));
 
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-realty-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`
+          `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-realty-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+          { responseType: "arraybuffer" }
         );
         const blob = new Blob([res.data], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -150,7 +152,8 @@ export async function fetchRentView(dates) {
           const userToken = JSON.parse(localStorage.getItem("userToken"));
 
           const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-overview-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`
+            `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-overview-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+            { responseType: "arraybuffer" }
           );
           const blob = new Blob([res.data], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
