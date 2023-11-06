@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { useEffect, useState, memo, useCallback } from "react";
-import FavCard from "./realtyCards/FavCard";
+import FavCard from "./Cards/FavCard";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { BsHouseAddFill } from "react-icons/bs";

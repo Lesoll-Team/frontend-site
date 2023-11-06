@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "@/redux-store/features/profileSlice";
-import ProfileCard from "./realtyCards/ProfileCard";
+import ProfileCard from "./Cards/ProfileCard";
 import Link from "next/link";
 import { BsHouseAddFill } from "react-icons/bs";
 import { DotPulse } from "@uiball/loaders";
@@ -40,11 +40,7 @@ const ActiveAds = () => {
   return (
     <div className="w-full">
       <h2 className="text-center font-bold text-lightGreen text-4xl">
-        {language
-          ? language
-            ? "الاعلانات النشطة"
-            : "Active Ads"
-          : "تحت المراجعة"}
+        {language ? "الإعلانات النشطة" : "Active Ads"}
       </h2>
       {!activeAdds ? (
         <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
@@ -53,8 +49,6 @@ const ActiveAds = () => {
       ) : activeAdds?.confirmedRealty?.length > 0 ? (
         <>
           <div className="grid min-h-[75dvh] md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
-            {/*انا محدد اللى يتعرض عقار واحد بس  */}
-
             {activeAdds?.confirmedRealty?.map((propActive) => (
               <ProfileCard
                 onRemove={handledelete}

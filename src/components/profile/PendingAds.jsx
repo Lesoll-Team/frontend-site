@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import ProfileCard from "./realtyCards/ProfileCard";
+import ProfileCard from "./Cards/ProfileCard";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
@@ -12,7 +12,7 @@ const PendingAds = () => {
 
   const getPending = useCallback(async () => {
     try {
-      const userToken =JSON.parse(localStorage.getItem("userToken"))
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
 
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
@@ -41,7 +41,7 @@ const PendingAds = () => {
   return (
     <div className="w-full">
       <h2 className="text-center font-bold text-lightGreen text-4xl">
-        {language ? (language ? "تحت المراجعة" : "Pending") : "تحت المراجعة"}
+        {language ? "تحت المراجعة" : "Pending Ads"}
       </h2>
       {!pendingAdds ? (
         <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">

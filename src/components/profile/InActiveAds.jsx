@@ -1,4 +1,4 @@
-import ProfileCard from "./realtyCards/ProfileCard";
+import ProfileCard from "./Cards/ProfileCard";
 const InActiveAds = () => {
   return (
     <div className="w-full">
