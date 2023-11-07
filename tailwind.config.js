@@ -24,7 +24,9 @@ module.exports = {
         lightGreenHover: "#3ababeff",
         darkGreen: "#1b6e6d",
         darkGray: "#5c5a5a",
+        
       },
+      
     },
     fontFamily: {},
   },
