@@ -1,12 +1,13 @@
 import axios from "axios";
 
 
-export async function getUserOffline() {
+export async function getUserOffline({url}) {
   try {
   const userID = JSON.parse(localStorage.getItem("local_storage_device_id"));
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userID}`); 
+      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userID}&urlString=${url}`
+    ); 
     return response.data;
   } catch (error) {
     throw error.response.data;
