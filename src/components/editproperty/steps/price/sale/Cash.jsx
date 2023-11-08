@@ -18,6 +18,7 @@ const Cash = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       // { value: "Installment", name: "قاش وتقسيط" },
     ],
   };
+
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-between">
       <div className="space-y-4 md:w-[48%]">
@@ -71,7 +72,7 @@ const Cash = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
           setValue={(e) =>
             setData({
               ...propertyDetils,
-              realEstateFinance: e,
+              RealEstateFinance: e,
             })
           }
         />
