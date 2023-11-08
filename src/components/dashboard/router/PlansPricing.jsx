@@ -6,7 +6,7 @@ import { PlusIcon } from '../icon/PlusIcon';
 
 const PlansPricing = () => {
   return (
-    <div>
+    <div className=" min-h-screen">
       <div className=" flex justify-end mx-10">
         <Button
           endContent={<PlusIcon />}
@@ -16,41 +16,14 @@ const PlansPricing = () => {
           Create New Plan
         </Button>
       </div>
-      <div className="  gap-10 flex flex-wrap justify-center w-full">
+      <div className="  gap-10 flex flex-wrap justify-center  ">
+        <PlanPricingCard />
+        {/* <PlanPricingCard
+        />  
         <PlanPricingCard
-          stylesCss={{
-            body: "",
-            button: "",
-            text: "",
-            text_title: "",
-            header: "",
-            footer: "",
-          }}
         />
         <PlanPricingCard
-          stylesCss={{
-            body: "",
-            button: "",
-            header: "",
-            footer: "",
-          }}
-        />
-        <PlanPricingCard
-          stylesCss={{
-            body: "",
-            button: "",
-            header: "",
-            footer: "",
-          }}
-        />
-        <PlanPricingCard
-          stylesCss={{
-            body: "",
-            button: "",
-            header: "",
-            footer: "",
-          }}
-        />
+        /> */}
       </div>
     </div>
   );

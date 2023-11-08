@@ -4,29 +4,32 @@ import { FaCircleXmark, FaCircleCheck } from "react-icons/fa6";
 
 const PlanPricingCard = ({
   stylesCss,
+  data,
   categoryName,
   rank,
   description,
-  Offer,
   price,
-}) => {
-  const { body, button, header, footer, text, text_title } = stylesCss;
-  //pronz  bg-gradient-to-br from-yellow-600 to-yellow-900 text-white
-  //gold  bg-gradient-to-br from-yellow-400 to-yellow-600  ||bg-gradient-to-tr from-orange-400 via-yellow-500 to-orange-500
-  //:: but black & text :sale red text white
-  //selver bg-gradient-to-br from-gray-300 to-gray-400
-  // Galaxy  bg-gradient-to-b from-indigo-600 to-gray-950 text-white
-  //water bg-gradient-to-b from-blue-200 to-blue-400
-  // fire bg-gradient-to-b from-red-500 via-yellow-500 to-orange-500
+  Offer,
+  lastPrice,
+  targetType,
+  isPopular,
 
-  // console.log(button);
+}) => {
+  // const { bodyCss, buttonCss, textCss, titleCss, headerCss, footerCss } =
+  //   stylesCss;
+  const ranks = {
+    bronze: "bg-gradient-to-br from-yellow-600 to-yellow-900 text-white",
+    selver: "bg-gradient-to-br from-gray-300 to-gray-400",
+    gold: "bg-gradient-to-tr from-orange-400 via-yellow-500 to-orange-500",
+    water: "bg-gradient-to-b from-blue-200 to-blue-400",
+    galaxy: "bg-gradient-to-b from-indigo-600 to-gray-950 text-white",
+  };
+
   return (
     <div
-      className="w-[350px] h-[350px] p-5 rounded-xl
-     bg-gradient-to-tr from-orange-400 via-yellow-500 to-orange-500  
-     
-
-     "
+      className={`w-[350px] h-[350px] p-5 rounded-xl
+     ${ranks.galaxy}
+     `}
     >
       <div className="w-[120px] -ml-[46px] h-[28px] -rotate-45 rounded-tl-full rounded-tr-full text-center bg-red-600 font-semibold text-white absolute">
         popular

@@ -8,7 +8,7 @@ const Pricing = () => {
       <div className="bg-lightGreenHover  sticky top-0">
         <Sidebar />
       </div>
-      <div>
+      <div className='w-full '>
         <PlansPricing />
       </div>
     </div>
