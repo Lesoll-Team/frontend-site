@@ -203,7 +203,7 @@ export async function ViewUser(username, page) {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}?limit=12&page=${page}`
     );
-    // console.log(response);
+
     return response.data;
   } catch (error) {
     throw error.response.data;

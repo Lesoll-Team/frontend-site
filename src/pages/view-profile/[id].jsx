@@ -25,7 +25,7 @@ const ViewProfilePage = () => {
         setTotalPage(data.totalPages);
       }
     };
-    console.log(data);
+    // console.log(data);
     fetchData();
 
     // If you need a cleanup function, return it here

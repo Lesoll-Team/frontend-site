@@ -12,16 +12,20 @@ const UserProperties = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="col-span-5 space-y-5 w-full lg:w3/4">
+    <div className="col-span-5 space-y-8 w-full  container mx-auto">
       <h1 className="text-center text-4xl text-darkGreen font-semibold  ">
         {language ? (
           <>
             <span> عقارات </span>
-            <span className="underline">{userData?.fullname}</span>
+            <span className="underline text-lightOrange">
+              {userData?.fullname}
+            </span>
           </>
         ) : (
           <>
-            <span className="underline">{userData?.fullname}</span>
+            <span className="underline text-lightOrange">
+              {userData?.fullname}
+            </span>
             <span> Properties </span>
           </>
         )}
