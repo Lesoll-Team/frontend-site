@@ -16,7 +16,7 @@ function Blog() {
       <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>
-      <div className="col-span-5 overflow-x-auto overflow-y-hidden">
+      <div className="w-full m-10 overflow-x-auto overflow-y-hidden">
         <BlogDashboard />
       </div>
     </div>
