@@ -238,7 +238,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
                 isClearable
                 placeholder={
                   languageIs
-                    ? "  بحث عن المنطقة مثال : مدينة نصر , المعادى , المهندسين... "
+                    ? "البحث بالمنطقة: مدينة نصر، المعادي، المهندسين... "
                     : "Search by City  Nasr City, Cairo, Maadi..."
                 }
                 value={locationKeyword}

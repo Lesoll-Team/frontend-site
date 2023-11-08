@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import ScrollToTopButton from "./ScrollToTopButton";
 import { useEffect} from "react";
 import { getUserOffline } from "@/utils/userAPI";
+import { useRouter } from "next/router";
 
 
 export default function Layout({ children }) {
+  const router =useRouter()
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
@@ -30,7 +32,8 @@ export default function Layout({ children }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
-    getUserOffline()
+      getUserOffline({ url: `${router.asPath}` });
+
   }, [dispatch, language, children]);
 
   return (
