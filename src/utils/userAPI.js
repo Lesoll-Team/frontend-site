@@ -1,12 +1,12 @@
 import axios from "axios";
 
-
 export async function getUserOffline() {
   try {
-  const userID = JSON.parse(localStorage.getItem("local_storage_device_id"));
+    const userID = JSON.parse(localStorage.getItem("local_storage_device_id"));
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userID}`); 
+      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userID}`
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -192,6 +192,18 @@ export async function GetActiveProp(page) {
         },
       }
     );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function ViewUser(username, page) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}?limit=12&page=${page}`
+    );
+    // console.log(response);
     return response.data;
   } catch (error) {
     throw error.response.data;

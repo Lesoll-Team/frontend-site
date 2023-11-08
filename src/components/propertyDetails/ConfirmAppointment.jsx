@@ -166,7 +166,7 @@ function ConfirmAppointment({ userAppointment }) {
               phone={true}
               description={
                 language
-                  ? "لا يمكن التواصل مع المعلن فى حالة عدم وجود رقم فى هانف خاص بك لدينا "
+                  ? "لا يمكن التواصل مع المعلن في حالة عدم تسجيل رقم هاتفك لدينا"
                   : "You can't contact with the seller with out completeing your account phone number "
               }
             >
