@@ -36,7 +36,7 @@ const ViewProfilePage = () => {
   };
 
   return (
-    <div className="min-h-[90dvh]">
+    <div className="min-h-[90dvh] bg-gray-100 py-5">
       {userData ? (
         <ViewProfile
           setPage={handlePageChange}

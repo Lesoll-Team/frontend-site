@@ -2,7 +2,7 @@ import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
 import { Avatar } from "@nextui-org/react";
 import { AiTwotoneMail } from "react-icons/ai";
 import { BiPhoneCall } from "react-icons/bi";
-import { BsWhatsapp } from "react-icons/bs";
+import { BsFillBuildingsFill, BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
 const Userdata = ({ userData, totalProperties }) => {
@@ -16,23 +16,30 @@ const Userdata = ({ userData, totalProperties }) => {
     userData?.code + userData?.phone
   }&text=${encodeURIComponent(message)}`;
   return (
-    <aside className="p-5 py-8 container mx-auto gap-5  flex lg:flex-row flex-col justify-between w-full lg:mt-5 bg-white shadow-lg items-center  border rounded-xl animate-appearance-in">
-      <div className="flex flex-col justify-start lg:flex-row items-center gap-4">
+    <aside className="p-5  py-8  mx-auto gap-5  flex lg:flex-col flex-col justify-between w-full  bg-white  items-center  border rounded-xl animate-appearance-in">
+      <div className="flex flex-col justify-center  items-center gap-4">
         <div className="relative">
           <Avatar
             src={userData?.avatarUrl}
             className="w-44 h-44 text-large border-4 drop-shadow-md"
           />
           {!userData?.isOnline && (
-            <div className="w-7 h-7 bg-green-600 absolute bottom-4 z-10 rounded-full left-3"></div>
+            <div className="w-7 h-7 bg-green-600 absolute bottom-4 z-10 rounded-full right-3"></div>
           )}
         </div>
-        <div className="text-center lg:text-start">
-          <h1 className="text-4xl font-bold">{userData?.fullname}</h1>
-          <p className="text-2xl ">{userData?.username}</p>
+        <div className="text-center ">
+          <h1 className="text-4xl font-semibold">{userData?.fullname}</h1>
+          <p className="text-2xl text-slate-400">{userData?.username}</p>
         </div>
       </div>
-      <div className=" lg:w-80 flex flex-col w-full  gap-3 ">
+      <div className="text-center -mt-3">
+        <p className="flex items-center gap-1 text-xl">
+          {" "}
+          <BsFillBuildingsFill className="text-lightOrange" /> اجمالى العقارات
+        </p>
+        <div>{totalProperties}</div>
+      </div>
+      <div className=" flex  justify-center sm:flex-row  flex-wrap  gap-2 sm:gap-3 ">
         {/* call and whatsapp btns */}
         {!userInfo ? (
           <>
@@ -46,7 +53,7 @@ const Userdata = ({ userData, totalProperties }) => {
             >
               <button className="border-2 w-full flex gap-3 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
                 <BsWhatsapp className="text-4xl text-[#25D366]" />
-                <p className="text-2xl">{language ? "واتس اب" : "Whatsapp"}</p>
+                {/* <p className="text-2xl">{language ? "واتس اب" : "Whatsapp"}</p> */}
               </button>
             </ContactBtnsModal>
 
@@ -60,7 +67,7 @@ const Userdata = ({ userData, totalProperties }) => {
             >
               <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
                 <BiPhoneCall className="text-4xl" />
-                <p className="text-2xl">{language ? "إتصال" : "Call"}</p>
+                {/* <p className="text-2xl">{language ? "إتصال" : "Call"}</p> */}
               </button>
             </ContactBtnsModal>
             <ContactBtnsModal
@@ -73,31 +80,31 @@ const Userdata = ({ userData, totalProperties }) => {
             >
               <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
                 <AiTwotoneMail className="text-4xl text-blue-500" />
-                <p className="text-2xl">
+                {/* <p className="text-2xl">
                   {language ? "البريد الإلكترونى" : "Email"}
-                </p>
+                </p> */}
               </button>
             </ContactBtnsModal>
           </>
         ) : userInfo?.phone ? (
           <>
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <button className="border-2 w-full flex gap-3 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer">
-                <BsWhatsapp className="text-4xl text-[#25D366]" />
-                <p className="text-2xl">{language ? "واتس اب" : "Whatsapp"}</p>
+              <button className="border-2 w-full flex gap-3 justify-start items-center p-2 sm:p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer">
+                <BsWhatsapp className="text-xl sm:text-4xl text-[#25D366]" />
+                <p className="text-sm">{language ? "واتس اب" : "Whatsapp"}</p>
               </button>
             </a>
 
             <a href={`tel:${userData.code}${userData?.phone}`}>
-              <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                <BiPhoneCall className="text-4xl" />
-                <p className="text-2xl"> {language ? "إتصال" : "Call"}</p>
+              <button className="border-2 w-full flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
+                <BiPhoneCall className="sm:text-[35px] text-xl" />
+                <p className="text-sm"> {language ? "إتصال" : "Call"}</p>
               </button>
             </a>
             <a href={`mailto:${userData.email}`}>
-              <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                <AiTwotoneMail className="text-4xl text-blue-500" />
-                <p className="text-2xl">
+              <button className="border-2 w-full flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
+                <AiTwotoneMail className=" text-xl sm:text-4xl text-blue-500" />
+                <p className="text-sm">
                   {language ? "البريد الإلكترونى" : "Email"}
                 </p>
               </button>
@@ -115,7 +122,7 @@ const Userdata = ({ userData, totalProperties }) => {
             >
               <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
                 <BsWhatsapp className="text-4xl text-[#25D366]" />
-                <p className="text-2xl">{language ? "واتس اب" : "Whatsapp"}</p>
+                {/* <p className="text-2xl">{language ? "واتس اب" : "Whatsapp"}</p> */}
               </button>
             </ContactBtnsModal>
 
@@ -129,10 +136,10 @@ const Userdata = ({ userData, totalProperties }) => {
             >
               <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
                 <BiPhoneCall className="text-4xl" />
-                <p className="text-2xl">
+                {/* <p className="text-2xl">
                   {" "}
                   {language ? "البريد الإلكترونى" : "Email"}
-                </p>
+                </p> */}
               </button>
             </ContactBtnsModal>
           </>
@@ -142,6 +149,7 @@ const Userdata = ({ userData, totalProperties }) => {
 
         {/* add to fav btn and logic */}
       </div>
+
       {/* <div>
         <div className="flex gap-2 items-center ">
           <div className="relative">

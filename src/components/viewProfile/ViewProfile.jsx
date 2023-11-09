@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Userdata from "./UserData";
 import UserProperties from "./UserProperties";
+import AboutUser from "./AboutUser";
 
 const ViewProfile = ({
   userData,
@@ -12,15 +13,16 @@ const ViewProfile = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <main className={`space-y-10  my-8`}>
+    <main className={`space-y-5 mx-5 lg:mx-20 `}>
       <Userdata userData={userData} totalProperties={totalProperties} />
-      <UserProperties
+      <AboutUser />
+      {/* <UserProperties
         userData={userData}
         totalProperties={totalProperties}
         propertiesData={propertiesData}
         totalPages={totalPages}
         setPage={setPage}
-      />
+      /> */}
     </main>
   );
 };
