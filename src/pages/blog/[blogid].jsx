@@ -46,12 +46,24 @@ function blogId({ singleBlog }) {
 export default blogId;
 
 export async function getServerSideProps(context) {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/singleblogs/${context.query.blogid}`
-  );
-  const data = await res.data;
-  return {
-    props: { singleBlog: data },
-    // revalidate:1,
-  };
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/singleblogs/${context.query.blogid}`
+    );
+    const data = await res.data;
+    if (data.getBlogs) {
+      return {
+        props: { singleBlog: data },
+        // revalidate:1,
+      };
+    } else {
+      context.res.writeHead(410);
+      context.res.end();
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 500) {
+      context.res.statusCode = 410;
+    }
+    throw error;
+  }
 }
