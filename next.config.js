@@ -34,11 +34,6 @@ module.exports = async () => {
           permanent: true,
         },
         {
-          source: "/blogs/:slug",
-          destination: "/blog/:slug",
-          permanent: true,
-        },
-        {
           source: "/SiteMap",
           destination: "/searching/offer=all",
           permanent: true,
@@ -54,8 +49,8 @@ module.exports = async () => {
           permanent: true,
         },
         {
-          source: "/Sitemap/:slug",
-          destination: "/searching/offer=all",
+          source: "/Privacy",
+          destination: "/privacypolicy",
           permanent: true,
         },
         {

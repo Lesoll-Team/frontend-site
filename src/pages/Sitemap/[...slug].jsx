@@ -13,3 +13,10 @@ const SiteMapRedirect = () => {
 };
 
 export default SiteMapRedirect;
+export async function getServerSideProps(context) {
+  context.res.writeHead(410);
+  context.res.end();
+  return {
+    props: {},
+  };
+}
