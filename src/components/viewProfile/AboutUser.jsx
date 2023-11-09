@@ -1,10 +1,11 @@
+import { CircularProgress } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 
 const AboutUser = ({ totalProperties, userData }) => {
   const properites = {
-    forSale: 10,
+    forSale: 25,
     forRent: 15,
-    forInest: 2,
+    forInest: 7,
   };
   const propPercent = {
     forSale:
@@ -28,7 +29,62 @@ const AboutUser = ({ totalProperties, userData }) => {
         <h3 className="text-2xl font-semibold">
           {language ? "العقارات" : "Properties"} : {totalProperties}
         </h3>
-        <div className="flex flex-col justify-between gap-5">
+        <div className="flex  items-center justify-between py-2">
+          <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">
+            <CircularProgress
+              classNames={{
+                svg: "w-24 h-24 drop-shadow-md",
+                indicator: "stroke-lightGreen",
+                track: "stroke-gray-100",
+                value: "text-xl font-semibold text-lightGreen",
+              }}
+              value={propPercent.forSale}
+              strokeWidth={4}
+              showValueLabel={true}
+            />
+            <p>{properites.forSale}</p>
+            <p className="text-lightGreen text-base  font-bold ">
+              {language ? "للبيع" : "For Sale"}
+            </p>
+          </div>
+          <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">
+            <CircularProgress
+              classNames={{
+                svg: "w-24 h-24 drop-shadow-md",
+                indicator: "stroke-lightGreen",
+                track: "stroke-gray-100",
+                value: "text-xl font-semibold text-lightGreen",
+              }}
+              value={propPercent.forRent}
+              strokeWidth={4}
+              showValueLabel={true}
+            />
+            <p>{properites.forRent}</p>
+
+            <p className="text-lightGreen  text-base  font-bold ">
+              {language ? "للإيجار" : "For Rent"}
+            </p>
+          </div>
+          <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">
+            <CircularProgress
+              classNames={{
+                svg: "w-24 h-24 drop-shadow-md",
+                indicator: "stroke-lightGreen",
+                track: "stroke-gray-100",
+                value: "text-xl font-semibold text-lightGreen",
+              }}
+              value={propPercent.forInest}
+              strokeWidth={4}
+              showValueLabel={true}
+            />
+            <p>{properites.forInest}</p>
+
+            <p className="text-lightGreen   text-base font-bold ">
+              {language ? "للإستثمار" : "For Investment"}
+            </p>
+          </div>
+        </div>
+        {/* <div className="flex flex-col justify-between gap-5">
           <div className="flex gap-2 items-center">
             <p className="text-lg font-medium">
               {language ? "للبيع" : "For Sale"}
@@ -65,7 +121,7 @@ const AboutUser = ({ totalProperties, userData }) => {
               className={`h-2 w-[${propPercent.forSale}%] bg-lightOrange rounded-full`}
             ></div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="bg-white rounded-xl lg:w-7/12 p-5 space-y-2 fade-in">
         <h3 className="text-2xl font-semibold">

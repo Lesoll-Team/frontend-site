@@ -13,7 +13,7 @@ const ViewProfile = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <main className={`space-y-5 mx-5 lg:mx-20 `}>
+    <main className={`space-y-5 mx-5 lg:mx-28 `}>
       <Userdata userData={userData} totalProperties={totalProperties} />
       <AboutUser totalProperties={totalProperties} userData={userData} />
       <UserProperties
