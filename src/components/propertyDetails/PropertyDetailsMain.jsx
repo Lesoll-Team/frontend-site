@@ -15,7 +15,7 @@ import PropertyData from "./PropertyData";
 
 // import {ar} from "../../language/ar/common"
 // import {en} from "../../language/en/common"
-function PropertyDetailsMain({ singleProperty, deleted }) {
+function PropertyDetailsMain({ singleProperty }) {
   // console.log("main",singleProperty._id);
   const language = useSelector((state) => state.GlobalState.languageIs);
 

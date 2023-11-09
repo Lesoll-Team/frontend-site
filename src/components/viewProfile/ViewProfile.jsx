@@ -15,14 +15,14 @@ const ViewProfile = ({
   return (
     <main className={`space-y-5 mx-5 lg:mx-20 `}>
       <Userdata userData={userData} totalProperties={totalProperties} />
-      <AboutUser />
-      {/* <UserProperties
+      <AboutUser totalProperties={totalProperties} userData={userData} />
+      <UserProperties
         userData={userData}
         totalProperties={totalProperties}
         propertiesData={propertiesData}
         totalPages={totalPages}
         setPage={setPage}
-      /> */}
+      />
     </main>
   );
 };

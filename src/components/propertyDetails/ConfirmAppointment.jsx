@@ -1,30 +1,23 @@
 import React, { memo, useEffect, useState } from "react";
-import { User, Button } from "@nextui-org/react";
+import { User } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
-import { useRouter } from "next/router";
+
 import {
-  AiFillCheckCircle,
   AiFillEdit,
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineShareAlt,
-  AiOutlineWhatsApp,
 } from "react-icons/ai";
-import { BiPhoneCall, BiSolidBed } from "react-icons/bi";
-import { TbRulerMeasure } from "react-icons/tb";
-import { FaBath } from "react-icons/fa";
+import { BiPhoneCall } from "react-icons/bi";
 import { AddToFavorites, CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
-import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
 import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
-import { HiMiniXMark } from "react-icons/hi2";
 import { BsWhatsapp } from "react-icons/bs";
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 
 function ConfirmAppointment({ userAppointment }) {
-  const router = useRouter();
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${"https://lesoll.com/property-details/" + userAppointment?.slug} `;
@@ -78,14 +71,21 @@ function ConfirmAppointment({ userAppointment }) {
   return (
     <aside className="  p-5 pt-6 bg-white drop-shadow-lg border rounded-xl md:sticky md:top-24 space-y-4 ">
       <div className="flex flex-col justify-center items-center mx-2">
-        <User
-          avatarProps={{
-            size: "lg",
-            src: userAppointment?.user.avatarUrl,
-          }}
-        />
+        <Link href={`/view-profile/${userAppointment?.user?.username}`}>
+          <User
+            avatarProps={{
+              size: "lg",
+              src: userAppointment?.user.avatarUrl,
+            }}
+          />
+        </Link>
 
-        <p className="font-bold text-xl">{userAppointment?.user.fullname}</p>
+        <Link
+          className="font-bold text-xl"
+          href={`/view-profile/${userAppointment?.user?.username}`}
+        >
+          {userAppointment?.user.fullname}
+        </Link>
         {/* <p className="text-default-700">{userAppointment?.user.email}</p> */}
       </div>
 

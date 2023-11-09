@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-const AboutUser = () => {
+const AboutUser = ({ totalProperties, userData }) => {
   const properites = {
     forSale: 10,
     forRent: 15,
@@ -24,9 +24,9 @@ const AboutUser = () => {
 
   return (
     <div className="flex gap-5 lg:flex-row flex-col items-stretch">
-      <div className="bg-white rounded-xl space-y-3 p-5 lg:w-5/12 w-full">
+      <div className="bg-white rounded-xl space-y-3 p-5 lg:w-5/12 w-full fade-in">
         <h3 className="text-2xl font-semibold">
-          {language ? "العقارات" : "Properties"}
+          {language ? "العقارات" : "Properties"} : {totalProperties}
         </h3>
         <div className="flex flex-col justify-between gap-5">
           <div className="flex gap-2 items-center">
@@ -67,25 +67,31 @@ const AboutUser = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-xl lg:w-7/12 p-5 space-y-2">
+      <div className="bg-white rounded-xl lg:w-7/12 p-5 space-y-2 fade-in">
         <h3 className="text-2xl font-semibold">
           {language ? "الوصف" : "Discription"}
         </h3>
-        <p className="line-clamp-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore,
-          saepe labore non enim numquam cum reprehenderit odit nostrum ab,
-          architecto cupiditate obcaecati vitae dicta vero voluptates molestias
-          assumenda atque tempora? Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Tempore, saepe labore non enim numquam cum
-          reprehenderit odit nostrum ab, architecto cupiditate obcaecati vitae
-          dicta vero voluptates molestias assumenda atque tempora? Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Tempore, saepe labore non
-          enim numquam cum reprehenderit odit nostrum ab, architecto cupiditate
-          obcaecati vitae dicta vero voluptates molestias assumenda atque
-          tempora? obcaecati vitae dicta vero voluptates molestias assumenda
-          atque tempora? obcaecati vitae dicta vero voluptates molestias
-          assumenda atque tempora?
-        </p>
+        {false ? (
+          <p className="line-clamp-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore,
+            saepe labore non enim numquam cum reprehenderit odit nostrum ab,
+            architecto cupiditate obcaecati vitae dicta vero voluptates
+            molestias assumenda atque tempora? Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Tempore, saepe labore non enim numquam
+            cum reprehenderit odit nostrum ab, architecto cupiditate obcaecati
+            vitae dicta vero voluptates molestias assumenda atque tempora? Lorem
+            ipsum dolor sit amet consectetur adipisicing elit. Tempore, saepe
+            labore non enim numquam cum reprehenderit odit nostrum ab,
+            architecto cupiditate obcaecati vitae dicta vero voluptates
+            molestias assumenda atque tempora? obcaecati vitae dicta vero
+            voluptates molestias assumenda atque tempora? obcaecati vitae dicta
+            vero voluptates molestias assumenda atque tempora?
+          </p>
+        ) : (
+          <div className="flex w-full h-full justify-center items-center relative pb-5">
+            <p className="lg:-mt-11 text-2xl text-slate-500">لا يوجد وصف</p>
+          </div>
+        )}
       </div>
     </div>
   );
