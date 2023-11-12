@@ -1,4 +1,3 @@
-
 User-agent: *
 Disallow: /dashboard
 Disallow: /editproperty
@@ -12,8 +11,9 @@ Disallow: /dashboard/blog/add-blog
 disallow: /signin
 disallow: /signup
 Disallow: /feed/
-Disallow: privacypolicy
-Disallow: Privacy
-Disallow: forgetpassword
-Disallow: /accountUser-agent: *
-Allow: /Sitemap:https://lesoll.com/sitemap.xml
+Disallow: /privacypolicy
+Disallow: /Privacy
+Disallow: /forgetpassword
+Disallow: /termsofservice
+
+Sitemap: https://lesoll.com/sitemap.xml
