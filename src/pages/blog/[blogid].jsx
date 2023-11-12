@@ -15,12 +15,7 @@ function blogId({ singleBlog }) {
   return (
     <div className="lg:container mx-auto ">
       <Head>
-        <title>
-          {" "}
-          {language
-            ? `تفاصيل المقال عن ${singleBlog?.getBlogs.title.ar}`
-            : ` Article details about ${singleBlog?.getBlogs.title.en}`}
-        </title>
+        <title>{language?`تفاصيل المقال عن ${singleBlog?.getBlogs.title.ar}`:`Article details about ${singleBlog?.getBlogs.title.en}`}</title>
         <meta
           name="description"
           content={
