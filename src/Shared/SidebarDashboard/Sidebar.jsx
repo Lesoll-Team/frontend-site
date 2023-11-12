@@ -10,7 +10,7 @@ import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { MdOutlinePriceChange } from "react-icons/md";
 
 const Sidebar = () => {
-  const [toggleNav, setToggleNav] = useState(true);
+  const [toggleNav, setToggleNav] = useState(false);
   const asideWrapper = toggleNav
     ? " h-screen  rounded-r-xl z-20  space-y-4"
     : " w-[65px]  h-screen  rounded-r-xl z-20  space-y-4";

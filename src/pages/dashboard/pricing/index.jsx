@@ -1,5 +1,5 @@
 import Sidebar from '@/Shared/SidebarDashboard/Sidebar';
-import PlansPricing from '@/components/dashboard/router/PlansPricing';
+import PlansPricing from '@/components/dashboard/router/price/PlansPricing';
 import React from 'react'
 
 const Pricing = () => {

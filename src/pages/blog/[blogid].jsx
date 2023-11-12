@@ -6,8 +6,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
-  // console.log("singleBlog", singleBlog);
-
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const path = router.asPath;
@@ -15,12 +13,7 @@ function blogId({ singleBlog }) {
   return (
     <div className="lg:container mx-auto ">
       <Head>
-        <title>
-          {" "}
-          {language
-            ? `تفاصيل المقال عن ${singleBlog?.getBlogs.title.ar}`
-            : ` Article details about ${singleBlog?.getBlogs.title.en}`}
-        </title>
+        <title>{language?`تفاصيل المقال عن ${singleBlog?.getBlogs.title.ar}`:` Article details about ${singleBlog?.getBlogs.title.en}`}</title>
         <meta
           name="description"
           content={
@@ -31,11 +24,6 @@ function blogId({ singleBlog }) {
         />
         <link rel="canonical" href={`https://lesoll.com/${path}`} />
       </Head>
-      {/* <div className="py-10">
-        <b className="text-4xl md:text-5xl lg:text-6xl text-lightGreen  ">
-          {language ? "تفاصيل المقال" : "Blog Details"}
-        </b>
-      </div> */}
       <div className="md:mb-20 mb-10">
         <BlogSinglePage BlogData={singleBlog} />
       </div>
@@ -52,6 +40,5 @@ export async function getServerSideProps(context) {
   const data = await res.data;
   return {
     props: { singleBlog: data },
-    // revalidate:1,
   };
 }
