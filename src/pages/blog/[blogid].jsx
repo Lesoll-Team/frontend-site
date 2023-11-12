@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
-  // console.log("singleBlog", singleBlog);
+  console.log("singleBlog", singleBlog);
 
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -15,7 +15,7 @@ function blogId({ singleBlog }) {
   return (
     <div className="lg:container mx-auto ">
       <Head>
-        <title>{language?`تفاصيل المقال عن ${singleBlog?.getBlogs.title.ar}`:`Article details about ${singleBlog?.getBlogs.title.en}`}</title>
+        <title>{language?`${singleBlog?.getBlogs.metaTitle.ar||singleBlog?.getBlogs.title.ar}`:`${singleBlog?.getBlogs.metaTitle.en ||singleBlog?.getBlogs.title.ar}`}</title>
         <meta
           name="description"
           content={
