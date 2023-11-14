@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
-  console.log("singleBlog", singleBlog);
+  // console.log("singleBlog", singleBlog);
 
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -26,11 +26,7 @@ function blogId({ singleBlog }) {
         />
         <link rel="canonical" href={`https://lesoll.com/${path}`} />
       </Head>
-      {/* <div className="py-10">
-        <b className="text-4xl md:text-5xl lg:text-6xl text-lightGreen  ">
-          {language ? "تفاصيل المقال" : "Blog Details"}
-        </b>
-      </div> */}
+
       <div className="md:mb-20 mb-10">
         <BlogSinglePage BlogData={singleBlog} />
       </div>
