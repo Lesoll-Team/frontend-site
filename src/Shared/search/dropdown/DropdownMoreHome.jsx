@@ -13,6 +13,7 @@ import DropdownPrice from "./DropdownPrice";
 import { useSelector } from "react-redux";
 import DropdownArea from "./DropdownArea";
 import DropdownUintType from "./DropdownUintType";
+import { IoOptionsOutline } from "react-icons/io5";
 const DropdownMoreHome = ({
   classNames,
   propertyType,
@@ -37,7 +38,9 @@ const DropdownMoreHome = ({
   setFromArea,
   fromArea,
   setToArea,
-  toArea,setSelectedOption,selectoption,
+  toArea,
+  setSelectedOption,
+  selectoption,
 }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -71,7 +74,7 @@ const DropdownMoreHome = ({
         className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-between
           focus:outline-lightGreen bg-white    rounded-xl p-1   whitespace-nowrap"
       >
-        <MdOutlineMoreVert className="text-3xl " />
+        <IoOptionsOutline className="text-3xl " />
       </div>
       {menuIsOpen && (
         <div
@@ -125,18 +128,23 @@ const DropdownMoreHome = ({
               setToArea={setToArea}
               valueToArea={toArea}
             />
-            <div className={offer=="للايجار"||offer=="For Rent"?"hidden":""}>
-
-            <Dropdown
-              classNames="my-1"
-              valueDefault={`${languageIs ? "طريقة السداد" : "Payment Method"}`}
-              value={paymentMethod}
-              setValue={setPaymentMethod}
-              options={paymentMethodData}
-              selectoption={selectoption}
-              setSelectedOption={setSelectedOption}
-            />
-              </div>
+            <div
+              className={
+                offer == "للايجار" || offer == "For Rent" ? "hidden" : ""
+              }
+            >
+              <Dropdown
+                classNames="my-1"
+                valueDefault={`${
+                  languageIs ? "طريقة السداد" : "Payment Method"
+                }`}
+                value={paymentMethod}
+                setValue={setPaymentMethod}
+                options={paymentMethodData}
+                selectoption={selectoption}
+                setSelectedOption={setSelectedOption}
+              />
+            </div>
 
             <Dropdown
               classNames="my-1"
@@ -147,8 +155,11 @@ const DropdownMoreHome = ({
               options={finishingOptionsData}
               valueDefault={`${languageIs ? "التشطيب" : "Finishing"}`}
             />
-            <div className={offer=="للايجار"||offer=="For Rent"?"hidden":""}>
-
+            <div
+              className={
+                offer == "للايجار" || offer == "For Rent" ? "hidden" : ""
+              }
+            >
               <Dropdown
                 classNames="my-1"
                 value={propertyFinance}
@@ -158,9 +169,9 @@ const DropdownMoreHome = ({
                 options={percentageProperty}
                 setValue={setPropertyFinance}
                 selectoption={selectoption}
-              setSelectedOption={setSelectedOption}
+                setSelectedOption={setSelectedOption}
               />
-              </div>
+            </div>
           </div>
         </div>
       )}

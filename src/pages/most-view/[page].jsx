@@ -20,7 +20,8 @@ function MostView({ propertyForView }) {
           name="description"
           content="استكشف مجموعة واسعة من العقارات المتاحة والمميزة على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات  في المواقع الرئيسية. ابحث عن العقار المثالي اليوم!"
         />
-        <link rel="canonical" href={`https://lesoll.com/${[path]}`} />
+
+        <link rel="canonical" href={`https://lesoll.com${[path]}`} />
       </Head>
       <SearchBar />
       <div>
