@@ -18,16 +18,16 @@ function escapeXml(unsafe) {
 
 function generateSiteMap({ data }) {
   return `<?xml version="1.0" encoding="UTF-8"?>
-   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
        <loc>https://lesoll.com</loc>
-       <lastmod>2023-01-01</lastmod>
-       <priority>1.0</priority>
-     </url>
+       <lastmod>${data.data[2].created}</lastmod>
+        <priority>1.00</priority>
+     </url>    
      <url>
-       <loc>https://lesoll.com/about-us</loc>
-       <lastmod>2023-01-01</lastmod>
-       <priority>0.9</priority>
+       <loc>https://lesoll.com/buy/1</loc>
+       <lastmod>${data.data[2].created}</lastmod>
+       <priority>0.80</priority>
      </url>
 ${data.data
   .map((post) => {
@@ -35,7 +35,7 @@ ${data.data
    <url>
        <loc>${escapeXml(post.Link)}</loc>
        <lastmod>${escapeXml(post.created)}</lastmod>
-       <priority>0.8</priority>
+       <priority>0.80</priority>
    </url>
  `;
   })

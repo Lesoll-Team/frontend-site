@@ -2,16 +2,16 @@ const DATA_URL = `${process.env.NEXT_PUBLIC_API_URL}/admin/sitemap/sitemap-blog`
 
 function generateSiteMap({ data }) {
   return `<?xml version="1.0" encoding="UTF-8"?>
-   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-     <!--We manually set the two URLs we know already-->
+   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
        <loc>https://lesoll.com</loc>
-     </url>
-          <url>
-       <loc></loc>
-     </url>
+       <lastmod>${data.data[2].created}</lastmod>
+        <priority>1.00</priority>
+     </url>    
      <url>
-       <loc>https://lesoll.com/about-us</loc>
+       <loc>https://lesoll.com/blog</loc>
+       <lastmod>${data.data[2].created}</lastmod>
+       <priority>0.60</priority>
      </url>
      ${data.data
        .map((post) => {
@@ -19,9 +19,9 @@ function generateSiteMap({ data }) {
        <url>
            <loc>${`${post.Link}`}</loc>
            <lastmod>${post.created}</lastmod>
-           <priority>0.8</priority>
+           <priority>0.60</priority>
        </url>
-     `
+     `;
        })
        .join("")}
    </urlset>

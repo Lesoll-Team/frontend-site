@@ -1,24 +1,18 @@
 const DATA_URL = `${process.env.NEXT_PUBLIC_API_URL}/admin/sitemap/sitemap-main`;
 
 function generateSiteMap({ data }) {
-  return `<sitemapindex
+  return `
+  <sitemapindex
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
->
-
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
   ${data.data
     .map((post) => {
       return `
-        <sitemap>
+  <sitemap>
     <loc>${post.link}</loc>
     <lastmod>${post.time}</lastmod>
-  </sitemap>
-     `;
-    })
-    .join("")}
-
-
+  </sitemap> `;}).join("")}
 </sitemapindex>
  `;
 }
