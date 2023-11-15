@@ -9,7 +9,7 @@ import {
   AiOutlineMail,
   AiOutlineWhatsApp,
 } from "react-icons/ai";
-import { BsFacebook, BsWhatsapp } from "react-icons/bs";
+import { BsFacebook, BsTwitterX, BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { ImLocation2 } from "react-icons/im";
 const Footer = () => {
@@ -82,7 +82,8 @@ const Footer = () => {
                 className="text-white"
                 title="Twitter"
               >
-                <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-4xl" />
+                {/* <AiFillTwitterCircle className="text-darkGreen text-3xl md:text-4xl" /> */}
+                <BsTwitterX className="text-darkGreen text-2xl md:text-3xl" />
               </Link>
             </div>
           </div>
