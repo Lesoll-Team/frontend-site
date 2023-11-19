@@ -75,7 +75,7 @@ function ConfirmAppointment({ userAppointment }) {
           <User
             avatarProps={{
               size: "lg",
-              src: userAppointment?.user.avatarUrl,
+              src: userAppointment?.user?.avatarUrl,
             }}
           />
         </Link>
@@ -84,7 +84,7 @@ function ConfirmAppointment({ userAppointment }) {
           className="font-bold text-xl"
           href={`/view-profile/${userAppointment?.user?.username}`}
         >
-          {userAppointment?.user.fullname}
+          {userAppointment?.user?.fullname}
         </Link>
         {/* <p className="text-default-700">{userAppointment?.user.email}</p> */}
       </div>
@@ -142,7 +142,7 @@ function ConfirmAppointment({ userAppointment }) {
             </a>
 
             <a
-              href={`tel:${userAppointment.user.code}${
+              href={`tel:${userAppointment.user?.code}${
                 userAppointment?.connectPhoneNumber ||
                 userAppointment?.user?.phone
               }`}

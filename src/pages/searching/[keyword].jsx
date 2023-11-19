@@ -21,6 +21,7 @@ export default function Searching({ keyword }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const dispatch = useDispatch();
+  const query = router.query.keyword;
   const currentPage = useSelector((state) => state.Searching.currentPage);
   useEffect(() => {
     if (keyword !== undefined) {
@@ -85,6 +86,7 @@ export default function Searching({ keyword }) {
                 " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
           }
         />
+        <link rel="canonical" href={`https://lesoll.com/searching/${query}`} />
       </Head>
       {/* <h3></h3> */}
       <SearchResult reversedFilteredKeywords={reversedFilteredKeywords} />

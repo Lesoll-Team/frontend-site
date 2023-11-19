@@ -27,7 +27,7 @@ export default function PropertyBuy({ propertyForBuy }) {
               : "Apartments for sale in Egypt at prices suitable for all budgets. Choose your apartment from a full range of available apartments, including apartments for sale in installments and duplex apartments. Book your apartment now!"
           }
         />
-        <link rel="canonical" href={`https://lesoll.com/${path}`} />
+        <link rel="canonical" href={`https://lesoll.com${path}`} />
       </Head>
       <SearchBar pageSaleOption="For Sale" />
 

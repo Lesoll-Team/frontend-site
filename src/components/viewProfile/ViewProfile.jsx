@@ -9,13 +9,18 @@ const ViewProfile = ({
   totalProperties,
   totalPages,
   setPage,
+  propertiesNums,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  console.log(propertiesData);
   return (
     <main className={`space-y-5 mx-5 lg:mx-28 `}>
       <Userdata userData={userData} totalProperties={totalProperties} />
-      <AboutUser totalProperties={totalProperties} userData={userData} />
+      <AboutUser
+        propertiesNums={propertiesNums}
+        totalProperties={totalProperties}
+        userData={userData}
+      />
       <UserProperties
         userData={userData}
         totalProperties={totalProperties}

@@ -19,7 +19,7 @@ export const percentageProperty = {
     { value: "8_Real_Estate_Finance", name: "CBE 8% Initiative" },
   ],
   ar: [
-    { value: "", name: "الكل" },
+    // { value: "", name: "الكل" },
     { value: "تمويل_عقاري_3_بالمئة", name: "3% تمويل عقارى" },
     { value: "تمويل_عقاري_8_بالمئة", name: "8% تمويل عقارى " },
   ],

@@ -14,9 +14,6 @@ const UserProperties = ({ userData, propertiesData, totalPages, setPage }) => {
           </>
         ) : (
           <>
-            <span className="underline text-lightOrange">
-              {userData?.fullname}
-            </span>
             <span> Properties </span>
           </>
         )}

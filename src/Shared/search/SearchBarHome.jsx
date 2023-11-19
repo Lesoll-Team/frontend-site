@@ -132,7 +132,7 @@ export function SearchBar() {
           <div className="flex items-center">
             <div className="w-full  gap-y-3 grid lg:grid-cols-3 grid-cols-1 gap-x-2">
               <Input
-                // id="search"
+              
                 dir={languageIs ? "rtl" : "ltr"}
                 className="border-2 lg:col-span-2 col-span-1 border-default-100 rounded-large  shadow-sm "
                 size="md"
@@ -155,7 +155,7 @@ export function SearchBar() {
                 isClearable
                 placeholder={
                   languageIs
-                    ? "  بحث عن المنطقة مثال : مدينة نصر , المعادى , المهندسين... "
+                    ? " البحث بالمنطقة: مدينة نصر، المعادي، المهندسين...  "
                     : "Search by City  Nasr City, Cairo, Maadi..."
                 }
                 value={locationKeyword}

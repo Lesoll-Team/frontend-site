@@ -1,24 +1,25 @@
 import { CircularProgress } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 
-const AboutUser = ({ totalProperties, userData }) => {
-  const properites = {
-    forSale: 25,
-    forRent: 15,
-    forInest: 7,
-  };
+const AboutUser = ({ totalProperties, userData, propertiesNums }) => {
   const propPercent = {
     forSale:
-      (properites.forSale /
-        (properites.forInest + properites.forRent + properites.forSale)) *
+      (propertiesNums.forSale /
+        (propertiesNums.forInvest +
+          propertiesNums.forRent +
+          propertiesNums.forSale)) *
       100,
     forRent:
-      (properites.forRent /
-        (properites.forInest + properites.forRent + properites.forSale)) *
+      (propertiesNums.forRent /
+        (propertiesNums.forInvest +
+          propertiesNums.forRent +
+          propertiesNums.forSale)) *
       100,
-    forInest:
-      (properites.forInest /
-        (properites.forInest + properites.forRent + properites.forSale)) *
+    forInvest:
+      (propertiesNums.forInvest /
+        (propertiesNums.forInvest +
+          propertiesNums.forRent +
+          propertiesNums.forSale)) *
       100,
   };
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -32,6 +33,7 @@ const AboutUser = ({ totalProperties, userData }) => {
         <div className="flex  items-center justify-between py-2">
           <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">
             <CircularProgress
+              aria-label="forSale"
               classNames={{
                 svg: "w-24 h-24 drop-shadow-md",
                 indicator: "stroke-lightGreen",
@@ -42,13 +44,14 @@ const AboutUser = ({ totalProperties, userData }) => {
               strokeWidth={4}
               showValueLabel={true}
             />
-            <p>{properites.forSale}</p>
+            <p>{propertiesNums.forSale}</p>
             <p className="text-lightGreen text-base  font-bold ">
               {language ? "للبيع" : "For Sale"}
             </p>
           </div>
           <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">
             <CircularProgress
+              aria-label="forRent"
               classNames={{
                 svg: "w-24 h-24 drop-shadow-md",
                 indicator: "stroke-lightGreen",
@@ -59,7 +62,7 @@ const AboutUser = ({ totalProperties, userData }) => {
               strokeWidth={4}
               showValueLabel={true}
             />
-            <p>{properites.forRent}</p>
+            <p>{propertiesNums.forRent}</p>
 
             <p className="text-lightGreen  text-base  font-bold ">
               {language ? "للإيجار" : "For Rent"}
@@ -67,17 +70,18 @@ const AboutUser = ({ totalProperties, userData }) => {
           </div>
           <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">
             <CircularProgress
+              aria-label="forInvest"
               classNames={{
                 svg: "w-24 h-24 drop-shadow-md",
                 indicator: "stroke-lightGreen",
                 track: "stroke-gray-100",
                 value: "text-xl font-semibold text-lightGreen",
               }}
-              value={propPercent.forInest}
+              value={propPercent.forInvest}
               strokeWidth={4}
               showValueLabel={true}
             />
-            <p>{properites.forInest}</p>
+            <p>{propertiesNums.forInvest}</p>
 
             <p className="text-lightGreen   text-base font-bold ">
               {language ? "للإستثمار" : "For Investment"}
@@ -89,7 +93,7 @@ const AboutUser = ({ totalProperties, userData }) => {
             <p className="text-lg font-medium">
               {language ? "للبيع" : "For Sale"}
             </p>
-            <p>{properites.forSale}</p>
+            <p>{propertiesNums.forSale}</p>
             <div
               style={{
                 width: `${propPercent.forSale}%`,
@@ -101,7 +105,7 @@ const AboutUser = ({ totalProperties, userData }) => {
             <p className="text-lg font-medium">
               {language ? "للإيجار" : "For Rent"}
             </p>
-            <p>{properites.forRent}</p>
+            <p>{propertiesNums.forRent}</p>
             <div
               style={{
                 width: `${propPercent.forRent}%`,
@@ -113,10 +117,10 @@ const AboutUser = ({ totalProperties, userData }) => {
             <p className="text-lg font-medium">
               {language ? "للإستثمار" : "For Invest"}
             </p>
-            <p>{properites.forInest}</p>
+            <p>{propertiesNums.forInvest}</p>
             <div
               style={{
-                width: `${propPercent.forInest}%`,
+                width: `${propPercent.forInvest}%`,
               }}
               className={`h-2 w-[${propPercent.forSale}%] bg-lightOrange rounded-full`}
             ></div>

@@ -5,32 +5,33 @@ import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { getUserOffline } from "@/utils/userAPI";
-
+import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
+  const router = useRouter();
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
       .toString()
       .replace(".", "")
   );
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // This code will only execute in a browser environment
     if (!localStorage.getItem("local_storage_device_id")) {
       localStorage.setItem("local_storage_device_id", userKey);
     }
   }
-      // if (!localStorage.getItem("local_storage_device_id")) {
-      //   JSON.stringify(localStorage.setItem("local_storage_device_id", userKey));
-      //   // JSON.stringify(localStorage.setItem(`prompt_visit_${Math.floor(Math.random() * 10001) }`, new Date()))
-      // }
-    const language = useSelector((state) => state.GlobalState.languageIs);
+  // if (!localStorage.getItem("local_storage_device_id")) {
+  //   JSON.stringify(localStorage.setItem("local_storage_device_id", userKey));
+  //   // JSON.stringify(localStorage.setItem(`prompt_visit_${Math.floor(Math.random() * 10001) }`, new Date()))
+  // }
+  const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
-    getUserOffline()
+    getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
 
   return (

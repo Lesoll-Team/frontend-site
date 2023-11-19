@@ -11,6 +11,7 @@ const ViewProfilePage = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPage] = useState();
   const [totalProperties, setTotalProperties] = useState(0);
+  const [propertiesNums, setPropertiesNums] = useState({});
   const router = useRouter();
   const slug = router.query.id;
 
@@ -19,13 +20,18 @@ const ViewProfilePage = () => {
       if (slug) {
         const data = await ViewUser(slug, page);
 
+        console.log(data);
         setUserData(data.getUser);
         setPropertiesData(data.getConfirmedRealty);
         setTotalProperties(data.resultConfirmed);
         setTotalPage(data.totalPages);
+        setPropertiesNums({
+          forRent: data.RealtyRentNumber,
+          forSale: data.RealtySaleNumber,
+          forInvest: data.RealtyInvestmentNumber,
+        });
       }
     };
-    // console.log(data);
     fetchData();
 
     // If you need a cleanup function, return it here
@@ -39,6 +45,7 @@ const ViewProfilePage = () => {
     <div className="min-h-[90dvh] bg-gray-100 py-5">
       {userData ? (
         <ViewProfile
+          propertiesNums={propertiesNums}
           setPage={handlePageChange}
           totalPages={totalPages}
           userData={userData}
