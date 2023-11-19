@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import DropdownMoreHome from "./dropdown/DropdownMoreHome";
 import { setCurrentPage } from "@/redux-store/features/searchingSlice";
+import { SearchDropdown } from "./SearchDropdown";
 
 export function SearchBar() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export function SearchBar() {
   let [isFurnished, setFurnished] = useState(false);
   let [selectoption, setSelectedOption] = useState("");
   let [locationKeyword, setLocationKeyword] = useState("");
-      // const keywordsWithDash=keywords.trim().split(" ").join("_")
+  // const keywordsWithDash=keywords.trim().split(" ").join("_")
 
   const InputKeywords = {
     offer: saleOptions,
@@ -35,14 +36,14 @@ export function SearchBar() {
     saleOption: paymentMethod,
     bathRooms: countBathrooms,
     rooms: countBedrooms,
-    finishingType:finishingOptions,
+    finishingType: finishingOptions,
     maxPrice: toPrice,
     minPrice: fromPrice,
-   keywords:keywords.trim().split(" ").join("_"),
+    keywords: keywords.trim().split(" ").join("_"),
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
-    cdb:locationKeyword.trim().split(" ").join("_"),
+    cdb: locationKeyword.trim().split(" ").join("_"),
   };
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
@@ -54,9 +55,9 @@ export function SearchBar() {
     const queryString = Object.keys(filteredKeywords)
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
-      dispatch(setCurrentPage(1))
-      // const keywordsDashaf=keywordsDash.join("_")
-// console.log(keywordsWithDash);
+    dispatch(setCurrentPage(1));
+    // const keywordsDashaf=keywordsDash.join("_")
+    // console.log(keywordsWithDash);
     router.push(`/searching/${queryString}`);
   };
   // const handlePageChange = (selectedPage) => {
@@ -130,9 +131,9 @@ export function SearchBar() {
             </button>
           </div>
           <div className="flex items-center">
-            <div className="w-full  gap-y-3 grid lg:grid-cols-3 grid-cols-1 gap-x-2">
-              <Input
-              
+            <div className="w-full gap-y-3  gap-x-2">
+              {/*grid lg:grid-cols-3 grid-cols-1*/}
+              {/* <Input
                 dir={languageIs ? "rtl" : "ltr"}
                 className="border-2 lg:col-span-2 col-span-1 border-default-100 rounded-large  shadow-sm "
                 size="md"
@@ -145,8 +146,9 @@ export function SearchBar() {
                 }
                 value={keywords}
                 onValueChange={setKeywords}
-              />
-              <Input
+              /> */}
+              <SearchDropdown />
+              {/* <Input
                 // id="search"
                 dir={languageIs ? "rtl" : "ltr"}
                 className=" border-2 col-span-1 border-default-100 rounded-large shadow-sm  "
@@ -160,7 +162,7 @@ export function SearchBar() {
                 }
                 value={locationKeyword}
                 onValueChange={setLocationKeyword}
-              />
+              /> */}
             </div>
 
             <DropdownMoreHome
