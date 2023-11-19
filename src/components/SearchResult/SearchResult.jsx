@@ -13,8 +13,10 @@ import { useRouter } from "next/router";
 import { DotPulse } from "@uiball/loaders";
 import { SearchBar } from "@/Shared/search/SearchBar";
 import { TbVirusSearch } from "react-icons/tb";
+import Image from "next/image";
+import BestLinksInHome from "../linksInHome/BestLinksInHome";
 
-function SearchResult({ reversedFilteredKeywords }) {
+function SearchResult({ reversedFilteredKeywords, PopularSearches,MostArea,MostGovernorate }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.Searching.currentPage);
@@ -158,35 +160,17 @@ function SearchResult({ reversedFilteredKeywords }) {
                 </div>
               )}
             </div>
-
-            <div
-              className={`  lg:block hidden md:sticky  md:top-20 ${
-                searchingError === "rejected" ? "" : "h-[93vh]"
-              }  absolute top-0 w-screen $`}
-            >
-              {searchResult?.searchResults && (
-                <ShowMapSearch
-                  className=""
-                  searchResult={searchResult?.searchResults}
-                />
-              )}
+            <div className="space-y-16 mx-auto">
+              <BestLinksInHome
+                PopularSearches={PopularSearches}
+                MostArea={MostArea}
+                MostGovernorate={MostGovernorate}
+              />
+              {/* <img src="https://img.freepik.com/free-psd/real-estate-house-property-instagram-facebook-story-template_120329-1898.jpg?w=360&t=st=1700394687~exp=1700395287~hmac=c27fcdc58374efc7f80ebe5c54e77aa4323cf74e44b9781484856d1269256d13" />
+              <img src="https://img.freepik.com/free-psd/real-estate-house-property-instagram-facebook-story-template_120329-1885.jpg?w=360&t=st=1700394611~exp=1700395211~hmac=d545f4b98ca908a6a919bcd1591c949ec593c19bca4ee98ba2df87ba82b14580" />
+              <img src="https://img.freepik.com/free-psd/real-estate-house-property-instagram-facebook-story-template_120329-1901.jpg?w=360&t=st=1700394636~exp=1700395236~hmac=b65b4d5b605b0f6faf3be1d8a1eb7d84074151850a8ee7701f77a2be9f7d24d0" />
+              <img src="https://img.freepik.com/free-psd/real-estate-house-property-instagram-facebook-story-template_120329-1877.jpg?w=360&t=st=1700394659~exp=1700395259~hmac=a979b9aaba62020704287e109bfc93e158d5c682a73d70cbb38afeaca918c023" /> */}
             </div>
-            {showMap && (
-              <div className="lg:hidden block  ">
-                <div
-                  className={`fixed top-0 left-0 w-full h-[100vh] n${
-                    showMap ? "block" : "hidden"
-                  }`}
-                >
-                  {searchResult?.searchResults && (
-                    <ShowMapSearch
-                      className=""
-                      searchResult={searchResult?.searchResults}
-                    />
-                  )}
-                </div>
-              </div>
-            )}
           </div>
         ) : (
           <div className="flex items-center min-h-[92dvh] justify-center h-[50dvh] flex-col gap-3">
