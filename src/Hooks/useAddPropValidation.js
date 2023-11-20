@@ -142,6 +142,18 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
 
       ar: "يرجى ادخال رقم هاتف المعلن   .",
     },
+    governrate: {
+      en: "Please select a governrate",
+      ar: "يرجى اختيار المحافظة ",
+    },
+    region: {
+      en: "Please selec a region",
+      ar: "يرجى اختيار المنطقه",
+    },
+    addressName: {
+      en: "Address is missing.",
+      ar: "يرجى ادخال عنوان العقار  .",
+    },
   };
 
   const translateErrorMessage = (key) => {
@@ -328,8 +340,16 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
       }
     }
     if (!propertyDetails.address.name) {
-      newErrors.push(translateErrorMessage("address"));
-      setPropErrors((prevErrors) => ({ ...prevErrors, address: true }));
+      newErrors.push(translateErrorMessage("addressName"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, addressName: true }));
+    }
+    if (!propertyDetails.address.governrate) {
+      newErrors.push(translateErrorMessage("governrate"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, governrate: true }));
+    }
+    if (!propertyDetails.address.region) {
+      newErrors.push(translateErrorMessage("region"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, region: true }));
     }
     if (propertyDetails.phoneChoice === "other") {
       if (!propertyDetails.connectPhoneNumber) {

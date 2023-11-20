@@ -14,6 +14,7 @@ import {
 import "@reach/combobox/styles.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { result } from "lodash";
 
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData, propErrors }) {
@@ -33,6 +34,11 @@ export default function MapComp({ propertyDetils, setData, propErrors }) {
 }
 const center = { lat: 30, lng: 31.4 };
 const Map = ({ propertyDetils, setData, propErrors }) => {
+  // const getLatLngWithGovAndRegion = async () => {
+  //   const result = await getGeocode({ address: "cairo , nasr city" });
+  //   console.log(result[0].geometry.location.lat());
+  // };
+  // geoo();
   // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selected, setSelected] = useState(null);

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { createNewProperty } from "../../utils/propertyAPI";
+import {
+  createNewProperty,
+  getGovernorate,
+  getRegion,
+} from "../../utils/propertyAPI";
 const GetStarted = dynamic(() => import("./steps/getStarted/GetStarted"));
 const PropertyInfo = dynamic(() => import("./steps/propInfo/PropertyInfo"));
 const Description = dynamic(() => import("./steps/description/Description"));
@@ -16,8 +20,23 @@ import useAddPropValidation from "@/Hooks/useAddPropValidation";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import { useRouter } from "next/router";
+import Place from "./steps/place/Place";
 
 const AddProperty = () => {
+  const [governrate, setGovernrate] = useState([]);
+  const [region, setRegion] = useState([]);
+  useEffect(() => {
+    const fetchGovernrate = async () => {
+      const gov = await getGovernorate();
+      setGovernrate(gov);
+    };
+    fetchGovernrate();
+    const fetchRegion = async () => {
+      const gov = await getRegion();
+      setRegion(gov);
+    };
+    fetchRegion();
+  }, []);
   // const router = useRouter();
   // const router = useRouter();
   // console.log(router.pathname);
@@ -198,10 +217,10 @@ const AddProperty = () => {
   };
   // console.log(propertyDetils);
   useEffect(() => {
-    if (userInfo?.phone) {
-      if (!userInfo?.phone) {
-        setPropertyDetils({ ...propertyDetils, phoneChoice: "other" });
-      }
+    if (!userInfo?.phone) {
+      setPropertyDetils({ ...propertyDetils, phoneChoice: "other" });
+    } else {
+      setPropertyDetils({ ...propertyDetils, phoneChoice: "same" });
     }
   }, [userInfo?.phone]);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -269,12 +288,21 @@ const AddProperty = () => {
                   setData={setPropertyDetils}
                 />
                 <hr />
-                <Location
+                {/* <Location
                   propErrors={propErrors}
                   setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
+                /> */}
+                <Place
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                  region={region}
+                  governrate={governrate}
                 />
+
                 <hr />
                 {userInfo && (
                   <SellerInfo

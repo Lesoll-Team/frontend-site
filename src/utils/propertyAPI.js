@@ -155,3 +155,23 @@ export async function GetEditAds(slug) {
 }
 
 ///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2
+export async function getGovernorate() {
+  try {
+    const response = await axios.get(
+      "http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/governorate/getall"
+    );
+    return response.data.governorate;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function getRegion() {
+  try {
+    const response = await axios.get(
+      "http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/region/getall"
+    );
+    return response.data.Region;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
