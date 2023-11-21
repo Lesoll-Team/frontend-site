@@ -10,7 +10,6 @@ const Place = ({
   propErrors,
   setPropErrors,
 }) => {
-  //   console.log(region);
   const [govInput, setGovInput] = useState("");
   const [filterdGov, setFilterGov] = useState(null);
   const [selectedGovernrate, setSelectedGovernrate] = useState(null);
@@ -114,7 +113,7 @@ const Place = ({
                   onGovChange(e);
                 }}
                 placeholder={
-                  !propertyDetils.address.governrate
+                  !propertyDetils?.address.governrate
                     ? language
                       ? "المحافظة"
                       : "Governrate"
@@ -126,7 +125,6 @@ const Place = ({
                   "border-red-500 focus:border-red-500"
                 }`}
               />
-
               {propertyDetils?.address.governrate && (
                 <div className="absolute bottom-[10px] mx-4 flex items-center gap-2 bg-lightGreen p-2 px-3 text-xl rounded-lg text-white font-semibold">
                   {propertyDetils?.address.governrate}
@@ -190,7 +188,7 @@ const Place = ({
                   onRegionChange(e);
                 }}
                 placeholder={
-                  !propertyDetils.address.region
+                  !propertyDetils?.address?.region
                     ? language
                       ? "المنطقة"
                       : "Region"

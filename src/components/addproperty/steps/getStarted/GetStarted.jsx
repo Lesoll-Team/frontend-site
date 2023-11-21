@@ -107,9 +107,6 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
     ],
   };
 
-  // console.log(unitOptions);
-  // console.log(propertyDetils.propType);
-  // console.log(propertyDetils.propType);
   return (
     <div className="flex flex-col  w-full space-y-5">
       <h1 className="text-center text-5xl text-darkGreen mt-3 font-bold">

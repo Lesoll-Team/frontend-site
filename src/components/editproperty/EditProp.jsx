@@ -9,15 +9,16 @@ import Price from "./steps/price/Price";
 import PropertyInfo from "./steps/propInfo/PropertyInfo";
 import Gallery from "./steps/gallery/Gallery";
 import Location from "./steps/location/Location";
-import { editProperty } from "@/utils/propertyAPI";
+import { editProperty, getGovernorate, getRegion } from "@/utils/propertyAPI";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import { motion } from "framer-motion";
 import useAddPropValidation from "@/Hooks/useAddPropValidation";
+import Place from "./steps/place/Place";
 
 const EditProp = ({ propData, setPropData }) => {
-  // console.log(propData);
-  // console.log();
+  const [governrate, setGovernrate] = useState([]);
+  const [region, setRegion] = useState([]);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const propType = {
     en: [
@@ -42,28 +43,29 @@ const EditProp = ({ propData, setPropData }) => {
 
   useEffect(() => {
     setAuth(isLoading);
-
-    // console.log(userDataInfo);
   }, []);
-  // console.log(propData);
+
   useEffect(() => {
     if (propData) {
-      // console.log(propData.service.map((obj) => obj._id));
-      // setPropData({ ...propData, downPaymentType: "Yearly" });
-      // console.log(propData?.unitType?._id);
-      // console.log(Boolean(propData?.service));
       if (propData?.service[0]?._id) {
         const service = propData.service.map((obj) => obj._id);
-        // console.log(service);
-        // setPropData({
-        //   ...propData,
-        //   service: service,
-        // });
         setTimeout(() => {
           setPropData((prevData) => ({ ...prevData, service: service }));
         }, 50);
       }
     }
+  }, []);
+  useEffect(() => {
+    const fetchGovernrate = async () => {
+      const gov = await getGovernorate();
+      setGovernrate(gov);
+    };
+    fetchGovernrate();
+    const fetchRegion = async () => {
+      const gov = await getRegion();
+      setRegion(gov);
+    };
+    fetchRegion();
   }, []);
   // useEffect(() => {
   //   setTimeout(() => {
@@ -72,7 +74,7 @@ const EditProp = ({ propData, setPropData }) => {
   //     }
   //   }, 50);
   // }, [propData?.downPayment]);
-  // console.log(propData?.service);
+
   useEffect(() => {
     if (!propData.connectPhoneNumber) {
       setPropData({ ...propData, phoneChoice: "same" });
@@ -80,15 +82,14 @@ const EditProp = ({ propData, setPropData }) => {
       setPropData({ ...propData, phoneChoice: "other" });
     }
   }, [propData?.title]);
-  // console.log(propData);
+
   const [propErrors, setPropErrors] = useState({});
 
-  // console.log(propData.service[0]._id);\
   const { errors, validateProperty } = useAddPropValidation(
     propErrors,
     setPropErrors
   );
-  // console.log(propData);
+
   const handleSubmit = async (e) => {
     const isValid = validateProperty(propData);
     if (!isValid) {
@@ -242,11 +243,19 @@ const EditProp = ({ propData, setPropData }) => {
                 <hr />
                 <Features propertyDetils={propData} setData={setPropData} />
                 <hr />
-                <Location
+                {/* <Location
                   propErrors={propErrors}
                   setPropErrors={setPropErrors}
                   propertyDetils={propData}
                   setData={setPropData}
+                /> */}
+                <Place
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propData}
+                  setData={setPropData}
+                  governrate={governrate}
+                  region={region}
                 />
                 <hr />
                 <SellerInfo
