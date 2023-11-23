@@ -13,11 +13,10 @@ export async function foundKeyword(keyword, page) {
   }
 }
 
+
 export async function getGovernorate() {
   try {
-    const response = await axios.get(
-      "http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/governorate/getall"
-    );
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admin/governorate/get-all-gov-and-reg`);
     return response.data;
   } catch (error) {
     throw error.response.data;

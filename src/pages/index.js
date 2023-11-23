@@ -1,4 +1,3 @@
-import { SearchDropdown } from "@/Shared/search/SearchDropdown";
 import { SearchBar } from "@/Shared/search/SearchBarHome";
 import dynamic from "next/dynamic";
 

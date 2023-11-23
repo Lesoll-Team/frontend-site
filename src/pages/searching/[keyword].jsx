@@ -88,7 +88,7 @@ export default function Searching({ keyword,bestSearch }) {
         />
         <link rel="canonical" href={`https://lesoll.com/searching/${query}`} />
       </Head>
-      {/* <h3></h3> */}
+
       <SearchResult
         PopularSearches={bestSearch.POPULAR_SEARCHES}
         MostArea={bestSearch.Most_Area}

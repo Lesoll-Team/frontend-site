@@ -12,11 +12,11 @@ function PropActive() {
     }
   }, [userInfo]);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
-    <div className="min-h-[90dvh] flex" dir="ltr">
+    <div className="min-h-[90dvh]  flex" dir="ltr">
       <div className="bg-lightGreenHover  sticky top-0">
         <Sidebar />
       </div>
-      <div className="overflow-x-auto overflow-y-hidden">
+      <div className="overflow-x-auto w-full overflow-y-hidden">
         <ActiveProperty />
       </div>
     </div>

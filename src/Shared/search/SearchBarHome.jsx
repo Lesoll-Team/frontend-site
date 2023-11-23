@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Button, Input } from "@nextui-org/react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import DropdownMoreHome from "./dropdown/DropdownMoreHome";
@@ -20,14 +19,19 @@ export function SearchBar() {
   let [countBathrooms, setCountBathroom] = useState(0);
   let [propertyFinance, setPropertyFinance] = useState("");
   let [paymentMethod, setPaymentMethod] = useState("");
-  let [keywords, setKeywords] = useState("");
+  const [keywords, setKeywords] = useState("");
   let [finishingOptions, setFinishingOptions] = useState("");
   let [unitType, setUnitType] = useState("");
   let [propertyType, setPropertyType] = useState("");
   let [isFurnished, setFurnished] = useState(false);
   let [selectoption, setSelectedOption] = useState("");
-  let [locationKeyword, setLocationKeyword] = useState("");
-  // const keywordsWithDash=keywords.trim().split(" ").join("_")
+
+  
+
+
+  
+  const [locationName, setLocationName] = useState("");
+  const [locationValue,setLocationValue]=useState("");
 
   const InputKeywords = {
     offer: saleOptions,
@@ -43,7 +47,7 @@ export function SearchBar() {
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
-    cdb: locationKeyword.trim().split(" ").join("_"),
+    cdb: locationValue || locationName.trim().split(" ").join("_"),
   };
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
@@ -56,13 +60,11 @@ export function SearchBar() {
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
     dispatch(setCurrentPage(1));
-    // const keywordsDashaf=keywordsDash.join("_")
-    // console.log(keywordsWithDash);
+    console.log("locationName", locationName);
+    console.log("locationValue",locationValue);
     router.push(`/searching/${queryString}`);
   };
-  // const handlePageChange = (selectedPage) => {
-  //   dispatch(setCurrentPage(selectedPage + 1));
-  // };
+
   const setForSaleButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("للبيع") : setSaleOptions("For_Sale");
@@ -84,7 +86,7 @@ export function SearchBar() {
     languageIs ? setSaleOptions("كل") : setSaleOptions("all");
   };
   return (
-    <form onSubmit={handleSubmitSearch}>
+    <div>
       <div dir="ltr" className=" w-full flex justify-center ">
         <div className="  md:w-8/12 w-11/12 ">
           <div className="">
@@ -132,37 +134,10 @@ export function SearchBar() {
           </div>
           <div className="flex items-center">
             <div className="w-full gap-y-3  gap-x-2">
-              {/*grid lg:grid-cols-3 grid-cols-1*/}
-              {/* <Input
-                dir={languageIs ? "rtl" : "ltr"}
-                className="border-2 lg:col-span-2 col-span-1 border-default-100 rounded-large  shadow-sm "
-                size="md"
-                name="Search"
-                isClearable
-                placeholder={
-                  languageIs
-                    ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "
-                    : "Search by Keywords: e.g. investment, Daily rent, land..."
-                }
-                value={keywords}
-                onValueChange={setKeywords}
-              /> */}
-              <SearchDropdown />
-              {/* <Input
-                // id="search"
-                dir={languageIs ? "rtl" : "ltr"}
-                className=" border-2 col-span-1 border-default-100 rounded-large shadow-sm  "
-                size="md"
-                name="Search"
-                isClearable
-                placeholder={
-                  languageIs
-                    ? " البحث بالمنطقة: مدينة نصر، المعادي، المهندسين...  "
-                    : "Search by City  Nasr City, Cairo, Maadi..."
-                }
-                value={locationKeyword}
-                onValueChange={setLocationKeyword}
-              /> */}
+              <SearchDropdown
+                setLocationName={setLocationName}
+                setLocationValue={setLocationValue}
+              />
             </div>
 
             <DropdownMoreHome
@@ -193,10 +168,12 @@ export function SearchBar() {
               setToArea={setToArea}
               selectoption={selectoption}
               setSelectedOption={setSelectedOption}
+              setKeywords={setKeywords}
+              keywords={keywords}
               classNames="max-w-[40px]"
             />
             <button
-              type="submit"
+              onClick={handleSubmitSearch}
               className="bg-lightGreen text-white font-semibold  p-4 rounded-lg   select-none"
             >
               {languageIs ? "بـحـث" : "Search"}
@@ -204,6 +181,6 @@ export function SearchBar() {
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 }
