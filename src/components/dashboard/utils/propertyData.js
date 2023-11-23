@@ -43,11 +43,17 @@ export async function fetchAllProperty(userToken) {
 
 
 
-export async function fetchActiveProperty(rowsPerPage,page,filterUser) {
+export async function fetchActiveProperty(
+  rowsPerPage,
+  page,
+  filterUser,
+  formattedStartDate,
+  formattedEndDate
+) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?keywords=${filterUser}&limit=${rowsPerPage}&page=${page}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?keywords=${filterUser}&start=${formattedStartDate}&end=${formattedEndDate}&limit=${rowsPerPage}&page=${page}`,
       {
         headers: {
           token: userToken,
