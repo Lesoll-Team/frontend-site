@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import MapComp from "../location/MapComp";
 import { useSelector } from "react-redux";
 import { HiMiniXMark } from "react-icons/hi2";
 const Place = ({
@@ -247,7 +247,7 @@ const Place = ({
           </div>
           <p className="text-red-500">{propErrors?.region && "مطلوب"}</p>
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-lg md:text-xl text-darkGreen font-semibold mb-2">
             {language ? "العنوان بالتفصيل" : "Address in details"}
           </h3>
@@ -284,6 +284,18 @@ const Place = ({
             }`}
           />
           <p className="text-red-500">{propErrors?.addressName && "مطلوب"}</p>
+        </div> */}
+
+        <div>
+          <h3 className="text-lg md:text-xl text-darkGreen font-semibold mb-2">
+            {language ? "العنوان بالتفصيل" : "Address in details"}
+          </h3>
+          <MapComp
+            propertyDetils={propertyDetils}
+            setData={setData}
+            propErrors={propErrors}
+            setPropErrors={setPropErrors}
+          />
         </div>
       </div>
     </section>

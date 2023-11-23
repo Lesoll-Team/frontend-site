@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import MapComp from "../location/MapComp";
 import { useSelector } from "react-redux";
 import { HiMiniXMark } from "react-icons/hi2";
 const Place = ({
@@ -10,6 +10,7 @@ const Place = ({
   propErrors,
   setPropErrors,
 }) => {
+  //   console.log(region);
   const [govInput, setGovInput] = useState("");
   const [filterdGov, setFilterGov] = useState(null);
   const [selectedGovernrate, setSelectedGovernrate] = useState(null);
@@ -113,7 +114,7 @@ const Place = ({
                   onGovChange(e);
                 }}
                 placeholder={
-                  !propertyDetils?.address.governrate
+                  !propertyDetils.address.governrate
                     ? language
                       ? "المحافظة"
                       : "Governrate"
@@ -125,6 +126,7 @@ const Place = ({
                   "border-red-500 focus:border-red-500"
                 }`}
               />
+
               {propertyDetils?.address.governrate && (
                 <div className="absolute bottom-[10px] mx-4 flex items-center gap-2 bg-lightGreen p-2 px-3 text-xl rounded-lg text-white font-semibold">
                   {propertyDetils?.address.governrate}
@@ -188,7 +190,7 @@ const Place = ({
                   onRegionChange(e);
                 }}
                 placeholder={
-                  !propertyDetils?.address?.region
+                  !propertyDetils.address.region
                     ? language
                       ? "المنطقة"
                       : "Region"
@@ -245,7 +247,7 @@ const Place = ({
           </div>
           <p className="text-red-500">{propErrors?.region && "مطلوب"}</p>
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-lg md:text-xl text-darkGreen font-semibold mb-2">
             {language ? "العنوان بالتفصيل" : "Address in details"}
           </h3>
@@ -282,6 +284,19 @@ const Place = ({
             }`}
           />
           <p className="text-red-500">{propErrors?.addressName && "مطلوب"}</p>
+        </div> */}
+
+        <div>
+          <h3 className="text-lg md:text-xl text-darkGreen font-semibold mb-2">
+            {language ? "العنوان بالتفصيل" : "Address in details"}
+          </h3>
+
+          <MapComp
+            propertyDetils={propertyDetils}
+            setData={setData}
+            propErrors={propErrors}
+            setPropErrors={setPropErrors}
+          />
         </div>
       </div>
     </section>
