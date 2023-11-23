@@ -199,6 +199,7 @@ function ConfirmAppointment({ userAppointment }) {
         {/* property share modale */}
         <SocialMediaModal
           slug={userAppointment?.slug}
+          id={userAppointment?._id}
           title={language ? "مشاركة العقار" : "Share property"}
         >
           <button className="border-2 w-full flex flex-col justify-center items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer">

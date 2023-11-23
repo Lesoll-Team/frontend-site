@@ -114,7 +114,7 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
         </h1>
         <div className="w-full">
           <AddPropInput
-            error={propErrors?.title}
+            error={propErrors?.title || propErrors?.longTitle}
             title={!language ? "Property Title" : "عنوان الاعلان"}
             setValue={(e) => {
               setData({ ...propertyDetils, title: e.target.value });
@@ -124,6 +124,17 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
                   title: false,
                 }));
               }
+              if (e.target.value.length < 100) {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  longTitle: false,
+                }));
+              } else {
+                setPropErrors((prevErrors) => ({
+                  ...prevErrors,
+                  longTitle: true,
+                }));
+              }
             }}
             value={propertyDetils?.title}
             placeholder={!language ? "Property Title" : "عنوان الاعلان"}
@@ -131,6 +142,13 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
           {propErrors?.title && (
             <p className="text-red-500">
               {language ? "يرجى كتابة العنوان " : "Title is missing"}
+            </p>
+          )}
+          {propErrors?.longTitle && (
+            <p className="text-red-500">
+              {language
+                ? " لايجب ان يتخطى العنوان 100 حرف."
+                : "Title is too long"}
             </p>
           )}
         </div>

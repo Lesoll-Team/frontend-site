@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, Image } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import { format } from "date-fns";
+
 import {
   fetchActiveProperty,
   deleteActiveProperty,
@@ -22,8 +24,9 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
-import Link from "next/link";
 import { useSelector } from "react-redux";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -33,6 +36,8 @@ const columns = [
 ];
 export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+const [startDate, setStartDate] = useState(null);
+const [endDate, setEndDate] = useState(null);
 
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -43,17 +48,23 @@ export default function ActiveProperty() {
   const [filterValue, setFilterValue] = useState("");
   const userInfo = useSelector((state) => state.GlobalState.userData);
 
+
   useEffect(() => {
-    fetchAllProperties();
+    fetchAllProperties(startDate, endDate);
   }, [page, rowsPerPage, refreshProperty]);
-  const fetchAllProperties = async () => {
+  const fetchAllProperties = async (startDate, endDate) => {
     try {
+    const formattedStartDate = startDate
+      ? format(startDate, "yyyy-MM-dd")
+      : null;
+    const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null;
+
       const getProperties = await fetchActiveProperty(
         rowsPerPage,
         page,
-        filterValue
-
-        // userToken
+        filterValue,
+        formattedStartDate,
+        formattedEndDate
       );
       setProperty(getProperties.Property);
       setPropertyLength(getProperties.resultCount);
@@ -68,7 +79,7 @@ export default function ActiveProperty() {
     try {
       await deleteActiveProperty(propertyId);
       setRefreshProperty(!refreshProperty);
-      await fetchAllProperties();
+      await fetchAllProperties(startDate, endDate);
     } catch (error) {
       console.error("Error deleting property:", error);
     }
@@ -98,13 +109,6 @@ export default function ActiveProperty() {
     }
     return filteredUsers;
   }, [property, filterValue]);
-
-  //   const items = useMemo(() => {
-  //     const start = (page - 1) * rowsPerPage;
-  //     const end = start + rowsPerPage;
-
-  //     return filteredItems.slice(start, end);
-  //   }, [page, filteredItems, rowsPerPage]);
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -126,7 +130,7 @@ export default function ActiveProperty() {
     switch (columnKey) {
       case "address":
         return (
-          <div className="flex flex-col w-[300px]">
+          <div className="flex flex-col w-[300px]  ">
             <p className="text-bold grid grid-cols-2 text-medium capitalize">
               <b>Address:</b>
               {blog.address.name}
@@ -211,7 +215,7 @@ export default function ActiveProperty() {
         );
       case "actions":
         return (
-          <div className="relative flex justify-start items-center w-[350px] gap-2">
+          <div className="relative  flex justify-start items-center w-[350px] gap-2">
             <div className="">
               <p className="text-bold grid grid-cols-2 text-medium capitalize">
                 <b>ID:</b>
@@ -300,17 +304,17 @@ export default function ActiveProperty() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex  gap-3 items-center justify-center">
-          <div className=" w-8/12  ">
+          <div className=" w-8/12 mt-5 p-5 bg-lightGreen rounded-xl">
             <form
-              className="flex items-center gap-x-2"
+              className="flex items-center  gap-x-2"
               onSubmit={(e) => {
                 e.preventDefault(); // Prevents the default form submission behavior
-                fetchAllProperties(); // Call your search function
+                fetchAllProperties(startDate, endDate); // Call your search function
               }}
             >
               <Input
                 isClearable
-                className="w-full"
+                className="w-full bg-white rounded-lg"
                 name="search"
                 placeholder="phone, email ,full name,type Of User..."
                 label="Search For All Users"
@@ -325,25 +329,31 @@ export default function ActiveProperty() {
                 Search
               </Button>
             </form>
+            <div className=" flex flex-wrap mt-3">
+              <div className="flex  mx-2 items-center">
+                <label className="font-semibold  text-white mx-1">From:</label>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select start date"
+                  className="w-full border-1 rounded-lg indent-2 h-9"
+                />
+              </div>
+              <div className="flex  mx-2 items-center">
+                <label className="font-semibold  text-white mx-1">End:</label>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select end date"
+                  className="w-full border-1 rounded-lg indent-2 h-9"
+                />
+              </div>
+            </div>
           </div>
         </div>
-        {/* <div className="flex justify-between gap-3 items-end">
-          <Input
-            isClearable
-            classNames={{
-              base: "w-full sm:max-w-[44%]",
-              inputWrapper: "border-1",
-            }}
-            placeholder="Search by name..."
-            size="sm"
-            startContent={<SearchIcon className="text-default-300" />}
-            value={filterValue}
-            variant="bordered"
-            onClear={() => setFilterValue("")}
-            onValueChange={onSearchChange}
-          />
-          <div className="flex gap-3"> <AddBlogModule /> </div>
-        </div> */}
+
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
             Total property Active:
@@ -370,12 +380,14 @@ export default function ActiveProperty() {
     onSearchChange,
     onRowsPerPageChange,
     property.length,
+    startDate,
+    endDate,
     hasSearchFilter,
   ]);
 
   const bottomContent = useMemo(() => {
     return (
-      <div className="py-2 px-2 flex justify-between items-center">
+      <div className="py-2 px-2  flex justify-between items-center">
         <Pagination
           showControls
           classNames={{
@@ -421,7 +433,7 @@ export default function ActiveProperty() {
       bottomContentPlacement="outside"
       checkboxesProps={{
         classNames: {
-          wrapper: "after:bg-foreground after:text-background text-background",
+          wrapper: "after:bg-foreground  after:text-background text-background",
         },
       }}
       classNames={classNames}

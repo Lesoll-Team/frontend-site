@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Modal,
   ModalContent,
@@ -8,25 +6,31 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { BsFacebook, BsTwitter, BsWhatsapp } from "react-icons/bs";
-import { FiCopy } from "react-icons/fi";
-import { LuClipboardCopy } from "react-icons/lu";
 import { BiCopy } from "react-icons/bi";
+import {
+  shareFacebookBtn,
+  shareOtherBtn,
+  shareTwitterBtn,
+  shareWhatsappBtn,
+} from "@/utils/propertyAPI";
 
-export default function SocialMediaModal({ children, title, slug }) {
+export default function SocialMediaModal({ children, title, slug, id }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [modalPlacement, setModalPlacement] = React.useState("auto");
+
   //   const url = window.location.href;
   const copyLinkPage = () => {
     const urlToCopy = `https://lesoll.com/property-details/${slug}`;
     navigator.clipboard.writeText(urlToCopy);
   };
   const shareOnTwitter = () => {
+    shareTwitterBtn(id);
     const navUrl =
       "https://twitter.com/intent/tweet?text=" +
       `https://lesoll.com/property-details/${slug}`;
     window.open(navUrl, "_blank");
   };
   const shareOnFacebook = () => {
+    shareFacebookBtn(id);
     const navUrl =
       "https://www.facebook.com/sharer/sharer.php?u=" +
       `https://lesoll.com/property-details/${slug}`;
@@ -51,6 +55,9 @@ export default function SocialMediaModal({ children, title, slug }) {
                     className="text-[#0165E1] cursor-pointer"
                   />
                   <a
+                    onClick={() => {
+                      shareWhatsappBtn(id);
+                    }}
                     href={`whatsapp://send?text=https://lesoll.com/property-details/${slug}`}
                   >
                     <BsWhatsapp className="text-[#25D366] cursor-pointer" />
@@ -62,6 +69,7 @@ export default function SocialMediaModal({ children, title, slug }) {
                   />
                   <BiCopy
                     onClick={() => {
+                      shareOtherBtn(id);
                       copyLinkPage();
                       onClose();
                     }}

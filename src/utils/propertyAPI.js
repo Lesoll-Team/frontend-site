@@ -57,6 +57,7 @@ export async function AddToFavorites(propertyid) {
     throw error.response.data;
   }
 }
+//  contat btns
 export async function WhatsAppBtn(propertyid) {
   try {
     const response = await axios.patch(
@@ -70,6 +71,47 @@ export async function CallBtn(propertyid) {
   try {
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${propertyid}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+// share btns
+export async function shareWhatsappBtn(propertyid) {
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsapp-share/${propertyid}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function shareFacebookBtn(propertyid) {
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/facebook-share/${propertyid}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function shareTwitterBtn(propertyid) {
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/twitter-share/${propertyid}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function shareOtherBtn(propertyid) {
+  try {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/other-share/${propertyid}`
     );
     return response.data;
   } catch (error) {
@@ -155,3 +197,23 @@ export async function GetEditAds(slug) {
 }
 
 ///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2
+export async function getGovernorate() {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/governorate/getall`
+    );
+    return response.data.governorate;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function getRegion() {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/region/getall`
+    );
+    return response.data.Region;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
