@@ -24,10 +24,11 @@ const Place = ({
     setGovInput(input);
     if (input) {
       let filtered = governrate.filter((gov) => {
+        const govNameAr = gov.governorate_name_ar || ""; // Ensure property exists
+        const govNameEn = gov.governorate_name_en || "";
         return (
-          gov.governorate_name_ar.indexOf(input) === 0 ||
-          gov.governorate_name_en.toLowerCase().indexOf(input.toLowerCase()) ===
-            0
+          govNameAr.indexOf(input) === 0 ||
+          govNameEn.toLowerCase().indexOf(input.toLowerCase()) === 0
         );
       });
 
