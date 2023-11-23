@@ -154,7 +154,7 @@ function SearchResult({ reversedFilteredKeywords, PopularSearches,MostArea,MostG
               MostArea={MostArea}
               MostGovernorate={MostGovernorate}
             />
-            <div className="text-center  hidden">
+            {/* <div className="text-center  hidden">
               <h2 className="absolute animate-bounce flex-wrap text-center text-lightGreen text-xl font-semibold md:text-xl lg:text-4xl	">
                 ليسول طريقك لبيتك
               </h2>
@@ -164,7 +164,7 @@ function SearchResult({ reversedFilteredKeywords, PopularSearches,MostArea,MostG
                 alt="side Image in Search page"
                 className=" p-2"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

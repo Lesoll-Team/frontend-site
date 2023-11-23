@@ -60,8 +60,6 @@ export function SearchBar() {
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
     dispatch(setCurrentPage(1));
-    console.log("locationName", locationName);
-    console.log("locationValue",locationValue);
     router.push(`/searching/${queryString}`);
   };
 
