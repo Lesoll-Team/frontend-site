@@ -1,4 +1,4 @@
-import { useLoadScript, GoogleMap, Marker } from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -33,86 +33,70 @@ export default function MapComp({ propertyDetils, setData, propErrors }) {
 }
 const center = { lat: 30, lng: 31.4 };
 const Map = ({ propertyDetils, setData, propErrors }) => {
+  // const getLatLngWithGovAndRegion = async () => {
+  //   const result = await getGeocode({ address: "cairo , nasr city" });
+  //   console.log(result[0].geometry.location.lat());
+  // };
+  // geoo();
   // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selected, setSelected] = useState(null);
   const [inputValue, setInputValue] = useState("");
 
-  // const handleMapClick = async (e) => {
-  //   // const { latLng } = e;
-  //   // console.log(e);
-  //   // const lat = latLng.lat();
-  //   // const lng = latLng.lng();
-  //   // setSelected({ lat, lng });
-  //   setValue(e, false);
-  //   clearSuggestions();
-  //   const result = await getGeocode({ e });
-  //   const { lat, lng } = getLatLng(result[0]);
-  //   console.log(getLatLng(result[0]));
+  // const handleMapDoubleClick = async (event) => {
+  //   const { latLng } = event;
+  //   const lat = latLng.lat();
+  //   const lng = latLng.lng();
   //   setSelected({ lat, lng });
+  //   // console.log(selected);
+  //   const query = `${lat},${lng}`;
+  //   // Use getGeocode to retrieve place details including place_id
+  //   // const result = await getGeocode(selected);
+  //   const result = await getGeocode({ address: query });
+  //   // console.log(result);
+  //   // console.log(result[0]);
+  //   const { place_id, formatted_address, address_components } = result[0];
+
+  //   let governrate = "";
+  //   let region = "";
+  //   address_components.forEach((component) => {
+  //     const { long_name, types } = component;
+
+  //     if (types.includes("administrative_area_level_1")) {
+  //       governrate = long_name;
+  //     } else if (types.includes("administrative_area_level_2")) {
+  //       region = long_name;
+  //     }
+  //   });
+  //   // const { lat, lng } = getLatLng(result[0]);
+  //   setSelected({ lat, lng });
+  //   // console.log(result[0]);
+  //   setData({
+  //     ...propertyDetils,
+  //     address: {
+  //       ...propertyDetils.address,
+  //       name: result[0]?.formatted_address,
+  //       longitude: lng,
+  //       latitude: lat,
+  //     },
+  //   });
+  //   setInputValue(propertyDetils.address.name);
+
+  //   // setBlah(result);
+  //   // console.log(getGeocode(selected));
+  //   // const { place_id } = result[0];
+  //   // console.log(place_id);
+
+  //   // setSelected({ lat, lng });
+
+  //   // You can perform additional actions or update your data here
   // };
-
-  const handleMapDoubleClick = async (event) => {
-    const { latLng } = event;
-    const lat = latLng.lat();
-    const lng = latLng.lng();
-    setSelected({ lat, lng });
-    // console.log(selected);
-    const query = `${lat},${lng}`;
-    // Use getGeocode to retrieve place details including place_id
-    // const result = await getGeocode(selected);
-    const result = await getGeocode({ address: query });
-    // console.log(result);
-    // console.log(result[0]);
-    const { place_id, formatted_address, address_components } = result[0];
-
-    let governrate = "";
-    let region = "";
-    address_components.forEach((component) => {
-      const { long_name, types } = component;
-
-      if (types.includes("administrative_area_level_1")) {
-        governrate = long_name;
-      } else if (types.includes("administrative_area_level_2")) {
-        region = long_name;
-      }
-    });
-    // const { lat, lng } = getLatLng(result[0]);
-    setSelected({ lat, lng });
-    // console.log(result[0]);
-    setData({
-      ...propertyDetils,
-      address: {
-        ...propertyDetils.address,
-        placeId: result[0]?.place_id,
-        name: result[0]?.formatted_address,
-        governrate: governrate,
-        region: region,
-        longitude: lng,
-        latitude: lat,
-      },
-    });
-    setInputValue(propertyDetils?.address?.name);
-
-    // setBlah(result);
-    // console.log(getGeocode(selected));
-    // const { place_id } = result[0];
-    // console.log(place_id);
-
-    // setSelected({ lat, lng });
-
-    // You can perform additional actions or update your data here
-  };
   useEffect(() => {
-    setInputValue(propertyDetils?.address?.name);
-  }, [propertyDetils?.address?.name]);
-
+    setInputValue(propertyDetils.address.name);
+  }, [propertyDetils.address.name]);
   return (
-    <div className=" mx-auto  space-y-4 ">
-      <div className="w-full  pt-4">
-        <h2 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">
-          {language ? "الموقع" : "Location"}
-        </h2>
+    <div className=" mx-auto w-full  space-y-4 ">
+      <div className="w-full  ">
         <PlacesAutoComplete
           propErrors={propErrors}
           inputValue={inputValue}
@@ -122,7 +106,7 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
           setData={setData}
         />
       </div>
-      <div className="w-full  overflow-auto rounded-lg h-[350px] md:h-[500px]">
+      {/* <div className="w-full  overflow-auto rounded-lg h-[350px] md:h-[500px]">
         <GoogleMap
           // streetView={false}
           // mapTypeId="roadmap"
@@ -141,7 +125,7 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
         >
           {selected && <Marker position={selected} />}
         </GoogleMap>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -161,14 +145,14 @@ const PlacesAutoComplete = ({
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
-  const [government, setGovernment] = useState("");
-  const [region, setRegion] = useState("");
+  // const [government, setGovernment] = useState("");
+  // const [region, setRegion] = useState("");
   const handleSelect = async (address) => {
     setValue(address, false);
     clearSuggestions();
     // console.log(address);
     const result = await getGeocode({ address });
-    const { place_id, formatted_address, address_components } = result[0];
+    const { address_components } = result[0];
 
     let governrate = "";
     let region = "";
@@ -191,10 +175,10 @@ const PlacesAutoComplete = ({
       ...propertyDetils,
       address: {
         ...propertyDetils.address,
-        placeId: result[0]?.place_id,
+        // placeId: result[0]?.place_id,
         name: result[0]?.formatted_address,
-        governrate: governrate,
-        region: region,
+        // governrate: governrate,
+        // region: region,
         longitude: lng,
         latitude: lat,
       },
@@ -209,7 +193,7 @@ const PlacesAutoComplete = ({
     <>
       <Combobox onSelect={handleSelect} className="w-full">
         <ComboboxInput
-          placeholder={language ? "أدخل موفع العقار" : "Select the location"}
+          placeholder={"مثال: عمارة 10 شارع صلاح سالم مدينة نصر القاهرة"}
           defaultValue={inputValue || ""}
           value={inputValue || value}
           onChange={(e) => {
@@ -226,7 +210,7 @@ const PlacesAutoComplete = ({
           }}
           disabled={!ready}
           className={` w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-gra placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 ${
-            propErrors.address && "border-red-500 focus:border-red-500"
+            propErrors?.addressName && "border-red-500 focus:border-red-500"
           }`}
         />
         {status === "OK" && (
@@ -245,6 +229,11 @@ const PlacesAutoComplete = ({
           </ComboboxPopover>
         )}
       </Combobox>
+      {propErrors?.addressName && (
+        <p className="text-red-500">
+          {language ? "  يرجى ادخال عنوان العقار  " : " Address is missing."}
+        </p>
+      )}
     </>
   );
 };
