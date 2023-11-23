@@ -7,6 +7,7 @@ import {
   propertyTypeData,
   unitTypeData,
   percentageProperty,
+
   FurnishedOptions,
 } from "./dataDropdown";
 import DropdownRooms from "./DropdownRooms";
@@ -42,8 +43,8 @@ const DropdownMore = ({
   toArea,
   setSelectedOption,
   selectoption,
-  // isFurnished,
-  // setFurnished,
+  setKeywords,
+  keywords,
 }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -176,6 +177,7 @@ const DropdownMore = ({
                 setSelectedOption={setSelectedOption}
               />
             </div>
+
             {/* <Dropdown
                 classNames="my-1"
                 value={isFurnished}
@@ -188,6 +190,24 @@ const DropdownMore = ({
               setSelectedOption={setSelectedOption}
               /> */}
           </div>
+          <input
+            // id="search"
+            dir={languageIs ? "rtl" : "ltr"}
+            className="w-full placeholder-orange-400 border-lightOrange active:outline-none hover:outline-none focus:outline-none  p-[9px] border shadow-md rounded-md mt-2 focus:ring"
+            // size="md"
+            autocomplete="off"
+            name="Search"
+            // isClearable
+            placeholder={
+              languageIs
+                ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "
+                : "Search by Keywords: e.g. investment, Daily rent, land..."
+            }
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+            // value={keywords}
+            // onValueChange={setKeywords}
+          />
         </div>
       )}
     </div>
