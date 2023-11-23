@@ -158,7 +158,7 @@ export async function GetEditAds(slug) {
 export async function getGovernorate() {
   try {
     const response = await axios.get(
-      "http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/governorate/getall"
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/governorate/getall`
     );
     return response.data.governorate;
   } catch (error) {
@@ -168,7 +168,7 @@ export async function getGovernorate() {
 export async function getRegion() {
   try {
     const response = await axios.get(
-      "http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/region/getall"
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/region/getall`
     );
     return response.data.Region;
   } catch (error) {

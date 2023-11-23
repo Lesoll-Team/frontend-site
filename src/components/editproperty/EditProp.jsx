@@ -8,7 +8,7 @@ import Link from "next/link";
 import Price from "./steps/price/Price";
 import PropertyInfo from "./steps/propInfo/PropertyInfo";
 import Gallery from "./steps/gallery/Gallery";
-import Location from "./steps/location/Location";
+// import Location from "./steps/location/Location";
 import { editProperty, getGovernorate, getRegion } from "@/utils/propertyAPI";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
@@ -20,18 +20,6 @@ const EditProp = ({ propData, setPropData }) => {
   const [governrate, setGovernrate] = useState([]);
   const [region, setRegion] = useState([]);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const propType = {
-    en: [
-      { value: "Residential", name: "Residential" },
-      { value: "Commercial", name: "Commercial" },
-      { value: "Land", name: "Land" },
-    ],
-    ar: [
-      { value: "Residential", name: "سكنى" },
-      { value: "Commercial", name: "تجارى" },
-      // { value: "Land", name: "أرض" },
-    ],
-  };
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [isAuth, setAuth] = useState(false);
@@ -67,13 +55,6 @@ const EditProp = ({ propData, setPropData }) => {
     };
     fetchRegion();
   }, []);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (propData.downPayment === null) {
-  //       setPropData((prevData) => ({ ...prevData, downPayment: 0 }));
-  //     }
-  //   }, 50);
-  // }, [propData?.downPayment]);
 
   useEffect(() => {
     if (!propData.connectPhoneNumber) {
@@ -96,7 +77,6 @@ const EditProp = ({ propData, setPropData }) => {
       return;
     }
     setIsSubmitting(true);
-    // e.preventDefault();
     const formData = new FormData();
     formData.append("title", propData.title);
     formData.append("offer", propData.offer);
@@ -110,7 +90,7 @@ const EditProp = ({ propData, setPropData }) => {
       }
     }
     formData.append("rentalPeriod", propData.rentalPeriod);
-    // formData.append("album", propData.album);
+
     formData.append("thumbnail", propData.thumbnail);
     formData.append("insurance", propData.insurance);
     formData.append("saleOption", propData.saleOption);
@@ -132,9 +112,7 @@ const EditProp = ({ propData, setPropData }) => {
     formData.append("rooms", propData?.rooms);
     formData.append("bathRooms", propData?.bathRooms);
     formData.append("description", propData?.description);
-    // propData.unitType.map((unitType) => {
-    //   formData.append("unitType", unitType);
-    // });
+
     propData.album.map((album) => {
       formData.append("album", album._id);
     });
@@ -226,7 +204,6 @@ const EditProp = ({ propData, setPropData }) => {
                   setData={setPropData}
                 />
                 <hr />
-
                 <Description
                   propErrors={propErrors}
                   setPropErrors={setPropErrors}
@@ -264,13 +241,8 @@ const EditProp = ({ propData, setPropData }) => {
                   propertyDetils={propData}
                   setData={setPropData}
                 />
-                {/* <hr /> */}
-                {/* <hr /> */}
-                {/* <Review /> */}
               </div>
-              {/* {errors && (
-              <p className="text-center text-red-500">{errors[0]}</p>
-            )} */}
+
               {errors && (
                 <p className="text-center text-red-500">{errors[0]}</p>
               )}
@@ -290,7 +262,6 @@ const EditProp = ({ propData, setPropData }) => {
                   }`}
                 >
                   {isSubmitting ? (
-                    // <DotWave size={47} speed={1.5} color="#fff" />
                     <DotPulse size={50} speed={1.3} color="#fff" />
                   ) : language ? (
                     "تعديل العقار"

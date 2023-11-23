@@ -11,6 +11,11 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
 
       ar: " يرجى كتابة العنوان .",
     },
+    longTitle: {
+      en: "Title is too long",
+
+      ar: " لايجب ان يتخطى العنوان 100 حرف.",
+    },
 
     propType: {
       en: "Property type is missing.",
@@ -166,6 +171,10 @@ const useAddPropValidation = (propErrors, setPropErrors) => {
     if (!propertyDetails.title) {
       newErrors.push(translateErrorMessage("title"));
       setPropErrors((prevErrors) => ({ ...prevErrors, title: true }));
+    }
+    if (propertyDetails.title.length > 100) {
+      newErrors.push(translateErrorMessage("longTitle"));
+      setPropErrors((prevErrors) => ({ ...prevErrors, longTitle: true }));
     }
     if (!propertyDetails.propType) {
       newErrors.push(translateErrorMessage("propType"));
