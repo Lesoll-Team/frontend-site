@@ -16,8 +16,14 @@ import { TbVirusSearch } from "react-icons/tb";
 import BestLinksInHome from "../linksInHome/BestLinksInHome";
 import { Image } from "@nextui-org/react";
 import { BsStars } from "react-icons/bs";
+import LinksSearch from "../linksInHome/LinksSearch";
 
-function SearchResult({ reversedFilteredKeywords, PopularSearches,MostArea,MostGovernorate }) {
+function SearchResult({
+  reversedFilteredKeywords,
+  PopularSearches,
+  MostArea,
+  MostGovernorate,
+}) {
   const router = useRouter();
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.Searching.currentPage);
@@ -149,7 +155,7 @@ function SearchResult({ reversedFilteredKeywords, PopularSearches,MostArea,MostG
             )}
           </div>
           <div className="space-y-16 flex flex-col">
-            <BestLinksInHome
+            <LinksSearch
               PopularSearches={PopularSearches}
               MostArea={MostArea}
               MostGovernorate={MostGovernorate}
