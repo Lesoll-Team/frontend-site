@@ -175,26 +175,30 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
             </Link>
           </div>
         </div>
-        {/* {type === "draft" ? (
-          <div className="flex flex-col items-center space-y-2 mt-5">
-            <button className="w-[90%] mx-auto text-center text-lightGreen py-1 text-md rounded-xl font-semibold border-lightGreen border-2 md:hover:bg-lightGreen md:hover:text-white duration-300">
-              Resume
-            </button>
-          </div>
-        ) : type !== "pending" ? (
-          <div className="flex flex-col items-center space-y-2 mt-5">
-            <button className="w-[90%] mx-auto text-center text-lightGreen py-1 text-md rounded-xl font-semibold border-lightGreen border-2 md:hover:bg-lightGreen md:hover:text-white duration-300">
-              Repost
-            </button>
-            <button className="w-[90%] mx-auto text-center text-lightGreen py-1 text-md rounded-xl font-semibold border-lightGreen border-2 md:hover:bg-lightGreen md:hover:text-white duration-300">
-              Change Status
-            </button>
-          </div>
-        ) : (
-          ""
-        )} */}
       </div>
     </div>
   );
 };
 export default ProfileCard;
+//  <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
+//    <p className="text-sm  text-darkGray">
+//      {propertyDetails?.address?.name.substring(0, 30)}{" "}
+//      {propertyDetails?.address?.name.length > 30 && "..."}
+//    </p>
+//    <div className="flex gap-3 items-center">
+//      <ConfirmModal
+//        actinFunction={deleteProp}
+//        title={language ? "تأكيد إزالة العقار" : "Confirm Delete Propert"}
+//      >
+//        {" "}
+//        <AiFillDelete className="text-xl  md:text-2xl text-red-600 cursor-pointer" />
+//      </ConfirmModal>
+
+//      <Link
+//        title={language ? "تعديل العقار" : "Edit Property"}
+//        href={`/editproperty/${propertyDetails.slug}`}
+//      >
+//        <AiOutlineEdit className="text-xl md:text-2xl text-lightGreen" />
+//      </Link>
+//    </div>
+//  </div>;

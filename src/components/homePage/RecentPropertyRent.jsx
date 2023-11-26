@@ -12,7 +12,7 @@ const RecentPropertyRent = ({ propertiesRent }) => {
   return (
     <section className=" px-2 my-24 ">
       <div className="container mx-auto">
-        <h2 className="  text-center font-bold text-3xl sm:text-4xl  p-3 text-lightGreen">
+        <h2 className="  text-center font-bold text-3xl sm:text-4xl  p-3 ">
           {language ? "أحدث العقارات للإيجار" : "Recent Properties For Rent"}
         </h2>
       </div>

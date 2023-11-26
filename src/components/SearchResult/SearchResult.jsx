@@ -1,21 +1,21 @@
 // SearchResult.js
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SearchCard from "../realtyCard/RealtyCard";
+// import SearchCard from "../realtyCard/RealtyCard";
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 
 import { setCurrentPage } from "@/redux-store/features/searchingSlice";
-import { FaMapMarked } from "react-icons/fa";
+
 import { useRouter } from "next/router";
 import { DotPulse } from "@uiball/loaders";
 import { SearchBar } from "@/Shared/search/SearchBar";
 import { TbVirusSearch } from "react-icons/tb";
+import PropertyCard from "../realtyCard/PropertyCard";
 
 import BestLinksInHome from "../linksInHome/BestLinksInHome";
-import { Image } from "@nextui-org/react";
-import { BsStars } from "react-icons/bs";
+
 import LinksSearch from "../linksInHome/LinksSearch";
 
 function SearchResult({
@@ -53,7 +53,7 @@ function SearchResult({
             <SearchBar reversedFilteredKeywords={reversedFilteredKeywords} />
             <div className=" flex flex-wrap justify-center gap-5  ">
               {searchResult?.searchResults.map((result) => (
-                <SearchCard key={result._id} propertyDetails={result} />
+                <PropertyCard key={result._id} propertyDetails={result} />
               ))}
             </div>
             {searchingError == "rejected" ? (

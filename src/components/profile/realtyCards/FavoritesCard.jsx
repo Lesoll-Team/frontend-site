@@ -10,7 +10,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 
-const PropertyCard = ({ propertyDetails }) => {
+const FavoritesCard = ({ propertyDetails, onRemove }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const PropertyCard = ({ propertyDetails }) => {
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
+      onRemove(propertyDetails._id);
+
       dispatch(fetchUserData());
 
       // Handle success (e.g., show a success message)
@@ -35,7 +37,7 @@ const PropertyCard = ({ propertyDetails }) => {
   }, [userInfo?.favorites]);
 
   return (
-    <div className="w-[330px] [448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
+    <div className="w-[330px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
           <span>views</span> <span>{propertyDetails?.users.views.length}</span>
@@ -177,4 +179,4 @@ const PropertyCard = ({ propertyDetails }) => {
     </div>
   );
 };
-export default PropertyCard;
+export default FavoritesCard;

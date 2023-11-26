@@ -1,87 +1,76 @@
-import { fetchUserData } from "@/redux-store/features/globalState";
-import { AddToFavorites } from "@/utils/propertyAPI";
+import ConfirmModal from "@/Shared/models/ConfirmModal";
+import { deleteProperty } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-const PropertyCard = ({ propertyDetails }) => {
+const UserCard = ({ propertyDetails, type, onRemove }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const dispatch = useDispatch();
 
-  const [loved, setLoved] = useState(false);
-  const addToFAv = async () => {
+  const deleteProp = async () => {
     try {
-      await AddToFavorites(propertyDetails?._id);
-      dispatch(fetchUserData());
-
-      // Handle success (e.g., show a success message)
+      await deleteProperty(propertyDetails._id);
+      // After successfully adding to favorites, trigger the removal callback
+      onRemove(propertyDetails._id);
     } catch (error) {
-      // Handle error (e.g., display an error message)
-      console.error("Error add to fav :", error);
+      console.error("Error del prop:", error);
     }
   };
 
-  useEffect(() => {
-    if (userInfo?.favorites.includes(propertyDetails?._id)) {
-      setLoved(true);
-    }
-  }, [userInfo?.favorites]);
-
   return (
-    <div className="w-[330px] [448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
-      <div className="flex items-center justify-between absolute  top-10">
-        {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
-          <span>views</span> <span>{propertyDetails?.users.views.length}</span>
-        </div> */}
-        {userInfo && (
-          <div className="z-[10000] bg-white  drop-shadow-md flex items-center  mx-2  text-2xl rounded-full h-10 w-10 text-center px-2 py-1 cursor-pointer  ">
-            {userInfo ? (
-              loved ? (
-                <AiFillHeart
-                  className="text-red-500 animate-appearance-in"
-                  onClick={() => {
-                    addToFAv();
-
-                    setLoved(!loved);
-                  }}
-                />
-              ) : (
-                <AiOutlineHeart
-                  className="text-red-500 animate-appearance-in"
-                  onClick={() => {
-                    addToFAv();
-                    setLoved(!loved);
-                  }}
-                />
-              )
-            ) : (
-              ""
-            )}
-            {/* <AiFillHeart className="text-red-500"  /> */}
-          </div>
-        )}
+    <div className="w-[330px] overflow-hidden max-h-[520px]  bg-white drop-shadow-md rounded-xl relative">
+      <div
+        className={`flex items-center z-[100] absolute w-full top-10 right-0 ${
+          language ? "justify-start" : "justify-end"
+        }`}
+      >
+        <p className=" bg-white font-semibold  top-9 text-sm w-24  text-center px-2 py-2  rounded-l-full">
+          {type === "active"
+            ? language
+              ? "نشط"
+              : "active"
+            : type === "inactive"
+            ? "inactive"
+            : type === "pending"
+            ? language
+              ? "تحت المراجعة"
+              : "pending"
+            : type === "draft"
+            ? "draft"
+            : ""}
+        </p>
       </div>
       <div className="">
-        <Link
-          title={`${propertyDetails?.title}`}
-          key={propertyDetails?._id}
-          href={`/property-details/${propertyDetails?.slug}`}
-          className="w-full"
-        >
+        {type === "active" ? (
+          <Link
+            title={`${propertyDetails?.title}`}
+            key={propertyDetails?._id}
+            href={`/property-details/${propertyDetails?.slug}`}
+            className="w-full"
+          >
+            <Image
+              alt="Card background"
+              radius="none"
+              className="object-cover w-[330px]  h-[265px]"
+              src={
+                propertyDetails?.thumbnail || propertyDetails?.album[0]?.image
+              }
+            />
+          </Link>
+        ) : (
           <Image
             alt="Card background"
             radius="none"
             className="object-cover w-[330px]  h-[265px]"
             src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
           />
-        </Link>
+        )}
       </div>
       <div className="space-y-3 p-5">
         <div className="flex flex-row items-center  justify-between">
@@ -110,16 +99,22 @@ const PropertyCard = ({ propertyDetails }) => {
               : "For Investment"}
           </p>
         </div>
-        <Link
-          title={`${propertyDetails?.title}`}
-          key={propertyDetails?._id}
-          href={`/property-details/${propertyDetails?.slug}`}
-          className="w-full"
-        >
+        {type === "active" ? (
+          <Link
+            title={`${propertyDetails?.title}`}
+            key={propertyDetails?._id}
+            href={`/property-details/${propertyDetails?.slug}`}
+            className="w-full"
+          >
+            <h4 className="font-semibold text-large line-clamp-1 ">
+              {propertyDetails?.title}
+            </h4>
+          </Link>
+        ) : (
           <h4 className="font-semibold text-large line-clamp-1 ">
             {propertyDetails?.title}
           </h4>
-        </Link>
+        )}
         <p className="flex items-center gap-1 line-clamp-1">
           <FaLocationDot className="text-lightOrange font-bold" />{" "}
           <span className="line-clamp-1">
@@ -174,7 +169,31 @@ const PropertyCard = ({ propertyDetails }) => {
           </div>
         </div>
       </div>
+
+      <div className="flex items-center  gap-1 w-full p-2 ">
+        <div className="w-1/2">
+          <ConfirmModal
+            actinFunction={deleteProp}
+            title={language ? "تأكيد إزالة العقار" : "Confirm Delete Propert"}
+          >
+            {" "}
+            <button className="w-full rounded-lg text-center flex items-center justify-center text-red-500 gap-1 border-red-500 border-2 py-1 md:hover:bg-red-500 md:hover:text-white duration-150">
+              <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" />
+              {language ? "إزاله " : "Delete"}
+            </button>
+          </ConfirmModal>
+        </div>
+
+        <Link
+          className="w-1/2 rounded-lg text-center flex items-center justify-center text-lightGreen gap-1 border-lightGreen border-2 py-1 md:hover:bg-lightGreen md:hover:text-white duration-150"
+          title={language ? "تعديل العقار" : "Edit Property"}
+          href={`/editproperty/${propertyDetails.slug}`}
+        >
+          <AiOutlineEdit className="text-xl md:text-2xl " />{" "}
+          {language ? "تعديل" : "Edit"}
+        </Link>
+      </div>
     </div>
   );
 };
-export default PropertyCard;
+export default UserCard;

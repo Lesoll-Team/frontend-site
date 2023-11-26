@@ -11,7 +11,7 @@ const RecentPropertyForView = ({ propertyOfView }) => {
   return useMemo(
     () => (
       <section className="px-2 my-24">
-        <h2 className=" text-center font-bold text-3xl sm:text-4xl p-3 text-lightGreen">
+        <h2 className=" text-center font-bold text-3xl sm:text-4xl p-3 ">
           {language ? "العقارات الأكثر مشاهدة" : "Most viewed properties"}
         </h2>
         <div className=" container mx-auto justify-center flex flex-wrap gap-10 md:mt-16 mt-5">
