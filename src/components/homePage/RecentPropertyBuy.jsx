@@ -5,19 +5,21 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@nextui-org/react";
 
+import PropertyCard from "../realtyCard/PropertyCard";
+
 const RecentPropertyBuy = ({ propertiesBuy }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return useMemo(
     () => (
       <section className="px-2 my-24">
-        <h2 className=" text-center font-bold text-3xl sm:text-4xl p-3 text-lightGreen">
+        <h2 className=" text-center font-bold text-3xl sm:text-4xl p-3 text-">
           {language ? "أحدث العقارات للبيع" : "Recent Properties For Buy"}
         </h2>
-        <div className="container mx-auto justify-center flex flex-wrap gap-16 md:mt-16 mt-5">
+        <div className="container mx-auto justify-center flex flex-wrap gap-10 md:mt-16 mt-5">
           {propertiesBuy ? (
             propertiesBuy.map((property) => (
-              <RealtyCard key={property._id} propertyDetails={property} />
+              <PropertyCard key={property._id} propertyDetails={property} />
             ))
           ) : (
             <>
