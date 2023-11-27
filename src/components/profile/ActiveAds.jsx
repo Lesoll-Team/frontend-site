@@ -4,10 +4,11 @@ import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "@/redux-store/features/profileSlice";
-import ProfileCard from "./realtyCards/ProfileCard";
+// import ProfileCard from "./realtyCards/ProfileCard";
 import Link from "next/link";
 import { BsHouseAddFill } from "react-icons/bs";
 import { DotPulse } from "@uiball/loaders";
+import UserCard from "./realtyCards/UserCard";
 
 const ActiveAds = () => {
   const [activeAdds, setActiveAdds] = useState(null);
@@ -56,7 +57,7 @@ const ActiveAds = () => {
             {/*انا محدد اللى يتعرض عقار واحد بس  */}
 
             {activeAdds?.confirmedRealty?.map((propActive) => (
-              <ProfileCard
+              <UserCard
                 onRemove={handledelete}
                 key={propActive._id}
                 propertyDetails={propActive}

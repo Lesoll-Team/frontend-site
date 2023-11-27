@@ -104,7 +104,7 @@ const EditProp = ({ propData, setPropData }) => {
     formData.append("price", propData.price);
     formData.append("area", propData.area);
     formData.append("areaType", propData.areaType);
-    // formData.append("RealEstateFinance", propData.realEstateFinance);
+    formData.append("RealEstateFinance", propData.RealEstateFinance);
     formData.append("downPayment", propData?.downPayment || 0);
 
     formData.append("maintenancePayment", propData?.maintenancePayment || 0);
