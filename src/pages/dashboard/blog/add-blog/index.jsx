@@ -8,11 +8,8 @@ import { useRouter } from "next/router";
 const AddBlog = () => {
   const router = useRouter();
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
-  const messageEventBlog = useSelector(
-    (state) => state.BlogDashboard.messageEventBlog
-  );
+  const messageEventBlog = useSelector((state) => state.BlogDashboard.messageEventBlog);
   const dispatch = useDispatch();
-  // const [messageAddBlog, setMessageAddBlog] = useState("");
   const [titleAR, setTitleAR] = useState("");
   const [titleEN, setTitleEN] = useState("");
 
@@ -30,6 +27,7 @@ const AddBlog = () => {
 
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
+  const [blogCreated, setBlogCreated] = useState(false);
 
   const handleImgChange = (e) => {
     const newImage = e.target.files[0];
@@ -78,11 +76,14 @@ const AddBlog = () => {
     formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
-    // const data =
-    dispatch(
-      createBlogs({ blogData: formData }) //, blogData: formData
-    );
-    router.push(`/blog/${slug.ar}`);
+   dispatch(createBlogs({ blogData: formData })).then((action) => {
+     if (createBlogs.fulfilled.match(action)) {
+       setBlogCreated(true);
+     }
+   });
+  };
+
+  useEffect(() => {
     setTitleAR("");
     setTitleEN("");
     setMetaTitleAR("");
@@ -91,35 +92,12 @@ const AddBlog = () => {
     setSlugEN("");
     setDescriptionAR(``);
     setDescriptionEN(``);
-
     setMetDescriptionAR("");
     setMetDescriptionEN("");
-
     setImage(null);
     setImagePrev(null);
+  }, [router]);
 
-  };
-
-  // useEffect(() => {
-  //   setTitleAR("");
-  //   setTitleEN("");
-
-  //   setMetaTitleAR("");
-  //   setMetaTitleEN("");
-
-  //   setSlugAR("");
-  //   setSlugEN("");
-
-  //   setDescriptionAR(``);
-  //   setDescriptionEN(``);
-
-  //   setMetDescriptionAR("");
-  //   setMetDescriptionEN("");
-
-  //   setImage(null);
-  //   setImagePrev(null);
-  // }, [router]);
-  
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
       <div className=" bg-lightGreenHover sticky top-0 ">
@@ -133,7 +111,6 @@ const AddBlog = () => {
             placeholder="set Image here"
             labelPlacement="outside"
             label="Image"
-            // value={selectedImage}
             className="my-5"
             onChange={handleImgChange}
           />
@@ -273,15 +250,19 @@ const AddBlog = () => {
             onClick={handleBlogButton}
             className="text-3xl font-semibold text-white w-5/12 p-4 rounded-xl justify-center mx-auto  items-center px-10 bg-lightGreen"
           >
-            Add Blog
+            {messageEventBlog?"add blog...":"add blog"}
           </button>
-          {/* <p className="text-2xl text-center mt-5">
-            {messageEventBlog ? (
-              <span className="text-red-600  font-semibold ">
-                لم يتم إضافة المقال
-              </span>
-            ) : null}
-          </p> */}
+          {blogCreated && (
+            <div className="text-green-500 font-semibold text-lg pt-5 text-center">
+              Blog added successfully!
+            </div>
+          )}
+          {errorBlog && (
+            <div className="text-red-500 font-semibold text-lg pt-5 text-center">
+              Error adding blog: {errorBlog.message}
+            </div>
+          )}
+          <div className="text-red-500 font-semibold text-lg pt-5 text-center"></div>
         </div>
       </div>
     </div>
