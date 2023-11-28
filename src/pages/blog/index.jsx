@@ -3,12 +3,11 @@ import Head from "next/head";
 import React from "react";
 import { getAllBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
 import { useSelector } from "react-redux";
-
 function Blog({ blogs }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   // console.log("blogs",blogs);
   return (
-    <div className="container mx-auto  p-5">
+    <div className="  mx-auto  p-10">
       <Head>
         <title>{language?"المقالات":"Blogs"}</title>
         <meta
