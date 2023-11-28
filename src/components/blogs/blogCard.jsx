@@ -35,10 +35,7 @@ function BlogCard({ blogData }) {
             </div>
             <div className="">
               <p className="text-default-500 sm:text-lg line-clamp-2 flex-wrap text-sm  md:text-medium lg:text-lg ">
-                {language ? item.description.ar : item.description.en}
-                {language
-                  ? item.description.ar
-                  : item.description.en}
+                {language ? item.metaDescription.ar : item.metaDescription.en}
               </p>
             </div>
           </div>

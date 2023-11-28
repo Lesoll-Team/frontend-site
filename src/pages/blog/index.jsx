@@ -5,7 +5,7 @@ import { getAllBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
 import { useSelector } from "react-redux";
 function Blog({ blogs }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log("blogs",blogs);
+  // console.log("blogs",blogs);
   return (
     <div className="  mx-auto  p-10">
       <Head>
