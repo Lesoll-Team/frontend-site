@@ -26,7 +26,7 @@ function BlogCard({ blogData }) {
             </Link>
           </div>
 
-          <div className=" ">
+          <div className=" m-2">
             <div className="">
               <h2 className="text-lightGreen sm:text-lg line-clamp-1 flex-wrap text-sm text-md md:text-xl lg:text-2xl ">
                 {language ? item.title.ar : item.title.en}
@@ -42,7 +42,5 @@ function BlogCard({ blogData }) {
         </div>
       ))}
     </div>
-  );
-}
-
+  );}
 export default React.memo(BlogCard);
