@@ -1,4 +1,10 @@
+import PropertyCard from "./PropertyCard";
+
 const UserDetails = () => {
-  return <div>UserDetails</div>;
+  return (
+    <div>
+      <PropertyCard />
+    </div>
+  );
 };
 export default UserDetails;
