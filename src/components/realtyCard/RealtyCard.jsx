@@ -124,12 +124,9 @@ const RealtyCardRent = ({ propertyDetails }) => {
         >
           <div
             dir="rtl"
-            className=" text-lightOrange mt-3  px-5 flex justify-between  hover:underline  font-medium"
+            className=" text-lightOrange mt-3  px-5 flex justify-between  hover:underline  font-medium "
           >
-            <p>
-              {propertyDetails?.title.substring(0, 30)}
-              {propertyDetails?.title.length > 30 && "..."}
-            </p>
+            <p className="line-clamp-1">{propertyDetails?.title}</p>
           </div>
         </Link>
         <div className=" text-lightGreen w-full  px-5 flex  justify-between ">
@@ -173,10 +170,11 @@ const RealtyCardRent = ({ propertyDetails }) => {
           </div>
         </div>
         {/* location */}
-        <div className="px-5 mb-1 flex flex-col  justify-start items-start gap-3 ">
-          <p className="text-sm  text-darkGray">
-            {/* {propertyDetails?.address.name} */}
-            {propertyDetails?.address?.name.substring(0, 35) || "not Found"} ...
+        <div className="px-5 mb- flex flex-col  justify-start items-start gap-3 ">
+          <p className="text-sm  text-darkGray line-clamp-1">
+            {propertyDetails?.address?.governrate}
+            {propertyDetails?.address?.region &&
+              " ," + propertyDetails?.address?.region}
           </p>
         </div>
       </div>

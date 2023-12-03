@@ -166,7 +166,7 @@ function ConfirmAppointment({ userAppointment }) {
               phone={true}
               description={
                 language
-                  ? "لا يمكن التواصل مع المعلن فى حالة عدم وجود رقم فى هانف خاص بك لدينا "
+                  ? "لا يمكن التواصل مع المعلن في حالة عدم تسجيل رقم هاتفك لدينا"
                   : "You can't contact with the seller with out completeing your account phone number "
               }
             >
@@ -199,11 +199,12 @@ function ConfirmAppointment({ userAppointment }) {
         {/* property share modale */}
         <SocialMediaModal
           slug={userAppointment?.slug}
+          id={userAppointment?._id}
           title={language ? "مشاركة العقار" : "Share property"}
         >
           <button className="border-2 w-full flex flex-col justify-center items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer">
             <AiOutlineShareAlt className="text-3xl" />
-            <p className="font-semibold">Share</p>
+            <p className="font-semibold">{language ? "مشاركة" : "Share"}</p>
           </button>
         </SocialMediaModal>
 
@@ -222,7 +223,7 @@ function ConfirmAppointment({ userAppointment }) {
             ) : (
               <AiOutlineHeart className="text-red-500 text-3xl animate-appearance-in" />
             )}
-            <p className="font-semibold">Favorite</p>
+            <p className="font-semibold">{language ? "المفضلة" : "Favorite"}</p>
           </button>
         ) : (
           <ContactBtnsModal

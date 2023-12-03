@@ -1,113 +1,72 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import React, { useState } from "react";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
+import { Select, SelectItem } from "@nextui-org/react";
+
+
+
 const CreatePlansPricing = () => {
   const [moreOption, setMoreOption] = useState(false);
-  const [formData, setFormData] = useState({
-    categoryName: { ar: "", en: "" },
-    date: { ar: "", en: "" },
-    rank: "", // Default value
-    description: { ar: "", en: "" },
-    price: 0,
-    features: [{ ar: "", en: "" }],
-    targetUser: "",
-    oldPrice: 0,
-    Offer: false,
-    isAdmin: false,
-    isPopular: false,
-  });
+
+  const [categoryName,setCategoryName]=useState("")
+  const [rank,setRank]=useState("")
+  const [targetUser,setTargetUser]=useState("")
+  const [expiryDate, setExpiryDate] = useState("");
+  const [isPopular, setPopular] = useState(false);
+  const [basicPrice, setBasicPrice] = useState(0);
+  const [isOffer, setOffer] = useState(false);
+  const [oldPrice, setOldPrice] = useState(0);
+    // const [featuresList, setFeaturesList] = useState([]);
+  const [featuresList, setFeaturesList] = useState([]);
+  const [descriptionCard, setDescriptionCard] = useState("");
+  const [pageContentText, setPageContentText] = useState("");
+
 
   const data2 = {
-    categoryName: "premium",
-    date: "month",
-    rank: "silver",
-    description:
-      "price paid for above and beyond some basic or intrinsic value some basic or intrinsic value some basic or intrinsic value",
-    price: "70",
-    dateListInCard: [
-      { text: "2D Canvas" },
-      { text: "3D Canvas" },
-      { text: "mport Media Files" },
-      { text: "Import 3D Assets" },
-      { text: "Multi Media Assets Support" },
-      { text: "3D Canvas" },
-    ],
-    dateListInPage: "",
-    lastPrice: "150",
-    Offer: false,
+    categoryName: categoryName,
+    date: expiryDate,
+    rank: rank,
+    description: descriptionCard,
+    price: basicPrice,
+    dateListInCard: [],
+    lastPrice: oldPrice,
+    Offer: isOffer,
     isAdmin: false,
-    isPopular: false,
+    isPopular: isPopular,
+    // pageContentText,
   };
-  const data = {};
-  const handleAddFeatures = () => {
-    // const { name, value } = e.target;
-    console.log(formData);
-    // // Assuming the input field names are "dateListInCardAr" and "dateListInCardEn"
-    // const index = parseInt(name.substring(name.length - 1), 10);
 
-    // setFormData((prevData) => {
-    //   const newFeatures = [...prevData.features];
-    //   newFeatures[index] = { ...newFeatures[index], ar: value };
-    //   return { ...prevData, features: newFeatures };
-    // });
-  };
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   //  console.log(name, value);
-  //   const newFormData = { ...formData };
-  //   console.log(newFormData);
-
-  //   newFormData[name] = value;
-  //   setFormData(newFormData);
-  //   //  console.log(formData);
-  // };
-
-  // const handleArrayInputChange = (index, e) => {
-  //   const { name, value } = e.target;
-  //   const newFormData = { ...formData };
-  //   newFormData.dateListInCard[index][name] = value;
-  //   setFormData(newFormData);
-  // };
-
-  // const handleAddDateListInCard = () => {
-  //   const newFormData = { ...formData };
-  //   newFormData.dateListInCard.push({ ar: "", en: "" });
-  //   setFormData(newFormData);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Handle form submission, you can access formData here
-  //   console.log("all:::", formData);
-  // };
-
-  // console.log(formData);
+  const handleAddFeatures = (e) => {
+e.preventDefault()   
+ console.log(data2);
+  }
   return (
     <div dir="ltr" className="w-full  flex">
       <div className="bg-lightGreenHover  sticky top-0">
         <Sidebar />
       </div>
       <div className="w-full grid md:grid-cols-2 grid-cols-1">
-        <form className="mt-6 ml-3 mb-10">
+        <div className="mt-6 ml-3 mb-10">
           {/* Category name */}
           <div>
-            <label className="block text-sm font-medium text-gray-600">
+            <d className="block text-sm font-medium text-gray-600">
               Category name :-
-            </label>
+            </d>
             <div className="flex space-x-3">
               <input
                 className="mt-1 px-3 py-2 border rounded w-full"
                 type="text"
                 name="CategoryNameAr"
                 placeholder="Name Arabic"
+                onChange={(e) => setCategoryName(e.target.value)}
               />
 
-              <input
+              {/* <input
                 className="mt-1 px-3 py-2 border rounded w-full"
                 type="text"
                 name="CategoryNameEn"
                 placeholder="Name English"
-              />
+              /> */}
             </div>
           </div>
           {/* Rank & Date & Target & is popular */}
@@ -118,8 +77,7 @@ const CreatePlansPricing = () => {
               </label>
               <select
                 name="rank"
-                // value={formData.rank}
-                // onChange={handleInputChange}
+                onChange={(e) => setRank(e.target.value)}
                 className="mt-1 px-3 py-2 border rounded w-full"
               >
                 <option value="silver">Silver</option>
@@ -136,7 +94,7 @@ const CreatePlansPricing = () => {
               <select
                 name="date"
                 // value={formData.rank}
-                // onChange={handleInputChange}
+                onChange={(e) => setExpiryDate(e.target.value)}
                 className="mt-1 px-3 py-2 border rounded w-full"
               >
                 <option value="one day">one day</option>
@@ -152,8 +110,7 @@ const CreatePlansPricing = () => {
               </label>
               <select
                 name="date"
-                // value={formData.rank}
-                // onChange={handleInputChange}
+                onChange={(e) => setTargetUser(e.target.value)}
                 className="mt-1 px-3 py-2 border rounded w-full"
               >
                 <option value="individual">individual</option>
@@ -164,10 +121,14 @@ const CreatePlansPricing = () => {
               </select>
             </div>
             <div className="flex items-center justify-center">
-              <input type="checkbox" id="popular" name="popular" />
-              <label className="w-24" for="popular">
-                {" "}
-                is popular{" "}
+              <input
+                onChange={(e) => setPopular(e.target.checked)}
+                type="checkbox"
+                id="popular"
+                name="popular"
+              />
+              <label className="w-24" htmlFor="popular">
+                is popular
               </label>
             </div>
           </div>
@@ -176,12 +137,13 @@ const CreatePlansPricing = () => {
           <div className=" mt-4 items-center grid grid-cols-2  space-x-3 ">
             <div>
               <label className="block text-sm font-medium text-gray-600">
-                Price :
+                Price :-
               </label>
               <input
                 name="rank"
                 type="number"
                 className="mt-1 px-3 py-2 border rounded w-full"
+                onChange={(e) => setBasicPrice(e.target.value)}
               />
             </div>
 
@@ -190,17 +152,21 @@ const CreatePlansPricing = () => {
                 Old price :
               </label>
               <div className="flex items-center">
-                <input type="checkbox" id="offer" name="offer" />
-                <label className="w-24" for="offer">
-                  {" "}
-                  is it offer{" "}
+                <input
+                  onChange={(e) => setOffer(e.target.checked)}
+                  type="checkbox"
+                  id="offer"
+                  name="offer"
+                />
+                <label className="w-24" htmlFor="offer">
+                  is it offer
                 </label>
-
                 <input
                   name="rank"
                   type="number"
                   className="mt-1 px-3 py-2 border rounded w-full"
-                  disabled=""
+                  disabled={!isOffer}
+                  onChange={(e) => setOldPrice(e.target.value)}
                 />
               </div>
             </div>
@@ -213,12 +179,13 @@ const CreatePlansPricing = () => {
             </label>
             <textarea
               placeholder="Arabic"
+              onChange={(e) => setDescriptionCard(e.target.value)}
               className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
             ></textarea>
-            <textarea
+            {/* <textarea
               placeholder="English"
               className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
-            ></textarea>
+            ></textarea> */}
           </div>
           {/*features*/}
           <div className="mt-4  col-span-2">
@@ -226,44 +193,33 @@ const CreatePlansPricing = () => {
               features :-
             </label>
             <div className=" mb-2 flex">
-              <div className="grow">
-                <input
-                  type="text"
-                  name={`dateListInCardAr`}
-                  className="mt-1 px-3 py-2 border rounded w-full"
-                  placeholder="Arabic"
-                  onChange={(e) =>
-                    setFormData((prevData) => ({
-                      ...prevData,
-                      features: [
-                        { ...prevData.features[0], ar: e.target.value },
-                      ],
-                    }))
-                  }
-                />
-                {/* />{features[0].ar:e.target.value} */}
-                <input
-                  type="text"
-                  name={`dateListInCardEn`}
-                  className="mt-1 px-3 py-2 border rounded w-full"
-                  placeholder="English"
-                  onChange={(e) =>
-                    setFormData((prevData) => ({
-                      ...prevData,
-                      features: [
-                        { ...prevData.features[0], en: e.target.value },
-                      ],
-                    }))
-                  }
-                />
-              </div>
-              <button
-                onClick={handleAddFeatures}
-                type="button"
-                className="mx-2 p-2 text-white font-semibold bg-blue-500 rounded-lg"
+              <Select
+                label="features"
+                placeholder="Select an features"
+                selectionMode="multiple"
+                // onChange={(e) => setFeaturesList(e.target.value)}
+                onSelectionChange={setFeaturesList}
               >
-                Add
-              </button>
+                <SelectItem key="2D_Canvas" value="2D_Canvas">
+                  2D Canvas
+                </SelectItem>
+
+                <SelectItem key="3D_Canvas" value="3D_Canvas">
+                  3D Canvas
+                </SelectItem>
+
+                <SelectItem key="Media_Files" value="Media_Files">
+                  mport Media Files
+                </SelectItem>
+
+                <SelectItem key="3D_Assets" value="3D_Assets">
+                  Import 3D Assets
+                </SelectItem>
+
+                <SelectItem key="Assets_Support" value="Assets_Support">
+                  Multi Media Assets Support
+                </SelectItem>
+              </Select>
             </div>
           </div>
 
@@ -280,25 +236,29 @@ const CreatePlansPricing = () => {
                 Description :-
               </label>
               <textarea
+                onChange={(e) => setPageContentText(e.target.value)}
                 placeholder="Arabic"
                 className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
-              ></textarea>
-              <textarea
+              />
+              {/* <textarea
                 placeholder="English"
                 className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
-              ></textarea>
+              ></textarea> */}
             </div>
           </div>
           {/* Button  */}
           <div className="flex justify-center items-center">
-            <button className="bg-lightGreen py-5 px-10 rounded-xl font-semibold text-white">
+            <button
+              onClick={handleAddFeatures}
+              className="bg-lightGreen py-5 px-10 rounded-xl font-semibold text-white"
+            >
               Submit add plan
             </button>
           </div>
-        </form>
-        <card className="flex justify-center items-center">
-          <PlanPricingCard data={data2} />
-        </card>
+        </div>
+        <div className="flex justify-center items-center">
+          {/* <PlanPricingCard data={data2} /> */}
+        </div>
       </div>
     </div>
   );

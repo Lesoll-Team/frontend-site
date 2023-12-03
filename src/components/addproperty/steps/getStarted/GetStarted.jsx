@@ -107,9 +107,6 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
     ],
   };
 
-  // console.log(unitOptions);
-  // console.log(propertyDetils.propType);
-  // console.log(propertyDetils.propType);
   return (
     <div className="flex flex-col  w-full space-y-5">
       <h1 className="text-center text-5xl text-darkGreen mt-3 font-bold">
@@ -117,12 +114,23 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
       </h1>
       <div className="w-full">
         <AddPropInput
-          error={propErrors?.title}
+          error={propErrors?.title || propErrors?.longTitle}
           title={!language ? "Property Title" : "عنوان الاعلان"}
           setValue={(e) => {
             setData({ ...propertyDetils, title: e.target.value });
             if (e.target.value) {
               setPropErrors((prevErrors) => ({ ...prevErrors, title: false }));
+            }
+            if (e.target.value.length < 100) {
+              setPropErrors((prevErrors) => ({
+                ...prevErrors,
+                longTitle: false,
+              }));
+            } else {
+              setPropErrors((prevErrors) => ({
+                ...prevErrors,
+                longTitle: true,
+              }));
             }
           }}
           value={propertyDetils.title}
@@ -131,6 +139,13 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
         {propErrors?.title && (
           <p className="text-red-500">
             {language ? "يرجى كتابة العنوان " : "Title is missing"}
+          </p>
+        )}
+        {propErrors?.longTitle && (
+          <p className="text-red-500">
+            {language
+              ? " لايجب ان يتخطى العنوان 100 حرف."
+              : "Title is too long"}
           </p>
         )}
       </div>

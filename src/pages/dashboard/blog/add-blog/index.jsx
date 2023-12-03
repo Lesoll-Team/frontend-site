@@ -1,16 +1,15 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import { createBlogs } from "@/redux-store/features/dashboard/blogDashboardSlice";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Textarea } from "@nextui-org/react";
+import { useRouter } from "next/router";
 // createBlogs
 const AddBlog = () => {
+  const router = useRouter();
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
-  const messageEventBlog = useSelector(
-    (state) => state.BlogDashboard.messageEventBlog
-  );
-  const dispatch = useDispatch(); 
-// const [messageAddBlog, setMessageAddBlog] = useState("");
+  const messageEventBlog = useSelector((state) => state.BlogDashboard.messageEventBlog);
+  const dispatch = useDispatch();
   const [titleAR, setTitleAR] = useState("");
   const [titleEN, setTitleEN] = useState("");
 
@@ -28,6 +27,7 @@ const AddBlog = () => {
 
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
+  const [blogCreated, setBlogCreated] = useState(false);
 
   const handleImgChange = (e) => {
     const newImage = e.target.files[0];
@@ -76,12 +76,28 @@ const AddBlog = () => {
     formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
-    const data = dispatch(
-       createBlogs({ blogData: formData }) //, blogData: formData
-    );
-//  setMessageAddBlog(data);
-//  console.log(messageAddBlog);
+   dispatch(createBlogs({ blogData: formData })).then((action) => {
+     if (createBlogs.fulfilled.match(action)) {
+       setBlogCreated(true);
+     }
+   });
   };
+
+  useEffect(() => {
+    setTitleAR("");
+    setTitleEN("");
+    setMetaTitleAR("");
+    setMetaTitleEN("");
+    setSlugAR("");
+    setSlugEN("");
+    setDescriptionAR(``);
+    setDescriptionEN(``);
+    setMetDescriptionAR("");
+    setMetDescriptionEN("");
+    setImage(null);
+    setImagePrev(null);
+  }, [router]);
+
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
       <div className=" bg-lightGreenHover sticky top-0 ">
@@ -116,6 +132,7 @@ const AddBlog = () => {
           <Input
             name="title-ar"
             color="default"
+            value={titleAR}
             type="text"
             placeholder="إدخال عنوان المقال باللغة العربية هنا ..."
             labelPlacement="outside"
@@ -126,6 +143,7 @@ const AddBlog = () => {
           <Input
             color="default"
             type="text"
+            value={titleEN}
             name="title-en"
             placeholder="set Title English here"
             labelPlacement="outside"
@@ -137,12 +155,14 @@ const AddBlog = () => {
           <b>Description Arabic</b>
           <textarea
             dir="rtl"
+            value={descriptionAR}
             onChange={(e) => setDescriptionAR(e.target.value)}
             placeholder="حقل إدخال الوصف "
             className="min-h-[300px] rounded-lg indent-10 border-4 border-gray-200"
           />
           <b>Description English</b>
           <textarea
+            value={descriptionEN}
             onChange={(e) => setDescriptionEN(e.target.value)}
             placeholder="Enter your description"
             className="min-h-[300px] border-4 border-gray-200  rounded-lg indent-10 "
@@ -152,6 +172,7 @@ const AddBlog = () => {
         <div className="flex gap-5 ">
           <Input
             color="primary"
+            value={metaTitleAR}
             onChange={(e) => setMetaTitleAR(e.target.value)}
             label=<b>
               Meta Title Arabic
@@ -162,6 +183,7 @@ const AddBlog = () => {
           />
           <Input
             color="primary"
+            value={metaTitleEN}
             onChange={(e) => setMetaTitleEN(e.target.value)}
             label=<b>
               Meta Title English
@@ -174,6 +196,7 @@ const AddBlog = () => {
         <div className=" flex gap-5">
           <Textarea
             color="primary"
+            value={metDescriptionAR}
             onChange={(e) => setMetDescriptionAR(e.target.value)}
             label=<b>
               Meta Description Arabic{" "}
@@ -186,6 +209,7 @@ const AddBlog = () => {
           />
           <Textarea
             color="primary"
+            value={metDescriptionEN}
             onChange={(e) => setMetDescriptionEN(e.target.value)}
             label=<b>
               Meta Description English{" "}
@@ -201,6 +225,7 @@ const AddBlog = () => {
           <Input
             color="primary"
             onChange={(e) => setSlugAR(e.target.value)}
+            value={slugAR}
             label=<b>
               Slug Arabic{" "}
               <span className="text-lightOrange">{slugAR.length}</span>
@@ -211,6 +236,7 @@ const AddBlog = () => {
           <Input
             color="primary"
             onChange={(e) => setSlugEN(e.target.value)}
+            value={slugEN}
             label=<b>
               Slug English{" "}
               <span className="text-lightOrange">{slugEN.length}</span>
@@ -224,15 +250,19 @@ const AddBlog = () => {
             onClick={handleBlogButton}
             className="text-3xl font-semibold text-white w-5/12 p-4 rounded-xl justify-center mx-auto  items-center px-10 bg-lightGreen"
           >
-            Add Blog
+            {messageEventBlog?"add blog...":"add blog"}
           </button>
-          <p className="text-2xl text-center mt-5">
-            {messageEventBlog ? (
-              <span className="text-red-600  font-semibold ">
-                لم يتم إضافة المقال
-              </span>
-            ) : null}
-          </p>
+          {blogCreated && (
+            <div className="text-green-500 font-semibold text-lg pt-5 text-center">
+              Blog added successfully!
+            </div>
+          )}
+          {errorBlog && (
+            <div className="text-red-500 font-semibold text-lg pt-5 text-center">
+              Error adding blog: {errorBlog.message}
+            </div>
+          )}
+          <div className="text-red-500 font-semibold text-lg pt-5 text-center"></div>
         </div>
       </div>
     </div>

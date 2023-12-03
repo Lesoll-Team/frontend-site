@@ -8,7 +8,7 @@ import { dataFoundFromSearch } from "@/redux-store/features/searchingSlice";
 import SearchResult from "@/components/SearchResult/SearchResult";
 import Head from "next/head";
 
-export default function Searching({ keyword }) {
+export default function Searching({ keyword,bestSearch }) {
   const keyValuePairs = keyword.split("&").map((pair) => pair.split("="));
 
   // Reverse the filtering
@@ -21,6 +21,7 @@ export default function Searching({ keyword }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const dispatch = useDispatch();
+  const query = router.query.keyword;
   const currentPage = useSelector((state) => state.Searching.currentPage);
   useEffect(() => {
     if (keyword !== undefined) {
@@ -85,18 +86,29 @@ export default function Searching({ keyword }) {
                 " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
           }
         />
+        <link rel="canonical" href={`https://lesoll.com/searching/${query}`} />
       </Head>
-      {/* <h3></h3> */}
-      <SearchResult reversedFilteredKeywords={reversedFilteredKeywords} />
+
+      <SearchResult
+        PopularSearches={bestSearch.POPULAR_SEARCHES}
+        MostArea={bestSearch.Most_Area}
+        MostGovernorate={bestSearch.Most_Governorate}
+        reversedFilteredKeywords={reversedFilteredKeywords}
+      />
     </>
   );
 }
 export async function getServerSideProps({ params }) {
   const keyword = params.keyword;
+  const linkHome = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+  );
+  const linkInHome = await linkHome.json();
 
   return {
     props: {
       keyword,
+      bestSearch: linkInHome,
     },
   };
 }

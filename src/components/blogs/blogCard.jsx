@@ -1,46 +1,45 @@
 import React from "react";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import {  Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
 function BlogCard({ blogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  // console.log(blogData);
   return (
-    <div className="gap-10 flex flex-wrap  ">
+    <div className="gap-10 flex flex-wrap justify-center  ">
       {blogData.map((item) => (
-        <Link
-          title={language ? item.title.ar : item.title.en}
-          key={item._id}
-          href={`/blog/${language ? item.slug.ar : item.slug.en}`}
-        >
-          <Card className="w-[300px]" shadow="sm" key={item._id} isPressable>
-            <CardBody className="overflow-visible p-0">
+        <div key={item._id} className="w-[350px]  border  h-[450px]">
+          <div className=" w-[350px]   mx-auto">
+            <Link
+              title={language ? item.title.ar : item.title.en}
+              href={`/blog/${language ? item.slug.ar : item.slug.en}`}
+            >
               <Image
-                shadow="sm"
-                radius="lg"
                 width="100%"
                 height="100%"
+                radius="none"
                 alt={language ? item.title.ar : item.title.en}
-                className=" object-cover "
+                className="w-[350px] h-[300px] object-cover"
                 src={item.BlogImage}
               />
-            </CardBody>
-            <CardFooter className="text-small">
-              <div className="">
-                <h2 className="text-lightGreen sm:text-lg text-sm text-md md:text-xl lg:text-2xl ">
-                  {language
-                    ? item.title.ar.substring(0, 30)
-                    : item.title.en.substring(0, 30)}
-                  {language
-                    ? item.title.ar.length > 30 && "..."
-                    : item.title.en.length > 30 && "..."}
-                </h2>
-              </div>
-            </CardFooter>
-          </Card>
-        </Link>
+            </Link>
+          </div>
+
+          <div className=" ">
+            <div className="">
+              <h2 className="text-lightGreen sm:text-lg line-clamp-1 flex-wrap text-sm text-md md:text-xl lg:text-2xl ">
+                {language ? item.title.ar : item.title.en}
+                {language ? item.title.ar : item.title.en}
+              </h2>
+            </div>
+            <div className="">
+              <p className="text-default-500 sm:text-lg line-clamp-2 flex-wrap text-sm  md:text-medium lg:text-lg ">
+                {language ? item.metaDescription.ar : item.metaDescription.en}
+              </p>
+            </div>
+          </div>
+        </div>
       ))}
     </div>
   );

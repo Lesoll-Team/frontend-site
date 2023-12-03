@@ -1,15 +1,13 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-
-const SiteMapRedirect = () => {
+const SearchPageRedirect = () => {
   const router = useRouter();
-
   useEffect(() => {
     // Redirect to the new URL
+    const keywords = router.asPath;
 
-    router.push(`/searching/offer=all`);
+    router.push(`/searching/${keywords}`);
   }, [router]);
   return null;
 };
-
-export default SiteMapRedirect;
+export default SearchPageRedirect;

@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import DropdownArea from "./DropdownArea";
 import DropdownUintType from "./DropdownUintType";
 import { IoOptionsOutline } from "react-icons/io5";
+// import { Input } from "@nextui-org/react";
 const DropdownMoreHome = ({
   classNames,
   propertyType,
@@ -38,7 +39,11 @@ const DropdownMoreHome = ({
   setFromArea,
   fromArea,
   setToArea,
-  toArea,setSelectedOption,selectoption,
+  toArea,
+  setSelectedOption,
+  selectoption,
+  setKeywords,
+  keywords,
 }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -171,6 +176,21 @@ const DropdownMoreHome = ({
               />
             </div>
           </div>
+          <input
+            dir={languageIs ? "rtl" : "ltr"}
+            className="w-full placeholder-orange-400 border-lightOrange active:outline-none hover:outline-none focus:outline-none  p-[9px] border shadow-md rounded-md mt-2 focus:ring "
+            // size="md"
+            name="Search"
+            // isClearable
+            autocomplete="off"
+            placeholder={
+              languageIs
+                ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "
+                : "Search by Keywords: e.g. investment, Daily rent, land..."
+            }
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+          />
         </div>
       )}
     </div>

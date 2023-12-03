@@ -75,7 +75,6 @@ function PropertyDetailsMain({ singleProperty, deleted }) {
                 <hr />
               </div>
               <div className="col-span-2 relative h-full row-span-2 ">
-                {/* <AddressLocation singleAddressLocation={singleProperty} /> */}
                 <ConfirmAppointment userAppointment={singleProperty} />
               </div>
 

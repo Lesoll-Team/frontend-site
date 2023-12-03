@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 // import { ar } from "../../language/ar/common";
 // import { en } from "../../language/en/common";
 import { useSelector } from "react-redux";
+import PropertyCard from "../realtyCard/PropertyCard";
 function SimilarListings({ recommendationsProperty }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -25,8 +26,12 @@ function SimilarListings({ recommendationsProperty }) {
         <div dir="ltr" className="e" ref={emblaThumbsRef}>
           <div className="flex gap-5 p-2">
             {recommendationsProperty.map((recommendations) => (
-              <div key={recommendations._id} className="w-[310px] h-[420px]">
-                <RealtyCard propertyDetails={recommendations} />
+              <div
+                key={recommendations._id}
+                dir={language ? "rtl" : "ltr"}
+                className=""
+              >
+                <PropertyCard propertyDetails={recommendations} />
               </div>
             ))}
           </div>

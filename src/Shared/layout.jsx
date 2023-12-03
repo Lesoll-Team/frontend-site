@@ -11,8 +11,7 @@ import { useRouter } from "next/router";
 
 
 export default function Layout({ children }) {
-  const router=useRouter()
-  // console.log(router);
+  const router =useRouter()
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
@@ -33,7 +32,8 @@ export default function Layout({ children }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
-    getUserOffline({ url: `${router.asPath}` });
+      getUserOffline({ url: `${router.asPath}` });
+
   }, [dispatch, language, children]);
 
   return (

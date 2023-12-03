@@ -53,7 +53,10 @@ const PersonalInfo = () => {
     try {
       dispatch(
         updateUserData({
-          userID:userDataInfo?._id,userUpdate: formData}));
+          userID: userDataInfo?._id,
+          userUpdate: formData,
+        })
+      );
     } catch (error) {
       console.error(error);
     }
@@ -119,7 +122,7 @@ const PersonalInfo = () => {
             </p>
             <input
               // type="text"
-              
+
               name="Full Name"
               placeholder="Full Name"
               value={userName || ""}

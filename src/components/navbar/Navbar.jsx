@@ -231,6 +231,7 @@ export default function Navbar() {
         >
           <NotificationMenu
             sendCount={calcCount}
+            setCountNotifications={setCountNotifications}
             setNotificationsOpen={setNotifications}
             notificationsMenuRef={notificationsMenuRef}
           />

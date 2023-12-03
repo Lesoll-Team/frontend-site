@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import ProfileCard from "./realtyCards/ProfileCard";
+// import ProfileCard from "./realtyCards/ProfileCard";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { BsHouseAddFill } from "react-icons/bs";
 import { DotPulse } from "@uiball/loaders";
+import UserCard from "./realtyCards/UserCard";
 
 const PendingAds = () => {
   const [pendingAdds, setPendingAdds] = useState(null);
@@ -12,7 +13,7 @@ const PendingAds = () => {
 
   const getPending = useCallback(async () => {
     try {
-      const userToken =JSON.parse(localStorage.getItem("userToken"))
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
 
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
@@ -50,7 +51,7 @@ const PendingAds = () => {
       ) : pendingAdds.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
           {pendingAdds.map((propertyDetails) => (
-            <ProfileCard
+            <UserCard
               onRemove={handleDelete}
               key={propertyDetails?._id}
               propertyDetails={propertyDetails}
