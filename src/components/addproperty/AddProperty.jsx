@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { createNewProperty } from "../../utils/propertyAPI";
+import {
+  createNewProperty,
+  getGovernorate,
+  getRegion,
+} from "../../utils/propertyAPI";
 const GetStarted = dynamic(() => import("./steps/getStarted/GetStarted"));
 const PropertyInfo = dynamic(() => import("./steps/propInfo/PropertyInfo"));
 const Description = dynamic(() => import("./steps/description/Description"));
@@ -10,41 +14,30 @@ const Price = dynamic(() => import("./steps/price/Price"));
 const Gallery = dynamic(() => import("./steps/gallery/Gallery"));
 const Features = dynamic(() => import("./steps/features/Features"));
 const SellerInfo = dynamic(() => import("./steps/sellerInfo/SellerInfo"));
-// const Appointment = dynamic(() => import("./steps/appointment/Appointment"));
-const Location = dynamic(() => import("./steps/location/Location"));
+// const Location = dynamic(() => import("./steps/location/Location"));
 import useAddPropValidation from "@/Hooks/useAddPropValidation";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
-import { useRouter } from "next/router";
+import Place from "./steps/place/Place";
 
 const AddProperty = () => {
-  // const router = useRouter();
-  // const router = useRouter();
-  // console.log(router.pathname);
-  // useEffect(() => {
-  //   const exitingFunction = (event) => {
-  //     // display a confirmation dialog with a message
-  //     const confirmExit = window.confirm(
-  //       "Are you sure you want to leave this page?"
-  //     );
-
-  //     // if the user clicks Cancel, prevent the page from unloading
-  //     if (!confirmExit) {
-  //       router.preventDefault();
-  //       event.returnValue = ""; // For some older browsers
-  //     }
-  //   };
-
-  //   window.addEventListener("beforeunload", exitingFunction);
-
-  //   return () => {
-  //     console.log("unmounting component...");
-  //     window.removeEventListener("beforeunload", exitingFunction);
-  //   };
-  // }, []);
+  const [governrate, setGovernrate] = useState([]);
+  const [region, setRegion] = useState([]);
+  useEffect(() => {
+    const fetchGovernrate = async () => {
+      const gov = await getGovernorate();
+      setGovernrate(gov);
+    };
+    fetchGovernrate();
+    const fetchRegion = async () => {
+      const gov = await getRegion();
+      setRegion(gov);
+    };
+    fetchRegion();
+  }, []);
 
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  // console.log(userInfo);
+
   const [propertyDetils, setPropertyDetils] = useState({
     title: "",
     offer: "",
@@ -104,7 +97,6 @@ const AddProperty = () => {
   });
   const [propErrors, setPropErrors] = useState({});
 
-  // console.log(propertyDetils.address);
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
   const [isAuth, setAuth] = useState(false);
@@ -116,8 +108,6 @@ const AddProperty = () => {
 
   useEffect(() => {
     setAuth(isLoading);
-
-    // console.log(userDataInfo);
   });
 
   const { errors, validateProperty } = useAddPropValidation(
@@ -130,7 +120,7 @@ const AddProperty = () => {
       return;
     }
     setLading(true);
-    // e.preventDefault();
+
     const formData = new FormData();
     formData.append("title", propertyDetils.title);
     formData.append("offer", propertyDetils.offer);
@@ -182,12 +172,7 @@ const AddProperty = () => {
         top: 0,
         behavior: "smooth",
       });
-
-      // Handle success (e.g., show a success message)
     } catch (error) {
-      // Handle error (e.g., display an error message)
-      // console.error("Error creating property:", error.message);
-      // console.log(error.message.includes("Phone number"));
       if (error.message.includes("Phone number")) {
         setPhoneTitleError(true);
         setPropErrors((prevState) => ({ ...prevState, title: true }));
@@ -196,20 +181,16 @@ const AddProperty = () => {
 
     setLading(false);
   };
-  // console.log(propertyDetils);
   useEffect(() => {
-    if (userInfo?.phone) {
-      if (!userInfo?.phone) {
-        setPropertyDetils({ ...propertyDetils, phoneChoice: "other" });
-      }
+    if (!userInfo?.phone) {
+      setPropertyDetils({ ...propertyDetils, phoneChoice: "other" });
+    } else {
+      setPropertyDetils({ ...propertyDetils, phoneChoice: "same" });
     }
   }, [userInfo?.phone]);
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div
-      // dir={language ? "ltr" : "rtl"}
-      className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh] pb-20  flex flex-col justify-center items-center"
-    >
+    <div className="sm:container px-3 sm:px-0  mx-auto py-10 space-y-4 min-h-[95dvh] pb-20  flex flex-col justify-center items-center">
       <div
         className={` w-full  rounded-3xl  py-5  mx-auto px-7  duration-200  ${
           sended ? " md:w-[80%] min-h-[200px] " : "min-h-[550px]"
@@ -269,12 +250,21 @@ const AddProperty = () => {
                   setData={setPropertyDetils}
                 />
                 <hr />
-                <Location
+                {/* <Location
                   propErrors={propErrors}
                   setPropErrors={setPropErrors}
                   propertyDetils={propertyDetils}
                   setData={setPropertyDetils}
+                /> */}
+                <Place
+                  propErrors={propErrors}
+                  setPropErrors={setPropErrors}
+                  propertyDetils={propertyDetils}
+                  setData={setPropertyDetils}
+                  region={region}
+                  governrate={governrate}
                 />
+
                 <hr />
                 {userInfo && (
                   <SellerInfo
@@ -284,12 +274,6 @@ const AddProperty = () => {
                     setData={setPropertyDetils}
                   />
                 )}
-                {/* <Appointment
-                  propertyDetils={propertyDetils}
-                  setData={setPropertyDetils}
-                /> */}
-                {/* <hr /> */}
-                {/* <Review /> */}
               </div>
               {errors && (
                 <p className="text-center text-red-500">{errors[0]}</p>

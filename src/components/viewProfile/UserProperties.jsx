@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { ViewUserProperties } from "@/utils/userAPI";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Skeleton } from "@nextui-org/react";
-const UserProperties = () => {
+import CardSkeleton from "../realtyCard/CardSkeleton";
+const UserProperties = ({ propertiesNums }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [propertiesData, setPropertiesData] = useState();
   const [page, setPage] = useState(1);
@@ -32,11 +32,12 @@ const UserProperties = () => {
     // If you need a cleanup function, return it here
     // Example: return () => cleanupLogic();
   }, [slug, page, propertyType]);
+  console.log(propertiesData);
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage + 1);
   };
   return (
-    <div className="col-span-5 space-y-8 w-full bg-white rounded-xl p-8   mx-auto">
+    <div className={` space-y-8 w-full bg-white rounded-xl p-8   mx-auto `}>
       <h1 className="text-center text-5xl text-darkGreen font-semibold  ">
         {language ? (
           <>
@@ -48,12 +49,77 @@ const UserProperties = () => {
           </>
         )}
       </h1>
+      {propertiesData.length > 0 ? (
+        <div className="flex mx-auto items-center justify-center gap-3">
+          <div className="text-center">
+            <button
+              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
+                propertyType === "000" &&
+                " text-white bg-darkGreen font-semibold"
+              }`}
+              onClick={() => setPropertyType("000")}
+            >
+              {language ? "الكل" : "All"}
+            </button>
+          </div>
+          {Boolean(propertiesNums?.forRent) && (
+            <div>
+              <button
+                className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
+                  propertyType === "222" &&
+                  " text-white bg-darkGreen font-semibold"
+                }`}
+                onClick={() => setPropertyType("222")}
+              >
+                {language ? " للإيجار" : "For Rent"}
+              </button>
+            </div>
+          )}
+          {Boolean(propertiesNums.forSale) && (
+            <button
+              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
+                propertyType === "111" &&
+                " text-white bg-darkGreen font-semibold"
+              }`}
+              onClick={() => setPropertyType("111")}
+            >
+              {language ? "للبيع" : "For Sale"}
+            </button>
+          )}
+          {Boolean(propertiesNums.forInvest) && (
+            <button
+              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
+                propertyType === "333" &&
+                " text-white bg-darkGreen font-semibold"
+              }`}
+              onClick={() => setPropertyType("333")}
+            >
+              {language ? "للأستثمار" : "For Investment"}
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="w-full min-h-[30dvh] h-full flex items-center justify-center">
+          <p>{language ? "لا يوجد عقارات" : "No properties"}</p>
+        </div>
+      )}
       <div className="flex gap-10 flex-wrap justify-center items-center">
-        {/* {propertiesData &&
+        {propertiesData ? (
           propertiesData.map((property) => {
             return <RealtyCard key={property._id} propertyDetails={property} />;
-          })} */}
-        <Skeleton className="w-3/5 rounded-lg"></Skeleton>
+          })
+        ) : (
+          <>
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+          </>
+        )}
       </div>
       <div className="flex justify-center">
         {totalPages > 1 && (

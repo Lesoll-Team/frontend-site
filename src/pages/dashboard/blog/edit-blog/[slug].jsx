@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Textarea } from "@nextui-org/react";
 import axios from "axios";
+import { useRouter } from "next/router";
 // editBlog
 const EditBlog = ({ singleBlog }) => {
+  const router = useRouter();
+
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
   const messageEventBlog = useSelector(
     (state) => state.BlogDashboard.messageEventBlog
@@ -77,9 +80,12 @@ const EditBlog = ({ singleBlog }) => {
     formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
-    const data = dispatch(
+    // const data =
+     dispatch(
       editBlog({ blogData: formData, blogID: singleBlog.getBlogs._id }) //, blogData: formData
     );
+    router.push(`/blog/${slug.ar}`);
+
     //  setMessageAddBlog(data);
   };
     //  console.log(singleBlog.getBlogs._id);

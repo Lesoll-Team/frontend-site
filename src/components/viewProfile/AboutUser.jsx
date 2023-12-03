@@ -8,27 +8,28 @@ const AboutUser = ({ totalProperties, userData, propertiesNums }) => {
         (propertiesNums.forInvest +
           propertiesNums.forRent +
           propertiesNums.forSale)) *
-      100,
+        100 || 0,
     forRent:
       (propertiesNums.forRent /
         (propertiesNums.forInvest +
           propertiesNums.forRent +
           propertiesNums.forSale)) *
-      100,
+        100 || 0,
     forInvest:
       (propertiesNums.forInvest /
         (propertiesNums.forInvest +
           propertiesNums.forRent +
           propertiesNums.forSale)) *
-      100,
+        100 || 0,
   };
+  console.log(totalProperties);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <div className="flex gap-5 lg:flex-row flex-col items-stretch">
       <div className="bg-white rounded-xl space-y-3 p-5 lg:w-5/12 w-full fade-in">
         <h3 className="text-2xl font-semibold">
-          {language ? "العقارات" : "Properties"} : {totalProperties}
+          {language ? "العقارات" : "Properties"}
         </h3>
         <div className="flex  items-center justify-between py-2">
           <div className="bg- flex w-full flex-col gap-1 justify-center items-center rounded-xl">

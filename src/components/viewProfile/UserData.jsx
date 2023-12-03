@@ -23,7 +23,7 @@ const Userdata = ({ userData, totalProperties }) => {
             src={userData?.avatarUrl}
             className="w-44 h-44 text-large border-4 drop-shadow-md"
           />
-          {!userData?.isOnline && (
+          {userData?.isOnline && (
             <div className="w-7 h-7 bg-green-500 border-3 border-white absolute bottom-4 z-10 rounded-full left-3"></div>
           )}
         </div>

@@ -1,4 +1,4 @@
-import { SearchBar } from "@/Shared/search/SearchBarHome";
+import { SearchBarHome } from "@/Shared/search/SearchBarHome";
 import dynamic from "next/dynamic";
 
 const Main = dynamic(() => import("@/components/homePage/Main"));
@@ -16,6 +16,11 @@ import { useSelector } from "react-redux";
 
 import Head from "next/head";
 import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
+
+
+
+
+
 export default function Home({
   propertyForRent,
   propertyForBuy,
@@ -23,7 +28,7 @@ export default function Home({
   bestSearch,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // console.log(bestSearch);
+
   return (
     <main>
       <Head>
@@ -66,7 +71,12 @@ export default function Home({
       </Head>
 
       <Main />
-      <SearchBar />
+      {/* <div className="container mx-auto my-8 text-center"> */}
+      {/* <h1 className="text-4xl font-bold mb-4">Search Dropdown Filter</h1> */}
+      {/* <SearchDropdown /> */}
+      <SearchBarHome />
+      {/**onSelect={handleSelect} */}
+      {/* </div> */}
 
       <RecentPropertyBuy propertiesBuy={propertyForBuy} />
       <RecentPropertyRent propertiesRent={propertyForRent} />

@@ -211,6 +211,11 @@ export async function ViewUserProperties(username, page, type) {
 
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response.status === 400) {
+      error.response.getConfirmedRealty = [];
+      return error.response;
+    } else {
+      throw error.response.data;
+    }
   }
 }

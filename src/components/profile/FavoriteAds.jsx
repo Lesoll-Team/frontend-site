@@ -1,11 +1,11 @@
 import axios from "axios";
-
 import { useEffect, useState, memo, useCallback } from "react";
-import FavCard from "./realtyCards/FavCard";
+// import FavCard from "./realtyCards/FavCard";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { BsHouseAddFill } from "react-icons/bs";
+// import { BsHouseAddFill } from "react-icons/bs";
 import { DotPulse } from "@uiball/loaders";
+import FavoritesCard from "./realtyCards/FavoritesCard";
 
 const FavoriteAds = () => {
   const [fav, setFav] = useState([]);
@@ -51,9 +51,9 @@ const FavoriteAds = () => {
       ) : fav.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
           {fav.map((favData) => (
-            <FavCard
+            <FavoritesCard
               key={favData._id}
-              propDetails={favData}
+              propertyDetails={favData}
               onRemove={handleRemoveFromFavorites}
             />
           ))}
