@@ -28,7 +28,7 @@ const index = () => {
       </Head>
       {/* // <div className=""> */}
       {userInfo ? (
-        userInfo?.typeOfUser === "normal" ? (
+        userInfo?.typeOfUser !== "normal" ? (
           <AddProperty />
         ) : (
           <UserTypeForm />

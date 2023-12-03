@@ -8,7 +8,9 @@ function BestLinksInHome({ PopularSearches, MostArea, MostGovernorate }) {
   return (
     <section className="overflow-hidden xl:justify-center justify-normal  flex flex-wrap gap-y-5 gap-x-10  py-5 pb-14">
       <div className="w-[350px] ">
-        <h4 className="text-xl md:text-xl lg:text-2xl">الأكثر بحثاً</h4>
+        <h4 className="text-xl md:text-xl lg:text-2xl">
+          الكلمات الأكثر استخداما
+        </h4>
         {PopularSearches.map((links, index) => (
           <div key={index} className="my-2 w-auto flex">
             <Link
