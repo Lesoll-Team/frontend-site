@@ -2,6 +2,7 @@ import React from "react";
 import {  Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { BsBoxArrowInDownRight } from "react-icons/bs";
 
 function BlogCard({ blogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -13,8 +14,7 @@ function BlogCard({ blogData }) {
           <div className=" w-[350px]   mx-auto">
             <Link
               title={language ? item.title.ar : item.title.en}
-              href={`/blog/${language ? item.slug.ar : item.slug.en}`}
-            >
+              href={`/blog/${language ? item.slug.ar : item.slug.en}`}>
               <Image
                 width="100%"
                 height="100%"
@@ -25,18 +25,33 @@ function BlogCard({ blogData }) {
               />
             </Link>
           </div>
-
-          <div className=" m-2">
-            <div className="">
-              <h2 className="text-lightGreen sm:text-lg line-clamp-1 flex-wrap text-sm text-md md:text-xl lg:text-2xl ">
-                {language ? item.title.ar : item.title.en}
-                {language ? item.title.ar : item.title.en}
-              </h2>
+          <div className="m-2">
+            <div className="my-2">
+              <Link
+                title={language ? item.title.ar : item.title.en}
+                href={`/blog/${language ? item.slug.ar : item.slug.en}`}
+              >
+                <h2 className="text-lightGreen sm:text-lg line-clamp-1 flex-wrap text-sm text-md md:text-xl lg:text-2xl ">
+                  {language ? item.title.ar : item.title.en}
+                  {language ? item.title.ar : item.title.en}
+                </h2>
+              </Link>
             </div>
-            <div className="">
+            <div className="my-2 mb-3">
               <p className="text-default-500 sm:text-lg line-clamp-2 flex-wrap text-sm  md:text-medium lg:text-lg ">
                 {language ? item.metaDescription.ar : item.metaDescription.en}
               </p>
+            </div>
+            <div className=" flex justify-center ">
+              <Link
+                title={language ? item.title.ar : item.title.en}
+                href={`/blog/${language ? item.slug.ar : item.slug.en}`}
+                className="text-blue-600 underline  flex items-center">
+                <div className="mx-2">
+                  <BsBoxArrowInDownRight />
+                </div>
+                {language ? "قراءة المزيد" : "read more"}
+              </Link>
             </div>
           </div>
         </div>
