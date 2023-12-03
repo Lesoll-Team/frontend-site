@@ -22,9 +22,7 @@ const ViewProfilePage = () => {
 
         console.log(data);
         setUserData(data.getUser);
-        setPropertiesData(data.getConfirmedRealty);
-        setTotalProperties(data.resultConfirmed);
-        setTotalPage(data.totalPages);
+
         setPropertiesNums({
           forRent: data.RealtyRentNumber,
           forSale: data.RealtySaleNumber,

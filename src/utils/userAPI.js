@@ -159,13 +159,7 @@ export async function sendResetNewPassword(userNewPassword) {
     throw error.response.data;
   }
 }
-// export async function getTokenGoogle(){
-//   try {
 
-//   } catch (error) {
-
-//   }
-// }
 export async function signWithGoogle() {
   try {
     const response = await axios.get(
@@ -198,10 +192,21 @@ export async function GetActiveProp(page) {
   }
 }
 
-export async function ViewUser(username, page) {
+export async function ViewUser(username) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}?limit=12&page=${page}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function ViewUserProperties(username, page, type) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${username}?limit=12&page=${page}&of=${type}`
     );
 
     return response.data;
