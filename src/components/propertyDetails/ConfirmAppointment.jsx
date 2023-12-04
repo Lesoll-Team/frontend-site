@@ -3,6 +3,7 @@ import { User } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 
 import {
   AiFillEdit,
@@ -81,7 +82,7 @@ function ConfirmAppointment({ userAppointment }) {
         </Link>
 
         <Link
-          className="font-bold text-xl"
+          className="font-bold text-xl "
           href={`/view-profile/${userAppointment?.user?.username}`}
         >
           {userAppointment?.user?.fullname}

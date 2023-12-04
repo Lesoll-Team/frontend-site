@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { ViewUser } from "@/utils/userAPI";
 import { DotPulse } from "@uiball/loaders";
 import ViewProfile from "@/components/viewProfile/ViewProfile";
-import { data } from "autoprefixer";
 
 const ViewProfilePage = () => {
   const [userData, setUserData] = useState();
@@ -20,7 +19,6 @@ const ViewProfilePage = () => {
       if (slug) {
         const data = await ViewUser(slug, page);
 
-        console.log(data);
         setUserData(data.getUser);
 
         setPropertiesNums({

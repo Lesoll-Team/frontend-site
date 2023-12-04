@@ -28,7 +28,7 @@ const Userdata = ({ userData, totalProperties }) => {
           )}
         </div>
         <div className="text-center lg:text-start space-y-1">
-          <h1 className="text-4xl font-semibold text-lightOrange capitalize">
+          <h1 className="text-4xl font-semibold  capitalize">
             {userData?.fullname}
           </h1>
           {/* <p className="text-2xl text-slate-400">{userData?.username}</p> */}

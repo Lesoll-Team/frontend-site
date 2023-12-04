@@ -6,6 +6,7 @@ import { ViewUserProperties } from "@/utils/userAPI";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import CardSkeleton from "../realtyCard/CardSkeleton";
+import PropertyData from "../propertyDetails/PropertyData";
 const UserProperties = ({ propertiesNums }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [propertiesData, setPropertiesData] = useState();
@@ -19,9 +20,6 @@ const UserProperties = ({ propertiesNums }) => {
     const fetchData = async () => {
       if (slug) {
         const data = await ViewUserProperties(slug, page, propertyType);
-
-        console.log(data);
-
         setPropertiesData(data.getConfirmedRealty);
         setTotalProperties(data.resultConfirmed);
         setTotalPage(data.totalPages);
@@ -32,12 +30,18 @@ const UserProperties = ({ propertiesNums }) => {
     // If you need a cleanup function, return it here
     // Example: return () => cleanupLogic();
   }, [slug, page, propertyType]);
-  console.log(propertiesData);
+
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage + 1);
   };
+  // console.log(totalProperties);
+  const handlePropType = (type) => {
+    setPropertyType(type);
+    setPropertiesData(null);
+  };
+
   return (
-    <div className={` space-y-8 w-full bg-white rounded-xl p-8   mx-auto `}>
+    <div className={` space-y-5 w-full bg-white rounded-xl p-8   mx-auto `}>
       <h1 className="text-center text-5xl text-darkGreen font-semibold  ">
         {language ? (
           <>
@@ -49,78 +53,93 @@ const UserProperties = ({ propertiesNums }) => {
           </>
         )}
       </h1>
-      {propertiesData.length > 0 ? (
-        <div className="flex mx-auto items-center justify-center gap-3">
-          <div className="text-center">
+
+      <div className="flex mx-auto items-center justify-center gap-3">
+        <div className="text-center">
+          {propertiesNums.forRent +
+            propertiesNums.forSale +
+            propertiesNums.forInvest >
+            1 && (
             <button
-              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
+              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen duration-150 ${
                 propertyType === "000" &&
                 " text-white bg-darkGreen font-semibold"
               }`}
-              onClick={() => setPropertyType("000")}
+              onClick={() => handlePropType("000")}
             >
               {language ? "الكل" : "All"}
             </button>
+          )}
+        </div>
+        {Boolean(propertiesNums?.forRent) && (
+          <div>
+            <button
+              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen duration-150 ${
+                propertyType === "222" &&
+                " text-white bg-darkGreen font-semibold"
+              }`}
+              onClick={() => handlePropType("222")}
+            >
+              {language ? " للإيجار" : "For Rent"}
+            </button>
           </div>
-          {Boolean(propertiesNums?.forRent) && (
-            <div>
-              <button
-                className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
-                  propertyType === "222" &&
-                  " text-white bg-darkGreen font-semibold"
-                }`}
-                onClick={() => setPropertyType("222")}
-              >
-                {language ? " للإيجار" : "For Rent"}
-              </button>
-            </div>
-          )}
-          {Boolean(propertiesNums.forSale) && (
-            <button
-              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
-                propertyType === "111" &&
-                " text-white bg-darkGreen font-semibold"
-              }`}
-              onClick={() => setPropertyType("111")}
-            >
-              {language ? "للبيع" : "For Sale"}
-            </button>
-          )}
-          {Boolean(propertiesNums.forInvest) && (
-            <button
-              className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen${
-                propertyType === "333" &&
-                " text-white bg-darkGreen font-semibold"
-              }`}
-              onClick={() => setPropertyType("333")}
-            >
-              {language ? "للأستثمار" : "For Investment"}
-            </button>
-          )}
-        </div>
-      ) : (
-        <div className="w-full min-h-[30dvh] h-full flex items-center justify-center">
-          <p>{language ? "لا يوجد عقارات" : "No properties"}</p>
-        </div>
-      )}
-      <div className="flex gap-10 flex-wrap justify-center items-center">
-        {propertiesData ? (
-          propertiesData.map((property) => {
-            return <RealtyCard key={property._id} propertyDetails={property} />;
-          })
-        ) : (
-          <>
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-          </>
+        )}
+        {Boolean(propertiesNums.forSale) && (
+          <button
+            className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen duration-150 ${
+              propertyType === "111" && " text-white bg-darkGreen font-semibold"
+            }`}
+            onClick={() => handlePropType("111")}
+          >
+            {language ? "للبيع" : "For Sale"}
+          </button>
+        )}
+        {Boolean(propertiesNums.forInvest) && (
+          <button
+            className={`border px-3 py-1  lg:w-40 rounded-lg border-darkGreen duration-150 ${
+              propertyType === "333" && " text-white bg-darkGreen font-semibold"
+            }`}
+            onClick={() => handlePropType("333")}
+          >
+            {language ? "للأستثمار" : "For Investment"}
+          </button>
         )}
       </div>
+
+      <p className="text-center">
+        {language ? "إجمالى العقارات: " : "Total properties: "}{" "}
+        {totalProperties || 0}
+      </p>
+
+      {propertiesData ? (
+        propertiesData.length > 0 ? (
+          <>
+            <div className="flex gap-10 flex-wrap justify-center items-center">
+              {propertiesData.map((property) => {
+                return (
+                  <RealtyCard key={property._id} propertyDetails={property} />
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <div className="w-full min-h-[33dvh] h-full flex items-center justify-center">
+            <p>{language ? "لا يوجد عقارات" : "No properties"}</p>
+          </div>
+        )
+      ) : (
+        <div className="flex gap-10 flex-wrap justify-center items-center">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </div>
+      )}
+
       <div className="flex justify-center">
         {totalPages > 1 && (
           <ReactPaginate
