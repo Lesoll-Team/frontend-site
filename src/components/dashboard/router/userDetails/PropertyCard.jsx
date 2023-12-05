@@ -10,7 +10,7 @@ const PropertyCard = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="max-w-[700px] flex sm:flex-row flex-col-reverse p-3   md:p-3 gap-3 items-center bg-white drop-shadow-md  sm:min-h-[150px] m-5 border rounded-md">
+    <div className="max-w-[700px] flex sm:flex-row flex-col-reverse p-3   md:p-3 gap-3 items-center bg-white drop-shadow-md  sm:min-h-[150px]  border rounded-md">
       <div dir="rtl" className="sm:w-8/12 space-y-2">
         <div className="flex justify-between">
           <p className="text-lightGreen font-bold">1000 جنيه</p>

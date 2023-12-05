@@ -18,7 +18,7 @@ const UserDetailsPage = () => {
       <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>
-      <div className="w-full">
+      <div className="w-full" dir="rtl">
         <UserDetails />
       </div>
     </div>
