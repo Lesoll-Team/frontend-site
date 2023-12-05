@@ -14,11 +14,11 @@ const UserDetailsPage = () => {
   //   }, [userInfo, router]);
   console.log(userInfo);
   return (
-    <div className="min-h-[90dvh] flex" dir="ltr">
+    <div className="min-h-[90dvh] w-full flex" dir="ltr">
       <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>
-      <div>
+      <div className="w-full">
         <UserDetails />
       </div>
     </div>
