@@ -25,9 +25,8 @@ const Place = ({
     if (input) {
       let filtered = governrate.filter((gov) => {
         return (
-          gov.governorate_name_ar.indexOf(input) === 0 ||
-          gov.governorate_name_en.toLowerCase().indexOf(input.toLowerCase()) ===
-            0
+          gov.governorate_name_ar.includes(input) ||
+          gov.governorate_name_en.toLowerCase().includes(input.toLowerCase())
         );
       });
 
@@ -46,8 +45,8 @@ const Place = ({
         const cityNameEn = reg.city_name_en || ""; // Ensure property exists
 
         return (
-          cityNameAr.indexOf(input) === 0 ||
-          cityNameEn.toLowerCase().indexOf(input.toLowerCase()) === 0
+          cityNameAr.includes(input) ||
+          cityNameEn.toLowerCase().includes(input.toLowerCase())
         );
       });
 

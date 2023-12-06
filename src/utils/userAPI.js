@@ -1,13 +1,12 @@
 import axios from "axios";
 
-
-export async function getUserOffline({url}) {
+export async function getUserOffline({ url }) {
   try {
-  const userID = JSON.parse(localStorage.getItem("local_storage_device_id"));
+    const userID = JSON.parse(localStorage.getItem("local_storage_device_id"));
 
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userID}&urlString=${url}`
-    ); 
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -160,13 +159,7 @@ export async function sendResetNewPassword(userNewPassword) {
     throw error.response.data;
   }
 }
-// export async function getTokenGoogle(){
-//   try {
 
-//   } catch (error) {
-
-//   }
-// }
 export async function signWithGoogle() {
   try {
     const response = await axios.get(
@@ -196,5 +189,33 @@ export async function GetActiveProp(page) {
     return response.data;
   } catch (error) {
     throw error.response.data;
+  }
+}
+
+export async function ViewUser(username) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function ViewUserProperties(username, page, type) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${username}?limit=12&page=${page}&of=${type}`
+    );
+
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 400) {
+      error.response.getConfirmedRealty = [];
+      return error.response;
+    } else {
+      throw error.response.data;
+    }
   }
 }

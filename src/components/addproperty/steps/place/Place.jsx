@@ -27,8 +27,8 @@ const Place = ({
         const govNameAr = gov.governorate_name_ar || ""; // Ensure property exists
         const govNameEn = gov.governorate_name_en || "";
         return (
-          govNameAr.indexOf(input) === 0 ||
-          govNameEn.toLowerCase().indexOf(input.toLowerCase()) === 0
+          govNameAr.includes(input) ||
+          govNameEn.toLowerCase().includes(input.toLowerCase())
         );
       });
 
@@ -47,8 +47,8 @@ const Place = ({
         const cityNameEn = reg.city_name_en || ""; // Ensure property exists
 
         return (
-          cityNameAr.indexOf(input) === 0 ||
-          cityNameEn.toLowerCase().indexOf(input.toLowerCase()) === 0
+          cityNameAr.includes(input) ||
+          cityNameEn.toLowerCase().includes(input.toLowerCase())
         );
       });
 
