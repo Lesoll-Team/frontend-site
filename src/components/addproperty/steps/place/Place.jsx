@@ -94,7 +94,6 @@ const Place = ({
     }));
   };
 
-  const setGovAccordingToRegion = () => {};
   const RegionSelect = (region) => {
     filterGov(region.governorate_number);
     filterRegions(region.governorate_number);
