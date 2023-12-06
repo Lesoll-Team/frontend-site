@@ -20,7 +20,7 @@ const Place = ({
 
   useEffect(() => {
     setShowedRegion(region);
-  }, []);
+  }, [region]);
   const onGovChange = (e) => {
     const input = e.target.value;
     setGovInput(input);
