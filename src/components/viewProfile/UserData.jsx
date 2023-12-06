@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Userdata = ({ userData, totalProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  console.log(userData);
+
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقاراتك اللى تم نشرها على موقع ليسول
  `;
@@ -31,7 +31,7 @@ const Userdata = ({ userData, totalProperties }) => {
     }
   };
   return (
-    <section className="p-5  py-10  mx-auto gap-5  flex  flex-col justify-between w-full  bg-white  items-center  border rounded-xl fade-in ">
+    <section className="p-5  pt-10 pb-7 mx-auto gap-5  flex  flex-col justify-between w-full  bg-white  items-center  border rounded-xl fade-in ">
       <div className="flex justify-center  flex-col items-center gap-4">
         <div className="relative">
           <Avatar
@@ -65,7 +65,7 @@ const Userdata = ({ userData, totalProperties }) => {
                   }
                 >
                   <button className=" w-full flex gap-3 justify-start items-center p-3 rounded-lg   cursor-pointer ">
-                    <BsWhatsapp className="text-4xl text-[#25D366]" />
+                    <BsWhatsapp className="text-5xl hover:-translate-y-1 duration-150 text-[#25D366]" />
                   </button>
                 </ContactBtnsModal>
 
@@ -78,7 +78,7 @@ const Userdata = ({ userData, totalProperties }) => {
                   }
                 >
                   <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
-                    <BiPhoneCall className="text-4xl" />
+                    <BiPhoneCall className="text-5xl hover:-translate-y-1 duration-150" />
                   </button>
                 </ContactBtnsModal>
               </>
@@ -93,7 +93,7 @@ const Userdata = ({ userData, totalProperties }) => {
               }
             >
               <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
-                <AiTwotoneMail className="text-4xl text-blue-500" />
+                <AiTwotoneMail className="text-5xl hover:-translate-y-1 duration-150 text-blue-500" />
               </button>
             </ContactBtnsModal>
           </>
@@ -104,12 +104,12 @@ const Userdata = ({ userData, totalProperties }) => {
                 {" "}
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <button className="border- flex gap-3 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer">
-                    <BsWhatsapp className="text-4xl text-[#25D366]" />
+                    <BsWhatsapp className="text-5xl hover:-translate-y-1 duration-150 text-[#25D366]" />
                   </button>
                 </a>
                 <a href={`tel:${userData.code}${userData?.phone}`}>
                   <button className="border- flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer ">
-                    <BiPhoneCall className="text-4xl" />
+                    <BiPhoneCall className="text-5xl hover:-translate-y-1 duration-150" />
                   </button>
                 </a>
               </>
@@ -117,7 +117,7 @@ const Userdata = ({ userData, totalProperties }) => {
 
             <a href={`mailto:${userData.email}`}>
               <button className="border- flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer ">
-                <AiTwotoneMail className=" text-4xl text-blue-500" />
+                <AiTwotoneMail className=" text-5xl hover:-translate-y-1 duration-150 text-blue-500" />
               </button>
             </a>
           </>
@@ -135,7 +135,7 @@ const Userdata = ({ userData, totalProperties }) => {
                   }
                 >
                   <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
-                    <BsWhatsapp className="text-4xl text-[#25D366]" />
+                    <BsWhatsapp className="text-5xl hover:-translate-y-1 duration-150 text-[#25D366]" />
                   </button>
                 </ContactBtnsModal>
                 <ContactBtnsModal
@@ -147,7 +147,7 @@ const Userdata = ({ userData, totalProperties }) => {
                   }
                 >
                   <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
-                    <BiPhoneCall className="text-4xl" />
+                    <BiPhoneCall className="text-5xl hover:-translate-y-1 duration-150" />
                   </button>
                 </ContactBtnsModal>
               </>
@@ -162,7 +162,7 @@ const Userdata = ({ userData, totalProperties }) => {
               }
             >
               <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
-                <BiPhoneCall className="text-4xl" />
+                <BiPhoneCall className="text-5xl hover:-translate-y-1 duration-150" />
               </button>
             </ContactBtnsModal>
           </>
