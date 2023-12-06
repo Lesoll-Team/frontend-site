@@ -8,16 +8,31 @@ import { useSelector } from "react-redux";
 const Userdata = ({ userData, totalProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.GlobalState.userData);
-
+  console.log(userData);
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقاراتك اللى تم نشرها على موقع ليسول
  `;
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     userData?.code + userData?.phone
   }&text=${encodeURIComponent(message)}`;
+  const userTypeLang = () => {
+    switch (userData?.typeOfUser) {
+      case "broker":
+        return language ? "سمسار" : "broker";
+        break;
+      case "company":
+        return language ? "مطور" : "Developer";
+        break;
+      case "individual":
+        return language ? "فرد" : "Individual";
+        break;
+      default:
+        return language ? "غير محدد" : "Not specified";
+    }
+  };
   return (
-    <aside className="p-5  py-8  mx-auto gap-5  flex lg:flex-row flex-col justify-between w-full  bg-white  items-center  border rounded-xl fade-in ">
-      <div className="flex justify-center lg:flex-row flex-col items-center gap-4">
+    <section className="p-5  py-10  mx-auto gap-5  flex  flex-col justify-between w-full  bg-white  items-center  border rounded-xl fade-in ">
+      <div className="flex justify-center  flex-col items-center gap-4">
         <div className="relative">
           <Avatar
             src={userData?.avatarUrl}
@@ -31,7 +46,7 @@ const Userdata = ({ userData, totalProperties }) => {
           <h1 className="text-4xl font-semibold  capitalize">
             {userData?.fullname}
           </h1>
-          {/* <p className="text-2xl text-slate-400">{userData?.username}</p> */}
+          <p className="text-2xl text-gray-700 text-center">{userTypeLang()}</p>
         </div>
       </div>
 
@@ -49,11 +64,8 @@ const Userdata = ({ userData, totalProperties }) => {
                       : "You can't contact with the seller with out signing in "
                   }
                 >
-                  <button className="border-2 w-full flex gap-3 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                    <BsWhatsapp className="text-xl sm:text-4xl text-[#25D366]" />
-                    <p className="text-sm">
-                      {language ? "واتس اب" : "Whatsapp"}
-                    </p>
+                  <button className=" w-full flex gap-3 justify-start items-center p-3 rounded-lg   cursor-pointer ">
+                    <BsWhatsapp className="text-4xl text-[#25D366]" />
                   </button>
                 </ContactBtnsModal>
 
@@ -65,9 +77,8 @@ const Userdata = ({ userData, totalProperties }) => {
                       : "You can't contact with the user with out signing in "
                   }
                 >
-                  <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                    <BiPhoneCall className="text-xl sm:text-4xl" />
-                    <p className="text-sm">{language ? "إتصال" : "Call"}</p>
+                  <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
+                    <BiPhoneCall className="text-4xl" />
                   </button>
                 </ContactBtnsModal>
               </>
@@ -81,11 +92,8 @@ const Userdata = ({ userData, totalProperties }) => {
                   : "You can't contact with the user with out signing in "
               }
             >
-              <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                <AiTwotoneMail className="text-xl sm:text-4xl text-blue-500" />
-                <p className="text-sm">
-                  {language ? "البريد الإلكترونى" : "Email"}
-                </p>
+              <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
+                <AiTwotoneMail className="text-4xl text-blue-500" />
               </button>
             </ContactBtnsModal>
           </>
@@ -95,28 +103,21 @@ const Userdata = ({ userData, totalProperties }) => {
               <>
                 {" "}
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                  <button className="border-2 w-full flex gap-3 justify-start items-center p-2 sm:p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer">
-                    <BsWhatsapp className="text-xl sm:text-4xl text-[#25D366]" />
-                    <p className="text-sm">
-                      {language ? "واتس اب" : "Whatsapp"}
-                    </p>
+                  <button className="border- flex gap-3 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer">
+                    <BsWhatsapp className="text-4xl text-[#25D366]" />
                   </button>
                 </a>
                 <a href={`tel:${userData.code}${userData?.phone}`}>
-                  <button className="border-2 w-full flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                    <BiPhoneCall className="sm:text-[37px] text-xl" />
-                    <p className="text-sm"> {language ? "إتصال" : "Call"}</p>
+                  <button className="border- flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer ">
+                    <BiPhoneCall className="text-4xl" />
                   </button>
                 </a>
               </>
             )}
 
             <a href={`mailto:${userData.email}`}>
-              <button className="border-2 w-full flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                <AiTwotoneMail className=" text-xl sm:text-4xl text-blue-500" />
-                <p className="text-sm">
-                  {language ? "البريد الإلكترونى" : "Email"}
-                </p>
+              <button className="border- flex gap-2 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer ">
+                <AiTwotoneMail className=" text-4xl text-blue-500" />
               </button>
             </a>
           </>
@@ -133,11 +134,8 @@ const Userdata = ({ userData, totalProperties }) => {
                       : "You can't contact with the user with out completeing your account phone number "
                   }
                 >
-                  <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                    <BsWhatsapp className="text-xl sm:text-4xl text-[#25D366]" />
-                    <p className="text-sm">
-                      {language ? "واتس اب" : "Whatsapp"}
-                    </p>
+                  <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
+                    <BsWhatsapp className="text-4xl text-[#25D366]" />
                   </button>
                 </ContactBtnsModal>
                 <ContactBtnsModal
@@ -148,9 +146,8 @@ const Userdata = ({ userData, totalProperties }) => {
                       : "You can't contact with the user with out completeing your account phone number "
                   }
                 >
-                  <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                    <BiPhoneCall className="text-xl sm:text-4xl" />
-                    <p className="text-sm">{language ? "إتصال" : "Call"}</p>
+                  <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
+                    <BiPhoneCall className="text-4xl" />
                   </button>
                 </ContactBtnsModal>
               </>
@@ -164,18 +161,14 @@ const Userdata = ({ userData, totalProperties }) => {
                   : "You can't contact with the seller with out signing in "
               }
             >
-              <button className="border-2 w-full flex gap-2 justify-start items-center p-3 rounded-lg  bg-white drop-shadow-lg md:hover:scale-105 duration-150 cursor-pointer ">
-                <BiPhoneCall className="text-xl sm:text-4xl" />
-                <p className="text-sm">
-                  {" "}
-                  {language ? "البريد الإلكترونى" : "Email"}
-                </p>
+              <button className=" w-full flex gap-2 justify-start items-center p-3 rounded-lg   cursor-pointer ">
+                <BiPhoneCall className="text-4xl" />
               </button>
             </ContactBtnsModal>
           </>
         )}
       </div>
-    </aside>
+    </section>
   );
 };
 

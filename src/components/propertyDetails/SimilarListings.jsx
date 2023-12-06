@@ -4,7 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 // import { ar } from "../../language/ar/common";
 // import { en } from "../../language/en/common";
 import { useSelector } from "react-redux";
-import RealtyCard from "../realtyCard/RealtyCard";
+
 function SimilarListings({ recommendationsProperty }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
