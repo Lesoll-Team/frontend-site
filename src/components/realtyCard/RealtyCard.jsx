@@ -1,17 +1,14 @@
-// import Image from "next/image";
-// import testImg from "../../../public/testimg.webp";
+import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
-import { useDispatch } from "react-redux";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
-import { TbRulerMeasure } from "react-icons/tb";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-import { useEffect, useState, memo } from "react";
-import { fetchUserData } from "@/redux-store/features/globalState";
 import { FaLocationDot } from "react-icons/fa6";
+import { TbRulerMeasure } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 
 const RealtyCard = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
@@ -38,7 +35,7 @@ const RealtyCard = ({ propertyDetails }) => {
   }, [userInfo?.favorites]);
 
   return (
-    <div className="w-[330px] [448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
+    <div className="w-[330px] h-[448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
           <span>views</span> <span>{propertyDetails?.users.views.length}</span>
@@ -180,5 +177,4 @@ const RealtyCard = ({ propertyDetails }) => {
     </div>
   );
 };
-
-export default memo(RealtyCard);
+export default RealtyCard;

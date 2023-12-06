@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Head from "next/head";
 import { Image } from "@nextui-org/react";
-import PropertyCard from "../realtyCard/PropertyCard";
+import RealtyCard from "../realtyCard/RealtyCard";
 const DeletedProperty = ({ RecommendedOther }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -32,7 +32,7 @@ const DeletedProperty = ({ RecommendedOther }) => {
           </h3>
           <div className=" p-4  mb-5 gap-4 rounded-xl flex-col justify-center items-center md:flex-row flex flex-wrap md:gap-10 ">
             {RecommendedOther.map((recommendations) => (
-              <PropertyCard
+              <RealtyCard
                 key={recommendations._id}
                 propertyDetails={recommendations}
               />
