@@ -17,10 +17,6 @@ import { useSelector } from "react-redux";
 import Head from "next/head";
 import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 
-
-
-
-
 export default function Home({
   propertyForRent,
   propertyForBuy,

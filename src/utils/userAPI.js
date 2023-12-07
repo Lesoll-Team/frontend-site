@@ -219,3 +219,23 @@ export async function ViewUserProperties(username, page, type) {
     }
   }
 }
+
+// dashboard view user apis
+
+export async function getUserDataDashboard(username) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-data/${username}?token=${userToken}`
+
+      // {
+      //   headers: {
+      //     token: userToken,
+      //   },
+      // }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
