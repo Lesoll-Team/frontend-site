@@ -1,18 +1,16 @@
-// import Image from "next/image";
-// import testImg from "../../../public/testimg.webp";
+import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
-import { useDispatch } from "react-redux";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-import { useEffect, useState, memo } from "react";
-import { fetchUserData } from "@/redux-store/features/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
-const RealtyCardRent = ({ propertyDetails }) => {
+const RealtyCard = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -35,17 +33,15 @@ const RealtyCardRent = ({ propertyDetails }) => {
       setLoved(true);
     }
   }, [userInfo?.favorites]);
-  // console.log("Rent :", propertyDetails);
-  // console.log(propertyDetails);
+
   return (
-    <div className=" w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
-      {/* number of views */}
+    <div className="w-[330px] h-[448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
       <div className="flex items-center justify-between absolute  top-10">
         {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
           <span>views</span> <span>{propertyDetails?.users.views.length}</span>
         </div> */}
         {userInfo && (
-          <div className="z-[10000] bg-white  drop-shadow-lg p-7 mx-2  text-2xl rounded-lg text-center px-2 py-1 cursor-pointer  ">
+          <div className="z-[10000] bg-white  drop-shadow-md flex items-center  mx-2  text-2xl rounded-full h-10 w-10 text-center px-2 py-1 cursor-pointer  ">
             {userInfo ? (
               loved ? (
                 <AiFillHeart
@@ -72,9 +68,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
           </div>
         )}
       </div>
-
-      {/* card img */}
-      <div className="z-10 w-full">
+      <div className="">
         <Link
           title={`${propertyDetails?.title}`}
           key={propertyDetails?._id}
@@ -82,19 +76,17 @@ const RealtyCardRent = ({ propertyDetails }) => {
           className="w-full"
         >
           <Image
-            alt="Realty"
+            alt="Card background"
             radius="none"
+            className="object-cover w-[330px]  h-[265px]"
             src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
-            loading="lazy"
-            className=" w-[310px] h-[225px] rounded-none overflow-hidden object-cover"
           />
         </Link>
       </div>
-      {/* card body  */}
-      <div className="relative space-y-5">
-        <div className="  bg-lightGreen text-white  h-10 px-6 flex justify-between mb-1 items-center relative z-[100] rounded-b-">
+      <div className="space-y-3 p-5">
+        <div className="flex flex-row items-center  justify-between">
           {propertyDetails?.offer !== "For Investment" && (
-            <p className="font-medium">
+            <p className=" font-bold text-darkGreen text-lg">
               <span>
                 {language
                   ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
@@ -103,7 +95,8 @@ const RealtyCardRent = ({ propertyDetails }) => {
               {language ? "جنية" : "EGP"}
             </p>
           )}
-          <p className="font-medium">
+          <p className="text-md    uppercase font-semibold">
+            {" "}
             {propertyDetails?.offer === "For Sale"
               ? language
                 ? "للبيع"
@@ -118,18 +111,29 @@ const RealtyCardRent = ({ propertyDetails }) => {
           </p>
         </div>
         <Link
+          title={`${propertyDetails?.title}`}
           key={propertyDetails?._id}
           href={`/property-details/${propertyDetails?.slug}`}
-          title={`${propertyDetails?.title}`}
+          className="w-full"
         >
-          <div
-            dir="rtl"
-            className=" text-lightOrange mt-3  px-5 flex justify-between  hover:underline  font-medium "
-          >
-            <p className="line-clamp-1">{propertyDetails?.title}</p>
-          </div>
+          <h4 className="font-semibold text-large line-clamp-1 ">
+            {propertyDetails?.title}
+          </h4>
         </Link>
-        <div className=" text-lightGreen w-full  px-5 flex  justify-between ">
+        <p className="flex items-center gap-1 line-clamp-1">
+          <FaLocationDot className="text-lightOrange font-bold" />{" "}
+          <span className="line-clamp-1">
+            {`${propertyDetails?.address?.governrate}${
+              propertyDetails?.address?.region && " ,"
+            }${
+              propertyDetails?.address?.region &&
+              propertyDetails?.address?.region
+            }`}
+          </span>
+        </p>
+
+        <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
+        <div className=" text-darkGray w-full  flex  justify-between ">
           <div className="flex items-center justify-start gap-1">
             {" "}
             <BiSolidBed className="text-xl " />{" "}
@@ -169,17 +173,8 @@ const RealtyCardRent = ({ propertyDetails }) => {
             </p>
           </div>
         </div>
-        {/* location */}
-        <div className="px-5 mb- flex flex-col  justify-start items-start gap-3 ">
-          <p className="text-sm  text-darkGray line-clamp-1">
-            {propertyDetails?.address?.governrate}
-            {propertyDetails?.address?.region &&
-              " ," + propertyDetails?.address?.region}
-          </p>
-        </div>
       </div>
     </div>
   );
 };
-
-export default memo(RealtyCardRent);
+export default RealtyCard;

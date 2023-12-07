@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { DotPulse } from "@uiball/loaders";
 import { SearchBar } from "@/Shared/search/SearchBar";
 import { TbVirusSearch } from "react-icons/tb";
-import PropertyCard from "../realtyCard/PropertyCard";
+import RealtyCard from "../realtyCard/RealtyCard";
 
 import BestLinksInHome from "../linksInHome/BestLinksInHome";
 
@@ -53,7 +53,7 @@ function SearchResult({
             <SearchBar reversedFilteredKeywords={reversedFilteredKeywords} />
             <div className=" flex flex-wrap justify-center gap-5  ">
               {searchResult?.searchResults.map((result) => (
-                <PropertyCard key={result._id} propertyDetails={result} />
+                <RealtyCard key={result._id} propertyDetails={result} />
               ))}
             </div>
             {searchingError == "rejected" ? (
@@ -154,23 +154,28 @@ function SearchResult({
               </div>
             )}
           </div>
-          <div className="space-y-16 flex flex-col">
+          <div className="  flex flex-col  w-[300px]">
             <LinksSearch
               PopularSearches={PopularSearches}
               MostArea={MostArea}
               MostGovernorate={MostGovernorate}
             />
-            {/* <div className="text-center  hidden">
-              <h2 className="absolute animate-bounce flex-wrap text-center text-lightGreen text-xl font-semibold md:text-xl lg:text-4xl	">
-                ليسول طريقك لبيتك
-              </h2>
-
+            <div
+              className="text-center w-[300px] border-5 p-2  border-lightGreen  h-[700px]    
+             xl:block hidden sticky top-20
+            "
+            >
+              <div className="mx-auto bg-red-200 flex justify-center w-[200px]">
+                <h2 className="absolute w-[200px] animate-bounce flex-wrap text-center mt-[55px] text-lightGreen text-xl font-semibold md:text-xl lg:text-4xl	">
+                  ليسول طريقك لبيتك
+                </h2>
+              </div>
               <img
-                src="/sideImgSearch.png"
+                src="/sideImgSearch.jpg"
                 alt="side Image in Search page"
-                className=" p-2"
+                className=" p-2 mt-[150px]"
               />
-            </div> */}
+            </div>
           </div>
         </div>
       ) : (

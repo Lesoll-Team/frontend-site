@@ -1,13 +1,11 @@
 import { createAsyncThunk ,createSlice } from "@reduxjs/toolkit";
 import { addBlogs,getAllBlogs,deleteOneBlog, updateBlog } from "@/utils/dashboardApi/blogDashboardAPI";
 const initialState = {
-    blogInfo:null,
-    blogsData:null,
-    blogSending:false,
-    errorBlog:null,
-    blogDelete:null,
-    messageEventBlog:false,
-  };
+  blogsData: null,
+  errorBlog: null,
+  blogDelete: null,
+  messageEventBlog: false,
+};
 
   export const createBlogs = createAsyncThunk(
     "BlogDashboard/addBlogs",
@@ -48,62 +46,71 @@ const initialState = {
     },
     extraReducers:(builder) => {
         builder 
-
-        .addCase(createBlogs.pending, (state) => {
-            state.blogSending=true
+           .addCase(createBlogs.pending, (state) => {
+            state.messageEventBlog = true;
+            state.errorBlog = null;
           })
           .addCase(createBlogs.fulfilled, (state,action) => {
-            state.blogSending=false
-            state.blogInfo=action.payload
+            state.blogsData=action.payload
             state.messageEventBlog = false;
-
+            state.errorBlog = null;
           })
           .addCase(createBlogs.rejected, (state,action) => {
-            state.blogSending=false
             state.errorBlog=action.error
-            state.messageEventBlog=true
-
+            state.messageEventBlog = false;
           })
 
+
           .addCase(editBlog.pending, (state) => {
-            state.blogSending=true
+            state.messageEventBlog = true;
+
             state.errorBlog=null
 
           })
           .addCase(editBlog.fulfilled, (state,action) => {
-            state.blogSending=false
-            state.blogInfo=action.payload
+            
+            state.blogsData=action.payload
             state.errorBlog=null
           })
           .addCase(editBlog.rejected, (state,action) => {
-            state.blogSending=false
+            
             state.errorBlog=action.error
 
           })
 
 
           .addCase(getBlogs.pending, (state) => {
-            state.blogSending=true
+            state.errorBlog = null;
+            state.messageEventBlog = true;
+
           })
           .addCase(getBlogs.fulfilled, (state,action) => {
-            state.blogSending=false
+            state.errorBlog = null;
+            state.messageEventBlog = false;
+            
             state.blogsData=action.payload
           })
           .addCase(getBlogs.rejected, (state,action) => {
-            state.blogSending=false
+            state.messageEventBlog = false;
+            
             state.errorBlog=action.error
           })
 
 
           .addCase(deleteBlog.pending, (state) => {
-            state.blogSending=true
+            state.errorBlog = null;
+            state.messageEventBlog = true;
+
           })
           .addCase(deleteBlog.fulfilled, (state,action) => {
-            state.blogSending=false
+            state.errorBlog = null;
+            state.messageEventBlog = false;
+            
             state.blogDelete=action.payload
           })
           .addCase(deleteBlog.rejected, (state,action) => {
-            state.blogSending=false
+            state.messageEventBlog = false;
+            
             state.errorBlog=action.error
           })
     }

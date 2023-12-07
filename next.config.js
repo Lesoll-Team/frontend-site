@@ -79,6 +79,11 @@ module.exports = async () => {
           permanent: true,
         },
         {
+          source: "/Blogs/:slug",
+          destination: "/blog/:slug",
+          permanent: true,
+        },
+        {
           source: "/About",
           destination: "/about-us",
           permanent: true,
@@ -93,23 +98,6 @@ module.exports = async () => {
           destination: "/searching/offer=all",
           permanent: true,
         },
-
-        // {
-        //   source: "/Blogs",
-        //   destination: "/blogs",
-        //   permanent: true,
-        // },
-
-        // {
-        //   source: "/Contact",
-        //   destination: "/contact",
-        //   permanent: true,
-        // },
-        // {
-        //   source: "/Contact",
-        //   destination: "/contact",
-        //   permanent: false,
-        // },
       ];
     },
   };

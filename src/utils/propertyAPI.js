@@ -118,15 +118,19 @@ export async function shareOtherBtn(propertyid) {
     throw error.response.data;
   }
 }
-export async function deleteProperty(propertyid) {
+export async function deleteProperty(propertyid, message) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propertyid}?token=${userToken}`,
+
       {
         headers: {
           token: userToken,
+        },
+        data: {
+          reason: message,
         },
       }
     );
