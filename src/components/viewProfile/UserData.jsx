@@ -50,7 +50,7 @@ const Userdata = ({ userData, totalProperties }) => {
         </div>
       </div>
 
-      <div className=" flex  justify-center sm:flex-row  flex-wrap  gap-2 sm:gap-3 ">
+      <div className=" flex  justify-center items-center    gap-2 sm:gap-3 ">
         {/* call and whatsapp btns */}
         {!userInfo ? (
           <>
