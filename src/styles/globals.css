@@ -94,7 +94,7 @@ input[type="radio"] {
 }
 
 body::-webkit-scrollbar {
-  width: 14px;               /* width of the entire scrollbar */
+  width: 14px; /* width of the entire scrollbar */
 }
 body::-webkit-scrollbar-track {
   background: #fff; /* color of the tracking area */

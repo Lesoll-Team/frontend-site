@@ -239,3 +239,47 @@ export async function getUserDataDashboard(username) {
     throw error.response.data;
   }
 }
+export async function getUserPropertiesDashboard(username, page = 1, propType) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-properties/${username}?token=${userToken}&limit=9&page=${page}&of=${propType}`
+
+      // {
+      //   headers: {
+      //     token: userToken,
+      //   },
+      // }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response.data.code == 400) {
+      error.response.data.getConfirmedRealty = [];
+      return error.response.data;
+    } else throw error.response.data;
+  }
+}
+
+export const downloadUserLog = async (id, name) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-single-user-excel/${id}?token=${userToken}`,
+    {
+      responseType: "arraybuffer",
+      // headers: {
+      //   token: userToken,
+      // },
+    } // {
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = `${name}.xlsx`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};

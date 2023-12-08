@@ -1,4 +1,5 @@
 import UserData from "./userInfo/UserData";
+import UserLog from "./userInfo/UserLog";
 import UserProperties from "./UserProperties";
 
 const UserDetails = ({
@@ -11,8 +12,9 @@ const UserDetails = ({
   totalPropNum,
   visitedPages,
 }) => {
+  console.log();
   return (
-    <div className="sm:max-w-[1800px] px-3 sm:px-2 mx-auto my-3 space-y-5">
+    <div className="sm:max-w-[1800px]  px-2  mx-auto my-3 space-y-5">
       <UserData
         userData={userData}
         favNum={favNum}
@@ -23,7 +25,15 @@ const UserDetails = ({
         totalPropNum={totalPropNum}
         visitedPages={visitedPages}
       />
-      <UserProperties />
+      <UserProperties
+        invstNum={invstNum}
+        totalPropNum={totalPropNum}
+        rentNum={rentNum}
+        saleNum={saleNum}
+      />
+      {visitedPages && (
+        <UserLog userData={userData} visitedPages={visitedPages} />
+      )}
     </div>
   );
 };
