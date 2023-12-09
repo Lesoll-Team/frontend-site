@@ -86,7 +86,7 @@ function PropertyDetailsMain({ singleProperty }) {
                 <DescriptionFeatures
                   singleDescriptionFeatures={singleProperty}
                 />
-                {/* <AddressLocation singleAddressLocation={singleProperty} /> */}
+                <AddressLocation singleAddressLocation={singleProperty} />
                 <div className="mt-4">
                   <SimilarListings recommendationsProperty={recommendations} />
                 </div>

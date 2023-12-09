@@ -71,10 +71,10 @@ function ConfirmAppointment({ userAppointment }) {
       setLoved(true);
     }
   }, [userInfo?.favorites]);
-  const openDirectionsInGoogleMaps = () => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${userAppointment?.address.latitude},${userAppointment?.address.longitude}`;
-    window.open(url, "_blank");
-  };
+  // const openDirectionsInGoogleMaps = () => {
+  //   const url = `https://www.google.com/maps/dir/?api=1&destination=${userAppointment?.address.latitude},${userAppointment?.address.longitude}`;
+  //   window.open(url, "_blank");
+  // };
   return (
     <aside className="  p-5 pt-6 bg-white drop-shadow-lg border rounded-xl md:sticky md:top-24 space-y-4 ">
       <div className="flex flex-col justify-center items-center mx-2">
