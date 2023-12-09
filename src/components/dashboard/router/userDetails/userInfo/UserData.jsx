@@ -9,6 +9,7 @@ import { IoIosCall } from "react-icons/io";
 import { useRouter } from "next/router";
 import Userdata from "@/components/viewProfile/UserData";
 import { useSelector } from "react-redux";
+import DescriptionModal from "../../propertyDetails/description/DescriptionModal";
 
 const UserData = ({
   userData,
@@ -40,6 +41,7 @@ const UserData = ({
         return language ? "غير محدد" : "Not specified";
     }
   };
+  // ⚒️
   const [date, setdate] = useState();
   useEffect(() => {
     const createdAt = userData?.createdAt;
@@ -63,13 +65,24 @@ const UserData = ({
           </div>
         </div>
         <div className="flex items-stretch justify-stretch gap-2">
-          <Link
-            href={"/"}
-            className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
+          <DescriptionModal
+            description={
+              <span className="flex flex-col">
+                <span className="w-full h-full flex justify-center items-center min-h-[250px] gap-1 text-3xl">
+                  <span>تحت الإنشاء</span>
+                  <span className="animate-bounce ">🛠️</span>{" "}
+                </span>
+              </span>
+            }
           >
-            <FaEdit />
-            تعديل
-          </Link>
+            <button
+              // href={"/"}
+              className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
+            >
+              <FaEdit />
+              تعديل
+            </button>
+          </DescriptionModal>
           <Link
             href={`/view-profile/${userData.username}`}
             className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
@@ -95,9 +108,7 @@ const UserData = ({
         />
         <InfoCard title={"اسم المستخدم"} info={userData?.username} />
         <InfoCard title={"ايميل"} info={userData?.email} />
-        <InfoCard title={"عدد العقارات للبيع"} info={saleNum || 0} />
-        <InfoCard title={" عدد العقارات للإيجار"} info={rentNum || 0} />
-        <InfoCard title={" عدد العقارات للاستثمار"} info={invstNum || 0} />
+
         <InfoCard title={" عدد العقارات الكلى"} info={totalPropNum || 0} />
         <InfoCard title={" عدد العقارات المحذوفة"} info={deletedNum} />
         <InfoCard title={" عدد العقارات المفضلة"} info={favNum} />

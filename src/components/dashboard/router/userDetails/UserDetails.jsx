@@ -30,6 +30,7 @@ const UserDetails = ({
         totalPropNum={totalPropNum}
         rentNum={rentNum}
         saleNum={saleNum}
+        deletedNum={deletedNum}
       />
       {visitedPages && (
         <UserLog userData={userData} visitedPages={visitedPages} />

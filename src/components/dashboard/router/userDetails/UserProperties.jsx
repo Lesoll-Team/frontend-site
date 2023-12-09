@@ -5,7 +5,13 @@ import { getUserPropertiesDashboard } from "@/utils/userAPI";
 import CArdSkeleton from "./cards/CArdSkeleton";
 import ReactPaginate from "react-paginate";
 import styles from "../../../../styles/paginations.module.css";
-const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
+const UserProperties = ({
+  invstNum,
+  rentNum,
+  saleNum,
+  totalPropNum,
+  deletedNum,
+}) => {
   const [propertyData, setPropertyData] = useState();
   const [page, setPage] = useState();
 
@@ -51,12 +57,23 @@ const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
     }
   };
   return (
-    <section className="space-y-4 md:p-5 md:rounded-lg  md:bg-gray-100">
-      <h1 className="text-2xl font-medium text-lightGreen">
-        {" "}
-        عدد العقارات: <span className="text-lightOrange">{propnum()}</span>
-      </h1>
-      <div className="flex justify-start items-center gap-3">
+    <section className=" space-y-2 sm:space-y-4 md:py-7 md:p-5 md:rounded-lg  md:bg-gray-100">
+      <div className=" flex flex-wrap justify-center items-center sm:grid grid-cols-3 gap-1 ">
+        <div className="text-center px-3 py-1 md:bg-white bg-gray-100 rounded-lg">
+          <p className="sm:text-lg font-medium">عدد الإيجار</p>
+          <p>{rentNum}</p>
+        </div>
+        <div className="text-center px-3 py-1 md:bg-white bg-gray-100 rounded-lg">
+          <p className="sm:text-lg font-medium">عدد البيع</p>
+          <p>{rentNum}</p>
+        </div>
+        <div className="text-center px-3 py-1 md:bg-white bg-gray-100 rounded-lg">
+          <p className="sm:text-lg font-medium">عدد الأستثمار</p>
+          <p>{invstNum}</p>
+        </div>
+      </div>
+
+      <div className="flex justify-center  items-center gap-3">
         {Boolean(totalPropNum) && (
           <button
             onClick={() => handlePropTypeChange("000")}
@@ -103,7 +120,10 @@ const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
           </button>
         )}
       </div>
-
+      <h1 className="text-xl font- text-lightGreen">
+        {" "}
+        عدد العقارات: <span className="text-lightOrange">{propnum()}</span>
+      </h1>
       {propertyData ? (
         propertyData.getConfirmedRealty.length > 0 ? (
           <div className="grid lg:grid-cols-2 2xl:grid-cols-3 items-center gap-5 justify-center">
