@@ -18,6 +18,7 @@ import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
 import { BsWhatsapp } from "react-icons/bs";
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { FcViewDetails } from "react-icons/fc";
 
 function ConfirmAppointment({ userAppointment }) {
   const message = `
@@ -352,11 +353,11 @@ function ConfirmAppointment({ userAppointment }) {
       <div className="flex justify-between flex-row-reverse items-center pt-2">
         {userInfo && userInfo.isAdmin && (
           <Link
-            title={language ? " تعديل العقار" : "Edit Property"}
-            href={`/editproperty/${userAppointment.slug}`}
+            title={language ? " تفاصيل العقار" : "Edit Property"}
+            href={`/dashboard/property-details/${userAppointment.slug}`}
             className="text-lightGreen font-bold text-lg hover:text-lightOrange duration-200"
           >
-            <AiFillEdit />
+            <FcViewDetails />
           </Link>
         )}
         <p className="text-xs font-semibold">
