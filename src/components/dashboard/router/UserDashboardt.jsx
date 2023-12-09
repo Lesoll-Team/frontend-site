@@ -134,7 +134,7 @@ export default function UserDashboard() {
     switch (columnKey) {
       case "fullname":
         return (
-          <Link href={`/view-profile/${user?.username}`}>
+          <Link href={`/dashboard/user-details/${user?.username}`}>
             <User
               avatarProps={{ radius: "full", size: "sm", src: user.avatarUrl }}
               classNames={{
