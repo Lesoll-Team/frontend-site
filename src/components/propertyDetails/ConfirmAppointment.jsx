@@ -341,7 +341,7 @@ function ConfirmAppointment({ userAppointment }) {
           </>
         )}
       </div> */}
-      <button
+      {/* <button
         onClick={openDirectionsInGoogleMaps}
         className="font-semibold py-3 text-center flex justify-center gap-2 items-center border-2 border-darkGreen text-darkGreen hover:bg-darkGreen duration-150 hover:text-white w-full rounded-lg drop-shadow-lg"
       >
@@ -349,7 +349,7 @@ function ConfirmAppointment({ userAppointment }) {
           ? "  موقع العقار على الخريطة "
           : "Property location on the map"}
         <FaMapLocationDot />
-      </button>
+      </button> */}
       <div className="flex justify-between flex-row-reverse items-center pt-2">
         {userInfo && userInfo.isAdmin && (
           <Link
