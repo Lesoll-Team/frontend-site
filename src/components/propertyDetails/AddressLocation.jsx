@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 function AddressLocation({ singleAddressLocation }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(singleAddressLocation);
+  // console.log(singleAddressLocation);
   const openDirectionsInGoogleMaps = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${singleAddressLocation?.address.latitude},${singleAddressLocation?.address.longitude}`;
     window.open(url, "_blank");
