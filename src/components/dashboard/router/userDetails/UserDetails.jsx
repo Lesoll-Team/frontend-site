@@ -12,7 +12,7 @@ const UserDetails = ({
   totalPropNum,
   visitedPages,
 }) => {
-  console.log();
+  // console.log(userData);
   return (
     <div className="sm:max-w-[1800px]  px-2  mx-auto my-3 space-y-5">
       <UserData

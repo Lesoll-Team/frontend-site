@@ -1,29 +1,12 @@
 import { Avatar } from "@nextui-org/react";
-// import { InfoBox } from "@react-google-maps/api";
 import Link from "next/link";
 import { FaEdit, FaUser } from "react-icons/fa";
 import InfoCard from "./InfoCard";
 import { useEffect, useState } from "react";
-import { IoIosCall } from "react-icons/io";
-
-import { useRouter } from "next/router";
-import Userdata from "@/components/viewProfile/UserData";
 import { useSelector } from "react-redux";
 import DescriptionModal from "../../propertyDetails/description/DescriptionModal";
 
-const UserData = ({
-  userData,
-  favNum,
-  deletedNum,
-  invstNum,
-  rentNum,
-  saleNum,
-  totalPropNum,
-  visitedPages,
-}) => {
-  const router = useRouter();
-  const slug = router.query.id;
-  console.log(slug);
+const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const userTypeLang = () => {
@@ -41,7 +24,7 @@ const UserData = ({
         return language ? "غير محدد" : "Not specified";
     }
   };
-  // ⚒️
+
   const [date, setdate] = useState();
   useEffect(() => {
     const createdAt = userData?.createdAt;

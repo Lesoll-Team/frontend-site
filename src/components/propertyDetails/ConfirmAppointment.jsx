@@ -17,6 +17,7 @@ import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
 import { BsWhatsapp } from "react-icons/bs";
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 function ConfirmAppointment({ userAppointment }) {
   const message = `
@@ -69,6 +70,10 @@ function ConfirmAppointment({ userAppointment }) {
       setLoved(true);
     }
   }, [userInfo?.favorites]);
+  const openDirectionsInGoogleMaps = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${userAppointment?.address.latitude},${userAppointment?.address.longitude}`;
+    window.open(url, "_blank");
+  };
   return (
     <aside className="  p-5 pt-6 bg-white drop-shadow-lg border rounded-xl md:sticky md:top-24 space-y-4 ">
       <div className="flex flex-col justify-center items-center mx-2">
@@ -335,6 +340,15 @@ function ConfirmAppointment({ userAppointment }) {
           </>
         )}
       </div> */}
+      <button
+        onClick={openDirectionsInGoogleMaps}
+        className="font-semibold py-3 text-center flex justify-center gap-2 items-center border-2 border-darkGreen text-darkGreen hover:bg-darkGreen duration-150 hover:text-white w-full rounded-lg drop-shadow-lg"
+      >
+        {language
+          ? "  موقع العقار على الخريطة "
+          : "Property location on the map"}
+        <FaMapLocationDot />
+      </button>
       <div className="flex justify-between flex-row-reverse items-center pt-2">
         {userInfo && userInfo.isAdmin && (
           <Link

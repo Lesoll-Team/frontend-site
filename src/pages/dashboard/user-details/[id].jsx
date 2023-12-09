@@ -16,12 +16,12 @@ const UserDetailsPage = () => {
   const [visitedPages, setVisitedPages] = useState();
   const router = useRouter();
   const slug = router.query.id;
-  console.log(slug);
+
   useEffect(() => {
     const fetchData = async () => {
       if (slug) {
         const data = await getUserDataDashboard(slug);
-        console.log(data);
+        // console.log(data);
         setUserData(data.getData);
 
         setVisitedPages(data.linksUserVisit);

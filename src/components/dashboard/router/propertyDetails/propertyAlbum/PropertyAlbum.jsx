@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaImage } from "react-icons/fa";
+
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css"; // Import the styles
 
@@ -24,9 +24,11 @@ const PropertyAlbum = ({ propertyDetails }) => {
       >
         اضغط لعرض الصور
       </button>
-
+      <div className="absolute p-3 top-2 left-2 rounded-full h-10 flex items-center justify-center w-10 bg-white">
+        <p className="text-xl font-medium text-darkGreen">{images.length}</p>
+      </div>
       <img
-        src={propertyDetails.getProperty.album[0].image}
+        src={propertyDetails.getProperty.thumbnail}
         className="w-[100%] max-h-[500px] rounded-md object-cover"
       />
 

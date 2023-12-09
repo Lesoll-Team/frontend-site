@@ -12,7 +12,7 @@ const PropertyDtailsPage = () => {
     const fetchData = async () => {
       if (slug) {
         const data = await getPropertyDashboard(slug);
-        console.log(data);
+        // console.log(data);
         setPropertyDetails(data);
       }
     };

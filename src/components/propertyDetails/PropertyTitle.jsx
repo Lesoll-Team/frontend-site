@@ -131,21 +131,6 @@ function PropertyTitle({ singleTitle }) {
             </div>
           </div>
         </div>
-
-        <p
-          onClick={() => {
-            openDirectionsInGoogleMaps(
-              singleTitle.address.latitude,
-              singleTitle.address.longitude
-            );
-          }}
-          className=" sm:my-5 p-0 text-center flex sm:justify-normal justify-center text-[#636363] sm:text-sm text-xs cursor-pointer w-fit h-fit hover:underline"
-        >
-          {/* {singleTitle?.address.name.slice(0, 50)} */}
-          {singleTitle?.address.governrate}
-          {singleTitle?.address.region && " ,"}
-          {singleTitle?.address.region}
-        </p>
       </div>
     </div>
   );

@@ -5,20 +5,14 @@ import { getUserPropertiesDashboard } from "@/utils/userAPI";
 import CArdSkeleton from "./cards/CArdSkeleton";
 import ReactPaginate from "react-paginate";
 import styles from "../../../../styles/paginations.module.css";
-const UserProperties = ({
-  invstNum,
-  rentNum,
-  saleNum,
-  totalPropNum,
-  deletedNum,
-}) => {
+const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
   const [propertyData, setPropertyData] = useState();
   const [page, setPage] = useState();
 
   const [propType, setPropType] = useState("000");
   const router = useRouter();
   const slug = router.query.id;
-  console.log(slug);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getUserPropertiesDashboard(slug, page, propType);
@@ -27,7 +21,7 @@ const UserProperties = ({
     };
     fetchData();
   }, [slug, page, propType]);
-  console.log(propertyData);
+
   const handlePropTypeChange = (type) => {
     if (type !== propType) {
       setPropertyData(null);
@@ -65,7 +59,7 @@ const UserProperties = ({
         </div>
         <div className="text-center px-3 py-1 md:bg-white bg-gray-100 rounded-lg">
           <p className="sm:text-lg font-medium">عدد البيع</p>
-          <p>{rentNum}</p>
+          <p>{saleNum}</p>
         </div>
         <div className="text-center px-3 py-1 md:bg-white bg-gray-100 rounded-lg">
           <p className="sm:text-lg font-medium">عدد الأستثمار</p>

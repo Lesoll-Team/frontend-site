@@ -1,4 +1,3 @@
-import { FaArrowLeft } from "react-icons/fa";
 import SectionContainer from "../SectionContainer";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import DescriptionModal from "./DescriptionModal";
