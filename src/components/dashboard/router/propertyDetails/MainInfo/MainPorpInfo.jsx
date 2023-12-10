@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const MainPorpInfo = ({ propertyDetails }) => {
   const openDirectionsInGoogleMaps = () => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${propertyDetails.getProperty.address.latitude},${propertyDetails.getProperty.address.longitude}`;
+    const url = `https://www.google.com/maps/search/?api=1&query=${propertyDetails.getProperty.address.latitude},${propertyDetails.getProperty.address.longitude}`;
     window.open(url, "_blank");
   };
   return (

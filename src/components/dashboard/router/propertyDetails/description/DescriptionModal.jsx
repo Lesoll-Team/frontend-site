@@ -20,7 +20,7 @@ const DescriptionModal = ({ children, description }) => {
         <ModalContent className="p-3" dir="rtl">
           {(onClose) => (
             <>
-              <ModalBody>
+              <ModalBody className="max-h-[500px]">
                 <p className="leading-loose">{description}</p>
               </ModalBody>
             </>

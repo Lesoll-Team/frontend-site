@@ -249,7 +249,6 @@ function ConfirmAppointment({ userAppointment }) {
           </ContactBtnsModal>
         )}
       </div>
-
       <div className="flex justify-between flex-row-reverse items-center pt-2">
         {userInfo && userInfo.isAdmin && (
           <Link

@@ -12,7 +12,7 @@ const PropertyAlbum = ({ propertyDetails }) => {
     const propertyImages = propertyDetails.getProperty.album.map((img) => {
       return img.image;
     });
-    setImages(propertyImages);
+    setImages([...propertyImages, propertyDetails.getProperty.thumbnail]);
   }, [propertyDetails.getProperty.album]);
 
   return (
@@ -28,8 +28,9 @@ const PropertyAlbum = ({ propertyDetails }) => {
         <p className="text-xl font-medium text-darkGreen">{images.length}</p>
       </div>
       <img
+        onClick={() => setIsOpen(true)}
         src={propertyDetails.getProperty.thumbnail}
-        className="w-[100%] max-h-[500px] rounded-md object-cover"
+        className="w-[100%] max-h-[500px] rounded-md object-cover cursor-pointer"
       />
 
       {isOpen && (
