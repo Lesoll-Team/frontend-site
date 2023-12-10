@@ -171,7 +171,6 @@ const PropertyCard = ({ propertyDetails }) => {
           {" "}
           تم النشر فى {formatDate(propertyDetails.acceptAt)}
         </p>
-        {console.log(propertyDetails)}
       </div>
     </div>
   );
