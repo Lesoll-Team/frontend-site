@@ -79,6 +79,11 @@ module.exports = async () => {
           permanent: true,
         },
         {
+          source: "/Blogs/:slug",
+          destination: "/blog/:slug",
+          permanent: true,
+        },
+        {
           source: "/About",
           destination: "/about-us",
           permanent: true,

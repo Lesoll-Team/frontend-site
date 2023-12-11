@@ -176,8 +176,8 @@ const DropdownMore = ({
                 selectoption={selectoption}
                 setSelectedOption={setSelectedOption}
               />
-            </div>
-            {/* <Dropdown
+              </div>
+              {/* <Dropdown
                 classNames="my-1"
                 value={isFurnished}
                 valueDefault={`${

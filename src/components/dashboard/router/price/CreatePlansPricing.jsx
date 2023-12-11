@@ -1,45 +1,110 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import { Select, SelectItem } from "@nextui-org/react";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createPricePlan,
+  getServicePrice,
+} from "@/redux-store/features/PricingSlice";
 
 const CreatePlansPricing = () => {
+  const dispatch = useDispatch();
   const [moreOption, setMoreOption] = useState(false);
+  const servicePrice = useSelector((state) => state.Pricing.priceService);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
-  const [categoryName,setCategoryName]=useState("")
-  const [rank,setRank]=useState("")
-  const [targetUser,setTargetUser]=useState("")
+  const [categoryNameAr, setCategoryNameAr] = useState("");
+  const [categoryNameEn, setCategoryNameEn] = useState("");
+  const [descriptionCardAr, setDescriptionCardAr] = useState("");
+  const [descriptionCardEn, setDescriptionCardEn] = useState("");
+  const [singlePageContentEn, setSinglePageContentEn] = useState("");
+  const [singlePageContentAr, setSinglePageContentAr] = useState("");
+
+  const [rank, setRank] = useState("");
+  const [targetUser, setTargetUser] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [isPopular, setPopular] = useState(false);
-  const [basicPrice, setBasicPrice] = useState(0);
   const [isOffer, setOffer] = useState(false);
+  const [basicPrice, setBasicPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(0);
-    // const [featuresList, setFeaturesList] = useState([]);
-  const [featuresList, setFeaturesList] = useState([]);
-  const [descriptionCard, setDescriptionCard] = useState("");
-  const [pageContentText, setPageContentText] = useState("");
 
+  const [featuresList, setFeaturesList] = useState(new Set([]));
+  const [featuresId, setFeaturesId] = useState([]);
 
   const data2 = {
-    categoryName: categoryName,
-    date: expiryDate,
-    rank: rank,
-    description: descriptionCard,
+    rank,
+    PaymentAr: categoryNameAr,
+    PaymentEn: categoryNameEn,
     price: basicPrice,
-    dateListInCard: [],
-    lastPrice: oldPrice,
-    Offer: isOffer,
-    isAdmin: false,
-    isPopular: isPopular,
-    // pageContentText,
+    targetUsers: targetUser,
+    Popular: isPopular,
+    offer: isOffer,
+    offerPrice: oldPrice,
+    expireDate: expiryDate,
+    service: [...featuresList],
+    descriptionAr: descriptionCardAr,
+    descriptionEn: descriptionCardEn,
+    singlePageContentAr,
+    singlePageContentEn,
+  };
+
+  const data = {
+    rank,
+    PaymentAr: categoryNameAr,
+    PaymentEn: categoryNameEn,
+    price: basicPrice,
+    targetUsers: targetUser,
+    Popular: isPopular,
+    offer: isOffer,
+    offerPrice: oldPrice,
+    expireDate: expiryDate,
+    service: featuresId,
+    descriptionAr: descriptionCardAr,
+    descriptionEn: descriptionCardEn,
+    singlePageContentAr,
+    singlePageContentEn,
+  };
+
+  const handleFeaturesSelectionChange = (selectedKeys) => {
+    const selectedItems = Array.from(selectedKeys);
+
+    const selectedFeaturesArray = selectedItems.map((selectedItem) => {
+      const selectedFeature = servicePrice.find(
+        (item) => item._id === selectedItem
+      );
+      if (selectedFeature) {
+        const { _id, nameAr, nameEn } = selectedFeature;
+        return { _id,   nameAr ,nameEn };
+      }
+      return null;
+    });
+
+    const filteredSelectedFeaturesArray = selectedFeaturesArray.filter(
+      (item) => item !== null
+    );
+    const featuresIdArray = filteredSelectedFeaturesArray.map(
+      (item) => item._id
+    );
+
+    setFeaturesId(featuresIdArray);
+
+    setFeaturesList(filteredSelectedFeaturesArray); // Update the state with the new selected features
   };
 
   const handleAddFeatures = (e) => {
-e.preventDefault()   
- console.log(data2);
-  }
+    e.preventDefault();
+    dispatch(createPricePlan(data));
+    // console.log(data2);
+    // console.log("********************");
+    // console.log(data);
+  };
+  useEffect(() => {
+    dispatch(getServicePrice());
+  }, []);
+
+  // console.log("featuresList", featuresList);
+
   return (
     <div dir="ltr" className="w-full  flex">
       <div className="bg-lightGreenHover  sticky top-0">
@@ -49,24 +114,24 @@ e.preventDefault()
         <div className="mt-6 ml-3 mb-10">
           {/* Category name */}
           <div>
-            <d className="block text-sm font-medium text-gray-600">
+            <div className="block text-sm font-medium text-gray-600">
               Category name :-
-            </d>
+            </div>
             <div className="flex space-x-3">
               <input
                 className="mt-1 px-3 py-2 border rounded w-full"
                 type="text"
                 name="CategoryNameAr"
                 placeholder="Name Arabic"
-                onChange={(e) => setCategoryName(e.target.value)}
+                onChange={(e) => setCategoryNameAr(e.target.value)}
               />
-
-              {/* <input
+              <input
                 className="mt-1 px-3 py-2 border rounded w-full"
                 type="text"
                 name="CategoryNameEn"
                 placeholder="Name English"
-              /> */}
+                onChange={(e) => setCategoryNameEn(e.target.value)}
+              />
             </div>
           </div>
           {/* Rank & Date & Target & is popular */}
@@ -78,8 +143,7 @@ e.preventDefault()
               <select
                 name="rank"
                 onChange={(e) => setRank(e.target.value)}
-                className="mt-1 px-3 py-2 border rounded w-full"
-              >
+                className="mt-1 px-3 py-2 border rounded w-full">
                 <option value="silver">Silver</option>
                 <option value="gold">Gold</option>
                 <option value="water">Water</option>
@@ -95,8 +159,7 @@ e.preventDefault()
                 name="date"
                 // value={formData.rank}
                 onChange={(e) => setExpiryDate(e.target.value)}
-                className="mt-1 px-3 py-2 border rounded w-full"
-              >
+                className="mt-1 px-3 py-2 border rounded w-full">
                 <option value="one day">one day</option>
                 <option value="week">week</option>
                 <option value="month">month</option>
@@ -132,7 +195,6 @@ e.preventDefault()
               </label>
             </div>
           </div>
-
           {/* Price & Old price */}
           <div className=" mt-4 items-center grid grid-cols-2  space-x-3 ">
             <div>
@@ -171,7 +233,6 @@ e.preventDefault()
               </div>
             </div>
           </div>
-
           {/* Description */}
           <div className="mt-4 grid col-span-2">
             <label className="block text-sm font-medium text-gray-600">
@@ -179,13 +240,14 @@ e.preventDefault()
             </label>
             <textarea
               placeholder="Arabic"
-              onChange={(e) => setDescriptionCard(e.target.value)}
+              onChange={(e) => setDescriptionCardAr(e.target.value)}
               className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
             ></textarea>
-            {/* <textarea
+            <textarea
               placeholder="English"
+              onChange={(e) => setDescriptionCardEn(e.target.value)}
               className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
-            ></textarea> */}
+            ></textarea>
           </div>
           {/*features*/}
           <div className="mt-4  col-span-2">
@@ -195,34 +257,24 @@ e.preventDefault()
             <div className=" mb-2 flex">
               <Select
                 label="features"
-                placeholder="Select an features"
+                placeholder="Select features"
                 selectionMode="multiple"
-                // onChange={(e) => setFeaturesList(e.target.value)}
-                onSelectionChange={setFeaturesList}
+                // selectedKeys={featuresList}
+                onSelectionChange={handleFeaturesSelectionChange}
+                // onChange={(e) => handleFeaturesSelectionChange(e.target.value)}
               >
-                <SelectItem key="2D_Canvas" value="2D_Canvas">
-                  2D Canvas
-                </SelectItem>
-
-                <SelectItem key="3D_Canvas" value="3D_Canvas">
-                  3D Canvas
-                </SelectItem>
-
-                <SelectItem key="Media_Files" value="Media_Files">
-                  mport Media Files
-                </SelectItem>
-
-                <SelectItem key="3D_Assets" value="3D_Assets">
-                  Import 3D Assets
-                </SelectItem>
-
-                <SelectItem key="Assets_Support" value="Assets_Support">
-                  Multi Media Assets Support
-                </SelectItem>
+                {servicePrice?.map((item) => (
+                  <SelectItem
+                    // key={` {_id:'${item._id}', textFeatures:'${language ? item.nameAr : item.nameEn}'}`}
+                    value={language ? item.nameAr : item.nameEn}
+                    key={item._id} // Use only the _id as the key
+                  >
+                    {language ? item.nameAr : item.nameEn}
+                  </SelectItem>
+                ))}
               </Select>
             </div>
           </div>
-
           {/*more option */}
           <div className="mt-4 grid col-span-2">
             <p
@@ -236,14 +288,15 @@ e.preventDefault()
                 Description :-
               </label>
               <textarea
-                onChange={(e) => setPageContentText(e.target.value)}
+                onChange={(e) => setSinglePageContentAr(e.target.value)}
                 placeholder="Arabic"
                 className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
               />
-              {/* <textarea
+              <textarea
                 placeholder="English"
+                onChange={(e) => setSinglePageContentEn(e.target.value)}
                 className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
-              ></textarea> */}
+              ></textarea>
             </div>
           </div>
           {/* Button  */}
@@ -257,7 +310,7 @@ e.preventDefault()
           </div>
         </div>
         <div className="flex justify-center items-center">
-          {/* <PlanPricingCard data={data2} /> */}
+          <PlanPricingCard data={data2} />
         </div>
       </div>
     </div>

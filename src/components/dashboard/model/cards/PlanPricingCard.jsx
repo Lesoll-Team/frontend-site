@@ -4,6 +4,7 @@ import {  BsBoxArrowInDownRight } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
 import {  FaCircleCheck } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
+import { useSelector } from "react-redux";
 // import { HiMiniCheckBadge } from 'react-icons/hi2';
 
 const PlanPricingCard = ({
@@ -11,14 +12,24 @@ const PlanPricingCard = ({
   data,
 }) => {
   const [bgStyleCard, setStyleCard] = useState("");
-  // const ranks = {
-
-  //   bronze: "bg-gradient-to-br from-yellow-600 to-yellow-900 text-white",
-  //   silver: "bg-gradient-to-br from-gray-300 to-gray-400",
-  //   gold: "bg-gradient-to-tr from-orange-400 via-yellow-500 to-orange-500",
-  //   water: "bg-gradient-to-b from-blue-200 to-blue-400",
-  //   galaxy: "bg-gradient-to-b from-indigo-600 to-gray-950 text-white",
-  // };
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const dateTranslation = (date) => {
+    if (language) {
+        switch (date) {
+          case "one day":
+            return "يوم واحد";
+          case "week":
+            return "اسبوعي";
+          case "month":
+            return "شهري";
+          case "yearly":
+            return "سنوي";
+          default:
+            return null;
+        }
+    }
+  };
+// console.log("Plan Pricing Card", data);
   useEffect(() => {
     // Use useEffect to set the style once when the component mounts
     switch (data?.rank) {
@@ -53,43 +64,53 @@ const PlanPricingCard = ({
      ${stylesCss?.bodyCss}
      `}
     >
-      {data?.isPopular ? (
+      {data?.Popular ? (
         <div className="w-[120px] -ml-[46px] h-[28px] -rotate-45 rounded-tl-full rounded-tr-full text-center bg-red-600 font-semibold text-white absolute">
-          popular
+          {language ? "مـمـيـز" : "popular"}
         </div>
       ) : null}
-
       <div
         className={`flex ${
-          data?.isPopular ? "justify-end" : "justify-center"
-        } items-center space-x-3 `}
+          data?.Popular ? "justify-end mt-12" : "justify-center"
+        } items-center  `}
       >
-        <p className={`font-semibold text-lg ${stylesCss?.titleCss}`}>
-          {data?.categoryName || "empty"}
+        <p className={ ` bg-red-200 flex-none font-semibold text-lg ${stylesCss?.titleCss}`}>
+          {language ? data?.PaymentAr : data?.PaymentEn || "empty"}
         </p>
         <div className="flex  items-center space-x-1">
           {/* <div className="flex items-center space-x-1"> */}
-          <span className="font-semibold text-xl">
-            EG {data?.price || "Nun"}
+          <span className="font-semibold text-xl flex-none bg-red-500">
+            {language ? "جنية" : "EGY"} {data?.price || 0}
           </span>
-          <span className="text-sm">/{data?.date || "empty"}</span>
-          {data?.Offer ? (
-            <s className="text-red-500 text-lg">EG {data?.lastPrice}</s>
+          <span className="font-semibold flex-none text-sm bg-blue-400">
+            /{language ? dateTranslation(data?.expireDate) : data?.expireDate}
+          </span>
+          {data?.offer ? (
+            <s className="text-red-500 bg-yellow-300 flex-none font-semibold text-lg">
+              {language ? "جنية" : "EGY"} {data?.offerPrice}
+            </s>
           ) : null}
         </div>
       </div>
-      <p
-        className={`text-sm line-clamp-2 leading-3 mt-2 ${
-          data?.isPopular ? "indent-5" : ""
-        }`}
-      >
-        {data?.description}
-      </p>
-      <div className="flex flex-col  px-1 my-5 gap-y-3">
-        {data.dateListInCard.map((list, index) => (
-          <div key={index} className="flex space-x-2 items-center ">
+      <div className="pt-1">
+        <p
+          dir={language ? "rtl" : "ltr"}
+          className={`text-sm font-medium line-clamp-2 leading-snug ${
+            data?.Popular ? "px-3" : ""
+          }`}
+        >
+          {language ? data?.descriptionAr : data?.descriptionEn}
+        </p>
+      </div>
+      <div
+        dir={language ? "rtl" : "ltr"}
+        className="flex flex-col min-h-[150px] max-h-[180px]  px-1 my-5 gap-y-3">
+        {data?.service?.map((list, index) => (
+          <div key={list._id} className="flex space-x-2 items-center ">
             <FaCircleCheck className="text-[15px] w-[20px]" />
-            <p className="line-clamp-1">{list.text}</p>
+            <p className="line-clamp-1">
+              {language ? list.nameAr : list.nameEn}
+            </p>
           </div>
         ))}
       </div>
@@ -125,20 +146,11 @@ const PlanPricingCard = ({
                 : "border-b-2 border-white"
             } flex`}
           >
-            show more details
+            {language ? "عرض المزيد من التفاصيل" : "show more details"}
             <BsBoxArrowInDownRight className="mx-2" />
           </Link>
         </div>
       )}
-
-      {/* <div className="justify-center items-center  space-x-2 w-full flex">
-        <Link
-          href={"/dashboard/pricing"}
-          className={`py-1 px-3 border-b-2 items-center border-white flex  ${stylesCss?.buttonCss}`}>
-          show more details
-          <BsBoxArrowInDownRight className="mx-2" />
-        </Link>
-      </div> */}
     </div>
   );
 };

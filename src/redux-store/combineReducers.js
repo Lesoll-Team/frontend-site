@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import globalState from './features/globalState'; 
 import authReducer from './features/authSlice';
-// import propertyReducer from './features/propertySlice';
+import PricingReducer from "./features/PricingSlice";
 import contactReducer from './features/contactSlice';
 // import compareReducer from './features/compareSlice';
 // import overViewReducer from "./features/dashboard/overViewSlice";
@@ -22,5 +22,5 @@ export default combineReducers({
   OverView: overViewReducer,
   Searching: searchingReducer,
   Profile: profileReducer,
-  // Compare:compareReducer,
+  Pricing:PricingReducer,
 });

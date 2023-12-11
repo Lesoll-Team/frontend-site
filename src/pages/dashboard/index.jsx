@@ -34,6 +34,7 @@ import {
   downloadRealtyData,
   downloadOverviewData,
 } from "@/utils/dashboardApi/overviewDashboard";
+import { getServicePrice } from "@/redux-store/features/PricingSlice";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -48,7 +49,7 @@ ChartJS.register(
 function Dashboard() {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
-
+// console.log("PriceService", PriceService);
   const dataSale = useSelector((state) => state.OverView.dataSale);
   const dataRents = useSelector((state) => state.OverView.dataRent);
   const dataDelete = useSelector((state) => state.OverView.dataDeleted);
@@ -89,7 +90,6 @@ function Dashboard() {
     dispatch(getRentView(dates));
     dispatch(getDeleteView(dates));
     dispatch(getUsersView(dates));
-
   }, [dateRange]);
 
   useEffect(() => {
@@ -356,28 +356,13 @@ function Dashboard() {
 }
 
 export default Dashboard;
-/**
- *     const data = {
-      labels: ["10/1", "10/2", "10/3", "10/4", "10/5", "10/6", "10/7", "10/8"], // هنا بنحط الايام
-      datasets: [
-        {
-          label: "Total User",
-          data: [33, 150, 100, 100, 100, 10, 50, 55], // عدد المستخدمين خلال ال3 ايام اللى موجدين فوق
-          borderColor: "gray",
-          backgroundColor: [
-            "#d2512d",
-            "#309da0",
-            "#d55d3aff",
-            "#3ababeff",
-            "#a63626",
-            "#5c5a5a",
-          ],
-          tension: 0.4,
-          borderWidth: 1, //border size
-
-          // innerWidth:1,
-          // outerHeight:10,
-        },
-      ],
-    };
- */
+// export async function getStaticProps() {
+//   const servicePrice = await dispatch(getServicePrice());
+//   const service = await servicePrice.json();
+//   return {
+//     props: {
+//       PriceService: service,
+//     },
+//     revalidate: 1,
+//   };
+// }

@@ -1,21 +1,32 @@
-import ConfirmModal from "@/Shared/models/ConfirmModal";
+import DeleteModal from "@/Shared/models/DeleteModal";
 import { deleteProperty } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
+import { useState } from "react";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
 import { TbRulerMeasure } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
 const UserCard = ({ propertyDetails, type, onRemove }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const [selectedReason, setSelectedReason] = useState("");
+  const [reason, setReason] = useState("");
+  const [otherMessage, setOtherMessage] = useState("");
+  const [error, setError] = useState(false);
 
+  const onReasonSelect = (selected, messege) => {
+    setError(false);
+    setSelectedReason(selected);
+    setReason(messege);
+  };
   const deleteProp = async () => {
     try {
-      await deleteProperty(propertyDetails._id);
+      await deleteProperty(propertyDetails._id, reason);
       // After successfully adding to favorites, trigger the removal callback
       onRemove(propertyDetails._id);
     } catch (error) {
@@ -172,16 +183,88 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
 
       <div className="flex items-center  gap-1 w-full p-2 ">
         <div className="w-1/2">
-          <ConfirmModal
-            actinFunction={deleteProp}
-            title={language ? "تأكيد إزالة العقار" : "Confirm Delete Propert"}
+          <DeleteModal
+            selectedReason={selectedReason}
+            OpenButton={
+              <button className="w-full rounded-lg text-center flex items-center justify-center text-red-500 gap-1 border-red-500 border-2 py-1 md:hover:bg-red-500 md:hover:text-white duration-150">
+                <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" />
+                {language ? "إزاله " : "Delete"}
+              </button>
+            }
+            reason={reason}
+            error={error}
+            setError={setError}
+            deleteProp={deleteProp}
           >
-            {" "}
-            <button className="w-full rounded-lg text-center flex items-center justify-center text-red-500 gap-1 border-red-500 border-2 py-1 md:hover:bg-red-500 md:hover:text-white duration-150">
-              <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" />
-              {language ? "إزاله " : "Delete"}
-            </button>
-          </ConfirmModal>
+            <div className="flex flex-col items-start gap-3 mb-3">
+              <h3 className="text-2xl fomt-semiBold">
+                {language
+                  ? " ما سبب رغبتك في حذف هذا العقار؟"
+                  : "What is the reason you want to delete this property?"}
+              </h3>
+              <button
+                onClick={() =>
+                  onReasonSelect("lesoll", "تم البيع / التأجير من خلال ليسول")
+                }
+                type="button"
+                className="flex gap-2 items-center text-lg font-normal"
+              >
+                {selectedReason === "lesoll" ? (
+                  <IoIosRadioButtonOn className="text-lightGreen" />
+                ) : (
+                  <IoMdRadioButtonOff className="text-lightGreen" />
+                )}
+
+                {language ? "تم البيع / التأجير من خلال ليسول" : ""}
+              </button>
+              <button
+                onClick={() =>
+                  onReasonSelect(
+                    "non-lesoll",
+                    "تم البيع / التأجير من خلال وسيط اخر"
+                  )
+                }
+                type="button"
+                className="flex gap-2 items-center text-lg font-normal"
+              >
+                {selectedReason === "non-lesoll" ? (
+                  <IoIosRadioButtonOn className="text-lightGreen" />
+                ) : (
+                  <IoMdRadioButtonOff className="text-lightGreen" />
+                )}
+                {language ? "تم البيع / التأجير من خلال وسيط اخر" : ""}
+              </button>
+              <button
+                onClick={() => onReasonSelect("other", otherMessage)}
+                type="button"
+                className="flex gap-2 items-center text-lg font-normal"
+              >
+                {selectedReason === "other" ? (
+                  <IoIosRadioButtonOn className="text-lightGreen" />
+                ) : (
+                  <IoMdRadioButtonOff className="text-lightGreen" />
+                )}
+                {language ? "اخرى" : ""}
+              </button>
+              {selectedReason === "other" && (
+                <textarea
+                  value={otherMessage}
+                  onChange={(e) => {
+                    setReason(e.target.value);
+                    setOtherMessage(e.target.value);
+                  }}
+                  className={`resize-none w-full p-2 border-[2px] md:border-[3px] rounded-md focus:ring-0 focus:border-lightGreen focus:outline-none animate-appearance-in ${
+                    selectedReason !== "other" && "animate-appearance-out"
+                  }`}
+                  placeholder={language ? "سبب أخر" : "Other reason"}
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              )}
+            </div>
+          </DeleteModal>
         </div>
 
         <Link
