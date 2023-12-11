@@ -27,11 +27,14 @@ function AddressLocation({ singleAddressLocation }) {
             {language ? "الموقع على الخريطة" : "Location on the map"}
             <FaMapLocationDot className="text-darkGreen" />
           </button>
-          <img
-            src="/map.jpg"
-            alt="map"
-            className="w-full cursor-pointer hover:scale-105 duration-200 rounded-lg  drop-shadow-xl max-h-[300px]  object-cover"
-          />
+          <div className="w-full rounded-xl border overflow-hidden drop-shadow-xl bg-white ">
+            <img
+              src="/map.svg"
+              alt="map"
+              className="w-full cursor-pointer hover:scale-105 duration-200 rounded-xl max-h-[300px]  object-cover"
+            />
+          </div>
+
           {/* <div className=" lg:w-[100%]  h-[300px]">
         <ShowMap
           center={{
