@@ -160,13 +160,7 @@ export async function sendResetNewPassword(userNewPassword) {
     throw error.response.data;
   }
 }
-// export async function getTokenGoogle(){
-//   try {
 
-//   } catch (error) {
-
-//   }
-// }
 export async function signWithGoogle() {
   try {
     const response = await axios.get(
@@ -174,13 +168,9 @@ export async function signWithGoogle() {
     );
     const authUrl = response.data.Link;
     window.location.href = authUrl;
-    // window.open(authUrl,"_blank");
-    // console.log("response",response.data);
-    // return response
   } catch (error) {
     console.log(error);
   }
-  // console.log(response);
 }
 
 export async function GetActiveProp(page) {
