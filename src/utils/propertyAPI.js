@@ -19,6 +19,24 @@ export async function createNewProperty(propertyDetils) {
     throw error.response.data;
   }
 }
+export async function createNeed(needDetails) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.post(
+      `http://192.168.1.17:9000/api/need/create-need?token=${userToken}`,
+      needDetails,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
 export async function editProperty(propertyDetils, propertyId) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -29,7 +47,7 @@ export async function editProperty(propertyDetils, propertyId) {
       {
         headers: {
           token: userToken,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       }
     );
