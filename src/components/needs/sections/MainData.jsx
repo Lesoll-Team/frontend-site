@@ -1,5 +1,10 @@
 import AddPropDropdown from "@/components/addproperty/AddPropIputs/AddPropDropdown";
-import { useSelector } from "react-redux";
+import {
+  setOffer,
+  setPropType,
+  setUnitType,
+} from "@/redux-store/features/needsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const unitType = {
   Residential: {
@@ -93,37 +98,49 @@ const offer = {
   en: [
     { value: "For Sale", name: "For Sale" },
     { value: "For Rent", name: "For Rent" },
-    { value: "For Investment", name: "For Investment" },
+    // { value: "For Investment", name: "For Investment" },
   ],
   ar: [
     { value: "For Sale", name: "للبيع" },
     { value: "For Rent", name: "للإيجار" },
-    { value: "For Investment", name: "للإستثمار" },
+    // { value: "For Investment", name: "للإستثمار" },
   ],
 };
 
-const MainData = ({ needData, setNeedData }) => {
+const MainData = ({ setNeedData }) => {
   // const [unitOptions, setUnitOptions] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const needData = useSelector((state) => state.needs.needsData);
+  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col  w-full space-y-5">
-      <h1 className="text-center text-5xl text-darkGreen mt-3 font-bold">
-        {language ? "أضف عقارك" : "Add Property"}
+      <h1 className="text-center text-5xl text-darkGreen mt-4 font-bold">
+        {language ? "أضف احتياجك" : "Add your need"}
       </h1>
-
+      <div className="flex items-center gap-4">
+        <button
+          onClick={() => {
+            dispatch(setOffer("For Sale"));
+          }}
+          className={`border-[3px] w-full py-3 rounded-md font-semibold text-x duration-150  ${
+            needData.offer === "For Sale" && "bg-[#97cecf] border-darkGreen "
+          }`}
+        >
+          للبيع
+        </button>
+        <button
+          onClick={() => {
+            dispatch(setOffer("For Rent"));
+          }}
+          className={`border-[3px] w-full py-3 rounded-md font-semibold text-xl duration-150 ${
+            needData.offer === "For Rent" && "bg-[#97cecf] border-darkGreen "
+          }`}
+        >
+          للإيجار
+        </button>
+      </div>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full">
-          <AddPropDropdown
-            // error={propErrors.offer}
-            title={language ? "نوع الإعلان" : "Listing Option"}
-            value={needData.offer}
-            setValue={(e) => {
-              setNeedData({ ...needData, offer: e });
-            }}
-            options={offer}
-          />
-        </div>
         <div className="w-full">
           <AddPropDropdown
             // error={propErrors.propType}
@@ -144,23 +161,8 @@ const MainData = ({ needData, setNeedData }) => {
                 : ""
             }
             setValue={(e) => {
-              if (needData.propType !== e) {
-                setNeedData({
-                  ...needData,
-                  propType: e,
-                  unitType: "",
-                  landType: "",
-                });
-              } else {
-                setNeedData({
-                  ...needData,
-                  propType: e,
-                });
-              }
-              setPropErrors((prevErrors) => ({
-                ...prevErrors,
-                propType: false,
-              }));
+              dispatch(setPropType(e));
+              // dispatch(setUnitType(""));
             }}
             placeholder={"unit type"}
             options={
@@ -176,7 +178,7 @@ const MainData = ({ needData, setNeedData }) => {
             title={!language ? "Unit Type" : "نوع الوحدة"}
             value={needData.unitType}
             setValue={(e) => {
-              setNeedData({ ...needData, unitType: e });
+              dispatch(setUnitType(e));
             }}
             placeholder={"unit type"}
             options={

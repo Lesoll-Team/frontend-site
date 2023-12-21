@@ -24,7 +24,7 @@ export async function createNeed(needDetails) {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.post(
-      `http://192.168.1.17:9000/api/need/create-need?token=${userToken}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/need/create-need?token=${userToken}`,
       needDetails,
       {
         headers: {

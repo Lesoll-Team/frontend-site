@@ -71,7 +71,7 @@ const AddPropInput = ({
               <span>m&#178;</span>
             ))}
 
-          {egp && (language ? <p>جنية</p> : <p>EGP</p>)}
+          {egp && (language ? <span>جنية</span> : <span>EGP</span>)}
         </p>
 
         {/* Period  */}
@@ -84,12 +84,12 @@ const AddPropInput = ({
       {percent && (
         <div className="absolute bottom-[14px] right-3">
           <p className=" flex items-center  border border-darkGreen rounded-lg overflow-hidden  text-darkGreen font-extrabold  bg-white">
-            <p className="bg-darkGreen text-sm w-10 font-bold text-center text-white text p-1 cursor-pointer">
+            <span className="bg-darkGreen text-sm w-10 font-bold text-center text-white text p-1 cursor-pointer">
               %
-            </p>
-            <p className=" text-sm text-darkGreen w-10 font-bold text-center  p-1 cursor-pointer  ">
+            </span>
+            <span className=" text-sm text-darkGreen w-10 font-bold text-center  p-1 cursor-pointer  ">
               EGP
-            </p>
+            </span>
           </p>
         </div>
       )}

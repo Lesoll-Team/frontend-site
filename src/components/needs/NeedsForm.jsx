@@ -1,40 +1,50 @@
 import { createNeed } from "@/utils/propertyAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainData from "./sections/MainData";
+import { useDispatch, useSelector } from "react-redux";
+import Pricing from "./sections/pricing/Pricing";
+import NeedDetails from "./sections/details/NeedDetails";
+import NeedsLocation from "./sections/location/NeedsLocation";
+import { postNeed, resetData } from "@/redux-store/features/needsSlice";
 
 const NeedsForm = () => {
-  const [needsData, setNeedsData] = useState({
-    offer: "For Sale",
-    unitType: "63cc933946d6193aa1f50f95",
-    saleOption: "Cash",
-    rentalPeriod: "",
-    rooms: 2,
-    bathrooms: 1,
-    governrate: "63be6b362518e5f7360e3d73",
-    region: "63ebac546472f4aa4879ee2f",
-    price: {
-      from: 30,
-      to: 60,
-    },
-    area: {
-      from: 100,
-      to: 200,
-    },
-  });
-  const handlePostNeed = async (e) => {
-    e.preventDefault();
+  const need = useSelector((state) => state.needs.needsData);
+  const error = useSelector((state) => state.needs.error);
+  const status = useSelector((state) => state.needs.status);
 
+  useEffect(() => {
+    console.log(need);
+    console.log(status);
+    console.log(error);
+  }, [need, status, error]);
+  const dispatch = useDispatch();
+  const handlePostNeed = (e) => {
     // console.log(formData.getAll());
-    try {
-      await createNeed(needsData);
-    } catch (error) {
-      return error.data;
-    }
+    dispatch(postNeed(need));
   };
   return (
-    <div className="container mx-auto">
-      <MainData needData={needsData} setNeedData={setNeedsData} />
-      <button onClick={handlePostNeed}>check needs</button>
+    <div className="container mx-auto space-y-5 mt-10 mb-8">
+      {status === "succeeded" ? (
+        <div className="w-full flex h-[80dvh] justify-center items-center">
+          <button
+            onClick={() => {
+              dispatch(resetData());
+            }}
+          >
+            sent other response
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-5 ">
+          <MainData />
+          <Pricing />
+          <NeedDetails />
+          <NeedsLocation />
+        </div>
+      )}
+      <button className="border-[3px] p-2 rounded-md" onClick={handlePostNeed}>
+        {status === "loading" ? "loading ..." : "check needs"}
+      </button>
     </div>
   );
 };
