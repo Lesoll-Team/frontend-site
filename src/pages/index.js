@@ -28,7 +28,7 @@ export default function Home({
   bestSearch,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+console.log(bestSearch,"bestSearch");
   return (
     <main>
       <Head>
@@ -85,6 +85,7 @@ export default function Home({
         PopularSearches={bestSearch.POPULAR_SEARCHES}
         MostArea={bestSearch.Most_Area}
         MostGovernorate={bestSearch.Most_Governorate}
+        Others={bestSearch.Others}
       />
     </main>
   );

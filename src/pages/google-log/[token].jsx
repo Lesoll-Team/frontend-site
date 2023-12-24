@@ -1,108 +1,170 @@
-
-import SelectBtn from '@/components/addproperty/userTypeForm/SelectBtn'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import SelectBtn from "@/components/addproperty/userTypeForm/SelectBtn";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaRegUser } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa";
 import { BsBuildings } from "react-icons/bs";
-import { Button } from '@nextui-org/react';
-import { fetchUserData, updateUserData } from '@/redux-store/features/globalState';
-import { signInWithGoogle } from '@/redux-store/features/authSlice';
+import { Button } from "@nextui-org/react";
+// import { fetchUserData, updateUserData } from '@/redux-store/features/globalState';
+import { signInWithGoogle } from "@/redux-store/features/authSlice";
+import { updateGoogleData } from "@/utils/userAPI";
+// updateGoogleData
 function index() {
-  const dispatch = useDispatch()
-  const [isChose, setChose] = useState(false);
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
-
+  const dispatch = useDispatch();
+  const [isError, setError] = useState(false);
+  // const [data, setData] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
+
   const [useType, setUserType] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [messageError, setMessageError] = useState(null);
+
   const selectUserType = (userType) => {
     setUserType(userType);
-    setChose(true);
-    console.log("jsonToken");
-    console.log(isChose);
   };
-  const router = useRouter()
-  const token = router.query.token;
 
-  const decryptionToken = (token) => {
-    try {
-      const base46Url = token.split('.')[1];
-      const base64 = decodeURIComponent(atob(base46Url).split('').map((c) => {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''))
-      return JSON.parse(base64)
-    } catch (error) {
-      return {}
+  const router = useRouter();
+  const token = router.query.token;
+  const phone = router.query.phone;
+  const type = router.query.type;
+  // phone !== "null" ? setPhoneNumber(phone) : null;
+  // type !== "normal" ? setUserType(type) : null;
+
+  useEffect(() => {
+    if (type !== "normal") {
+      setUserType(type);
     }
 
-  }
+    if (phone !== "null") {
+      setPhoneNumber(phone);
+    }
+  }, []);
+    // useEffect(() => {
+    //   setError(false);
+    // }, [phoneNumber, useType]);
   const onSubmit = (e) => {
     e.preventDefault();
-    if (token && useType) {
-      const response = decryptionToken(token)
-      console.log(response);
-      const formData = new FormData();
-      formData.append("typeOfUser", useType);
-      if (response.newUser?._id) {
-        dispatch(signInWithGoogle(router.query.token))
-        dispatch(fetchUserData())
-        dispatch(updateUserData({
-          userID: response?.newUser?._id,
-          userUpdate: formData,
-        })
-        );
-        console.log("after checked from decryptionToken");
-      } else console.log("after checked Error");
+    // console.log("useType1", typeof useType);
+    // console.log("phoneNumber1", typeof phoneNumber);
 
-      console.log("after call api decryptionToken");
+    if (token && (type === "normal" || phone === "null")) {
+      // const formData = new FormData();
+
+      // Check if useType is selected
+      if (type === "normal") {
+        if (!useType || useType.trim() === "") {
+          language
+            ? setMessageError("يجب عليك تحديد من انت أولاً")
+            : setMessageError("You must define who you are first");
+          return; // Stop the function execution
+        } else {
+          // formData.append("typeOfUser", useType);
+          setMessageError(null);
+        }
+      }
+
+      // Check if phoneNumber is entered
+      if (phone === "null") {
+        if (!phoneNumber || phoneNumber.trim() === "") {
+          language
+            ? setMessageError(
+                "يجب إدخال رقم هاتف لكى تستطيع التواصل وان يتم التواصل معك"
+              )
+            : setMessageError(
+                "You must enter a phone number so that you can communicate and be contacted"
+              );
+          return; // Stop the function execution
+        } else {
+          // formData.append("phone", phoneNumber);
+          setMessageError(null);
+        }
+      }
+
+      // Call API and dispatch only if conditions are met
+      updateGoogleData({ token, data: { typeOfUser:useType,phone:phoneNumber } });
+      dispatch(signInWithGoogle(token));
+      router.push("/");
+    } else if (token && type !== "normal" && phone !== "null") {
+      // Call dispatch if conditions are met
+      dispatch(signInWithGoogle(token));
     }
   };
 
   return (
-    <div className='w-full h-screen text-center justify-center flex items-center '>
-      {decryptionToken(token).userType}
-      <form
-        onSubmit={onSubmit}
-        className=" space-y-10 md:space-y-16 flex-col items-center flex  "
-      >
-        <h1 className="text-3xl md:text-5xl text-center font-semibold">
-          {language ? "حدد من انت ؟" : "You Are?"}
-        </h1>
-        <div className="flex md:flex-row flex-col gap-3 items-stretch">
-          <SelectBtn
-            btnUserType={"individual"}
-            title={language ? "فرد" : "individual"}
-            description={"أنت مالك عقار وتتطلع إلى إدراجه للإيجار أو البيع."}
-            onSelect={selectUserType}
-            icon={<FaRegUser className="text-4xl md:text-7xl text-darkGreen" />}
-            useType={useType}
-          />
-          <SelectBtn
-            btnUserType={"broker"}
-            title={language ? "سمسار" : "Broker"}
-            description={
-              " أنت سمسار يربط أصحاب العقارات بالمشترين والمستأجرين المحتملين"
-            }
-            onSelect={selectUserType}
-            icon={
-              <FaRegHandshake className="text-4xl md:text-7xl text-darkGreen" />
-            }
-            useType={useType}
-          />
-          <SelectBtn
-            btnUserType={"company"}
-            title={language ? "مطور" : "Developer"}
-            description={"أنت تمثل شركة وساطة عقارية أو منظمة تطوير."}
-            onSelect={selectUserType}
-            icon={
-              <BsBuildings className="text-4xl md:text-7xl text-darkGreen" />
-            }
-            useType={useType}
-          />
-        </div>
+    <div className="w-full min-h-[93dvh] text-center justify-center flex">
+      <form onSubmit={onSubmit} className=" p-5 flex-col  flex mt-6 md:mt-24 ">
+        {type === "normal" ? (
+          <div>
+            <h1 className="text-2xl md:text-4xl text-center font-semibold">
+              {language ? "حدد من انت ؟" : "You Are?"}
+            </h1>
+            <div className="flex md:flex-row flex-col gap-3 m-3 p-3 items-stretch">
+              <SelectBtn
+                btnUserType={"individual"}
+                title={language ? "فرد" : "individual"}
+                description={
+                  "أنت مالك عقار وتتطلع إلى إدراجه للإيجار أو البيع."
+                }
+                onSelect={selectUserType}
+                icon={
+                  <FaRegUser className="text-4xl md:text-7xl text-darkGreen" />
+                }
+                useType={useType}
+              />
+              <SelectBtn
+                btnUserType={"broker"}
+                title={language ? "سمسار" : "Broker"}
+                description={
+                  " أنت سمسار يربط أصحاب العقارات بالمشترين والمستأجرين المحتملين"
+                }
+                onSelect={selectUserType}
+                icon={
+                  <FaRegHandshake className="text-4xl md:text-7xl text-darkGreen" />
+                }
+                useType={useType}
+              />
+              <SelectBtn
+                btnUserType={"company"}
+                title={language ? "مطور" : "Developer"}
+                description={"أنت تمثل شركة وساطة عقارية أو منظمة تطوير."}
+                onSelect={selectUserType}
+                icon={
+                  <BsBuildings className="text-4xl md:text-7xl text-darkGreen" />
+                }
+                useType={useType}
+              />
+            </div>
+          </div>
+        ) : null}
+        {phone === "null" ? (
+          <div className=" w-full space-y-10 my-5">
+            <p className="text-2xl md:text-4xl text-center font-semibold">
+              {language
+                ? "ادخل رقم هاتف لكى تستطيع التواصل وان يتم التواصل معك"
+                : "Enter a phone number so you can communicate and be contacted"}
+            </p>
+            <input
+              type="text"
+              name="phone"
+              // autocomplete="off"
+              className="text-2xl w-10/12 indent-3 h-16 md:w-4/12 shadow rounded-md shadow-gray-400 border border-gray-400 "
+              placeholder={
+                language ? "ادخل رقم هاتفك" : "Enter your phone number"
+              }
+              maxLength={11}
+              minLength={10}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </div>
+        ) : null}
+
+        <p className="text-red-500 text-xl ">{messageError}</p>
+
         <Button
-          isDisabled={!isChose}
+          // isDisabled={!isChose}
           className=" w-full md:w-80 bg-lightGreen p-3 py-8 text-xl font-semibold text-white mx-auto hover:bg-lightGreenHover"
           type="submit"
         >
@@ -110,6 +172,34 @@ function index() {
         </Button>
       </form>
     </div>
-  )
+  );
 }
-export default index
+export default index;
+/*// setError(false);if (token || type === "normal" || phone === "null") {
+    //   const formData = new FormData();
+    //   if (type == "normal" && useType !== "") {
+    //     formData.append("typeOfUser", useType);
+    //     setError(false);
+    //    setMessageError(null);
+    //   } else {
+    //     language
+    //       ? setMessageError("يجب عليك تحديد من انت اولا ")
+    //       : setMessageError("You must define who you are first");
+    //     setError(true);
+    //   }
+    //   if (phone === "null" && phoneNumber !== "") {
+    //     formData.append("phone", phoneNumber);
+    //     setError(false);
+    //     setMessageError(null);
+    //   } else {
+    //     language
+    //       ? setMessageError(
+    //           "يجب إدخال رقم هاتف لكى تستطيع التواصل وان يتم التواصل معك"
+    //         )
+    //       : setMessageError(
+    //           "You must enter a phone number so that you can communicate and be contacted"
+    //         );
+    //     setError(true);
+    //   }
+    //   setData(formData); } else {   dispatch(signInWithGoogle(token));} if (isError == false && phoneNumber !== "" && useType !== "") {   updateGoogleData({ token, data }); dispatch(signInWithGoogle(token)); } else null;
+    */

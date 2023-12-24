@@ -23,6 +23,7 @@ function SearchResult({
   PopularSearches,
   MostArea,
   MostGovernorate,
+  Others,
 }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -159,6 +160,7 @@ function SearchResult({
               PopularSearches={PopularSearches}
               MostArea={MostArea}
               MostGovernorate={MostGovernorate}
+              Others={Others}
             />
             <div
               className="text-center w-[300px] border-5 p-2  border-lightGreen  h-[700px]    

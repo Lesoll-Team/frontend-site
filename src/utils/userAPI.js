@@ -172,7 +172,6 @@ export async function signWithGoogle() {
     console.log(error);
   }
 }
-
 export async function GetActiveProp(page) {
   try {
     const response = await axios.get(
@@ -186,5 +185,15 @@ export async function GetActiveProp(page) {
     return response.data;
   } catch (error) {
     throw error.response.data;
+  }
+}
+
+export async function updateGoogleData({data,token}) {
+  try {
+    // const response =
+     await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-users-google?token=${token}`,data);
+// console.log("updated",response);
+  } catch (error) {
+    console.log(error);
   }
 }
