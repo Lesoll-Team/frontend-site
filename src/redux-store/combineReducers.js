@@ -11,7 +11,7 @@ import profileReducer from "./features/profileSlice";
 import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
 import needsReducer from "./features/needsSlice";
-
+import needPostReducer from "./features/needsFeedSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -22,5 +22,6 @@ export default combineReducers({
   Searching: searchingReducer,
   Profile: profileReducer,
   needs: needsReducer,
+  needsPosts: needPostReducer,
   // Compare:compareReducer,
 });
