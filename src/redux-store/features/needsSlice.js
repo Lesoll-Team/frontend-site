@@ -6,11 +6,11 @@ const initialState = {
     unitType: "",
     propType: "",
     saleOption: "Cash",
-    rentalPeriod: "",
+    rentalPeriod: "Monthly",
     rooms: "",
     bathrooms: "",
-    governrate: "63be6b362518e5f7360e3d73",
-    region: "63ebac546472f4aa4879ee2f",
+    governrate: "",
+    region: "",
     price: {
       from: 0,
       to: 0,
@@ -19,9 +19,28 @@ const initialState = {
       from: 0,
       to: 0,
     },
+    installmentOption: {
+      type: "Yearly",
+    },
+    description: "",
   },
   status: "idle", //? idle | "loading" | "succeeded" | "falild"
   error: null,
+  errors: {
+    offer: false,
+    unitType: false,
+    propType: false,
+    saleOption: false,
+    rentalPeriod: false,
+    rooms: false,
+    bathrooms: false,
+    governrate: false,
+    region: false,
+    minPrice: false,
+    maxPrice: false,
+    minArea: false,
+    maxArea: false,
+  },
 };
 export const postNeed = createAsyncThunk(
   "need/postNeed",
@@ -45,6 +64,7 @@ export const postNeed = createAsyncThunk(
     }
   }
 );
+
 const needsSlice = createSlice({
   name: "need",
   initialState,
@@ -94,11 +114,11 @@ const needsSlice = createSlice({
         unitType: "",
         propType: "",
         saleOption: "Cash",
-        rentalPeriod: "",
+        rentalPeriod: "Monthly",
         rooms: "",
         bathrooms: "",
-        governrate: "63be6b362518e5f7360e3d73",
-        region: "63ebac546472f4aa4879ee2f",
+        governrate: "",
+        region: "",
         price: {
           from: 0,
           to: 0,
@@ -107,8 +127,49 @@ const needsSlice = createSlice({
           from: 0,
           to: 0,
         },
+        installmentOption: {
+          type: "Yearly",
+        },
+        description: "",
       };
       state.status = "idle";
+    },
+    setOfferErr: (state, action) => {
+      state.errors.offer = action.payload;
+    },
+    setUnitTypeErr: (state, action) => {
+      state.errors.unitType = action.payload;
+    },
+    setPropTypeErr: (state, action) => {
+      state.errors.propType = action.payload;
+    },
+    setPropTypeErr: (state, action) => {
+      state.errors.propType = action.payload;
+    },
+    setRoomsErr: (state, action) => {
+      state.errors.rooms = action.payload;
+    },
+    setBathroomsErr: (state, action) => {
+      state.errors.bathrooms = action.payload;
+    },
+    setGovernrateErr: (state, action) => {
+      state.errors.governrate = action.payload;
+    },
+    setRegionErr: (state, action) => {
+      state.errors.region = action.payload;
+    },
+    setMinPriceErr: (state, action) => {
+      state.errors.minPrice = action.payload;
+    },
+    setMaxPriceErr: (state, action) => {
+      state.errors.maxPrice = action.payload;
+    },
+
+    setMinAreaErr: (state, action) => {
+      state.errors.minArea = action.payload;
+    },
+    setMaxAreaErr: (state, action) => {
+      state.errors.maxArea = action.payload;
     },
   },
   extraReducers(builder) {
@@ -126,6 +187,7 @@ const needsSlice = createSlice({
   },
 });
 
+export const validateNeed = () => {};
 export const {
   setOffer,
   setUnitType,
@@ -141,6 +203,17 @@ export const {
   setAreaFrom,
   setAreaTo,
   resetData,
+  setOfferErr,
+  setUnitTypeErr,
+  setPropTypeErr,
+  setRoomsErr,
+  setBathroomsErr,
+  setGovernrateErr,
+  setRegionErr,
+  setMinPriceErr,
+  setMaxPriceErr,
+  setMinAreaErr,
+  setMaxAreaErr,
 } = needsSlice.actions;
 
 export default needsSlice.reducer;

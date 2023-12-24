@@ -23,7 +23,7 @@ const NeedsForm = () => {
     dispatch(postNeed(need));
   };
   return (
-    <div className="container mx-auto space-y-5 mt-10 mb-8">
+    <div className="container mx-auto space-y-6 my-10">
       {status === "succeeded" ? (
         <div className="w-full flex h-[80dvh] justify-center items-center">
           <button
@@ -42,8 +42,11 @@ const NeedsForm = () => {
           <NeedsLocation />
         </div>
       )}
-      <button className="border-[3px] p-2 rounded-md" onClick={handlePostNeed}>
-        {status === "loading" ? "loading ..." : "check needs"}
+      <button
+        className="rounded-xl w-full h-14 bg-lightGreen text-white font-semibold hover:bg-lightGreenHover duration-150 active:scale-95"
+        onClick={handlePostNeed}
+      >
+        {status === "loading" ? "loading ..." : "add needs"}
       </button>
     </div>
   );

@@ -123,8 +123,9 @@ const MainData = ({ setNeedData }) => {
           onClick={() => {
             dispatch(setOffer("For Sale"));
           }}
-          className={`border-[3px] w-full py-3 rounded-md font-semibold text-x duration-150  ${
-            needData.offer === "For Sale" && "bg-[#97cecf] border-darkGreen "
+          className={`border-[3px] w-full py-3 rounded-md font-semibold text-xl duration-150  ${
+            needData.offer === "For Sale" &&
+            "bg-white shadow-lg  border-darkGreen"
           }`}
         >
           للبيع
@@ -134,7 +135,8 @@ const MainData = ({ setNeedData }) => {
             dispatch(setOffer("For Rent"));
           }}
           className={`border-[3px] w-full py-3 rounded-md font-semibold text-xl duration-150 ${
-            needData.offer === "For Rent" && "bg-[#97cecf] border-darkGreen "
+            needData.offer === "For Rent" &&
+            "bg-white shadow-lg  border-darkGreen"
           }`}
         >
           للإيجار

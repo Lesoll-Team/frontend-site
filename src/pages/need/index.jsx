@@ -3,7 +3,7 @@ import Head from "next/head";
 
 export default function need() {
   return (
-    <div className="min-h-[90dvh]">
+    <div className="min-h-[80dvh] mb-10">
       <Head>
         <title>Lesoll Need</title>
       </Head>

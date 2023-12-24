@@ -22,7 +22,8 @@ const Pricing = () => {
               dispatch(setSaleOption("Cash"));
             }}
             className={`border-[3px] w-full py-3 rounded-md font-semibold text-x duration-150  ${
-              needData.saleOption === "Cash" && "bg-[#97cecf] border-darkGreen "
+              needData.saleOption === "Cash" &&
+              "bg-white shadow-lg  border-darkGreen"
             }`}
           >
             كاش
@@ -33,7 +34,7 @@ const Pricing = () => {
             }}
             className={`border-[3px] w-full py-3 rounded-md font-semibold text-xl duration-150 ${
               needData.saleOption === "Installment" &&
-              "bg-[#97cecf] border-darkGreen "
+              "bg-white shadow-lg  border-darkGreen"
             }`}
           >
             تقسيط
