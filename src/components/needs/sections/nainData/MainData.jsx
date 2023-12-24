@@ -2,7 +2,9 @@ import AddPropDropdown from "@/components/addproperty/AddPropIputs/AddPropDropdo
 import {
   setOffer,
   setPropType,
+  setPropTypeErr,
   setUnitType,
+  setUnitTypeErr,
 } from "@/redux-store/features/needsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -111,12 +113,14 @@ const MainData = ({ setNeedData }) => {
   // const [unitOptions, setUnitOptions] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const needData = useSelector((state) => state.needs.needsData);
+  const errors = useSelector((state) => state.needs.errors);
+
   const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col  w-full space-y-5">
       <h1 className="text-center text-5xl text-darkGreen mt-4 font-bold">
-        {language ? "أضف احتياجك" : "Add your need"}
+        {language ? "أضف طلبك" : "Add your need"}
       </h1>
       <div className="flex items-center gap-4">
         <button
@@ -145,7 +149,7 @@ const MainData = ({ setNeedData }) => {
       <div className="flex flex-col md:flex-row gap-4">
         <div className="w-full">
           <AddPropDropdown
-            // error={propErrors.propType}
+            error={errors.propType}
             title={!language ? "Property type" : "نوع العقار"}
             value={
               needData.propType === "Residential"
@@ -164,13 +168,17 @@ const MainData = ({ setNeedData }) => {
             }
             setValue={(e) => {
               dispatch(setPropType(e));
-              // dispatch(setUnitType(""));
+              dispatch(setUnitType(""));
+              dispatch(setPropTypeErr(false));
             }}
             placeholder={"unit type"}
             options={
               needData.offer !== "For Investment" ? propType : PropTypeInvest
             }
           />
+          {errors.propType && (
+            <p className="text-red-500">{language ? "مطلوب" : "Required"}</p>
+          )}
         </div>
 
         <div className="w-full">
@@ -181,7 +189,9 @@ const MainData = ({ setNeedData }) => {
             value={needData.unitType}
             setValue={(e) => {
               dispatch(setUnitType(e));
+              dispatch(setUnitTypeErr(false));
             }}
+            error={errors.unitType}
             placeholder={"unit type"}
             options={
               needData.propType === "Residential"
@@ -194,6 +204,9 @@ const MainData = ({ setNeedData }) => {
             }
             updateTitleOnClear={true}
           />
+          {errors.unitType && (
+            <p className="text-red-500">{language ? "مطلوب" : "Required"}</p>
+          )}
         </div>
       </div>
     </div>

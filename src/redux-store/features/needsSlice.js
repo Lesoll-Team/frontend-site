@@ -27,11 +27,12 @@ const initialState = {
   status: "idle", //? idle | "loading" | "succeeded" | "falild"
   error: null,
   errors: {
-    offer: false,
+    // offer: true,
     unitType: false,
     propType: false,
     saleOption: false,
     rentalPeriod: false,
+    installmentType: false,
     rooms: false,
     bathrooms: false,
     governrate: false,
@@ -40,6 +41,7 @@ const initialState = {
     maxPrice: false,
     minArea: false,
     maxArea: false,
+    description: false,
   },
 };
 export const postNeed = createAsyncThunk(
@@ -84,6 +86,9 @@ const needsSlice = createSlice({
     setRentalPeriod: (state, action) => {
       state.needsData.rentalPeriod = action.payload;
     },
+    setInstallmentType: (state, action) => {
+      state.needsData.installmentOption.type = action.payload;
+    },
     setRooms: (state, action) => {
       state.needsData.rooms = action.payload;
     },
@@ -107,6 +112,9 @@ const needsSlice = createSlice({
     },
     setAreaTo: (state, action) => {
       state.needsData.area.to = action.payload;
+    },
+    setDescription: (state, action) => {
+      state.needsData.description = action.payload;
     },
     resetData: (state, action) => {
       state.needsData = {
@@ -143,8 +151,11 @@ const needsSlice = createSlice({
     setPropTypeErr: (state, action) => {
       state.errors.propType = action.payload;
     },
-    setPropTypeErr: (state, action) => {
-      state.errors.propType = action.payload;
+    setInstallmentTypeErr: (state, action) => {
+      state.errors.installmentType = action.payload;
+    },
+    setRentalPeriodErr: (state, action) => {
+      state.errors.rentalPeriod = action.payload;
     },
     setRoomsErr: (state, action) => {
       state.errors.rooms = action.payload;
@@ -164,7 +175,9 @@ const needsSlice = createSlice({
     setMaxPriceErr: (state, action) => {
       state.errors.maxPrice = action.payload;
     },
-
+    setDescriptionErr: (state, action) => {
+      state.errors.description = action.payload;
+    },
     setMinAreaErr: (state, action) => {
       state.errors.minArea = action.payload;
     },
@@ -186,7 +199,7 @@ const needsSlice = createSlice({
       });
   },
 });
-
+export const validate = (state) => {};
 export const validateNeed = () => {};
 export const {
   setOffer,
@@ -194,6 +207,7 @@ export const {
   setPropType,
   setSaleOption,
   setRentalPeriod,
+  setInstallmentType,
   setRooms,
   setBathrooms,
   setTheGovernrate,
@@ -202,6 +216,7 @@ export const {
   setPriceTo,
   setAreaFrom,
   setAreaTo,
+  setDescription,
   resetData,
   setOfferErr,
   setUnitTypeErr,
@@ -214,6 +229,8 @@ export const {
   setMaxPriceErr,
   setMinAreaErr,
   setMaxAreaErr,
+  setRentalPeriodErr,
+  setDescriptionErr,
 } = needsSlice.actions;
 
 export default needsSlice.reducer;

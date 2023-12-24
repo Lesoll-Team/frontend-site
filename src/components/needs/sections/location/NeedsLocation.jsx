@@ -3,6 +3,8 @@ import {
   setAreaFrom,
   setAreaTo,
   setBathrooms,
+  setGovernrateErr,
+  setRegionErr,
   setRooms,
   setTheGovernrate,
   setTheRegion,
@@ -13,6 +15,7 @@ import { HiMiniXMark } from "react-icons/hi2";
 const NeedsLocation = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const needData = useSelector((state) => state.needs.needsData);
+  const errors = useSelector((state) => state.needs.errors);
 
   const dispatch = useDispatch();
   const [governrate, setGovernrate] = useState([]);
@@ -86,6 +89,7 @@ const NeedsLocation = () => {
   };
   const GovSelect = (gov) => {
     filterRegions(gov.number);
+
     //  setData((prevData) => ({
     //    ...prevData,
     //    address: {
@@ -102,6 +106,7 @@ const NeedsLocation = () => {
     );
     setFilterGov(null);
     setGovInput("");
+    dispatch(setGovernrateErr(false));
   };
 
   const filterGov = (regionNum) => {
@@ -119,6 +124,7 @@ const NeedsLocation = () => {
   const RegionSelect = (region) => {
     filterGov(region.governorate_number);
     filterRegions(region.governorate_number);
+    dispatch(setRegionErr(false));
     // setData((prevData) => ({
     //   ...prevData,
     //   address: {
@@ -171,7 +177,9 @@ const NeedsLocation = () => {
                     : ""
                 }
                 type="text"
-                className={`w-full z-10 text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 $`}
+                className={`w-full z-10 text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 ${
+                  errors.governrate && "border-red-500 focus:border-red-500"
+                }`}
               />
 
               {needData.governrate && (
@@ -202,6 +210,11 @@ const NeedsLocation = () => {
                   })}
                 </menu>
               )}
+              {errors.governrate && (
+                <p className="text-red-500">
+                  {language ? "مطلوب" : "Required"}
+                </p>
+              )}
             </div>
             {/* <p className="text-red-500">{propErrors?.governrate && "مطلوب"}</p> */}
           </div>
@@ -222,7 +235,9 @@ const NeedsLocation = () => {
                   !needData.region ? (language ? "المنطقة" : "Region") : ""
                 }
                 type="text"
-                className={`w-full z-10 text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 $`}
+                className={`w-full z-10 text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4  ${
+                  errors.region && "border-red-500 focus:border-red-500"
+                }`}
               />
               {needData.region && (
                 <div className="absolute bottom-[10px] mx-4 flex items-center gap-2 bg-lightGreen p-2 px-3 text-xl rounded-lg text-white font-semibold">
@@ -236,6 +251,11 @@ const NeedsLocation = () => {
                     <HiMiniXMark />
                   </button>
                 </div>
+              )}
+              {errors.region && (
+                <p className="text-red-500">
+                  {language ? "مطلوب" : "Required"}
+                </p>
               )}
             </div>
             {filterdRegion && filterdRegion.length > 0 && (

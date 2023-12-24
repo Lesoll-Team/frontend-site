@@ -1,89 +1,61 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-const [errors, setErrors] = useState([]);
-const needData = useSelector((state) => state.needs.needsData);
-const language = useSelector((state) => state.GlobalState.languageIs);
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setBathroomsErr,
+  setDescriptionErr,
+  setGovernrateErr,
+  setMaxAreaErr,
+  setMaxPriceErr,
+  setMinAreaErr,
+  setMinPriceErr,
+  setPropTypeErr,
+  setRegionErr,
+  setRoomsErr,
+  setUnitTypeErr,
+} from "@/redux-store/features/needsSlice";
 
-const errorMessages = {
-  propType: {
-    en: "Property type is missing.",
+export const useNeedValidation = () => {
+  const dispatch = useDispatch();
 
-    ar: "يرجى تحديد نوع العقار .",
-  },
-  ffer: {
-    en: "Offer is missing.",
+  const validateNeed = (needData) => {
+    // Reset isValid for each validation check
 
-    ar: "يرجى اختيار العرض بيع أو إيجار.",
-  },
-  unitType: {
-    en: "Unit type is missing.",
+    if (!needData.unitType) {
+      dispatch(setUnitTypeErr(true));
+    }
+    if (!needData.propType) {
+      dispatch(setPropTypeErr(true));
+    }
+    if (!needData.rooms) {
+      dispatch(setRoomsErr(true));
+    }
+    if (!needData.bathrooms) {
+      dispatch(setBathroomsErr(true));
+    }
+    if (!needData.governrate) {
+      dispatch(setGovernrateErr(true));
+    }
+    if (!needData.region) {
+      dispatch(setRegionErr(true));
+    }
+    if (!needData.price.from) {
+      dispatch(setMinPriceErr(true));
+    }
+    if (!needData.price.to) {
+      dispatch(setMaxPriceErr(true));
+    }
+    if (!needData.area.from) {
+      dispatch(setMinAreaErr(true));
+    }
+    if (!needData.area.to) {
+      dispatch(setMaxAreaErr(true));
+    }
+    if (needData.description.length > 300) {
+      dispatch(setDescriptionErr(true));
+    }
+  };
 
-    ar: "يرجى تحديد نوع الوحدة .",
-  },
-  saleOption: {
-    en: "Sale option is missing.",
-    ar: "يرجى تحديد نظام البيع",
-  },
-  rentalPeriod: {
-    en: "Rental type is missing.",
-
-    ar: "يرجى تحديد نوع الإيجار .",
-  },
-  priceFrom: {
-    en: "min Price is missing.",
-
-    ar: "يرجى كتابة اقل سعر .",
-  },
-  priceTo: {
-    en: "max Price is missing.",
-
-    ar: "يرجى كتابة اعلى سعر .",
-  },
-  areaFrom: {
-    en: "Property min Area is missing.",
-
-    ar: "يرجى كتابة اقل مساحة للعقار .",
-  },
-  areaFrom: {
-    en: "Property min Area is missing.",
-
-    ar: "يرجى كتابة اقل مساحة للعقار .",
-  },
-  rooms: {
-    en: "Number of Rooms are missing.",
-
-    ar: " يرجى كتابة عدد الغرف .",
-  },
-  bathRooms: {
-    en: "Number of Bathrooms are missing.",
-
-    ar: "يرجى كتابة عدد الحمامات .",
-  },
-  description: {
-    en: "Description is missing.",
-
-    ar: "يرجى كتابة وصف تفصيلي للعقار.",
-  },
-  governrate: {
-    en: "Please select a governrate",
-    ar: "يرجى اختيار المحافظة ",
-  },
-  region: {
-    en: "Please selec a region",
-    ar: "يرجى اختيار المنطقه",
-  },
-};
-const translateErrorMessage = (key) => {
-  return errorMessages[key][language ? "ar" : "en"];
-};
-const validateProperty = (needData) => {
-  const newErrors = [];
-  if (!propertyDetails.unitType) {
-    newErrors.push(translateErrorMessage("unitType"));
-    setPropErrors((prevErrors) => ({ ...prevErrors, unitType: true }));
-  }
-  if (!propertyDetails.offer) {
-    newErrors.push(translateErrorMessage("offer"));
-    setPropErrors((prevErrors) => ({ ...prevErrors, offer: true }));
-  }
+  return {
+    validateNeed,
+  };
 };
