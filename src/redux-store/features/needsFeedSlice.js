@@ -14,9 +14,9 @@ export const getNeeds = createAsyncThunk("needsFeed/getNeeds", async (page) => {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/need/get-all-needs?page=${page}&limit=9`
     );
-    return response.data.getAllData;
+    return response.data.getAllData[0];
   } catch (error) {
-    return error.response.data;
+    throw error.response.data;
   }
 });
 

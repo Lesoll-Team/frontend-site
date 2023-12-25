@@ -1,3 +1,4 @@
+import NeedsFeed from "@/components/needs/needFeed/NeedsFeed";
 import { getNeeds } from "@/redux-store/features/needsFeedSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +11,10 @@ const NeedsPage = () => {
     dispatch(getNeeds(page));
   }, [page]);
   console.log(posts);
-  return <div className="min-h-[85dvh]">NeedsPage</div>;
+  return (
+    <div className="min-h-[85dvh]">
+      <NeedsFeed />
+    </div>
+  );
 };
 export default NeedsPage;
