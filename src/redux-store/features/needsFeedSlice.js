@@ -6,6 +6,7 @@ const initialState = {
   status: "idle", //? "idle" | "loading" | "succeeded" | "falild"
   page: 1,
   error: null,
+  totalPages: null,
 };
 
 export const getNeeds = createAsyncThunk("needsFeed/getNeeds", async (page) => {
@@ -14,7 +15,7 @@ export const getNeeds = createAsyncThunk("needsFeed/getNeeds", async (page) => {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/need/get-all-needs?page=${page}&limit=9`
     );
-    return response.data.getAllData[0];
+    return response.data;
   } catch (error) {
     throw error.response.data;
   }
@@ -35,7 +36,9 @@ export const needsFeedSlice = createSlice({
       })
       .addCase(getNeeds.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.needsPosts = action.payload;
+        state.needsPosts = action.payload.getAllData;
+        state.totalPages = action.payload.totalPages;
+        console.log(action.payload);
       })
       .addCase(getNeeds.rejected, (state, action) => {
         state.status = "faild";
