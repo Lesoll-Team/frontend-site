@@ -46,8 +46,7 @@ function index() {
     // }, [phoneNumber, useType]);
   const onSubmit = (e) => {
     e.preventDefault();
-    // console.log("useType1", typeof useType);
-    // console.log("phoneNumber1", typeof phoneNumber);
+
 
     if (token && (type === "normal" || phone === "null")) {
       // const formData = new FormData();

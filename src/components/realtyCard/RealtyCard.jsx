@@ -35,8 +35,7 @@ const RealtyCardRent = ({ propertyDetails }) => {
       setLoved(true);
     }
   }, [userInfo?.favorites]);
-  // console.log("Rent :", propertyDetails);
-  // console.log(propertyDetails);
+  
   return (
     <div className=" w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}

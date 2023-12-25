@@ -30,7 +30,6 @@ const FavoriteAds = () => {
 
   useEffect(() => {
     getFav();
-    // console.log(fav);
   }, []); // Use the memoized getFav function in the dependency array
 
   const handleRemoveFromFavorites = (propertyIdToRemove) => {

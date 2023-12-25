@@ -12,7 +12,6 @@ import styles from "../../styles/blogs.module.css";
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  // console.log(BlogData);
   return (
     <div>
       <Card className=" shadow-none p-5">

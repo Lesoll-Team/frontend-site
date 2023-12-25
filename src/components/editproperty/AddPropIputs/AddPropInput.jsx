@@ -21,7 +21,6 @@ const AddPropInput = ({
   optinal,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // console.log(yearMonthes);
   return (
     <div className="relative">
       <h3 className="text-lg md:text-2xl text-darkGreen font-semibold mb-2">

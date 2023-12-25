@@ -32,7 +32,6 @@ const Faq = () => {
         .then((res) => {
           setFaq(res.data.getQ_A);
 
-          // console.log(res.data.terms);
         });
     } catch (err) {
       console.log(err);
@@ -46,7 +45,6 @@ const Faq = () => {
     setGeneralFaq(faq.filter((faq) => faq.related === "General"));
     setOwnerFaq(faq.filter((faq) => faq.related === "Owner/Broker"));
     setBuyerFaq(faq.filter((faq) => faq.related === "Renter/Buyer"));
-    // console.log()
   }, [faq]);
   const fun = async () => {
     const fromDate = "2023-01-01"; // Replace with your actual from date
@@ -76,10 +74,7 @@ const Faq = () => {
       // Handle the error as needed
     }
   };
-  // console.log(faq);
-  // console.log(generalFaq);
-  // console.log(ownerFaq);
-  // console.log(buyerFaq);
+
   return (
     <div className="py-10 min-h-screen">
       {/* <div className="flex flex-col md:flex-row relative justify-between ">

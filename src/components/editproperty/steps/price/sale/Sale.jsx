@@ -17,8 +17,6 @@ const Sale = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       { value: "Cash & Installment", name: "قاش وتقسيط" },
     ],
   };
-  // console.log(propertyDetils.saleOption.includes("Installment"));
-  // console.log(propertyDetils.saleOption);
   return (
     <>
       {propertyDetils.saleOption &&

@@ -98,7 +98,6 @@ export default memo(Dropdown);
 //   const Default = language ? moreOptions.ar.Default : moreOptions.en.Default;
 //   const Investment = language ? moreOptions.ar.Investment : moreOptions.en.Investment;
 //   const choices = language ? options.ar : options.en;
-//   console.log(options);
 
 //   useEffect(() => {
 //     const handleClickOutside = (event) => {

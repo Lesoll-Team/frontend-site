@@ -24,7 +24,6 @@ const PendingAds = () => {
         }
       );
       setPendingAdds(response.data.pendingRealty);
-      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -37,7 +36,6 @@ const PendingAds = () => {
   };
   useEffect(() => {
     getPending();
-    // console.log(activeAdds);
   }, []);
   return (
     <div className="w-full">

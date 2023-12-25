@@ -1,30 +1,24 @@
 import React, { memo, useEffect, useState } from "react";
-import { User, Button } from "@nextui-org/react";
+import { User } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import {
-  AiFillCheckCircle,
   AiFillEdit,
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineShareAlt,
-  AiOutlineWhatsApp,
 } from "react-icons/ai";
-import { BiPhoneCall, BiSolidBed } from "react-icons/bi";
-import { TbRulerMeasure } from "react-icons/tb";
-import { FaBath } from "react-icons/fa";
+import { BiPhoneCall} from "react-icons/bi";
 import { AddToFavorites, CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
-import { MdLocalOffer, MdMapsHomeWork } from "react-icons/md";
 import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
-import { HiMiniXMark } from "react-icons/hi2";
 import { BsWhatsapp } from "react-icons/bs";
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 
 function ConfirmAppointment({ userAppointment }) {
-  const router = useRouter();
+  // const router = useRouter();
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${"https://lesoll.com/property-details/" + userAppointment?.slug} `;
@@ -35,7 +29,6 @@ function ConfirmAppointment({ userAppointment }) {
   }&text=${encodeURIComponent(message)}`;
   const language = useSelector((state) => state.GlobalState.languageIs);
   // const userInfo = useSelector((state) => state.GlobalState.userData);
-  // console.log(userAppointment);
   function formatDate(dateString) {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     if (language) {
@@ -45,17 +38,14 @@ function ConfirmAppointment({ userAppointment }) {
     }
   }
   const formattedDate = formatDate(userAppointment?.createdAt);
-  // console.log(userAppointment);
-  // console.log(userAppointment?.user?.phone);
-  // console.log(userAppointment?.user?.code);
+
   const whatsBtnClick = () => {
     WhatsAppBtn(userAppointment._id);
   };
   const CallBtnClick = () => {
     CallBtn(userAppointment._id);
   };
-  // console.log(userInfo);
-  // console.log(userInfo);
+
   const [loved, setLoved] = useState(false);
 
   const addToFAv = async () => {

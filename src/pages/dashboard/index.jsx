@@ -248,7 +248,6 @@ function Dashboard() {
       },
     ],
   };
-  // console.log("data is", dataDelete?.resultDelete.length);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh]  flex" dir="ltr">
       <div className="relative">

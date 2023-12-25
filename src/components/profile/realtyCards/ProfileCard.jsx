@@ -10,7 +10,6 @@ import { deleteProperty } from "@/utils/propertyAPI";
 import { useSelector } from "react-redux";
 import ConfirmModal from "@/Shared/models/ConfirmModal";
 const ProfileCard = ({ propertyDetails, type, onRemove }) => {
-  // console.log(propertyDetails);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const deleteProp = async () => {
     try {
@@ -21,7 +20,6 @@ const ProfileCard = ({ propertyDetails, type, onRemove }) => {
       console.error("Error del prop:", error);
     }
   };
-  // console.log(propertyDetails);
   return (
     <div className="w-[310px] h-[420px] rounded-[25px] overflow-hidden relative bg-white text-lightGreen pb-3 drop-shadow-xl animate-appearance-in">
       {/* number of views */}

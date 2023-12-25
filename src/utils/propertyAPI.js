@@ -134,7 +134,6 @@ export async function deleteProperty(propertyid) {
     return response.data;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -154,7 +153,6 @@ export async function getRecommendRealty(propertyid) {
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -174,7 +172,6 @@ export async function GetActiveProp(page) {
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 export async function GetEditAds(slug) {
@@ -193,7 +190,6 @@ export async function GetEditAds(slug) {
     return response.data.find;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 

@@ -21,8 +21,7 @@ const EditProperty = () => {
       getProperty();
     }
   }, [propertyId]);
-  // console.log(propData);
-  //   console.log(userInfo._id);
+
   return (
     <div>
       {/* EditProperty {propertyId}

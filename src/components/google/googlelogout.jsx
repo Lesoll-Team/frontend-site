@@ -5,7 +5,6 @@
 
 // function AuthGoogleLogout() {
 //     const responseGoogleSuccess = (response) => {
-//         console.log("Google login success:", response);
 //         // You can send the response to your server for authentication if needed
 //         // For example, you can call signWithGoogle here and handle the response
 //       };

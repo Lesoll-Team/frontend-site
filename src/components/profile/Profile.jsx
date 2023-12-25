@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -7,8 +6,6 @@ import dynamic from "next/dynamic";
 import { BsCheck2Circle } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { CgSandClock } from "react-icons/cg";
-import { RiDraftLine } from "react-icons/ri";
-import { MdDoNotDisturbOn } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
 // componets imports
 const ActiveAds = dynamic(() => import("./ActiveAds"));
@@ -27,7 +24,6 @@ const Profile = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [userDataInfo, setUserDataInfo] = useState({});
   const [content, setContent] = useState("active");
-  // console.log(userInfo);
   // switchcontent
   const switchActive = () => {
     setContent("active");
@@ -55,7 +51,6 @@ const Profile = () => {
   //   // Call fetchUserData async thunk when the component mounts
   //   dispatch(fetchUserData());
   // }, [dispatch]);
-  // console.log(userInfo);
   return (
     <>
       <div className="">

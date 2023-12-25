@@ -423,7 +423,6 @@ const [endDate, setEndDate] = useState(null);
     }),
     []
   );
-  // console.log(property);
   return (
     <Table
       isCompact

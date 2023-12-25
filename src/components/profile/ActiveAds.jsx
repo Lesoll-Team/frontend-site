@@ -37,7 +37,6 @@ const ActiveAds = () => {
       )
     );
   };
-  // console.log(activeAdds?.confirmedRealty);
   return (
     <div className="w-full">
       <h2 className="text-center font-bold text-lightGreen text-4xl">

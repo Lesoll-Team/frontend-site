@@ -16,7 +16,6 @@ import PropertyData from "./PropertyData";
 // import {ar} from "../../language/ar/common"
 // import {en} from "../../language/en/common"
 function PropertyDetailsMain({ singleProperty, deleted }) {
-  // console.log("main",singleProperty._id);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const [recommendations, setRecommendations] = useState([]);
@@ -26,14 +25,12 @@ function PropertyDetailsMain({ singleProperty, deleted }) {
       try {
         const data = await getRecommendRealty(singleProperty._id);
         setRecommendations(data);
-        // console.log(recommendations);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
       }
     }
     fetchRecommendations();
   }, [singleProperty]);
-  // console.log(singleProperty);
   const router = useRouter();
   const slug = router.query.id;
 

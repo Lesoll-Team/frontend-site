@@ -43,7 +43,6 @@ function Map({ center }) {
       clearTimeout(markerTimer);
     };
   }, []);
-  // console.log(center);
   return (
     <GoogleMap
       options={{

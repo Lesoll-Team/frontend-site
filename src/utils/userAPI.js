@@ -58,7 +58,6 @@ export async function updateUserDataInfo(userID, userUpdate) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
   try {
-    // console.log("updateUserDataInfo",userID,userToken,userUpdate,);
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}`,
       userUpdate,
@@ -91,11 +90,8 @@ export async function changePassword(userNewPassword) {
         },
       }
     );
-    // console.log("yes out 1:",response.data);
     return response.data;
   } catch (error) {
-    // console.log(error);
-    // console.log("error out 2:",error);
     return error.response.data;
   }
 }
@@ -192,7 +188,6 @@ export async function updateGoogleData({data,token}) {
   try {
     // const response =
      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-users-google?token=${token}`,data);
-// console.log("updated",response);
   } catch (error) {
     console.log(error);
   }

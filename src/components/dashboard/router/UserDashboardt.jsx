@@ -38,16 +38,7 @@ export default function UserDashboard() {
   // const [filterValue, setFilterValue] = useState("");
   const [filterUser, setFilterUser] = useState("");
 
-  // const fetchUsersData = async () => {
-  //   try {usersLengthOfAPI
-  //     const userToken = JSON.parse(localStorage.getItem("userToken"));
-  //     const getUsers = await getAllUsers(rowsPerPage, page, userToken);
-  //     setUsers(getUsers.data);
-  //     setUsersLength(getUsers.nPages);
-  //   } catch (error) {
-  //     console.error("Error fetching users:", error);
-  //   }
-  // };
+
 
   const searchUsers = async () => {
     try {
@@ -94,7 +85,6 @@ export default function UserDashboard() {
     //       user.phone.toLowerCase().includes(filterValue.toLowerCase())
     //   );
     // }
-// console.log("filteredUsers",filteredUsers);
     if (hasSearchAllUser) {
       filteredUsers = filteredUsers.filter(
         (user) =>
@@ -107,7 +97,6 @@ export default function UserDashboard() {
     return filteredUsers;
   }, [users,filterUser]);
 
-  // console.log("filteredItems", filteredItems);//allows update
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -115,7 +104,6 @@ export default function UserDashboard() {
     return filteredItems.slice(start, end) && filteredItems;
     // return filteredItems
   }, [page, filteredItems, rowsPerPage]);
-  // console.log("itme dot length", items);
 
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
@@ -126,9 +114,7 @@ export default function UserDashboard() {
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-  {
-    // console.log("sorting item :", sortedItems);
-  }
+
   const renderCell = useCallback((user, columnKey) => {
     switch (columnKey) {
       case "fullname":

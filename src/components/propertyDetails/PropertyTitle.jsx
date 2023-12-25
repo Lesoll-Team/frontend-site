@@ -30,7 +30,6 @@ function PropertyTitle({ singleTitle }) {
   //   dispatch(fetchUserData())
   // }
 
-  // console.log(userInfo);
   const [isOpen, setIsOpen] = useState(false);
 
   const addToFAv = async () => {

@@ -47,7 +47,6 @@ export default function PropertyDashboard() {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  // console.log(userInfo);
   const fetchAllProperties = async () => {
     try {
       const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -117,7 +116,6 @@ export default function PropertyDashboard() {
   }, [sortDescriptor, items]);
 
   const renderCell = useCallback((blog, columnKey) => {
-    // console.log(blog?.slug)
     switch (columnKey) {
       case "address":
         return (

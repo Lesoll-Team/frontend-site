@@ -4,7 +4,6 @@ export async function addBlogs(blogData) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
   try {
-    // console.log(userToken);
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/add`,
       blogData,
@@ -25,7 +24,6 @@ export async function updateBlog(blogData, blogID) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
   try {
-    // console.log(userToken);
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/update/blog/${blogID}`,
       blogData,
@@ -58,7 +56,6 @@ export async function getAllBlogs() {
 export async function deleteOneBlog(blogID) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    // console.log("in function utils:"+blogID);
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/delete/blog/${blogID}`,
       {

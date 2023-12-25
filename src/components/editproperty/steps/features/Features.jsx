@@ -19,7 +19,6 @@ const Features = ({ propertyDetils, setData }) => {
   };
   useEffect(() => {
     getFeatures();
-    // console.log(features);
   }, []);
   return (
     <div className="space-y-7">

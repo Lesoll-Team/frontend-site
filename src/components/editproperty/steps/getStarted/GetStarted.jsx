@@ -103,8 +103,6 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
     ],
   };
 
-  // console.log(unitOptions);
-  // console.log(propertyDetils.propType);
 
   return (
     propertyDetils && (

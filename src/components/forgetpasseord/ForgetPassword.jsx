@@ -53,11 +53,9 @@ const ForgetPassword = () => {
               : "An error occurred while sending the email"
           );
         }
-        // console.error("Error sending email for password reset:", error);
       }
     },
   });
-  // console.log(error);
   const handleInputChange = (event) => {
     formik.handleChange(event); // Handle the input change as usual
     setError(null); // Clear the error

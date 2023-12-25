@@ -16,7 +16,6 @@ import ShowMap from "@/Shared/map/ShowMap";
 
 function AddressLocation({ singleAddressLocation }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // console.log(singleAddressLocation);
   return (
     <div className="lg:flex justify-between  items-center p-2  rounded-3xl">
       <div className=" lg:w-[100%]  h-[300px]">

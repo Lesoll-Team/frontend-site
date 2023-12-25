@@ -29,7 +29,6 @@ export const loginUserAsync = createAsyncThunk(
   "Auth/loginUser",
   async (userData) => {
     const response = await loginUser(userData);
-    // console.log("sginin",response);
     return response.token; // Assuming your API returns user data upon successful login
   }
 );

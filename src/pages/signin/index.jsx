@@ -11,8 +11,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const SignIn = () => {
   // const {data:session}=useSession()
-  // console.log("data",data);
-  // console.log("S",session);
+
   const router = useRouter();
   const isLoading = useSelector((state) => state.Auth.isLoding);
   const language = useSelector((state) => state.GlobalState.languageIs);

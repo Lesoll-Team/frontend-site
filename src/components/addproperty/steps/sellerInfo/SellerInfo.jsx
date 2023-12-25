@@ -123,12 +123,9 @@ const SellerInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
                       phone: false,
                     }));
                   }
-                  // console.log(e);
-                  // console.log(info.dialCode);
+
                 }
                 // setCountry(country);
-                // console.log(phone);
-                // console.log(country);
               }
             />
           </div>

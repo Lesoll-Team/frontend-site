@@ -49,7 +49,6 @@ const PersonalInfo = () => {
     formData.append("fullname", userName);
     formData.append("phone", phoneNumberwithoutCode());
     formData.append("code", countryCode);
-    // console.log(formData);
     try {
       dispatch(
         updateUserData({
@@ -67,7 +66,6 @@ const PersonalInfo = () => {
     if (resVerify.code === 200) {
       setModelVerified(true);
     }
-    // console.log(resVerify);
   };
 
   const deleteUserAccount = () => {
@@ -78,7 +76,6 @@ const PersonalInfo = () => {
       })
     );
   };
-  // console.log(userDataInfo);
 
   return (
     <Fragment>
@@ -217,7 +214,6 @@ const PersonalInfo = () => {
                 onChange={(e, info) => {
                   setPhonenumber(e);
                   setCountryCode(info.dialCode);
-                  // console.log(info);
                   // if (e) {
                   //   setFormError({ ...formError, phoneNumberError: false });
                   // }

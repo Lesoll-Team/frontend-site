@@ -2,11 +2,10 @@ import BlogSinglePage from "@/components/blogs/blogSinglePage";
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
-  // console.log("singleBlog", singleBlog);
 
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();

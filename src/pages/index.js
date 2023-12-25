@@ -28,7 +28,6 @@ export default function Home({
   bestSearch,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-console.log(bestSearch,"bestSearch");
   return (
     <main>
       <Head>

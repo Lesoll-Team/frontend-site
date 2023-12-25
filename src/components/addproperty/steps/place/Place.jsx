@@ -10,7 +10,6 @@ const Place = ({
   propErrors,
   setPropErrors,
 }) => {
-  //   console.log(region);
   const [govInput, setGovInput] = useState("");
   const [filterdGov, setFilterGov] = useState(null);
   const [selectedGovernrate, setSelectedGovernrate] = useState(null);
