@@ -1,11 +1,11 @@
 import React, { useMemo, memo } from "react";
 import dynamic from "next/dynamic";
-const RealtyCard = dynamic(() => import("../realtyCard/RealtyCard"));
+// const RealtyCard = dynamic(() => import("../realtyCard/RealtyCard"));
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@nextui-org/react";
 
-import PropertyCard from "../realtyCard/PropertyCard";
+import RealtyCard from "../realtyCard/RealtyCard";
 
 const RecentPropertyBuy = ({ propertiesBuy }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -19,7 +19,7 @@ const RecentPropertyBuy = ({ propertiesBuy }) => {
         <div className="container mx-auto justify-center flex flex-wrap gap-10 md:mt-16 mt-5">
           {propertiesBuy ? (
             propertiesBuy.map((property) => (
-              <PropertyCard key={property._id} propertyDetails={property} />
+              <RealtyCard key={property._id} propertyDetails={property} />
             ))
           ) : (
             <>

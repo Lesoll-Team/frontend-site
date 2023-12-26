@@ -27,6 +27,7 @@ import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Link from "next/link";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -36,8 +37,8 @@ const columns = [
 ];
 export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
-const [startDate, setStartDate] = useState(null);
-const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -48,16 +49,15 @@ const [endDate, setEndDate] = useState(null);
   const [filterValue, setFilterValue] = useState("");
   const userInfo = useSelector((state) => state.GlobalState.userData);
 
-
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
   }, [page, rowsPerPage, refreshProperty]);
   const fetchAllProperties = async (startDate, endDate) => {
     try {
-    const formattedStartDate = startDate
-      ? format(startDate, "yyyy-MM-dd")
-      : null;
-    const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null;
+      const formattedStartDate = startDate
+        ? format(startDate, "yyyy-MM-dd")
+        : null;
+      const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null;
 
       const getProperties = await fetchActiveProperty(
         rowsPerPage,
@@ -198,19 +198,23 @@ const [endDate, setEndDate] = useState(null);
       case "thumbnail":
         return (
           <div className="flex flex-col w-[200px]">
-            <Image
-              width={200}
-              // height={2000}
-              src={blog.thumbnail}
-              fallbackSrc="https://via.placeholder.com/2  00x200"
-              alt="NextUI Image with fallback"
-            />
+            <Link href={`/dashboard/property-details/${blog.slug}`}>
+              <Image
+                width={200}
+                // height={2000}
+                src={blog.thumbnail}
+                fallbackSrc="https://via.placeholder.com/2  00x200"
+                alt="NextUI Image with fallback"
+              />
+            </Link>
           </div>
         );
       case "title":
         return (
           <div className="flex flex-col w-[250px]">
-            <p className="font-bold text-medium text-center">{blog.title}</p>
+            <Link href={`/dashboard/property-details/${blog.slug}`}>
+              <p className="font-bold text-medium text-center">{blog.title}</p>
+            </Link>
           </div>
         );
       case "actions":

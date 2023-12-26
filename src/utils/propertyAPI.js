@@ -118,16 +118,19 @@ export async function shareOtherBtn(propertyid) {
     throw error.response.data;
   }
 }
-export async function deleteProperty(propertyid) {
+export async function deleteProperty(propertyid, message) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propertyid}?token=${userToken}`,
-      // { reason: message },
+
       {
         headers: {
           token: userToken,
+        },
+        data: {
+          reason: message,
         },
       }
     );
@@ -210,6 +213,19 @@ export async function getRegion() {
       `${process.env.NEXT_PUBLIC_API_URL}/admin/region/getall`
     );
     return response.data.Region;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+// property details dashboard admin
+
+export async function getPropertyDashboard(slug) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/property-details-dashboard/${slug}?token=${userToken}`
+    );
+    return response.data;
   } catch (error) {
     throw error.response.data;
   }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, User } from "@nextui-org/react";
-import {deleteUsers, searchUsersApi } from "../utils/userAPI";
+import { deleteUsers, searchUsersApi } from "../utils/userAPI";
 import {
   Table,
   TableHeader,
@@ -19,6 +19,7 @@ import {
 import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import UserUpdateModule from "../model/users/UpdateUserData";
+import Link from "next/link";
 const columns = [
   { name: "User", uid: "fullname" },
   { name: "Phone", uid: "phone" },
@@ -45,11 +46,11 @@ export default function UserDashboard() {
       const getUser = await searchUsersApi(rowsPerPage, page, filterUser);
       setUsers(getUser.User);
       setUsersLength(getUser.resultCount);
-      setUsersLengthOfAPI(getUser.resultCount)
+      setUsersLengthOfAPI(getUser.resultCount);
     } catch (error) {
       console.error("Error fetching users:", error);
-      setUsers([])
-      setUsersLength(0)
+      setUsers([]);
+      setUsersLength(0);
     }
   };
 
@@ -71,7 +72,7 @@ export default function UserDashboard() {
   const [sortDescriptor, setSortDescriptor] = useState({});
   const pages = Math.ceil(usersLength / rowsPerPage);
   // const hasSearchFilter = Boolean(filterValue);
-  const hasSearchAllUser = Boolean(pages<=1);
+  const hasSearchAllUser = Boolean(pages <= 1);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
@@ -91,11 +92,11 @@ export default function UserDashboard() {
           user.fullname.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.email.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.phone.toLowerCase().includes(filterUser.toLowerCase())
-          // user.typeOfUser.toLowerCase().includes(filterUser.toLowerCase())
+        // user.typeOfUser.toLowerCase().includes(filterUser.toLowerCase())
       );
     }
     return filteredUsers;
-  }, [users,filterUser]);
+  }, [users, filterUser]);
 
 
   const items = useMemo(() => {
@@ -119,14 +120,16 @@ export default function UserDashboard() {
     switch (columnKey) {
       case "fullname":
         return (
-          <User
-            avatarProps={{ radius: "full", size: "sm", src: user.avatarUrl }}
-            classNames={{
-              description: "text-default-500",
-            }}
-            description={user.username}
-            name={user.fullname}
-          ></User>
+          <Link href={`/dashboard/user-details/${user?.username}`}>
+            <User
+              avatarProps={{ radius: "full", size: "sm", src: user.avatarUrl }}
+              classNames={{
+                description: "text-default-500",
+              }}
+              description={user.username}
+              name={user.fullname}
+            ></User>
+          </Link>
         );
       case "phone":
         return (
@@ -217,7 +220,6 @@ export default function UserDashboard() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex  gap-3 items-center justify-center ">
-
           <div className=" w-8/12  ">
             <form
               className="flex items-center gap-x-2"
@@ -229,8 +231,7 @@ export default function UserDashboard() {
               <Input
                 isClearable
                 className="w-full"
-name="search"
-
+                name="search"
                 // classNames={{
                 //   base: "w-full sm:max-w-[44%]",
                 //   inputWrapper: "border-1",
@@ -302,7 +303,7 @@ name="search"
         </span>
       </div>
     );
-  }, [items.length, page, pages,hasSearchAllUser, selectedKeys]);
+  }, [items.length, page, pages, hasSearchAllUser, selectedKeys]);
   const classNames = useMemo(
     () => ({
       wrapper: ["max-h-[382px]", "max-w-3xl"],

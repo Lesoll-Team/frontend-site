@@ -10,14 +10,17 @@ const Place = ({
   propErrors,
   setPropErrors,
 }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const [govInput, setGovInput] = useState("");
   const [filterdGov, setFilterGov] = useState(null);
-  const [selectedGovernrate, setSelectedGovernrate] = useState(null);
-
+  const [showedRegion, setShowedRegion] = useState();
   const [refionInput, setRegionInput] = useState("");
   const [filterdRegion, setFilterRegion] = useState(null);
-  const [selectedRegion, setSelectedRegion] = useState(null);
-  const [addressName, setAddressName] = useState("");
+
+  useEffect(() => {
+    setShowedRegion(region);
+  }, [region]);
   const onGovChange = (e) => {
     const input = e.target.value;
     setGovInput(input);
@@ -26,8 +29,8 @@ const Place = ({
         const govNameAr = gov.governorate_name_ar || ""; // Ensure property exists
         const govNameEn = gov.governorate_name_en || "";
         return (
-          govNameAr.indexOf(input) === 0 ||
-          govNameEn.toLowerCase().indexOf(input.toLowerCase()) === 0
+          govNameAr.includes(input) ||
+          govNameEn.toLowerCase().includes(input.toLowerCase())
         );
       });
 
@@ -36,18 +39,19 @@ const Place = ({
       setFilterGov(null);
     }
   };
+
   const onRegionChange = (e) => {
     const input = e.target.value;
     setRegionInput(input);
 
     if (input) {
-      let filtered = region.filter((reg) => {
+      let filtered = showedRegion.filter((reg) => {
         const cityNameAr = reg.city_name_ar || ""; // Ensure property exists
         const cityNameEn = reg.city_name_en || ""; // Ensure property exists
 
         return (
-          cityNameAr.indexOf(input) === 0 ||
-          cityNameEn.toLowerCase().indexOf(input.toLowerCase()) === 0
+          cityNameAr.includes(input) ||
+          cityNameEn.toLowerCase().includes(input.toLowerCase())
         );
       });
 
@@ -56,29 +60,70 @@ const Place = ({
       setFilterRegion(null);
     }
   };
+  const filterRegions = (govNum) => {
+    const relatedRegion = region.filter(
+      (reg) => reg.governorate_number == govNum
+    );
+    setShowedRegion(relatedRegion);
+  };
   const GovSelect = (gov) => {
+    filterRegions(gov.number);
     setData((prevData) => ({
       ...prevData,
       address: {
         ...prevData.address,
-        governrate: gov,
+        governrate: language
+          ? gov.governorate_name_ar
+          : gov.governorate_name_en,
       },
     }));
     setFilterGov(null);
     setGovInput("");
   };
-  const RegionSelect = (region) => {
+  const filterGov = (regionNum) => {
+    const relatedGov = governrate.filter((gov) => gov.number == regionNum);
+
     setData((prevData) => ({
       ...prevData,
       address: {
         ...prevData.address,
-        region: region,
+        governrate: language
+          ? relatedGov[0].governorate_name_ar
+          : relatedGov[0].governorate_name_en,
+      },
+    }));
+  };
+
+  const RegionSelect = (region) => {
+    filterGov(region.governorate_number);
+    filterRegions(region.governorate_number);
+    setData((prevData) => ({
+      ...prevData,
+      address: {
+        ...prevData.address,
+        region: language ? region.city_name_ar : region.city_name_en,
       },
     }));
     setFilterRegion(null);
     setRegionInput("");
   };
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const removeGov = () => {
+    setData((prevData) => ({
+      ...prevData,
+      address: {
+        ...prevData.address,
+        governrate: null,
+      },
+    }));
+    setData((prevData) => ({
+      ...prevData,
+      address: {
+        ...prevData.address,
+        region: null,
+      },
+    }));
+    setShowedRegion(region);
+  };
 
   useEffect(() => {
     if (propertyDetils?.address?.governrate) {
@@ -131,15 +176,7 @@ const Place = ({
                 <div className="absolute bottom-[10px] mx-4 flex items-center gap-2 bg-lightGreen p-2 px-3 text-xl rounded-lg text-white font-semibold">
                   {propertyDetils?.address.governrate}
                   <button
-                    onClick={() => {
-                      setData((prevData) => ({
-                        ...prevData,
-                        address: {
-                          ...prevData.address,
-                          governrate: "",
-                        },
-                      }));
-                    }}
+                    onClick={removeGov}
                     className="mt-1 bg-red-500 rounded-full text-lg "
                   >
                     <HiMiniXMark />
@@ -155,13 +192,7 @@ const Place = ({
                   {filterdGov.map((gov) => {
                     return (
                       <option
-                        onClick={() =>
-                          GovSelect(
-                            language
-                              ? gov.governorate_name_ar
-                              : gov.governorate_name_en
-                          )
-                        }
+                        onClick={() => GovSelect(gov)}
                         className="hover:bg-gray-200 duration-150 px-2 py-1 cursor-pointer"
                         key={gov._id}
                       >
@@ -210,7 +241,7 @@ const Place = ({
                         ...prevData,
                         address: {
                           ...prevData.address,
-                          region: "",
+                          region: null,
                         },
                       }));
                     }}
@@ -230,11 +261,7 @@ const Place = ({
                 {filterdRegion.map((region) => {
                   return (
                     <option
-                      onClick={() =>
-                        RegionSelect(
-                          language ? region.city_name_ar : region.city_name_en
-                        )
-                      }
+                      onClick={() => RegionSelect(region)}
                       className="hover:bg-gray-200 duration-150 px-2 py-1 cursor-pointer"
                       key={region._id}
                     >

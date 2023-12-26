@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { DotPulse } from "@uiball/loaders";
 import { SearchBar } from "@/Shared/search/SearchBar";
 import { TbVirusSearch } from "react-icons/tb";
-import PropertyCard from "../realtyCard/PropertyCard";
+import RealtyCard from "../realtyCard/RealtyCard";
 
 import BestLinksInHome from "../linksInHome/BestLinksInHome";
 
@@ -54,7 +54,7 @@ function SearchResult({
             <SearchBar reversedFilteredKeywords={reversedFilteredKeywords} />
             <div className=" flex flex-wrap justify-center gap-5  ">
               {searchResult?.searchResults.map((result) => (
-                <PropertyCard key={result._id} propertyDetails={result} />
+                <RealtyCard key={result._id} propertyDetails={result} />
               ))}
             </div>
             {searchingError == "rejected" ? (

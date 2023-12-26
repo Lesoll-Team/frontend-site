@@ -8,15 +8,11 @@ import SimilarListings from "./SimilarListings";
 import DescriptionFeatures from "./DescriptionFeatures";
 import { getRecommendRealty } from "@/utils/propertyAPI";
 import Head from "next/head";
-import { useSelector } from "react-redux";
 import PropDetailsSkeleton from "./PropDetailsSkeleton";
 import { useRouter } from "next/router";
 import PropertyData from "./PropertyData";
 
-// import {ar} from "../../language/ar/common"
-// import {en} from "../../language/en/common"
-function PropertyDetailsMain({ singleProperty, deleted }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+function PropertyDetailsMain({ singleProperty }) {
 
   const [recommendations, setRecommendations] = useState([]);
 

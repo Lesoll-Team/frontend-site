@@ -5,7 +5,6 @@ import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 // import { useRouter } from "next/router";
 import {
-  AiFillEdit,
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineShareAlt,
@@ -16,6 +15,7 @@ import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
 import { BsWhatsapp } from "react-icons/bs";
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
+import { FcViewDetails } from "react-icons/fc";
 
 function ConfirmAppointment({ userAppointment }) {
   // const router = useRouter();
@@ -65,17 +65,28 @@ function ConfirmAppointment({ userAppointment }) {
       setLoved(true);
     }
   }, [userInfo?.favorites]);
+  // const openDirectionsInGoogleMaps = () => {
+  //   const url = `https://www.google.com/maps/dir/?api=1&destination=${userAppointment?.address.latitude},${userAppointment?.address.longitude}`;
+  //   window.open(url, "_blank");
+  // };
   return (
     <aside className="  p-5 pt-6 bg-white drop-shadow-lg border rounded-xl md:sticky md:top-24 space-y-4 ">
       <div className="flex flex-col justify-center items-center mx-2">
-        <User
-          avatarProps={{
-            size: "lg",
-            src: userAppointment?.user.avatarUrl,
-          }}
-        />
+        <Link href={`/view-profile/${userAppointment?.user?.username}`}>
+          <User
+            avatarProps={{
+              size: "lg",
+              src: userAppointment?.user?.avatarUrl,
+            }}
+          />
+        </Link>
 
-        <p className="font-bold text-xl">{userAppointment?.user.fullname}</p>
+        <Link
+          className="font-bold text-xl "
+          href={`/view-profile/${userAppointment?.user?.username}`}
+        >
+          {userAppointment?.user?.fullname}
+        </Link>
         {/* <p className="text-default-700">{userAppointment?.user.email}</p> */}
       </div>
 
@@ -132,7 +143,7 @@ function ConfirmAppointment({ userAppointment }) {
             </a>
 
             <a
-              href={`tel:${userAppointment.user.code}${
+              href={`tel:${userAppointment.user?.code}${
                 userAppointment?.connectPhoneNumber ||
                 userAppointment?.user?.phone
               }`}
@@ -232,106 +243,14 @@ function ConfirmAppointment({ userAppointment }) {
           </ContactBtnsModal>
         )}
       </div>
-      {/* <div className="bg-white rounded-lg p-6 md:px-5 space-y-4">
-        <div className="flex justify-between items-center">
-          <p className="font-bold  rounded-lg py-1 px-3 flex items-center gap-1">
-            <MdLocalOffer className="text-darkGreen" />
-            {language ? "العرض" : "Offer"} {""}{" "}
-          </p>
-          <p className="font-semibold">
-            {userAppointment.offer === "For Sale"
-              ? language
-                ? "للبيع"
-                : userAppointment.offer
-              : language
-              ? "للإيجار"
-              : userAppointment.offer}
-          </p>
-        </div>
-        <hr />
-        <div className="flex justify-between">
-          <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
-            <MdMapsHomeWork className="text-darkGreen text-lg" />
-            {language ? "نوع الوحدة" : "Unit Type"}{" "}
-          </p>
-          <p className="font-semibold">
-            {language
-              ? userAppointment?.unitType?.title?.ar
-              : userAppointment?.unitType?.title?.en}
-          </p>
-        </div>
-        <hr />
-        <div className="flex justify-between">
-          <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
-            <TbRulerMeasure className="text-darkGreen text-lg" />
-            {language ? "المساحة" : "Area"}
-          </p>
-          <p className="font-semibold">
-            {language
-              ? userAppointment?.area.toLocaleString("ar-Eg")
-              : userAppointment?.area.toLocaleString()}
-            {""}
-            {userAppointment?.landType === "carat" ? (
-              language ? (
-                "قيراط"
-              ) : (
-                "carat"
-              )
-            ) : userAppointment?.landType === "acre" ? (
-              language ? (
-                "فدان"
-              ) : (
-                "acre"
-              )
-            ) : language ? (
-              <span>
-                م<sup>{(2).toLocaleString("ar-Eg")}</sup>
-              </span>
-            ) : (
-              <span>
-                m<sup>2</sup>
-              </span>
-            )}
-          </p>
-        </div>
-        {userAppointment?.propType !== "Land" && (
-          <>
-            <hr />
-
-            <div className="flex justify-between">
-              <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
-                <BiSolidBed className="text-darkGreen text-lg " />{" "}
-                {language ? " الغرف" : "Rooms"}
-              </p>
-              <p className="font-semibold">
-                {language
-                  ? userAppointment?.rooms.toLocaleString("ar-Eg")
-                  : userAppointment?.rooms.toLocaleString()}
-              </p>
-            </div>
-            <hr />
-            <div className="flex justify-between">
-              <p className="font-bold   rounded-lg py-1 px-3 flex items-center  gap-1">
-                <FaBath className="text-darkGreen text-lg " />
-                {language ? "الحمامات" : "Bathrooms"}
-              </p>
-              <p className="font-semibold">
-                {language
-                  ? userAppointment?.bathRooms.toLocaleString("ar-Eg")
-                  : userAppointment?.bathRooms.toLocaleString()}
-              </p>
-            </div>
-          </>
-        )}
-      </div> */}
       <div className="flex justify-between flex-row-reverse items-center pt-2">
         {userInfo && userInfo.isAdmin && (
           <Link
-            title={language ? " تعديل العقار" : "Edit Property"}
-            href={`/editproperty/${userAppointment.slug}`}
+            title={language ? " تفاصيل العقار" : "Edit Property"}
+            href={`/dashboard/property-details/${userAppointment.slug}`}
             className="text-lightGreen font-bold text-lg hover:text-lightOrange duration-200"
           >
-            <AiFillEdit />
+            <FcViewDetails />
           </Link>
         )}
         <p className="text-xs font-semibold">
@@ -342,18 +261,4 @@ function ConfirmAppointment({ userAppointment }) {
   );
 }
 export default memo(ConfirmAppointment);
-//  : (
-//             <ContactBtnsModal
-//               signup={true}
-//               description={
-//                 language
-//                   ? "سجل الدخول لتتمكن من إضافة العقار للمفضله"
-//                   : "You can't contact with the seller with out signing in "
-//               }
-//             >
-//               {" "}
-//               <button className=" border-2 text-xl border-lightGreen rounded-lg w-8 h-8 flex items-center justify-center hover:text-white  text-lightGreen   ">
-//                 <AiOutlineHeart className="text-red-500 animate-appearance-in" />
-//               </button>
-//             </ContactBtnsModal>
-//           )
+

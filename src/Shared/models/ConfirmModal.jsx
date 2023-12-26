@@ -16,6 +16,7 @@ export default function ConfirmModal({
   title,
   description,
   children,
+  id,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -50,7 +51,7 @@ export default function ConfirmModal({
                   color="primary"
                   onClick={() => {
                     onClose();
-                    actinFunction();
+                    actinFunction(id || "");
                   }}
                 >
                   {language ? "تأكيد" : "Confirm"}

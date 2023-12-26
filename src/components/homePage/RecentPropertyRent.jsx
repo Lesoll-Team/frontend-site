@@ -5,7 +5,7 @@ import React, { memo } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@nextui-org/react";
-import PropertyCard from "../realtyCard/PropertyCard";
+import RealtyCard from "../realtyCard/RealtyCard";
 const RecentPropertyRent = ({ propertiesRent }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
@@ -18,7 +18,7 @@ const RecentPropertyRent = ({ propertiesRent }) => {
       <div className="container mx-auto justify-center flex flex-wrap gap-10 md:mt-16 mt-5 ">
         {propertiesRent ? (
           propertiesRent.map((property) => (
-            <PropertyCard key={property.slug} propertyDetails={property} />
+            <RealtyCard key={property.slug} propertyDetails={property} />
           ))
         ) : (
           <>
