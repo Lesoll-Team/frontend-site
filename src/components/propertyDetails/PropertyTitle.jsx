@@ -1,58 +1,55 @@
 import Link from "next/link";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import {
-  MdOutlineFavorite,
-  MdOutlineShare,
-  MdReportProblem,
+  // MdOutlineFavorite,
+  // MdOutlineShare,
+  // MdReportProblem,
   MdKeyboardArrowRight,
   // MdCheckCircleOutline,
 } from "react-icons/md";
-import { Tooltip, Button } from "@nextui-org/react";
-import { useDispatch, useSelector } from "react-redux";
-import { BsPlus, BsSlashCircle } from "react-icons/bs";
-import { PiEye, PiEyeClosed, PiEyeLight } from "react-icons/pi";
-import { HiPlusSm } from "react-icons/hi";
-import { TiTick } from "react-icons/ti";
-import { AddToFavorites } from "@/utils/propertyAPI";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { fetchUserData } from "@/redux-store/features/globalState";
-import SocialMediaModal from "@/Shared/models/SocialMediaModal";
+// import { Tooltip, Button } from "@nextui-org/react";
+import {useSelector } from "react-redux";
+// import { BsPlus, BsSlashCircle } from "react-icons/bs";
+// import { PiEye, PiEyeClosed, PiEyeLight } from "react-icons/pi";
+// import { HiPlusSm } from "react-icons/hi";
+// import { TiTick } from "react-icons/ti";
+// import { AddToFavorites } from "@/utils/propertyAPI";
+// import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+// import { fetchUserData } from "@/redux-store/features/globalState";
+// import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 
 function PropertyTitle({ singleTitle }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [loved, setLoved] = useState(false);
+  // const [loved, setLoved] = useState(false);
 
   // const [compare, setCompare] = useState(false);
-
   // const addPropertyToCompared=()=>{
   //   dispatch(AddCompareCard(singleTitle._id))
   //   dispatch(fetchUserData())
   // }
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const addToFAv = async () => {
+  //   try {
+  //     await AddToFavorites(singleTitle?._id);
+  //     dispatch(fetchUserData());
 
-  const addToFAv = async () => {
-    try {
-      await AddToFavorites(singleTitle?._id);
-      dispatch(fetchUserData());
-
-      // Handle success (e.g., show a success message)
-    } catch (error) {
-      // Handle error (e.g., display an error message)
-      console.error("Error add to fav :", error);
-    }
-  };
-  const userInfo = useSelector((state) => state.GlobalState.userData);
-  useEffect(() => {
-    if (userInfo?.favorites.includes(singleTitle?._id)) {
-      setLoved(true);
-    }
-  }, [userInfo?.favorites]);
-  const openDirectionsInGoogleMaps = (lat, lng) => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-    window.open(url, "_blank");
-  };
+  //     // Handle success (e.g., show a success message)
+  //   } catch (error) {
+  //     // Handle error (e.g., display an error message)
+  //     console.error("Error add to fav :", error);
+  //   }
+  // };
+  // const userInfo = useSelector((state) => state.GlobalState.userData);
+  // useEffect(() => {
+  //   if (userInfo?.favorites.includes(singleTitle?._id)) {
+  //     setLoved(true);
+  //   }
+  // }, [userInfo?.favorites]);
+  // const openDirectionsInGoogleMaps = (lat, lng) => {
+  //   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+  //   window.open(url, "_blank");
+  // };
 
   return (
     <div>
@@ -108,26 +105,37 @@ function PropertyTitle({ singleTitle }) {
             )}
           </div>
           <div className="flex justify-center">
-            <div className="flex flex-col md:flex-row md:items-end items-center   gap-1 text-darkGreen">
-              {" "}
-              {/* <p>{language ? "جنية/" : "EGP/"}</p> */}
-              {singleTitle?.offer !== "For Investment" ? (
-                <p>
+            {!singleTitle?.isSold ? (
+              <div className="flex flex-col md:flex-row md:items-end items-center   gap-1 text-darkGreen">
+                {singleTitle?.offer !== "For Investment" ? (
+                  <p>
+                    {language
+                      ? parseInt(singleTitle?.price).toLocaleString("ar-EG")
+                      : parseInt(singleTitle?.price).toLocaleString()}{" "}
+                    <span className="">{language ? "جنية" : "EGP"}</span>
+                  </p>
+                ) : (
+                  <p>{language ? "للإستثمار" : "For Investment"}</p>
+                )}
+                {!singleTitle?.saleOption.includes("Installment") && (
+                  <p className="text-sm text-lightOrange">
+                    {singleTitle?.negotiable &&
+                      (language ? "قابل للتفاوض" : "Negotiable")}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <div className="">
+                <span>السعر قبل البيع </span>
+
+                <s>
                   {language
                     ? parseInt(singleTitle?.price).toLocaleString("ar-EG")
                     : parseInt(singleTitle?.price).toLocaleString()}{" "}
                   <span className="">{language ? "جنية" : "EGP"}</span>
-                </p>
-              ) : (
-                <p>{language ? "للإستثمار" : "For Investment"}</p>
-              )}
-              {!singleTitle?.saleOption.includes("Installment") && (
-                <p className="text-sm text-lightOrange">
-                  {singleTitle?.negotiable &&
-                    (language ? "قابل للتفاوض" : "Negotiable")}
-                </p>
-              )}
-            </div>
+                </s>
+              </div>
+            )}
           </div>
         </div>
       </div>

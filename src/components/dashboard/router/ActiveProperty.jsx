@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, Image } from "@nextui-org/react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { format } from "date-fns";
 
 import {
@@ -16,18 +16,19 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-import {
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
+// import {
+//   DropdownTrigger,
+//   Dropdown,
+//   DropdownMenu,
+//   DropdownItem,
+// } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
-import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
+// import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
+import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -125,28 +126,25 @@ export default function ActiveProperty() {
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-  const router = useRouter();
+  // const router = useRouter();
+
   const renderCell = useCallback((blog, columnKey) => {
     switch (columnKey) {
       case "address":
         return (
-          <div className="flex flex-col w-[300px]  ">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Address:</b>
-              {blog.address.name}
-            </p>
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Governorate</b>
+          <div className="  min-w-[250px] flex flex-col ">
+            <p className="text-bold text-medium flex justify-between">
+              <b>Governorate :</b>
               {blog.address.governrate}
             </p>
             <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Region</b>
+
+            <p className="text-bold text-medium flex justify-between">
+              <b>Region :</b>
               {blog.address.region}
             </p>
           </div>
         );
-
       case "details":
         const formattedUpdatedAtDate = new Date(
           blog.updatedAt
@@ -155,49 +153,26 @@ export default function ActiveProperty() {
           blog.createdAt
         ).toLocaleString();
         return (
-          <div className="flex flex-col w-[350px]">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Offer:</b>
-              {blog.offer}
-            </p>
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Price</b>
-              {blog.price}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>BathRooms</b>
-              {blog.bathRooms}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Bedrooms:</b>
-              {blog.rooms}
-            </p>
+          <div className="grid  min-w-[250px]">
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Created : </b>
+                {formattedCreatedAtDate}
+              </div>
+            </div>
             <hr />
 
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Area:</b>
-              {blog.area}
-            </p>
-            <hr />
-
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Created</b>
-              {formattedCreatedAtDate}
-            </p>
-            <hr />
-
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Updated</b>
-              {formattedUpdatedAtDate}
-            </p>
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Updated :</b>
+                {formattedUpdatedAtDate}
+              </div>
+            </div>
           </div>
         );
-
       case "thumbnail":
         return (
-          <div className="flex flex-col w-[200px]">
+          <div className=" w-[200px]">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <Image
                 width={200}
@@ -211,7 +186,7 @@ export default function ActiveProperty() {
         );
       case "title":
         return (
-          <div className="flex flex-col w-[250px]">
+          <div className="min-w-[300px]">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <p className="font-bold text-medium text-center">{blog.title}</p>
             </Link>
@@ -219,72 +194,39 @@ export default function ActiveProperty() {
         );
       case "actions":
         return (
-          <div className="relative  flex justify-start items-center w-[350px] gap-2">
-            <div className="">
-              <p className="text-bold grid grid-cols-2 text-medium capitalize">
-                <b>ID:</b>
-                {blog?._id}
+          <div className="grid grid-cols-2 min-w-[450px]">
+            <div className="flex flex-col">
+              <p className="text-bold line-clamp-1   text-medium ">
+                <b>Email:</b>
+                {blog.user[0]?.email || "Empty"}
               </p>
               <hr />
-
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>Name</b>
-                {blog.user[0]?.fullname}
-              </p>
-              <hr />
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>User name</b>
-                {blog.user[0]?.username}
-              </p>
+              <div className="text-bold text-medium">
+                <b>Phone: </b>
+                <span>{blog.user[0]?.phone || "Empty"}</span>
+              </div>
             </div>
-            <Dropdown
-              aria-label="Options Menu Accept Property"
-              // aria-labelledbyl="Options Menu Property"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
-                aria-label="Open Options Menu"
-                // aria-labelledbyl="Options Menu Property"
-              >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Accept Property Options Menu"
-                // aria-labelledbyl="Options Menu Property"
-              >
-                {userInfo && userInfo.supAdmin ? (
-                  ""
-                ) : (
-                  <DropdownItem
-                    textValue="Delete Property"
-                    onClick={() => handleDeleteProperty(blog._id)}
-                  >
-                    Delete
-                  </DropdownItem>
+            <div>
+              <DropdownAction>
+                <ItemDropdown
+                  label={"Visit"}
+                  href={`/property-details/${blog.slug}`}
+                  action={null}
+                />
+                <ItemDropdown
+                  label={"Edit"}
+                  href={`/editproperty/${blog.slug}`}
+                  action={null}
+                />
+                {userInfo && userInfo.supAdmin ? null : (
+                  <ItemDropdown
+                    label={"Delete"}
+                    href={null}
+                    action={()=>handleDeleteProperty(blog._id)}
+                  />
                 )}
-                <DropdownItem
-                  textValue="Accept Property"
-                  onClick={() => {
-                    router.push(`/property-details/${blog.slug}`);
-                  }}
-                >
-                  Visit
-                </DropdownItem>
-                <DropdownItem
-                  textValue="edit Property"
-                  // onClick={async () => await acceptProperties(blog._id)}
-                  onClick={() => {
-                    router.push(`/editproperty/${blog.slug}`);
-                  }}
-                >
-                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
-                  edit
-                  {/* </Link> */}
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+              </DropdownAction>
+            </div>
           </div>
         );
     }
@@ -308,7 +250,7 @@ export default function ActiveProperty() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex  gap-3 items-center justify-center">
-          <div className=" w-8/12 mt-5 p-5 bg-lightGreen rounded-xl">
+          <div className=" w-full md:w-8/12  mt-5 p-5 bg-lightGreen rounded-xl">
             <form
               className="flex items-center  gap-x-2"
               onSubmit={(e) => {
@@ -333,7 +275,7 @@ export default function ActiveProperty() {
                 Search
               </Button>
             </form>
-            <div className=" flex flex-wrap mt-3">
+            <div className=" flex justify-center flex-wrap mt-3">
               <div className="flex  mx-2 items-center">
                 <label className="font-semibold  text-white mx-1">From:</label>
                 <DatePicker
@@ -357,25 +299,26 @@ export default function ActiveProperty() {
             </div>
           </div>
         </div>
-
-        <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">
-            Total property Active:
-            <b className="text-lightOrange">{propertyLengthAPI}</b>
-          </span>
-          <label className="flex items-center text-default-400 text-small">
-            Rows per page:
-            <select
-              className="bg-transparent outline-none text-default-400 text-small"
-              onChange={onRowsPerPageChange}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="60">60</option>
-            </select>
-          </label>
+        <div className="flex justify-center">
+          <div className="flex w-full md:w-8/12 justify-between">
+            <span className="text-default-400 text-small">
+              Total property Active:
+              <b className="text-lightOrange mx-2">{propertyLengthAPI}</b>
+            </span>
+            <label className="flex items-center text-default-400 text-small">
+              Rows per page:
+              <select
+                className="bg-transparent outline-none text-default-400 text-small"
+                onChange={onRowsPerPageChange}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+              </select>
+            </label>
+          </div>
         </div>
       </div>
     );
@@ -404,11 +347,6 @@ export default function ActiveProperty() {
           variant="light"
           onChange={setPage}
         />
-        <span className="text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${items.length} selected`}
-        </span>
       </div>
     );
   }, [items.length, page, pages, hasSearchFilter, selectedKeys]);
@@ -470,3 +408,46 @@ export default function ActiveProperty() {
     </Table>
   );
 }
+
+  /* <Dropdown
+              aria-label="Options Menu Accept Property"
+              className="bg-background border-1 border-default-200"
+            >
+              <DropdownTrigger
+                aria-label="Open Options Menu"
+              >
+                <Button isIconOnly radius="full" size="sm" variant="light">
+                  <VerticalDotsIcon className="text-default-400" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="Accept Property Options Menu"
+              >
+                {userInfo && userInfo.supAdmin ? (
+                  ""
+                ) : (
+                  <DropdownItem
+                    textValue="Delete Property"
+                    onClick={() => handleDeleteProperty(blog._id)}
+                  >
+                    Delete
+                  </DropdownItem>
+                )}
+                <DropdownItem
+                  textValue="Accept Property"
+                  onClick={() => {
+                    router.push(`/property-details/${blog.slug}`);
+                  }}
+                >
+                  Visit
+                </DropdownItem>
+                <DropdownItem
+                  textValue="edit Property"
+                  onClick={() => {
+                    router.push(`/editproperty/${blog.slug}`);
+                  }}
+                >
+                  edit
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown> */

@@ -6,31 +6,22 @@ import { FaRegUser } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa";
 import { BsBuildings } from "react-icons/bs";
 import { Button } from "@nextui-org/react";
-// import { fetchUserData, updateUserData } from '@/redux-store/features/globalState';
 import { signInWithGoogle } from "@/redux-store/features/authSlice";
 import { updateGoogleData } from "@/utils/userAPI";
-// updateGoogleData
 function index() {
   const dispatch = useDispatch();
-  const [isError, setError] = useState(false);
-  // const [data, setData] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   const [useType, setUserType] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
   const [messageError, setMessageError] = useState(null);
-
   const selectUserType = (userType) => {
     setUserType(userType);
   };
-
   const router = useRouter();
   const token = router.query.token;
   const phone = router.query.phone;
   const type = router.query.type;
-  // phone !== "null" ? setPhoneNumber(phone) : null;
-  // type !== "normal" ? setUserType(type) : null;
+
 
   useEffect(() => {
     if (type !== "normal") {
@@ -41,30 +32,25 @@ function index() {
       setPhoneNumber(phone);
     }
   }, []);
-    // useEffect(() => {
-    //   setError(false);
-    // }, [phoneNumber, useType]);
+  useEffect(() => {
+    if (token && type !== "normal" && phone !== "null") {
+      dispatch(signInWithGoogle(token));
+      router.push("/");
+    }
+  }, [router]);
   const onSubmit = (e) => {
     e.preventDefault();
-
-
     if (token && (type === "normal" || phone === "null")) {
-      // const formData = new FormData();
-
-      // Check if useType is selected
       if (type === "normal") {
         if (!useType || useType.trim() === "") {
           language
             ? setMessageError("يجب عليك تحديد من انت أولاً")
             : setMessageError("You must define who you are first");
-          return; // Stop the function execution
+          return; 
         } else {
-          // formData.append("typeOfUser", useType);
           setMessageError(null);
         }
       }
-
-      // Check if phoneNumber is entered
       if (phone === "null") {
         if (!phoneNumber || phoneNumber.trim() === "") {
           language
@@ -74,25 +60,22 @@ function index() {
             : setMessageError(
                 "You must enter a phone number so that you can communicate and be contacted"
               );
-          return; // Stop the function execution
+          return; 
         } else {
-          // formData.append("phone", phoneNumber);
           setMessageError(null);
         }
       }
-
-      // Call API and dispatch only if conditions are met
-      updateGoogleData({ token, data: { typeOfUser:useType,phone:phoneNumber } });
+      updateGoogleData({
+        token,
+        data: { typeOfUser: useType, phone: phoneNumber },
+      });
       dispatch(signInWithGoogle(token));
       router.push("/");
-    } else if (token && type !== "normal" && phone !== "null") {
-      // Call dispatch if conditions are met
-      dispatch(signInWithGoogle(token));
     }
   };
 
   return (
-    <div className="w-full min-h-[93dvh] text-center justify-center flex">
+    <div className="w-full min-h-[93dvh]  text-center justify-center flex">
       <form onSubmit={onSubmit} className=" p-5 flex-col  flex mt-6 md:mt-24 ">
         {type === "normal" ? (
           <div>
@@ -159,46 +142,22 @@ function index() {
             />
           </div>
         ) : null}
-
         <p className="text-red-500 text-xl ">{messageError}</p>
-
-        <Button
-          // isDisabled={!isChose}
-          className=" w-full md:w-80 bg-lightGreen p-3 py-8 text-xl font-semibold text-white mx-auto hover:bg-lightGreenHover"
-          type="submit"
-        >
-          {language ? "التالى" : "Next"}
-        </Button>
+        {type === "normal" && phone === "null" ? (
+          <Button
+            className=" w-full md:w-80 bg-lightGreen p-3 py-8 text-xl font-semibold text-white mx-auto hover:bg-lightGreenHover"
+            type="submit"
+          >
+            {language ? "التالى" : "Next"}
+          </Button>
+        ) : (
+          <p className="text-xl text-default-400  m-auto">
+            {language ? "جارى المصادفة..." : "Authentication underway..."}
+          </p>
+        )}
       </form>
     </div>
   );
 }
 export default index;
-/*// setError(false);if (token || type === "normal" || phone === "null") {
-    //   const formData = new FormData();
-    //   if (type == "normal" && useType !== "") {
-    //     formData.append("typeOfUser", useType);
-    //     setError(false);
-    //    setMessageError(null);
-    //   } else {
-    //     language
-    //       ? setMessageError("يجب عليك تحديد من انت اولا ")
-    //       : setMessageError("You must define who you are first");
-    //     setError(true);
-    //   }
-    //   if (phone === "null" && phoneNumber !== "") {
-    //     formData.append("phone", phoneNumber);
-    //     setError(false);
-    //     setMessageError(null);
-    //   } else {
-    //     language
-    //       ? setMessageError(
-    //           "يجب إدخال رقم هاتف لكى تستطيع التواصل وان يتم التواصل معك"
-    //         )
-    //       : setMessageError(
-    //           "You must enter a phone number so that you can communicate and be contacted"
-    //         );
-    //     setError(true);
-    //   }
-    //   setData(formData); } else {   dispatch(signInWithGoogle(token));} if (isError == false && phoneNumber !== "" && useType !== "") {   updateGoogleData({ token, data }); dispatch(signInWithGoogle(token)); } else null;
-    */
+

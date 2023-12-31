@@ -18,6 +18,9 @@ const FavoriteAds = dynamic(() => import("./FavoriteAds"));
 // import InActiveAds from "./InActiveAds";
 // import FavoriteAds from "./FavoriteAds";
 import { Avatar } from "@nextui-org/react";
+import { LiaHandshakeSolid } from "react-icons/lia";
+import InActiveAds from "./InActiveAds";
+import SoldOut from "./SoldOut";
 // import { fetchUserData } from "@/redux-store/features/globalState";
 const Profile = () => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
@@ -40,6 +43,10 @@ const Profile = () => {
   const switchFav = () => {
     setContent("favorites");
   };
+
+    const switchSoldOut = () => {
+      setContent("sold");
+    };
   useEffect(() => {
     setUserDataInfo(userInfo);
   }, [userInfo]);
@@ -139,6 +146,17 @@ const Profile = () => {
                 <AiOutlineHeart />
                 <p className=" ">{language ? "المفضلة" : "Favorites"}</p>
               </div>
+
+              <div
+                onClick={switchSoldOut}
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
+                  content === "favorites" &&
+                  "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
+                }`}
+              >
+                <LiaHandshakeSolid />
+                <p className=" ">{language ? "تم البيع" : "Sold Out"}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -148,6 +166,8 @@ const Profile = () => {
 
           {content === "active" ? (
             <ActiveAds />
+          ) : content === "sold" ? (
+            <SoldOut />
           ) : content === "pending" ? (
             <PendingAds />
           ) : content === "draft" ? (

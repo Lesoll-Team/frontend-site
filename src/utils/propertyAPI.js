@@ -19,6 +19,22 @@ export async function createNewProperty(propertyDetils) {
     throw error.response.data;
   }
 }
+///api/admin/property/sold/:id + token
+
+export async function propertyIsSold({propertyId}) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+
 export async function editProperty(propertyDetils, propertyId) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
