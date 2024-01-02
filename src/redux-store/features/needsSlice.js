@@ -43,6 +43,7 @@ const initialState = {
     maxArea: false,
     description: false,
   },
+  step: 1,
 };
 export const postNeed = createAsyncThunk(
   "need/postNeed",
@@ -71,6 +72,9 @@ const needsSlice = createSlice({
   name: "need",
   initialState,
   reducers: {
+    setStep: (state, action) => {
+      state.step = action.payload;
+    },
     setOffer: (state, action) => {
       state.needsData.offer = action.payload;
     },
@@ -202,6 +206,7 @@ const needsSlice = createSlice({
 export const validate = (state) => {};
 export const validateNeed = () => {};
 export const {
+  setStep,
   setOffer,
   setUnitType,
   setPropType,
