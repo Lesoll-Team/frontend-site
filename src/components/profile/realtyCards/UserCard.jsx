@@ -200,7 +200,7 @@ const UserCard = ({ propertyDetails, type, onSold, omDelete }) => {
 
       <div className="flex justify-center  gap-1 w-full py-2 ">
         <Link
-          className="px-2 rounded-lg text-center flex items-center justify-center text-lightOrange  border-lightOrange border-2 py-1 md:hover:bg-lightOrange md:hover:text-white duration-150"
+          className="px-2 rounded-lg text-center flex items-center justify-center text-lightGreen  border-lightGreen border-2 py-1 md:hover:bg-lightGreen md:hover:text-white duration-150"
           title={language ? "تعديل العقار" : "Edit Property"}
           href={`/editproperty/${propertyDetails.slug}`}
         >
