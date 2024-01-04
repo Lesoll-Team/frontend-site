@@ -56,7 +56,6 @@ const UserLog = ({ visitedPages, userData }) => {
   const rowsToRender = reverseOrder ? filteredPages.reverse() : filteredPages;
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    console.log(startDate);
   };
   const handleEndDateChange = (date) => {
     setEndDate(date);

@@ -3,19 +3,23 @@ import { deleteProperty, propertyIsSold } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
+import { HiRefresh } from "react-icons/hi";
+
 import {
   //  AiFillDelete,
-   AiOutlineEdit } from "react-icons/ai";
+  AiOutlineEdit,
+} from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import { TbRulerMeasure } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const UserCard = ({ propertyDetails, type, onRemove }) => {
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
+const UserCard = ({ propertyDetails, type, onSold, omDelete }) => {
+  const dispatch = useDispatch();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selectedReason, setSelectedReason] = useState("");
   const [reason, setReason] = useState("");
@@ -30,8 +34,16 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
   const deleteProp = async () => {
     try {
       await deleteProperty(propertyDetails._id, reason);
-      // After successfully adding to favorites, trigger the removal callback
-      onRemove(propertyDetails._id);
+      dispatch(omDelete);
+    } catch (error) {
+      console.error("Error del prop:", error);
+    }
+  };
+
+  const propertyOnSold = async () => {
+    try {
+      await propertyIsSold({ propertyId: propertyDetails?._id });
+      dispatch(onSold);
     } catch (error) {
       console.error("Error del prop:", error);
     }
@@ -55,8 +67,10 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
             ? language
               ? "تحت المراجعة"
               : "pending"
-            : type === "draft"
-            ? "draft"
+            : propertyDetails?.isSold == true
+            ? language
+              ? "تم البيع"
+              : "Out of sale"
             : ""}
         </p>
       </div>
@@ -141,7 +155,7 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
           </span>
         </p>
 
-        <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
+        <div className="w-full h-[2px]  rounded-full"></div>
         <div className=" text-darkGray w-full  flex  justify-between ">
           <div className="flex items-center justify-start gap-1">
             {" "}
@@ -184,110 +198,120 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center  gap-1 w-full">
-        <div className="flex items-center justify-center gap-1 w-full p-2 ">
-          <Link
-            className="px-2 rounded-lg text-center flex items-center justify-center text-lightOrange gap-1 border-lightOrange border-2 py-1 md:hover:bg-lightOrange md:hover:text-white duration-150"
-            title={language ? "تعديل العقار" : "Edit Property"}
-            href={`/editproperty/${propertyDetails.slug}`}
-          >
-            <AiOutlineEdit className="text-xl md:text-2xl " />{" "}
-            {/* {language ? "تعديل" : "Edit"} */}
-          </Link>
-          <button
-            onClick={() =>
-              propertyIsSold({ propertyId: propertyDetails?._id })
+      <div className="flex justify-center  gap-1 w-full py-2 ">
+        <Link
+          className="px-2 rounded-lg text-center flex items-center justify-center text-lightOrange  border-lightOrange border-2 py-1 md:hover:bg-lightOrange md:hover:text-white duration-150"
+          title={language ? "تعديل العقار" : "Edit Property"}
+          href={`/editproperty/${propertyDetails.slug}`}
+        >
+          <AiOutlineEdit className="text-xl md:text-2xl " />{" "}
+          {/* {language ? "تعديل" : "Edit"} */}
+        </Link>
+        {type === "pending"?null:(
+        <button
+          onClick={propertyOnSold}
+          className=" w-[150px] rounded-lg text-center flex items-center justify-center text-white font-bold text-xl  md:hover:bg-white bg-green-700 border-green-700 border-2 py-1  md:hover:text-green-700 duration-150"
+        >
+          {propertyDetails?.isSold == true ? (
+            <div className="flex items-center gap-2">
+              <HiRefresh />
+
+              {language ? "إعادة البيع" : "Resale"}
+            </div>
+          ) : language ? (
+            "هل تم البيع ؟ "
+          ) : (
+            "sold out ?"
+          )}
+        </button>
+        )}
+
+        <div className="">
+          <DeleteModal
+            selectedReason={selectedReason}
+            OpenButton={
+              <button className="px-2 rounded-lg text-center flex items-center justify-center text-red-600 gap-1 border-red-600 border-2 py-1 md:hover:bg-red-600 md:hover:text-white duration-150">
+                {/* <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" /> */}
+                <MdDeleteForever className="text-2xl" />
+              </button>
             }
-            className=" w-full rounded-lg text-center flex items-center justify-center text-white font-bold text-xl gap-1 md:hover:bg-white bg-green-700 border-green-700 border-2 py-1  md:hover:text-green-700 duration-150"
+            reason={reason}
+            error={error}
+            setError={setError}
+            deleteProp={deleteProp}
           >
-            {language ? "هل تم البيع ؟ " : "sold out ?"}
-          </button>
-          <div className="w-1/2">
-            <DeleteModal
-              selectedReason={selectedReason}
-              OpenButton={
-                <button className="px-2 rounded-lg text-center flex items-center justify-center text-red-600 gap-1 border-red-600 border-2 py-1 md:hover:bg-red-600 md:hover:text-white duration-150">
-                  {/* <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" /> */}
-                  <MdDeleteForever className="text-2xl" />
-                </button>
-              }
-              reason={reason}
-              error={error}
-              setError={setError}
-              deleteProp={deleteProp}
-            >
-              <div className="flex flex-col items-start gap-3 mb-3">
-                <h3 className="text-2xl fomt-semiBold">
-                  {language
-                    ? " ما سبب رغبتك في حذف هذا العقار؟"
-                    : "What is the reason you want to delete this property?"}
-                </h3>
-                <button
-                  onClick={() =>
-                    onReasonSelect("lesoll", "تم البيع / التأجير من خلال ليسول")
-                  }
-                  type="button"
-                  className="flex gap-2 items-center text-lg font-normal"
-                >
-                  {selectedReason === "lesoll" ? (
-                    <IoIosRadioButtonOn className="text-lightGreen" />
-                  ) : (
-                    <IoMdRadioButtonOff className="text-lightGreen" />
-                  )}
-
-                  {language ? "تم البيع / التأجير من خلال ليسول" : ""}
-                </button>
-                <button
-                  onClick={() =>
-                    onReasonSelect(
-                      "non-lesoll",
-                      "تم البيع / التأجير من خلال وسيط اخر"
-                    )
-                  }
-                  type="button"
-                  className="flex gap-2 items-center text-lg font-normal"
-                >
-                  {selectedReason === "non-lesoll" ? (
-                    <IoIosRadioButtonOn className="text-lightGreen" />
-                  ) : (
-                    <IoMdRadioButtonOff className="text-lightGreen" />
-                  )}
-                  {language ? "تم البيع / التأجير من خلال وسيط اخر" : ""}
-                </button>
-                <button
-                  onClick={() => onReasonSelect("other", otherMessage)}
-                  type="button"
-                  className="flex gap-2 items-center text-lg font-normal"
-                >
-                  {selectedReason === "other" ? (
-                    <IoIosRadioButtonOn className="text-lightGreen" />
-                  ) : (
-                    <IoMdRadioButtonOff className="text-lightGreen" />
-                  )}
-                  {language ? "اخرى" : ""}
-                </button>
-                {selectedReason === "other" && (
-                  <textarea
-                    value={otherMessage}
-                    onChange={(e) => {
-                      setReason(e.target.value);
-                      setOtherMessage(e.target.value);
-                    }}
-                    className={`resize-none w-full p-2 border-[2px] md:border-[3px] rounded-md focus:ring-0 focus:border-lightGreen focus:outline-none animate-appearance-in ${
-                      selectedReason !== "other" && "animate-appearance-out"
-                    }`}
-                    placeholder={language ? "سبب أخر" : "Other reason"}
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="5"
-                  ></textarea>
+            <div className="flex flex-col items-start gap-3 mb-3">
+              <h3 className="text-2xl fomt-semiBold">
+                {language
+                  ? " ما سبب رغبتك في حذف هذا العقار؟"
+                  : "What is the reason you want to delete this property?"}
+              </h3>
+              <button
+                onClick={() =>
+                  onReasonSelect("lesoll", "تم البيع / التأجير من خلال ليسول")
+                }
+                type="button"
+                className="flex gap-2 items-center text-lg font-normal"
+              >
+                {selectedReason === "lesoll" ? (
+                  <IoIosRadioButtonOn className="text-lightGreen" />
+                ) : (
+                  <IoMdRadioButtonOff className="text-lightGreen" />
                 )}
-              </div>
-            </DeleteModal>
-          </div>
-        </div>
 
+                {language ? "تم البيع / التأجير من خلال ليسول" : ""}
+              </button>
+              <button
+                onClick={() =>
+                  onReasonSelect(
+                    "non-lesoll",
+                    "تم البيع / التأجير من خلال وسيط اخر"
+                  )
+                }
+                type="button"
+                className="flex gap-2 items-center text-lg font-normal"
+              >
+                {selectedReason === "non-lesoll" ? (
+                  <IoIosRadioButtonOn className="text-lightGreen" />
+                ) : (
+                  <IoMdRadioButtonOff className="text-lightGreen" />
+                )}
+                {language ? "تم البيع / التأجير من خلال وسيط اخر" : ""}
+              </button>
+              <button
+                onClick={() => {
+                  onReasonSelect("other", otherMessage);
+                }}
+                type="button"
+                className="flex gap-2 items-center text-lg font-normal"
+              >
+                {selectedReason === "other" ? (
+                  <IoIosRadioButtonOn className="text-lightGreen" />
+                ) : (
+                  <IoMdRadioButtonOff className="text-lightGreen" />
+                )}
+                {language ? "اخرى" : ""}
+              </button>
+              {selectedReason === "other" && (
+                <textarea
+                  value={otherMessage}
+                  onChange={(e) => {
+                    setReason(e.target.value);
+                    setOtherMessage(e.target.value);
+                  }}
+                  className={`resize-none w-full p-2 border-[2px] md:border-[3px] rounded-md focus:ring-0 focus:border-lightGreen focus:outline-none animate-appearance-in ${
+                    selectedReason !== "other" && "animate-appearance-out"
+                  }`}
+                  placeholder={language ? "سبب أخر" : "Other reason"}
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              )}
+            </div>
+          </DeleteModal>
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import FavoritesCard from "./realtyCards/FavoritesCard";
 const FavoriteAds = () => {
   const [fav, setFav] = useState([]);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // Define a memoized function to fetch favorites
   const getFav = useCallback(async () => {
     try {
       const userToken = JSON.parse(localStorage.getItem("userToken"));

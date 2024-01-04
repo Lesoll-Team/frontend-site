@@ -33,6 +33,7 @@ import {
   downloadUserData,
   downloadRealtyData,
   downloadOverviewData,
+  downloadSearchKeyword,
 } from "@/utils/dashboardApi/overviewDashboard";
 ChartJS.register(
   LineElement,
@@ -301,27 +302,36 @@ function Dashboard() {
           <div className="space-y-3 space-x-3">
             <Button
               onClick={() => downloadOverviewData(dates)}
-              className="font-semibold text-white "
-              color="success"
+              className="font-semibold bg-slate-700 text-white "
+              // color=""
             >
               {" "}
-              download overview
+              Download overview
             </Button>
             <Button
               onClick={() => downloadRealtyData(dates)}
-              className="font-semibold text-white "
-              color="success"
+              className="font-semibold bg-orange-500 text-white "
+              
             >
               {" "}
-              download realty
+              Download realty
             </Button>
             <Button
               onClick={() => downloadUserData(dates)}
               className="font-semibold text-white "
-              color="success"
+              color="primary"
             >
               {" "}
-              download user
+              Download user
+            </Button>
+
+            <Button
+              onClick={() => downloadSearchKeyword(dates)}
+              className="font-semibold text-white "
+              color="warning"
+            >
+              {" "}
+              Download search keyword
             </Button>
           </div>
         </div>

@@ -186,7 +186,7 @@ export default function ActiveProperty() {
         );
       case "title":
         return (
-          <div className="min-w-[300px]">
+          <div className="min-w-[300px] max-w-[400px]">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <p className="font-bold text-medium text-center">{blog.title}</p>
             </Link>
@@ -217,12 +217,15 @@ export default function ActiveProperty() {
                   label={"Edit"}
                   href={`/editproperty/${blog.slug}`}
                   action={null}
+                  id={blog._id}
                 />
                 {userInfo && userInfo.supAdmin ? null : (
                   <ItemDropdown
                     label={"Delete"}
                     href={null}
-                    action={()=>handleDeleteProperty(blog._id)}
+                    action={() => handleDeleteProperty(blog._id)}
+                    title="تأكيد مسح العقار "
+                    description="  تأكيد مسح العقار  الى الارشيف "
                   />
                 )}
               </DropdownAction>
@@ -330,6 +333,7 @@ export default function ActiveProperty() {
     startDate,
     endDate,
     hasSearchFilter,
+    handleDeleteProperty,
   ]);
 
   const bottomContent = useMemo(() => {
@@ -408,46 +412,3 @@ export default function ActiveProperty() {
     </Table>
   );
 }
-
-  /* <Dropdown
-              aria-label="Options Menu Accept Property"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
-                aria-label="Open Options Menu"
-              >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Accept Property Options Menu"
-              >
-                {userInfo && userInfo.supAdmin ? (
-                  ""
-                ) : (
-                  <DropdownItem
-                    textValue="Delete Property"
-                    onClick={() => handleDeleteProperty(blog._id)}
-                  >
-                    Delete
-                  </DropdownItem>
-                )}
-                <DropdownItem
-                  textValue="Accept Property"
-                  onClick={() => {
-                    router.push(`/property-details/${blog.slug}`);
-                  }}
-                >
-                  Visit
-                </DropdownItem>
-                <DropdownItem
-                  textValue="edit Property"
-                  onClick={() => {
-                    router.push(`/editproperty/${blog.slug}`);
-                  }}
-                >
-                  edit
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown> */

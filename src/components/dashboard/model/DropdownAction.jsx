@@ -1,15 +1,23 @@
+import ConfirmModal from "@/Shared/models/ConfirmModal";
 import Link from "next/link";
 import { useState } from "react";
 
-const ItemDropdown = ({ label, href,action }) => {
+const ItemDropdown = ({ label, href, action, id, title, description }) => {
   return (
     <ul>
       {href == null && action !== null ? (
         <li
-          onClick={action}
+          onClick={() => action}
           className="block px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
         >
-          {label}
+          <ConfirmModal
+            actinFunction={action}
+            title={title}
+            description={description}
+            children={label}
+            id={id}
+          />
+          {/* {label} */}
         </li>
       ) : (
         <Link

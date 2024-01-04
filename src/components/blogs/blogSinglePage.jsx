@@ -8,6 +8,7 @@ import {
 } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import styles from "../../styles/blogs.module.css";
+import Link from "next/link";
 
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -30,7 +31,7 @@ function BlogSinglePage({ BlogData }) {
           </h1>
         </CardHeader>
 
-        <CardFooter className="">
+        <CardFooter className="flex flex-col">
           <div
             dir={language ? "rtl" : "ltr"}
             className={`text-md sm:text-lg text-darkGray sm:px-10 px-0  ${styles.genericDiv}`}
@@ -40,6 +41,37 @@ function BlogSinglePage({ BlogData }) {
                 : { __html: BlogData.getBlogs.description.en }
             }
           />
+          <div className="mt-8 w-full px-10">
+          <p >
+            يمكنك التواصل مع فريقنا المتخصص من خلال كل وسائل التواصل المتاحة
+            عبر:
+          </p>
+
+          <div className="flex gap-x-4 mt-3">
+            <Link href="https://wa.me/+201032362898">
+              <img
+                src="https://img.icons8.com/?size=50&amp;id=16713&amp;format=png"
+                width="35px"
+                alt="whats app icon"
+              />
+            </Link>
+            <Link href="mailto: Info@Lesoll.com">
+              <img
+                src="https://img.icons8.com/?size=50&amp;id=OumT4lIcOllS&amp;format=png"
+                width="35px"
+                alt="mail icon"
+              />
+            </Link>
+
+            <Link href="https://facebook.com/LesollRealestate/" target="_blank">
+              <img
+                src="https://img.icons8.com/?size=50&amp;id=118497&amp;format=png"
+                width="35px"
+                alt="facebook icon"
+              />
+            </Link>
+          </div>
+          </div>
         </CardFooter>
       </Card>
     </div>

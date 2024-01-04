@@ -1,56 +1,29 @@
-import { useCallback, useEffect, useState } from "react";
-// import ProfileCard from "./realtyCards/ProfileCard";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import {useEffect} from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { BsHouseAddFill } from "react-icons/bs";
-import { DotPulse } from "@uiball/loaders";
 import UserCard from "./realtyCards/UserCard";
+import { getPending } from "@/redux-store/features/profileSlice";
 
 const PendingAds = () => {
-  const [pendingAdds, setPendingAdds] = useState(null);
+  const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
-
-  const getPending = useCallback(async () => {
-    try {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
-        {
-          headers: {
-            token: userToken,
-          },
-        }
-      );
-      setPendingAdds(response.data.pendingRealty);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-  const handleDelete = (propertyIdToRemove) => {
-    // Filter out the removed property from the 'fav' state
-    setPendingAdds((pending) =>
-      pending.filter((prop) => prop._id !== propertyIdToRemove)
-    );
-  };
+  const propPending = useSelector((state) => state.Profile.pendingProp);
   useEffect(() => {
-    getPending();
-  }, []);
+    dispatch(getPending());
+  }, []); 
+
   return (
     <div className="w-full">
       <h2 className="text-center font-bold text-lightGreen text-4xl">
         {language ? (language ? "تحت المراجعة" : "Pending") : "تحت المراجعة"}
       </h2>
-      {!pendingAdds ? (
-        <div className="flex items-center justify-center h-[50dvh] flex-col gap-3">
-          <DotPulse size={50} speed={1.3} color="#309da0" />
-        </div>
-      ) : pendingAdds.length > 0 ? (
+      { propPending?.pendingRealty?.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
-          {pendingAdds.map((propertyDetails) => (
+          {propPending?.pendingRealty?.map((propertyDetails) => (
             <UserCard
-              onRemove={handleDelete}
+              omDelete={getPending()}
               key={propertyDetails?._id}
               propertyDetails={propertyDetails}
               type="pending"
@@ -71,7 +44,6 @@ const PendingAds = () => {
           </Link>
         </div>
       )}
-      {/* <ProfileCard propertyDetails={propertyDetails} type="pending" /> */}
     </div>
   );
 };

@@ -282,3 +282,32 @@ export const downloadUserLog = async (id, name) => {
   link.click();
   document.body.removeChild(link);
 };
+
+
+export async function getOutSoldProperties() {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/sold/get`,
+      { headers: { token: userToken } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function getPendingProperties() {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
+      { headers: { token: userToken } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

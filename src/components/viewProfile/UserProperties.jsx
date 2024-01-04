@@ -34,7 +34,6 @@ const UserProperties = ({ propertiesNums }) => {
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage + 1);
   };
-  // console.log(totalProperties);
   const handlePropType = (type) => {
     setPropertyType(type);
     setPropertiesData(null);
