@@ -16,7 +16,7 @@ import RealtyCard from "../realtyCard/RealtyCard";
 
 import BestLinksInHome from "../linksInHome/BestLinksInHome";
 
-import LinksSearch from "../linksInHome/LinksSearch";
+// import LinksSearch from "../linksInHome/BestLinksInHome";
 
 function SearchResult({
   reversedFilteredKeywords,
@@ -45,7 +45,7 @@ function SearchResult({
     <>
       {/* <div className="relative "> */}
       {!isSearching ? (
-        <div className="grid  p-2 grid-cols-1 md:grid-cols-5 ">
+        <div className="grid  p-2 grid-cols-1 xl:grid-cols-5 ">
           <div
             className={`  flex flex-col sm:p-1 p-5  ${
               searchingError === "rejected" ? " " : "lg:col-span-4 "
@@ -155,8 +155,8 @@ function SearchResult({
               </div>
             )}
           </div>
-          <div className="  flex flex-col  w-[300px]">
-            <LinksSearch
+          <div className=" xl:w-[300px] w-full flex flex-col  ">
+            <BestLinksInHome
               PopularSearches={PopularSearches}
               MostArea={MostArea}
               MostGovernorate={MostGovernorate}
@@ -167,7 +167,7 @@ function SearchResult({
              xl:block hidden sticky top-20
             "
             >
-              <div className="mx-auto bg-red-200 flex justify-center w-[200px]">
+              <div className="mx-auto  flex justify-center w-[200px]">
                 <h2 className="absolute w-[200px] animate-bounce flex-wrap text-center mt-[55px] text-lightGreen text-xl font-semibold md:text-xl lg:text-4xl	">
                   ليسول طريقك لبيتك
                 </h2>
