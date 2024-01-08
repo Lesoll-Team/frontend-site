@@ -1,24 +1,32 @@
 import Link from "next/link";
-import React, { Fragment } from "react";
+import { useRouter } from "next/router";
+import React from "react";
 import { useSelector } from "react-redux";
 
 function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const router = useRouter();
   return (
-    <section className="grid grid-cols-4 justify-center gap-y-5   py-5 pb-14">
-    {/* <section className="overflow-hidden xl:justify-center justify-normal  flex flex-wrap gap-y-5 gap-x-10  py-5 pb-14"> */}
-      <div className="w-[350px] ">
+    <section className="flex flex-wrap  md:text-start text-center   justify-center gap-y-5   py-5 pb-14">
+      {/* <section className="overflow-hidden xl:justify-center justify-normal  flex flex-wrap gap-y-5 gap-x-10  py-5 pb-14"> */}
+      <div className="w-[350px]  ">
         <h4 className="text-xl md:text-xl lg:text-2xl">
           {language ? "الكلمات الأكثر استخداما" : "Most frequently used words"}
         </h4>
         {PopularSearches.map((links, index) => (
-          <div key={index} className="my-2 w-auto flex">
+          <div
+            key={index}
+            className="my-2 w-auto justify-center md:justify-normal flex"
+          >
             <Link
               href={
                 language
-                  ? `searching/${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.en}`
+                  ? router.pathname === "/searching/[keyword]"
+                    ? `${links.name.keywords.ar}`
+                    : `searching/${links.name.keywords.ar}`
+                  : router.pathname === "/searching/[keyword]"
+                  ? `${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.ar}`
               }
               className="w-max line-clamp-1"
             >
@@ -29,17 +37,25 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
           </div>
         ))}
       </div>
-      <div className="w-[350px]">
+
+      <div className="w-[350px] ">
         <h4 className="text-xl md:text-xl lg:text-2xl">
           {language ? "العقارات الأكثر بحثاً" : "Most searched properties"}
         </h4>
         {MostGovernorate.map((links, index) => (
-          <div key={index} className="my-2 w-auto flex">
+          <div
+            key={index}
+            className="my-2 w-auto flex justify-center md:justify-normal"
+          >
             <Link
               href={
                 language
-                  ? `searching/${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.en}`
+                  ? router.pathname === "/searching/[keyword]"
+                    ? `${links.name.keywords.ar}`
+                    : `searching/${links.name.keywords.ar}`
+                  : router.pathname === "/searching/[keyword]"
+                  ? `${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.ar}`
               }
               className="w-max line-clamp-1"
             >
@@ -56,12 +72,19 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
           {language ? "عقارات تجارية اخري" : "Other commercial real estate"}
         </h4>
         {Others.map((links, index) => (
-          <div key={index} className="my-2 w-auto flex">
+          <div
+            key={index}
+            className="my-2 w-auto flex justify-center md:justify-normal"
+          >
             <Link
               href={
                 language
-                  ? `searching/${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.en}`
+                  ? router.pathname === "/searching/[keyword]"
+                    ? `${links.name.keywords.ar}`
+                    : `searching/${links.name.keywords.ar}`
+                  : router.pathname === "/searching/[keyword]"
+                  ? `${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.ar}`
               }
               className="w-max line-clamp-1"
             >
@@ -72,17 +95,25 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
           </div>
         ))}
       </div>
-      <div className="w-[350px]">
+
+      <div className="w-[350px] ">
         <h4 className="text-xl md:text-xl lg:text-2xl">
           {language ? "مناطق الأكثر بحثاً" : "Most searched areas"}
         </h4>
         {MostArea.map((links, index) => (
-          <div key={index} className="my-2 w-auto flex">
+          <div
+            key={index}
+            className="my-2 w-auto flex justify-center md:justify-normal"
+          >
             <Link
               href={
                 language
-                  ? `searching/${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.en}`
+                  ? router.pathname === "/searching/[keyword]"
+                    ? `${links.name.keywords.ar}`
+                    : `searching/${links.name.keywords.ar}`
+                  : router.pathname === "/searching/[keyword]"
+                  ? `${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.ar}`
               }
               className="w-max line-clamp-1"
             >

@@ -19,7 +19,6 @@ export async function createNewProperty(propertyDetils) {
     throw error.response.data;
   }
 }
-///api/admin/property/sold/:id + token
 
 export async function propertyIsSold({propertyId}) {
   try {

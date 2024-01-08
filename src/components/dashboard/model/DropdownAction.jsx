@@ -1,10 +1,10 @@
 import ConfirmModal from "@/Shared/models/ConfirmModal";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const ItemDropdown = ({ label, href, action, id, title, description }) => {
   return (
-    <ul>
+    <ul >
       {href == null && action !== null ? (
         <li
           onClick={() => action}
@@ -33,11 +33,27 @@ const ItemDropdown = ({ label, href, action, id, title, description }) => {
 
 const DropdownAction = ({ children }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      closeDropdown();
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   const dropdownIcon = (
     <svg
       className="w-5 h-5"
@@ -51,7 +67,7 @@ const DropdownAction = ({ children }) => {
   );
 
   return (
-    <div className="relative inline-block text-left">
+    <div ref={dropdownRef} className="relative inline-block text-left">
       <button
         onClick={toggleDropdown}
         type="button"
@@ -63,7 +79,10 @@ const DropdownAction = ({ children }) => {
       {isDropdownOpen && (
         <div className="z-10 absolute right-0 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-            {children}
+            {React.Children.map(children, (child) =>
+              React.cloneElement(child, { onClick: closeDropdown })
+            )}
+            {/* {children} */}
           </ul>
         </div>
       )}
