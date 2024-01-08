@@ -21,7 +21,7 @@ const Rent = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   const handleRentPeriodLang = () => {
     switch (propertyDetils.rentalPeriod) {
       case "Daily":
-        return language ? "يومى" : "Daily";
+         return language ? "يومى" : "Daily";
         break;
       case "Monthly":
         return language ? "شهري" : "Monthly";

@@ -5,8 +5,7 @@ import { BiCalendarEvent } from "react-icons/bi";
 import { BsClock } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import AddPropCheck from "../../AddPropIputs/AddPropCheck";
-import { ar } from "../../../../language/ar/common";
-import { en } from "../../../../language/en/common";
+
 const Appointment = ({ propertyDetils, setData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [startDate, setStartDate] = useState(

@@ -16,14 +16,7 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-// import {
-//   DropdownTrigger,
-//   Dropdown,
-//   DropdownMenu,
-//   DropdownItem,
-// } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
-// import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -50,7 +43,7 @@ export default function ActiveProperty() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
   const userInfo = useSelector((state) => state.GlobalState.userData);
-console.log(property);
+
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
   }, [page, rowsPerPage, refreshProperty]);
@@ -96,7 +89,6 @@ console.log(property);
         console.error("Error deleting property:", error);
       }
     };
-// propertyIsSold()
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);

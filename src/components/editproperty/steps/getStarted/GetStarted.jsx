@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AddPropInput from "../../AddPropIputs/AddPropInput";
 import AddPropDropdown from "../../AddPropIputs/AddPropDropdown";
 import { useSelector } from "react-redux";
