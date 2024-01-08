@@ -16,8 +16,8 @@ function LinksSearch({ PopularSearches, MostArea, MostGovernorate, Others }) {
             <Link
               href={
                 language
-                  ? `${links.name.keywords.ar}`
-                  : `${links.name.keywords.en}`
+                  ? `searching/${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.en}`
               }
               className="w-max line-clamp-1"
             >
@@ -38,8 +38,8 @@ function LinksSearch({ PopularSearches, MostArea, MostGovernorate, Others }) {
             <Link
               href={
                 language
-                  ? `${links.name.keywords.ar}`
-                  : `${links.name.keywords.en}`
+                  ? `searching/${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.en}`
               }
               className="w-max line-clamp-1"
             >
@@ -60,8 +60,8 @@ function LinksSearch({ PopularSearches, MostArea, MostGovernorate, Others }) {
             <Link
               href={
                 language
-                  ? `${links.name.keywords.ar}`
-                  : `${links.name.keywords.en}`
+                  ? `searching/${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.en}`
               }
               className="w-max line-clamp-1"
             >
@@ -82,8 +82,8 @@ function LinksSearch({ PopularSearches, MostArea, MostGovernorate, Others }) {
             <Link
               href={
                 language
-                  ? `${links.name.keywords.ar}`
-                  : `${links.name.keywords.en}`
+                  ? `searching/${links.name.keywords.ar}`
+                  : `searching/${links.name.keywords.en}`
               }
               className="w-max line-clamp-1"
             >

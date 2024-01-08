@@ -184,7 +184,7 @@ export default function PropertyDashboard() {
             <div className="flex flex-col">
               <p className="text-bold line-clamp-1   text-medium ">
                 <b>Email:</b>
-                {blog.user.email || "Empty"}
+                {blog.user?.fullname || "Empty"}
               </p>
               <hr />
               <div className="text-bold text-medium">

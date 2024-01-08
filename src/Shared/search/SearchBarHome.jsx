@@ -96,6 +96,7 @@ export function SearchBarHome() {
               {languageIs ? "الكل" : "All"}
             </button>
             <button
+              id="Click-Gtm"
               onClick={setForRentButton}
               className={` ${
                 saleOptions == "For_Rent" || saleOptions == "للايجار"
@@ -106,6 +107,7 @@ export function SearchBarHome() {
               {languageIs ? "للإيجار" : "Rent"}
             </button>
             <button
+              id="Click-Gtm"
               onClick={setForSaleButton}
               className={` ${
                 saleOptions == "For_Sale" || saleOptions == "للبيع"
@@ -117,6 +119,7 @@ export function SearchBarHome() {
             </button>
 
             <button
+              id="Click-Gtm"
               onClick={setForInvestmentButton}
               className={` ${
                 saleOptions == "For_Investment" || saleOptions == "للإستثمار"
@@ -169,6 +172,7 @@ export function SearchBarHome() {
               classNames="max-w-[40px]"
             />
             <button
+              id="Click-Gtm"
               onClick={handleSubmitSearch}
               className="bg-lightGreen text-white font-semibold  p-4 rounded-lg   select-none"
             >
