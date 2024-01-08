@@ -29,6 +29,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
+import { propertyIsSold } from "@/utils/propertyAPI";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -49,7 +50,7 @@ export default function ActiveProperty() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
   const userInfo = useSelector((state) => state.GlobalState.userData);
-
+console.log(property);
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
   }, [page, rowsPerPage, refreshProperty]);
@@ -86,6 +87,16 @@ export default function ActiveProperty() {
     }
   };
 
+    const handleSoldOutProperty = async (propertyId) => {
+      try {
+        await propertyIsSold({propertyId});
+        setRefreshProperty(!refreshProperty);
+        await fetchAllProperties(startDate, endDate);
+      } catch (error) {
+        console.error("Error deleting property:", error);
+      }
+    };
+// propertyIsSold()
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
@@ -132,7 +143,7 @@ export default function ActiveProperty() {
     switch (columnKey) {
       case "address":
         return (
-          <div className="  min-w-[250px] flex flex-col ">
+          <div className="  min-w-[200px] max-w-[250px] flex flex-col ">
             <p className="text-bold text-medium flex justify-between">
               <b>Governorate :</b>
               {blog.address.governrate}
@@ -153,7 +164,7 @@ export default function ActiveProperty() {
           blog.createdAt
         ).toLocaleString();
         return (
-          <div className="grid  min-w-[250px]">
+          <div className=" flex flex-col  min-w-[250px] max-w-[300px]">
             <div className="text-bold flex gap-x-3 text-medium capitalize">
               <div className="">
                 <b>Created : </b>
@@ -168,11 +179,18 @@ export default function ActiveProperty() {
                 {formattedUpdatedAtDate}
               </div>
             </div>
+
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Status: </b>
+                {blog?.isSold ? <b className="text-red-500">Out Sold</b> : <b className="text-success-500"> available</b>}
+              </div>
+            </div>
           </div>
         );
       case "thumbnail":
         return (
-          <div className=" w-[200px]">
+          <div className=" flex min-w-[150px] max-w-[200px]">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <Image
                 width={200}
@@ -186,7 +204,7 @@ export default function ActiveProperty() {
         );
       case "title":
         return (
-          <div className="min-w-[300px] max-w-[400px]">
+          <div className="min-w-[250px]">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <p className="font-bold text-medium text-center">{blog.title}</p>
             </Link>
@@ -194,11 +212,11 @@ export default function ActiveProperty() {
         );
       case "actions":
         return (
-          <div className="grid grid-cols-2 min-w-[450px]">
-            <div className="flex flex-col">
+          <div className="flex min-w-[250px] max-w-[300px]">
+            <div className="w-full  ">
               <p className="text-bold line-clamp-1   text-medium ">
-                <b>Email:</b>
-                {blog.user[0]?.email || "Empty"}
+                <b>Name:</b>
+                {blog.user[0]?.fullname || "Empty"}
               </p>
               <hr />
               <div className="text-bold text-medium">
@@ -206,7 +224,7 @@ export default function ActiveProperty() {
                 <span>{blog.user[0]?.phone || "Empty"}</span>
               </div>
             </div>
-            <div>
+            <div className="mx-5">
               <DropdownAction>
                 <ItemDropdown
                   label={"Visit"}
@@ -226,6 +244,16 @@ export default function ActiveProperty() {
                     action={() => handleDeleteProperty(blog._id)}
                     title="تأكيد مسح العقار "
                     description="  تأكيد مسح العقار  الى الارشيف "
+                  />
+                )}
+
+                {userInfo && userInfo.supAdmin ? null : (
+                  <ItemDropdown
+                    label={blog?.isSold?"Sold In ?":"Sold Out ?"}
+                    href={null}
+                    action={() => handleSoldOutProperty(blog._id)}
+                    title="تأكيد ان هذا العقار قد تم بيعة "
+                    description="  تأكيد بيع العقار  الى الارشيف "
                   />
                 )}
               </DropdownAction>

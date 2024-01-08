@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
-console.log(PopularSearches);
   return (
     <section className="flex flex-wrap  md:text-start text-center   justify-center gap-y-5   py-5 pb-14">
       {/* <section className="overflow-hidden xl:justify-center justify-normal  flex flex-wrap gap-y-5 gap-x-10  py-5 pb-14"> */}

@@ -1,12 +1,9 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 
 function LinksSearch({ PopularSearches, MostArea, MostGovernorate, Others }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const router = useRouter();
-  // console.log(router); "/searching/[keyword]"
 
   return (
     <section className="overflow-hidden xl:justify-center justify-normal  flex flex-wrap gap-y-5 gap-x-10  py-5 pb-14">
