@@ -13,7 +13,14 @@ import {
   setRoomsErr,
   setUnitTypeErr,
 } from "@/redux-store/features/needsSlice";
-
+function isNumber(input) {
+  const value = parseInt(input);
+  return (
+    !isNaN(value) &&
+    parseFloat(Number(value)) === value &&
+    !isNaN(parseInt(value, 10))
+  );
+}
 export const useNeedValidation = () => {
   const dispatch = useDispatch();
 
@@ -32,10 +39,10 @@ export const useNeedValidation = () => {
     if (!needData.bathrooms) {
       dispatch(setBathroomsErr(true));
     }
-    if (!needData.governrate) {
+    if (!needData.governrate.name) {
       dispatch(setGovernrateErr(true));
     }
-    if (!needData.region) {
+    if (!needData.region.name) {
       dispatch(setRegionErr(true));
     }
     if (!needData.price.from) {

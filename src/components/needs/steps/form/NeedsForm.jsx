@@ -2,6 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import NeedDropDown from "../../inputComponents/NeedDropDown";
 import {
+  postNeed,
+  setAreaFrom,
+  setAreaTo,
+  setBathrooms,
+  setBathroomsErr,
+  setDescription,
+  setDescriptionErr,
+  setMaxAreaErr,
+  setMaxPriceErr,
+  setMinAreaErr,
+  setMinPriceErr,
+  setPriceFrom,
+  setPriceTo,
   setPropType,
   setPropTypeErr,
   setRooms,
@@ -9,8 +22,13 @@ import {
   setStep,
   setUnitType,
   setUnitTypeErr,
+  validateNeed,
 } from "@/redux-store/features/needsSlice";
 import NeedInput from "../../inputComponents/NeedInput";
+import { useNeedValidation } from "@/Hooks/useNeedValidation";
+import NeedDescription from "../../sections/description/NeedDescription";
+import NeedsDescription from "./NeedsDescription";
+import NeedsLocation from "./NeedsLocation";
 
 const propType = {
   en: [
@@ -100,9 +118,45 @@ const NeedsForm = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const needData = useSelector((state) => state.needs.needsData);
   const step = useSelector((state) => state.needs.step);
+  const status = useSelector((state) => state.needs.status);
+  const errors = useSelector((state) => state.needs.errors);
+  const { validateNeed } = useNeedValidation();
 
   const dispatch = useDispatch();
-
+  const handlePostNeed = (e) => {
+    if (
+      needData.unitType &&
+      needData.propType &&
+      needData.rooms &&
+      needData.bathrooms &&
+      needData.governrate.name &&
+      needData.region.name &&
+      needData.price.from &&
+      needData.price.to &&
+      needData.area.from &&
+      needData.area.to &&
+      needData.description.length < 300
+    ) {
+      const data = {
+        offer: needData.offer,
+        unitType: needData.unitType,
+        propType: needData.propType,
+        saleOption: needData.saleOption,
+        rentalPeriod: needData.rentalPeriod,
+        rooms: needData.rooms,
+        bathrooms: needData.bathrooms,
+        governrate: needData.governrate.id,
+        region: needData.region.id,
+        price: needData.price,
+        area: needData.area,
+        installmentOption: needData.installmentOption,
+        description: needData.description,
+      };
+      dispatch(postNeed(data));
+    } else {
+      validateNeed(needData);
+    }
+  };
   return (
     <div className="space-y-6 fade-in-right">
       <div className="flex items-center justify-between">
@@ -126,6 +180,7 @@ const NeedsForm = () => {
             {language ? "نوع العقار" : "Property Type"}
           </h3>{" "}
           <NeedDropDown
+            error={errors.propType}
             setValue={(e) => {
               dispatch(setPropType(e));
               dispatch(setUnitType(""));
@@ -139,6 +194,7 @@ const NeedsForm = () => {
             {language ? "نوع الوحدة" : "Unit Type"}
           </h3>{" "}
           <NeedDropDown
+            error={errors.unitType}
             setValue={(e) => {
               dispatch(setUnitType(e));
               dispatch(setUnitTypeErr(false));
@@ -159,26 +215,92 @@ const NeedsForm = () => {
           <h3 className="text-xl text-lightGray font-bold">
             {language ? " السعر" : "Price"}
           </h3>
-          <div className="flex items-center gap-8">
-            <NeedInput egp={true} placeholder={language ? "من" : "from"} />
-            <NeedInput placeholder={language ? "الى" : "to"} egp={true} />
+          <div className="flex md:flex-row flex-col items-center gap-8">
+            <NeedInput
+              error={errors.minPrice}
+              value={needData.price.from}
+              setValue={(e) => {
+                dispatch(setPriceFrom(e.target.value));
+                if (e.target.value) {
+                  dispatch(setMinPriceErr(false));
+                }
+              }}
+              egp={true}
+              placeholder={language ? "من" : "from"}
+            />
+            <NeedInput
+              error={errors.maxPrice}
+              value={needData.price.to}
+              setValue={(e) => {
+                dispatch(setPriceTo(e.target.value));
+                if (e.target.value) {
+                  dispatch(setMaxPriceErr(false));
+                }
+              }}
+              placeholder={language ? "الى" : "to"}
+              egp={true}
+            />
           </div>
         </div>
         <div className="space-y-6">
           <h3 className="text-xl text-lightGray font-bold">
             {language ? " المساحة" : "Area"}
           </h3>
-          <div className="flex items-center gap-3">
-            <NeedInput placeholder={language ? "من" : "from"} m2={true} />
-            <NeedInput placeholder={language ? "الى" : "to"} m2={true} />
+          <div className="flex  md:flex-row flex-col items-center gap-8">
+            <NeedInput
+              error={errors.minArea}
+              value={needData.area.from}
+              setValue={(e) => {
+                dispatch(setAreaFrom(e.target.value));
+                if (e.target.value) {
+                  dispatch(setMinAreaErr(false));
+                }
+              }}
+              placeholder={language ? "من" : "from"}
+              m2={true}
+            />
+            <NeedInput
+              error={errors.maxArea}
+              value={needData.area.to}
+              setValue={(e) => {
+                dispatch(setAreaTo(e.target.value));
+                if (e.target.value) {
+                  dispatch(setMaxAreaErr(false));
+                }
+              }}
+              placeholder={language ? "الى" : "to"}
+              m2={true}
+            />
           </div>
         </div>
+        {needData.saleOption === "Installment" && (
+          <>
+            <div className="space-y-6">
+              <h3 className="text-xl text-lightGray font-bold">
+                {language ? "  المقدم" : "Down Payment"}
+              </h3>
+
+              <NeedInput
+                error={errors.bathrooms}
+                value={needData.bathrooms}
+                setValue={(e) => {
+                  dispatch(setBathrooms(e.target.value));
+                  if (e.target.value) {
+                    dispatch(setBathroomsErr(false));
+                  }
+                }}
+              />
+            </div>
+            <div className="md:block hidden"></div>
+          </>
+        )}
         <div className="space-y-6">
           <h3 className="text-xl text-lightGray font-bold">
             {language ? " عدد الغرف" : "Number of rooms"}
           </h3>
 
           <NeedInput
+            error={errors.rooms}
             value={needData.rooms}
             setValue={(e) => {
               dispatch(setRooms(e.target.value));
@@ -188,30 +310,47 @@ const NeedsForm = () => {
             }}
           />
         </div>
+
         <div className="space-y-6">
           <h3 className="text-xl text-lightGray font-bold">
             {language ? " عدد الحمامات" : "Number of bathrooms"}
           </h3>
 
-          <NeedInput />
+          <NeedInput
+            error={errors.bathrooms}
+            value={needData.bathrooms}
+            setValue={(e) => {
+              dispatch(setBathrooms(e.target.value));
+              if (e.target.value) {
+                dispatch(setBathroomsErr(false));
+              }
+            }}
+          />
         </div>
-        <div className="space-y-6 md:col-span-2">
+        {/* <div className="space-y-6 md:col-span-2">
           <h3 className="text-xl text-lightGray font-bold">
             {language ? "  موقع العقار" : "Property location"}
           </h3>
 
-          <NeedInput placeholder={"مثال: القاهرة, مصر الجديدة"} />
-        </div>
-        <div className="space-y-6 md:col-span-2">
-          <h3 className="text-xl text-lightGray font-bold">
-            {language ? "  هل تريد إضافة تفاصيل أخرى؟" : "Property location"}{" "}
-            <span className="font-normal text-base">
-              {language ? "(إختيارى)" : "(Optional)"}
-            </span>
-          </h3>
+          <div className="flex gap-x-16">
+            <NeedInput placeholder={language ? "المحافظة" : "Governrate"} />
+            <NeedInput placeholder={language ? "المنطقه" : "region"} />
+          </div>
+        </div> */}
 
-          <textarea className="w-full  font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 h-[180px] resize-none" />
-        </div>
+        <NeedsLocation />
+
+        <NeedsDescription />
+        <button
+          className="rounded-xl md:col-span-2 w-full h-14 bg-lightGreen text-white font-semibold hover:bg-lightGreenHover duration-150 active:scale-95"
+          onClick={handlePostNeed}
+        >
+          {status === "loading"
+            ? "loading ..."
+            : language
+            ? "أضف طلبك"
+            : "Add your need"}
+        </button>
       </div>
     </div>
   );

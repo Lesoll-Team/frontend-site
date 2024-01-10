@@ -9,8 +9,14 @@ const initialState = {
     rentalPeriod: "Monthly",
     rooms: "",
     bathrooms: "",
-    governrate: "",
-    region: "",
+    governrate: {
+      name: "",
+      id: "",
+    },
+    region: {
+      name: "",
+      id: "",
+    },
     price: {
       from: 0,
       to: 0,
@@ -99,11 +105,18 @@ const needsSlice = createSlice({
     setBathrooms: (state, action) => {
       state.needsData.bathrooms = action.payload;
     },
-    setTheGovernrate: (state, action) => {
-      state.needsData.governrate = action.payload;
+    setGovernrateName: (state, action) => {
+      state.needsData.governrate.name = action.payload;
     },
-    setTheRegion: (state, action) => {
-      state.needsData.region = action.payload;
+    setGovernrateId: (state, action) => {
+      state.needsData.governrate.id = action.payload;
+    },
+
+    setRegionName: (state, action) => {
+      state.needsData.region.name = action.payload;
+    },
+    setRegionId: (state, action) => {
+      state.needsData.region.id = action.payload;
     },
     setPriceFrom: (state, action) => {
       state.needsData.price.from = action.payload;
@@ -215,8 +228,10 @@ export const {
   setInstallmentType,
   setRooms,
   setBathrooms,
-  setTheGovernrate,
-  setTheRegion,
+  setGovernrateName,
+  setGovernrateId,
+  setRegionName,
+  setRegionId,
   setPriceFrom,
   setPriceTo,
   setAreaFrom,

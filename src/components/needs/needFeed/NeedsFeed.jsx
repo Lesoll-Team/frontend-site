@@ -14,31 +14,33 @@ const NeedsFeed = () => {
     dispatch(setPage(selectedPage + 1));
   };
   return (
-    <div className="container mx-auto py-10 space-y-5 ">
-      <h3>{language ? "الطلبات" : "Needs"}</h3>
-      <div className="grid md:grid-cols-2 gap-3 min-h-[70dvh]">
+    <div className="mx-3 md:container md:mx-auto mt-16 pb-10 space-y-6 md:space-y-12  ">
+      <h3 className="text-3xl font-bold">{language ? "الطلبات" : "Needs"}</h3>
+
+      <div className="p-4 md:p-16 bg-lightNeutral mb-20 rounded-lg space-y-4  min-h-[70dvh]">
         {status === "succeeded" &&
           needs?.map((need, index) => <NeedsCard need={need} key={index} />)}
-      </div>
-      <div className="flex justify-center">
-        {totalPages > 1 && (
-          <ReactPaginate
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={totalPages}
-            pageRangeDisplayed={3}
-            marginPagesDisplayed={1}
-            onPageChange={(data) => handlePageChange(data.selected)}
-            containerClassName={styles.paginationContainer} // Use the styles from the CSS module
-            pageClassName={styles.paginationPage}
-            activeClassName={styles.activePage}
-            previousLabel={"back"}
-            previousClassName={styles.paginationPrevious}
-            nextLabel={"next"}
-            nextClassName={styles.paginationNext}
-            disabledClassName={styles.paginationDisabled}
-          />
-        )}
+
+        <div className="flex justify-center">
+          {totalPages > 1 && (
+            <ReactPaginate
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={totalPages}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={1}
+              onPageChange={(data) => handlePageChange(data.selected)}
+              containerClassName={styles.paginationContainer} // Use the styles from the CSS module
+              pageClassName={styles.paginationPage}
+              activeClassName={styles.activePage}
+              previousLabel={"back"}
+              previousClassName={styles.paginationPrevious}
+              nextLabel={"next"}
+              nextClassName={styles.paginationNext}
+              disabledClassName={styles.paginationDisabled}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

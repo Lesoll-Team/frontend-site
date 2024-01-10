@@ -23,10 +23,12 @@ import SecondStep from "./steps/SecondStep";
 
 const AddNeed = () => {
   const need = useSelector((state) => state.needs.needsData);
-  const errors = useSelector((state) => state.needs.errors);
+
   const step = useSelector((state) => state.needs.step);
-  const status = useSelector((state) => state.needs.status);
+
   const language = useSelector((state) => state.GlobalState.languageIs);
+
+  // console.log(isNumber("ad"));
   const dispatch = useDispatch();
   const { validateNeed } = useNeedValidation();
   console.log(step);
