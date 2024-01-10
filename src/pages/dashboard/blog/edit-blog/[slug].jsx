@@ -88,7 +88,6 @@ const EditBlog = ({ singleBlog }) => {
 
     //  setMessageAddBlog(data);
   };
-    //  console.log(singleBlog.getBlogs._id);
 
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">

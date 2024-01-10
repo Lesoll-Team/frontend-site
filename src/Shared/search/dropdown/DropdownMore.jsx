@@ -85,8 +85,7 @@ const DropdownMore = ({
         <div
           ref={dropdownContentRef}
           className={`absolute right-0 p-4 w-[250px] lg:w-[600px] animate-appearance-in z-10  mt-1
-           bg-white  duration-200 drop-shadow-xl border  rounded-xl h-auto`}
-        >
+           bg-white  duration-200 drop-shadow-xl border  rounded-xl h-auto`}>
           <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">
             <Dropdown
               classNames="my-1 block sm:hidden"

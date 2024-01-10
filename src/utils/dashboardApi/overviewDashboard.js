@@ -105,64 +105,81 @@ export async function fetchRentView(dates) {
   return null;
 }
 
+export const downloadUserData = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
 
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-user-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
 
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "user-report.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
-    export const downloadUserData = async (dates) => {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
+export const downloadRealtyData = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-user-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
-        { responseType: "arraybuffer" }
-      );
-      const blob = new Blob([res.data], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      });
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-realty-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
 
-      // Create a download link and trigger the download
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.download = "user-report.xlsx";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "realty-report.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
-      export const downloadRealtyData = async (dates) => {
-        const userToken = JSON.parse(localStorage.getItem("userToken"));
+export const downloadOverviewData = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-realty-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
-          { responseType: "arraybuffer" }
-        );
-        const blob = new Blob([res.data], {
-          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        });
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-overview-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
 
-        // Create a download link and trigger the download
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = "realty-report.xlsx";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      };
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "overview-report.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
-        export const downloadOverviewData = async (dates) => {
-          const userToken = JSON.parse(localStorage.getItem("userToken"));
+export const downloadSearchKeyword = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-overview-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
-            { responseType: "arraybuffer" }
-          );
-          const blob = new Blob([res.data], {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          });
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-search-keyword-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
 
-          const link = document.createElement("a");
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "overview-report.xlsx";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        };
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "search-keyword.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};

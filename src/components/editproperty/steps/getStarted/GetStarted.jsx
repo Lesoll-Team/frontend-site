@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AddPropInput from "../../AddPropIputs/AddPropInput";
 import AddPropDropdown from "../../AddPropIputs/AddPropDropdown";
 import { useSelector } from "react-redux";
@@ -103,8 +103,6 @@ const GetStarted = ({ setData, propertyDetils, propErrors, setPropErrors }) => {
     ],
   };
 
-  // console.log(unitOptions);
-  // console.log(propertyDetils.propType);
 
   return (
     propertyDetils && (

@@ -15,7 +15,6 @@
 //       .catch((error)=>error.message)
 //       // localStorage.setItem("UserData",JSON.stringify(response))
 //     // const data=  JSON.parse(localStorage.getItem("UserData"))
-//     //   console.log(data);
 //       return response
 //     }
 //     return null

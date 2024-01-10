@@ -12,7 +12,6 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TbFilterSearch } from "react-icons/tb";
-import { SiMicrosoftexcel } from "react-icons/si";
 import { downloadUserLog } from "@/utils/userAPI";
 import { useRouter } from "next/router";
 import { MdDownload } from "react-icons/md";
@@ -56,7 +55,6 @@ const UserLog = ({ visitedPages, userData }) => {
   const rowsToRender = reverseOrder ? filteredPages.reverse() : filteredPages;
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    console.log(startDate);
   };
   const handleEndDateChange = (date) => {
     setEndDate(date);

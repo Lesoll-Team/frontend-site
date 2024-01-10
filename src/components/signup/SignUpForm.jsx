@@ -76,7 +76,6 @@ const SignUpForm = () => {
     };
     if (fullname && password && email && phoneNumber && isValidEmail(email)) {
       dispatch(signupUserAsync(userData));
-      // console.log(userData);
     }
     if (!password) {
       setFormError({ ...formError, passwordError: true });
@@ -111,7 +110,6 @@ const SignUpForm = () => {
     // e.preventDefault();
 
     await signWithGoogle();
-    // console.log(res);
   };
   return (
     <div className="animate-appearance-in ">
@@ -276,7 +274,6 @@ const SignUpForm = () => {
                 onChange={(e, info) => {
                   setPhoneNumber(e);
                   setCountryCode(info.dialCode);
-                  // console.log(info);
                   if (e) {
                     setFormError({ ...formError, phoneNumberError: false });
                   }

@@ -21,7 +21,6 @@ const UserDetailsPage = () => {
     const fetchData = async () => {
       if (slug) {
         const data = await getUserDataDashboard(slug);
-        // console.log(data);
         setUserData(data.getData);
 
         setVisitedPages(data.linksUserVisit);

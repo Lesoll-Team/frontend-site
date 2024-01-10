@@ -17,7 +17,6 @@ const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
     const fetchData = async () => {
       const data = await getUserPropertiesDashboard(slug, page, propType);
       setPropertyData(data);
-      // console.log(data);
     };
     fetchData();
   }, [slug, page, propType]);

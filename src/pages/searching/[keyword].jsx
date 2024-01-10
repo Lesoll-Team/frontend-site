@@ -33,7 +33,6 @@ export default function Searching({ keyword,bestSearch }) {
       );
     }
   }, [router]);
-  // console.log(reversedFilteredKeywords);
   return (
     <>
       <Head>
@@ -93,6 +92,7 @@ export default function Searching({ keyword,bestSearch }) {
         PopularSearches={bestSearch.POPULAR_SEARCHES}
         MostArea={bestSearch.Most_Area}
         MostGovernorate={bestSearch.Most_Governorate}
+        Others={bestSearch.Others}
         reversedFilteredKeywords={reversedFilteredKeywords}
       />
     </>

@@ -29,7 +29,6 @@ export async function searchUsersApi(rowsPerPage,page,filterUser) {
         },
       }
     );
-    // console.log(response);
     return response.data;
   } catch (error) {
     throw error.response.massage;

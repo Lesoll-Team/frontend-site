@@ -29,9 +29,6 @@ const ViewProfilePage = () => {
       }
     };
     fetchData();
-
-    // If you need a cleanup function, return it here
-    // Example: return () => cleanupLogic();
   }, [slug, page]);
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage + 1);

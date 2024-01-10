@@ -225,7 +225,6 @@ const CommercialInfo = ({
           title={language ? "مسجل" : "Registerd"}
           value={propertyDetils.isRegisterd}
           setValue={(e) => {
-            // console.log(propertyDetils);
             setData({
               ...propertyDetils,
               isRegisterd: e,

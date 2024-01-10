@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -7,27 +6,20 @@ import dynamic from "next/dynamic";
 import { BsCheck2Circle } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { CgSandClock } from "react-icons/cg";
-import { RiDraftLine } from "react-icons/ri";
-import { MdDoNotDisturbOn } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
 // componets imports
 const ActiveAds = dynamic(() => import("./ActiveAds"));
 const PendingAds = dynamic(() => import("./PendingAds"));
 const FavoriteAds = dynamic(() => import("./FavoriteAds"));
-// import ActiveAds from "./ActiveAds";
-
-// import PendingAds from "./PendingAds";
-// import DraftAds from "./DraftAds";
-// import InActiveAds from "./InActiveAds";
-// import FavoriteAds from "./FavoriteAds";
 import { Avatar } from "@nextui-org/react";
-// import { fetchUserData } from "@/redux-store/features/globalState";
+import { LiaHandshakeSolid } from "react-icons/lia";
+import InActiveAds from "./InActiveAds";
+import SoldOut from "./SoldOut";
 const Profile = () => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [userDataInfo, setUserDataInfo] = useState({});
   const [content, setContent] = useState("active");
-  // console.log(userInfo);
   // switchcontent
   const switchActive = () => {
     setContent("active");
@@ -35,27 +27,18 @@ const Profile = () => {
   const switchPending = () => {
     setContent("pending");
   };
-  // const switchDraft = () => {
-  //   setContent("draft");
-  // };
-  // const switchInActive = () => {
-  //   setContent("inactive");
-  // };
+
   const switchFav = () => {
     setContent("favorites");
   };
+
+    const switchSoldOut = () => {
+      setContent("sold");
+    };
   useEffect(() => {
     setUserDataInfo(userInfo);
   }, [userInfo]);
 
-  // const dispatch = useDispatch();
-  // const userData = useSelector((state) => state.globalState.userData);
-
-  // useEffect(() => {
-  //   // Call fetchUserData async thunk when the component mounts
-  //   dispatch(fetchUserData());
-  // }, [dispatch]);
-  // console.log(userInfo);
   return (
     <>
       <div className="">
@@ -82,25 +65,7 @@ const Profile = () => {
                     </p>
                     {/* @{userDataInfo?.username} */}
                   </div>
-                  {/* <div className="flex justify-start  items-center  gap-5 max-w-[400px] mt-2 flex-wrap">
-                    <div className="text-center  items-center  gap-1 text-gray-500 text-lg">
-                      <p className="text-lg ">
-                        {language ? "النشطة" : "Active"}
-                      </p>
-                      <p className="text-lg">
-                        {userDataInfo?.numProducts}
-                   
-                      </p>
-                    </div>
-                    <div className="text-center   gap-1 items-center text-gray-500">
-                      <p className="text-lg ">
-                    
-                        {language ? "المفضلة" : "Favorites"}
-                      </p>
-                      <p className="text-lg">{userInfo?.favorites.length}</p>
-                      
-                    </div>
-                  </div> */}
+
                 </div>
               </div>
               <Link
@@ -144,6 +109,17 @@ const Profile = () => {
                 <AiOutlineHeart />
                 <p className=" ">{language ? "المفضلة" : "Favorites"}</p>
               </div>
+
+              <div
+                onClick={switchSoldOut}
+                className={`text-center cursor-pointer  pb-1 flex items-center gap-1 text-lg px-2 hover:text-lightGreen hover:duration-300 ${
+                  content === "sold" &&
+                  "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
+                }`}
+              >
+                <LiaHandshakeSolid />
+                <p className=" ">{language ? "تم البيع" : "Sold Out"}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -153,6 +129,8 @@ const Profile = () => {
 
           {content === "active" ? (
             <ActiveAds />
+          ) : content === "sold" ? (
+            <SoldOut />
           ) : content === "pending" ? (
             <PendingAds />
           ) : content === "draft" ? (

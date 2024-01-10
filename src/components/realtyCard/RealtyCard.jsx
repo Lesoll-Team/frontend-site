@@ -33,7 +33,6 @@ const RealtyCard = ({ propertyDetails }) => {
       setLoved(true);
     }
   }, [userInfo?.favorites]);
-
   return (
     <div className="w-[330px] h-[448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
       <div className="flex items-center justify-between absolute  top-10">

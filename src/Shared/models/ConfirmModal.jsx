@@ -3,13 +3,13 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
+  // ModalFooter,
+  // Button,
   useDisclosure,
-  RadioGroup,
-  Radio,
+  // RadioGroup,
+  // Radio,
 } from "@nextui-org/react";
-import { useState } from "react";
+// import { useState } from "react";
 import { useSelector } from "react-redux";
 export default function ConfirmModal({
   actinFunction,

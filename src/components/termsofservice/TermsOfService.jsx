@@ -13,7 +13,6 @@ export const TermsOfService = () => {
         .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/term/get`)
         .then((res) => {
           setTerms(res.data.terms);
-          // console.log(res.data.terms);
         });
     } catch (err) {
       console.log(err);

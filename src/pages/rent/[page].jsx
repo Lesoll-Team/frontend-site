@@ -81,7 +81,6 @@ export async function getServerSideProps(context) {
 // import { useSelector } from "react-redux";
 // export default function PropertyRent({ propertyForRent }) {
 //   const language = useSelector((state) => state.GlobalState.languageIs);
-// // console.log(propertyForRent);
 //   const router = useRouter();
 //   const currentPage = router.query.page;
 //   return (
@@ -132,7 +131,6 @@ export async function getServerSideProps(context) {
 //     `${process.env.NEXT_PUBLIC_API_URL}/property/gethomerent?limit=9&page=${page}` //limit|| page||
 //   );
 //   const dataRent = await resRent.json();
-//   console.log(dataRent);
 
 //   return {
 //     props: { propertyForRent: dataRent },

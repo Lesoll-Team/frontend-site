@@ -7,7 +7,6 @@ import { getUserData, updateUserDataInfo } from "../../utils/userAPI";
 //   }
 //   return false; // Default to English if localStorage is not available
 // };
-// console.log("function,",getLanguageFromLocalStorage());
 const initialState = {
   userData: null,
   userLod: false,
@@ -31,7 +30,6 @@ export const updateUserData = createAsyncThunk(
   "GlobalState/updateUserData",
   async (data) => {
     try {
-      // console.log("createAsyncThunk",data);
       const response = await updateUserDataInfo(
         data.userID,
         // data.userToken,
