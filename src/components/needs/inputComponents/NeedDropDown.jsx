@@ -62,7 +62,7 @@ const NeedDropDown = ({
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute animate-appearance-in z-10 w-full  mt-1 bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[150px]`}
+          className={`absolute animate-appearance-in z-10 w-full  mt-1 bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[300px]`}
         >
           {choices.map((option, i) => (
             <p

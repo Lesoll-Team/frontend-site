@@ -5,7 +5,9 @@ export async function getUserOffline({ url }) {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userToken?userToken:undefined}&urlString=${url}`
+      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${
+        userToken ? userToken : undefined
+      }&urlString=${url}`
     );
     return response.data;
   } catch (error) {
@@ -183,10 +185,13 @@ export async function GetActiveProp(page) {
   }
 }
 
-export async function updateGoogleData({data,token}) {
+export async function updateGoogleData({ data, token }) {
   try {
     // const response =
-     await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-users-google?token=${token}`,data);
+    await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/update-users-google?token=${token}`,
+      data
+    );
   } catch (error) {
     console.log(error);
   }
@@ -282,7 +287,6 @@ export const downloadUserLog = async (id, name) => {
   link.click();
   document.body.removeChild(link);
 };
-
 
 export async function getOutSoldProperties() {
   try {

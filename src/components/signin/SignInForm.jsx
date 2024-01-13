@@ -8,7 +8,6 @@ import { Button } from "@nextui-org/react";
 import { signWithGoogle } from "@/utils/userAPI";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-
 const SignInForm = () => {
   // const {data:session}=useSession()
 
@@ -69,7 +68,6 @@ const SignInForm = () => {
           <input
             placeholder={language ? "البريد  " : "Email"}
             type=""
-            
             // id="email"
             name="email"
             value={email}
@@ -173,4 +171,3 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-
