@@ -20,7 +20,7 @@ const Sidebar = () => {
       <figure className="justify-center flex p-5 mb-5">
         <Image
           className="justify-center flex"
-          src={toggleNav ? "/logo-x.png" : "/favicon.png"}
+          src={toggleNav ? "/logo-x.png" : "/favicon.ico"}
           alt="sidebar logo"
           width="150"
           height="100"

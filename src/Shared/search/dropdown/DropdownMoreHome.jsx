@@ -1,6 +1,5 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
-import { MdOutlineMoreVert } from "react-icons/md";
 import {
   paymentMethodData,
   finishingOptionsData,
@@ -13,8 +12,7 @@ import DropdownPrice from "./DropdownPrice";
 import { useSelector } from "react-redux";
 import DropdownArea from "./DropdownArea";
 import DropdownUintType from "./DropdownUintType";
-import { IoOptionsOutline } from "react-icons/io5";
-// import { Input } from "@nextui-org/react";
+import { CgOptions } from "react-icons/cg";
 const DropdownMoreHome = ({
   classNames,
   propertyType,
@@ -74,15 +72,18 @@ const DropdownMoreHome = ({
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-[40px] font-semibold text-darkGreen text-md flex items-center justify-between
-          focus:outline-lightGreen bg-white    rounded-xl p-1   whitespace-nowrap"
+        className=" font-semibold text-darkGreen text-md flex items-center justify-center
+          focus:outline-lightGreen   rounded-xl    whitespace-nowrap"
       >
-        <IoOptionsOutline className="text-3xl " />
+        {/* <IoOptionsOutline className="text-3xl " /> */}
+        <CgOptions className="w-[16px] h-[16px] md:w-[20px] md:h-[20px]  lg:w-[26px] lg:h-[26px]  xl:w-[32px] xl:h-[32px]  2xl:w-[40px] 2xl:h-[40px]  text-grayText " />
       </div>
       {menuIsOpen && (
         <div
           ref={dropdownContentRef}
-          className={`absolute right-0 p-4 w-[250px] lg:w-[600px] animate-appearance-in z-10  mt-1
+          className={`absolute ${
+            languageIs ? "left-0" : "right-0"
+          }  p-4 w-[250px] lg:w-[600px] animate-appearance-in z-10  mt-1
            bg-white  duration-200 drop-shadow-xl border  rounded-xl h-auto`}
         >
           <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">

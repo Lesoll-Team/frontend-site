@@ -24,6 +24,17 @@ module.exports = {
         lightGreenHover: "#3ababeff",
         darkGreen: "#1b6e6d",
         darkGray: "#5c5a5a",
+
+        grayText: "#828A8A",
+        grayText2: "#454545",
+        gray1: "#A3A1A1",
+        gray2: "#656565",
+        // gray3: "#454545",
+        //656565 A3A1A1 454545
+      },
+      fontFamily: {
+        cairo: ["Cairo", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
     fontFamily: {},

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export function SearchDropdown({
   setLocationName,
-  setTyping,
+  // setTyping,
   setLocationValue,
 }) {
 const [governorates, setGovernorates] = useState([]);
@@ -45,7 +45,7 @@ const [govNum, setGovNum] = useState(0);
   }, [governorates]);
 
    const handleSearch = (e) => {
-     setTyping(true);
+    //  setTyping(true);
      const term = e.target.value;
      setSearchTerm(term);
    };
@@ -71,12 +71,12 @@ const [govNum, setGovNum] = useState(0);
     setSearchTerm("");
     setSelectedValues((prevValues) => {
       if (numberGovFromReg == 0) {
-        setTyping(false);
+        // setTyping(false);
 
         return [...prevValues, selectedOption];
       } else {
         setGovNum(numberGovFromReg);
-        setTyping(false);
+        // setTyping(false);
 
         return [mapLocation.get(numberGovFromReg).name_ar, selectedOption];
       }
@@ -86,7 +86,7 @@ const [govNum, setGovNum] = useState(0);
     setGovNum(numberGov);
     setLocationName(mapLocation.get(numberGovFromReg)?.name_ar);
     setLocationValue(selectedValue);
-    setTyping(false);
+    // setTyping(false);
   };
 
   const handleClearCared = (index, value) => {
@@ -101,7 +101,7 @@ const [govNum, setGovNum] = useState(0);
     }
     updatedValues.splice(index, 1);
     setSelectedValues(updatedValues);
-    setTyping(false);
+    // setTyping(false);
   };
 
 
@@ -109,41 +109,50 @@ const [govNum, setGovNum] = useState(0);
   return (
     <div
       dir={languageIs ? "rtl" : "ltr"}
-      className="relative w-full py-2 px-4  border shadow-md rounded-md mt-2 focus:outline-none focus:ring focus:border-blue-300"
+      className="relative w-full focus:outline-none "
     >
-      <div className="flex items-center">
+      <div className="flex items-center gap-x-1 md:gap-x-3 ">
         {selectedValues.map((value, index) => (
           <div
-            className="flex items-center mx-1 p-1 bg-lightGreen rounded-md"
+            className="flex items-center
+             gap-x-1 md:gap-x-3
+            px-1 md:px-3 md:py-1 
+           bg-lightGreen rounded-sm md:rounded-md "
             key={index}
           >
-            <span className="mx-2 whitespace-nowrap text-white">{value}</span>
+            <span
+              className=" 
+            text-[10px]  md-text-[13px] lg:text-[16px]
+            whitespace-nowrap text-white "
+            >
+              {value}
+            </span>
             <button
               onClick={() => handleClearCared(index, value)}
-              className="text-lightOrangeHover items-center flex text-2xl font-semibold px-1"
+              className="text-gray2  items-center flex text-lg md:text-xl lg:text-2xl font-semibold"
             >
               &times;
             </button>
           </div>
         ))}
-        <div className="w-full  p-1">
+        <div className="w-full ">
           <input
             type="text"
             placeholder={
               languageIs
-                ? " البحث بالمنطقة: مدينة نصر، المعادي، المهندسين...  "
+                ? " البحث بالمنطقة: مدينة نصر،التجمع الخامس...  "
                 : "Search by City  Nasr City, Cairo, Maadi..."
             }
             value={searchTerm}
             disabled={selectedValues.length >= 2 ? true : false}
             onChange={handleSearch}
-            className="w-full  active:outline-none hover:outline-none focus:outline-none"
+            className="w-full font-inter rounded-lg  text-[13px] md:text-[16px] gl-text-[20px] xl:text-[25px] 2xl:text-[31px] text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  active:outline-none hover:outline-none focus:outline-none"
           />
         </div>
       </div>
       {searchTerm !== "" && (
         <div
-          className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto mt-2 bg-white border rounded-md shadow-md`}
+          className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
         >
           {filteredOptions.map((governorate, index) => (
             <div
@@ -173,7 +182,8 @@ const [govNum, setGovNum] = useState(0);
                           govNum == 0 ? governorate.numberGov || 0 : govNum,
                       })
               }
-              className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+              className="px-4 py-2 cursor-pointer hover:bg-gray-100 
+               text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] 2xl:text-[24px]"
             >
               {languageIs ? governorate.name_ar : governorate.name_en}
             </div>

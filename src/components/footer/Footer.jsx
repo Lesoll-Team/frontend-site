@@ -5,7 +5,6 @@ import logo from "../../../public/icons/logoNavbar.png";
 import {
   AiFillFacebook,
   AiFillInstagram,
-  AiFillTwitterCircle,
   AiOutlineMail,
   AiOutlineWhatsApp,
 } from "react-icons/ai";

@@ -16,7 +16,7 @@ export default function Document() {
           }}
         />
       </Head>
-      <body>
+      <body className="font-cairo">
         <Main />
         <NextScript />
         <iframe
