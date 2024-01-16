@@ -36,6 +36,7 @@ module.exports = {
         cairo: ["Cairo", "sans-serif"],
         inter: ["Inter", "sans-serif"],
       },
+
     },
     fontFamily: {},
   },

@@ -39,7 +39,7 @@ pre {
   }
 
   p {
-    @apply text-[12px] md:text-[16px] lg:text-[20px] xl:text-[25px] 2xl:text-[31px];
+    @apply text-[12px] md:text-[14px] lg:text-[17px] xl:text-[20px];
   }
 
 }
