@@ -17,7 +17,6 @@ const ItemDropdown = ({ label, href, action, id, title, description }) => {
             children={label}
             id={id}
           />
-          {/* {label} */}
         </li>
       ) : (
         <Link

@@ -46,7 +46,7 @@ function ScrollToTopButton() {
   return (
     <>
       <div
-        className={`fixed bottom-5 drop-shadow-xl right-4 md:right-7 cursor-pointer ${
+        className={`fixed z-[1000] bottom-5 drop-shadow-xl right-4 md:right-7 cursor-pointer ${
           isVisible ? "block animate-appearance-in" : "hidden"
         } bg-lightGreen p-4 rounded-full`}
         onClick={scrollToTop}

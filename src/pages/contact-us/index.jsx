@@ -2,15 +2,14 @@ import React from "react";
 import Contact from "@/components/contact/Contact";
 import Head from "next/head";
 import { useSelector } from "react-redux";
+import { Image } from "@nextui-org/react";
 export default function contact() {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="">
+    <div className="min-h-[90dvh]">
       <Head>
-        <title>
-          {language ? " اتصل بنا | ليسول " : "Contact us | Lesoll "}{" "}
-        </title>
+        <title>{language ? "اتصل بنا | ليسول" : "Contact us | Lesoll"}</title>
         <meta
           name="description"
           content={

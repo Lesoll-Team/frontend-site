@@ -194,7 +194,9 @@ export default function PropertyDashboard() {
             </div>
             <div>
               <DropdownAction>
-                {userInfo && userInfo.supAdmin ? null : (
+                {userInfo && userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
                   <ItemDropdown
                     label={"Accept"}
                     href={null}
@@ -211,7 +213,9 @@ export default function PropertyDashboard() {
                   id={blog._id}
                 />
 
-                {userInfo && userInfo.supAdmin ? null : (
+                {userInfo && userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
                   <ItemDropdown
                     label={"Delete"}
                     href={null}

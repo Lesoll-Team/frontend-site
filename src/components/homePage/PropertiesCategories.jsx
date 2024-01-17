@@ -73,9 +73,9 @@ const categories = [
             key={index}
             className="
           shadow-none md:hover:border-none md:hover:shadow-[4px_4px_21px_0px_#A3A1A1]	  cursor-pointer shadow-black
-            flex flex-col flex-wrap  justify-around items-center  min-w-[150px] md:min-w-[280px] w-[23%] border-2  border-gray1 rounded-[8px]  md:h-[300px]"
+            flex flex-col flex-wrap  justify-around items-center  min-w-[120px] md:min-w-[280px] w-[23%] border-2  border-gray1 rounded-[8px]  md:h-[300px]"
           >
-            <div className=" flex items-end justify-center md:w-[141px] m-2 w-[80%]    md:h-[141px]">
+            <div className=" flex items-end justify-center  m-2 w-[50%]    md:h-[141px]">
               <Image
                 src={category.imgPath}
                 alt={`icon ${category.titleEn}`}

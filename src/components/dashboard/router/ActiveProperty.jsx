@@ -80,15 +80,15 @@ export default function ActiveProperty() {
     }
   };
 
-    const handleSoldOutProperty = async (propertyId) => {
-      try {
-        await propertyIsSold({propertyId});
-        setRefreshProperty(!refreshProperty);
-        await fetchAllProperties(startDate, endDate);
-      } catch (error) {
-        console.error("Error deleting property:", error);
-      }
-    };
+  const handleSoldOutProperty = async (propertyId) => {
+    try {
+      await propertyIsSold({ propertyId });
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties(startDate, endDate);
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
@@ -175,7 +175,11 @@ export default function ActiveProperty() {
             <div className="text-bold flex gap-x-3 text-medium capitalize">
               <div className="">
                 <b>Status: </b>
-                {blog?.isSold ? <b className="text-red-500">Out Sold</b> : <b className="text-success-500"> available</b>}
+                {blog?.isSold ? (
+                  <b className="text-red-500">Out Sold</b>
+                ) : (
+                  <b className="text-success-500"> available</b>
+                )}
               </div>
             </div>
           </div>
@@ -216,6 +220,7 @@ export default function ActiveProperty() {
                 <span>{blog.user[0]?.phone || "Empty"}</span>
               </div>
             </div>
+
             <div className="mx-5">
               <DropdownAction>
                 <ItemDropdown
@@ -229,7 +234,7 @@ export default function ActiveProperty() {
                   action={null}
                   id={blog._id}
                 />
-                {userInfo && userInfo.supAdmin ? null : (
+                {userInfo && userInfo.isAdmin ? (
                   <ItemDropdown
                     label={"Delete"}
                     href={null}
@@ -237,16 +242,19 @@ export default function ActiveProperty() {
                     title="تأكيد مسح العقار "
                     description="  تأكيد مسح العقار  الى الارشيف "
                   />
+                ) : (
+                  <ul></ul>
                 )}
-
-                {userInfo && userInfo.supAdmin ? null : (
+                {userInfo && userInfo.isAdmin ? (
                   <ItemDropdown
-                    label={blog?.isSold?"Sold In ?":"Sold Out ?"}
+                    label={blog?.isSold ? "Sold In ?" : "Sold Out ?"}
                     href={null}
                     action={() => handleSoldOutProperty(blog._id)}
                     title="تأكيد ان هذا العقار قد تم بيعة "
                     description="  تأكيد بيع العقار  الى الارشيف "
                   />
+                ) : (
+                  <ul></ul>
                 )}
               </DropdownAction>
             </div>

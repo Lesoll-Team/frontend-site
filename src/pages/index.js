@@ -7,7 +7,7 @@ import React from 'react';
 
 const Home = ({ bestSearch }) => {
   return (
-    <main>
+    <main className=''>
       <div className="relative ">
         <HeroSection />
       </div>

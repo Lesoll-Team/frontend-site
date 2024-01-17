@@ -35,13 +35,15 @@ pre {
   }
 
   h6 {
-    @apply text-[14px] md:text-[24px] lg:text-[31px] xl:text-[34px] 2xl:text-[37px];
+    @apply text-[14px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[25px];
   }
 
-  p {
+  /* p {
     @apply text-[12px] md:text-[14px] lg:text-[17px] xl:text-[20px];
-  }
-
+  } */
+    p {
+      @apply text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px];
+    }
 }
 
 * {
