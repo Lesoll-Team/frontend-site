@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import EditProp from "@/components/editproperty/EditProp";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
+import Head from "next/head";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
@@ -24,6 +25,10 @@ const EditProperty = () => {
 
   return (
     <div>
+      <Head>
+        <title>Edit Property</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       {/* EditProperty {propertyId}
       <p>{JSON.stringify(propData)}</p> */}
       {/* <EditProperty/> */}

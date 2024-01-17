@@ -27,6 +27,8 @@ const SignIn = () => {
     <>
       <Head>
         <title>{language ? "تسجيل الدخول" : "Sign Im"}</title>
+        <meta name="robots" content="noindex, nofollow" />
+
         <meta
           name="description"
           content="قم بتسجيل الدخول إلى حسابك على منصتنا للعقارات. احصل على وصول إلى بحوثك المحفوظة والقوائم المفضلة والمزيد. عملية تسجيل دخول آمنة ومريحة لتجربة شخصية."

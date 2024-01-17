@@ -17,10 +17,7 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-// import {
-//   fetchPropertiesView,
-//   fetchSaleView,
-// } from "@/utils/dashboardApi/overviewDashboard";
+
 import {
   getDeleteView,
   getPropertiesView,
@@ -35,6 +32,7 @@ import {
   downloadOverviewData,
   downloadSearchKeyword,
 } from "@/utils/dashboardApi/overviewDashboard";
+import Head from "next/head";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -251,6 +249,11 @@ function Dashboard() {
   };
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh]  flex" dir="ltr">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+
       <div className="relative">
         <div className="bg-lightGreenHover  sticky top-0">
           <Sidebar />
@@ -311,7 +314,6 @@ function Dashboard() {
             <Button
               onClick={() => downloadRealtyData(dates)}
               className="font-semibold bg-orange-500 text-white "
-              
             >
               {" "}
               Download realty

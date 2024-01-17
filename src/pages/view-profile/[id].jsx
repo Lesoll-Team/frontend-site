@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { ViewUser } from "@/utils/userAPI";
 import { DotPulse } from "@uiball/loaders";
 import ViewProfile from "@/components/viewProfile/ViewProfile";
+import Head from "next/head";
 
 const ViewProfilePage = () => {
   const [userData, setUserData] = useState();
@@ -36,6 +37,10 @@ const ViewProfilePage = () => {
 
   return (
     <div className="min-h-[90dvh] bg-gray-100 py-5">
+      <Head>
+        <title>user profile</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       {userData ? (
         <ViewProfile
           propertiesNums={propertiesNums}

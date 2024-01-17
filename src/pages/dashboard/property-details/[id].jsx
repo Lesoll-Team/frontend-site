@@ -1,6 +1,7 @@
 import PropertyDetailsAdmin from "@/components/dashboard/router/propertyDetails/PropertyDetailsAdmin";
 import { getPropertyDashboard } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -19,6 +20,10 @@ const PropertyDtailsPage = () => {
   }, [slug]);
   return (
     <div className="bg-gray-100 min-h-[90dvh]">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       {propertyDetails ? (
         <PropertyDetailsAdmin propertyDetails={propertyDetails} />
       ) : (

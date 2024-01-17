@@ -229,7 +229,9 @@ export default function ActiveProperty() {
                   action={null}
                   id={blog._id}
                 />
-                {userInfo && userInfo.supAdmin ? null : (
+                {userInfo && userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
                   <ItemDropdown
                     label={"Delete"}
                     href={null}
@@ -239,9 +241,11 @@ export default function ActiveProperty() {
                   />
                 )}
 
-                {userInfo && userInfo.supAdmin ? null : (
+                {userInfo && userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
                   <ItemDropdown
-                    label={blog?.isSold?"Sold In ?":"Sold Out ?"}
+                    label={blog?.isSold ? "Sold In ?" : "Sold Out ?"}
                     href={null}
                     action={() => handleSoldOutProperty(blog._id)}
                     title="تأكيد ان هذا العقار قد تم بيعة "

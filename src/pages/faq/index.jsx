@@ -8,6 +8,7 @@ const index = () => {
     <div>
       <Head>
         <title>{language ? "الأسئلة الشائعة" : "FAQ"}</title>
+        <meta name="robots" content="noindex, nofollow" />
         <meta
           name="description"
           content="استكشف صفحتنا للأسئلة الشائعة للعثور على إجابات على أسئلة العقارات الشائعة. احصل على معلومات حول شراء وبيع واستئجار واستثمار العقارات. احصل على الإجابات التي تحتاجها لرحلة عقارية ناجحة."
