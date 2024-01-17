@@ -194,7 +194,7 @@ export default function PropertyDashboard() {
             </div>
             <div>
               <DropdownAction>
-                {userInfo && userInfo.isAdmin ? (
+                {userInfo && !userInfo.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
@@ -213,7 +213,7 @@ export default function PropertyDashboard() {
                   id={blog._id}
                 />
 
-                {userInfo && userInfo.isAdmin ? (
+                {userInfo && !userInfo.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown

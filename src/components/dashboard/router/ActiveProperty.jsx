@@ -229,7 +229,7 @@ export default function ActiveProperty() {
                   action={null}
                   id={blog._id}
                 />
-                {userInfo && userInfo.isAdmin ? (
+                {userInfo && !userInfo.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
@@ -241,7 +241,7 @@ export default function ActiveProperty() {
                   />
                 )}
 
-                {userInfo && userInfo.isAdmin ? (
+                {userInfo && !userInfo.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
