@@ -12,6 +12,7 @@ import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
 import needsReducer from "./features/needsSlice";
 import needPostReducer from "./features/needsFeedSlice";
+import faqReducer from "./features/faqSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -23,5 +24,6 @@ export default combineReducers({
   Profile: profileReducer,
   needs: needsReducer,
   needsPosts: needPostReducer,
+  faq: faqReducer,
   // Compare:compareReducer,
 });

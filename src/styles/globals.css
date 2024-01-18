@@ -138,6 +138,17 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
 
+.open-animation{
+  animation: openAccordion 0.3s;
+}
+
+@keyframes openAccordion {
+  from{
+    height: 0px;
+  }to{
+    height: 100%;
+  }
+}
 .fade-in {
   animation: fadeIn 0.3s;
   opacity: 1;
