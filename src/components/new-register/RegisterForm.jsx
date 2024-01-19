@@ -1,3 +1,5 @@
+import { Waveform } from "@uiball/loaders";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -10,6 +12,7 @@ const RegisterForm = () => {
   const { register, handleSubmit, formState, reset, setValue } = useForm({
     defaultValues: {
       code: "+20",
+      typeOfUser: "",
     },
   });
   const { errors } = formState;
@@ -21,14 +24,15 @@ const RegisterForm = () => {
   const error = useSelector((state) => state.Auth.registrationError);
 
   const [showPassword, setShowPassword] = useState(false);
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    dispatch(signupUserAsync(data));
   };
   return (
     <form
       noValidate
-      onSubmit={handleSubmit()}
-      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
+      onSubmit={handleSubmit(onSubmit)}
+      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-4  md:my-0 my-10"
     >
       <h1 className="text-4xl"> {language ? "تسجيل الدخول" : "Sign In"}</h1>
       <div className="space-y-2">
@@ -43,8 +47,13 @@ const RegisterForm = () => {
             },
           })}
           type="text"
-          className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md }`}
+          className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            errors.fullname && "border-red-500 focus:border-red-500"
+          }`}
         />
+        {errors.fullname && (
+          <p className="text-red-500">{errors.fullname.message}</p>
+        )}
       </div>
       <div className="space-y-2">
         <label htmlFor="email">
@@ -69,8 +78,11 @@ const RegisterForm = () => {
             },
           })}
           type="text"
-          className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md`}
+          className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            errors.email && "border-red-500 focus:border-red-500"
+          }`}
         />
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
       </div>
       <div className="space-y-2">
         <label htmlFor="">{language ? "رقم الهاتف" : "Phone Number"}</label>
@@ -84,6 +96,7 @@ const RegisterForm = () => {
               color: "#1b6e6d",
               borderRadius: "8px",
               // border: "1px",
+              borderColor: errors.phoneNumber && "red",
             }}
             buttonStyle={{
               height: "47px",
@@ -92,7 +105,8 @@ const RegisterForm = () => {
             }}
             containerStyle={{
               // border: "1px",
-              zIndex: "10000000000000",
+              zIndex: "",
+              borderColor: errors.phoneNumber && "red",
             }}
             dropdownStyle={{
               height: "150px",
@@ -114,7 +128,11 @@ const RegisterForm = () => {
               // }
             }}
           />
-          {errors.phoneNumber && <p className="text-red-500">error</p>}
+          {errors.phoneNumber && (
+            <p dir={language ? "rtl" : "ltr"} className="text-red-500">
+              {errors.phoneNumber.message}
+            </p>
+          )}
           <input
             id="phoneNumber"
             name="phoneNumber"
@@ -125,13 +143,6 @@ const RegisterForm = () => {
                   ? "ادخل رقم الهاتف"
                   : " Please enter your Phone number",
               },
-              // pattern: {
-              //   value:
-              //     /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
-              //   message: language
-              //     ? "يرجى إدخال بريد إلكتروني صحيح"
-              //     : "Please enter a valid email",
-              // },
             })}
             className="hidden"
             type="text"
@@ -169,45 +180,85 @@ const RegisterForm = () => {
             )}
           </button>
         </div>
+        {errors.password && (
+          <p className="text-red-500">{errors.password.message}</p>
+        )}
       </div>
       <div className="space-y-2">
         <label htmlFor="typeOfUser">
           {language ? " عرفنا بيك" : "User type"}
         </label>
         <select
-          name="typeOfUser"
-          id="typeOfUser"
           {...register("typeOfUser", {
-            required: {
-              value: true,
-              message: language
-                ? "ادخل البريد الإلكترونى"
-                : " Please enter your email",
-            },
-            pattern: {
-              value:
-                /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
-              message: language
-                ? "يرجى إدخال بريد إلكتروني صحيح"
-                : "Please enter a valid email",
-            },
+            required: language ? "إختر نوعك" : "Choose who you are",
           })}
-          type="text"
           className={` w-full h-12 px-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
             language ? "select-ar" : "select-en"
-          }`}
+          } ${errors.typeOfUser && "border-red-500  focus:border-red-500 "}`}
         >
-          <option value="" disabled selected>
-            {language ? "اختر نوعك" : "choose your type"}
-          </option>
+          <option value=""></option>
           <option value="individual">{language ? "فرد" : "individual"}</option>
           <option value="broker">{language ? "وسيط عقاري" : "Broker"}</option>
           <option value="company">
             {language ? "مطور عقاري" : "Developer"}
           </option>
         </select>
+        {errors.typeOfUser && (
+          <p className="text-red-500">{errors.typeOfUser.message}</p>
+        )}
       </div>
-      <button type="submit">test</button>
+      <div className="space-y-2 flex items-center gap-1">
+        <input
+          {...register("terms", {
+            required: {
+              value: true,
+              message: language
+                ? "يجب الموافقة على الشروط والأحكام"
+                : "You must agree to the terms and conditions",
+            },
+          })}
+          type="checkbox"
+          className={`mt-2 ${errors.terms && "outline-red-500"}`}
+          id="terms" // Use "terms" as the id
+          name="terms"
+        />
+        <label
+          htmlFor="terms" // Use "terms" as the htmlFor value
+          className={`text-sm  ${errors.terms && "text-red-500"} `}
+        >
+          {language ? "أوافق على جميع" : "I agree to all terms and conditions"}{" "}
+          <Link
+            href={"/termsofservice"}
+            className={`text-lightGreen font-bold ${
+              errors.terms && "text-red-500"
+            } `}
+          >
+            {language ? "الشروط والأحكام" : "terms and conditions"}
+          </Link>
+        </label>
+        {/* {errors.terms && "dadsada"} */}
+      </div>
+
+      <button
+        type="submit"
+        className="w-full p-3 h-12 md:h-14 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
+      >
+        {status === "loading" ? (
+          <>
+            {" "}
+            <div className="md:hidden">
+              <Waveform size={20} color="#fff" />
+            </div>
+            <div className="md:block hidden">
+              <Waveform size={20} color="#fff" />
+            </div>
+          </>
+        ) : (
+          <span>{language ? "سجل الدخول" : "Sign In"}</span>
+        )}
+
+        {/* text */}
+      </button>
     </form>
   );
 };
