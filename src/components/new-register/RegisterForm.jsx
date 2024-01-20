@@ -1,3 +1,4 @@
+import { signupUserAsync } from "@/redux-store/features/authSlice";
 import { Waveform } from "@uiball/loaders";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -28,6 +29,12 @@ const RegisterForm = () => {
     console.log(data);
     dispatch(signupUserAsync(data));
   };
+  useEffect(() => {
+    if (status === "succeeded") {
+      router.push("/");
+    }
+  }, [status]);
+
   return (
     <form
       noValidate
