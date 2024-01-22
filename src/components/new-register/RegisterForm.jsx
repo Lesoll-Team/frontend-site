@@ -2,7 +2,7 @@ import { signupUserAsync } from "@/redux-store/features/authSlice";
 import { Waveform } from "@uiball/loaders";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
@@ -10,12 +10,16 @@ import "react-phone-input-2/lib/style.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const RegisterForm = () => {
-  const { register, handleSubmit, formState, reset, setValue } = useForm({
-    defaultValues: {
-      code: "+20",
-      typeOfUser: "",
-    },
-  });
+  // const [verificationMethod, setVerificationMethod] = useState("email");
+  const { register, handleSubmit, formState, reset, setValue, watch } = useForm(
+    {
+      defaultValues: {
+        code: "+20",
+        typeOfUser: "",
+        verificationMethod: "email",
+      },
+    }
+  );
   const { errors } = formState;
   const dispatch = useDispatch();
   const router = useRouter();
@@ -39,11 +43,45 @@ const RegisterForm = () => {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-4  md:my-0 my-10"
+      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6  md:my-0 my-10"
     >
-      <h1 className="text-4xl"> {language ? "تسجيل الدخول" : "Sign In"}</h1>
+      <div className="space-y-3">
+        <h1 className="text-4xl"> {language ? " إنشاء حساب" : "Sign up"}</h1>
+
+        <h3 className="text-xl text-darkGray">
+          {language ? "تفعيل الحساب بإستخدام:" : "Activate the account via:"}
+        </h3>
+        <div className="flex rounded-lg overflow-hidden border">
+          <button
+            type="button"
+            onClick={() => {
+              setValue("verificationMethod", "phone");
+              // setVerificationMethod("phone");
+            }}
+            className={`w-full text-darkGray text-center py-2 ${
+              watch("verificationMethod") === "phone" &&
+              "bg-lightGreen text-white"
+            }`}
+          >
+            {language ? "الهاتف" : "Phone"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setValue("verificationMethod", "email");
+              // setVerificationMethod("email");
+            }}
+            className={`w-full text-darkGray text-center py-2 ${
+              watch("verificationMethod") === "email" &&
+              "bg-lightGreen text-white"
+            }`}
+          >
+            {language ? "البريد" : "Email"}
+          </button>
+        </div>
+      </div>
       <div className="space-y-2">
-        <label htmlFor="fullname">{language ? "الإسم" : "Full Name"}</label>
+        {/* <label htmlFor="fullname">{language ? "الإسم" : "Full Name"}</label> */}
         <input
           name="fullname"
           id="fullname"
@@ -53,6 +91,7 @@ const RegisterForm = () => {
               message: language ? "ادخل  اسمك" : " Please enter your name",
             },
           })}
+          placeholder={language ? "الإسم" : "Full Name"}
           type="text"
           className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
             errors.fullname && "border-red-500 focus:border-red-500"
@@ -63,9 +102,9 @@ const RegisterForm = () => {
         )}
       </div>
       <div className="space-y-2">
-        <label htmlFor="email">
+        {/* <label htmlFor="email">
           {language ? "البريد الالكتروني" : "Email"}
-        </label>
+        </label> */}
         <input
           name="email"
           id="email"
@@ -84,6 +123,7 @@ const RegisterForm = () => {
                 : "Please enter a valid email",
             },
           })}
+          placeholder={language ? "البريد الالكتروني" : "Email"}
           type="text"
           className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
             errors.email && "border-red-500 focus:border-red-500"
@@ -92,7 +132,7 @@ const RegisterForm = () => {
         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
       </div>
       <div className="space-y-2">
-        <label htmlFor="">{language ? "رقم الهاتف" : "Phone Number"}</label>
+        {/* <label htmlFor="">{language ? "رقم الهاتف" : "Phone Number"}</label> */}
         <div dir="ltr">
           <PhoneInput
             inputStyle={{
@@ -103,7 +143,7 @@ const RegisterForm = () => {
               color: "#1b6e6d",
               borderRadius: "8px",
               // border: "1px",
-              borderColor: errors.phoneNumber && "red",
+              // borderColor: errors.phoneNumber && "red",
             }}
             buttonStyle={{
               height: "47px",
@@ -112,7 +152,7 @@ const RegisterForm = () => {
             }}
             containerStyle={{
               // border: "1px",
-              zIndex: "",
+
               borderColor: errors.phoneNumber && "red",
             }}
             dropdownStyle={{
@@ -157,7 +197,7 @@ const RegisterForm = () => {
         </div>
       </div>
       <div className="space-y-2">
-        <label htmlFor="email">{language ? " كلمة السر" : "passwrod"}</label>
+        {/* <label htmlFor="email">{language ? " كلمة السر" : "passwrod"}</label> */}
         <div className="flex items-center  ">
           <input
             name="password"
@@ -170,6 +210,7 @@ const RegisterForm = () => {
                   : "please enter your password",
               },
             })}
+            placeholder={language ? " كلمة السر" : "passwrod"}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
               errors.password && "border-red-500 focus:border-red-500"
@@ -192,9 +233,9 @@ const RegisterForm = () => {
         )}
       </div>
       <div className="space-y-2">
-        <label htmlFor="typeOfUser">
+        {/* <label htmlFor="typeOfUser">
           {language ? " عرفنا بيك" : "User type"}
-        </label>
+        </label> */}
         <select
           {...register("typeOfUser", {
             required: language ? "إختر نوعك" : "Choose who you are",
@@ -203,7 +244,7 @@ const RegisterForm = () => {
             language ? "select-ar" : "select-en"
           } ${errors.typeOfUser && "border-red-500  focus:border-red-500 "}`}
         >
-          <option value=""></option>
+          <option value="">{language ? " عرفنا بيك" : "User type"}</option>
           <option value="individual">{language ? "فرد" : "individual"}</option>
           <option value="broker">{language ? "وسيط عقاري" : "Broker"}</option>
           <option value="company">
