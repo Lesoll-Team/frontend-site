@@ -7,9 +7,12 @@ import React from 'react';
 
 const Home = ({ bestSearch }) => {
   return (
-    <main className=''>
+    <main className="">
       <div className="relative ">
         <HeroSection />
+      </div>
+      <div className="my-24 gap-5  container mx-auto flex-wrap flex flex-col md:flex-row justify-between ">
+        <OtherCards />
       </div>
       <div className="container mx-auto mt-[50px]">
         <PropertiesCategories />
@@ -17,9 +20,7 @@ const Home = ({ bestSearch }) => {
       <div className="container mx-auto mt-[50px]">
         <LocationCategories />
       </div>
-      <div className="my-24 gap-5  container mx-auto flex-wrap flex flex-col md:flex-row justify-between ">
-        <OtherCards />
-      </div>
+
       <BestLinksInHome
         PopularSearches={bestSearch.POPULAR_SEARCHES}
         MostArea={bestSearch.Most_Area}
@@ -32,7 +33,6 @@ const Home = ({ bestSearch }) => {
 
 export default Home;
 export async function getStaticProps() {
-
 
   const linkHome = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
