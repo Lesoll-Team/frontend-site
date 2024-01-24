@@ -9,20 +9,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Signin from "@/components/new-signin/Signin";
 const SignIn = () => {
   // const {data:session}=useSession()
 
   const router = useRouter();
-  const isLoading = useSelector((state) => state.Auth.isLoding);
+  // const isLoading = useSelector((state) => state.Auth.isLoding);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.GlobalState.userData);
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(isLoading);
-    if (isLoading) {
+    // setLoading(isLoading);
+    if (userData) {
       router.push("/"); // This will navigate to the home page after login is complete
     }
-  }, [isLoading, router]);
+  }, [userData]);
   return (
     <>
       <Head>
@@ -34,59 +36,7 @@ const SignIn = () => {
         <link rel="canonical" href={`https://lesoll.com/signin`} />
       </Head>
 
-      {!loading ? (
-        <div className="flex flex-col md:flex-row ">
-          {/* form div*/}
-          <div className="flex flex-col space-y-3 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
-            <h1 className="text-6xl sm:text-7xl mb-5 text-lightGreen font-black text-left">
-              {language ? "تسجيل الدخول" : "Sign In"}
-            </h1>
-
-            <SignInForm />
-
-            <p className="">
-              {language ? "لا تملك حساب؟" : "Don't have an account?"}
-              <Link
-                title={language ? "سجل الأن" : "Sign Up"}
-                className="text-lightOrange mx-1 font-semibold"
-                href={"/signup"}
-              >
-                {language ? "سجل الأن" : "Sign Up"}
-              </Link>
-            </p>
-          </div>
-          {/* img */}
-          <div className="hidden md:flex h-100 min-h-[100dvh] bg-lightGreen items-center w-1/2 justify-end">
-            {language ? (
-              <Image
-                style={{
-                  transform: "rotateY(180deg)",
-                }}
-                width={"auto"}
-                height={"auto"}
-                loading="lazy"
-                src={house}
-                alt="sign up / sign in "
-                className={`w-4/5 ${language && "rotate-180"}`}
-              />
-            ) : (
-              <Image
-                width={"auto"}
-                height={"auto"}
-                loading="lazy"
-                src={house}
-                alt="home"
-                className={`w-4/5 `}
-              />
-            )}
-          </div>
-          {/* suggest */}
-        </div>
-      ) : (
-        <div className="w-full flex justify-center items-center h-screen ">
-          <b> You Have Access...</b>
-        </div>
-      )}
+      <Signin />
     </>
   );
 };

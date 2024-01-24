@@ -8,6 +8,7 @@ import ScrollToTopButton from "./ScrollToTopButton";
 import { useEffect } from "react";
 import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function Layout({ children }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
+    dispatch(getUserData());
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
 

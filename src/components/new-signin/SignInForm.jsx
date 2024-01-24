@@ -100,8 +100,8 @@ const SignInForm = () => {
         <label htmlFor="email">{language ? "كلمة السر" : "Password"}</label>
         <div className="flex items-center mt-1">
           <input
-            name="email"
-            id="email"
+            name="password"
+            id="password"
             {...register("password", {
               required: {
                 value: true,

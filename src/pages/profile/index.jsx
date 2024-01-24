@@ -5,17 +5,16 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const ProfilePage = () => {
   const router = useRouter();
-  const isLoading = useSelector((state) => state.Auth.isLoding);
+  const userData = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
-
-  const [loading, setLoading] = useState(false);
+  const status = useSelector((state) => state.userProfile.status);
 
   useEffect(() => {
-    setLoading(isLoading);
-    if (!isLoading) {
-      router.push("/"); // This will navigate to the home page after login is complete
+    if (status === "failed") {
+      router.push("/");
     }
-  }, [isLoading, router]);
+  }, [status]);
+
   return (
     <>
       <Head>
@@ -24,7 +23,7 @@ const ProfilePage = () => {
         <link rel="canonical" href={`https://lesoll.com/profile`} />
       </Head>
 
-      {loading ? (
+      {userData ? (
         <Profile />
       ) : (
         <div className="w-full flex justify-center items-center h-screen ">

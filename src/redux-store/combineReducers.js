@@ -13,6 +13,8 @@ import overViewReducer from "./features/dashboard/overViewSlice";
 import needsReducer from "./features/needsSlice";
 import needPostReducer from "./features/needsFeedSlice";
 import faqReducer from "./features/faqSlice";
+import registerReducer from "./features/auth/registerSlice";
+import userProfileReducer from "./features/auth/userProfileSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -25,5 +27,7 @@ export default combineReducers({
   needs: needsReducer,
   needsPosts: needPostReducer,
   faq: faqReducer,
+  register: registerReducer,
+  userProfile: userProfileReducer,
   // Compare:compareReducer,
 });

@@ -1,3 +1,7 @@
+import {
+  resetRegister,
+  userRegister,
+} from "@/redux-store/features/auth/registerSlice";
 import { signupUserAsync } from "@/redux-store/features/authSlice";
 import { Waveform } from "@uiball/loaders";
 import Link from "next/link";
@@ -20,25 +24,37 @@ const RegisterForm = () => {
       },
     }
   );
+  const [emailUsedError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const dispatch = useDispatch();
   const router = useRouter();
 
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const status = useSelector((state) => state.Auth.status);
-  const error = useSelector((state) => state.Auth.registrationError);
+  const status = useSelector((state) => state.register.status);
+  const error = useSelector((state) => state.register.error);
 
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (data) => {
     console.log(data);
-    dispatch(signupUserAsync(data));
+    dispatch(userRegister(data));
   };
   useEffect(() => {
     if (status === "succeeded") {
+      dispatch(resetRegister());
       router.push("/");
     }
   }, [status]);
+  useEffect(() => {
+    if (error?.code == 401) {
+      setEmailUserError(true);
 
+      setTimeout(() => {
+        dispatch(resetRegister());
+
+        setEmailUserError(false);
+      }, 3500);
+    }
+  }, [error]);
   return (
     <form
       noValidate
@@ -126,10 +142,18 @@ const RegisterForm = () => {
           placeholder={language ? "البريد الالكتروني" : "Email"}
           type="text"
           className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-            errors.email && "border-red-500 focus:border-red-500"
+            (errors.email || emailUsedError) &&
+            "border-red-500 focus:border-red-500"
           }`}
         />
         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        {emailUsedError && (
+          <p className="text-red-500">
+            {language
+              ? "هذا البريد مستخدم بالفعل"
+              : "This email elready registerd"}
+          </p>
+        )}
       </div>
       <div className="space-y-2">
         {/* <label htmlFor="">{language ? "رقم الهاتف" : "Phone Number"}</label> */}

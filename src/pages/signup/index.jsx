@@ -10,19 +10,17 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const SignUp = () => {
   const router = useRouter();
-  const isLoading = useSelector((state) => state.Auth.isLoding);
+  const userData = useSelector((state) => state.GlobalState.userData);
 
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(isLoading);
-    if (isLoading) {
-      router.push("/"); // This will navigate to the home page after login is complete
+    if (userData) {
+      router.push("/");
     }
-  }, [isLoading, router]);
+  }, [userData]);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="">
+    <>
       <Head>
         <title>{language ? "الإشتراك" : "Sign Up"}</title>
         <meta
@@ -32,7 +30,7 @@ const SignUp = () => {
         <link rel="canonical" href={`https://lesoll.com/signup`} />
       </Head>
 
-      {!loading ? (
+      {!userData ? (
         <div className="flex flex-col md:flex-row ">
           {/* form div*/}
           <div className="flex flex-col space-y-3 pb-10 md:w-1/2 justify-center items-center min-h-[100dvh] border-3  px-1 ">
@@ -85,7 +83,7 @@ const SignUp = () => {
           <b> You Have Access...</b>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default SignUp;

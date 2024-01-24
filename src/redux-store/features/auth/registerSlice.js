@@ -8,7 +8,7 @@ const initialState = {
 
 export const userRegister = createAsyncThunk(
   "register/userRegister",
-  async () => {
+  async (userData, thunkAPI) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
@@ -16,7 +16,7 @@ export const userRegister = createAsyncThunk(
       ); // register
       return response.data;
     } catch (error) {
-      throw error.response.data;
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -24,7 +24,12 @@ export const userRegister = createAsyncThunk(
 const registerSlice = createSlice({
   name: "register",
   initialState,
-  reducers: {},
+  reducers: {
+    resetRegister: (state) => {
+      state.status = "idle";
+      state.error = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(userRegister.pending, (state) => {
@@ -32,10 +37,15 @@ const registerSlice = createSlice({
       })
       .addCase(userRegister.fulfilled, (state, action) => {
         state.status = "succeeded";
-        localStorage.setItem("userToken", JSON.stringify(action.payload));
+        localStorage.setItem("userToken", JSON.stringify(action.payload.token));
         localStorage.setItem("userIsLogin", JSON.stringify(true));
+      })
+      .addCase(userRegister.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+        console.log(action.payload);
       });
   },
 });
-
+export const { resetRegister } = registerSlice.actions;
 export default registerSlice.reducer;

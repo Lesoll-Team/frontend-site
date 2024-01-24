@@ -37,12 +37,13 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isLoading = useSelector((state) => state.Auth.isLoding);
+  const userData = useSelector((state) => state.GlobalState.userData);
 
   const [isAuth, setAuth] = useState(false);
 
-  useEffect(() => {
-    setAuth(isLoading);
-  });
+  // useEffect(() => {
+  //   setAuth(isLoading);
+  // });
   const mobileMenuRef = useRef(null);
   const notificationsMenuRef = useRef(null);
 
@@ -143,7 +144,7 @@ export default function Navbar() {
           </li>
 
           {/*button Notifications */}
-          <li className={` ${isAuth ? " " : "hidden"} relative`}>
+          <li className={` ${userData ? " " : "hidden"} relative`}>
             <Badge content={countNotifications} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
@@ -159,21 +160,21 @@ export default function Navbar() {
           </li>
 
           {/*button SignUp*/}
-          <li className={`  ${isAuth ? "hidden" : ``} `}>
+          <li className={`  ${userData ? "hidden" : ``} `}>
             <button className="">
               <Link
-                title={isAuth ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
+                title={userData ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
                 className="  py-1 px-1 sm:px-5 text-sm sm:text-md font-semibold  border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
-                {isAuth ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
+                {userData ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
               </Link>
             </button>
           </li>
 
           {/*user section*/}
-          <UserDropdown classNamed={`  ${isAuth ? "" : "hidden"} relative`} />
+          <UserDropdown classNamed={`  ${userData ? "" : "hidden"} relative`} />
         </ul>
 
         {/*button mobile links*/}

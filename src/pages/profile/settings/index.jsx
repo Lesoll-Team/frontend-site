@@ -6,16 +6,16 @@ import Head from "next/head";
 
 const index = () => {
   const router = useRouter();
-  const isLoading = useSelector((state) => state.Auth.isLoding);
+  const userData = useSelector((state) => state.userProfile.userData);
 
-  const [loading, setLoading] = useState(false);
+  const status = useSelector((state) => state.userProfile.status);
 
   useEffect(() => {
-    setLoading(isLoading);
-    if (!isLoading) {
+    if (status === "failed") {
       router.push("/");
     }
-  }, [isLoading, router]);
+  }, [status]);
+
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -26,7 +26,7 @@ const index = () => {
         <link rel="canonical" href={`https://lesoll.com/profile/settings`} />
       </Head>
 
-      {loading ? (
+      {userData ? (
         <UserSettings />
       ) : (
         <div className="w-full flex justify-center items-center h-screen ">
