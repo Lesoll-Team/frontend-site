@@ -18,8 +18,6 @@ export const getUserData = createAsyncThunk(
         );
         return response.data.userData;
       } catch (error) {
-        // console.error(error);
-        // return null;
         return thunkAPI.rejectWithValue(error.response);
       }
     } else {
@@ -44,8 +42,6 @@ const userProfileSlice = createSlice({
       .addCase(getUserData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
-        console.log(action.error);
-        console.log(action);
       });
   },
 });

@@ -9,6 +9,7 @@ import { Waveform } from "@uiball/loaders";
 import { FcGoogle } from "react-icons/fc";
 import { signWithGoogle } from "@/utils/userAPI";
 import GoogleSignInBtn from "./GoogleSignInBtn";
+import { resetLogin, userLogin } from "@/redux-store/features/auth/loginSlice";
 const SignInForm = () => {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
@@ -17,32 +18,34 @@ const SignInForm = () => {
 
   // redux states
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const status = useSelector((state) => state.Auth.status);
-  const error = useSelector((state) => state.Auth.registrationError);
-
+  const status = useSelector((state) => state.login.status);
+  const error = useSelector((state) => state.login.error);
   const [showPassword, setShowPassword] = useState(false);
   const [WrongPassword, setWrongPasswird] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
   // functions
   const onSubmit = async (data) => {
-    dispatch(loginUserAsync(data));
+    dispatch(userLogin(data));
   };
   useEffect(() => {
     if (status === "succeeded") {
       router.push("/");
+      dispatch(resetLogin());
     }
   }, [status]);
 
   useEffect(() => {
-    if (error === "This password is wrong, try agin") {
+    if (error?.message === "This password is wrong, try agin") {
       setWrongPasswird(true);
+      dispatch(resetLogin());
       setTimeout(function () {
         setWrongPasswird(false);
       }, 3500);
     }
-    if (error === "This Email Not Exist, try agin") {
+    if (error?.message === "This Email Not Exist, try agin") {
       setEmailNotFound(true);
+      dispatch(resetLogin());
       setTimeout(function () {
         setEmailNotFound(false);
       }, 3500);
@@ -170,6 +173,7 @@ const SignInForm = () => {
         <p className="text-gray-700">{language ? "او" : "or"}</p>
         <div className="h-[1px] w-full bg-gray-500"></div>
       </div>
+      {/* --------------- google sign in */}
       <GoogleSignInBtn />
       <div className="flex items-center justify-center">
         <p className="text-lightGray">

@@ -15,6 +15,7 @@ import needPostReducer from "./features/needsFeedSlice";
 import faqReducer from "./features/faqSlice";
 import registerReducer from "./features/auth/registerSlice";
 import userProfileReducer from "./features/auth/userProfileSlice";
+import loginReducer from "./features/auth/loginSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -28,6 +29,7 @@ export default combineReducers({
   needsPosts: needPostReducer,
   faq: faqReducer,
   register: registerReducer,
+  login: loginReducer,
   userProfile: userProfileReducer,
   // Compare:compareReducer,
 });
