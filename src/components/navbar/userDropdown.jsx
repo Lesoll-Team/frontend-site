@@ -11,27 +11,30 @@ import { logoutUserToken } from "../../redux-store/features/authSlice";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
+import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 function UserDropdown({ classNamed }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const [userDataInfo, setUserDataInfo] = useState({});
   useEffect(() => {
     setUserDataInfo(userInfo);
   });
   const handleLogout = () => {
     dispatch(logoutUserToken());
-    localStorage.clear();
+    dispatch(clearUserData());
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userIsLogin");
     router.push("/signin");
   };
 
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
-        transports: ['websocket'],
-        withCredentials: true,
-      });
+      transports: ["websocket"],
+      withCredentials: true,
+    });
     if (userDataInfo?._id) {
       socket.emit("online", { userId: userDataInfo._id });
     }

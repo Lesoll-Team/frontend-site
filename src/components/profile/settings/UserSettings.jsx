@@ -14,7 +14,7 @@ const EditPassword = dynamic(() => import("./EditPassword"));
 // import EditPassword from "./EditPassword";
 
 const UserSettings = () => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const [userDataInfo, setUserDataInfo] = useState({});
 
   const [content, setContent] = useState("info");

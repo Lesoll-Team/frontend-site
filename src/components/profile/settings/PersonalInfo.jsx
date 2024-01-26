@@ -20,7 +20,7 @@ const PersonalInfo = () => {
 
   // const [emailVerified] = useState(false);
   const [modelVerified, setModelVerified] = useState(false);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const isUpdated = useSelector((state) => state.GlobalState.isUpdated);
   const updateError = useSelector((state) => state.GlobalState.updateError);
   const [userDataInfo, setUserDataInfo] = useState({});

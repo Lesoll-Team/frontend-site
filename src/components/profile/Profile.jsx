@@ -16,7 +16,7 @@ import { LiaHandshakeSolid } from "react-icons/lia";
 import InActiveAds from "./InActiveAds";
 import SoldOut from "./SoldOut";
 const Profile = () => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [userDataInfo, setUserDataInfo] = useState({});
   const [content, setContent] = useState("active");
@@ -32,9 +32,9 @@ const Profile = () => {
     setContent("favorites");
   };
 
-    const switchSoldOut = () => {
-      setContent("sold");
-    };
+  const switchSoldOut = () => {
+    setContent("sold");
+  };
   useEffect(() => {
     setUserDataInfo(userInfo);
   }, [userInfo]);
@@ -65,7 +65,6 @@ const Profile = () => {
                     </p>
                     {/* @{userDataInfo?.username} */}
                   </div>
-
                 </div>
               </div>
               <Link

@@ -1,3 +1,4 @@
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
@@ -11,7 +12,7 @@ import { TbRulerMeasure } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
@@ -20,6 +21,7 @@ const RealtyCard = ({ propertyDetails }) => {
     try {
       await AddToFavorites(propertyDetails?._id);
       dispatch(fetchUserData());
+      dispatch(getUserData());
 
       // Handle success (e.g., show a success message)
     } catch (error) {

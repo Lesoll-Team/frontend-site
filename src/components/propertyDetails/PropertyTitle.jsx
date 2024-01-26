@@ -1,55 +1,11 @@
 import Link from "next/link";
-import React, { memo, useState } from "react";
-import {
-  // MdOutlineFavorite,
-  // MdOutlineShare,
-  // MdReportProblem,
-  MdKeyboardArrowRight,
-  // MdCheckCircleOutline,
-} from "react-icons/md";
-// import { Tooltip, Button } from "@nextui-org/react";
-import {useSelector } from "react-redux";
-// import { BsPlus, BsSlashCircle } from "react-icons/bs";
-// import { PiEye, PiEyeClosed, PiEyeLight } from "react-icons/pi";
-// import { HiPlusSm } from "react-icons/hi";
-// import { TiTick } from "react-icons/ti";
-// import { AddToFavorites } from "@/utils/propertyAPI";
-// import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-// import { fetchUserData } from "@/redux-store/features/globalState";
-// import SocialMediaModal from "@/Shared/models/SocialMediaModal";
+import React, { memo } from "react";
+import { MdKeyboardArrowRight } from "react-icons/md";
+
+import { useSelector } from "react-redux";
 
 function PropertyTitle({ singleTitle }) {
-  // const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // const [loved, setLoved] = useState(false);
-
-  // const [compare, setCompare] = useState(false);
-  // const addPropertyToCompared=()=>{
-  //   dispatch(AddCompareCard(singleTitle._id))
-  //   dispatch(fetchUserData())
-  // }
-
-  // const addToFAv = async () => {
-  //   try {
-  //     await AddToFavorites(singleTitle?._id);
-  //     dispatch(fetchUserData());
-
-  //     // Handle success (e.g., show a success message)
-  //   } catch (error) {
-  //     // Handle error (e.g., display an error message)
-  //     console.error("Error add to fav :", error);
-  //   }
-  // };
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
-  // useEffect(() => {
-  //   if (userInfo?.favorites.includes(singleTitle?._id)) {
-  //     setLoved(true);
-  //   }
-  // }, [userInfo?.favorites]);
-  // const openDirectionsInGoogleMaps = (lat, lng) => {
-  //   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-  //   window.open(url, "_blank");
-  // };
 
   return (
     <div>

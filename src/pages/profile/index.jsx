@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const ProfilePage = () => {
   const router = useRouter();
-  const userData = useSelector((state) => state.GlobalState.userData);
+  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const status = useSelector((state) => state.userProfile.status);
 

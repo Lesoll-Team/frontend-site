@@ -36,7 +36,7 @@ const AddProperty = () => {
     fetchRegion();
   }, []);
 
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   const [propertyDetils, setPropertyDetils] = useState({
     title: "",

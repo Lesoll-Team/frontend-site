@@ -22,7 +22,7 @@ function UserModule() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   // const blogSending = useSelector((state) => state.BlogDashboard.blogSending);
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   const [titleAR, setTitleAR] = useState("");
   const [titleEN, setTitleEN] = useState("");

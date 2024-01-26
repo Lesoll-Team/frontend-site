@@ -8,7 +8,7 @@ import { DotPulse } from "@uiball/loaders";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
+  // const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
   const [propData, setPropData] = useState("");
   const propertyId = router.query.id;

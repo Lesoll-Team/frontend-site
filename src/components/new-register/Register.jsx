@@ -3,9 +3,9 @@ import RegisterForm from "./RegisterForm";
 
 const Register = () => {
   return (
-    <div className="grid lg:grid-cols-2 min-h-[94dvh]">
+    <div className="grid lg:grid-cols-2 min-h-[100dvh]">
       {/* <div className="hidden md:flex h-100 min-h-[90dvh] bg-lightGreen items-center w-1/2 justify-start flex-col relative"> */}
-      <div className="flex h-full flex-col items-center justify-center">
+      <div className="flex h-full flex-col items-center justify-center ">
         <RegisterForm />
       </div>
       <Image
@@ -14,7 +14,7 @@ const Register = () => {
         height={"100"}
         radius="none"
         // loading="lazy"
-        className="object-cover lg:block hidden  h-[94dvh] w-full "
+        className="object-cover lg:block hidden  min-h-screen w-full "
       />
     </div>
   );

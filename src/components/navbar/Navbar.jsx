@@ -37,7 +37,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isLoading = useSelector((state) => state.Auth.isLoding);
-  const userData = useSelector((state) => state.GlobalState.userData);
+  const userData = useSelector((state) => state.userProfile.userData);
 
   const [isAuth, setAuth] = useState(false);
 

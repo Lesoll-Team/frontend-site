@@ -155,7 +155,7 @@ const EditProp = ({ propData, setPropData }) => {
 
     setIsSubmitting(false);
   };
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   return (
     <motion.div

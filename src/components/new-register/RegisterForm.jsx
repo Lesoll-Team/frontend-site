@@ -12,6 +12,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useDispatch, useSelector } from "react-redux";
+import GoogleSignInBtn from "../new-signin/GoogleSignInBtn";
 
 const RegisterForm = () => {
   // const [verificationMethod, setVerificationMethod] = useState("email");
@@ -313,7 +314,7 @@ const RegisterForm = () => {
 
       <button
         type="submit"
-        className="w-full p-3 h-12 md:h-14 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
+        className="w-full p-3 h-12  flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
         {status === "loading" ? (
           <>
@@ -326,11 +327,29 @@ const RegisterForm = () => {
             </div>
           </>
         ) : (
-          <span>{language ? "سجل الدخول" : "Sign In"}</span>
+          <span>{language ? "إنشاء حساب" : "Sign up"}</span>
         )}
 
         {/* text */}
       </button>
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
+          <div className="h-[1px] w-full bg-gray-500"></div>
+          <p className="text-gray-700">{language ? "او" : "or"}</p>
+          <div className="h-[1px] w-full bg-gray-500"></div>
+        </div>
+        {/* --------------- google sign in */}
+        <GoogleSignInBtn />
+      </div>
+
+      <div className="flex items-center justify-center gap-1">
+        <p className="text-lightGray">
+          {language ? "لديك حساب بالفعل؟" : "already have an account?"}
+        </p>
+        <Link className="text-lightGreen" href={"/signin"}>
+          {language ? "سجل الدخول" : "Sign in"}
+        </Link>
+      </div>
     </form>
   );
 };

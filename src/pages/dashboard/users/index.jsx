@@ -6,9 +6,7 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 // import { Button } from "@nextui-org/react";
 // import axios from "axios";
 function Users() {
-
-
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
   useEffect(() => {
     if (userInfo && userInfo.isAdmin === false && userInfo.supAdmin === false) {

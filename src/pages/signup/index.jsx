@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const SignUp = () => {
   const router = useRouter();
-  const userData = useSelector((state) => state.GlobalState.userData);
+  const userData = useSelector((state) => state.userProfile.userData);
 
   useEffect(() => {
     if (userData) {

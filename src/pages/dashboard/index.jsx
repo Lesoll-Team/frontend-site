@@ -47,7 +47,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
 
   const dataSale = useSelector((state) => state.OverView.dataSale);
@@ -90,7 +90,6 @@ function Dashboard() {
     dispatch(getRentView(dates));
     dispatch(getDeleteView(dates));
     dispatch(getUsersView(dates));
-
   }, [dateRange]);
 
   useEffect(() => {
@@ -311,7 +310,6 @@ function Dashboard() {
             <Button
               onClick={() => downloadRealtyData(dates)}
               className="font-semibold bg-orange-500 text-white "
-              
             >
               {" "}
               Download realty

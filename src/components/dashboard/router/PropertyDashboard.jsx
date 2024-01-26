@@ -47,7 +47,7 @@ export default function PropertyDashboard() {
   useEffect(() => {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const fetchAllProperties = async () => {
     try {
       const userToken = JSON.parse(localStorage.getItem("userToken"));

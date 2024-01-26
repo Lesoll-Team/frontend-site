@@ -16,9 +16,10 @@ import { useMemo, memo } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "@/redux-store/features/globalState";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const FavCard = ({ propDetails, onRemove }) => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
@@ -28,6 +29,7 @@ const FavCard = ({ propDetails, onRemove }) => {
       // After successfully adding to favorites, trigger the removal callback
       onRemove(propDetails._id);
       dispatch(fetchUserData());
+      dispatch(getUserData());
     } catch (error) {
       console.error("Error add to fav:", error);
     }

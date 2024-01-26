@@ -11,16 +11,12 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Signin from "@/components/new-signin/Signin";
 const SignIn = () => {
-  // const {data:session}=useSession()
-
   const router = useRouter();
-  // const isLoading = useSelector((state) => state.Auth.isLoding);
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.GlobalState.userData);
 
-  // const [loading, setLoading] = useState(false);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
+
   useEffect(() => {
-    // setLoading(isLoading);
     if (userData) {
       router.push("/"); // This will navigate to the home page after login is complete
     }
@@ -28,7 +24,7 @@ const SignIn = () => {
   return (
     <>
       <Head>
-        <title>{language ? "تسجيل الدخول" : "Sign Im"}</title>
+        <title>{language ? "تسجيل الدخول" : "Sign In"}</title>
         <meta
           name="description"
           content="قم بتسجيل الدخول إلى حسابك على منصتنا للعقارات. احصل على وصول إلى بحوثك المحفوظة والقوائم المفضلة والمزيد. عملية تسجيل دخول آمنة ومريحة لتجربة شخصية."

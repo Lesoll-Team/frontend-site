@@ -9,7 +9,7 @@ import UserTypeForm from "@/components/addproperty/userTypeForm/UserTypeForm";
 import NotSignedScreen from "@/components/addproperty/NotSignedScreen";
 const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   return (
     // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">

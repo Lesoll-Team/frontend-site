@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Userdata = ({ userData, totalProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقاراتك اللى تم نشرها على موقع ليسول

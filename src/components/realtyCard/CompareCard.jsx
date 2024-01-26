@@ -5,7 +5,7 @@
 // import { useSelector } from "react-redux";
 // import { useEffect, useState, memo } from "react";
 // const CompareCard = ({ propertyDetails }) => {
-//   const userInfo = useSelector((state) => state.GlobalState.userData);
+//   const userInfo = useSelector((state) => state.userProfile.userData);
 //   const [loved, setLoved] = useState(false);
 //   const addToFAv = async () => {
 //     try {
@@ -78,11 +78,11 @@
 //             dir="rtl"
 //             className=" text-lightOrange mt-3  px-5 flex justify-between  hover:underline  font-medium"
 //           >
-            
+
 //             {/* asasasadasdsadsadasdasdasdasdasd */}
 //               {/* {propertyDetails?.title.substring(0, 30)*/}
 //               {propertyDetails?.title.length>27?<p>{propertyDetails?.title.slice(0, 25)} ...</p> : <p>{propertyDetails?.title}</p>}
-            
+
 //           </div>
 //         </Link>
 
