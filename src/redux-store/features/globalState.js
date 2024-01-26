@@ -80,5 +80,5 @@ export const globalState = createSlice({
     // .addCase()
   },
 });
-export const { handleLanguage, setLang } = globalState.actions; //logoutUser
+export const { setLang } = globalState.actions; //logoutUser
 export default globalState.reducer;
