@@ -16,7 +16,7 @@ import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
 
 import { useDispatch, useSelector } from "react-redux";
-import { handleLanguage } from "@/redux-store/features/globalState";
+import { setLang } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
 export default function Navbar() {
@@ -112,35 +112,25 @@ export default function Navbar() {
 
           {/*button language*/}
           <li className={`  lg:flex hidden`}>
-            <button
-              onClick={() => dispatch(handleLanguage())}
-              className="
+            {languageIs ? (
+              <button
+                onClick={() => dispatch(setLang(false))}
+                className="
               flex py-1 px-1   w-24   text-md rounded-full 
                             duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
-            >
-              <ul className="mx-1">
-                {languageIs ? (
-                  <ReactCountryFlag
-                    countryCode="US"
-                    svg
-                    cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                    cdnSuffix="svg"
-                    title="US"
-                    alt="US-lan"
-                  />
-                ) : (
-                  <ReactCountryFlag
-                    countryCode="EG"
-                    svg
-                    cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                    cdnSuffix="svg"
-                    title="US"
-                    alt="EG-lan"
-                  />
-                )}
-              </ul>
-              <ul className="mx-1">{languageIs ? `English` : `عربى`}</ul>
-            </button>
+              >
+                English
+              </button>
+            ) : (
+              <button
+                onClick={() => dispatch(setLang(true))}
+                className="
+              flex py-1 px-1   w-24   text-md rounded-full 
+                            duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
+              >
+                عربى
+              </button>
+            )}
           </li>
 
           {/*button Notifications */}
@@ -209,17 +199,21 @@ export default function Navbar() {
           <div className="items-center overflow-hidden ">
             <MobileMenu onInputClick={handleInputClick} />
             <div className={` flex  justify-center`}>
-              <button
-                onClick={() => dispatch(handleLanguage())}
-                className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
-              >
-                <div className="flex items-center">
-                  <IoLanguage />
-                  <div className="mx-2">
-                    {languageIs ? "English" : "  عربى "}
-                  </div>
-                </div>
-              </button>
+              {languageIs ? (
+                <button
+                  onClick={() => dispatch(setLang(false))}
+                  className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
+                >
+                  English
+                </button>
+              ) : (
+                <button
+                  onClick={() => dispatch(setLang(true))}
+                  className=" flex py-4 rounded-full w-10/12 my-2 shadow-md  justify-center duration-300 text-lightGreen hover:bg-gray-200 hover:text-darkGreen  active:scale-95"
+                >
+                  عربى
+                </button>
+              )}
             </div>
           </div>
         </div>

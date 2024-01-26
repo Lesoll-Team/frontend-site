@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
-import { fetchUserData } from "@/redux-store/features/globalState";
+import { fetchUserData, setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
@@ -35,7 +35,10 @@ export default function Layout({ children }) {
     dispatch(getUserData());
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
-
+  useEffect(() => {
+    const lang = JSON.parse(localStorage.getItem("language"));
+    dispatch(setLang(lang));
+  }, []);
   return (
     <div
       style={{
