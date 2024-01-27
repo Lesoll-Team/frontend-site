@@ -43,7 +43,7 @@ const registerSlice = createSlice({
       .addCase(userRegister.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-        console.log(action.payload);
+        // console.log(action.payload);
       });
   },
 });

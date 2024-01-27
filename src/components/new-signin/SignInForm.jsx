@@ -175,9 +175,9 @@ const SignInForm = () => {
       </div>
       {/* --------------- google sign in */}
       <GoogleSignInBtn />
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-1">
         <p className="text-lightGray">
-          {language ? "لا تمتلك حساب؟" : "Don't have an account"}
+          {language ? "لا تمتلك حساب؟" : "Don't have an account?"}
         </p>
         <Link className="text-lightGreen" href={"/signup"}>
           {language ? "سجل الأن" : "Register Now"}

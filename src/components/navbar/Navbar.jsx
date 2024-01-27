@@ -3,11 +3,8 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import logoNavbar from "../../../public/icons/logoNavbar.png";
 import { useState, useEffect, useRef } from "react";
-import ReactCountryFlag from "react-country-flag";
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLanguage } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
 import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
@@ -36,14 +33,8 @@ export default function Navbar() {
   const [notifications, setNotifications] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isLoading = useSelector((state) => state.Auth.isLoding);
   const userData = useSelector((state) => state.userProfile.userData);
 
-  const [isAuth, setAuth] = useState(false);
-
-  // useEffect(() => {
-  //   setAuth(isLoading);
-  // });
   const mobileMenuRef = useRef(null);
   const notificationsMenuRef = useRef(null);
 
@@ -116,8 +107,7 @@ export default function Navbar() {
               <button
                 onClick={() => dispatch(setLang(false))}
                 className="
-              flex py-1 px-1   w-24   text-md rounded-full 
-                            duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
+              flex py-1 px-1   w-24   text-md rounded-full duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
               >
                 English
               </button>
@@ -125,8 +115,7 @@ export default function Navbar() {
               <button
                 onClick={() => dispatch(setLang(true))}
                 className="
-              flex py-1 px-1   w-24   text-md rounded-full 
-                            duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
+              flex py-1 px-1   w-24   text-md rounded-full duration-300 text-darkGreen bg-white hover:bg-gray-100 hover:text-darkGreen justify-center  active:scale-95 items-center "
               >
                 عربى
               </button>
