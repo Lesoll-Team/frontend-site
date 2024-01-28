@@ -4,12 +4,8 @@ import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 // import { useRouter } from "next/router";
-import {
-  AiFillHeart,
-  AiOutlineHeart,
-  AiOutlineShareAlt,
-} from "react-icons/ai";
-import { BiPhoneCall} from "react-icons/bi";
+import { AiFillHeart, AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
+import { BiPhoneCall } from "react-icons/bi";
 import { AddToFavorites, CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
 import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
@@ -255,7 +251,7 @@ function ConfirmAppointment({ userAppointment }) {
             )}
           </div>
           <div className="flex justify-between flex-row-reverse items-center pt-2">
-            {userInfo && userInfo.isAdmin && (
+            {userInfo && (userInfo.isAdmin || userInfo?.supAdmin) && (
               <Link
                 title={language ? " تفاصيل العقار" : "Edit Property"}
                 href={`/dashboard/property-details/${userAppointment.slug}`}
@@ -347,4 +343,3 @@ function ConfirmAppointment({ userAppointment }) {
   );
 }
 export default memo(ConfirmAppointment);
-
