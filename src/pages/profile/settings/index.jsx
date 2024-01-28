@@ -21,6 +21,7 @@ const index = () => {
   return (
     <>
       <Head>
+        <meta name="robots" content="noindex, nofollow" />
         <title>{language ? "إعدادات الحساب" : "Account Settings"}</title>
         <meta name="description" content="اعدادات حسابك" />
         <link rel="canonical" href={`https://lesoll.com/profile/settings`} />

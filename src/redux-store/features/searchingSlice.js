@@ -13,7 +13,6 @@ export const dataFoundFromSearch = createAsyncThunk(
   "Searching/foundKeyword",
   async({ InputKeywords, page }) => {
     try {
-      // console.log("InputKeywords redux",InputKeywords);
       const response =await foundKeyword(InputKeywords, page);
       return response;
     } catch (error) {

@@ -27,12 +27,9 @@ function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
   );
   const handleUpdateData = async (e) => {
     e.preventDefault();
-    // try {
       const newUserData = { typeOfUser, isAdmin };
       await updateUsers(userID, newUserData);
-    // } catch (error) {
-    //   console.error("Error Update User Data:", error);
-    // }
+
   };
 
   return (

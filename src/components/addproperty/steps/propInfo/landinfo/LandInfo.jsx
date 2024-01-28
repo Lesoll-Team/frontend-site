@@ -17,7 +17,6 @@ const LandInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       { value: "acre", name: "فدان" },
     ],
   };
-  // console.log(propertyDetils);
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-[4%]">
       <div className="w-full">
@@ -73,7 +72,6 @@ const LandInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
         title={language ? "مسجل" : "Registerd"}
         value={propertyDetils.isRegisterd}
         setValue={(e) => {
-          // console.log(propertyDetils);
           setData({
             ...propertyDetils,
             isRegisterd: e,

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input, Textarea } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Head from "next/head";
 // editBlog
 const EditBlog = ({ singleBlog }) => {
   const router = useRouter();
@@ -88,10 +89,13 @@ const EditBlog = ({ singleBlog }) => {
 
     //  setMessageAddBlog(data);
   };
-    //  console.log(singleBlog.getBlogs._id);
 
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>

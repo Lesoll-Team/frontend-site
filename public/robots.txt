@@ -8,12 +8,16 @@ Disallow: /dashboard/prop-pending
 Disallow: /dashboard/users
 Disallow: /dashboard/blog
 Disallow: /dashboard/blog/add-blog
-disallow: /signin
-disallow: /signup
+Disallow: /signin
+Disallow: /signup
 Disallow: /feed/
 Disallow: /privacypolicy
 Disallow: /Privacy
 Disallow: /forgetpassword
+Disallow: /resetpassword
+Disallow: /view-profile/
 Disallow: /termsofservice
+Disallow: /need
+Disallow: /google-log
 
 Sitemap: https://lesoll.com/sitemap.xml

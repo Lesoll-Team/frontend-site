@@ -38,8 +38,7 @@ const AddPropDropdown = ({
   useEffect(() => {
     setSelectedOption(value);
   }, []);
-  // console.log(selectoption);
-  // console.log(title, value);
+
   // const [selectName, setSelectedName] = useState(value);
   return (
     <div className="relative w-full cursor-pointer ">

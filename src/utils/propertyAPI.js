@@ -19,6 +19,21 @@ export async function createNewProperty(propertyDetils) {
     throw error.response.data;
   }
 }
+
+export async function propertyIsSold({propertyId}) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+
 export async function editProperty(propertyDetils, propertyId) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -137,7 +152,6 @@ export async function deleteProperty(propertyid, message) {
     return response.data;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -157,7 +171,6 @@ export async function getRecommendRealty(propertyid) {
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -177,7 +190,6 @@ export async function GetActiveProp(page) {
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 export async function GetEditAds(slug) {
@@ -196,7 +208,6 @@ export async function GetEditAds(slug) {
     return response.data.find;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 

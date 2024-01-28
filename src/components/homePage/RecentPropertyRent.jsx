@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 // import RealtyCardRent from "../realtyCard/RealtyCard";
-
+// import dynamic from "next/dynamic";
+// const RealtyCard = dynamic(() => import("../realtyCard/RealtyCard"));
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@nextui-org/react";
 import RealtyCard from "../realtyCard/RealtyCard";
 const RecentPropertyRent = ({ propertiesRent }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // console.log(property);
   return (
     <section className=" px-2 my-24 ">
       <div className="container mx-auto">

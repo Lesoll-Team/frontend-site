@@ -1,6 +1,4 @@
 import Image from "next/image";
-import mainImg from "../../../public/about/element-1.svg";
-import aboutImg from "../../../public/about/element-2.svg";
 import missionImg from "../../../public/about/mission.svg";
 import visionImg from "../../../public/about/vision.svg";
 import goalsImg from "../../../public/about/goals.svg";

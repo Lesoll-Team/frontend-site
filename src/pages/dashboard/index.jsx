@@ -17,10 +17,7 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-// import {
-//   fetchPropertiesView,
-//   fetchSaleView,
-// } from "@/utils/dashboardApi/overviewDashboard";
+
 import {
   getDeleteView,
   getPropertiesView,
@@ -33,7 +30,9 @@ import {
   downloadUserData,
   downloadRealtyData,
   downloadOverviewData,
+  downloadSearchKeyword,
 } from "@/utils/dashboardApi/overviewDashboard";
+import Head from "next/head";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -248,9 +247,13 @@ function Dashboard() {
       },
     ],
   };
-  // console.log("data is", dataDelete?.resultDelete.length);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh]  flex" dir="ltr">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+
       <div className="relative">
         <div className="bg-lightGreenHover  sticky top-0">
           <Sidebar />
@@ -302,27 +305,35 @@ function Dashboard() {
           <div className="space-y-3 space-x-3">
             <Button
               onClick={() => downloadOverviewData(dates)}
-              className="font-semibold text-white "
-              color="success"
+              className="font-semibold bg-slate-700 text-white "
+              // color=""
             >
               {" "}
-              download overview
+              Download overview
             </Button>
             <Button
               onClick={() => downloadRealtyData(dates)}
-              className="font-semibold text-white "
-              color="success"
+              className="font-semibold bg-orange-500 text-white "
             >
               {" "}
-              download realty
+              Download realty
             </Button>
             <Button
               onClick={() => downloadUserData(dates)}
               className="font-semibold text-white "
-              color="success"
+              color="primary"
             >
               {" "}
-              download user
+              Download user
+            </Button>
+
+            <Button
+              onClick={() => downloadSearchKeyword(dates)}
+              className="font-semibold text-white "
+              color="warning"
+            >
+              {" "}
+              Download search keyword
             </Button>
           </div>
         </div>

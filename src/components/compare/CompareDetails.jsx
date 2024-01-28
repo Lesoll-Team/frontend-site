@@ -3,7 +3,6 @@
 
 // function CompareDetails({propertyDetails}) {
 //   const language = useSelector((state) => state.GlobalState.languageIs);
-// console.log(propertyDetails);
 //   return (    
 //     <div className=' w-full bg-white rounded-lg p-5'>
 //     <div className='  py-2 w-full flex justify-between'>

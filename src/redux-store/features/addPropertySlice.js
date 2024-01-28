@@ -64,7 +64,6 @@ const addPropertySlice = createSlice({
   initialState,
   reducers: {
     setNextStep: (state) => {
-      // console.log("a");
       state.step += 1;
     },
     setBackStep: (state) => {

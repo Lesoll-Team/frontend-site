@@ -22,7 +22,6 @@ const AboutUser = ({ totalProperties, userData, propertiesNums }) => {
           propertiesNums.forSale)) *
         100 || 0,
   };
-  console.log(totalProperties);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (

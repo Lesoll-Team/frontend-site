@@ -1,10 +1,11 @@
-import { GetAllActiveProp } from "@/redux-store/features/profileSlice";
+import { GetAllActiveProp
+  , getOutSold
+ } from "@/redux-store/features/profileSlice";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/paginations.module.css"; // Import the CSS module
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "@/redux-store/features/profileSlice";
-// import ProfileCard from "./realtyCards/ProfileCard";
 import Link from "next/link";
 import { BsHouseAddFill } from "react-icons/bs";
 import { DotPulse } from "@uiball/loaders";
@@ -13,12 +14,13 @@ import UserCard from "./realtyCards/UserCard";
 const ActiveAds = () => {
   const [activeAdds, setActiveAdds] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   const dispatch = useDispatch();
-  // const language = useSelector((state) => state.GlobalState.languageIs);
   const activeProp = useSelector((state) => state.Profile.activeProp);
   const currentPage = useSelector((state) => state.Profile.currentPage);
   const totalPages = useSelector((state) => state.Profile.totalPages);
+  // const isLoading = useSelector((state) => state.Profile.isLoading);
+  // const outSoldProp = useSelector((state) => state.Profile.outSoldProp);
+
   const handlePageChange = (selectedPage) => {
     dispatch(setCurrentPage(selectedPage + 1));
   };
@@ -30,14 +32,6 @@ const ActiveAds = () => {
     setActiveAdds(activeProp);
   }, [currentPage, activeProp]);
 
-  const handledelete = (propertyIdToRemove) => {
-    setActiveAdds((prevActiveAdds) =>
-      prevActiveAdds?.confirmedRealty?.filter(
-        (prop) => prop._id !== propertyIdToRemove
-      )
-    );
-  };
-  // console.log(activeAdds?.confirmedRealty);
   return (
     <div className="w-full">
       <h2 className="text-center font-bold text-lightGreen text-4xl">
@@ -54,14 +48,13 @@ const ActiveAds = () => {
       ) : activeAdds?.confirmedRealty?.length > 0 ? (
         <>
           <div className="grid min-h-[75dvh] md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-20 py-10 mx-auto justify-items-center">
-            {/*انا محدد اللى يتعرض عقار واحد بس  */}
-
             {activeAdds?.confirmedRealty?.map((propActive) => (
               <UserCard
-                onRemove={handledelete}
+                omDelete={GetAllActiveProp({ page: currentPage })}
                 key={propActive._id}
                 propertyDetails={propActive}
                 type="active"
+                onSold={GetAllActiveProp({ page: currentPage })}
               />
             ))}
           </div>

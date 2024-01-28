@@ -2,10 +2,10 @@ import axios from "axios";
 
 export async function getUserOffline({ url }) {
   try {
-    const userID = JSON.parse(localStorage.getItem("local_storage_device_id"));
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userID}&urlString=${url}`
+      `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${userToken?userToken:undefined}&urlString=${url}`
     );
     return response.data;
   } catch (error) {
@@ -57,7 +57,6 @@ export async function updateUserDataInfo(userID, userUpdate) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
   try {
-    // console.log("updateUserDataInfo",userID,userToken,userUpdate,);
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}`,
       userUpdate,
@@ -74,7 +73,7 @@ export async function updateUserDataInfo(userID, userUpdate) {
     return null;
   }
   // }
-  return null;
+  // return null;
 }
 
 export async function changePassword(userNewPassword) {
@@ -90,11 +89,8 @@ export async function changePassword(userNewPassword) {
         },
       }
     );
-    // console.log("yes out 1:",response.data);
     return response.data;
   } catch (error) {
-    // console.log(error);
-    // console.log("error out 2:",error);
     return error.response.data;
   }
 }
@@ -167,15 +163,10 @@ export async function signWithGoogle() {
     );
     const authUrl = response.data.Link;
     window.location.href = authUrl;
-    // window.open(authUrl,"_blank");
-    // console.log("response",response.data);
-    // return response
   } catch (error) {
     console.log(error);
   }
-  // console.log(response);
 }
-
 export async function GetActiveProp(page) {
   try {
     const response = await axios.get(
@@ -192,6 +183,14 @@ export async function GetActiveProp(page) {
   }
 }
 
+export async function updateGoogleData({data,token}) {
+  try {
+    // const response =
+     await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-users-google?token=${token}`,data);
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function ViewUser(username) {
   try {
     const response = await axios.get(
@@ -283,3 +282,32 @@ export const downloadUserLog = async (id, name) => {
   link.click();
   document.body.removeChild(link);
 };
+
+
+export async function getOutSoldProperties() {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/sold/get`,
+      { headers: { token: userToken } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function getPendingProperties() {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
+      { headers: { token: userToken } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

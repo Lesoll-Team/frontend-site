@@ -8,6 +8,7 @@ const index = () => {
   return (
     <>
       <Head>
+          <meta name="robots" content="noindex, nofollow" />
         <title>
           {language ? "سياسة الخصوصية | ليسول " : "Privacy & Policy | Lesoll "}{" "}
         </title>

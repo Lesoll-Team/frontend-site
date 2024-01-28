@@ -2,6 +2,7 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import UserDetails from "@/components/dashboard/router/userDetails/UserDetails";
 import { getUserDataDashboard } from "@/utils/userAPI";
 import { DotPulse } from "@uiball/loaders";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -21,7 +22,6 @@ const UserDetailsPage = () => {
     const fetchData = async () => {
       if (slug) {
         const data = await getUserDataDashboard(slug);
-        // console.log(data);
         setUserData(data.getData);
 
         setVisitedPages(data.linksUserVisit);
@@ -38,6 +38,10 @@ const UserDetailsPage = () => {
 
   return (
     <div className="min-h-[90dvh] w-full flex" dir="ltr">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>

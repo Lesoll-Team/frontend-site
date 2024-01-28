@@ -1,4 +1,4 @@
-import { useLoadScript, GoogleMap, Marker } from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 
 const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData, propErrors }) {
-  // console.log(propertyDetils);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: ["places"],
@@ -35,10 +34,9 @@ const center = { lat: 30, lng: 31.4 };
 const Map = ({ propertyDetils, setData, propErrors }) => {
   // const getLatLngWithGovAndRegion = async () => {
   //   const result = await getGeocode({ address: "cairo , nasr city" });
-  //   console.log(result[0].geometry.location.lat());
+  // 
   // };
   // geoo();
-  // console.log(propertyDetils);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selected, setSelected] = useState(null);
   const [inputValue, setInputValue] = useState("");
@@ -48,13 +46,10 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
   //   const lat = latLng.lat();
   //   const lng = latLng.lng();
   //   setSelected({ lat, lng });
-  //   // console.log(selected);
   //   const query = `${lat},${lng}`;
   //   // Use getGeocode to retrieve place details including place_id
   //   // const result = await getGeocode(selected);
   //   const result = await getGeocode({ address: query });
-  //   // console.log(result);
-  //   // console.log(result[0]);
   //   const { place_id, formatted_address, address_components } = result[0];
 
   //   let governrate = "";
@@ -70,7 +65,6 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
   //   });
   //   // const { lat, lng } = getLatLng(result[0]);
   //   setSelected({ lat, lng });
-  //   // console.log(result[0]);
   //   setData({
   //     ...propertyDetils,
   //     address: {
@@ -83,9 +77,7 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
   //   setInputValue(propertyDetils.address.name);
 
   //   // setBlah(result);
-  //   // console.log(getGeocode(selected));
   //   // const { place_id } = result[0];
-  //   // console.log(place_id);
 
   //   // setSelected({ lat, lng });
 
@@ -150,7 +142,6 @@ const PlacesAutoComplete = ({
   const handleSelect = async (address) => {
     setValue(address, false);
     clearSuggestions();
-    // console.log(address);
     const result = await getGeocode({ address });
     const { address_components } = result[0];
 
@@ -170,7 +161,6 @@ const PlacesAutoComplete = ({
 
     const { lat, lng } = getLatLng(result[0]);
     setSelected({ lat, lng });
-    // console.log(result[0]);
     setData({
       ...propertyDetils,
       address: {
@@ -184,8 +174,6 @@ const PlacesAutoComplete = ({
       },
     });
 
-    // console.log(propertyDetils);
-    // console.log(result[0]);
   };
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -206,7 +194,6 @@ const PlacesAutoComplete = ({
             //     placeId: result[0]?.place_id,
             //   },
             // });
-            // console.log(data);
           }}
           disabled={!ready}
           className={` w-full text-lg font-semibold text-darkGreen focus:outline-none focus:border-lightGreen placeholder:text-gra placeholder:opacity-60   border-[3px] rounded-xl p-3 py-4 ${

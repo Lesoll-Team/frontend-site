@@ -1,18 +1,25 @@
 import DeleteModal from "@/Shared/models/DeleteModal";
-import { deleteProperty } from "@/utils/propertyAPI";
+import { deleteProperty, propertyIsSold } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
-import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
+import { HiRefresh } from "react-icons/hi";
+
+import {
+  //  AiFillDelete,
+  AiOutlineEdit,
+} from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
+import { MdDeleteForever } from "react-icons/md";
 import { TbRulerMeasure } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const UserCard = ({ propertyDetails, type, onRemove }) => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+const UserCard = ({ propertyDetails, type, onSold, omDelete }) => {
+  const dispatch = useDispatch();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selectedReason, setSelectedReason] = useState("");
   const [reason, setReason] = useState("");
@@ -27,8 +34,16 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
   const deleteProp = async () => {
     try {
       await deleteProperty(propertyDetails._id, reason);
-      // After successfully adding to favorites, trigger the removal callback
-      onRemove(propertyDetails._id);
+      dispatch(omDelete);
+    } catch (error) {
+      console.error("Error del prop:", error);
+    }
+  };
+
+  const propertyOnSold = async () => {
+    try {
+      await propertyIsSold({ propertyId: propertyDetails?._id });
+      dispatch(onSold);
     } catch (error) {
       console.error("Error del prop:", error);
     }
@@ -52,8 +67,10 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
             ? language
               ? "تحت المراجعة"
               : "pending"
-            : type === "draft"
-            ? "draft"
+            : propertyDetails?.isSold == true
+            ? language
+              ? "تم البيع"
+              : "Out of sale"
             : ""}
         </p>
       </div>
@@ -138,7 +155,7 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
           </span>
         </p>
 
-        <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
+        <div className="w-full h-[2px]  rounded-full"></div>
         <div className=" text-darkGray w-full  flex  justify-between ">
           <div className="flex items-center justify-start gap-1">
             {" "}
@@ -181,14 +198,41 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
         </div>
       </div>
 
-      <div className="flex items-center  gap-1 w-full p-2 ">
-        <div className="w-1/2">
+      <div className="flex justify-center  gap-1 w-full py-2 ">
+        <Link
+          className="px-2 rounded-lg text-center flex items-center justify-center text-lightGreen  border-lightGreen border-2 py-1 md:hover:bg-lightGreen md:hover:text-white duration-150"
+          title={language ? "تعديل العقار" : "Edit Property"}
+          href={`/editproperty/${propertyDetails.slug}`}
+        >
+          <AiOutlineEdit className="text-xl md:text-2xl " />{" "}
+          {/* {language ? "تعديل" : "Edit"} */}
+        </Link>
+        {type === "pending"?null:(
+        <button
+          onClick={propertyOnSold}
+          className=" w-[150px] rounded-lg text-center flex items-center justify-center text-white font-bold text-xl  md:hover:bg-white bg-green-700 border-green-700 border-2 py-1  md:hover:text-green-700 duration-150"
+        >
+          {propertyDetails?.isSold == true ? (
+            <div className="flex items-center gap-2">
+              <HiRefresh />
+
+              {language ? "إعادة البيع" : "Resale"}
+            </div>
+          ) : language ? (
+            "هل تم البيع ؟ "
+          ) : (
+            "sold out ?"
+          )}
+        </button>
+        )}
+
+        <div className="">
           <DeleteModal
             selectedReason={selectedReason}
             OpenButton={
-              <button className="w-full rounded-lg text-center flex items-center justify-center text-red-500 gap-1 border-red-500 border-2 py-1 md:hover:bg-red-500 md:hover:text-white duration-150">
-                <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" />
-                {language ? "إزاله " : "Delete"}
+              <button className="px-2 rounded-lg text-center flex items-center justify-center text-red-600 gap-1 border-red-600 border-2 py-1 md:hover:bg-red-600 md:hover:text-white duration-150">
+                {/* <AiFillDelete className="text-xl  md:text-2xl  cursor-pointer" /> */}
+                <MdDeleteForever className="text-2xl" />
               </button>
             }
             reason={reason}
@@ -235,7 +279,9 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
                 {language ? "تم البيع / التأجير من خلال وسيط اخر" : ""}
               </button>
               <button
-                onClick={() => onReasonSelect("other", otherMessage)}
+                onClick={() => {
+                  onReasonSelect("other", otherMessage);
+                }}
                 type="button"
                 className="flex gap-2 items-center text-lg font-normal"
               >
@@ -266,15 +312,6 @@ const UserCard = ({ propertyDetails, type, onRemove }) => {
             </div>
           </DeleteModal>
         </div>
-
-        <Link
-          className="w-1/2 rounded-lg text-center flex items-center justify-center text-lightGreen gap-1 border-lightGreen border-2 py-1 md:hover:bg-lightGreen md:hover:text-white duration-150"
-          title={language ? "تعديل العقار" : "Edit Property"}
-          href={`/editproperty/${propertyDetails.slug}`}
-        >
-          <AiOutlineEdit className="text-xl md:text-2xl " />{" "}
-          {language ? "تعديل" : "Edit"}
-        </Link>
       </div>
     </div>
   );

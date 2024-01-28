@@ -11,8 +11,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 const SignIn = () => {
   // const {data:session}=useSession()
-  // console.log("data",data);
-  // console.log("S",session);
+
   const router = useRouter();
   const isLoading = useSelector((state) => state.Auth.isLoding);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -28,6 +27,8 @@ const SignIn = () => {
     <>
       <Head>
         <title>{language ? "تسجيل الدخول" : "Sign Im"}</title>
+        <meta name="robots" content="noindex, nofollow" />
+
         <meta
           name="description"
           content="قم بتسجيل الدخول إلى حسابك على منصتنا للعقارات. احصل على وصول إلى بحوثك المحفوظة والقوائم المفضلة والمزيد. عملية تسجيل دخول آمنة ومريحة لتجربة شخصية."

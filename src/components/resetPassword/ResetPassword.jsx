@@ -7,7 +7,6 @@ import { GoEyeClosed } from 'react-icons/go'
 
 function ResetPassword() {
   const router=useRouter()
-// console.log(router.query.token);
     const [isVisible, setIsVisible] = React.useState(false);
 const [password,setPassword]=useState("")
 const [confirmPassword,setConfirmPassword]=useState("")
@@ -25,12 +24,9 @@ const token=router.query.token
       if (data.code==200) {
       router.push("/signin")
       }else{
-      // console.log("error after");
     }
       }else{
-      // console.log("error");
     }
-      // console.log("done");
 
     }
   return (

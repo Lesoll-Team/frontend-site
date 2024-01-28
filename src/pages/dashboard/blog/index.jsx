@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import BlogDashboard from "@/components/dashboard/router/BlogDashboard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
+import Head from "next/head";
 function Blog() {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const router = useRouter();
@@ -13,6 +14,10 @@ function Blog() {
   }, [userInfo]);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh] flex" dir="ltr">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className=" bg-lightGreenHover sticky top-0 ">
         <Sidebar />
       </div>

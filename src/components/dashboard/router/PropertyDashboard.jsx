@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input, Button, Image } from "@nextui-org/react";
+import { Input, Image } from "@nextui-org/react";
 import {
   fetchAllProperty,
   deleteProperties,
@@ -14,17 +14,18 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-import {
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
+// import {
+//   DropdownTrigger,
+//   Dropdown,
+//   DropdownMenu,
+//   DropdownItem,
+// } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
-import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
-import Link from "next/link";
+// import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
+// import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -47,7 +48,6 @@ export default function PropertyDashboard() {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  // console.log(userInfo);
   const fetchAllProperties = async () => {
     try {
       const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -117,22 +117,18 @@ export default function PropertyDashboard() {
   }, [sortDescriptor, items]);
 
   const renderCell = useCallback((blog, columnKey) => {
-    // console.log(blog?.slug)
     switch (columnKey) {
       case "address":
         return (
-          <div className="flex flex-col w-[300px]">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Address:</b>
-              {blog.address.name}
-            </p>
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Governorate</b>
+          <div className="  min-w-[250px] flex flex-col ">
+            <p className="text-bold text-medium flex justify-between">
+              <b>Governorate :</b>
               {blog.address.governrate}
             </p>
             <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Region</b>
+
+            <p className="text-bold text-medium flex justify-between">
+              <b>Region :</b>
               {blog.address.region}
             </p>
           </div>
@@ -146,49 +142,27 @@ export default function PropertyDashboard() {
           blog.createdAt
         ).toLocaleString();
         return (
-          <div className="flex flex-col w-[350px]">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Offer:</b>
-              {blog.offer}
-            </p>
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Price</b>
-              {blog.price}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>BathRooms</b>
-              {blog.bathRooms}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Bedrooms:</b>
-              {blog.rooms}
-            </p>
+          <div className="grid  min-w-[250px]">
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Created : </b>
+                {formattedCreatedAtDate}
+              </div>
+            </div>
             <hr />
 
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Area:</b>
-              {blog.area}
-            </p>
-            <hr />
-
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Created</b>
-              {formattedCreatedAtDate}
-            </p>
-            <hr />
-
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Updated</b>
-              {formattedUpdatedAtDate}
-            </p>
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Updated :</b>
+                {formattedUpdatedAtDate}
+              </div>
+            </div>
           </div>
         );
 
       case "thumbnail":
         return (
-          <div className="flex flex-col w-[200px]">
+          <div className="w-[200px]">
             <Image
               width={200}
               // height={2000}
@@ -200,82 +174,58 @@ export default function PropertyDashboard() {
         );
       case "title":
         return (
-          <div className="flex flex-col w-[250px]">
+          <div className="min-w-[300px] max-w-[400px]">
             <p className="font-bold text-medium text-center">{blog.title}</p>
           </div>
         );
       case "actions":
         return (
-          <div className="relative flex justify-start items-center w-[350px] gap-2">
-            <div className="">
-              <hr />
-              <p className="text-bold grid grid-cols-2 text-medium capitalize">
-                <b>ID:</b>
-                {blog._id}
+          <div className="grid grid-cols-2 min-w-[450px]">
+            <div className="flex flex-col">
+              <p className="text-bold line-clamp-1   text-medium ">
+                <b>Email:</b>
+                {blog.user?.fullname || "Empty"}
               </p>
               <hr />
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>Email</b>
-                {blog.user.email}
-              </p>
-              <hr />
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>Name</b>
-                {blog.user.fullname}
-              </p>
-              <hr />
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>Phone</b>
-                {blog.user.phone}
-              </p>
-              <hr />
+              <div className="text-bold text-medium">
+                <b>Phone: </b>
+                <span>{blog.user.phone || "Empty"}</span>
+              </div>
             </div>
-            <Dropdown
-              aria-label="Options Menu Property"
-              // aria-labelledbyl="Options Menu Property"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
-                aria-label="Open Options Menu"
-                // aria-labelledbyl="Options Menu Property"
-              >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Property  Options Menu"
-                // aria-labelledbyl="Options Menu Property"
-              >
-                {userInfo && !userInfo.supAdmin && (
-                  <DropdownItem
-                    textValue="Delete Property"
-                    onClick={() => handleDeleteProperty(blog._id)}
-                  >
-                    Delete
-                  </DropdownItem>
+            <div>
+              <DropdownAction>
+                {userInfo && !userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
+                  <ItemDropdown
+                    label={"Accept"}
+                    href={null}
+                    action={() => handleAcceptProperty(blog._id)}
+                    title="تأكيد تنزيل العقار "
+                    description=" تأكيد تنزيل العقار "
+                  />
                 )}
-                {userInfo && !userInfo.supAdmin && (
-                  <DropdownItem
-                    textValue="Accept Property"
-                    onClick={() => handleAcceptProperty(blog._id)}
-                  >
-                    Accept
-                  </DropdownItem>
+
+                <ItemDropdown
+                  label={"Edit"}
+                  href={`/editproperty/${blog.slug}`}
+                  action={null}
+                  id={blog._id}
+                />
+
+                {userInfo && !userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
+                  <ItemDropdown
+                    label={"Delete"}
+                    href={null}
+                    action={() => handleDeleteProperty(blog._id)}
+                    title="تأكيد مسح العقار "
+                    description="  تأكيد مسح العقار  الى الارشيف "
+                  />
                 )}
-                <DropdownItem
-                  textValue="edit Property"
-                  // onClick={async () => await acceptProperties(blog._id)}
-                  onClick={() => {
-                    router.push(`/editproperty/${blog.slug}`);
-                  }}
-                >
-                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
-                  edit
-                  {/* </Link> */}
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+              </DropdownAction>
+            </div>
           </div>
         );
     }
@@ -417,3 +367,52 @@ export default function PropertyDashboard() {
     </Table>
   );
 }
+
+/**
+ *             <Dropdown
+              aria-label="Options Menu Property"
+              // aria-labelledbyl="Options Menu Property"
+              className="bg-background border-1 border-default-200"
+            >
+              <DropdownTrigger
+                aria-label="Open Options Menu"
+                // aria-labelledbyl="Options Menu Property"
+              >
+                <Button isIconOnly radius="full" size="sm" variant="light">
+                  <VerticalDotsIcon className="text-default-400" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="Property  Options Menu"
+                // aria-labelledbyl="Options Menu Property"
+              >
+                {userInfo && !userInfo.supAdmin && (
+                  <DropdownItem
+                    textValue="Delete Property"
+                    onClick={() => handleDeleteProperty(blog._id)}
+                  >
+                    Delete
+                  </DropdownItem>
+                )}
+                {userInfo && !userInfo.supAdmin && (
+                  <DropdownItem
+                    textValue="Accept Property"
+                    onClick={() => handleAcceptProperty(blog._id)}
+                  >
+                    Accept
+                  </DropdownItem>
+                )}
+                <DropdownItem
+                  textValue="edit Property"
+                  // onClick={async () => await acceptProperties(blog._id)}
+                  onClick={() => {
+                    router.push(`/editproperty/${blog.slug}`);
+                  }}
+                >
+                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> 
+                  edit
+
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+ */

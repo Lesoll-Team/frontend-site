@@ -24,6 +24,8 @@ const SignUp = () => {
   return (
     <div className="">
       <Head>
+        <meta name="robots" content="noindex, nofollow" />
+
         <title>{language ? "الإشتراك" : "Sign Up"}</title>
         <meta
           name="description"

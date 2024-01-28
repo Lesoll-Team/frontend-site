@@ -32,7 +32,6 @@ const UserSettings = () => {
   useEffect(() => {
     setUserDataInfo(userInfo);
   }, [userInfo]);
-  // console.log(userDataInfo?._id );
   return (
     <>
       <div className="">
