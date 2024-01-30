@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import { SiBloglovin } from "react-icons/si";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiUsersFour } from "react-icons/pi";
 import { TbHomeCheck, TbHomeDown } from "react-icons/tb";
 import Image from "next/image";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { FaRegNewspaper } from "react-icons/fa";
 
 const Sidebar = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -44,7 +44,9 @@ const Sidebar = () => {
           href={"/dashboard"}
         >
           <LuLayoutDashboard
-            className={toggleNav ? "lg:text-xl text-[30px] " : " text-[30px]  "}
+            className={
+              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+            }
           />
           <span className={toggleNav ? "lg:block hidden " : "hidden"}>
             {" "}
@@ -58,7 +60,9 @@ const Sidebar = () => {
           href={"/dashboard/prop-active"}
         >
           <TbHomeCheck
-            className={toggleNav ? "lg:text-xl text-[30px] " : " text-[30px]  "}
+            className={
+              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+            }
           />{" "}
           <span className={toggleNav ? "lg:block hidden " : "hidden"}>
             Active
@@ -71,7 +75,9 @@ const Sidebar = () => {
           href={"/dashboard/prop-pending"}
         >
           <TbHomeDown
-            className={toggleNav ? "lg:text-xl text-[30px] " : " text-[30px]  "}
+            className={
+              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+            }
           />{" "}
           <span className={toggleNav ? "lg:block hidden " : "hidden"}>
             Pending
@@ -84,7 +90,9 @@ const Sidebar = () => {
           href={"/dashboard/users"}
         >
           <PiUsersFour
-            className={toggleNav ? "lg:text-xl text-[30px] " : " text-[30px]  "}
+            className={
+              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+            }
           />{" "}
           <span className={toggleNav ? "lg:block hidden " : "hidden"}>
             Users
@@ -97,11 +105,11 @@ const Sidebar = () => {
               toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
             } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           >
-            <SiBloglovin
-              className="cursor-pointer"
+            <FaRegNewspaper
+              className="cursor-pointer text-3xl"
               onClick={() => setToggleBlogList(!toggleBlogList)}
             />
-            <b
+            <button
               className="cursor-pointer select-none"
               onClick={() => setToggleBlogList(!toggleBlogList)}
             >
@@ -110,13 +118,13 @@ const Sidebar = () => {
                 {" "}
                 Blogs
               </span>
-            </b>
+            </button>
             <button
               className={toggleNav ? "lg:block hidden " : "hidden"}
               onClick={() => setToggleBlogList(!toggleBlogList)}
             >
               <AiFillCaretDown
-                className={`text-darkGreen  duration-150 ${
+                className={`text-black  duration-150 ${
                   toggleBlogList && "rotate-180"
                 }`}
               />
@@ -128,13 +136,13 @@ const Sidebar = () => {
             }
           >
             <Link
-              className="w-full text-center py-2 rounded-lg  text-white hover:text-black font-bold "
+              className="w-full text-center py-2 rounded-lg  text-black hover:text-gray-700 font-bold "
               href={"/dashboard/blog"}
             >
               Blogs
             </Link>
             <Link
-              className="w-full text-center  py-2 rounded-lg  text-white hover:text-black font-bold "
+              className="w-full text-center  py-2 rounded-lg  text-black hover:text-gray-700 font-bold "
               href={"/dashboard/blog/add-blog"}
             >
               Add Blogs
