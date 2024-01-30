@@ -12,7 +12,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useDispatch, useSelector } from "react-redux";
-import GoogleSignInBtn from "../new-signin/GoogleSignInBtn";
+import GoogleSignInBtn from "../login/GoogleSignInBtn";
 
 const RegisterForm = () => {
   // const [verificationMethod, setVerificationMethod] = useState("email");
@@ -36,7 +36,6 @@ const RegisterForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (data) => {
-    console.log(data);
     dispatch(userRegister(data));
   };
   useEffect(() => {
@@ -60,10 +59,13 @@ const RegisterForm = () => {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6  md:my-0 my-10"
+      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6 pb-3 md:my-0 my-10"
     >
       <div className="space-y-3">
-        <h1 className="text-4xl"> {language ? " إنشاء حساب" : "Sign up"}</h1>
+        <h1 className="text-2xl md:text-4xl">
+          {" "}
+          {language ? " إنشاء حساب" : "Sign up"}
+        </h1>
 
         <h3 className="text-xl text-darkGray">
           {language ? "تفعيل الحساب بإستخدام:" : "Activate the account via:"}
@@ -115,7 +117,7 @@ const RegisterForm = () => {
           }`}
         />
         {errors.fullname && (
-          <p className="text-red-500">{errors.fullname.message}</p>
+          <p className="text-red-500 text-sm">{errors.fullname.message}</p>
         )}
       </div>
       <div className="space-y-2">
@@ -147,9 +149,11 @@ const RegisterForm = () => {
             "border-red-500 focus:border-red-500"
           }`}
         />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
+        )}
         {emailUsedError && (
-          <p className="text-red-500">
+          <p className="text-red-500 text-sm">
             {language
               ? "هذا البريد مستخدم بالفعل"
               : "This email elready registerd"}
@@ -254,7 +258,7 @@ const RegisterForm = () => {
           </button>
         </div>
         {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
       </div>
       <div className="space-y-2">
@@ -277,7 +281,7 @@ const RegisterForm = () => {
           </option>
         </select>
         {errors.typeOfUser && (
-          <p className="text-red-500">{errors.typeOfUser.message}</p>
+          <p className="text-red-500 text-sm">{errors.typeOfUser.message}</p>
         )}
       </div>
       <div className="space-y-2 flex items-center gap-1">

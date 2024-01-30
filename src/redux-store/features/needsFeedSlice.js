@@ -38,7 +38,6 @@ export const needsFeedSlice = createSlice({
         state.status = "succeeded";
         state.needsPosts = action.payload.getAllData;
         state.totalPages = action.payload.totalPages;
-        console.log(action.payload);
       })
       .addCase(getNeeds.rejected, (state, action) => {
         state.status = "faild";

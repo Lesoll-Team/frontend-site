@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Signin from "@/components/new-signin/Signin";
+import Signin from "@/components/auth/login/Signin";
 const SignIn = () => {
   const router = useRouter();
 

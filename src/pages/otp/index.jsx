@@ -1,4 +1,4 @@
-import Otp from "@/components/otp/Otp";
+import Otp from "@/components/auth/otp/Otp";
 import { useState, useRef, useEffect } from "react";
 import OTPInput from "react-otp-input";
 

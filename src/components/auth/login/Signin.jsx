@@ -1,5 +1,4 @@
-import { Image } from "@nextui-org/react";
-import { Fragment } from "react";
+import Image from "next/image";
 import SignInForm from "./SignInForm";
 const Signin = () => {
   return (
@@ -10,10 +9,10 @@ const Signin = () => {
       </div>
       <Image
         src={"/signin.png"}
-        width={"100"}
-        height={"100"}
+        width={2000}
+        height={2000}
         radius="none"
-        // loading="lazy"
+        alt="sign in In image"
         className="object-cover lg:block hidden  h-[94dvh] w-full "
       />
     </div>

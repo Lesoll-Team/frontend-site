@@ -28,7 +28,7 @@ const OtpInputForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // if (otp.length === 6) {
-    console.log(parseInt(otp));
+
     // }
   };
   return (

@@ -10,6 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { signWithGoogle } from "@/utils/userAPI";
 import GoogleSignInBtn from "./GoogleSignInBtn";
 import { resetLogin, userLogin } from "@/redux-store/features/auth/loginSlice";
+import Button from "@/Shared/Button";
 const SignInForm = () => {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
@@ -57,7 +58,10 @@ const SignInForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
     >
-      <h1 className="text-4xl"> {language ? "تسجيل الدخول" : "Sign In"}</h1>
+      <h1 className="text-2xl md:text-4xl">
+        {" "}
+        {language ? "تسجيل الدخول" : "Sign In"}
+      </h1>
 
       {/* ---------------------- email ------------------------- */}
       <div className="space-y-2">
@@ -83,13 +87,15 @@ const SignInForm = () => {
           })}
           type="text"
           className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-            errors.email ||
-            (emailNotFound && "border-red-500 focus:border-red-500")
+            (errors.email || emailNotFound) &&
+            "border-red-500 focus:border-red-500"
           }`}
         />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
+        )}
         {emailNotFound && (
-          <p className="text-red-500">
+          <p className="text-red-500 text-sm">
             {language
               ? "بريد إلكترونى غير صحيح جرب مرة اخرى"
               : "Email doesn't exist try again "}
@@ -100,7 +106,7 @@ const SignInForm = () => {
       {/* ---------------------- Password ------------------------- */}
       <div className="">
         {" "}
-        <label htmlFor="email">{language ? "كلمة السر" : "Password"}</label>
+        <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
         <div className="flex items-center mt-1">
           <input
             name="password"
@@ -115,8 +121,8 @@ const SignInForm = () => {
             })}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              errors.password ||
-              (WrongPassword && "border-red-500 focus:border-red-500")
+              (errors.password || WrongPassword) &&
+              "border-red-500 focus:border-red-500"
             }`}
           />
           <button
@@ -138,19 +144,19 @@ const SignInForm = () => {
           </Link>
         </div>
         {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
         {WrongPassword && (
-          <p className="text-red-500">
+          <p className="text-red-500 text-sm">
             {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
           </p>
         )}
       </div>
 
       {/* ---------------------- submit btn ------------------------- */}
-      <button
+      <Button
         type="submit"
-        className="w-full p-3 h-12 md:h-14 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
+        // className="w-full p-3 h-12 md:h-14 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
         {status === "loading" ? (
           <>
@@ -167,7 +173,7 @@ const SignInForm = () => {
         )}
 
         {/* text */}
-      </button>
+      </Button>
       <div className="flex items-center gap-3">
         <div className="h-[1px] w-full bg-gray-500"></div>
         <p className="text-gray-700">{language ? "او" : "or"}</p>

@@ -28,10 +28,9 @@ const AddNeed = () => {
 
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  // console.log(isNumber("ad"));
   const dispatch = useDispatch();
   const { validateNeed } = useNeedValidation();
-  console.log(step);
+
   const handlePostNeed = (e) => {
     if (
       need.unitType &&

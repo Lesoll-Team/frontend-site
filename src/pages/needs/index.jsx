@@ -6,11 +6,9 @@ const NeedsPage = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.needsPosts.needsPosts);
   const page = useSelector((state) => state.needsPosts.page);
-  console.log(page);
   useEffect(() => {
     dispatch(getNeeds(page));
   }, [page]);
-  console.log(posts);
   return (
     <div className="min-h-[85dvh]">
       <NeedsFeed />

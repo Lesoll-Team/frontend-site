@@ -9,8 +9,7 @@ const NeedsCard = ({ need }) => {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     need.userId[0]?.code + need.userId[0]?.phone
   }`;
-  console.log(need);
-  console.log(whatsappUrl);
+
   return (
     <div className=" bg-white rounded-lg flex md:flex-row flex-col   items-start p-5">
       <div className="space-y-4 w-full md:w-7/12">

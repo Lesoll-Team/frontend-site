@@ -29,10 +29,13 @@ export default function Layout({ children }) {
   //   // JSON.stringify(localStorage.setItem(`prompt_visit_${Math.floor(Math.random() * 10001) }`, new Date()))
   // }
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
-    dispatch(getUserData());
+    if (!userData) {
+      dispatch(getUserData());
+    }
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
   useEffect(() => {

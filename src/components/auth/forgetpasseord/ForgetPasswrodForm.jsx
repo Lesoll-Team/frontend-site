@@ -23,9 +23,8 @@ const ForgetPasswrodForm = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
-  const onSubmit = async (data) => {
-    // console.log(data);
-    await dispatch(forgetPassEmail(data.email));
+  const onSubmit = (data) => {
+    dispatch(forgetPassEmail(data.email));
   };
   const handleEmailNotFound = () => {
     setEmailNotFound(true);
