@@ -30,7 +30,7 @@ const Home = ({ bestSearch }) => {
       <div className="container mx-auto mt-[50px]">
         <LocationCategories />
       </div>
-      <div className="my-24 gap-5  container mx-auto flex-wrap flex flex-col md:flex-row justify-between ">
+      <div className="my-24 gap-y-3 container mx-auto flex-wrap flex flex-col md:flex-row justify-between ">
         <OtherCards />
       </div>
       <BestLinksInHome

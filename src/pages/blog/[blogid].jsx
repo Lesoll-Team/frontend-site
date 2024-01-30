@@ -6,15 +6,23 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
-
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const path = router.asPath;
-
   return (
     <div className="lg:container mx-auto ">
       <Head>
-        <title>{language?`${singleBlog?.getBlogs.metaTitle.ar||singleBlog?.getBlogs.title.ar}`:`${singleBlog?.getBlogs.metaTitle.en ||singleBlog?.getBlogs.title.ar}`}</title>
+        <title>
+          {language
+            ? `${
+                singleBlog?.getBlogs.metaTitle.ar ||
+                singleBlog?.getBlogs.title.ar
+              }`
+            : `${
+                singleBlog?.getBlogs.metaTitle.en ||
+                singleBlog?.getBlogs.title.ar
+              }`}
+        </title>
         <meta
           name="description"
           content={
@@ -23,7 +31,7 @@ function blogId({ singleBlog }) {
               : `${singleBlog?.getBlogs.metaDescription.en}`
           }
         />
-        <link rel="canonical" href={`https://lesoll.com/${path}`} />
+        <link rel="canonical" href={`https://lesoll.com${path}`} />
       </Head>
 
       <div className="md:mb-20 mb-10">
