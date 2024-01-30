@@ -1,3 +1,40 @@
+export const categoryType = [
+  "sale",
+  "rent",
+  "investment",
+  "commercial",
+  "graves",
+  "compounds",
+  "lands",
+];
+export const categoryUnitType = [
+  "apartment",
+  "apartment_with_garden",
+  "duplex",
+  "studio",
+  "penthouse",
+  "hotel_apartment",
+  "floor",
+  "fesidential_building",
+  "home",
+  "chalete",
+  "cabin",
+  "village",
+  "townhouse",
+  "twin_house",
+  "clinic",
+  "office",
+  "garage",
+  "factory",
+  "warehouse",
+  "retail",
+  "restaurant",
+  "cafe",
+  "shop",
+  "building",
+  "agriculture",
+];
+
 export const paymentMethodData = {
   en: [
     { value: "", name: " All" },
@@ -61,14 +98,13 @@ export const propertyTypeData = {
     { value: "Residential", name: "Residential" },
     { value: "Commercial", name: "Commercial" },
     { value: "Land", name: "Land" },
-  ]
-,
+  ],
   ar: [
-      { value: "", name: "الكل" },
-      { value: "سكني", name: "سكني" },
-      { value: "تجاري", name: "تجاري" },
-      { value: "أرض", name: "أرض" },
-    ]
+    { value: "", name: "الكل" },
+    { value: "سكني", name: "سكني" },
+    { value: "تجاري", name: "تجاري" },
+    { value: "أرض", name: "أرض" },
+  ],
 };
 
 export const unitTypeData = {
@@ -126,7 +162,7 @@ export const unitTypeData = {
       { value: "تاون_هاوس", name: "تاون هاوس" },
       { value: "توين_هاوس", name: "توين هاوس" },
     ],
-  
+
     Commercial: [
       { value: "عياده", name: "عيادة" },
       { value: "مكتب", name: "مكتب" },
@@ -138,14 +174,13 @@ export const unitTypeData = {
       { value: "كافية", name: "كافية" },
       { value: "محل", name: "محل" },
     ],
-  
+
     Land: [
       { value: "زراعية", name: "زراعى" },
       { value: "مبانى", name: "ارض للبناء" },
     ],
   },
 };
-
 
 export const sortedData = {
   en: [

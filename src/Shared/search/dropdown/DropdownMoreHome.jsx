@@ -75,7 +75,6 @@ const DropdownMoreHome = ({
         className=" font-semibold text-darkGreen text-md flex items-center justify-center
           focus:outline-lightGreen   rounded-xl    whitespace-nowrap"
       >
-        {/* <IoOptionsOutline className="text-3xl " /> */}
         <CgOptions className="w-[16px] h-[16px] md:w-[20px] md:h-[20px]  lg:w-[26px] lg:h-[26px]  xl:w-[32px] xl:h-[32px]  2xl:w-[40px] 2xl:h-[40px]  text-grayText " />
       </div>
       {menuIsOpen && (
@@ -180,10 +179,8 @@ const DropdownMoreHome = ({
           <input
             dir={languageIs ? "rtl" : "ltr"}
             className="w-full placeholder-orange-400 border-lightOrange active:outline-none hover:outline-none focus:outline-none  p-[9px] border shadow-md rounded-md mt-2 focus:ring "
-            // size="md"
             name="Search"
-            // isClearable
-            autocomplete="off"
+            autoComplete="off"
             placeholder={
               languageIs
                 ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "

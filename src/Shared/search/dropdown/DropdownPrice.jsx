@@ -1,5 +1,5 @@
-import { Button, Input } from "@nextui-org/react";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import { Input } from "@nextui-org/react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
 const DropdownPrice = ({
@@ -38,7 +38,7 @@ const DropdownPrice = ({
     setMenuIsOpen(!menuIsOpen);
   };
   return (
-    <div className={`${classNames} relative w-full  `}>
+    <div className={`${classNames} relative w-full`}>
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
@@ -64,27 +64,30 @@ const DropdownPrice = ({
               type="number"
               name="number"
               placeholder="0.00"
-              value={valueFromPrice<=0?null:valueFromPrice}
+              value={(valueFromPrice > 0 && valueFromPrice) || ""}
               labelPlacement="outside"
               onChange={(e) => setFromPrice(e.target.value)}
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small select-none">{language?"من":"from"}</span>
+                  <span className="text-default-400 text-small select-none">
+                    {language ? "من" : "from"}
+                  </span>
                 </div>
               }
             />
             <Input
-                          name="number"
-
+              name="number"
               className="pb-4"
               type="number"
               placeholder="0.00"
               labelPlacement="outside"
-              value={valueToPrice<=0?null:valueToPrice}
+              value={(valueToPrice > 0 && valueToPrice) || ""}
               onChange={(e) => setToPrice(e.target.value)}
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small select-none">{language?"إلى":"to"}</span>
+                  <span className="text-default-400 text-small select-none">
+                    {language ? "إلى" : "to"}
+                  </span>
                 </div>
               }
             />

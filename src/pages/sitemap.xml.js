@@ -12,7 +12,9 @@ function generateSiteMap({ data }) {
   <sitemap>
     <loc>${post.link}</loc>
     <lastmod>${post.time}</lastmod>
-  </sitemap> `;}).join("")}
+  </sitemap> `;
+    })
+    .join("")}
 </sitemapindex>
  `;
 }

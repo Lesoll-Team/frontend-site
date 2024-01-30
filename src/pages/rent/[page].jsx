@@ -36,9 +36,11 @@ export default function PropertyRent({ propertyForRent }) {
         </h1>
       </div>
 
-      <div className=" flex flex-wrap items-center py-5 gap-x-5 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12">
-        {/**items-center py-5 grid lg:grid-cols-4 md:grid-cols-3 gap-x-2 justify-center justify-items-center gap-y-12 md:gap-y-16 mt-5 md:mt-12 */}
-        {propertyForRent && propertyForRent.result
+      <div
+        className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  
+                   py-5 gap-x-5 gap-y-12 md:gap-y-16 mt-5 md:mt-12"
+      >
+        {propertyForRent.result
           ? propertyForRent.result.map((property) => (
               <RealtyCardRent key={property?._id} propertyDetails={property} />
             ))

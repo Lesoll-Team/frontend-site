@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 // import { SearchBar } from "@/Shared/search/SearchBar";
@@ -8,7 +8,7 @@ import { dataFoundFromSearch } from "@/redux-store/features/searchingSlice";
 import SearchResult from "@/components/SearchResult/SearchResult";
 import Head from "next/head";
 
-export default function Searching({ keyword,bestSearch }) {
+export default function Searching({ keyword, bestSearch }) {
   const keyValuePairs = keyword.split("&").map((pair) => pair.split("="));
 
   // Reverse the filtering
@@ -33,57 +33,77 @@ export default function Searching({ keyword,bestSearch }) {
       );
     }
   }, [router]);
+  const typeIsApartment = reversedFilteredKeywords.unitType == "شقة";
+  const isUnitType = reversedFilteredKeywords.unitType || " عقارات ";
+  const isOfferIs =
+    reversedFilteredKeywords.offer === "كل" ||
+    reversedFilteredKeywords.offer === "all";
+  const offerValue = reversedFilteredKeywords.offer || " للبيع والإيجار ";
+  const cdbValue = reversedFilteredKeywords.cdb || " مصر ";
+  const getTitleInArabic = (
+    typeIsApartment,
+    isUnitType,
+    isOfferIs,
+    offerValue,
+    cdbValue
+  ) => {
+    const unitType = typeIsApartment ? " شقق " : isUnitType;
+    const offer = isOfferIs
+      ? " للبيع والإيجار "
+      : offerValue || "للبيع والإيجار";
+    const location = cdbValue || "مصر";
+
+    return `${unitType} ${offer} فى ${location} | ليسول`;
+  };
+  const getMetaDescription = (language, reversedFilteredKeywords) => {
+    const unitType =
+      reversedFilteredKeywords.unitType == "شقة"
+        ? "شقق"
+        : reversedFilteredKeywords.unitType || "عقارات";
+    const offer =
+      reversedFilteredKeywords.offer == "all" ||
+      reversedFilteredKeywords.offer == "كل"
+        ? "للبيع والإيجار"
+        : reversedFilteredKeywords.offer || "للبيع والإيجار";
+    const location = reversedFilteredKeywords.cdb || "مصر";
+
+    const arabicDescription = `${unitType} ${offer} فى ${location} من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية. اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة`;
+
+    const englishDescription = `${unitType} ${offer} فى ${location} من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية. اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة`;
+
+    return language ? arabicDescription : englishDescription;
+  };
+  const getTitleInEnglish = (reversedFilteredKeywords) => {
+    const unitType =
+      reversedFilteredKeywords.unitType == "شقة"
+        ? "شقق"
+        : reversedFilteredKeywords.unitType || "عقارات";
+    const offer =
+      reversedFilteredKeywords.offer == "all" ||
+      reversedFilteredKeywords.offer == "كل"
+        ? "For Rent Or Buy"
+        : reversedFilteredKeywords.offer || "for rent or buy";
+    const location = reversedFilteredKeywords.cdb || "Egypt";
+
+    return `Search About ${unitType} ${offer} In ${location} | lesoll`;
+  };
   return (
     <>
       <Head>
         <title>
           {language
-            ? ` ${
-                reversedFilteredKeywords.unitType == "شقة"
-                  ? "شقق"
-                  : reversedFilteredKeywords.unitType || "عقارات"
-              }  
-                ${
-                  reversedFilteredKeywords.offer == "all" ||
-                  reversedFilteredKeywords.offer == "كل"
-                    ? "للبيع والإيجار"
-                    : reversedFilteredKeywords.offer || "للبيع والإيجار"
-                } فى ${reversedFilteredKeywords.cdb || "مصر"} | ليسول`
-            : `Search About ${
-                reversedFilteredKeywords.unitType || "Properties"
-              } ${
-                reversedFilteredKeywords.offer == "all"
-                  ? "For Rent Or Buy"
-                  : reversedFilteredKeywords.offer || "for rent or buy"
-              } In ${reversedFilteredKeywords.cdb || "Egypt"} | lesoll`}
+            ? getTitleInArabic(
+                typeIsApartment,
+                isUnitType,
+                isOfferIs,
+                offerValue,
+                cdbValue
+              )
+            : getTitleInEnglish(reversedFilteredKeywords)}
         </title>
         <meta
           name="description"
-          content={
-            language
-              ? ` ${
-                  reversedFilteredKeywords.unitType == "شقة"
-                    ? "شقق"
-                    : reversedFilteredKeywords.unitType || "عقارات"
-                }  ${
-                  reversedFilteredKeywords.offer == "all" ||
-                  reversedFilteredKeywords.offer == "كل"
-                    ? "للبيع والإيجار"
-                    : reversedFilteredKeywords.offer || "للبيع والإيجار"
-                } فى ${reversedFilteredKeywords.cdb || "مصر"} ` +
-                " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
-              : ` ${
-                  reversedFilteredKeywords.unitType == "شقة"
-                    ? "شقق"
-                    : reversedFilteredKeywords.unitType || "عقارات"
-                }  ${
-                  reversedFilteredKeywords.offer == "all" ||
-                  reversedFilteredKeywords.offer == "كل"
-                    ? "للبيع والإيجار"
-                    : reversedFilteredKeywords.offer || "للبيع والإيجار"
-                } فى ${reversedFilteredKeywords.cdb || "مصر"} ` +
-                " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
-          }
+          content={getMetaDescription(language, reversedFilteredKeywords)}
         />
         <link rel="canonical" href={`https://lesoll.com/searching/${query}`} />
       </Head>

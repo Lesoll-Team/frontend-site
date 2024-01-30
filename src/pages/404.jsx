@@ -14,6 +14,7 @@ const Custom404 = () => {
       <div className="w-full h-[92dvh] grid place-content-center ">
         <img
           src="/404.webp"
+          alt="error 404"
           className="w-[95%] sm:w-[80%] md:w-[60%] mx-auto"
         />
         <h3 className="text-center font-bold text-lightOrange">

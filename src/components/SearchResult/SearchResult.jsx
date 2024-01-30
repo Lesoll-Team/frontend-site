@@ -174,7 +174,7 @@ function SearchResult({
               </div>
               <img
                 src="/sideImgSearch.jpg"
-                alt="side Image in Search page"
+                alt="side in Search page"
                 className=" p-2 mt-[150px]"
               />
             </div>

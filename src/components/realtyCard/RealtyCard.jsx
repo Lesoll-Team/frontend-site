@@ -7,10 +7,8 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
-
-import { PiBathtub} from "react-icons/pi";
+import { PiBathtub } from "react-icons/pi";
 import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
-
 
 const RealtyCard = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
@@ -22,10 +20,7 @@ const RealtyCard = ({ propertyDetails }) => {
     try {
       await AddToFavorites(propertyDetails?._id);
       dispatch(fetchUserData());
-
-      // Handle success (e.g., show a success message)
     } catch (error) {
-      // Handle error (e.g., display an error message)
       console.error("Error add to fav :", error);
     }
   };
@@ -36,7 +31,11 @@ const RealtyCard = ({ propertyDetails }) => {
     }
   }, [userInfo?.favorites]);
   return (
-    <div className="w-full md:w-[400px] md:h-[355px] h-[133px]  flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative">
+    <div //md:w-[380px] 2xl:w-[400px]  w-full
+      className=" md:max-w-[480px]
+     md:h-[355px] h-[133px] 
+     flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative"
+    >
       {/* start icon favorite */}
       <div className="flex absolute md:mt-[16px] m-[10px] md:mr-[20px]">
         {userInfo && (
@@ -44,13 +43,12 @@ const RealtyCard = ({ propertyDetails }) => {
             className="z-[10000] bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center 
             md:text-2xl text-md rounded-full  text-center  cursor-pointer  "
           >
-            {userInfo ? (
-              loved ? (
+            {userInfo &&
+              (loved ? (
                 <AiFillHeart
                   className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
-
                     setLoved(!loved);
                   }}
                 />
@@ -62,10 +60,7 @@ const RealtyCard = ({ propertyDetails }) => {
                     setLoved(!loved);
                   }}
                 />
-              )
-            ) : (
-              ""
-            )}
+              ))}
           </div>
         )}
       </div>
@@ -76,19 +71,21 @@ const RealtyCard = ({ propertyDetails }) => {
         title={`${propertyDetails?.title}`}
         key={propertyDetails?._id}
         href={`/property-details/${propertyDetails?.slug}`}
-        className=""
+        className=" "
       >
         <Image
           alt="Card background"
           radius="none"
-          className="object-cover  md:h-[174px] h-[135px] md:min-w-[400px] md:max-w-[400px] min-w-[135px] max-w-[135px] "
+          className=" flex object-cover  md:h-[174px] h-[135px] 
+          md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px]
+          "
           src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
         />
       </Link>
       {/* end Image */}
 
       {/* start card data */}
-      <div className=" md:p-[20px] p-3 w-full flex flex-col md:gap-y-[20px] gap-y-[6px]">
+      <div className=" md:p-[20px] p-3 w-full flex flex-col md:gap-y-[16px] gap-y-[6px]">
         {/* start contact and price */}
         <div className="flex flex-row items-center justify-between">
           {propertyDetails?.offer !== "For Investment" && (
@@ -99,14 +96,15 @@ const RealtyCard = ({ propertyDetails }) => {
                   : parseInt(propertyDetails?.price).toLocaleString()}{" "}
               </span>
               {language ? "ج.م" : "EGP"}
+              <span className="text-gray2 mx-5 md:text-[17px] text-[12px] font-normal"></span>
             </p>
           )}
           <div className="flex justify-between  gap-x-3 md:gap-0 md:w-[95px] ">
-            <div className="bg-sky-100 w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
-              <IoIosCall className="text-[14px] md:text-[25px] text-blue-400" />
+            <div className="bg-sky-200 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
+              <IoIosCall className="text-[16px] md:text-[30px] text-blue-600" />
             </div>
-            <div className="bg-green-600 w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
-              <FaWhatsapp className="text-[14px] md:text-[25px] text-white" />
+            <div className="bg-green-600 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
+              <FaWhatsapp className="text-[16px]  md:text-[30px] text-white" />
             </div>
           </div>
         </div>
@@ -127,29 +125,52 @@ const RealtyCard = ({ propertyDetails }) => {
 
         {/* start location and details rooms ...etc*/}
         <div className="md:flex  md:items-center  md:justify-between md:space-y-[0px] space-y-[8px]">
-          <p className="flex items-center text-gray2 md:text-[17px] text-[12px] gap-1 line-clamp-1 ">
-            {`${propertyDetails?.address?.governrate}
-            ${propertyDetails?.address?.region && " ,"}${
-              propertyDetails?.address?.region &&
-              propertyDetails?.address?.region
-            }`}
+          <p className="flex items-center  min-w-max text-gray2 md:text-[17px] text-[12px] gap-1  ">
+            {propertyDetails?.address?.region
+              ? propertyDetails?.address?.region
+              : propertyDetails?.address?.governrate}
           </p>
-          <div className="  flex items-center text-darkGray ">
-            <ul className="flex items-center gap-x-1  ">
-              <li className="font-bold text-[11px] md:text-[17px]">1</li>
-              <LiaBedSolid className="md:text-[25px]" />
-            </ul>
-            <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
-            <ul className="flex items-center gap-x-1  ">
-              <li className="font-bold text-[11px] md:text-[17px]">2</li>
-              <PiBathtub className="md:text-[25px]" />
-            </ul>
-            <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
+          <div className="  flex items-center  min-w-max  text-darkGray ">
+            {propertyDetails?.rooms > 0 && (
+              <ul className="flex items-center gap-x-1  ">
+                <li className="font-bold text-[11px] font-inter md:text-[17px]">
+                  {language
+                    ? propertyDetails?.rooms.toLocaleString("ar-Eg")
+                    : propertyDetails?.rooms.toLocaleString()}
+                </li>
+                <LiaBedSolid className="md:text-[25px]" />
+              </ul>
+            )}
+            {propertyDetails?.bathRooms > 0 && (
+              <>
+                <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
+                <ul className="flex items-center gap-x-1  ">
+                  <li className="font-bold text-[11px] font-inter md:text-[17px]">
+                    {language
+                      ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
+                      : propertyDetails?.bathRooms.toLocaleString()}
+                  </li>
+                  <PiBathtub className="md:text-[25px]" />
+                </ul>
+              </>
+            )}
+            {propertyDetails?.area > 0 && (
+              <>
+                {propertyDetails?.rooms > 0 &&
+                  propertyDetails?.bathRooms > 0 && (
+                    <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
+                  )}
 
-            <ul className="flex items-center gap-x-1  ">
-              <LiaVectorSquareSolid className=" md:text-[20px]" />
-              <li className="font-bold text-[11px] md:text-[17px]">300 م</li>
-            </ul>
+                <ul className="flex items-center gap-x-1  ">
+                  <LiaVectorSquareSolid className=" md:text-[20px]" />
+                  <li className="font-bold text-[11px] font-inter md:text-[17px]">
+                    {language
+                      ? propertyDetails?.area.toLocaleString("ar-Eg") + " م "
+                      : propertyDetails?.area.toLocaleString() + " m "}
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </div>
         {/* end location and details rooms ...etc*/}
@@ -159,8 +180,8 @@ const RealtyCard = ({ propertyDetails }) => {
   );
 };
 export default RealtyCard;
-          
-            /* <p className="text-md    uppercase font-semibold">
+
+/* <p className="text-md    uppercase font-semibold">
             {" "}
             {propertyDetails?.offer === "For Sale"
               ? language
@@ -174,8 +195,8 @@ export default RealtyCard;
               ? "للإستثمار"
               : "For Investment"}
           </p> */
-                  
-                    /* <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
+
+/* <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
         <div className=" text-darkGray w-full  flex  justify-between ">
           <div className="flex items-center justify-start gap-1">
             {" "}
@@ -206,7 +227,7 @@ export default RealtyCard;
                 : propertyDetails?.area.toLocaleString()}{" "}
               {language ? (
                 <span>
-                  م<sup>2</sup>
+                  <sup>2</sup>
                 </span>
               ) : (
                 <span>
@@ -216,4 +237,3 @@ export default RealtyCard;
             </p>
           </div>
         </div> */
-                  

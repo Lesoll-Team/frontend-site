@@ -6,7 +6,6 @@ import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
 
 function App({ Component, pageProps }) {
-
   return (
     <Provider store={store}>
       <NextUIProvider>
@@ -17,4 +16,5 @@ function App({ Component, pageProps }) {
     </Provider>
   );
 }
+
 export default App;

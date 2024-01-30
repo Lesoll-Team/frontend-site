@@ -5,11 +5,9 @@ import { DotPulse } from "@uiball/loaders";
 import ViewProfile from "@/components/viewProfile/ViewProfile";
 
 const ViewProfilePage = () => {
-  const [userData, setUserData] = useState();
-  const [propertiesData, setPropertiesData] = useState();
+  const [userData, setUserData] = useState(null);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPage] = useState();
-  const [totalProperties, setTotalProperties] = useState(0);
+
   const [propertiesNums, setPropertiesNums] = useState({});
   const router = useRouter();
   const slug = router.query.id;
@@ -40,10 +38,7 @@ const ViewProfilePage = () => {
         <ViewProfile
           propertiesNums={propertiesNums}
           setPage={handlePageChange}
-          totalPages={totalPages}
           userData={userData}
-          propertiesData={propertiesData}
-          totalProperties={totalProperties}
         />
       ) : (
         <div className="h-[90vh] flex items-center justify-center">

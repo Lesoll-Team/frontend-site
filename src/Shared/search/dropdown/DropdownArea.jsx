@@ -44,7 +44,7 @@ const DropdownArea = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
-          focus:outline-lightGreen bg-white border-[3px] cursor-pointer  rounded-xl p-2   whitespace-nowrap"
+        focus:outline-lightGreen bg-white border-[3px] cursor-pointer  rounded-xl p-2   whitespace-nowrap"
       >
         {name}
         <AiFillCaretDown
@@ -65,12 +65,14 @@ const DropdownArea = ({
               type="number"
               name="number"
               placeholder="0.00"
-              value={valueFromArea<=0?null:valueFromArea}
+              value={valueFromArea <= 0 ? null : valueFromArea}
               labelPlacement="outside"
               onChange={(e) => setFromArea(e.target.value)}
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small select-none">{language?"من":"from"}</span>
+                  <span className="text-default-400 text-small select-none">
+                    {language ? "من" : "from"}
+                  </span>
                 </div>
               }
             />
@@ -80,11 +82,13 @@ const DropdownArea = ({
               name="number"
               placeholder="0.00"
               labelPlacement="outside"
-              value={valueToArea<=0?null:valueToArea}
+              value={valueToArea <= 0 ? null : valueToArea}
               onChange={(e) => setToArea(e.target.value)}
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small select-none">{language?"إلى":"to"}</span>
+                  <span className="text-default-400 text-small select-none">
+                    {language ? "إلى" : "to"}
+                  </span>
                 </div>
               }
             />

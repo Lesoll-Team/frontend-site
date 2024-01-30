@@ -4,6 +4,15 @@ module.exports = async () => {
    *
    * @type {import('next').NextConfig}
    */
+  /*
+  // webpack: (config, { isServer }) => {
+  //   if (!isServer) {
+  //     config.optimization.minimize = true;
+  //   }
+  //   return config;
+  // };
+  */
+
   const nextConfig = {
     /* config options here */
     async redirects() {

@@ -5,7 +5,7 @@ import { BiPhoneCall } from "react-icons/bi";
 import { BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
-const Userdata = ({ userData, totalProperties }) => {
+const Userdata = ({ userData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.GlobalState.userData);
 

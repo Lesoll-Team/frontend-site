@@ -1,14 +1,11 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
-import { MdOutlineMoreVert } from "react-icons/md";
 import {
   paymentMethodData,
   finishingOptionsData,
   propertyTypeData,
   unitTypeData,
   percentageProperty,
-
-  FurnishedOptions,
 } from "./dataDropdown";
 import DropdownRooms from "./DropdownRooms";
 import DropdownPrice from "./DropdownPrice";
@@ -76,8 +73,7 @@ const DropdownMore = ({
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className="w-[30px] font-semibold text-darkGreen text-md flex items-center 
-          focus:outline-lightGreen  py-2       "
+        className="w-[30px] font-semibold text-darkGreen text-md flex items-center focus:outline-lightGreen  py-2"
       >
         <IoOptionsOutline className="text-3xl " />
       </div>
@@ -85,7 +81,8 @@ const DropdownMore = ({
         <div
           ref={dropdownContentRef}
           className={`absolute right-0 p-4 w-[250px] lg:w-[600px] animate-appearance-in z-10  mt-1
-           bg-white  duration-200 drop-shadow-xl border  rounded-xl h-auto`}>
+           bg-white  duration-200 drop-shadow-xl border  rounded-xl h-auto`}
+        >
           <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">
             <Dropdown
               classNames="my-1 block sm:hidden"
@@ -193,10 +190,8 @@ const DropdownMore = ({
             // id="search"
             dir={languageIs ? "rtl" : "ltr"}
             className="w-full placeholder-orange-400 border-lightOrange active:outline-none hover:outline-none focus:outline-none  p-[9px] border shadow-md rounded-md mt-2 focus:ring"
-            // size="md"
-            autocomplete="off"
+            autoComplete="off"
             name="Search"
-            // isClearable
             placeholder={
               languageIs
                 ? "كلمة بحث : أرض , إستثمار , ايجار يومى...  "
@@ -204,8 +199,6 @@ const DropdownMore = ({
             }
             value={keywords}
             onChange={(e) => setKeywords(e.target.value)}
-            // value={keywords}
-            // onValueChange={setKeywords}
           />
         </div>
       )}
