@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input } from "@nextui-org/react";
+// import { Input } from "@nextui-org/react";
 import {
   propertyTypeData,
   unitTypeData,
@@ -17,10 +17,7 @@ import { MdClear } from "react-icons/md";
 import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 import { SearchDropdown } from "./SearchDropdown";
 
-export function SearchBar({
-  pageSaleOption,
-  reversedFilteredKeywords,
-}) {
+export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
   let [sortPropChanged, setSortPropChanged] = useState(false);
   const dispatch = useDispatch();
@@ -74,7 +71,7 @@ export function SearchBar({
   let [sortProp, setSortProp] = useState(
     reversedFilteredKeywords?.sort_by || ""
   );
-      const [isTyping, setTyping] = useState(false);
+  // const [isTyping, setTyping] = useState(false);
 
   // let [locationKeyword, setLocationKeyword] =
   // useState(reversedFilteredKeywords?.cdb
@@ -242,7 +239,7 @@ export function SearchBar({
                 <SearchDropdown
                   setLocationName={setLocationName}
                   setLocationValue={setLocationValue}
-                  setTyping={setTyping}
+                  // setTyping={setTyping}
                 />
               </div>
             </div>
@@ -330,19 +327,23 @@ export function SearchBar({
             ? `${
                 reversedFilteredKeywords?.unitType == "شقة"
                   ? " شقق "
-                  : reversedFilteredKeywords?.unitType || "عقارات "
+                  : reversedFilteredKeywords?.unitType || " عقارات "
               }${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
-                  ? "للبيع والإيجار"
-                  : reversedFilteredKeywords?.offer || "للبيع والإيجار"
-              } فى ${reversedFilteredKeywords?.cdb || "مصر"} `
-            : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
+                  ? " للبيع والإيجار "
+                  : reversedFilteredKeywords?.offer || " للبيع والإيجار "
+              }  فى  ${
+                reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
+              } `
+            : ` ${reversedFilteredKeywords?.unitType || " Properties "} ${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
-                  ? "For Rent Or Buy"
-                  : reversedFilteredKeywords?.offer || "for rent or buy"
-              } In ${reversedFilteredKeywords.cdb || "Egypt"}`}{" "}
+                  ? " For Rent Or Buy "
+                  : reversedFilteredKeywords?.offer || " for rent or buy "
+              }  In  ${
+                reversedFilteredKeywords?.cdb?.split("_").join(" ") || " Egypt "
+              }`}{" "}
           <span
             className={`${propLengthResult ? "text-default-500" : "hidden"} `}
           >
