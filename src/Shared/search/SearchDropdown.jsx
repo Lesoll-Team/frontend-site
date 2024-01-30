@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 
 export function SearchDropdown({
   setLocationName,
-  setTyping,
+  // setTyping,
   setLocationValue,
 }) {
-const [governorates, setGovernorates] = useState([]);
-const [selectedValues, setSelectedValues] = useState([]);
-const [filteredOptions, setFilteredOptions] = useState([]);
-const [searchTerm, setSearchTerm] = useState("");
-const [mapLocation, setMapLocation] = useState(new Map());
-const [govFromReg, setGovFromReg] = useState(0);
-const [govNum, setGovNum] = useState(0);
+  const [governorates, setGovernorates] = useState([]);
+  const [selectedValues, setSelectedValues] = useState([]);
+  const [filteredOptions, setFilteredOptions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [mapLocation, setMapLocation] = useState(new Map());
+  const [govFromReg, setGovFromReg] = useState(0);
+  const [govNum, setGovNum] = useState(0);
 
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
   const fetchGovernoratesData = async () => {
@@ -36,31 +36,31 @@ const [govNum, setGovNum] = useState(0);
       console.error("Error fetching governorates:", error);
     }
   };
-    useEffect(() => {
-      fetchGovernoratesData();
-    }, []);
+  useEffect(() => {
+    fetchGovernoratesData();
+  }, []);
 
   useEffect(() => {
     setFilteredOptions(governorates);
   }, [governorates]);
 
-   const handleSearch = (e) => {
-     setTyping(true);
-     const term = e.target.value;
-     setSearchTerm(term);
-   };
- useEffect(() => {
-   const filtered = governorates.filter(
-     (governorate) =>
-       governorate.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       governorate.name_ar.toLowerCase().includes(searchTerm.toLowerCase())
-   );
-   setFilteredOptions(
-     govNum > 0
-       ? filtered.filter((gov) => gov.numberReg_governorate_number === govNum)
-       : filtered
-   );
- }, [searchTerm, govNum, governorates]);
+  const handleSearch = (e) => {
+    //  setTyping(true);
+    const term = e.target.value;
+    setSearchTerm(term);
+  };
+  useEffect(() => {
+    const filtered = governorates.filter(
+      (governorate) =>
+        governorate.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        governorate.name_ar.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredOptions(
+      govNum > 0
+        ? filtered.filter((gov) => gov.numberReg_governorate_number === govNum)
+        : filtered
+    );
+  }, [searchTerm, govNum, governorates]);
 
   const handleSelect = ({
     selectedOption,
@@ -71,12 +71,12 @@ const [govNum, setGovNum] = useState(0);
     setSearchTerm("");
     setSelectedValues((prevValues) => {
       if (numberGovFromReg == 0) {
-        setTyping(false);
+        // setTyping(false);
 
         return [...prevValues, selectedOption];
       } else {
         setGovNum(numberGovFromReg);
-        setTyping(false);
+        // setTyping(false);
 
         return [mapLocation.get(numberGovFromReg).name_ar, selectedOption];
       }
@@ -86,7 +86,7 @@ const [govNum, setGovNum] = useState(0);
     setGovNum(numberGov);
     setLocationName(mapLocation.get(numberGovFromReg)?.name_ar);
     setLocationValue(selectedValue);
-    setTyping(false);
+    // setTyping(false);
   };
 
   const handleClearCared = (index, value) => {
@@ -101,10 +101,8 @@ const [govNum, setGovNum] = useState(0);
     }
     updatedValues.splice(index, 1);
     setSelectedValues(updatedValues);
-    setTyping(false);
+    // setTyping(false);
   };
-
-
 
   return (
     <div

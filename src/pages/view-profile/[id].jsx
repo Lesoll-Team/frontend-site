@@ -39,7 +39,7 @@ const ViewProfilePage = () => {
     <div className="min-h-[90dvh] bg-gray-100 py-5">
       <Head>
         <title>user profile</title>
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="all" />
       </Head>
       {userData ? (
         <ViewProfile

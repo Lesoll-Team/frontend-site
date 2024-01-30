@@ -140,7 +140,6 @@ function SearchResult({
                   pageCount={totalPages}
                   pageRangeDisplayed={3}
                   marginPagesDisplayed={1}
-                  // currentPage={currentPage}
                   forcePage={currentPage - 1}
                   onPageChange={(data) => handlePageChange(data.selected)}
                   containerClassName={styles.paginationContainer} // Use the styles from the CSS module
@@ -174,7 +173,7 @@ function SearchResult({
               </div>
               <img
                 src="/sideImgSearch.jpg"
-                alt="side Image in Search page"
+                alt="side in search page"
                 className=" p-2 mt-[150px]"
               />
             </div>
