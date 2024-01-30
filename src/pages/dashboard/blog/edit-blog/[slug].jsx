@@ -17,22 +17,38 @@ const EditBlog = ({ singleBlog }) => {
   const dispatch = useDispatch();
   // const [messageAddBlog, setMessageAddBlog] = useState("");
   const [titleAR, setTitleAR] = useState(singleBlog?.getBlogs.title.ar || "");
-  const [titleEN, setTitleEN] = useState(singleBlog?.getBlogs.title.en||"");
+  const [titleEN, setTitleEN] = useState(singleBlog?.getBlogs.title.en || "");
 
-  const [metaTitleAR, setMetaTitleAR] = useState(singleBlog?.getBlogs.metaTitle.ar||"");
-  const [metaTitleEN, setMetaTitleEN] = useState(singleBlog?.getBlogs.metaTitle.en||"");
+  const [metaTitleAR, setMetaTitleAR] = useState(
+    singleBlog?.getBlogs.metaTitle.ar || ""
+  );
+  const [metaTitleEN, setMetaTitleEN] = useState(
+    singleBlog?.getBlogs.metaTitle.en || ""
+  );
 
-  const [slugAR, setSlugAR] = useState(singleBlog?.getBlogs.slug.ar||"");
-  const [slugEN, setSlugEN] = useState(singleBlog?.getBlogs.slug.en||"");
+  const [slugAR, setSlugAR] = useState(singleBlog?.getBlogs.slug.ar || "");
+  const [slugEN, setSlugEN] = useState(singleBlog?.getBlogs.slug.en || "");
 
-  const [descriptionAR, setDescriptionAR] = useState(singleBlog?.getBlogs.description.ar||"");
-  const [descriptionEN, setDescriptionEN] = useState(singleBlog?.getBlogs.description.en||"");
+  const [descriptionAR, setDescriptionAR] = useState(
+    singleBlog?.getBlogs.description.ar || ""
+  );
+  const [descriptionEN, setDescriptionEN] = useState(
+    singleBlog?.getBlogs.description.en || ""
+  );
 
-  const [metDescriptionAR, setMetDescriptionAR] = useState(singleBlog?.getBlogs.metaDescription.ar||"");
-  const [metDescriptionEN, setMetDescriptionEN] = useState(singleBlog?.getBlogs.metaDescription.en||"");
+  const [metDescriptionAR, setMetDescriptionAR] = useState(
+    singleBlog?.getBlogs.metaDescription.ar || ""
+  );
+  const [metDescriptionEN, setMetDescriptionEN] = useState(
+    singleBlog?.getBlogs.metaDescription.en || ""
+  );
 
-  const [selectedImage, setImage] = useState(singleBlog?.getBlogs.BlogImage||null);
-  const [selectedImagePrev, setImagePrev] = useState(singleBlog?.getBlogs.BlogImage||null);
+  const [selectedImage, setImage] = useState(
+    singleBlog?.getBlogs.BlogImage || null
+  );
+  const [selectedImagePrev, setImagePrev] = useState(
+    singleBlog?.getBlogs.BlogImage || null
+  );
 
   const handleImgChange = (e) => {
     const newImage = e.target.files[0];
@@ -82,7 +98,7 @@ const EditBlog = ({ singleBlog }) => {
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
     // const data =
-     dispatch(
+    dispatch(
       editBlog({ blogData: formData, blogID: singleBlog.getBlogs._id }) //, blogData: formData
     );
     router.push(`/blog/${slug.ar}`);
@@ -96,7 +112,7 @@ const EditBlog = ({ singleBlog }) => {
         <title>Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <div className=" bg-lightGreenHover sticky top-0 ">
+      <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
         <Sidebar />
       </div>
       <div className="w-full p-10 overflow-x-auto overflow-y-hidden">
