@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 import PropertyData from "./PropertyData";
 
 function PropertyDetailsMain({ singleProperty }) {
-
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
@@ -40,7 +39,7 @@ function PropertyDetailsMain({ singleProperty }) {
         />
         <meta
           property="og:title"
-          content={singleProperty?.title.slice(0, 50)}
+          content={singleProperty?.title.slice(0, 60)}
         />
         <meta property="og:description" content={singleProperty?.description} />
         <meta
