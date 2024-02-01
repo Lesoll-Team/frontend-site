@@ -16,13 +16,14 @@ import { useSelector } from "react-redux";
 
 import Head from "next/head";
 import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
+import { memo } from "react";
 
-export default function Home({
+const Home = ({
   propertyForRent,
   propertyForBuy,
   propertyForView,
   bestSearch,
-}) {
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <main>
@@ -84,8 +85,8 @@ export default function Home({
       />
     </main>
   );
-}
-
+};
+export default memo(Home);
 export async function getStaticProps() {
   const resBuy = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/property/gethomesale?limit=8&page=${1}`

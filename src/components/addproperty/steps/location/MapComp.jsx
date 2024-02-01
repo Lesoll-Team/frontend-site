@@ -15,7 +15,7 @@ import "@reach/combobox/styles.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const libraries = ["places"];
+// const libraries = ["places"];
 export default function MapComp({ propertyDetils, setData, propErrors }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
@@ -23,22 +23,22 @@ export default function MapComp({ propertyDetils, setData, propErrors }) {
   });
   if (!isLoaded) return <div>loading ....</div>;
   return (
-    <Map
+    <MapUi
       propertyDetils={propertyDetils}
       setData={setData}
       propErrors={propErrors}
     />
   );
 }
-const center = { lat: 30, lng: 31.4 };
-const Map = ({ propertyDetils, setData, propErrors }) => {
+// const center = { lat: 30, lng: 31.4 };
+const MapUi = ({ propertyDetils, setData, propErrors }) => {
   // const getLatLngWithGovAndRegion = async () => {
   //   const result = await getGeocode({ address: "cairo , nasr city" });
-  // 
+  //
   // };
   // geoo();
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const [selected, setSelected] = useState(null);
+  // const language = useSelector((state) => state.GlobalState.languageIs);
+  // const [selected, setSelected] = useState(null);
   const [inputValue, setInputValue] = useState("");
 
   // const handleMapDoubleClick = async (event) => {
@@ -93,7 +93,7 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
           propErrors={propErrors}
           inputValue={inputValue}
           setInputValue={setInputValue}
-          setSelected={setSelected}
+          // setSelected={setSelected}
           propertyDetils={propertyDetils}
           setData={setData}
         />
@@ -123,7 +123,7 @@ const Map = ({ propertyDetils, setData, propErrors }) => {
 };
 
 const PlacesAutoComplete = ({
-  setSelected,
+  // setSelected,
   propertyDetils,
   setData,
   inputValue,
@@ -143,24 +143,22 @@ const PlacesAutoComplete = ({
     setValue(address, false);
     clearSuggestions();
     const result = await getGeocode({ address });
-    const { address_components } = result[0];
+    // const { address_components } = result[0];
 
-    let governrate = "";
-    let region = "";
-
-    address_components.forEach((component) => {
-      const { long_name, types } = component;
-
-      if (types.includes("administrative_area_level_1")) {
-        governrate = long_name;
-      } else if (types.includes("administrative_area_level_2")) {
-        region = long_name;
-      }
-    });
+    // address_components.forEach((component) => {
+    //   const { long_name, types } = component;
+    //   let governrate;
+    //   let region;
+    //   if (types.includes("administrative_area_level_1")) {
+    //     governrate = long_name;
+    //   } else if (types.includes("administrative_area_level_2")) {
+    //     region = long_name;
+    //   }
+    // });
     setInputValue("");
 
     const { lat, lng } = getLatLng(result[0]);
-    setSelected({ lat, lng });
+    // setSelected({ lat, lng });
     setData({
       ...propertyDetils,
       address: {
@@ -173,7 +171,6 @@ const PlacesAutoComplete = ({
         latitude: lat,
       },
     });
-
   };
   const language = useSelector((state) => state.GlobalState.languageIs);
 

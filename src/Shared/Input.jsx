@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Input = (props) => {
-  const [focused, setFocused] = useState(false);
-  // const { id, errorMessage, handleChange, lable, ...others } = props;
-  const handleFocus = (e) => {
-    setFocused(true);
-  };
   return (
     <div className="w-full mt-3">
       <input

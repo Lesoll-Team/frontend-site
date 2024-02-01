@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // import { Input } from "@nextui-org/react";
 import {
   propertyTypeData,
@@ -71,12 +71,6 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   let [sortProp, setSortProp] = useState(
     reversedFilteredKeywords?.sort_by || ""
   );
-  // const [isTyping, setTyping] = useState(false);
-
-  // let [locationKeyword, setLocationKeyword] =
-  // useState(reversedFilteredKeywords?.cdb
-  //     ? reversedFilteredKeywords?.cdb.trim().split("_").join(" ")
-  //     : "");
 
   const [locationName, setLocationName] = useState("");
   const [locationValue, setLocationValue] = useState("");
@@ -97,25 +91,41 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
     cdb: locationValue || locationName.trim().split(" ").join("_"),
-    // isFurnished,
   };
 
-  const handleSubmitSearch = (e) => {
-    e?.preventDefault();
-    const filteredKeywords = Object.fromEntries(
-      Object.entries(InputKeywords).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
-    const queryString = Object.keys(filteredKeywords)
-      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-      .join("&");
+  // const handleSubmitSearch = (e) => {
+  //   e?.preventDefault();
+  //   const filteredKeywords = Object.fromEntries(
+  //     Object.entries(InputKeywords).filter(
+  //       ([_, value]) => value != null && value !== "" && value !== 0
+  //     )
+  //   );
+  //   const queryString = Object.keys(filteredKeywords)
+  //     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+  //     .join("&");
 
-    dispatch(setCurrentPage(1));
-    router.push(`/searching/${queryString}`);
-  };
+  //   dispatch(setCurrentPage(1));
+  //   router.push(`/searching/${queryString}`);
+  // };
+  const handleSubmitSearch = useCallback(
+    (e) => {
+      e?.preventDefault();
+      const filteredKeywords = Object.fromEntries(
+        Object.entries(InputKeywords).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
+      const queryString = Object.keys(filteredKeywords)
+        .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+        .join("&");
 
-  const handelClearFilter = () => {
+      dispatch(setCurrentPage(1));
+      router.push(`/searching/${queryString}`);
+    },
+    [InputKeywords, dispatch, router]
+  );
+
+  const handelClearFilter = useCallback(() => {
     setSaleOptions("all");
     setFromPrice(0.0);
     setToPrice(0.0);
@@ -134,7 +144,7 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     setLocationValue("");
     setLocationName("");
     dispatch(setCurrentPage(1));
-  };
+  }, [dispatch]);
   const setForSaleButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("للبيع") : setSaleOptions("For_Sale");
@@ -172,11 +182,14 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
     }
   }, [sortPropChanged, sortProp]);
 
-  const handleSortPropChange = (value) => {
-    setSortProp(value);
-    setSortPropChanged(true);
-    dispatch(setCurrentPage(1));
-  };
+  const handleSortPropChange = useCallback(
+    (value) => {
+      setSortProp(value);
+      setSortPropChanged(true);
+      dispatch(setCurrentPage(1));
+    },
+    [setSortProp, setSortPropChanged, dispatch]
+  );
 
   return (
     <form
@@ -349,10 +362,10 @@ export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
           >
             {languageIs
               ? `( ${propLengthResult} ${
-                  reversedFilteredKeywords?.unitType || "عقارات"
+                  reversedFilteredKeywords?.unitType || " عقارات "
                 })  `
               : `( ${propLengthResult} ${
-                  reversedFilteredKeywords?.unitType || "Properties"
+                  reversedFilteredKeywords?.unitType || " Properties "
                 })`}
           </span>
         </h1>

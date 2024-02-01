@@ -1,6 +1,6 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
-import { MdOutlineMoreVert } from "react-icons/md";
+// import { MdOutlineMoreVert } from "react-icons/md";
 import {
   paymentMethodData,
   finishingOptionsData,

@@ -80,15 +80,15 @@ export default function ActiveProperty() {
     }
   };
 
-    const handleSoldOutProperty = async (propertyId) => {
-      try {
-        await propertyIsSold({propertyId});
-        setRefreshProperty(!refreshProperty);
-        await fetchAllProperties(startDate, endDate);
-      } catch (error) {
-        console.error("Error deleting property:", error);
-      }
-    };
+  const handleSoldOutProperty = async (propertyId) => {
+    try {
+      await propertyIsSold({ propertyId });
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties(startDate, endDate);
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
@@ -175,7 +175,11 @@ export default function ActiveProperty() {
             <div className="text-bold flex gap-x-3 text-medium capitalize">
               <div className="">
                 <b>Status: </b>
-                {blog?.isSold ? <b className="text-red-500">Out Sold</b> : <b className="text-success-500"> available</b>}
+                {blog?.isSold ? (
+                  <b className="text-red-500">Out Sold</b>
+                ) : (
+                  <b className="text-success-500"> available</b>
+                )}
               </div>
             </div>
           </div>
