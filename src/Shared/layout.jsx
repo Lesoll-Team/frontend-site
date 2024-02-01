@@ -18,15 +18,11 @@ export default function Layout({ children }) {
       .replace(".", "")
   );
   if (typeof window !== "undefined") {
-    // This code will only execute in a browser environment
     if (!localStorage.getItem("local_storage_device_id")) {
       localStorage.setItem("local_storage_device_id", userKey);
     }
   }
-  // if (!localStorage.getItem("local_storage_device_id")) {
-  //   JSON.stringify(localStorage.setItem("local_storage_device_id", userKey));
-  //   // JSON.stringify(localStorage.setItem(`prompt_visit_${Math.floor(Math.random() * 10001) }`, new Date()))
-  // }
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
   useEffect(() => {

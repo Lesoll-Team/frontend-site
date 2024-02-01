@@ -1,10 +1,17 @@
-import { Button, Input } from "@nextui-org/react";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "@nextui-org/react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { MdAdd } from "react-icons/md";
 import { RxDash } from "react-icons/rx";
 import { useSelector } from "react-redux";
-const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCountBedrooms,setCountBathroom }) => {
+const DropdownRooms = ({
+  classNames,
+  name,
+  countBathrooms,
+  countBedrooms,
+  setCountBedrooms,
+  setCountBathroom,
+}) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const dropdownContentRef = useRef(null);
@@ -32,7 +39,7 @@ const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCount
     setMenuIsOpen(!menuIsOpen);
   };
   return (
-    <div  className={`${classNames} relative w-full  `}>
+    <div className={`${classNames} relative w-full  `}>
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
@@ -48,14 +55,16 @@ const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCount
       </div>
       {menuIsOpen && (
         <div
-        ref={dropdownContentRef}
-
+          ref={dropdownContentRef}
           className={`absolute right-0 w-[200px] lg:w-[300px] animate-appearance-in z-10  mt-1
            bg-white duration-200 drop-shadow-xl border overflow-y-auto rounded-xl max-h-[550px]`}
         >
           <div className="w-full  p-4 flex flex-col items-center">
             <div className="flex  gap-2 items-center pb-2">
-            <span className="font-bold select-none"> {language?"الغرف":"Bedrooms"}</span>
+              <span className="font-bold select-none">
+                {" "}
+                {language ? "الغرف" : "Bedrooms"}
+              </span>
               <Button
                 onClick={() =>
                   setCountBedrooms(
@@ -85,7 +94,9 @@ const DropdownRooms = ({ classNames, name,countBathrooms,countBedrooms, setCount
               </Button>
             </div>
             <div className="flex gap-2 items-center">
-            <span className="font-bold">{language?"الحمامات":"Bathroom"}</span>
+              <span className="font-bold">
+                {language ? "الحمامات" : "Bathroom"}
+              </span>
 
               <Button
                 onClick={() =>

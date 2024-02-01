@@ -5,7 +5,7 @@ import { BiPhoneCall } from "react-icons/bi";
 import { BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
-const Userdata = ({ userData, totalProperties }) => {
+const Userdata = ({ userData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.GlobalState.userData);
 
@@ -19,13 +19,10 @@ const Userdata = ({ userData, totalProperties }) => {
     switch (userData?.typeOfUser) {
       case "broker":
         return language ? "سمسار" : "broker";
-        break;
       case "company":
         return language ? "مطور" : "Developer";
-        break;
       case "individual":
         return language ? "فرد" : "Individual";
-        break;
       default:
         return language ? "غير محدد" : "Not specified";
     }
@@ -101,7 +98,6 @@ const Userdata = ({ userData, totalProperties }) => {
           <>
             {userData?.phone && (
               <>
-                {" "}
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <button className="border- flex gap-3 justify-start items-center p-2 sm:p-3 rounded-lg   cursor-pointer">
                     <BsWhatsapp className="text-5xl hover:-translate-y-1 duration-150 text-[#25D366]" />
@@ -125,7 +121,6 @@ const Userdata = ({ userData, totalProperties }) => {
           <>
             {userData?.phone && (
               <>
-                {" "}
                 <ContactBtnsModal
                   phone={true}
                   description={
@@ -152,7 +147,6 @@ const Userdata = ({ userData, totalProperties }) => {
                 </ContactBtnsModal>
               </>
             )}
-
             <ContactBtnsModal
               phone={true}
               description={

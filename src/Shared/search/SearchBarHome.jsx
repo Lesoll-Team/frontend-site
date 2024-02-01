@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import DropdownMoreHome from "./dropdown/DropdownMoreHome";
@@ -28,37 +28,87 @@ export function SearchBarHome() {
 
   const [locationName, setLocationName] = useState("");
   const [locationValue, setLocationValue] = useState("");
-  const [isTyping, setTyping] = useState(false);
+  // const [isTyping, setTyping] = useState(false);
 
-  const InputKeywords = {
-    offer: saleOptions,
-    propType: propertyType,
-    unitType: unitType,
-    saleOption: paymentMethod,
-    bathRooms: countBathrooms,
-    rooms: countBedrooms,
-    finishingType: finishingOptions,
-    maxPrice: toPrice,
-    minPrice: fromPrice,
-    keywords: keywords.trim().split(" ").join("_"),
-    minArea: fromArea,
-    maxArea: toArea,
-    MortgagePrice: propertyFinance,
-    cdb: locationValue || locationName.trim().split(" ").join("_"),
-  };
-  const handleSubmitSearch = (e) => {
-    e?.preventDefault();
-    const filteredKeywords = Object.fromEntries(
-      Object.entries(InputKeywords).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
-    const queryString = Object.keys(filteredKeywords)
-      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-      .join("&");
-    dispatch(setCurrentPage(1));
-    router.push(`/searching/${queryString}`);
-  };
+  // const InputKeywords = {
+  //   offer: saleOptions,
+  //   propType: propertyType,
+  //   unitType: unitType,
+  //   saleOption: paymentMethod,
+  //   bathRooms: countBathrooms,
+  //   rooms: countBedrooms,
+  //   finishingType: finishingOptions,
+  //   maxPrice: toPrice,
+  //   minPrice: fromPrice,
+  //   keywords: keywords.trim().split(" ").join("_"),
+  //   minArea: fromArea,
+  //   maxArea: toArea,
+  //   MortgagePrice: propertyFinance,
+  //   cdb: locationValue || locationName.trim().split(" ").join("_"),
+  // };
+  const InputKeywords = useMemo(() => {
+    return {
+      offer: saleOptions,
+      propType: propertyType,
+      unitType: unitType,
+      saleOption: paymentMethod,
+      bathRooms: countBathrooms,
+      rooms: countBedrooms,
+      finishingType: finishingOptions,
+      maxPrice: toPrice,
+      minPrice: fromPrice,
+      keywords: keywords.trim().split(" ").join("_"),
+      minArea: fromArea,
+      maxArea: toArea,
+      MortgagePrice: propertyFinance,
+      cdb: locationValue || locationName.trim().split(" ").join("_"),
+    };
+  }, [
+    saleOptions,
+    propertyType,
+    unitType,
+    paymentMethod,
+    countBathrooms,
+    countBedrooms,
+    finishingOptions,
+    toPrice,
+    fromPrice,
+    keywords,
+    fromArea,
+    toArea,
+    propertyFinance,
+    locationValue,
+    locationName,
+  ]);
+  const handleSubmitSearch = useCallback(
+    (e) => {
+      e?.preventDefault();
+      const filteredKeywords = Object.fromEntries(
+        Object.entries(InputKeywords).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
+      const queryString = Object.keys(filteredKeywords)
+        .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+        .join("&");
+      dispatch(setCurrentPage(1));
+      router.push(`/searching/${queryString}`);
+    },
+    [dispatch, router, InputKeywords]
+  );
+  // const handleSubmitSearch = (e) => {
+  //   e?.preventDefault();
+  //   const filteredKeywords = Object.fromEntries(
+  //     Object.entries(InputKeywords).filter(
+  //       ([_, value]) => value != null && value !== "" && value !== 0
+  //     )
+  //   );
+  //   const queryString = Object.keys(filteredKeywords)
+  //     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+  //     .join("&");
+  //   dispatch(setCurrentPage(1));
+  //   router.push(`/searching/${queryString}`);
+  // };
 
   const setForSaleButton = (e) => {
     e.preventDefault();
@@ -135,7 +185,7 @@ export function SearchBarHome() {
               <SearchDropdown
                 setLocationName={setLocationName}
                 setLocationValue={setLocationValue}
-                setTyping={setTyping}
+                // setTyping={setTyping}
               />
             </div>
 

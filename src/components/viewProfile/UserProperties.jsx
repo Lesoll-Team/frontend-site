@@ -6,12 +6,12 @@ import { ViewUserProperties } from "@/utils/userAPI";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import CardSkeleton from "../realtyCard/CardSkeleton";
-import PropertyData from "../propertyDetails/PropertyData";
+// import PropertyData from "../propertyDetails/PropertyData";
 const UserProperties = ({ propertiesNums }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [propertiesData, setPropertiesData] = useState();
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPage] = useState();
+  const [totalPages, setTotalPages] = useState(0);
   const [propertyType, setPropertyType] = useState("000");
   const [totalProperties, setTotalProperties] = useState(0);
   const router = useRouter();
@@ -22,13 +22,10 @@ const UserProperties = ({ propertiesNums }) => {
         const data = await ViewUserProperties(slug, page, propertyType);
         setPropertiesData(data.getConfirmedRealty);
         setTotalProperties(data.resultConfirmed);
-        setTotalPage(data.totalPages);
+        setTotalPages(data.totalPages);
       }
     };
     fetchData();
-
-    // If you need a cleanup function, return it here
-    // Example: return () => cleanupLogic();
   }, [slug, page, propertyType]);
 
   const handlePageChange = (selectedPage) => {
@@ -42,15 +39,7 @@ const UserProperties = ({ propertiesNums }) => {
   return (
     <div className={` space-y-5 w-full bg-white rounded-xl p-8   mx-auto `}>
       <h1 className="text-center text-5xl text-darkGreen font-semibold  ">
-        {language ? (
-          <>
-            <span> العقارات </span>
-          </>
-        ) : (
-          <>
-            <span> Properties </span>
-          </>
-        )}
+        {language ? "العقارات " : "Properties"}
       </h1>
 
       <div className="flex mx-auto items-center justify-center gap-3">
@@ -112,15 +101,13 @@ const UserProperties = ({ propertiesNums }) => {
 
       {propertiesData ? (
         propertiesData.length > 0 ? (
-          <>
-            <div className="flex gap-10 flex-wrap justify-center items-center">
-              {propertiesData.map((property) => {
-                return (
-                  <RealtyCard key={property._id} propertyDetails={property} />
-                );
-              })}
-            </div>
-          </>
+          <div className="flex gap-10 flex-wrap justify-center items-center">
+            {propertiesData.map((property) => {
+              return (
+                <RealtyCard key={property._id} propertyDetails={property} />
+              );
+            })}
+          </div>
         ) : (
           <div className="w-full min-h-[33dvh] h-full flex items-center justify-center">
             <p>{language ? "لا يوجد عقارات" : "No properties"}</p>

@@ -1,20 +1,26 @@
 import BlogSinglePage from "@/components/blogs/blogSinglePage";
 import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 
-function blogId({ singleBlog }) {
-
+function BlogId({ singleBlog, pathName }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const router = useRouter();
-  const path = router.asPath;
 
   return (
     <div className="lg:container mx-auto ">
       <Head>
-        <title>{language?`${singleBlog?.getBlogs.metaTitle.ar||singleBlog?.getBlogs.title.ar}`:`${singleBlog?.getBlogs.metaTitle.en ||singleBlog?.getBlogs.title.ar}`}</title>
+        <title>
+          {language
+            ? `${
+                singleBlog?.getBlogs.metaTitle.ar ||
+                singleBlog?.getBlogs.title.ar
+              }`
+            : `${
+                singleBlog?.getBlogs.metaTitle.en ||
+                singleBlog?.getBlogs.title.ar
+              }`}
+        </title>
         <meta
           name="description"
           content={
@@ -23,7 +29,7 @@ function blogId({ singleBlog }) {
               : `${singleBlog?.getBlogs.metaDescription.en}`
           }
         />
-        <link rel="canonical" href={`https://lesoll.com/${path}`} />
+        <link rel="canonical" href={`https://lesoll.com/blog/${pathName}`} />
       </Head>
 
       <div className="md:mb-20 mb-10">
@@ -33,7 +39,7 @@ function blogId({ singleBlog }) {
   );
 }
 
-export default blogId;
+export default BlogId;
 
 export async function getServerSideProps(context) {
   try {
@@ -43,8 +49,7 @@ export async function getServerSideProps(context) {
     const data = await res.data;
     if (data.getBlogs) {
       return {
-        props: { singleBlog: data },
-        // revalidate:1,
+        props: { singleBlog: data, pathName: context.query.blogid },
       };
     } else {
       context.res.writeHead(410);

@@ -17,7 +17,7 @@ const Sidebar = () => {
   const [toggleBlogList, setToggleBlogList] = useState(false);
   return (
     <div className={asideWrapper}>
-      <figure className="justify-center flex p-5 mb-5">
+      <div className="justify-center flex p-5 mb-5">
         <Image
           className="justify-center flex"
           src={toggleNav ? "/logo-x.png" : "/favicon.png"}
@@ -26,7 +26,7 @@ const Sidebar = () => {
           height="100"
           priority
         />
-      </figure>
+      </div>
       <div
         className={` flex ${
           !toggleNav ? "justify-center" : "  justify-end"
@@ -149,11 +149,9 @@ const Sidebar = () => {
             </Link>
           </div>
         </div>
-
-        {/* <Link href={"/dashboard/prop-active"}> Properties Active</Link> */}
       </nav>
     </div>
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);
