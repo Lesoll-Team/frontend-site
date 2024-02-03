@@ -1,6 +1,6 @@
-export const addPropertyInitialState = {
+export const initialAddPropData = {
   title: "",
-  offer: "",
+  offer: "For Sale",
   mainImage: "",
   multiImage: "",
   rentalPeriod: "",
@@ -18,8 +18,8 @@ export const addPropertyInitialState = {
   downPayment: 0,
   maintenancePayment: 0,
   deliveryDate: "",
-  sellerName: userInfo?.fullname,
-  sellerEmail: userInfo?.email,
+  sellerName: "",
+  sellerEmail: "",
   rooms: 0,
   bathRooms: 0,
   description: "",
@@ -52,4 +52,6 @@ export const addPropertyInitialState = {
   downPaymentType: "cash",
   downPaymentAmount: 0,
   installmentPeriodType: "yearly",
+  // installmentPeriod: 0,
+  phoneChoice: "same", // "same" , "other"
 };

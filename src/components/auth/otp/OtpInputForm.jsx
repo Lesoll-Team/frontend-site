@@ -1,4 +1,4 @@
-import Button from "@/Shared/Button";
+import Button from "@/Shared/ui/Button";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { useSelector } from "react-redux";

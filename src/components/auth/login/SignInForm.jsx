@@ -10,7 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { signWithGoogle } from "@/utils/userAPI";
 import GoogleSignInBtn from "./GoogleSignInBtn";
 import { resetLogin, userLogin } from "@/redux-store/features/auth/loginSlice";
-import Button from "@/Shared/Button";
+import Button from "@/Shared/ui/Button";
 const SignInForm = () => {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;

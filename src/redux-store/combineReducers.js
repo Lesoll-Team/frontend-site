@@ -17,6 +17,7 @@ import registerReducer from "./features/auth/registerSlice";
 import userProfileReducer from "./features/auth/userProfileSlice";
 import loginReducer from "./features/auth/loginSlice";
 import forgetPasswordReducer from "@/redux-store/features/user/ForgetPassSlice";
+import addPropertyReducer from "./features/property/addPropertySlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -33,5 +34,6 @@ export default combineReducers({
   login: loginReducer,
   userProfile: userProfileReducer,
   forgetPassword: forgetPasswordReducer,
+  addProperty: addPropertyReducer,
   // Compare:compareReducer,
 });

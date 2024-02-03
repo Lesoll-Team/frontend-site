@@ -6,6 +6,9 @@
 pre {
   font-family: "roboto", sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .rdrInputRanges {
   display: none;
