@@ -1,11 +1,13 @@
 export const categoryType = [
-  "sale",
-  "rent",
+  // "sale",
+  // "rent",
+  "residential",
   "investment",
   "commercial",
   "graves",
   "compounds",
   "lands",
+  // "all",
 ];
 export const categoryUnitType = [
   "apartment",
@@ -33,6 +35,7 @@ export const categoryUnitType = [
   "shop",
   "building",
   "agriculture",
+  // "all",
 ];
 
 export const paymentMethodData = {
