@@ -1,3 +1,4 @@
+import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import Button from "@/Shared/ui/Button";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
@@ -5,31 +6,11 @@ import { useSelector } from "react-redux";
 
 const OtpInputForm = () => {
   const [otp, setOtp] = useState("");
-  const [windowWidth, setWindowWidth] = useState();
   const [error, setError] = useState(false);
-  useEffect(() => {
-    // Function to update window width
-    const updateWindowWidth = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    // Attach event listener for window resize
-    window.addEventListener("resize", updateWindowWidth);
-
-    // Initial window width
-    updateWindowWidth();
-
-    // Cleanup function to remove event listener
-    return () => {
-      window.removeEventListener("resize", updateWindowWidth);
-    };
-  }, []);
+  const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (otp.length === 6) {
-
-    // }
   };
   return (
     <form

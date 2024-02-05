@@ -10,8 +10,8 @@ const useFromatAddData = (data) => {
   formData.append("rentalPeriod", data.rentalPeriod);
   formData.append("insurance", data.insurance);
   formData.append("saleOption", data.saleOption);
-  formData.append("propType", data.propType);
-  formData.append("unitType", data.unitType);
+  formData.append("propType", data.propType.value);
+  formData.append("unitType", data.unitType.value);
   formData.append("landType", data.landType);
   formData.append("price", data.price);
   formData.append("area", data.area);

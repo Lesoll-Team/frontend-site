@@ -7,8 +7,16 @@ const useAddProperty = () => {
   const form = useForm({
     defaultValues: initialAddPropData,
   });
-  const { handleSubmit, control, formState, register, reset, setValue, watch } =
-    form;
+  const {
+    handleSubmit,
+    control,
+    clearErrors,
+    formState,
+    register,
+    reset,
+    setValue,
+    watch,
+  } = form;
 
   const { errors, isSubmitting, isSubmitSuccessful } = formState;
 
@@ -18,7 +26,7 @@ const useAddProperty = () => {
     } else {
     }
     const { formData } = useFromatAddData(data);
-    console.log(formData.get("title"));
+    console.log(data);
   });
 
   return {
@@ -30,6 +38,7 @@ const useAddProperty = () => {
     control,
     setStep,
     step,
+    clearErrors,
   };
 };
 export default useAddProperty;
