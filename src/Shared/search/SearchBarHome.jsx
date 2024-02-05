@@ -1,102 +1,134 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import {
+  // useDispatch,
+  useSelector,
+} from "react-redux";
+// import { useRouter } from "next/router";
 import DropdownMoreHome from "./dropdown/DropdownMoreHome";
-import { setCurrentPage } from "@/redux-store/features/searchingSlice";
+// import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 import { SearchDropdown } from "./SearchDropdown";
 import { AiOutlineSearch } from "react-icons/ai";
 
 export function SearchBarHome() {
-  const dispatch = useDispatch();
-
+  // const dispatch = useDispatch();
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  const router = useRouter();
-  const [saleOptions, setSaleOptions] = useState("all");
+  // const router = useRouter();
+  const [saleOptions, setSaleOptions] = useState("sale");
   const [fromPrice, setFromPrice] = useState(0.0);
   const [toPrice, setToPrice] = useState(0.0);
   const [fromArea, setFromArea] = useState(0);
   const [toArea, setToArea] = useState(0);
-  let [countBedrooms, setCountBedrooms] = useState(0);
-  let [countBathrooms, setCountBathroom] = useState(0);
-  let [propertyFinance, setPropertyFinance] = useState("");
-  let [paymentMethod, setPaymentMethod] = useState("");
+  const [countBedrooms, setCountBedrooms] = useState(0);
+  const [countBathrooms, setCountBathrooms] = useState(0);
+  const [propertyFinance, setPropertyFinance] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [keywords, setKeywords] = useState("");
-  let [finishingOptions, setFinishingOptions] = useState("");
-  let [unitType, setUnitType] = useState("");
-  let [propertyType, setPropertyType] = useState("");
-  let [isFurnished, setFurnished] = useState(false);
-  let [selectoption, setSelectedOption] = useState("");
+  const [finishingOptions, setFinishingOptions] = useState("");
+  const [unitType, setUnitType] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [isFurnished, setIsFurnished] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
   const [locationName, setLocationName] = useState("");
   const [locationValue, setLocationValue] = useState("");
-  // const [isTyping, setTyping] = useState(false);
 
+  const [locationGovernorate, setLocationGovernorate] = useState("");
+  const [locationRegion, setLocationRegion] = useState("");
+
+  /**contain search data from state
+   * */
   const InputKeywords = {
-    offer: saleOptions,
-    propType: propertyType,
-    unitType: unitType,
+    offer: saleOptions, // page offer in category
+    propType: propertyType, // page category type
+    unitType: unitType, // page unit type in category
+    // cdb: locationValue || locationName.trim().split(" ").join("_"), // location page in category
+    governorate: locationGovernorate,
+    region: locationRegion,
+    keywords: keywords.trim().split(" ").join("_"), // page search in category
     saleOption: paymentMethod,
     bathRooms: countBathrooms,
     rooms: countBedrooms,
     finishingType: finishingOptions,
     maxPrice: toPrice,
     minPrice: fromPrice,
-    keywords: keywords.trim().split(" ").join("_"),
     minArea: fromArea,
     maxArea: toArea,
     MortgagePrice: propertyFinance,
-    cdb: locationValue || locationName.trim().split(" ").join("_"),
   };
+
+  /**
+   * @function handleSubmitSearch got to searching page with input search
+   * @param filteredKeywords make filter "InputKeywords" just get value is equal data
+   * @param queryString make "filteredKeywords" to query text
+   */
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
+    //  this step make filter "InputKeywords" just get value is equal data
     const filteredKeywords = Object.fromEntries(
       Object.entries(InputKeywords).filter(
         ([_, value]) => value != null && value !== "" && value !== 0
       )
     );
-    const queryString = Object.keys(filteredKeywords)
-      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-      .join("&");
-    dispatch(setCurrentPage(1));
-    router.push(`/searching/${queryString}`);
+
+    //  this step make "filteredKeywords" to query text
+    const pagesInput = Object.keys(filteredKeywords)
+      .map((key) => `${filteredKeywords[key]}`)
+      .join("/")
+      .toLowerCase();
+    // const queryString = Object.keys(filteredKeywords)
+    //   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+    //   .join("&");
+    // console.log("queryString", queryString);
+    console.log("filteredKeywords", filteredKeywords);
+    console.log("pagesInput", pagesInput);
+
+    // console.log("locationRegion", locationRegion);
+    // console.log("locationGovernorate", locationGovernorate);
+    // router.push(`/properties/${pagesInput}`);
+
+    // console.log("locationGovernorate", locationGovernorate);
+    //  this step call redux state because go to page number one in pagination
+    // dispatch(setCurrentPage(1));
+
+    //  this step go to searching page with queryString after filter
+    // router.push(`/properties/${queryString}`);
   };
 
+  // start code 3 button in search bar
   const setForSaleButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للبيع") : setSaleOptions("For_Sale");
+    setSaleOptions("sale");
   };
-
   const setForRentButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للايجار") : setSaleOptions("For_Rent");
+    setSaleOptions("rent");
+    // languageIs ? setSaleOptions("للايجار") : setSaleOptions("For_Rent");
     setPropertyFinance("");
     setFinishingOptions("");
   };
   const setForInvestmentButton = (e) => {
     e.preventDefault();
-    languageIs ? setSaleOptions("للإستثمار") : setSaleOptions("For_Investment");
+    // languageIs ? setSaleOptions("للإستثمار") : setSaleOptions("For_Investment");
+    setSaleOptions("investment");
   };
-
-  // const setForAllButton = (e) => {
-  //   e.preventDefault();
-  //   languageIs ? setSaleOptions("كل") : setSaleOptions("all");
-  // };
+  // end code 3 button in search bar
   return (
     <div className=" w-full  flex justify-center ">
       <div className="  w-full  flex flex-col justify-end">
+        {/* 3 button in search bar */}
         <div className=" flex gap-x-1 w-fit items-end">
           <button
             id="Click-Gtm"
             onClick={setForSaleButton}
             className={` ${
-              saleOptions == "For_Sale" || saleOptions == "للبيع"
+              saleOptions == "sale"
                 ? "text-lightGreen bg-white"
                 : "text-white  bg-lightGreen"
             }  
             h-[20px]  lg:h-[26px]   xl:h-[32px]   2xl:h-[40px]
             w-[70px]   lg:w-[88px]   xl:w-[111px]   2xl:w-[139px] 
              text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] 2xl:text-[24px] 
-              rounded-t-lg  font-inter `}
+                font-inter rounded-t-sm md:rounded-t-md`}
           >
             {languageIs ? "للبيع" : "Buy"}
           </button>
@@ -104,14 +136,14 @@ export function SearchBarHome() {
             id="Click-Gtm"
             onClick={setForRentButton}
             className={` ${
-              saleOptions == "For_Rent" || saleOptions == "للايجار"
+              saleOptions == "rent"
                 ? "text-lightGreen bg-white"
                 : "text-white  bg-lightGreen"
             } 
                         h-[20px]  lg:h-[26px]   xl:h-[32px]   2xl:h-[40px]
             w-[70px]   lg:w-[88px]   xl:w-[111px]   2xl:w-[139px] 
              text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] 2xl:text-[24px] 
-            font-inter rounded-t-lg`}
+            font-inter rounded-t-sm md:rounded-t-md`}
           >
             {languageIs ? "للإيجار" : "Rent"}
           </button>
@@ -119,42 +151,53 @@ export function SearchBarHome() {
             id="Click-Gtm"
             onClick={setForInvestmentButton}
             className={` ${
-              saleOptions == "For_Investment" || saleOptions == "للإستثمار"
+              saleOptions == "investment"
                 ? "text-lightGreen bg-white"
                 : "text-white  bg-lightGreen"
             }
                         h-[20px]  lg:h-[26px]   xl:h-[32px]   2xl:h-[40px]
             w-[70px]   lg:w-[88px]   xl:w-[111px]   2xl:w-[139px] 
              text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] 2xl:text-[24px] 
-            font-inter  rounded-t-lg `}
+            font-inter  rounded-t-sm md:rounded-t-md `}
           >
             {languageIs ? "للإستثمار" : "Investment"}
           </button>
         </div>
+        {/*box search bar */}
         <div
           className={`flex items-center ${
             languageIs
-              ? "rounded-br-lg rounded-l-lg"
-              : "rounded-bl-lg rounded-r-lg"
-          }  bg-white h-[30px] sm:h-[45px] md:h-[55px] xl:h-[70px] 2xl:h-[80px] `}
+              ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
+              : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
+          }  bg-white h-[30px] sm:h-[45px]
+          md:h-[55px] xl:h-[70px] 2xl:h-[80px] 
+          `}
         >
-          <div className=" w-[30px] md:w-[39px] lg:w-[52px] xl:w-[69px] 2xl:w-[92px] h-full flex items-center justify-center">
+          {/*search icon inside search box */}
+          <div
+            className="
+           w-[30px] md:w-[39px] lg:w-[52px] xl:w-[69px] 2xl:w-[92px] h-full flex items-center justify-center"
+          >
             <AiOutlineSearch
-              className="w-[16px] h-[16px] md:w-[20px] md:h-[20px]  lg:w-[26px] lg:h-[26px]  xl:w-[32px] xl:h-[32px]  2xl:w-[40px] 2xl:h-[40px] 
+              className="w-[16px] h-[16px] md:w-[20px]
+               md:h-[20px] 
+               lg:w-[26px] lg:h-[26px]  xl:w-[32px] xl:h-[32px]  2xl:w-[40px] 2xl:h-[40px] 
                text-grayText 
             "
             />
-            {/**            text-[13px] md:text-[18px] gl-text-[23px] xl:text-[28px] 2xl:text-[31px]
-             */}
           </div>
+
+          {/*search box */}
           <div className="w-full ">
             <SearchDropdown
               setLocationName={setLocationName}
               setLocationValue={setLocationValue}
-              // setTyping={setTyping} w-[50px] md:w-[39px] lg:
+              setLocationGovernorate={setLocationGovernorate}
+              setLocationRegion={setLocationRegion}
             />
           </div>
 
+          {/*search box */}
           <div className="w-[52px] xl:w-[69px] 2xl:w-[92px] h-full flex items-center justify-center">
             <DropdownMoreHome
               offer={saleOptions}
@@ -167,11 +210,11 @@ export function SearchBarHome() {
               setPropertyType={setPropertyType}
               propertyType={propertyType}
               isFurnished={isFurnished}
-              setFurnished={setFurnished}
+              setFurnished={setIsFurnished}
               countBedrooms={countBedrooms}
               setCountBedrooms={setCountBedrooms}
               countBathrooms={countBathrooms}
-              setCountBathroom={setCountBathroom}
+              setCountBathroom={setCountBathrooms}
               setPropertyFinance={setPropertyFinance}
               propertyFinance={propertyFinance}
               fromPrice={fromPrice}
@@ -182,13 +225,15 @@ export function SearchBarHome() {
               setFromArea={setFromArea}
               toArea={toArea}
               setToArea={setToArea}
-              selectoption={selectoption}
+              selectoption={selectedOption}
               setSelectedOption={setSelectedOption}
               setKeywords={setKeywords}
               keywords={keywords}
               classNames="max-w-[40px]"
             />
           </div>
+
+          {/*search button */}
           <div className="">
             <button
               id="Click-Gtm"
@@ -211,4 +256,3 @@ export function SearchBarHome() {
     </div>
   );
 }
-

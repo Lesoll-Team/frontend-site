@@ -6,6 +6,9 @@ export function SearchDropdown({
   setLocationName,
   onSubmitSearch,
   setLocationValue,
+
+  setLocationGovernorate,
+  setLocationRegion,
 }) {
   const [governorates, setGovernorates] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
@@ -45,7 +48,6 @@ export function SearchDropdown({
   }, [governorates]);
 
   const handleSearch = (e) => {
-    //  setTyping(true);
     const term = e.target.value;
     setSearchTerm(term);
   };
@@ -64,6 +66,7 @@ export function SearchDropdown({
 
   const handleSelect = ({
     selectedOption,
+    selectedEnValue,
     numberGovFromReg,
     selectedValue,
     numberGov,
@@ -78,15 +81,30 @@ export function SearchDropdown({
         setGovNum(numberGovFromReg);
         // setTyping(false);
 
-        return [mapLocation.get(numberGovFromReg).name_ar, selectedOption];
+        return [
+          languageIs
+            ? mapLocation.get(numberGovFromReg).name_ar
+            : mapLocation.get(numberGovFromReg).name_en,
+          selectedOption,
+        ];
       }
     });
     setFilteredOptions(governorates);
     setGovFromReg(numberGovFromReg);
     setGovNum(numberGov);
-    setLocationName(mapLocation.get(numberGovFromReg)?.name_ar);
+    setLocationName(
+      languageIs
+        ? mapLocation.get(numberGovFromReg)?.name_ar
+        : mapLocation.get(numberGovFromReg)?.name_en
+    );
     setLocationValue(selectedValue);
-    // setTyping(false);
+
+    setLocationGovernorate(
+      mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue
+    );
+    setLocationRegion(
+      mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue
+    );
   };
 
   const handleClearCared = (index, value) => {
@@ -121,7 +139,7 @@ export function SearchDropdown({
              gap-x-1 md:gap-x-3
             px-1 md:px-3 md:py-1 
            bg-lightGreen rounded-sm md:rounded-md "
-            key={index}
+            key={value}
           >
             <span
               className=" 
@@ -150,7 +168,7 @@ export function SearchDropdown({
             disabled={selectedValues.length >= 3}
             onChange={handleSearch}
             autoComplete="off"
-            className="w-full font-inter rounded-lg  text-[13px] md:text-[16px] gl-text-[20px] xl:text-[25px] 2xl:text-[31px] text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  active:outline-none hover:outline-none focus:outline-none"
+            className="w-full font-inter text-[13px] md:text-[16px] gl-text-[20px] xl:text-[25px] 2xl:text-[31px] text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  active:outline-none hover:outline-none focus:outline-none"
             onKeyDown={handleKeyPress}
           />
         </div>
@@ -168,6 +186,7 @@ export function SearchDropdown({
                       handleSelect({
                         selectedOption: governorate.name_ar,
                         selectedValue: governorate.value_ar,
+                        selectedEnValue: governorate.value_en,
                         numberGovFromReg:
                           govFromReg == 0
                             ? governorate.numberReg_governorate_number || 0
@@ -179,6 +198,7 @@ export function SearchDropdown({
                       handleSelect({
                         selectedOption: governorate.name_en,
                         selectedValue: governorate.value_en,
+                        selectedEnValue: governorate.value_en,
                         numberGovFromReg:
                           govFromReg == 0
                             ? governorate.numberReg_governorate_number || 0
