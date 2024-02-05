@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export function SearchDropdown({
   setLocationName,
-  // setTyping,
+  onSubmitSearch,
   setLocationValue,
 }) {
   const [governorates, setGovernorates] = useState([]);
@@ -103,7 +103,12 @@ export function SearchDropdown({
     setSelectedValues(updatedValues);
     // setTyping(false);
   };
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmitSearch();
+    }
+  };
   return (
     <div
       dir={languageIs ? "rtl" : "ltr"}
@@ -142,10 +147,11 @@ export function SearchDropdown({
                 : "Search by City  Nasr City, Cairo, Maadi..."
             }
             value={searchTerm}
-            disabled={selectedValues.length >= 2}
+            disabled={selectedValues.length >= 3}
             onChange={handleSearch}
             autoComplete="off"
             className="w-full font-inter rounded-lg  text-[13px] md:text-[16px] gl-text-[20px] xl:text-[25px] 2xl:text-[31px] text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  active:outline-none hover:outline-none focus:outline-none"
+            onKeyDown={handleKeyPress}
           />
         </div>
       </div>

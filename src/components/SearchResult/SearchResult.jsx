@@ -45,14 +45,13 @@ function SearchResult({
     <>
       {/* <div className="relative "> */}
       {!isSearching ? (
-        <div className="grid  p-2 grid-cols-1 xl:grid-cols-5 ">
+        <div className="grid bg-red-200">
           <div
-            className={`  flex flex-col sm:p-1 p-5  ${
-              searchingError === "rejected" ? " " : "lg:col-span-4 "
-            }  col-span-5 `}
+            //sm:p-1 p-5
+            className={`flex flex-col`}
           >
             <SearchBar reversedFilteredKeywords={reversedFilteredKeywords} />
-            <div className=" flex flex-wrap justify-center gap-5  ">
+            <div className=" flex flex-wrap justify-around gap-y-5  ">
               {searchResult?.searchResults.map((result) => (
                 <RealtyCard key={result._id} propertyDetails={result} />
               ))}
@@ -155,7 +154,20 @@ function SearchResult({
               </div>
             )}
           </div>
-          <div className=" xl:w-[300px] w-full flex flex-col  ">
+        </div>
+      ) : (
+        <div className="flex items-center min-h-[92dvh] justify-center h-[50dvh] flex-col gap-3">
+          <DotPulse size={50} speed={1.3} color="#309da0" />
+          {/* } */}
+        </div>
+      )}
+      {/* </div> */}
+    </>
+  );
+}
+export default SearchResult;
+/**
+ *           <div className=" xl:w-[300px] w-full flex flex-col  ">
             <BestLinksInHome
               PopularSearches={PopularSearches}
               MostArea={MostArea}
@@ -179,15 +191,4 @@ function SearchResult({
               />
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="flex items-center min-h-[92dvh] justify-center h-[50dvh] flex-col gap-3">
-          <DotPulse size={50} speed={1.3} color="#309da0" />
-          {/* } */}
-        </div>
-      )}
-      {/* </div> */}
-    </>
-  );
-}
-export default SearchResult;
+ */

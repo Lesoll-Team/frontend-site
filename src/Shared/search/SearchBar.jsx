@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Input } from "@nextui-org/react";
 import {
   propertyTypeData,
   unitTypeData,
@@ -11,16 +10,12 @@ import DropdownMore from "./dropdown/DropdownMore";
 import DropdownUintType from "./dropdown/DropdownUintType";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { FaSortNumericDown } from "react-icons/fa";
 import DropdownSort from "./dropdown/DropdownSort";
 import { MdClear } from "react-icons/md";
 import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 import { SearchDropdown } from "./SearchDropdown";
 
-export function SearchBar({
-  pageSaleOption,
-  reversedFilteredKeywords,
-}) {
+export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
   let [sortPropChanged, setSortPropChanged] = useState(false);
   const dispatch = useDispatch();
@@ -44,11 +39,11 @@ export function SearchBar({
     reversedFilteredKeywords?.minArea || 0
   );
   let [toArea, setToArea] = useState(reversedFilteredKeywords?.maxArea || 0);
-  let [selectoption, setSelectedOption] = useState("");
+  let [selectedOption, setSelectedOption] = useState("");
   let [countBedrooms, setCountBedrooms] = useState(
     reversedFilteredKeywords?.rooms || 0
   );
-  let [countBathrooms, setCountBathroom] = useState(
+  let [countBathroom, setCountBathroom] = useState(
     reversedFilteredKeywords?.bathRooms || 0
   );
   let [propertyFinance, setPropertyFinance] = useState(
@@ -74,8 +69,6 @@ export function SearchBar({
   let [sortProp, setSortProp] = useState(
     reversedFilteredKeywords?.sort_by || ""
   );
-      const [isTyping, setTyping] = useState(false);
-
   // let [locationKeyword, setLocationKeyword] =
   // useState(reversedFilteredKeywords?.cdb
   //     ? reversedFilteredKeywords?.cdb.trim().split("_").join(" ")
@@ -89,7 +82,7 @@ export function SearchBar({
     propType: propertyType,
     unitType: unitType,
     saleOption: paymentMethod,
-    bathRooms: countBathrooms,
+    bathRooms: countBathroom,
     rooms: countBedrooms,
     maxPrice: toPrice,
     minPrice: fromPrice,
@@ -186,136 +179,126 @@ export function SearchBar({
       onSubmit={handleSubmitSearch}
       className="  h-72 mb-5 grid md:justify-normal justify-center "
     >
-      <div
-        dir="ltr"
-        className="w-full flex flex-col justify-center items-center  mt-5 mb-9  "
-      >
-        <div className="flex flex-col   md:w-10/12 ">
-          <div className="flex  w-full  ">
-            <div className=" w-full">
-              <div className="flex">
-                <button
-                  className={` ${
-                    saleOptions == "all" || saleOptions == "كل"
-                      ? " bg-lightOrange text-white "
-                      : "bg-white border-2 border-lightOrange text-lightOrange "
-                  }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
-                  onClick={setForAllButton}
-                >
-                  {languageIs ? "الكل" : "All"}
-                </button>
+      <div dir="ltr" className="flex  w-full bg-gray-100 p-3 ">
+        <div className=" w-full flex flex-col justify-end">
+          <div className="flex">
+            <button
+              className={` ${
+                saleOptions == "all" || saleOptions == "كل"
+                  ? " bg-lightOrange text-white "
+                  : "bg-white border-2 border-lightOrange text-lightOrange "
+              }  font-bold py-[4px] px-3 mx-1  rounded-t-medium`}
+              onClick={setForAllButton}
+            >
+              {languageIs ? "الكل" : "All"}
+            </button>
 
-                <button
-                  onClick={setForRentButton}
-                  className={` ${
-                    saleOptions == "For_Rent" || saleOptions == "للايجار"
-                      ? "text-white bg-lightGreen"
-                      : "text-lightGreen border-2 border-lightGreen bg-white"
-                  }  font-bold  px-2 mx-1 rounded-t-medium`}
-                >
-                  {languageIs ? "للإيجار" : "Rent"}
-                </button>
-                <button
-                  onClick={setForSaleButton}
-                  className={` ${
-                    saleOptions == "For_Sale" || saleOptions == "للبيع"
-                      ? "text-white bg-lightGreen"
-                      : "text-lightGreen border-2 border-lightGreen bg-white"
-                  }  font-bold  px-2 mx-1 rounded-t-medium`}
-                >
-                  {languageIs ? "للبيع" : "Buy"}
-                </button>
+            <button
+              onClick={setForRentButton}
+              className={` ${
+                saleOptions == "For_Rent" || saleOptions == "للايجار"
+                  ? "text-white bg-lightGreen"
+                  : "text-lightGreen border-2 border-lightGreen bg-white"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للإيجار" : "Rent"}
+            </button>
+            <button
+              onClick={setForSaleButton}
+              className={` ${
+                saleOptions == "For_Sale" || saleOptions == "للبيع"
+                  ? "text-white bg-lightGreen"
+                  : "text-lightGreen border-2 border-lightGreen bg-white"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للبيع" : "Buy"}
+            </button>
 
-                <button
-                  onClick={setForInvestmentButton}
-                  className={` ${
-                    saleOptions == "For_Investment" ||
-                    saleOptions == "للإستثمار"
-                      ? "text-white bg-lightGreen"
-                      : "text-lightGreen border-2 border-lightGreen bg-white"
-                  }  font-bold  px-2 mx-1 rounded-t-medium`}
-                >
-                  {languageIs ? "للإستثمار" : "Investment"}
-                </button>
-              </div>
-              <div className="w-full gap-y-3  gap-x-2">
-                <SearchDropdown
-                  setLocationName={setLocationName}
-                  setLocationValue={setLocationValue}
-                  setTyping={setTyping}
-                />
-              </div>
-            </div>
-            <div className="flex items-end">
-              <div dir={"rtl"} className="flex">
-                <Dropdown
-                  classNames=" w-[auto]  sm:block hidden"
-                  ifSaleOptions={saleOptions}
-                  value={propertyType}
-                  options={propertyTypeData}
-                  moreOptions={saleOptions}
-                  setValue={setPropertyType}
-                  selectoption={selectoption}
-                  setSelectedOption={setSelectedOption}
-                  valueDefault={`${
-                    languageIs ? "نوع العقار" : "Property Type"
-                  }`}
-                />
-                <DropdownUintType
-                  classNames=" w-[auto]  sm:block hidden"
-                  value={unitType}
-                  options={unitTypeData}
-                  propertyType={propertyType}
-                  setValue={setUnitType}
-                  valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
-                />
-              </div>
+            <button
+              onClick={setForInvestmentButton}
+              className={` ${
+                saleOptions == "For_Investment" || saleOptions == "للإستثمار"
+                  ? "text-white bg-lightGreen"
+                  : "text-lightGreen border-2 border-lightGreen bg-white"
+              }  font-bold  px-2 mx-1 rounded-t-medium`}
+            >
+              {languageIs ? "للإستثمار" : "Investment"}
+            </button>
+          </div>
+          <div className="w-full gap-y-3  gap-x-2">
+            <SearchDropdown
+              setLocationName={setLocationName}
+              setLocationValue={setLocationValue}
+              onSubmitSearch={handleSubmitSearch}
+            />
+          </div>
+        </div>
+        <div className="flex  items-end">
+          <div dir={"rtl"} className="flex">
+            <Dropdown
+              classNames=" w-[auto]  sm:block hidden"
+              ifSaleOptions={saleOptions}
+              value={propertyType}
+              options={propertyTypeData}
+              moreOptions={saleOptions}
+              setValue={setPropertyType}
+              selectoption={selectedOption}
+              setSelectedOption={setSelectedOption}
+              valueDefault={`${languageIs ? "نوع العقار" : "Property Type"}`}
+            />
+            <DropdownUintType
+              classNames=" w-[auto]  sm:block hidden"
+              value={unitType}
+              options={unitTypeData}
+              propertyType={propertyType}
+              setValue={setUnitType}
+              valueDefault={`${languageIs ? "نوع الوحدة" : "Unit Type"}`}
+            />
+          </div>
 
-              <div className="flex items-center gap-x-3">
-                <DropdownMore
-                  setPaymentMethod={setPaymentMethod}
-                  paymentMethod={paymentMethod}
-                  setFinishingOptions={setFinishingOptions}
-                  finishingOptions={finishingOptions}
-                  setUnitType={setUnitType}
-                  unitType={unitType}
-                  setPropertyType={setPropertyType}
-                  propertyType={propertyType}
-                  countBedrooms={countBedrooms}
-                  setCountBedrooms={setCountBedrooms}
-                  countBathrooms={countBathrooms}
-                  setCountBathroom={setCountBathroom}
-                  setPropertyFinance={setPropertyFinance}
-                  propertyFinance={propertyFinance}
-                  fromPrice={fromPrice}
-                  setFromPrice={setFromPrice}
-                  toPrice={toPrice}
-                  setToPrice={setToPrice}
-                  fromArea={fromArea}
-                  setFromArea={setFromArea}
-                  toArea={toArea}
-                  setToArea={setToArea}
-                  offer={saleOptions}
-                  keywords={keywords}
-                  setKeywords={setKeywords}
-                  selectoption={selectoption}
-                  setSelectedOption={setSelectedOption}
-                  classNames="max-w-[40px]"
-                />
-                <button
-                  type="submit"
-                  className="rounded-xl p-3 bg-lightGreen flex items-center"
-                >
-                  <LuSearch className="lg:text-3xl text-xl text-white" />
-                </button>
-                <button
-                  onClick={handelClearFilter}
-                  className=" bg-lightOrange rounded-xl p-3 flex  items-center"
-                >
-                  <MdClear className="lg:text-3xl text-xl text-white" />
-                </button>
-              </div>
-            </div>
+          <div className="flex items-center gap-x-3">
+            <DropdownMore
+              setPaymentMethod={setPaymentMethod}
+              paymentMethod={paymentMethod}
+              setFinishingOptions={setFinishingOptions}
+              finishingOptions={finishingOptions}
+              setUnitType={setUnitType}
+              unitType={unitType}
+              setPropertyType={setPropertyType}
+              propertyType={propertyType}
+              countBedrooms={countBedrooms}
+              setCountBedrooms={setCountBedrooms}
+              countBathrooms={countBathroom}
+              setCountBathroom={setCountBathroom}
+              setPropertyFinance={setPropertyFinance}
+              propertyFinance={propertyFinance}
+              fromPrice={fromPrice}
+              setFromPrice={setFromPrice}
+              toPrice={toPrice}
+              setToPrice={setToPrice}
+              fromArea={fromArea}
+              setFromArea={setFromArea}
+              toArea={toArea}
+              setToArea={setToArea}
+              offer={saleOptions}
+              keywords={keywords}
+              setKeywords={setKeywords}
+              selectoption={selectedOption}
+              setSelectedOption={setSelectedOption}
+              classNames="max-w-[40px]"
+            />
+            <button
+              type="submit"
+              className="rounded-xl p-3 bg-lightGreen flex items-center"
+            >
+              <LuSearch className="lg:text-3xl text-xl text-white" />
+            </button>
+            <button
+              onClick={handelClearFilter}
+              className=" bg-lightOrange rounded-xl p-3 flex  items-center"
+            >
+              <MdClear className="lg:text-3xl text-xl text-white" />
+            </button>
           </div>
         </div>
       </div>
@@ -323,7 +306,7 @@ export function SearchBar({
       <div
         className={` ${
           pageSaleOption == undefined ? "" : "hidden"
-        } flex items-center gap-x-2 w-10/12 m-auto `}
+        }  flex items-center p-1`}
       >
         <h1 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
           {languageIs
@@ -356,16 +339,16 @@ export function SearchBar({
           </span>
         </h1>
       </div>
-      <div className="  flex items-center gap-x-2 w-10/12 m-auto ">
+      <div className="  flex items-center">
         <h6 className="text-default-500 text-[15px] sm:text-medium md:text-lg font-medium">
           {languageIs ? "الترتيب حسب:" : "Sort Buy"}
         </h6>
         <DropdownSort
-          classNames=" w-[130px] "
-          value={sortProp}
+          classNames=" w-[140px] mx-2"
+          value={sortProp.split("_").join(" ")}
           options={sortedData}
           setValue={handleSortPropChange}
-          valueDefault={<FaSortNumericDown />}
+          valueDefault="الأحدث"
         />
       </div>
     </form>

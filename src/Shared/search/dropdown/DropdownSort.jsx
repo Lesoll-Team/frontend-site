@@ -1,8 +1,13 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-const DropdownSort = ({ classNames, options,setValue,value ,valueDefault}) => {
-  
+import { LuArrowLeftRight } from "react-icons/lu";
+import { useSelector } from "react-redux";
+const DropdownSort = ({
+  classNames,
+  options,
+  setValue,
+  value,
+  valueDefault,
+}) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -43,13 +48,13 @@ const DropdownSort = ({ classNames, options,setValue,value ,valueDefault}) => {
       <div
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-
         className="w-full font-semibold text-darkGreen text-md flex items-center justify-between
-          focus:outline-lightGreen bg-white border-[3px]  rounded-xl p-3 cursor-pointer whitespace-nowrap">
-        {value||valueDefault}
-        <div >
-          <AiFillCaretDown
-            className={`text-darkGreen duration-150 ${
+          focus:outline-lightGreen bg-white border-[3px]  rounded-xl p-3 space-x-4 cursor-pointer whitespace-nowrap"
+      >
+        {value || valueDefault}
+        <div>
+          <LuArrowLeftRight
+            className={`text-darkGreen rotate-90 duration-150 ${
               menuIsOpen && "rotate-180"
             }`}
           />
@@ -57,16 +62,18 @@ const DropdownSort = ({ classNames, options,setValue,value ,valueDefault}) => {
       </div>
       {menuIsOpen && (
         <div
-          className={`absolute animate-appearance-in z-10 w-[140px] mt-1 duration-200
-           drop-shadow-xl border right-0 overflow-y-auto rounded-xl bg-white text-center max-h-[150px]`}>
+          className={`absolute animate-appearance-in z-10 w-[175px] mt-1 duration-200
+           drop-shadow-xl border right-0 overflow-y-auto rounded-xl  bg-white text-center max-h-[150px]`}
+        >
           {choices.map((option, i) => (
             <p
               key={i}
               onClick={() => {
                 setSelectedOption(option.name);
-                handelSorted(option.value)
+                handelSorted(option.value);
               }}
-              className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 ">
+              className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
+            >
               {option.name}
             </p>
           ))}

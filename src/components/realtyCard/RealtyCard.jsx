@@ -32,7 +32,7 @@ const RealtyCard = ({ propertyDetails }) => {
   }, [userInfo?.favorites]);
   return (
     <div //md:w-[380px] 2xl:w-[400px]  w-full
-      className=" md:max-w-[480px]
+      className=" md:max-w-[400px]
      md:h-[355px] h-[133px] 
      flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative"
     >
