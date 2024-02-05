@@ -207,23 +207,23 @@ const UserCard = ({ propertyDetails, type, onSold, omDelete }) => {
           <AiOutlineEdit className="text-xl md:text-2xl " />{" "}
           {/* {language ? "تعديل" : "Edit"} */}
         </Link>
-        {type === "pending"?null:(
-        <button
-          onClick={propertyOnSold}
-          className=" w-[150px] rounded-lg text-center flex items-center justify-center text-white font-bold text-xl  md:hover:bg-white bg-green-700 border-green-700 border-2 py-1  md:hover:text-green-700 duration-150"
-        >
-          {propertyDetails?.isSold == true ? (
-            <div className="flex items-center gap-2">
-              <HiRefresh />
+        {type === "pending" ? null : (
+          <button
+            onClick={propertyOnSold}
+            className=" w-[150px] rounded-lg text-center flex items-center justify-center text-white font-bold text-lg md:hover:bg-white bg-green-700 border-green-700 border-2 py-1  md:hover:text-green-700 duration-150"
+          >
+            {propertyDetails?.isSold == true ? (
+              <div className="flex items-center gap-2">
+                <HiRefresh />
 
-              {language ? "إعادة البيع" : "Resale"}
-            </div>
-          ) : language ? (
-            "هل تم البيع ؟ "
-          ) : (
-            "sold out ?"
-          )}
-        </button>
+                {language ? "إعادة البيع" : "Resale"}
+              </div>
+            ) : language ? (
+              "هل تم البيع/الإيجار؟"
+            ) : (
+              "sold out ?"
+            )}
+          </button>
         )}
 
         <div className="">

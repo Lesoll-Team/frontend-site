@@ -63,6 +63,7 @@ const PersonalInfo = () => {
 
   const handleVerifyEmail = async () => {
     const resVerify = await verifyEmail();
+
     if (resVerify.code === 200) {
       setModelVerified(true);
     }

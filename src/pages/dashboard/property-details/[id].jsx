@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 const PropertyDtailsPage = () => {
   const [propertyDetails, setPropertyDetails] = useState();
+  const [isSoldChange, setIsSoldChange] = useState(false);
+
   const router = useRouter();
   const slug = router.query.id;
   useEffect(() => {
@@ -17,7 +19,7 @@ const PropertyDtailsPage = () => {
       }
     };
     fetchData();
-  }, [slug]);
+  }, [slug, isSoldChange]);
   return (
     <div className="bg-gray-100 min-h-[90dvh]">
       <Head>
@@ -25,7 +27,25 @@ const PropertyDtailsPage = () => {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       {propertyDetails ? (
-        <PropertyDetailsAdmin propertyDetails={propertyDetails} />
+        <>
+          <div className=" container mx-auto pt-10">
+            {propertyDetails.getProperty?.isSold ? (
+              <span className="text-2xl text-green-500 font-semibold">
+                تم البيع او التأجير
+              </span>
+            ) : (
+              <span className="text-2xl text-yellow-500 font-semibold">
+                متاح للبيع او التأجير
+              </span>
+            )}
+          </div>
+
+          <PropertyDetailsAdmin
+            setIsSoldChange={setIsSoldChange}
+            isSoldChange={isSoldChange}
+            propertyDetails={propertyDetails}
+          />
+        </>
       ) : (
         <div className="h-[90vh] flex items-center justify-center">
           <DotPulse size={60} speed={1.3} color="#309da0" />

@@ -9,7 +9,11 @@ import PropertyServices from "./propertyServices/PropertyServices";
 import InstallmentData from "./installmentData/InstallmentData";
 import SectionContainer from "./SectionContainer";
 
-const PropertyDetailsAdmin = ({ propertyDetails }) => {
+const PropertyDetailsAdmin = ({
+  propertyDetails,
+  isSoldChange,
+  setIsSoldChange,
+}) => {
   return (
     <div className="relative " dir="rtl">
       <div className="px-2 sm:px-0 sm:container mx-auto py-5 space-y-5 ">
@@ -34,7 +38,11 @@ const PropertyDetailsAdmin = ({ propertyDetails }) => {
           </SectionContainer>
         </div>
       </div>
-      <AdminActions propertyDetails={propertyDetails} />
+      <AdminActions
+        setIsSoldChange={setIsSoldChange}
+        isSoldChange={isSoldChange}
+        propertyDetails={propertyDetails}
+      />
     </div>
   );
 };
