@@ -32,9 +32,9 @@ const Profile = () => {
     setContent("favorites");
   };
 
-    const switchSoldOut = () => {
-      setContent("sold");
-    };
+  const switchSoldOut = () => {
+    setContent("sold");
+  };
   useEffect(() => {
     setUserDataInfo(userInfo);
   }, [userInfo]);
@@ -65,7 +65,6 @@ const Profile = () => {
                     </p>
                     {/* @{userDataInfo?.username} */}
                   </div>
-
                 </div>
               </div>
               <Link
@@ -118,7 +117,9 @@ const Profile = () => {
                 }`}
               >
                 <LiaHandshakeSolid />
-                <p className=" ">{language ? "تم البيع" : "Sold Out"}</p>
+                <p className=" ">
+                  {language ? "تم البيع/الإيجار" : "Sold Out"}
+                </p>
               </div>
             </div>
           </div>

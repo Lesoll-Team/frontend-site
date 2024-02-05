@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input, Button, Image } from "@nextui-org/react";
 // import { useRouter } from "next/router";
 import { format } from "date-fns";
-
 import {
   fetchActiveProperty,
   deleteActiveProperty,
@@ -207,9 +206,20 @@ export default function ActiveProperty() {
           </div>
         );
       case "actions":
+        const dropIcon = (
+          <svg
+            className="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 4 15"
+          >
+            <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+          </svg>
+        );
         return (
-          <div className="flex min-w-[250px] max-w-[300px]">
-            <div className="w-full  ">
+          <div className="   flex max-w-[300px] w-[300px] min-w-[300px] justify-around">
+            <div className="w-9/12">
               <p className="text-bold line-clamp-1   text-medium ">
                 <b>Name:</b>
                 {blog.user[0]?.fullname || "Empty"}
@@ -220,8 +230,8 @@ export default function ActiveProperty() {
                 <span>{blog.user[0]?.phone || "Empty"}</span>
               </div>
             </div>
-            <div className="mx-5">
-              <DropdownAction>
+            <div className=" ">
+              <DropdownAction iconIs={dropIcon}>
                 <ItemDropdown
                   label={"Visit"}
                   href={`/property-details/${blog.slug}`}
