@@ -2,13 +2,14 @@ import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Error = () => {
+const ErrorPage = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div className="w-full h-[92dvh] grid place-content-center">
       <img
         src="/error-pic.svg"
         className="w-[95%] sm:w-[80%] md:w-[60%] mx-auto"
+        alt="error page"
       />
       <h3 className="text-center font-bold text-lightOrange">
         {language ? "حدث خطأ" : "An error occurred"}
@@ -26,4 +27,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;

@@ -14,6 +14,7 @@ const Custom505 = () => {
         <img
           src="/500.svg"
           className="w-[95%] sm:w-[500px%] md:w-[500px] mx-auto"
+          alt="error page 500"
         />
         <h2 className="text-center font-bold text-lightOrange">
           {language ? "حدث خطأ فى السيرفر" : "Server-side error occurred"}

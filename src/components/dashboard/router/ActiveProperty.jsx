@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input, Button, Image } from "@nextui-org/react";
-// import { useRouter } from "next/router";
+
 import { format } from "date-fns";
 import {
   fetchActiveProperty,
@@ -14,6 +13,9 @@ import {
   TableRow,
   TableCell,
   Pagination,
+  Input,
+  Button,
+  Image,
 } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
 import { useSelector } from "react-redux";
@@ -131,6 +133,17 @@ export default function ActiveProperty() {
   // const router = useRouter();
 
   const renderCell = useCallback((blog, columnKey) => {
+    const dropIcon = (
+      <svg
+        className="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 4 15"
+      >
+        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+      </svg>
+    );
     switch (columnKey) {
       case "address":
         return (
@@ -206,17 +219,6 @@ export default function ActiveProperty() {
           </div>
         );
       case "actions":
-        const dropIcon = (
-          <svg
-            className="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 4 15"
-          >
-            <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-          </svg>
-        );
         return (
           <div className="   flex max-w-[300px] w-[300px] min-w-[300px] justify-around">
             <div className="w-9/12">
@@ -318,23 +320,35 @@ export default function ActiveProperty() {
             </form>
             <div className=" flex justify-center flex-wrap mt-3">
               <div className="flex  mx-2 items-center">
-                <label className="font-semibold  text-white mx-1">From:</label>
+                <label
+                  htmlFor="FromDatePicker"
+                  className="font-semibold  text-white mx-1"
+                >
+                  From:
+                </label>
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select start date"
                   className="w-full border-1 rounded-lg indent-2 h-9"
+                  id="FromDatePicker"
                 />
               </div>
               <div className="flex  mx-2 items-center">
-                <label className="font-semibold  text-white mx-1">End:</label>
+                <label
+                  htmlFor="EndDatePicker"
+                  className="font-semibold  text-white mx-1"
+                >
+                  End:
+                </label>
                 <DatePicker
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select end date"
                   className="w-full border-1 rounded-lg indent-2 h-9"
+                  id="EndDatePicker"
                 />
               </div>
             </div>
@@ -343,7 +357,7 @@ export default function ActiveProperty() {
         <div className="flex justify-center">
           <div className="flex w-full md:w-8/12 justify-between">
             <span className="text-default-400 text-small">
-              Total property Active:
+              Total property Active:{" "}
               <b className="text-lightOrange mx-2">{propertyLengthAPI}</b>
             </span>
             <label className="flex items-center text-default-400 text-small">

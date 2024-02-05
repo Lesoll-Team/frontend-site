@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "../redux-store/store";
 // import io from "socket.io-client";
 import { NextUIProvider } from "@nextui-org/react";
-import React, { useEffect } from "react";
+import React from "react";
 
 function App({ Component, pageProps }) {
   // const userKey = parseInt(
@@ -13,7 +13,7 @@ function App({ Component, pageProps }) {
   //     .toString()
   //     .replace(".", "")
   // );
-  
+
   // useEffect(() => {
   //     const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
   //       transports: ['websocket'],

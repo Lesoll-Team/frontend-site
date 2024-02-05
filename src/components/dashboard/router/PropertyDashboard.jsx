@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input, Image } from "@nextui-org/react";
 import {
   fetchAllProperty,
   deleteProperties,
@@ -13,17 +12,11 @@ import {
   TableRow,
   TableCell,
   Pagination,
+  Input,
+  Image,
 } from "@nextui-org/react";
-// import {
-//   DropdownTrigger,
-//   Dropdown,
-//   DropdownMenu,
-//   DropdownItem,
-// } from "@nextui-org/react";
+
 import { SearchIcon } from "../icon/SearchIcon";
-// import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
-// import Link from "next/link";
-import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 const columns = [
@@ -34,7 +27,6 @@ const columns = [
   { name: "ACTIONS & User Info", uid: "actions" },
 ];
 export default function PropertyDashboard() {
-  const router = useRouter();
   const [property, setProperty] = useState([]);
 
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -117,6 +109,19 @@ export default function PropertyDashboard() {
   }, [sortDescriptor, items]);
 
   const renderCell = useCallback((blog, columnKey) => {
+    const formattedUpdatedAtDate = new Date(blog.updatedAt).toLocaleString();
+    const formattedCreatedAtDate = new Date(blog.createdAt).toLocaleString();
+    const dropIcon = (
+      <svg
+        className="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 4 15"
+      >
+        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+      </svg>
+    );
     switch (columnKey) {
       case "address":
         return (
@@ -135,12 +140,6 @@ export default function PropertyDashboard() {
         );
 
       case "details":
-        const formattedUpdatedAtDate = new Date(
-          blog.updatedAt
-        ).toLocaleString();
-        const formattedCreatedAtDate = new Date(
-          blog.createdAt
-        ).toLocaleString();
         return (
           <div className="grid  min-w-[250px]">
             <div className="text-bold flex gap-x-3 text-medium capitalize">
@@ -179,17 +178,6 @@ export default function PropertyDashboard() {
           </div>
         );
       case "actions":
-        const dropIcon = (
-          <svg
-            className="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 4 15"
-          >
-            <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-          </svg>
-        );
         return (
           <div className="grid grid-cols-2 min-w-[450px]">
             <div className="flex flex-col">

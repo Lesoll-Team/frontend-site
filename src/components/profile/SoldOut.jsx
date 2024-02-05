@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import UserCard from './realtyCards/UserCard';
-import { getOutSold } from '@/redux-store/features/profileSlice';
-import { PiHandCoinsDuotone } from 'react-icons/pi';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import UserCard from "./realtyCards/UserCard";
+import { getOutSold } from "@/redux-store/features/profileSlice";
+// import { PiHandCoinsDuotone } from 'react-icons/pi';
 
 const SoldOut = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-    const outSoldProp = useSelector((state) => state.Profile.outSoldProp);
-// const isLoading = useSelector((state) => state.Profile.isLoading);
+  const outSoldProp = useSelector((state) => state.Profile.outSoldProp);
+  // const isLoading = useSelector((state) => state.Profile.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,8 +46,5 @@ const SoldOut = () => {
     </div>
   );
 };
-
-
-
 
 export default SoldOut;
