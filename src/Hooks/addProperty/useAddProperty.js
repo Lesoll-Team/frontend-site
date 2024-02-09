@@ -21,11 +21,11 @@ const useAddProperty = () => {
   const { errors, isSubmitting, isSubmitSuccessful } = formState;
 
   const onSubmit = handleSubmit((data) => {
+    const { formData } = useFromatAddData(data);
     if (step < 4) {
       setStep(step + 1);
     } else {
     }
-    const { formData } = useFromatAddData(data);
     console.log(data);
   });
 

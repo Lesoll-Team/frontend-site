@@ -34,7 +34,7 @@ const center = { lat: 30, lng: 31.4 };
 const Map = ({ propertyDetils, setData, propErrors }) => {
   // const getLatLngWithGovAndRegion = async () => {
   //   const result = await getGeocode({ address: "cairo , nasr city" });
-  // 
+  //
   // };
   // geoo();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -140,9 +140,11 @@ const PlacesAutoComplete = ({
   // const [government, setGovernment] = useState("");
   // const [region, setRegion] = useState("");
   const handleSelect = async (address) => {
+    console.log("address", address);
     setValue(address, false);
     clearSuggestions();
     const result = await getGeocode({ address });
+    console.log(result);
     const { address_components } = result[0];
 
     let governrate = "";
@@ -173,7 +175,6 @@ const PlacesAutoComplete = ({
         latitude: lat,
       },
     });
-
   };
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -200,6 +201,7 @@ const PlacesAutoComplete = ({
             propErrors.addressName && "border-red-500 focus:border-red-500"
           }`}
         />
+        {console.log(data)}
         {status === "OK" && (
           <ComboboxPopover className=" rounded-lg mt-2 drop-shadow-lg ">
             <ComboboxList className="rounded-lg sapce-y-4">

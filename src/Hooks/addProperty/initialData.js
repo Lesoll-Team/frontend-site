@@ -6,8 +6,8 @@ export const initialAddPropData = {
   rentalPeriod: "",
   insurance: 0,
   saleOption: "", //'', 'Cash', 'Installment', 'Cash & Installment'
-  governrate: "", //ID
-  region: "", //ID
+  governrate: {},
+  region: {},
   propType: {
     name: "",
     value: "",
@@ -36,13 +36,13 @@ export const initialAddPropData = {
     amount: "",
   },
   address: {
-    name: "",
-    governrate: "",
-    region: "",
+    // name: "",
+    // governrate: "",
+    // region: "",
     longitude: "",
     latitude: "",
-    placeId: "",
-    postalCode: "",
+    // placeId: "",
+    // postalCode: "",
   },
 
   connectPhoneNumber: "",

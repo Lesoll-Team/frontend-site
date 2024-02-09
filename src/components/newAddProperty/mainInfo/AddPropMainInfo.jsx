@@ -3,7 +3,11 @@ import AddPropSectionContainer from "../AddPropSectionContainer";
 import DropDown from "@/Shared/ui/DropDown";
 import { propTypeList } from "./propTypeList";
 import { unitTypeList } from "./unitTypeList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import GovRegion from "./location/GovRegion";
+import GoogleMapLocation from "./location/googleMapLocation";
+import PlaceLatLng from "./location/PlaceLatLng";
+import { useLoadScript } from "@react-google-maps/api";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 
 const AddPropMainInfo = ({
@@ -14,7 +18,10 @@ const AddPropMainInfo = ({
   clearErrors,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
+    libraries: ["places"],
+  });
   useEffect(() => {
     if (watch("propType.value")) {
       clearErrors("propType.value");
@@ -25,6 +32,19 @@ const AddPropMainInfo = ({
       clearErrors("unitType.value");
     }
   }, [watch("unitType.value")]);
+  const determineOptions = useMemo(() => {
+    const propType = watch("propType.value");
+    switch (propType) {
+      case "Residential":
+        return unitTypeList.Residential;
+      case "Commercial":
+        return unitTypeList.Commercial;
+      case "Land":
+        return unitTypeList.Land;
+      default:
+        return unitTypeList.Residential;
+    }
+  }, [watch("propType.value")]);
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
@@ -147,17 +167,59 @@ const AddPropMainInfo = ({
             setValue("unitType", value);
           }}
           disabled={!watch("propType.value")}
-          options={
-            watch("propType.value") === "Residential"
-              ? unitTypeList.Residential
-              : watch("propType.value") === "Commercial"
-              ? unitTypeList.Commercial
-              : watch("propType.value") === "Land"
-              ? unitTypeList.Land
-              : unitTypeList.Residential
-          }
+          options={determineOptions}
         />
       </div>
+      <GovRegion
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        watch={watch}
+        clearErrors={clearErrors}
+      />
+      {isLoaded && <PlaceLatLng />}
+      {/* <GoogleMapLocation
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        watch={watch}
+        clearErrors={clearErrors}
+      /> */}
+      <div className="lg:col-span-2 space-y-2">
+        <h3 className="text-xl">
+          {language ? "وصف العقار" : "Property description"}
+        </h3>
+        <textarea
+          {...register("description", {
+            required: {
+              value: true,
+              message: "please enter description",
+            },
+            validate: {
+              // mustBeNumber: (value) => {
+              //   return !isNaN(value) || "must be a number";
+              // },
+              min: (value) => {
+                return value.length > 20 || "min is 20";
+              },
+              containPhone: (value) => {
+                return (
+                  !value.match(phoneRegex) ||
+                  "description contain a phone number"
+                );
+              },
+            },
+          })}
+          id=""
+          cols="30"
+          rows="10"
+          className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen resize-none placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+            errors.description && "border-red-500 focus:border-red-500"
+          }`}
+        />
+        {errors.description && <p>{errors.description.message}</p>}
+      </div>
+      {/* <div className="h-screen"></div> */}
     </AddPropSectionContainer>
   );
 };

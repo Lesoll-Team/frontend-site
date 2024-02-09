@@ -33,15 +33,15 @@ const DropDown = ({ selected, setValue, options, disabled, error }) => {
   }, [error]);
 
   return (
-    <div className="relative w-full cursor-pointer focus:">
+    <div className="relative w-full cursor-pointer ">
       <button
         type="button"
         disabled={disabled}
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className={`w-full font-semibold  outline-none text-lg flex items-center justify-between gap-6 focus:border-darkGreen bg-white  border-2   rounded-md p-4   whitespace-nowrap ${
-          disabled && "opacity-50"
-        } ${error && "border-red-500"}`}
+        className={`w-full font-semibold  outline-none text-lg flex items-center justify-between gap-6 focus:border-lightGreen bg-white  border-2   rounded-md p-4   whitespace-nowrap ${
+          disabled && "bg-slate-200"
+        } ${error && "border-red-500 focus:border-red-500"}`}
       >
         <p className="text-sm">
           {" "}
@@ -54,18 +54,23 @@ const DropDown = ({ selected, setValue, options, disabled, error }) => {
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute animate-appearance-in z-10 w-full  mt-1 bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[300px]`}
+          className={`absolute fade-in border z-10 w-[70%] md:w-[50%]  mt-[1px]  bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[300px] ${
+            language ? "left-0" : "right-0"
+          }`}
         >
-          {options.map((option) => (
-            <p
-              key={option.value}
-              onClick={() => {
-                setValue(option);
-              }}
-              className="text-lg font-semibold text-darkGray py-2 px-3 cursor-pointer  duration-200 hover:bg-slate-100 "
-            >
-              {language ? option.name.ar : option.name.en}
-            </p>
+          {options.map((option, i) => (
+            <div key={option.value}>
+              <button
+                type="button"
+                onClick={() => {
+                  setValue(option);
+                }}
+                className="text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none   duration-200 focus:outline-none focus:bg-slate-100  hover:bg-slate-100 "
+              >
+                {language ? option.name.ar : option.name.en}
+              </button>
+              <hr className="mx-auto w-[95%]" />
+            </div>
           ))}
         </div>
       )}
