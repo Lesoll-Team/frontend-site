@@ -36,7 +36,7 @@ export const initialAddPropData = {
     amount: "",
   },
   address: {
-    // name: "",
+    name: "",
     // governrate: "",
     // region: "",
     longitude: "",

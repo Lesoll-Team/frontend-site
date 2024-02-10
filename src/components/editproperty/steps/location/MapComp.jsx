@@ -4,14 +4,14 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxPopover,
+//   ComboboxList,
+//   ComboboxOption,
+// } from "@reach/combobox";
+// import "@reach/combobox/styles.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -174,14 +174,12 @@ const PlacesAutoComplete = ({
         latitude: lat,
       },
     });
-
-
   };
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <>
-      <Combobox onSelect={handleSelect} className="w-full">
+      {/* <Combobox onSelect={handleSelect} className="w-full">
         <ComboboxInput
           placeholder={"مثال: عمارة 10 شارع صلاح سالم مدينة نصر القاهرة"}
           defaultValue={inputValue || ""}
@@ -217,7 +215,7 @@ const PlacesAutoComplete = ({
             </ComboboxList>
           </ComboboxPopover>
         )}
-      </Combobox>
+      </Combobox> */}
       {propErrors?.addressName && (
         <p className="text-red-500">
           {language ? "  يرجى ادخال عنوان العقار  " : " Address is missing."}
