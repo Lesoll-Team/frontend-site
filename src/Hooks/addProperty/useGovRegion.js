@@ -38,10 +38,8 @@ const useGovRegion = ({
 
   const searchedRegions = useMemo(() => {
     if (filteredRegions) {
-      console.log("filterdRegions", filteredRegions);
       if (typeof regionInput === "string") {
         if (regionInput.trim() !== "") {
-          console.log("region input", regionInput);
           return filteredRegions.filter((item) => {
             // Ensure to return the result of the comparison
             return (
@@ -62,7 +60,6 @@ const useGovRegion = ({
     return gov.filter((item) => item.number == govNumber);
   };
 
-  console.log(searchedRegions);
   const filteredGov = useMemo(() => {
     if (gov) {
       if (typeof govInput === "string") {
@@ -91,11 +88,9 @@ const useGovRegion = ({
   };
 
   const selectRegion = (region) => {
-    // console.log("hi its region", region);
     if (selectGov?.number !== region.governorate_number) {
       setValue("governrate", {});
     }
-    // console.log("gov", getGovByGovNumber(region.governorate_number));
     const govByNumber = getGovByGovNumber(region.governorate_number);
     setValue("governrate", govByNumber[0]);
 

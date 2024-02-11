@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useState, memo } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
-const DropDown = ({ selected, setValue, options, disabled, error }) => {
+const DropDown = ({
+  selected,
+  setValue,
+  options,
+  disabled,
+  error,
+  errorMessage,
+}) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
 
@@ -33,7 +40,7 @@ const DropDown = ({ selected, setValue, options, disabled, error }) => {
   }, [error]);
 
   return (
-    <div className="relative w-full cursor-pointer ">
+    <div className="relative w-full cursor-pointer space-y-2 ">
       <button
         type="button"
         disabled={disabled}
@@ -54,7 +61,7 @@ const DropDown = ({ selected, setValue, options, disabled, error }) => {
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute fade-in border z-10 w-[70%] md:w-[50%]  mt-[1px]  bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[300px] ${
+          className={`absolute  fade-in border z-10 w-[70%] md:w-[50%]  top-12 bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[300px] ${
             language ? "left-0" : "right-0"
           }`}
         >
@@ -74,6 +81,7 @@ const DropDown = ({ selected, setValue, options, disabled, error }) => {
           ))}
         </div>
       )}
+      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
     </div>
   );
 };

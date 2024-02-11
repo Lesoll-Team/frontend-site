@@ -20,6 +20,8 @@ import forgetPasswordReducer from "@/redux-store/features/user/ForgetPassSlice";
 import addPropertyReducer from "./features/property/addPropertySlice";
 import getGovReducer from "./features/location/getGovSlice";
 import getRegionReducer from "./features/location/getRegionSlice";
+import getFeaturesReducer from "./features/property/getFeaturesSlice";
+
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -39,5 +41,6 @@ export default combineReducers({
   addProperty: addPropertyReducer,
   getGov: getGovReducer,
   getRegion: getRegionReducer,
+  getFeatures: getFeaturesReducer,
   // Compare:compareReducer,
 });

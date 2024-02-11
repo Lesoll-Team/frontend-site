@@ -8,7 +8,7 @@ import GovRegion from "./location/GovRegion";
 import PlaceLatLng from "./location/PlaceLatLng";
 import { useLoadScript } from "@react-google-maps/api";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
-
+const mapLib = ["places"];
 const AddPropMainInfo = ({
   errors,
   register,
@@ -19,7 +19,7 @@ const AddPropMainInfo = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
-    libraries: ["places"],
+    libraries: mapLib,
   });
   useEffect(() => {
     if (watch("propType.value")) {
@@ -51,6 +51,7 @@ const AddPropMainInfo = ({
           {language ? "عنوان الإعلان" : "Proprty Title"}
         </h3>
         <input
+          autoComplete="off"
           type="text"
           multiple
           {...register("title", {
@@ -176,7 +177,15 @@ const AddPropMainInfo = ({
         watch={watch}
         clearErrors={clearErrors}
       />
-      {isLoaded && <PlaceLatLng />}
+      {isLoaded && (
+        <PlaceLatLng
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          watch={watch}
+          clearErrors={clearErrors}
+        />
+      )}
       {/* <GoogleMapLocation
         errors={errors}
         register={register}

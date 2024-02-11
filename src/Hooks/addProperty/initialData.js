@@ -16,14 +16,13 @@ export const initialAddPropData = {
     name: "",
     value: "",
   }, //'Residential', 'Commercial', 'Land'
-  landType: "", // '', 'Agriculture', 'Building'
-  price: 0,
-  area: 0,
+  price: "",
+  area: "",
   areaType: "m",
   realEstateFinance: false,
   downPayment: "",
   maintenancePayment: "",
-  deliveryDate: "",
+  deliveryDate: null,
   sellerName: "",
   sellerEmail: "",
   rooms: "",

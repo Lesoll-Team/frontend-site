@@ -92,6 +92,7 @@ const ComboBox = ({
     <div className=" w-full">
       <div className="relative w-full">
         <input
+          autoComplete="off"
           ref={inputRef}
           type="text"
           value={inputValue}
@@ -109,10 +110,9 @@ const ComboBox = ({
         {showOptions && (
           <div
             ref={dropdownRef}
-            className={cn(
-              "absolute fade-in border z-10 mt-[1px] w-full bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px]",
-              optionStyle
-            )}
+            className={
+              "absolute fade-in border z-10 mt-[1px] w-full bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px]"
+            }
           >
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option, index) => (
@@ -120,9 +120,12 @@ const ComboBox = ({
                   <button
                     onClick={() => handleOptionClick(option)}
                     type="button"
-                    className={`text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
-                      focusedIndex === index ? "bg-gray-200" : ""
-                    }`}
+                    className={cn(
+                      `text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
+                        focusedIndex === index ? "bg-gray-200" : ""
+                      }`,
+                      optionStyle
+                    )}
                   >
                     {renderItem(option)}
                   </button>
@@ -137,7 +140,7 @@ const ComboBox = ({
           </div>
         )}
       </div>
-      {error && <p className="text-red-500 text-sm">{errorMessage}</p>}
+      {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
     </div>
   );
 };
