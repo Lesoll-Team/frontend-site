@@ -70,7 +70,7 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       }
     }
   };
-
+  console.log(propertyDetils.multiImage?.length);
 
   return (
     <div className="space-y-7">

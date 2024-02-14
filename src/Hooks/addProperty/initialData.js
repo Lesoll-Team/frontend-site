@@ -3,8 +3,14 @@ export const initialAddPropData = {
   offer: "For Sale",
   mainImage: "",
   multiImage: "",
-  rentalPeriod: "",
-  insurance: 0,
+  rentalPeriod: {
+    value: "",
+    name: {
+      ar: "",
+      en: "",
+    },
+  },
+  insurance: "",
   saleOption: "", //'', 'Cash', 'Installment', 'Cash & Installment'
   governrate: {},
   region: {},

@@ -2,24 +2,23 @@ import useFeaures from "@/Hooks/addProperty/useFeaures";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import AddPropSectionContainer from "../AddPropSectionContainer";
 
 const SelectFeatures = ({ register, setValue, watch }) => {
   const features = useSelector((state) => state.getFeatures.features);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const featuresId = features.map((feature) => feature._id);
-  //   console.log(featuresId);
+
   const { handleSelect, selectedData } = useFeaures({
     selected: watch("service"),
   });
-  //   console.log("the hook", selectedData);
-  //   console.log("form hook", watch("service"));
+
   useEffect(() => {
-    // console.log("in effect", selectedData);
     setValue("service", selectedData);
   }, [selectedData]);
 
   return (
-    <div className="col-span-2 space-y-4">
+    <AddPropSectionContainer className={"flex flex-col gap-4 "}>
       <h3 className="text-xl font-bold text-darkGray">
         {language ? "مميزات العقار" : "Property Features"}
       </h3>
@@ -38,7 +37,7 @@ const SelectFeatures = ({ register, setValue, watch }) => {
             );
           })}
       </div>
-    </div>
+    </AddPropSectionContainer>
   );
 };
 export default SelectFeatures;

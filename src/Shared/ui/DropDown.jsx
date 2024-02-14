@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, memo } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
+
 const DropDown = ({
   selected,
   setValue,
@@ -10,7 +11,9 @@ const DropDown = ({
   errorMessage,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
   const dropdownButtonRef = useRef(null);
+  const dropdownOptionsRef = useRef([]);
 
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -23,7 +26,9 @@ const DropDown = ({
         setMenuIsOpen(false);
       }
     };
+
     document.addEventListener("click", handleClickOutside);
+
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -32,52 +37,84 @@ const DropDown = ({
   const handleMenuOpen = () => {
     if (disabled) return;
     setMenuIsOpen(!menuIsOpen);
+    setFocusedOptionIndex(-1); // Reset focused option index when menu is opened
   };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowDown" && menuIsOpen) {
+      e.preventDefault();
+      if (focusedOptionIndex < options.length - 1) {
+        setFocusedOptionIndex((prevIndex) => prevIndex + 1);
+      }
+    } else if (e.key === "ArrowUp" && menuIsOpen) {
+      e.preventDefault();
+      if (focusedOptionIndex > 0) {
+        setFocusedOptionIndex((prevIndex) => prevIndex - 1);
+      }
+    } else if (e.key === "Enter" && menuIsOpen) {
+      e.preventDefault();
+      if (focusedOptionIndex !== -1) {
+        dropdownOptionsRef.current[focusedOptionIndex].click();
+      }
+    }
+  };
+
   useEffect(() => {
     if (error) {
       dropdownButtonRef.current.focus();
     }
   }, [error]);
 
+  const handleOptionClick = (option) => {
+    setValue(option);
+    setMenuIsOpen(false);
+    setFocusedOptionIndex(-1);
+  };
+
   return (
-    <div className="relative w-full cursor-pointer space-y-2 ">
+    <div className="relative w-full cursor-pointer space-y-2">
       <button
         type="button"
         disabled={disabled}
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
-        className={`w-full font-semibold  outline-none text-lg flex items-center justify-between gap-6 focus:border-lightGreen bg-white  border-2   rounded-md p-4   whitespace-nowrap ${
+        onKeyDown={handleKeyDown}
+        className={`w-full font-semibold outline-none  h-12  flex items-center justify-between gap-6 focus:border-lightGreen bg-white border-2 rounded-md px-4 py-3 whitespace-nowrap ${
           disabled && "bg-slate-200"
         } ${error && "border-red-500 focus:border-red-500"}`}
       >
         <p className="text-sm">
-          {" "}
-          {selected ? (language ? selected?.name.ar : selected?.name.en) : ""}
+          {selected ? (language ? selected?.name?.ar : selected?.name?.en) : ""}
         </p>
 
         <FaChevronDown
-          className={` duration-150 ${menuIsOpen && "rotate-180"}`}
+          className={`duration-150 ${menuIsOpen && "rotate-180"}`}
         />
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute  fade-in border z-10 w-[70%] md:w-[50%]  top-12 bg-white duration-200 drop-shadow-xl  overflow-y-auto rounded-md max-h-[300px] ${
+          className={`absolute fade-in border z-10 w-[70%] md:w-[50%] top-10 bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px] ${
             language ? "left-0" : "right-0"
           }`}
         >
           {options.map((option, i) => (
-            <div key={option.value}>
-              <button
-                type="button"
-                onClick={() => {
-                  setValue(option);
-                }}
-                className="text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none   duration-200 focus:outline-none focus:bg-slate-100  hover:bg-slate-100 "
-              >
-                {language ? option.name.ar : option.name.en}
-              </button>
-              <hr className="mx-auto w-[95%]" />
-            </div>
+            <button
+              key={option.value}
+              ref={(el) => (dropdownOptionsRef.current[i] = el)}
+              type="button"
+              onClick={() => handleOptionClick(option)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleOptionClick(option);
+                }
+              }}
+              className={`dropdown-option text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
+                focusedOptionIndex === i && "bg-gray-200"
+              }`}
+            >
+              {language ? option.name.ar : option.name.en}
+            </button>
           ))}
         </div>
       )}

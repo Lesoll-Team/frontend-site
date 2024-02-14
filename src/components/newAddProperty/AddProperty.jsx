@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import AddPropDetails from "./details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
+import AddPropertyPrice from "./price/AddPropertyPrice";
 
 const AddProperty = () => {
   const {
@@ -42,7 +43,7 @@ const AddProperty = () => {
         );
       case 2:
         return (
-          <AddPropDetails
+          <AddPropertyPrice
             errors={errors}
             clearErrors={clearErrors}
             register={register}
@@ -51,6 +52,16 @@ const AddProperty = () => {
           />
         );
 
+      case 3:
+        return (
+          <AddPropDetails
+            errors={errors}
+            clearErrors={clearErrors}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+          />
+        );
       default:
         return (
           <AddPropMainInfo

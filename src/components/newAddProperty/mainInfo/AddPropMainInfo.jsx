@@ -136,6 +136,7 @@ const AddPropMainInfo = ({
             },
           })}
         />
+        {console.log(watch("propType"))}
         <DropDown
           error={errors.propType?.value}
           selected={watch("propType")}

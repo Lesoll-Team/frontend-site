@@ -1,6 +1,10 @@
 const RadioBtn = ({ onClick, active, title }) => {
   return (
-    <button type="button" className="flex gap-1 items-center" onClick={onClick}>
+    <button
+      type="button"
+      className="flex gap-1 items-center w-fit"
+      onClick={onClick}
+    >
       {" "}
       <span className="border-2 w-4 h-4 p-[2px] rounded-full">
         {active && (

@@ -1,13 +1,20 @@
+// Importing necessary modules
 import Image from "next/image";
 import { useSelector } from "react-redux";
-// check if the step is more than the step you want to click if it is so it can click
 
+// Steps component definition
 const Steps = ({ step = 1, setStep, watch }) => {
+  // Redux selector to get the language from global state
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const isForInvestment = watch("offer") === "For Investment";
+  const isStepAboveOne = step > 1;
+  const isStepAboveTwo = step > 2;
+  const isStepAboveThree = step > 3;
 
   return (
     <div className="w-full md:w-[80%] mx-auto space-y-2 ">
       <div className="flex justify-between items-center mb-16">
+        {/* Main Info Step */}
         <button
           type="button"
           onClick={() => setStep(1)}
@@ -19,7 +26,8 @@ const Steps = ({ step = 1, setStep, watch }) => {
             height={80}
             src={"/add-steps/main-step-active.svg"}
           />
-          <p className="text-center absolute font-bold  mt-1 w-full  text-lightGreen sm:text-base text-xs">
+          {/* Conditional rendering of text based on language */}
+          <p className="text-center absolute font-bold mt-1 w-full text-lightGreen sm:text-base text-xs">
             {language ? (
               <span className="flex gap-1 flex-wrap md:flex-nowrap justify-center">
                 <span>المعلومات </span>
@@ -31,34 +39,39 @@ const Steps = ({ step = 1, setStep, watch }) => {
           </p>
         </button>
 
+        {/* Horizontal line separating steps */}
         <hr
-          className={`h-1  ${
-            watch("offer") === "For Investment" ? " w-[48%]" : " w-[30%]"
-          } ${step > 1 ? "bg-lightGreen" : "bg-[#ccc]"}`}
+          className={`h-1 ${isForInvestment ? " w-[48%]" : " w-[30%]"} ${
+            isStepAboveOne ? "bg-lightGreen" : "bg-[#ccc]"
+          }`}
         />
-        {watch("offer") !== "For Investment" && (
+
+        {/* Price Step */}
+        {/* Conditional rendering based on offer type */}
+        {!isForInvestment && (
           <>
             <button
               onClick={() => {
-                if (step > 2) {
+                if (isStepAboveOne) {
                   setStep(1);
                 }
               }}
               className="relative "
             >
               <Image
-                alt="price  icon"
+                alt="price icon"
                 width={80}
                 height={80}
                 src={
-                  step > 1
+                  isStepAboveOne
                     ? "/add-steps/price-step-active.svg"
                     : "/add-steps/price-step-inactive.svg"
                 }
               />
+              {/* Conditional rendering of text based on step */}
               <p
-                className={`text-center absolute  mt-1 w-full sm:text-base text-xs ${
-                  step > 1
+                className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+                  isStepAboveOne
                     ? "text-lightGreen font-bold"
                     : "font-semibold text-lightGray"
                 }`}
@@ -66,36 +79,43 @@ const Steps = ({ step = 1, setStep, watch }) => {
                 {language ? "السعر" : "Price"}
               </p>
             </button>
+            {/* Horizontal line separating steps */}
             <hr
-              className={`h-1  w-[30%] ${
-                step > 2 ? "bg-lightGreen" : "bg-[#ccc]"
+              className={`h-1 w-[30%] ${
+                isStepAboveTwo ? "bg-lightGreen" : "bg-[#ccc]"
               }`}
             />
           </>
         )}
 
+        {/* Details Step */}
         <button
           type="button"
           onClick={() => {
-            if (step > 3) {
+            if (isStepAboveTwo) {
               setStep(3);
             }
           }}
           className="relative "
         >
           <Image
-            alt="details  icon"
+            alt="details icon"
             width={80}
             height={80}
             src={
-              step > 2
+              isForInvestment
+                ? isStepAboveOne
+                  ? "/add-steps/details-step-active.svg"
+                  : "/add-steps/details-step-inactive.svg"
+                : isStepAboveTwo
                 ? "/add-steps/details-step-active.svg"
                 : "/add-steps/details-step-inactive.svg"
             }
           />
+          {/* Conditional rendering of text based on step */}
           <p
-            className={`text-center absolute  mt-1 w-full sm:text-base text-xs ${
-              step > 2
+            className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+              isStepAboveTwo
                 ? "text-lightGreen font-bold"
                 : "font-semibold text-lightGray"
             }`}
@@ -103,26 +123,43 @@ const Steps = ({ step = 1, setStep, watch }) => {
             {language ? "التفاصيل" : "Details"}
           </p>
         </button>
+        {/* Horizontal line separating steps */}
         <hr
-          className={`h-1  ${
-            watch("offer") === "For Investment" ? " w-[48%]" : " w-[30%]"
-          } ${step > 1 ? "bg-lightGreen" : "bg-[#ccc]"}`}
+          className={`h-1 ${isForInvestment ? " w-[48%]" : " w-[30%]"} ${
+            isForInvestment
+              ? isStepAboveTwo
+                ? "bg-lightGreen"
+                : "bg-[#ccc]"
+              : isStepAboveThree
+              ? "bg-lightGreen"
+              : "bg-[#ccc]"
+          }`}
         />
 
+        {/* Images Step */}
         <div className="relative ">
           <Image
-            alt="imgs  icon"
+            alt="imgs icon"
             width={80}
             height={80}
             src={
-              step > 3
+              isForInvestment
+                ? isStepAboveTwo
+                  ? "/add-steps/imgs-step-active.svg"
+                  : "/add-steps/imgs-step-inactive.svg"
+                : isStepAboveThree
                 ? "/add-steps/imgs-step-active.svg"
                 : "/add-steps/imgs-step-inactive.svg"
             }
           />
+          {/* Conditional rendering of text based on step */}
           <p
-            className={`text-center absolute  mt-1 w-full sm:text-base text-xs ${
-              step > 3
+            className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+              isForInvestment
+                ? isStepAboveTwo
+                  ? "text-lightGreen font-bold"
+                  : "font-semibold text-lightGray"
+                : isStepAboveThree
                 ? "text-lightGreen font-bold"
                 : "font-semibold text-lightGray"
             }`}
