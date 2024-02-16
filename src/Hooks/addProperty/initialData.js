@@ -11,7 +11,13 @@ export const initialAddPropData = {
     },
   },
   insurance: "",
-  saleOption: "", //'', 'Cash', 'Installment', 'Cash & Installment'
+  saleOption: {
+    value: [],
+    name: {
+      ar: "",
+      en: "",
+    },
+  }, //'', 'Cash', 'Installment', 'Cash & Installment'
   governrate: {},
   region: {},
   propType: {
@@ -40,10 +46,25 @@ export const initialAddPropData = {
     period: "",
     amount: "",
   },
+  installment: [
+    {
+      type: {
+        value: "",
+        name: {
+          ar: "",
+          en: "",
+        },
+      },
+      period: "",
+      amount: "",
+      downPayment: "",
+      discount: "",
+    },
+  ],
   address: {
     name: "",
-    // governrate: "",
-    // region: "",
+    governrate: {},
+    region: {},
     longitude: "",
     latitude: "",
     // placeId: "",

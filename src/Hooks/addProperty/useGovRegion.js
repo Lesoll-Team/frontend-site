@@ -83,27 +83,27 @@ const useGovRegion = ({
   }, [govInput, gov]);
 
   const selectGov = (gov) => {
-    setValue("governrate", gov);
-    clearErrors("governrate._id");
+    setValue("address.governrate", gov);
+    clearErrors("address.governrate._id");
   };
 
   const selectRegion = (region) => {
     if (selectGov?.number !== region.governorate_number) {
-      setValue("governrate", {});
+      setValue("address.governrate", {});
     }
     const govByNumber = getGovByGovNumber(region.governorate_number);
-    setValue("governrate", govByNumber[0]);
+    setValue("address.governrate", govByNumber[0]);
 
-    setValue("region", region);
-    clearErrors("region._id");
-    clearErrors("governrate._id");
+    setValue("address.region", region);
+    clearErrors("address.region._id");
+    clearErrors("address.governrate._id");
   };
   const clearGov = () => {
-    setValue("governrate", {});
-    setValue("region", {});
+    setValue("address.governrate", {});
+    setValue("address.region", {});
   };
   const clearRegion = () => {
-    setValue("region", {});
+    setValue("address.region", {});
   };
   return {
     filteredGov,

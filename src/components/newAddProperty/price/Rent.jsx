@@ -83,7 +83,7 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
       <div className="flex gap-4 items-center lg:mt-8">
         <h3 className="text-xl">
-          {language ? "سعر الوحدة قابل للتفاوض؟" : "Unit price is negotiable?"}
+          {language ? "هل السعر قابل للتفاوض؟" : "Is price negotiable?"}
         </h3>
         <div className="flex items-center gap-3">
           <RadioBtn

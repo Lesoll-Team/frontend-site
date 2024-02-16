@@ -8,6 +8,7 @@ import { useEffect, useMemo } from "react";
 import AddPropDetails from "./details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "./price/AddPropertyPrice";
+import PropertyImages from "./imgs/PropertyImages";
 
 const AddProperty = () => {
   const {
@@ -20,6 +21,9 @@ const AddProperty = () => {
     step,
     setStep,
     clearErrors,
+    fields,
+    append,
+    remove,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
@@ -44,6 +48,10 @@ const AddProperty = () => {
       case 2:
         return (
           <AddPropertyPrice
+            fields={fields}
+            append={append}
+            remove={remove}
+            control={control}
             errors={errors}
             clearErrors={clearErrors}
             register={register}
@@ -62,9 +70,20 @@ const AddProperty = () => {
             watch={watch}
           />
         );
+      case 4:
+        return (
+          <PropertyImages
+            errors={errors}
+            clearErrors={clearErrors}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+          />
+        );
+
       default:
         return (
-          <AddPropMainInfo
+          <PropertyImages
             errors={errors}
             clearErrors={clearErrors}
             register={register}
@@ -74,6 +93,7 @@ const AddProperty = () => {
         );
     }
   };
+  const errorSubmit = useSelector((state) => state.addProperty.error);
   return (
     <form
       noValidate
@@ -105,6 +125,7 @@ const AddProperty = () => {
             : "Next"}
         </Button>
       </div>
+      {errorSubmit && <p>{errorSubmit.message}</p>}
     </form>
   );
 };

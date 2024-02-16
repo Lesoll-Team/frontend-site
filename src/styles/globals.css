@@ -9,7 +9,13 @@ pre {
 html {
   scroll-behavior: smooth;
 }
-
+/* body {
+  background-color: #fff;
+  filter: invert(100%) hue-rotate(180deg);
+}
+img,video {
+  filter: invert(100%) hue-rotate(180deg);
+} */
 .rdrInputRanges {
   display: none;
 }

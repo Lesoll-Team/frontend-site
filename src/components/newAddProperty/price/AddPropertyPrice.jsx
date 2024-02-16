@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import Rent from "./Rent";
-import Sale from "./Sale";
+import Sale from "./sale/Sale";
+import CashAndInstallment from "./sale/CashAndInstallment";
 
 const AddPropertyPrice = ({
   errors,
@@ -9,6 +10,10 @@ const AddPropertyPrice = ({
   setValue,
   watch,
   clearErrors,
+  control,
+  fields,
+  append,
+  remove,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.userProfile.userData);
@@ -30,6 +35,10 @@ const AddPropertyPrice = ({
       case "For Sale":
         return (
           <Sale
+            fields={fields}
+            append={append}
+            remove={remove}
+            control={control}
             errors={errors}
             clearErrors={clearErrors}
             register={register}
@@ -43,9 +52,26 @@ const AddPropertyPrice = ({
         break;
     }
   };
+  console.log("aaa", watch("saleOption.value").length);
   return (
     <>
       <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
+      {watch("saleOption.value").length > 1 && (
+        <AddPropSectionContainer>
+          <CashAndInstallment
+            // fields={fields}
+            // append={append}
+            // remove={remove}
+            errors={errors}
+            clearErrors={clearErrors}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+            control={control}
+          />
+        </AddPropSectionContainer>
+      )}
+
       <AddPropSectionContainer className={"flex flex-cols"}>
         <div className="p-5 bg-white w-full rounded space-y-4">
           <h3 className="text-sm md:text-xl font-cairo">
@@ -60,7 +86,7 @@ const AddPropertyPrice = ({
             </p>
             <button
               type="button"
-              className="underline text-blue-600 font-bold w-fit"
+              className="underline text-blue-500 font-bold w-fit"
             >
               تغير رقم التواصل
             </button>

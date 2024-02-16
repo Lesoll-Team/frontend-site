@@ -1,8 +1,11 @@
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { initialAddPropData } from "./initialData";
 import { useState } from "react";
 import useFromatAddData from "./useFromatAddData";
+import { useDispatch } from "react-redux";
+import { submitProperty } from "@/redux-store/features/property/addPropertySlice";
 const useAddProperty = () => {
+  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const form = useForm({
     defaultValues: initialAddPropData,
@@ -19,12 +22,16 @@ const useAddProperty = () => {
   } = form;
 
   const { errors, isSubmitting, isSubmitSuccessful } = formState;
-
+  const { fields, append, remove } = useFieldArray({
+    name: "installment",
+    control,
+  });
   const onSubmit = handleSubmit((data) => {
-    const { formData } = useFromatAddData(data);
     if (step < 4) {
       setStep(step + 1);
     } else {
+      const { formData } = useFromatAddData(data);
+      dispatch(submitProperty(formData));
     }
     console.log(data);
   });
@@ -39,6 +46,9 @@ const useAddProperty = () => {
     setStep,
     step,
     clearErrors,
+    fields,
+    append,
+    remove,
   };
 };
 export default useAddProperty;

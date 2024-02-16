@@ -22,8 +22,8 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
   } = useGovRegion({
     govInput,
     regionInput,
-    selectedGov: watch("governrate"),
-    selectedRegion: watch("region"),
+    selectedGov: watch("address.governrate"),
+    selectedRegion: watch("address.region"),
     watch,
     setValue,
     clearErrors,
@@ -39,7 +39,9 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
             <div className="flex w-full items-center">
               <ComboBox
                 setInputValue={(value) => setGovInput(value)}
-                disabled={watch("governrate._id") || govStatus === "loading"}
+                disabled={
+                  watch("address.governrate._id") || govStatus === "loading"
+                }
                 filteredOptions={filteredGov}
                 onSelect={(gov) => {
                   selectGov(gov);
@@ -61,13 +63,13 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
                 </div>
               )}
             </div>
-            {watch("governrate._id") && (
+            {watch("address.governrate._id") && (
               <div className="absolute mx-4 bg-gray-200 px-3 py-[2px] rounded flex items-center gap-2">
                 <p>
                   {" "}
                   {language
-                    ? watch("governrate.governorate_name_ar")
-                    : watch("governrate.governorate_name_en")}
+                    ? watch("address.governrate.governorate_name_ar")
+                    : watch("address.governrate.governorate_name_en")}
                 </p>
                 <button type="button" className="mt-[2px]" onClick={clearGov}>
                   <FaCircleXmark className="text-xs" />
@@ -79,7 +81,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
         <input
           type="text"
           hidden
-          {...register("governrate._id", {
+          {...register("address.governrate._id", {
             required: {
               value: true,
               message: "please enter property type",
@@ -97,19 +99,21 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
             <div className="flex items-center w-full">
               <ComboBox
                 setInputValue={(value) => setRegionInput(value)}
-                disabled={watch("region._id") || regionStatus === "loading"}
+                disabled={
+                  watch("address.region._id") || regionStatus === "loading"
+                }
                 filteredOptions={searchedRegions}
                 onSelect={(region) => {
                   selectRegion(region);
-                  setValue("reigon", region);
+                  setValue("address.reigon", region);
                   setRegionInput("");
                 }}
                 renderItem={(option) => {
                   return language ? option.city_name_ar : option.city_name_en;
                 }}
                 inputValue={regionInput}
-                error={errors?.region?._id}
-                errorMessage={errors?.region?._id.message}
+                error={errors?.address?.region?._id}
+                errorMessage={errors?.address?.region?._id.message}
               />
               {regionStatus === "loading" && (
                 <div className="-mx-10">
@@ -117,13 +121,13 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
                 </div>
               )}
             </div>
-            {watch("region._id") && (
+            {watch("address.region._id") && (
               <div className="absolute mx-4 bg-gray-200 px-3 py-[2px] rounded flex items-center gap-2">
                 <p>
                   {" "}
                   {language
-                    ? watch("region.city_name_ar")
-                    : watch("region.city_name_en")}
+                    ? watch("address.region.city_name_ar")
+                    : watch("address.region.city_name_en")}
                 </p>
                 <button
                   type="button"
@@ -139,7 +143,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
         <input
           type="text"
           hidden
-          {...register("region._id", {
+          {...register("address.region._id", {
             required: {
               value: true,
               message: "please enter property type",

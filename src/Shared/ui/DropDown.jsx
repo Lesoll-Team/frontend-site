@@ -70,7 +70,7 @@ const DropDown = ({
     setMenuIsOpen(false);
     setFocusedOptionIndex(-1);
   };
-
+  const optionLength = options.length;
   return (
     <div className="relative w-full cursor-pointer space-y-2">
       <button
@@ -93,28 +93,30 @@ const DropDown = ({
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute fade-in border z-10 w-[70%] md:w-[50%] top-10 bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px] ${
+          className={`absolute fade-in border z-50 w-[70%] md:w-[50%] top-10 bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px] ${
             language ? "left-0" : "right-0"
           }`}
         >
           {options.map((option, i) => (
-            <button
-              key={option.value}
-              ref={(el) => (dropdownOptionsRef.current[i] = el)}
-              type="button"
-              onClick={() => handleOptionClick(option)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleOptionClick(option);
-                }
-              }}
-              className={`dropdown-option text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
-                focusedOptionIndex === i && "bg-gray-200"
-              }`}
-            >
-              {language ? option.name.ar : option.name.en}
-            </button>
+            <div key={option.value} className="w-full">
+              <button
+                ref={(el) => (dropdownOptionsRef.current[i] = el)}
+                type="button"
+                onClick={() => handleOptionClick(option)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleOptionClick(option);
+                  }
+                }}
+                className={`dropdown-option text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
+                  focusedOptionIndex === i && "bg-gray-200"
+                }`}
+              >
+                {language ? option.name.ar : option.name.en}
+              </button>
+              {i + 1 !== optionLength && <hr className="w-[90%] mx-auto" />}
+            </div>
           ))}
         </div>
       )}

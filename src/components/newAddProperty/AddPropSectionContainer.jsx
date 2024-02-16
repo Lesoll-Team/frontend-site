@@ -4,7 +4,7 @@ const AddPropSectionContainer = ({ children, className }) => {
   return (
     <section
       className={cn(
-        "bg-lightNeutral py-8 px-6 md:px-24 rounded-lg h-full grid lg:grid-cols-2 gap-y-10 gap-x-16",
+        "bg-lightNeutral py-8 px-6 md:px-24 rounded-lg h-full grid lg:grid-cols-2 gap-y-6 gap-x-16",
         className
       )}
     >
