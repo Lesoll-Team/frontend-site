@@ -1,9 +1,26 @@
+import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
+import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
 import axios from "axios";
+import Image from "next/image";
 
-const index = ({ singleProperty }) => {
-  console.log(singleProperty);
+const index = ({ propertyData }) => {
+  console.log(propertyData);
   //   console.log(firstSegment);
-  return <div>index</div>;
+
+  return (
+    <main className="  min-h-[80dvh] relative">
+      <section className="px-5 md:px-0 md:container mx-auto">
+        <NewPropDetails propertyData={propertyData} />
+        <NewPropDetails propertyData={propertyData} />
+        <NewPropDetails propertyData={propertyData} />
+        <NewPropDetails propertyData={propertyData} />
+      </section>
+
+      <ContactLinksMobile
+        phone={propertyData?.user?.code + propertyData.user.phone}
+      />
+    </main>
+  );
 };
 export default index;
 
@@ -23,7 +40,7 @@ export async function getServerSideProps(context) {
     const data = res.data.find;
 
     return {
-      props: { singleProperty: data },
+      props: { propertyData: data },
       // revalidate: 10,
     };
   } catch (error) {}
