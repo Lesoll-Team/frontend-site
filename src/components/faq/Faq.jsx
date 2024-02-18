@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFaq } from "@/redux-store/features/faqSlice";
 import FaqCard from "./FaqCard";
 import FaqSkeleton from "./FaqSkeleton";
-const Faq = () => {
+const Faq = ({ faqData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const faqData = useSelector((state) => state.faq.faqData);
+
   const dispatch = useDispatch();
   const [selectedQuestion, setSelectedQuestion] = useState("");
-  useEffect(() => {
-    if (!faqData) {
-      dispatch(getFaq());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!faqData) {
+  //     dispatch(getFaq());
+  //   }
+  // }, []);
 
   return (
     <div className="py-10 min-h-screen">

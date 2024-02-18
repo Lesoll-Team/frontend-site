@@ -11,7 +11,7 @@ const NewPropDetails = ({ propertyData }) => {
       <div className="relative md:grid  grid-cols-3 gap-2">
         <div className=" col-start-3 md:sticky top-24 h-fit flex justify-end py-2">
           <PropertyOwner
-            className={"w-full md:w-[85%]"}
+            className={"w-full md:w-[85%] lg:max-w-[350px]"}
             propertyData={propertyData}
           />
         </div>
