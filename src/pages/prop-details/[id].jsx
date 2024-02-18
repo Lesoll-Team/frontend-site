@@ -11,9 +11,6 @@ const index = ({ propertyData }) => {
     <main className="  min-h-[80dvh] relative">
       <section className="px-5 md:px-0 md:container mx-auto">
         <NewPropDetails propertyData={propertyData} />
-        <NewPropDetails propertyData={propertyData} />
-        <NewPropDetails propertyData={propertyData} />
-        <NewPropDetails propertyData={propertyData} />
       </section>
 
       <ContactLinksMobile

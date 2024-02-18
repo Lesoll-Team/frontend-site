@@ -1,4 +1,5 @@
 export const getContactLinks = ({ phoneNumber, message = "" }) => {
+  console.log(phoneNumber);
   const removePlus = (phoneNumber) => {
     // Check if the phone number starts with "+"
     if (phoneNumber.startsWith("+")) {
@@ -13,8 +14,9 @@ export const getContactLinks = ({ phoneNumber, message = "" }) => {
   // Example usage:
   // let phoneNumber = "+201147085506";
   let phoneNumberWithoutPlus = removePlus(phoneNumber);
+  let phoneNumberWithePlus = "+" + phoneNumberWithoutPlus;
   console.log(phoneNumberWithoutPlus);
-  const callLink = `tel:${removePlus(phoneNumberWithoutPlus)}`;
+  const callLink = `tel:${phoneNumberWithePlus}`;
   const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumberWithoutPlus}&text=${encodeURIComponent(
     message
   )}`;

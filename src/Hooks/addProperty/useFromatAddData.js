@@ -9,14 +9,17 @@ const useFromatAddData = (data) => {
   const installment = data.installment.map((plan) => {
     return {
       type: plan.type.value,
-      period: parseInt(plan.period) || 0,
-      amount: parseInt(plan.amount) || 0,
-      downPayment: parseInt(plan.downPayment) || 0,
-      discount: parseInt(plan.discount) || 0,
+      period: plan.period || "",
+      amount: plan.amount || "",
+      downPayment: plan.downPayment || "",
+      discount: plan.discount || "",
     };
   });
+  const saleOption = data.saleOption.value.map((item) => {
+    return item;
+  });
   const formData = new FormData();
-
+  // console.log("wow", installment);
   formData.append("title", data.title);
   formData.append("offer", data.offer);
   formData.append("mainImage", data.mainImage);
@@ -26,7 +29,9 @@ const useFromatAddData = (data) => {
   }
   formData.append("rentalPeriod", data.rentalPeriod.value);
   formData.append("insurance", data.insurance);
-  formData.append("saleOption", data.saleOption.value);
+  for (let i = 0; i < saleOption.length; i++) {
+    formData.append("saleOption", saleOption[i]);
+  }
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
   // formData.append("landType", data.landType);
@@ -44,6 +49,7 @@ const useFromatAddData = (data) => {
   data.service.map((service) => {
     formData.append("service", service);
   });
+
   for (let i = 0; i < installment.length; i++) {
     formData.append("installment", JSON.stringify(installment[i]));
   }

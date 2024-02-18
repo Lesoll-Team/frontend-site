@@ -24,6 +24,7 @@ module.exports = {
         lightGreenHover: "#3ababeff",
         darkGreen: "#1b6e6d",
         lightGray: "#656565",
+        baseGray: "#656565",
         darkGray: "#5c5a5a",
         neutral: "#E1F9FA",
         lightNeutral: "#F2F8F9",

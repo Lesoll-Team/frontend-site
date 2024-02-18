@@ -1,0 +1,21 @@
+import { cn } from "@/utils/cn";
+import PropertyInfo from "./sections/PropertyInfo";
+import PropertyFeatures from "./sections/PropertyFeatures";
+import PropertyDescription from "./sections/PropertyDescription";
+import PropertyInstallmentPlans from "./sections/PropertyInstallmentPlans";
+import PropertyLocation from "./sections/PropertyLocation";
+import SimilarProperties from "./sections/SimilarProperties";
+
+const PropertyDetails = ({ propertyData, className }) => {
+  return (
+    <div className={cn("space-y-4 md:space-y-8", className)}>
+      <PropertyInfo propertyData={propertyData} />
+      <PropertyFeatures propertyData={propertyData} />
+      <PropertyDescription propertyData={propertyData} />
+      <PropertyInstallmentPlans propertyData={propertyData} />
+      <PropertyLocation propertyData={propertyData} />
+      <SimilarProperties propertyData={propertyData} />
+    </div>
+  );
+};
+export default PropertyDetails;
