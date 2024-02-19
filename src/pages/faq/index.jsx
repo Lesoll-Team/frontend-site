@@ -1,5 +1,6 @@
 import Faq from "@/components/faq/Faq";
 import axios from "axios";
+// import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 
@@ -20,7 +21,7 @@ const index = ({ faqData }) => {
   );
 };
 export default index;
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   try {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/QandA/getall`
@@ -31,5 +32,9 @@ export async function getServerSideProps() {
       props: { faqData: data },
       // revalidate: 10,
     };
-  } catch (error) {}
+  } catch (error) {
+    context.res.setHeader("Location", "/");
+    context.res.statusCode = 301;
+    context.res.end();
+  }
 }

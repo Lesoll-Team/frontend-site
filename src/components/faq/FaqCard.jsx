@@ -28,7 +28,7 @@ const FaqCard = ({ faq, selected, setSelected }) => {
       >
         {faq.answers.map((answer) => {
           return (
-            <p className="text-darkGray md:text-base text-sm ">
+            <p key={answer.en} className="text-darkGray md:text-base text-sm ">
               {language ? answer.ar : answer.en}
             </p>
           );

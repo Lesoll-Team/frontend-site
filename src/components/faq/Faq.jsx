@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getFaq } from "@/redux-store/features/faqSlice";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
 import FaqCard from "./FaqCard";
 import FaqSkeleton from "./FaqSkeleton";
 const Faq = ({ faqData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
-  const dispatch = useDispatch();
   const [selectedQuestion, setSelectedQuestion] = useState("");
-  // useEffect(() => {
-  //   if (!faqData) {
-  //     dispatch(getFaq());
-  //   }
-  // }, []);
-
   return (
     <div className="py-10 min-h-screen">
       <div className="container mx-auto space-y-7">
@@ -30,6 +22,7 @@ const Faq = ({ faqData }) => {
                 if (item.related === "General") {
                   return (
                     <FaqCard
+                      key={item._id}
                       faq={item}
                       selected={selectedQuestion}
                       setSelected={setSelectedQuestion}
@@ -55,6 +48,7 @@ const Faq = ({ faqData }) => {
                 if (item.related === "Owner/Broker") {
                   return (
                     <FaqCard
+                      key={item._id}
                       faq={item}
                       selected={selectedQuestion}
                       setSelected={setSelectedQuestion}
@@ -82,6 +76,7 @@ const Faq = ({ faqData }) => {
                 if (item.related === "Renter/Buyer") {
                   return (
                     <FaqCard
+                      key={item._id}
                       faq={item}
                       selected={selectedQuestion}
                       setSelected={setSelectedQuestion}
