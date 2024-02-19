@@ -2,12 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getGovernorate } from "@/utils/searchAPI";
 import { useSelector } from "react-redux";
 
-export function SearchDropdown({
-  // setLocationName,
-  // onSubmitSearch,
-  // setLocationValue,
-  // keywords,
-  setKeywords,
+export function SearchDropdownLocation({
   setLocationGovernorate,
   setLocationRegion,
 }) {
@@ -26,8 +21,9 @@ export function SearchDropdown({
       const highlightedOption = dropdownRef.current.children[highlightedIndex];
       if (highlightedOption) {
         highlightedOption.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
+          behavior: "instant", //smooth instant auto
+          block: "nearest", //start end center nearest
+          //   inline: "nearest", //start end center nearest
         });
       }
     }
@@ -43,35 +39,18 @@ export function SearchDropdown({
           name_en: item.name_en,
           value_ar: item.value_ar,
           value_en: item.value_en,
+          // _id: index,
         });
       });
-
+      console.log(fetchedGovernorates);
+      console.log(mapLocation);
       setGovernorates(fetchedGovernorates.result);
       setMapLocation(mapLocation);
     } catch (error) {
       console.error("Error fetching governorates:", error);
     }
   }, []);
-  // const fetchGovernoratesData = async () => {
-  //   try {
-  //     const fetchedGovernorates = await getGovernorate();
 
-  //     const mapLocation = new Map();
-  //     fetchedGovernorates.result.forEach((item) => {
-  //       mapLocation.set(item.numberGov, {
-  //         name_ar: item.name_ar,
-  //         name_en: item.name_en,
-  //         value_ar: item.value_ar,
-  //         value_en: item.value_en,
-  //       });
-  //     });
-
-  //     setGovernorates(fetchedGovernorates.result);
-  //     setMapLocation(mapLocation);
-  //   } catch (error) {
-  //     console.error("Error fetching governorates:", error);
-  //   }
-  // };
   useEffect(() => {
     fetchGovernoratesData();
   }, []);
@@ -90,22 +69,13 @@ export function SearchDropdown({
   );
 
   useEffect(() => {
-    setKeywords("");
     // if(selectedValues.length<=2)
     const filtered = governorates.filter(
       (governorate) =>
         governorate.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
         governorate.name_ar.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    filtered.length == 0 && setKeywords(searchTerm);
-    // const filterKeyword = filtered.filter(
-    //   (value) =>
-    //     value.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ??
-    //     setKeywords(searchTerm)
-    //   //   searchTerm.includes(value)
-    // );
-    // console.log(filterKeyword);
-    // console.log("filtered is ::", filterKeyword);
+
     setFilteredOptions(
       govNum > 0
         ? filtered.filter((gov) => gov.numberReg_governorate_number === govNum)
@@ -113,23 +83,38 @@ export function SearchDropdown({
     );
   }, [searchTerm, govNum, governorates]);
 
+  const handleSelectByLanguage = (governorate) => {
+    const selectedOption = languageIs
+      ? governorate.name_ar
+      : governorate.name_en;
+    const selectedValue = languageIs
+      ? governorate.value_ar
+      : governorate.value_en;
+
+    handleSelect({
+      selectedOption,
+      selectedValue,
+      selectedEnValue: governorate.value_en,
+      numberGovFromReg:
+        govFromReg === 0
+          ? governorate.numberReg_governorate_number || 0
+          : govFromReg,
+      numberGov: govNum === 0 ? governorate.numberGov || 0 : govNum,
+    });
+  };
   const handleSelect = ({
     selectedOption,
     selectedEnValue,
     numberGovFromReg,
-    // selectedValue,
     numberGov,
+    selectedValue,
   }) => {
     setSearchTerm("");
     setSelectedValues((prevValues) => {
       if (numberGovFromReg == 0) {
-        // setTyping(false);
-
         return [...prevValues, selectedOption];
       } else {
         setGovNum(numberGovFromReg);
-        // setTyping(false);
-
         return [
           languageIs
             ? mapLocation.get(numberGovFromReg).name_ar
@@ -141,12 +126,6 @@ export function SearchDropdown({
     setFilteredOptions(governorates);
     setGovFromReg(numberGovFromReg);
     setGovNum(numberGov);
-    // setLocationName(
-    //   languageIs
-    //     ? mapLocation.get(numberGovFromReg)?.name_ar
-    //     : mapLocation.get(numberGovFromReg)?.name_en
-    // );
-    // setLocationValue(selectedValue);
 
     setLocationGovernorate(
       mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue
@@ -211,13 +190,108 @@ export function SearchDropdown({
       className="relative w-full focus:outline-none "
     >
       <div className="flex items-center gap-x-1 md:gap-x-3 ">
-        {selectedValues.map((value, index) => (
+        {selectedValues.length > 0 && (
+          <div
+            className="flex items-center
+     gap-x-1 md:gap-x-3
+    px-1 md:px-3 md:py-1 
+   bg-lightGreen rounded-sm md:rounded-md "
+            key={selectedValues[selectedValues.length - 1]}
+          >
+            <span
+              className=" 
+    text-[10px]  md-text-[13px] lg:text-[16px]
+    whitespace-nowrap text-white "
+            >
+              {selectedValues[selectedValues.length - 1]}
+            </span>
+            <button
+              onClick={() =>
+                handleClearCared(
+                  selectedValues.length - 1,
+                  selectedValues[selectedValues.length - 1]
+                )
+              }
+              className="text-gray2  items-center flex text-lg md:text-xl lg:text-2xl font-semibold"
+            >
+              &times;
+            </button>
+          </div>
+        )}
+
+        <div className="w-full ">
+          <input
+            type="text"
+            placeholder={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
+            value={searchTerm}
+            disabled={selectedValues.length >= 3}
+            onChange={handleSearch}
+            autoComplete="off"
+            onKeyDown={handleKeyDown} // Listen for arrow key presses
+            className="w-full font-inter text-[13px] md:text-[18px]  text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  
+            active:outline-none hover:outline-none focus:outline-none indent-3"
+          />
+        </div>
+      </div>
+      {searchTerm !== "" && (
+        <div
+          className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
+        >
+          <div ref={dropdownRef}>
+            {filteredOptions.map((governorate, index) => (
+              <div
+                key={index}
+                // role="listbox"
+                onClick={() => handleSelectByLanguage(governorate)}
+                className={`${
+                  index === highlightedIndex ? "bg-gray-200" : "bg-white"
+                }  px-4 py-2 cursor-pointer hover:bg-gray-100 
+           text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] w-full 2xl:text-[24px]`}
+              >
+                {languageIs ? governorate.name_ar : governorate.name_en}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// onClick={languageIs? () =>handleSelect({
+//           selectedOption: governorate.name_ar,
+//           selectedValue: governorate.value_ar,
+//           selectedEnValue: governorate.value_en,
+//           numberGovFromReg:
+//             govFromReg == 0
+//               ? governorate.numberReg_governorate_number || 0
+//               : govFromReg,
+//           numberGov:
+//             govNum == 0 ? governorate.numberGov || 0 : govNum,
+//         })
+//     : () =>
+//         handleSelect({
+//           selectedOption: governorate.name_en,
+//           selectedValue: governorate.value_en,
+//           selectedEnValue: governorate.value_en,
+//           numberGovFromReg:
+//             govFromReg == 0
+//               ? governorate.numberReg_governorate_number || 0
+//               : govFromReg,
+//           numberGov:
+//             govNum == 0 ? governorate.numberGov || 0 : govNum,
+//         })
+// }
+
+/* {selectedValues.map((value, index) => (
           <div
             className="flex items-center
              gap-x-1 md:gap-x-3
             px-1 md:px-3 md:py-1 
            bg-lightGreen rounded-sm md:rounded-md "
             key={value}
+            // key={selectedValues[1] || selectedValues[0]}
+            //selectedValues.slice(-1)
           >
             <span
               className=" 
@@ -233,71 +307,4 @@ export function SearchDropdown({
               &times;
             </button>
           </div>
-        ))}
-        <div className="w-full ">
-          <input
-            type="text"
-            placeholder={
-              languageIs
-                ? "بحث بالمنطقة : القاهرة...,او كلمات بحث مميزة ."
-                : "Search by region: Cairo...or special search words..."
-            }
-            value={searchTerm}
-            disabled={selectedValues.length >= 3}
-            onChange={handleSearch}
-            autoComplete="off"
-            onKeyDown={handleKeyDown} // Listen for arrow key presses
-            className="w-full font-inter text-[13px] md:text-[16px] gl-text-[20px] xl:text-[25px] 2xl:text-[31px] text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  active:outline-none hover:outline-none focus:outline-none"
-            // onKeyDown={handleKeyPress}
-          />
-        </div>
-      </div>
-      {searchTerm !== "" && selectedValues.length < 2 ? (
-        <div
-          className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
-        >
-          <div ref={dropdownRef}>
-            {filteredOptions.map((governorate, index) => (
-              <div
-                key={index}
-                onClick={
-                  languageIs
-                    ? () =>
-                        handleSelect({
-                          selectedOption: governorate.name_ar,
-                          selectedValue: governorate.value_ar,
-                          selectedEnValue: governorate.value_en,
-                          numberGovFromReg:
-                            govFromReg == 0
-                              ? governorate.numberReg_governorate_number || 0
-                              : govFromReg,
-                          numberGov:
-                            govNum == 0 ? governorate.numberGov || 0 : govNum,
-                        })
-                    : () =>
-                        handleSelect({
-                          selectedOption: governorate.name_en,
-                          selectedValue: governorate.value_en,
-                          selectedEnValue: governorate.value_en,
-                          numberGovFromReg:
-                            govFromReg == 0
-                              ? governorate.numberReg_governorate_number || 0
-                              : govFromReg,
-                          numberGov:
-                            govNum == 0 ? governorate.numberGov || 0 : govNum,
-                        })
-                }
-                className={`${
-                  index === highlightedIndex ? "bg-gray-200" : "bg-white"
-                }  px-4 py-2 cursor-pointer hover:bg-gray-100 
-           text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] 2xl:text-[24px]`}
-              >
-                {languageIs ? governorate.name_ar : governorate.name_en}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-}
+        ))} */

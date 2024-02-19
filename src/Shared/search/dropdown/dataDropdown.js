@@ -1,13 +1,47 @@
+export const propertyType = {
+  ar: [
+    // { value: "sale", name: "بيع", id: 1 },
+    // { value: "rent", name: "للإيجار", id: 2 },
+    { value: "investment", name: "إستثمار", id: 3 },
+    { value: "finance", name: "تمويل عقاري", id: 4 },
+    { value: "graves", name: "مدافن", id: 5 },
+    { value: "commercial", name: "تجاري", id: 6 },
+    { value: "compounds", name: "كمباوند", id: 7 },
+    { value: "lands", name: "اراضي", id: 8 },
+  ],
+  en: [
+    // { value: "sale", name: "Sale", id: 1 },
+    // { value: "rent", name: "Rent", id: 1 },
+    { value: "investment", name: "Investment", id: 1 },
+    { value: "finance", name: "Finance", id: 1 },
+    { value: "graves", name: "Graves", id: 1 },
+    { value: "commercial", name: "Commercial", id: 1 },
+    { value: "compounds", name: "Compounds", id: 1 },
+    { value: "lands", name: "Lands", id: 1 },
+  ],
+};
 export const categoryType = [
-  // "sale",
-  // "rent",
-  "residential",
+  "sale",
+  "rent",
+  // "residential",
+  // { value: "installment", name: "Installment", id: 2 },
   "investment",
-  "commercial",
+  "finance",
   "graves",
+
+  "commercial",
+  // "commercial-sale",
+  // "commercial-rent",
+
   "compounds",
+  // "compounds-rent",
+  // "compounds-sale",
+
   "lands",
-  // "all",
+  // "lands-rent",
+  // "lands-sale",
+  // "cash",
+  // "installment",
 ];
 export const categoryUnitType = [
   "apartment",
@@ -37,29 +71,22 @@ export const categoryUnitType = [
   "agriculture",
   // "all",
 ];
-
 export const paymentMethodData = {
   en: [
-    { value: "", name: " All" },
-    { value: "Cash", name: "Cash" },
-    { value: "Installment", name: "Installment" },
-    { value: "Real_Estate_Finance", name: "Real Estate Finance" },
+    { value: "cash", name: "Cash", id: 1 },
+    { value: "installment", name: "Installment", id: 2 },
   ],
   ar: [
-    { value: "", name: "الكل" },
-    { value: "كاش", name: "كاش" },
-    { value: "تقسيط", name: "تقسيط" },
+    { value: "cash", name: "كاش", id: 1 },
+    { value: "installment", name: "تقسيط", id: 2 },
   ],
 };
-
 export const percentageProperty = {
   en: [
-    { value: "", name: " All" },
     { value: "3_Real_Estate_Finance", name: " CBE 3% Initiative" },
     { value: "8_Real_Estate_Finance", name: "CBE 8% Initiative" },
   ],
   ar: [
-    // { value: "", name: "الكل" },
     { value: "تمويل_عقاري_3_بالمئة", name: "3% تمويل عقارى" },
     { value: "تمويل_عقاري_8_بالمئة", name: "8% تمويل عقارى " },
   ],
@@ -80,7 +107,6 @@ export const finishingOptionsData = {
     { value: "بدون_تشطيب", name: "بدون تشطيب" },
   ],
 };
-
 export const saleOptionsData = {
   en: [
     { value: "all", name: " All" },
@@ -98,15 +124,15 @@ export const saleOptionsData = {
 export const propertyTypeData = {
   en: [
     { value: "", name: " All" },
-    { value: "Residential", name: "Residential" },
-    { value: "Commercial", name: "Commercial" },
-    { value: "Land", name: "Land" },
+    { value: "residential", name: "Residential" },
+    { value: "commercial", name: "Commercial" },
+    { value: "land", name: "Land" },
   ],
   ar: [
     { value: "", name: "الكل" },
-    { value: "سكني", name: "سكني" },
-    { value: "تجاري", name: "تجاري" },
-    { value: "أرض", name: "أرض" },
+    { value: "residential", name: "سكني" },
+    { value: "commercial", name: "تجاري" },
+    { value: "land", name: "أرض" },
   ],
 };
 

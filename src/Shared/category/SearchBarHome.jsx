@@ -1,59 +1,23 @@
 import { useState } from "react";
-import {
-  // useDispatch,
-  useSelector,
-} from "react-redux";
-// import { useRouter } from "next/router";
-import DropdownMoreHome from "./dropdown/DropdownMoreHome";
-// import { setCurrentPage } from "@/redux-store/features/searchingSlice";
-import { SearchDropdown } from "./SearchDropdown";
+import { useSelector } from "react-redux";
+import { SearchDropdown } from "../search/SearchDropdown";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export function SearchBarHome() {
-  // const dispatch = useDispatch();
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  // const router = useRouter();
   const [saleOptions, setSaleOptions] = useState("sale");
-  const [fromPrice, setFromPrice] = useState(0.0);
-  const [toPrice, setToPrice] = useState(0.0);
-  const [fromArea, setFromArea] = useState(0);
-  const [toArea, setToArea] = useState(0);
-  const [countBedrooms, setCountBedrooms] = useState(0);
-  const [countBathrooms, setCountBathrooms] = useState(0);
-  const [propertyFinance, setPropertyFinance] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const router = useRouter();
   const [keywords, setKeywords] = useState("");
-  const [finishingOptions, setFinishingOptions] = useState("");
-  const [unitType, setUnitType] = useState("");
-  const [propertyType, setPropertyType] = useState("");
-  const [isFurnished, setIsFurnished] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const [locationName, setLocationName] = useState("");
-  const [locationValue, setLocationValue] = useState("");
-
   const [locationGovernorate, setLocationGovernorate] = useState("");
   const [locationRegion, setLocationRegion] = useState("");
 
   /**contain search data from state
    * */
   const InputKeywords = {
-    offer: saleOptions, // page offer in category
-    propType: propertyType, // page category type
-    unitType: unitType, // page unit type in category
-    // cdb: locationValue || locationName.trim().split(" ").join("_"), // location page in category
+    offer: saleOptions,
     governorate: locationGovernorate,
     region: locationRegion,
-    keywords: keywords.trim().split(" ").join("_"), // page search in category
-    saleOption: paymentMethod,
-    bathRooms: countBathrooms,
-    rooms: countBedrooms,
-    finishingType: finishingOptions,
-    maxPrice: toPrice,
-    minPrice: fromPrice,
-    minArea: fromArea,
-    maxArea: toArea,
-    MortgagePrice: propertyFinance,
   };
 
   /**
@@ -75,23 +39,11 @@ export function SearchBarHome() {
       .map((key) => `${filteredKeywords[key]}`)
       .join("/")
       .toLowerCase();
-    // const queryString = Object.keys(filteredKeywords)
-    //   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-    //   .join("&");
-    // console.log("queryString", queryString);
-    console.log("filteredKeywords", filteredKeywords);
-    console.log("pagesInput", pagesInput);
 
-    // console.log("locationRegion", locationRegion);
-    // console.log("locationGovernorate", locationGovernorate);
-    // router.push(`/properties/${pagesInput}`);
-
-    // console.log("locationGovernorate", locationGovernorate);
-    //  this step call redux state because go to page number one in pagination
-    // dispatch(setCurrentPage(1));
-
-    //  this step go to searching page with queryString after filter
-    // router.push(`/properties/${queryString}`);
+    const url = `${pagesInput}${
+      keywords && "/search?keyword=" + keywords.split(" ").join("_")
+    }`;
+    router.push(`/properties/${url}`);
   };
 
   // start code 3 button in search bar
@@ -103,8 +55,8 @@ export function SearchBarHome() {
     e.preventDefault();
     setSaleOptions("rent");
     // languageIs ? setSaleOptions("للايجار") : setSaleOptions("For_Rent");
-    setPropertyFinance("");
-    setFinishingOptions("");
+    // setPropertyFinance("");
+    // setFinishingOptions("");
   };
   const setForInvestmentButton = (e) => {
     e.preventDefault();
@@ -112,6 +64,7 @@ export function SearchBarHome() {
     setSaleOptions("investment");
   };
   // end code 3 button in search bar
+
   return (
     <div className=" w-full  flex justify-center ">
       <div className="  w-full  flex flex-col justify-end">
@@ -147,6 +100,7 @@ export function SearchBarHome() {
           >
             {languageIs ? "للإيجار" : "Rent"}
           </button>
+
           <button
             id="Click-Gtm"
             onClick={setForInvestmentButton}
@@ -186,50 +140,13 @@ export function SearchBarHome() {
             "
             />
           </div>
-
           {/*search box */}
           <div className="w-full ">
             <SearchDropdown
-              setLocationName={setLocationName}
-              setLocationValue={setLocationValue}
+              keywords={keywords}
+              setKeywords={setKeywords}
               setLocationGovernorate={setLocationGovernorate}
               setLocationRegion={setLocationRegion}
-            />
-          </div>
-
-          {/*search box */}
-          <div className="w-[52px] xl:w-[69px] 2xl:w-[92px] h-full flex items-center justify-center">
-            <DropdownMoreHome
-              offer={saleOptions}
-              setPaymentMethod={setPaymentMethod}
-              paymentMethod={paymentMethod}
-              setFinishingOptions={setFinishingOptions}
-              finishingOptions={finishingOptions}
-              setUnitType={setUnitType}
-              unitType={unitType}
-              setPropertyType={setPropertyType}
-              propertyType={propertyType}
-              isFurnished={isFurnished}
-              setFurnished={setIsFurnished}
-              countBedrooms={countBedrooms}
-              setCountBedrooms={setCountBedrooms}
-              countBathrooms={countBathrooms}
-              setCountBathroom={setCountBathrooms}
-              setPropertyFinance={setPropertyFinance}
-              propertyFinance={propertyFinance}
-              fromPrice={fromPrice}
-              setFromPrice={setFromPrice}
-              toPrice={toPrice}
-              setToPrice={setToPrice}
-              fromArea={fromArea}
-              setFromArea={setFromArea}
-              toArea={toArea}
-              setToArea={setToArea}
-              selectoption={selectedOption}
-              setSelectedOption={setSelectedOption}
-              setKeywords={setKeywords}
-              keywords={keywords}
-              classNames="max-w-[40px]"
             />
           </div>
 
@@ -248,11 +165,84 @@ export function SearchBarHome() {
                  : "rounded-r-sm md:rounded-r-lg lg:rounded-r-lg  "
              }   select-none`}
             >
-              {languageIs ? "أبـحـث" : "Search"}
+              {languageIs ? "بـحـث" : "Search"}
             </button>
           </div>
         </div>
       </div>
+      <div
+        className="
+          w-[52px] xl:w-[69px] 2xl:w-[92px] bg-red-200 h-full flex items-center justify-center"
+      ></div>
     </div>
   );
 }
+//   keywords: keywords.trim().split(" ").join("_"), // page search in category
+//   saleOption: paymentMethod,
+//   bathRooms: countBathrooms,
+//   rooms: countBedrooms,
+//   finishingType: finishingOptions,
+//   maxPrice: toPrice,
+//   minPrice: fromPrice,
+//   minArea: fromArea,
+//   maxArea: toArea,
+//   MortgagePrice: propertyFinance,
+// {
+//   /*search box */
+// }
+// <div className="w-[52px] xl:w-[69px] 2xl:w-[92px] h-full flex items-center justify-center">
+//   <DropdownMoreHome
+//     offer={saleOptions}
+//     setPaymentMethod={setPaymentMethod}
+//     paymentMethod={paymentMethod}
+//     setFinishingOptions={setFinishingOptions}
+//     finishingOptions={finishingOptions}
+//     setUnitType={setUnitType}
+//     unitType={unitType}
+//     setPropertyType={setPropertyType}
+//     propertyType={propertyType}
+//     isFurnished={isFurnished}
+//     setFurnished={setIsFurnished}
+//     countBedrooms={countBedrooms}
+//     setCountBedrooms={setCountBedrooms}
+//     countBathrooms={countBathrooms}
+//     setCountBathroom={setCountBathrooms}
+//     setPropertyFinance={setPropertyFinance}
+//     propertyFinance={propertyFinance}
+//     fromPrice={fromPrice}
+//     setFromPrice={setFromPrice}
+//     toPrice={toPrice}
+//     setToPrice={setToPrice}
+//     fromArea={fromArea}
+//     setFromArea={setFromArea}
+//     toArea={toArea}
+//     setToArea={setToArea}
+//     selectoption={selectedOption}
+//     setSelectedOption={setSelectedOption}
+//     setKeywords={setKeywords}
+//     keywords={keywords}
+//     classNames="max-w-[40px]"
+//   />
+// </div>;
+// const queryString = Object.keys(filteredKeywords)
+//   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+//   .join("&");
+// console.log("queryString", queryString);
+// console.log("filteredKeywords", filteredKeywords);
+// const [fromPrice, setFromPrice] = useState(0.0);
+// const [toPrice, setToPrice] = useState(0.0);
+// const [fromArea, setFromArea] = useState(0);
+// const [toArea, setToArea] = useState(0);
+// const [countBedrooms, setCountBedrooms] = useState(0);
+// const [countBathrooms, setCountBathrooms] = useState(0);
+// const [propertyFinance, setPropertyFinance] = useState("");
+// const [paymentMethod, setPaymentMethod] = useState("");
+// const [keywords, setKeywords] = useState("");
+// const [finishingOptions, setFinishingOptions] = useState("");
+// const [unitType, setUnitType] = useState("");
+// const [propertyType, setPropertyType] = useState("");
+// const [isFurnished, setIsFurnished] = useState(false);
+// const [selectedOption, setSelectedOption] = useState("");
+
+// const [locationName, setLocationName] = useState("");
+// const [locationValue, setLocationValue] = useState("");

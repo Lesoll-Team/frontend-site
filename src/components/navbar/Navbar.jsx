@@ -7,7 +7,7 @@ import ReactCountryFlag from "react-country-flag";
 import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
@@ -19,8 +19,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import { useFilterContextState } from "@/Shared/layout";
+import SidebarFilter from "../category/sidebarFilter";
 export default function Navbar() {
   const router = useRouter();
+  let { openFilter, setOpenFilter } = useFilterContextState();
 
   const dispatch = useDispatch();
   const [countNotifications, setCountNotifications] = useState(0);
@@ -33,8 +36,9 @@ export default function Navbar() {
   const [open, setOpen] = useState(true);
 
   const [openUserMenu, setOpenUserMenu] = useState(false);
+  // const [openFilter, setOpenFilter] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  // const [mobileOpen, setMobileOpen] = useState(false);
 
   const isLoading = useSelector((state) => state.Auth.isLoding);
 
@@ -56,17 +60,33 @@ export default function Navbar() {
         !mobileMenuRef.current.contains(event.target)
       ) {
         setOpen(true);
+        // setOpenFilter(false);
       }
       if (
         notificationsMenuRef.current &&
         !notificationsMenuRef.current.contains(event.target)
       ) {
         setNotifications(false);
+        // setOpenFilter(false);
       }
+      if (
+        notificationsMenuRef.current &&
+        !notificationsMenuRef.current.contains(event.target)
+      ) {
+        // setNotifications(false);
+        setOpenFilter(false);
+      }
+    }
+    document.addEventListener("scroll", handleOutsideClick);
+    function handleOutsideClick() {
+      // setNotifications(false);
+      // setOpen(true);
+      setOpenFilter(false);
     }
     function handleRouteChangeStart() {
       setNotifications(false);
       setOpen(true);
+      setOpenFilter(false);
     }
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -78,11 +98,87 @@ export default function Navbar() {
     };
   }, [mobileMenuRef, notificationsMenuRef, router]);
   return (
-    <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md ">
+    <nav className="w-full  z-[900]  sticky  top-0 drop-shadow-md ">
+      {/**
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       */}
+
+      {true && (
+        // <div className="  absolute left-0  w-full  h-screen flex   ">
+        //   <div
+        //     dir={languageIs ? "rtl" : "ltr"}
+        //     ref={notificationsMenuRef}
+        //     className={` bg-white  shadow-r-sm z-[1000] h-screen  md:w-[37.7vw] w-full pb-[100px] px-[2vw] pt-[50px] flex flex-col gap-y-[4.5vh]`}
+        //   >
+        //     <div className=" w-full flex justify-between items-center">
+        //       <span className="text-[25px]">
+        //         {languageIs ? "بحث" : "Search"}
+        //       </span>
+        //       <IoClose
+        //         onClick={() => setOpenFilter(false)}
+        //         className="text-[20px] cursor-pointer"
+        //       />
+        //     </div>
+
+        //     <div className="">
+        //       <div className="flex gap-x-2">
+        //         <span>{languageIs ? "السعر" : "Price"}</span>
+
+        //         <span className="text-gray1">
+        //           {languageIs ? "(جنيه)" : "(EGY)"}
+        //         </span>
+        //       </div>
+        //       <div className="flex justify-between gap-x-[1.5vw]">
+        //         <input
+        //           type="text"
+        //           className="indent-2 md:h-[5.7vh] h-[33px] w-6/12  border-1 border-gray1  focus:outline-none rounded-[1vh]"
+        //           placeholder={languageIs ? "من" : "from"}
+        //         />
+
+        //         <input
+        //           type="text"
+        //           className="indent-2 md:h-[5.7vh] h-[33px] w-6/12  border-1 border-gray1  focus:outline-none rounded-[1vh]"
+        //           placeholder={languageIs ? "الى" : "to"}
+        //         />
+        //       </div>
+        //     </div>
+        //   </div>
+        //   <div className="h-screen absolute  z-[600] w-full bg-[#323232] opacity-30" />
+        // </div>
+        <SidebarFilter
+          notificationsMenuRef={notificationsMenuRef}
+          languageIs={languageIs}
+          setOpenFilter={setOpenFilter}
+        />
+      )}
+
+      {/**
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       */}
       <section
         className="flex  relative bg-white  h-[80px] items-center "
         dir={`${languageIs ? "rtl" : ""}`}
       >
+        {/* <button onClick={() => setOpenFilter(!openFilter)}>sss</button> */}
         {/*Logo */}
         <ul className=" flex w-3/12  md:justify-center ">
           <li className="sm:w-[150px] w-[100px] flex  justify-center">

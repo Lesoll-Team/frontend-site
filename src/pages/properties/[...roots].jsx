@@ -1,9 +1,11 @@
 import {
   categoryType,
   categoryUnitType,
+  paymentMethodData,
 } from "@/Shared/search/dropdown/dataDropdown";
 import { governorateData } from "@/Shared/search/dropdown/governorateLocation";
 import { regionData } from "@/Shared/search/dropdown/regionLocation";
+import SearchFilter from "@/components/category/Filter";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 /**
@@ -18,14 +20,7 @@ import { useEffect, useState } from "react";
  * @param {boolean} props.urlIncludeSearch - A boolean indicating whether "search" is included in roots.
  * @returns {JSX.Element} - The JSX element representing the search page.
  */
-const SearchPage = ({
-  roots,
-  governorateLocation,
-  regionLocation,
-  // categoryIs,
-  // unitTypeInCategories,
-  // urlIncludeSearch,
-}) => {
+const SearchPage = ({ roots, governorateLocation, regionLocation }) => {
   const router = useRouter();
   const urlObject = router.query;
   const [mapGovernorates, setMapGovernorates] = useState(new Map()); //{ red_sea => 'red_sea',..etc}
@@ -36,11 +31,10 @@ const SearchPage = ({
   const [region, setRegion] = useState("");
   const [unitType, setUnitType] = useState("");
   const [category, setCategory] = useState("");
+  const [paymentOption, setPaymentOption] = useState("");
 
-  // const [category] = roots; //["category", "unit Type", "governorate", "region"];
-
-  /**
-   *filter search query from url
+  /** filter search query from url
+   *  const [category] = roots; //["category", "unit Type", "governorate", "region"];
    */
   useEffect(() => {
     const newSearchKeywords = {};
@@ -77,7 +71,6 @@ const SearchPage = ({
 
     regionLocation.forEach((item) => {
       newMapregion.set(item.city_name_en.split(" ").join("_").toLowerCase(), {
-        //say if Sayeda Zeinab => sayeda_zeinab
         name_ar: item.city_name_ar.split(" ").join("_"),
         name_en: item.city_name_en.split(" ").join("_").toLowerCase(), //say if Sayeda Zeinab => sayeda_zeinab
       });
@@ -86,7 +79,94 @@ const SearchPage = ({
     setMapGovernorates(newMapGovernorates);
     setMapRegion(newMapregion);
   }, []);
-  // const governorateHas =
+
+  useEffect(() => {
+    roots.forEach((value) => {
+      if (paymentMethodData.ar.some((item) => item.value === value)) {
+        setPaymentOption(value);
+      }
+      if (mapGovernorates.get(value)) {
+        setGovernorate(value);
+      }
+      if (mapRegion.get(value)) {
+        setRegion(value);
+      }
+      if (categoryUnitType.includes(value)) {
+        setUnitType(value);
+      }
+      if (categoryType.includes(value)) {
+        setCategory(value);
+      }
+    });
+  }, [
+    mapGovernorates,
+    categoryUnitType,
+    paymentMethodData,
+    categoryType,
+    mapRegion,
+  ]);
+  return (
+    <div className="min-h-[90vh] container mx-auto relative">
+      <div className="  z-[500]  bg-gray-100 flex justify-center sticky top-[80px]">
+        <SearchFilter
+          filterData={{
+            searchKeywords,
+            governorate,
+            region,
+            unitType,
+            category,
+            paymentOption,
+          }}
+        />
+      </div>
+
+      <h6>category : {category}</h6>
+      <h6>unitType : {unitType}</h6>
+      <h6>payment option : {paymentOption}</h6>
+      <h6>governorate : {governorate.split("_").join(" ")}</h6>
+      <h6>region : {region.split("_").join(" ")}</h6>
+      <h6>
+        search keywords : {searchKeywords && JSON.stringify(searchKeywords)}
+      </h6>
+    </div>
+  );
+};
+export default SearchPage;
+
+export async function getServerSideProps({ params }) {
+  const { roots } = params; // routers pages
+  const governorateLocation = governorateData; //governorate object
+  const regionLocation = regionData; //region object
+  return {
+    props: {
+      roots,
+      governorateLocation,
+      regionLocation,
+    },
+  };
+}
+/**
+ * العرض او نظام البيع  <BsCashCoin />   //<BsCash />
+ * نوع العقار <BsHouses />
+ * المساحة || الايكون موجود فى كمبوننت الكارد
+ * الغرف //  /// // /// // // // / / 
+ * الحمامات / / // // / / / / / / / / / / / / / 
+ * نوع التشطيب  <PiPaintBrushBroad />
+ * الدور <TbStairsUp />
+ * سنة التسليم  <TbCalendarCheck />
+ * مسجل ف الشهر العقاري   <FaRegStickyNote />  <LiaFileSignatureSolid />
+ * الشقة مفروشة <PiArmchair />  /// <LuArmchair />
+
+ *
+ */
+/**
+ *   // const categoryIs = categoryType; //category data type
+  // const urlIncludeSearch = params.roots.includes("search"); //true or false
+  // const unitTypeInCategories = categoryUnitType; //category unit type data
+  // categoryIs,
+  // unitTypeInCategories,
+  // urlIncludeSearch,
+ *   // const governorateHas =
   //   governorateName && mapGovernorates.has(governorateName.toLowerCase());
   // const regionHas = regionName && mapRegion.has(regionName.toLowerCase());
   // const categoryEqual = category && categoryIs.includes(category);
@@ -109,65 +189,4 @@ const SearchPage = ({
   //   unitCategoryType: unitCategoryType,
   // });
   // console.log(roots);
-  useEffect(() => {
-    roots.forEach((value) => {
-      if (mapGovernorates.get(value)) {
-        setGovernorate(value);
-      }
-      if (mapRegion.get(value)) {
-        setRegion(value);
-      }
-      if (categoryUnitType.includes(value)) {
-        setUnitType(value);
-      }
-      if (categoryType.includes(value)) {
-        setCategory(value);
-      }
-    });
-  }, [mapGovernorates, categoryUnitType, categoryType, mapRegion]);
-  return (
-    <center className="min-h-[90vh]">
-      <h6>category : {category}</h6>
-      <h6>unitType : {unitType}</h6>
-      <h6>governorate : {governorate.split("_").join(" ")}</h6>
-      <h6>region : {region.split("_").join(" ")}</h6>
-      <h6>
-        search keywords : {searchKeywords && "yes"} ={" "}
-        {JSON.stringify(searchKeywords)}
-      </h6>
-    </center>
-  );
-};
-export default SearchPage;
-export async function getServerSideProps({ params }) {
-  const { roots } = params; // routers pages
-  // const urlIncludeSearch = params.roots.includes("search"); //true or false
-  const governorateLocation = governorateData; //governorate object
-  const regionLocation = regionData; //region object
-  // const categoryIs = categoryType; //category data type
-  // const unitTypeInCategories = categoryUnitType; //category unit type data
-  return {
-    props: {
-      roots,
-      governorateLocation,
-      regionLocation,
-      // categoryIs,
-      // unitTypeInCategories,
-      // urlIncludeSearch,
-    },
-  };
-}
-/**
- * العرض او نظام البيع  <BsCashCoin />   //<BsCash />
- * نوع العقار <BsHouses />
- * المساحة || الايكون موجود فى كمبوننت الكارد
- * الغرف //  /// // /// // // // / / 
- * الحمامات / / // // / / / / / / / / / / / / / 
- * نوع التشطيب  <PiPaintBrushBroad />
- * الدور <TbStairsUp />
- * سنة التسليم  <TbCalendarCheck />
- * مسجل ف الشهر العقاري   <FaRegStickyNote />  <LiaFileSignatureSolid />
- * الشقة مفروشة <PiArmchair />  /// <LuArmchair />
-
- *
  */

@@ -1,14 +1,12 @@
 import { Image } from "@nextui-org/react";
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { SearchBarHome } from "@/Shared/search/SearchBarHome";
+import { SearchBarHome } from "@/Shared/search/SearchHome";
 const HeroSection = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <Fragment>
-      {/* <div className="relative "> */}
-      {/* Full-width image */}
       <div className="backdrop-grayscale-200 z-20 w-full select-none bg-black/60 absolute h-full "></div>
       <Image
         src="home/home-img-hero-section.webp"
@@ -25,7 +23,6 @@ const HeroSection = () => {
         className="absolute inset-0  container mx-auto  z-20 justify-center flex flex-col
              text-white "
       >
-        {/* items-center justify-center flex flex-col */}
         <div className=" grid gap-y-3 md:gap-y-16">
           <div className="flex flex-col gap-y-1 md:gap-y-5">
             <h1 className="w-fit font-semibold">
@@ -46,7 +43,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </Fragment>
   );
 };

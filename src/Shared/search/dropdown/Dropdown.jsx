@@ -9,11 +9,13 @@ const Dropdown = ({
   setSelectedOption,
   valueDefault,
   moreOptions,
+  selectoption,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const choices = language ? options.ar : options.en;
+  // const typeIs = options.en;
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -50,7 +52,7 @@ const Dropdown = ({
         className="font-semibold text-darkGreen text-md flex items-center justify-between
            focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap"
       >
-        {value || valueDefault}
+        {selectoption || valueDefault}
         <div>
           <AiFillCaretDown
             className={`text-darkGreen duration-150 ${

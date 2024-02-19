@@ -88,11 +88,11 @@ const DropdownMoreHome = ({
           <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-2 gap-0">
             <Dropdown
               classNames="my-1"
-              value={propertyType}
+              // value={propertyType}
               valueDefault={languageIs ? "نوع العقار" : "Property Type"}
               options={propertyTypeData}
               setValue={setPropertyType}
-              selectoption={selectoption}
+              selectoption={selectoption || propertyType}
               setSelectedOption={setSelectedOption}
             />
 

@@ -1,4 +1,5 @@
 import { Image } from "@nextui-org/react";
+import Link from "next/link";
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 const LocationCategories = () => {
@@ -11,62 +12,70 @@ const LocationCategories = () => {
       titleEn: "Giza",
       totalAr: "( 200+ وحدة )",
       totalEn: "( +200 Uint )",
+      url: "/properties/giza",
       id: 1,
     },
     {
       imgPath: "home/locations/الاسكندرية.webp",
       titleAr: "الاسكندرية",
-      titleEn: "Alex",
+      titleEn: "alexandria",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
+      url: "/properties/alexandria",
       id: 2,
     },
     {
       imgPath: "home/locations/مطروح.webp",
-      titleAr: "استثمار عقاري",
-      titleEn: "real estate investment",
+      titleAr: "مطروح",
+      titleEn: "Matrouh",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
+      url: "/properties/matrouh",
       id: 3,
     },
     {
       imgPath: "home/locations/القليوبية.webp",
-      titleAr: "عقارات تجارية",
-      titleEn: "commercial real estate",
+      titleAr: "القليوبية",
+      titleEn: "Qaliubiya",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
+      url: "/properties/qaliubiya",
       id: 4,
     },
     {
       imgPath: "home/locations/الغربية.webp",
-      titleAr: "أراضي",
-      titleEn: "lands",
+      titleAr: "الغربية",
+      titleEn: "Gharbiya",
       totalAr: "( 180+ وحدة )",
       totalEn: "( +180 Uint )",
+      url: "/properties/gharbiya",
       id: 5,
     },
     {
       imgPath: "home/locations/الشرقية.webp",
-      titleAr: "الكمبوندات",
-      titleEn: "compounds",
+      titleAr: "الشرقية",
+      titleEn: "Sharkia",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
+      url: "/properties/sharkia",
       id: 6,
     },
     {
       imgPath: "home/locations/الدقهليه.webp",
-      titleAr: "تمويل عقاري",
-      titleEn: "real estate investment",
+      titleAr: "الدقهليه",
+      titleEn: "Dakahlia",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
+      url: "/properties/dakahlia",
       id: 7,
     },
     {
-      imgPath: "home/locations/البحر الاحمر.webp",
-      titleAr: "مدافن",
-      titleEn: "graves",
+      imgPath: "home/locations/البحر_الاحمر.webp",
+      titleAr: "البحر الاحمر",
+      titleEn: "Red sea",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
+      url: "/properties/red_sea",
       id: 8,
     },
   ];
@@ -85,7 +94,8 @@ const LocationCategories = () => {
           className=" relative   md:mb-0 mb-3  md:hidden flex     group justify-center
       "
         >
-          <div
+          <Link
+            href={"/properties/cairo"}
             className="
           cursor-pointer 
           md:sticky md:top-0
@@ -122,12 +132,16 @@ const LocationCategories = () => {
                 {language ? "200 وحدة" : "200 Uint"}
               </p>
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4     gap-[10px] md:justify-normal justify-between ">
           {locations.map((category) => (
-            <div key={category.id} className=" cursor-pointer relative  group">
+            <Link
+              href={category.url}
+              key={category.id}
+              className=" cursor-pointer relative  group"
+            >
               <Image
                 src={category.imgPath}
                 alt={`icon ${category.titleEn}`}
@@ -153,12 +167,13 @@ const LocationCategories = () => {
                   {language ? category.totalAr : category.totalEn}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         <div className=" relative    md:mt-0 mt-3  md:block hidden    group justify-center">
-          <div
+          <Link
+            href={"/properties/cairo"}
             className="
           cursor-pointer 
           md:sticky md:top-0
@@ -189,7 +204,7 @@ const LocationCategories = () => {
                 {language ? "200 وحدة" : "200 Uint"}
               </p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </Fragment>

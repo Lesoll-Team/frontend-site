@@ -1,21 +1,9 @@
-// import HeroSection from "@/components/homePage/HeroSection";
-// import LocationCategories from "@/components/homePage/LocationCategories";
-// import OtherCards from "@/components/homePage/OtherCards";
-// import PropertiesCategories from "@/components/homePage/PropertiesCategories";
-// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
-import dynamic from "next/dynamic";
+import HeroSection from "@/components/homePage/HeroSection";
+import LocationCategories from "@/components/homePage/LocationCategories";
+import OtherCards from "@/components/homePage/OtherCards";
+import PropertiesCategories from "@/components/homePage/PropertiesCategories";
+import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 import React from "react";
-const HeroSection = dynamic(() => import("@/components/homePage/HeroSection"));
-const PropertiesCategories = React.lazy(() =>
-  import("@/components/homePage/PropertiesCategories")
-);
-const LocationCategories = React.lazy(() =>
-  import("@/components/homePage/LocationCategories")
-);
-const OtherCards = React.lazy(() => import("@/components/homePage/OtherCards"));
-const BestLinksInHome = React.lazy(() =>
-  import("@/components/linksInHome/BestLinksInHome")
-);
 
 const Home = ({ bestSearch }) => {
   return (

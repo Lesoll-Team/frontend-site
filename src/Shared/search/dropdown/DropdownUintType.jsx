@@ -53,7 +53,8 @@ const DropdownUintType = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         className="select-none w-full font-semibold text-darkGreen text-md flex items-center justify-between
-          focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap">
+          focus:outline-lightGreen bg-white border-[3px] rounded-xl p-2 cursor-pointer whitespace-nowrap"
+      >
         {value || valueDefault}
         <div>
           <AiFillCaretDown
@@ -68,7 +69,7 @@ const DropdownUintType = ({
           className={`absolute animate-appearance-in z-10 w-auto right-0 min-w-[150px] text-center mt-1 bg-white duration-200
            drop-shadow-xl border overflow-y-auto rounded-xl max-h-[150px]`}
         >
-          {propertyType == "Residential"||propertyType == "سكني"
+          {propertyType == "residential" || propertyType == "سكني"
             ? Residential.map((option, i) => (
                 <p
                   key={i}
@@ -81,7 +82,7 @@ const DropdownUintType = ({
                 </p>
               ))
             : null}
-          {propertyType == "Commercial"||propertyType == "تجاري"
+          {propertyType == "commercial" || propertyType == "تجاري"
             ? Commercial.map((option, i) => (
                 <p
                   key={i}
@@ -94,7 +95,7 @@ const DropdownUintType = ({
                 </p>
               ))
             : null}
-          {propertyType == "Land"||propertyType == "أرض"
+          {propertyType == "land" || propertyType == "أرض"
             ? Land.map((option, i) => (
                 <p
                   key={i}
@@ -110,7 +111,9 @@ const DropdownUintType = ({
 
           {propertyType == "" ? (
             <div className=" flex items-center justify-center text-default-500 cursor-no-drop py-14 ">
-         {language?" اختار من نوع العقار اولاَ":"Choose a property type first"}   
+              {language
+                ? " اختار من نوع العقار اولاَ"
+                : "Choose a property type first"}
             </div>
           ) : null}
         </div>
