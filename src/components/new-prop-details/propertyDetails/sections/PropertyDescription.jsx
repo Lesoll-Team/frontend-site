@@ -7,27 +7,39 @@ const PropertyDescription = ({ propertyData }) => {
   const descriptionLinesNumbers = propertyData.description.split("\n").length;
 
   return (
-    <section>
-      <h3 className="text-xl sm:text-2xl mb-3">
+    <section className="md:space-y-[30px] space-y-[16px]">
+      <h3 className="text-sm sm:text-3xl ">
         {language ? "الوصف" : "Description"}
       </h3>
-      <p className="text-base sm:text-xl text-baseGray">
+      <p
+        className="text-xs sm:text-base md:text-[25px] font-inter text-baseGray"
+        style={{ lineHeight: "1.7" }}
+      >
         {propertyData.description
+          .trim()
           .split("\n")
           .slice(0, showFullDescription ? descriptionLinesNumbers : 3)
+          .filter((line) => line.trim() !== "") // Filter out empty lines
           .map((line, index) => (
-            <span key={index}>
-              {line}
+            <span className="py-1" key={index}>
+              {line.trim()}
               <br />
             </span>
           ))}
       </p>
+
       {descriptionLinesNumbers > 3 && (
         <button
-          className="underline text-blue-400 "
+          className="underline text-linkColor "
           onClick={() => setShowFullDescription((prev) => !prev)}
         >
-          {language ? "رؤية المزيد" : "show more"}
+          {descriptionLinesNumbers
+            ? language
+              ? " إخفاء"
+              : "hide"
+            : language
+            ? "رؤية المزيد"
+            : "show more"}
         </button>
       )}
     </section>

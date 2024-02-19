@@ -4,12 +4,12 @@ const PropertyFeatures = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <section>
-      <h3 className="text-xl sm:text-2xl mb-3">
+    <section className="md:space-y-[32px] space-y-[16px]">
+      <h3 className="text-sm sm:text-3xl ">
         {language ? "المميزات" : "Features"}
       </h3>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-4 md:gap-x-8">
         {propertyData.service.map((service) => {
           return <FeatureCard key={service._id} name={service.name} />;
         })}
@@ -22,7 +22,7 @@ export default PropertyFeatures;
 const FeatureCard = ({ name }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="border px-2 py-3 text-center md:text-base text-sm flex items-center justify-start rounded text-lightGreen font-bold">
+    <div className="border px-5 py-3 text-center md:text-base text-sm flex items-center justify-start rounded text-lightGreen font-bold">
       <p> {language ? name.ar : name.en}</p>
     </div>
   );

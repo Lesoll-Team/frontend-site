@@ -29,6 +29,7 @@ module.exports = {
         neutral: "#E1F9FA",
         lightNeutral: "#F2F8F9",
         outLine: "#A3A1A1",
+        linkColor: "#5F98D1",
       },
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],

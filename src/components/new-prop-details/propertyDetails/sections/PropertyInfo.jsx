@@ -1,21 +1,20 @@
 import { formatDate } from "@/utils/FormateData";
 import { useMemo } from "react";
-import { BiSolidBed } from "react-icons/bi";
-import { FaBath } from "react-icons/fa";
-import { GiStairs, GiStoneWall } from "react-icons/gi";
+import { BsCash, BsHouses } from "react-icons/bs";
+
 import {
-  MdDateRange,
-  MdLocalOffer,
-  MdMapsHomeWork,
-  MdOutlineAssignment,
-} from "react-icons/md";
-import { TbRulerMeasure } from "react-icons/tb";
+  LiaBedSolid,
+  LiaFileSignatureSolid,
+  LiaVectorSquareSolid,
+} from "react-icons/lia";
+
+import { PiArmchair, PiBathtub, PiPaintBrushBroad } from "react-icons/pi";
+import { TbCalendarCheck, TbStairsUp } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
 const PropertyInfo = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { year } = formatDate(propertyData.deliveryDate);
-  console.log(propertyData?.saleOption);
   const offer = useMemo(() => {
     if (propertyData.offer === "For Rent") {
       return language ? "للإيجار" : "For Rent";
@@ -79,9 +78,9 @@ const PropertyInfo = ({ propertyData }) => {
     }
   }, [language]);
   return (
-    <section className="grid grid-cols-2 gap-y-5">
+    <section className="grid grid-cols-2 gap-y-5 md:mt-10 md:gap-y-10">
       <InfoCard
-        icon={<MdMapsHomeWork />}
+        icon={<BsHouses />}
         title={language ? "نوع العقار" : "Property Type"}
         info={
           language
@@ -90,49 +89,49 @@ const PropertyInfo = ({ propertyData }) => {
         }
       />
       <InfoCard
-        icon={<BiSolidBed />}
+        icon={<LiaBedSolid />}
         title={language ? " الغرف" : "Rooms"}
         info={Math.abs(propertyData.rooms)}
       />
       <InfoCard
-        icon={<MdLocalOffer />}
+        icon={<BsCash />}
         title={language ? "العرض" : "Offer"}
         info={offer}
       />
       <InfoCard
-        icon={<FaBath />}
+        icon={<PiBathtub />}
         title={language ? "الحمامات" : "Bathrooms"}
         info={Math.abs(propertyData.bathRooms)}
       />
       <InfoCard
-        icon={<TbRulerMeasure />}
+        icon={<LiaVectorSquareSolid />}
         title={language ? "المساحة" : "Area"}
         info={area}
       />
       <InfoCard
-        icon={<GiStoneWall />}
+        icon={<PiPaintBrushBroad />}
         title={language ? "التشطيب" : "Finishing"}
         info={finishingType}
       />
       {year && (
         <InfoCard
-          icon={<MdDateRange />}
+          icon={<TbCalendarCheck />}
           title={language ? "سنة التسليم" : "Delivery year"}
           info={year}
         />
       )}
       <InfoCard
-        icon={<GiStairs />}
+        icon={<TbStairsUp />}
         title={language ? "الدور" : "floor"}
         info={propertyData.level}
       />
       <InfoCard
-        icon={<MdOutlineAssignment />}
+        icon={<LiaFileSignatureSolid />}
         title={language ? "مسجل" : "Registerd"}
         info={isRegisterd}
       />
       <InfoCard
-        icon={<MdOutlineAssignment />}
+        icon={<PiArmchair />}
         title={language ? "مفروش" : "Furnished"}
         info={isFurnished}
       />
@@ -143,7 +142,7 @@ export default PropertyInfo;
 
 const InfoCard = ({ icon, title, info }) => {
   return (
-    <div className="flex items-center gap-2 text-sm sm:text-base lg:text-2xl">
+    <div className="flex items-center gap-2 text-[12px] sm:text-base lg:text-2xl">
       <div className="text-darkGray flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 text-xl sm:text-2xl  rounded bg-lightNeutral">
         {icon}
       </div>

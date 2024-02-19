@@ -8,7 +8,7 @@ import SimilarProperties from "./sections/SimilarProperties";
 
 const PropertyDetails = ({ propertyData, className }) => {
   return (
-    <div className={cn("space-y-4 md:space-y-8", className)}>
+    <div className={cn("space-y-[30px] md:space-y-[58px]", className)}>
       <PropertyInfo propertyData={propertyData} />
       <PropertyFeatures propertyData={propertyData} />
       <PropertyDescription propertyData={propertyData} />

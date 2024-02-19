@@ -9,7 +9,7 @@ const PropertyOwner = ({ propertyData, className }) => {
   return (
     <div
       className={cn(
-        "bg-lightNeutral md:bg-white gap-4 flex md:flex-col items-center md:justify-center p-5 rounded md:border ",
+        "bg-lightNeutral md:bg-white gap-6 md:gap-7 flex md:flex-col items-center md:justify-center  p-3 md:px-5 md:py-10  rounded md:border ",
         className
       )}
     >
@@ -18,15 +18,15 @@ const PropertyOwner = ({ propertyData, className }) => {
         src={propertyData.user?.avatarUrl || "/user-avatar-placeholder.png"}
         width={70}
         height={70}
-        className="rounded-full object-cover"
+        className="rounded-full object-cover w-[43px] h-[43px] md:w-[80px] md:h-[80px]"
       />
       <div className="md:text-center">
         <p className="line-clamp-1 text-darkGray font-bold text-sm md:text-xl">
           {propertyData.user?.fullname}
         </p>
-        <div className="font-medium flex gap-1 flex-wrap md:justify-center">
+        <div className="font-medium flex gap-2 flex-wrap md:justify-center items-center">
           <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p>
-          <p className="text-blue-600 underline">
+          <p className="text-linkColor md:text-base text-sm underline">
             {language ? "رؤية جميع الإعلانات" : "See all properties"}
           </p>
         </div>

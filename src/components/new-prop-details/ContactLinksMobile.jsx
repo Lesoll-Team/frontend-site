@@ -6,13 +6,12 @@ import { useSelector } from "react-redux";
 const ContactLinksMobile = ({ phone }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = "adksadiasdlsadg";
-  console.log("phone", phone);
+
   const { callLink, whatsAppLink } = getContactLinks({
     phoneNumber: phone,
     message: message,
   });
-  console.log("call", callLink);
-  console.log("whats", whatsAppLink);
+
   return (
     <div className="md:hidden  sticky bottom-0 flex w-full">
       <a

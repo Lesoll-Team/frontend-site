@@ -16,7 +16,7 @@ const ContactLinks = ({ propertyData }) => {
       <a
         href={callLink}
         target="_blank"
-        className="py-2 rounded flex items-center justify-center w-full gap-2 bg-lightNeutral text-[#5F98D1]"
+        className="py-2 text-xl rounded flex items-center justify-center w-full gap-2 bg-lightNeutral text-[#5F98D1]"
       >
         {language ? "اتصال" : "Call"}
         <IoCallSharp className="" />
@@ -24,7 +24,7 @@ const ContactLinks = ({ propertyData }) => {
       <a
         target="_blank"
         href={whatsAppLink}
-        className="py-2 rounded flex items-center justify-center w-full gap-2 bg-[#39AE41] text-white"
+        className="py-2 text-xl rounded flex items-center justify-center w-full gap-2 bg-[#39AE41] text-white"
       >
         {language ? "واتساب" : "Whatsapp"}
         <FaWhatsapp />

@@ -1,4 +1,5 @@
 import { localizedNumber } from "@/utils/localizedNumber";
+import Link from "next/link";
 import { GoPencil } from "react-icons/go";
 import { MdOutlineAnalytics } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -6,13 +7,15 @@ import { useSelector } from "react-redux";
 const PriceTitle = ({ propertData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
-  console.log(propertData);
+
   const price = localizedNumber(propertData.price);
   const showEditBtn = userData && userData._id === propertData.user._id;
-  const showAdminBtn = userData && userData.isAdmin;
+  const showAdminBtn = userData && (userData.isAdmin || userData.supAdmin);
   return (
-    <section className="space-y-1 md:space-y-4 md:border-b-1 md:pb-4">
-      <h1 className="text-lg md:text-4xl font-medium">{propertData.title} </h1>
+    <section className="space-y-1 md:space-y-4 md:border-b-1 md:pb-10">
+      <h1 className="text-lg md:text-4xl font-bold text-darkGray  md:text-black md:font-medium">
+        {propertData.title}{" "}
+      </h1>
       <div className="flex justify-between items-center flex-wrap gap-2">
         <h2 className="text-lg md:text-4xl font-bold text-lightGreen  ">
           {price + " "} {language ? "ج.م " : "Egp "}
@@ -31,12 +34,15 @@ const PriceTitle = ({ propertData }) => {
           </a>
         )}
         {showAdminBtn && (
-          <a href="#" className="flex gap-1 items-center">
+          <Link
+            href={`/dashboard/property-details/${propertData.slug}`}
+            className="flex gap-1 items-center"
+          >
             <MdOutlineAnalytics className="text-xl font-bold" />
             <span className="underline text-sm md:text-xl">
               {language ? "احصائيات العقار" : " Property analysis"}
             </span>
-          </a>
+          </Link>
         )}
       </div>
     </section>
