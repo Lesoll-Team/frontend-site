@@ -11,37 +11,39 @@ const PropertyDescription = ({ propertyData }) => {
       <h3 className="text-sm sm:text-3xl ">
         {language ? "الوصف" : "Description"}
       </h3>
-      <p
-        className="text-xs sm:text-base md:text-[25px] font-inter text-baseGray"
-        style={{ lineHeight: "1.7" }}
-      >
-        {propertyData.description
-          .trim()
-          .split("\n")
-          .slice(0, showFullDescription ? descriptionLinesNumbers : 3)
-          .filter((line) => line.trim() !== "") // Filter out empty lines
-          .map((line, index) => (
-            <span className="py-1" key={index}>
-              {line.trim()}
-              <br />
-            </span>
-          ))}
-      </p>
-
-      {descriptionLinesNumbers > 3 && (
-        <button
-          className="underline text-linkColor "
-          onClick={() => setShowFullDescription((prev) => !prev)}
+      <div>
+        {" "}
+        <p
+          className="text-xs sm:text-base md:text-[25px] font-inter text-baseGray"
+          style={{ lineHeight: "1.7" }}
         >
-          {descriptionLinesNumbers
-            ? language
-              ? " إخفاء"
-              : "hide"
-            : language
-            ? "رؤية المزيد"
-            : "show more"}
-        </button>
-      )}
+          {propertyData.description
+            .trim()
+            .split("\n")
+            .slice(0, showFullDescription ? descriptionLinesNumbers : 3)
+            .filter((line) => line.trim() !== "") // Filter out empty lines
+            .map((line, index) => (
+              <span className="py-1" key={index}>
+                {line.trim()}
+                <br />
+              </span>
+            ))}
+        </p>
+        {descriptionLinesNumbers > 3 && (
+          <button
+            className="underline text-linkColor "
+            onClick={() => setShowFullDescription((prev) => !prev)}
+          >
+            {showFullDescription
+              ? language
+                ? " رؤية الاقل"
+                : "See less"
+              : language
+              ? "رؤية المزيد"
+              : "show more"}
+          </button>
+        )}
+      </div>
     </section>
   );
 };

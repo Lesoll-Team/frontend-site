@@ -7,7 +7,15 @@ import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
 const PropertyImages = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const userInfo = useSelector((state) => state.userProfile.userData);
+  const isLoved = useMemo(() => {
+    // if (userInfo.favorites.index0f(propertyData._id) !== -1) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  }, [userInfo]);
+  console.log(userInfo);
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
@@ -34,21 +42,21 @@ const PropertyImages = ({ propertyData }) => {
   return (
     <section className="grid grid-cols-3 md:grid-cols-4 grid-rows-2 gap-3 justify-center items-center max-h-[550px]">
       <div className="col-span-3 md:col-span-2 row-span-2 h-full max-h-[150px] sm:max-h-[200px] md:max-h-full flex relative">
-        <div className="absolute top-3 mx-3 flex items-center gap-2">
-          <FavBtn />
-          <ShareBtn />
+        <div className="absolute top-4 mx-4 z-[5] flex items-center gap-2">
+          {userInfo && <FavBtn id={propertyData._id} />}
+          <ShareBtn propertyData={propertyData} />
         </div>
         <div
           role="button"
           onClick={() => openLightbox(0)}
-          className="flex rounded-md w-full h-full overflow-hidden"
+          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden"
         >
           <Image
             priority
             width={1400}
             height={1000}
             alt={propertyData.title}
-            src={propertyData.thumbnail}
+            src={propertyData?.thumbnail}
             className="rounded-md  object-cover"
           />
         </div>
@@ -56,7 +64,7 @@ const PropertyImages = ({ propertyData }) => {
       <div
         role="button"
         onClick={() => openLightbox(1)}
-        className="flex w-full rounded-md h-full overflow-hidden"
+        className="flex w-full rounded-md drop-shadow-md h-full overflow-hidden"
       >
         <Image
           priority
@@ -70,7 +78,7 @@ const PropertyImages = ({ propertyData }) => {
       <div
         role="button"
         onClick={() => openLightbox(2)}
-        className="flex w-full h-full overflow-hidden"
+        className="flex w-full h-full drop-shadow-md overflow-hidden"
       >
         <Image
           priority
@@ -85,13 +93,15 @@ const PropertyImages = ({ propertyData }) => {
       <div
         role="button"
         onClick={() => openLightbox(3)}
-        className={`flex relative rounded-md justify-center items-center w-full h-full overflow-hidden ${
+        className={`flex relative drop-shadow-md rounded-md justify-center items-center w-full h-full overflow-hidden ${
           imagesLessThanFour && "md:col-span-2"
         }`}
       >
         {showMoreImages && (
           <span className="md:hidden absolute z-[2] text-white underline">
-            asc
+            {language
+              ? `+${images.length - 4} صورة`
+              : `+${images.length - 4} Images`}
           </span>
         )}
         <Image
@@ -105,7 +115,7 @@ const PropertyImages = ({ propertyData }) => {
       </div>
 
       {!imagesLessThanFour && (
-        <div className="  md:flex hidden relative items-center justify-center overflow-hidden rounded-md w-full h-full">
+        <div className=" drop-shadow-md md:flex hidden relative items-center justify-center overflow-hidden rounded-md w-full h-full">
           {showMoreImages && (
             <span className="underline absolute lg:text-xl font-medium text-white text-center z-[2]">
               {language ? "مشاهدة جميع الصور" : "Show all images"}{" "}

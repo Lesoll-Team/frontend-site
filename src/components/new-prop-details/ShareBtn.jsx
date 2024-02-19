@@ -1,13 +1,23 @@
+import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
-const ShareBtn = () => {
+const ShareBtn = ({ propertyData }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
-    <button
-      type="button"
-      className="flex items-center justify-center h-9 w-9  bg-white rounded-full"
+    <SocialMediaModal
+      slug={propertyData?.slug}
+      id={propertyData?._id}
+      title={language ? "مشاركة العقار" : "Share property"}
     >
-      <IoShareSocialOutline className="text-xl" />
-    </button>
+      <button
+        type="button"
+        className="flex items-center justify-center h-10 w-10 bg-white rounded-full"
+      >
+        <IoShareSocialOutline className="text-xl" />
+      </button>
+    </SocialMediaModal>
   );
 };
 export default ShareBtn;

@@ -1,18 +1,17 @@
 import { formatDate } from "@/utils/FormateData";
 import { useMemo } from "react";
 import { BsCash, BsHouses } from "react-icons/bs";
-
 import {
   LiaBedSolid,
   LiaFileSignatureSolid,
   LiaVectorSquareSolid,
 } from "react-icons/lia";
-
 import { PiArmchair, PiBathtub, PiPaintBrushBroad } from "react-icons/pi";
 import { TbCalendarCheck, TbStairsUp } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
 const PropertyInfo = ({ propertyData }) => {
+  console.log(propertyData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { year } = formatDate(propertyData.deliveryDate);
   const offer = useMemo(() => {
@@ -77,6 +76,8 @@ const PropertyInfo = ({ propertyData }) => {
       return language ? " غير مفروش " : "Not Furnished";
     }
   }, [language]);
+
+  const isLand = propertyData.propType === "Land";
   return (
     <section className="grid grid-cols-2 gap-y-5 md:mt-10 md:gap-y-10">
       <InfoCard
@@ -88,52 +89,61 @@ const PropertyInfo = ({ propertyData }) => {
             : propertyData?.unitType?.title?.en
         }
       />
-      <InfoCard
-        icon={<LiaBedSolid />}
-        title={language ? " الغرف" : "Rooms"}
-        info={Math.abs(propertyData.rooms)}
-      />
+      {!isLand && (
+        <InfoCard
+          icon={<LiaBedSolid />}
+          title={language ? " الغرف" : "Rooms"}
+          info={Math.abs(propertyData.rooms)}
+        />
+      )}
       <InfoCard
         icon={<BsCash />}
         title={language ? "العرض" : "Offer"}
         info={offer}
       />
-      <InfoCard
-        icon={<PiBathtub />}
-        title={language ? "الحمامات" : "Bathrooms"}
-        info={Math.abs(propertyData.bathRooms)}
-      />
+      {!isLand && (
+        <InfoCard
+          icon={<PiBathtub />}
+          title={language ? "الحمامات" : "Bathrooms"}
+          info={Math.abs(propertyData.bathRooms)}
+        />
+      )}
       <InfoCard
         icon={<LiaVectorSquareSolid />}
         title={language ? "المساحة" : "Area"}
         info={area}
       />
-      <InfoCard
-        icon={<PiPaintBrushBroad />}
-        title={language ? "التشطيب" : "Finishing"}
-        info={finishingType}
-      />
-      {year && (
-        <InfoCard
-          icon={<TbCalendarCheck />}
-          title={language ? "سنة التسليم" : "Delivery year"}
-          info={year}
-        />
+      {!isLand && (
+        <>
+          {" "}
+          <InfoCard
+            icon={<PiPaintBrushBroad />}
+            title={language ? "التشطيب" : "Finishing"}
+            info={finishingType}
+          />
+          {year && (
+            <InfoCard
+              icon={<TbCalendarCheck />}
+              title={language ? "سنة التسليم" : "Delivery year"}
+              info={year}
+            />
+          )}
+          <InfoCard
+            icon={<TbStairsUp />}
+            title={language ? "الدور" : "floor"}
+            info={propertyData.level}
+          />
+          <InfoCard
+            icon={<PiArmchair />}
+            title={language ? "مفروش" : "Furnished"}
+            info={isFurnished}
+          />
+        </>
       )}
-      <InfoCard
-        icon={<TbStairsUp />}
-        title={language ? "الدور" : "floor"}
-        info={propertyData.level}
-      />
       <InfoCard
         icon={<LiaFileSignatureSolid />}
         title={language ? "مسجل" : "Registerd"}
         info={isRegisterd}
-      />
-      <InfoCard
-        icon={<PiArmchair />}
-        title={language ? "مفروش" : "Furnished"}
-        info={isFurnished}
       />
     </section>
   );

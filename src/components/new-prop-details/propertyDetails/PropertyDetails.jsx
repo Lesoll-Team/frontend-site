@@ -10,7 +10,9 @@ const PropertyDetails = ({ propertyData, className }) => {
   return (
     <div className={cn("space-y-[30px] md:space-y-[58px]", className)}>
       <PropertyInfo propertyData={propertyData} />
-      <PropertyFeatures propertyData={propertyData} />
+      {propertyData.service.length > 0 && (
+        <PropertyFeatures propertyData={propertyData} />
+      )}
       <PropertyDescription propertyData={propertyData} />
       <PropertyInstallmentPlans propertyData={propertyData} />
       <PropertyLocation propertyData={propertyData} />

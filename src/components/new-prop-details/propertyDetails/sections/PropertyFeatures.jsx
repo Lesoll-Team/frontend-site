@@ -22,7 +22,7 @@ export default PropertyFeatures;
 const FeatureCard = ({ name }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="border px-5 py-3 text-center md:text-base text-sm flex items-center justify-start rounded text-lightGreen font-bold">
+    <div className="border px-5 py-3 text-center md:text-base text-xs sm:text-sm flex items-center justify-start rounded text-lightGreen font-bold">
       <p> {language ? name.ar : name.en}</p>
     </div>
   );
