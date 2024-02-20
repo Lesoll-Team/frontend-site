@@ -4,7 +4,6 @@ import PropertyFeatures from "./sections/PropertyFeatures";
 import PropertyDescription from "./sections/PropertyDescription";
 import PropertyInstallmentPlans from "./sections/PropertyInstallmentPlans";
 import PropertyLocation from "./sections/PropertyLocation";
-import SimilarProperties from "./sections/SimilarProperties";
 
 const PropertyDetails = ({ propertyData, className }) => {
   return (
@@ -16,7 +15,6 @@ const PropertyDetails = ({ propertyData, className }) => {
       <PropertyDescription propertyData={propertyData} />
       <PropertyInstallmentPlans propertyData={propertyData} />
       <PropertyLocation propertyData={propertyData} />
-      <SimilarProperties propertyData={propertyData} />
     </div>
   );
 };

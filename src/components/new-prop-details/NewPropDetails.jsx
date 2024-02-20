@@ -2,6 +2,7 @@ import PropertyImages from "./PropertyImages";
 import PriceTitle from "./PriceTitle";
 import PropertyOwner from "./PropertyOwner";
 import PropertyDetails from "./propertyDetails/PropertyDetails";
+import RecommendedProperties from "./RecommendedProperties";
 
 const NewPropDetails = ({ propertyData }) => {
   return (
@@ -23,6 +24,7 @@ const NewPropDetails = ({ propertyData }) => {
           da
         </div> */}
       </div>
+      <RecommendedProperties propertyData={propertyData} />
     </div>
   );
 };

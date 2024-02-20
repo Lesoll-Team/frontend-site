@@ -1,18 +1,17 @@
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BiSolidBed } from "react-icons/bi";
-import { FaBath } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { TbRulerMeasure } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
+import { FaWhatsapp } from "react-icons/fa";
+import { IoIosCall } from "react-icons/io";
+import { PiBathtub } from "react-icons/pi";
+import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
@@ -21,11 +20,7 @@ const RealtyCard = ({ propertyDetails }) => {
     try {
       await AddToFavorites(propertyDetails?._id);
       dispatch(fetchUserData());
-      dispatch(getUserData());
-
-      // Handle success (e.g., show a success message)
     } catch (error) {
-      // Handle error (e.g., display an error message)
       console.error("Error add to fav :", error);
     }
   };
@@ -36,67 +31,157 @@ const RealtyCard = ({ propertyDetails }) => {
     }
   }, [userInfo?.favorites]);
   return (
-    <div className="w-[330px] h-[448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
-      <div className="flex items-center justify-between absolute  top-10">
-        {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
-          <span>views</span> <span>{propertyDetails?.users.views.length}</span>
-        </div> */}
+    <div //md:w-[380px] 2xl:w-[400px]  w-full
+      className=" w-full md:max-w-[400px]
+     md:h-[355px] h-[133px] 
+     flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative"
+    >
+      {/* start icon favorite */}
+      <div className="flex absolute md:mt-[16px] m-[10px] md:mr-[20px]">
         {userInfo && (
-          <div className="z-[10000] bg-white  drop-shadow-md flex items-center  mx-2  text-2xl rounded-full h-10 w-10 text-center px-2 py-1 cursor-pointer  ">
-            {userInfo ? (
-              loved ? (
+          <div
+            className="z-[10000] bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center 
+            md:text-2xl text-md rounded-full  text-center  cursor-pointer  "
+          >
+            {userInfo &&
+              (loved ? (
                 <AiFillHeart
                   className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
-
                     setLoved(!loved);
                   }}
                 />
               ) : (
                 <AiOutlineHeart
-                  className="text-red-500 animate-appearance-in"
+                  className="text-black animate-appearance-in"
                   onClick={() => {
                     addToFAv();
                     setLoved(!loved);
                   }}
                 />
-              )
-            ) : (
-              ""
-            )}
-            {/* <AiFillHeart className="text-red-500"  /> */}
+              ))}
           </div>
         )}
       </div>
-      <div className="">
-        <Link
-          title={`${propertyDetails?.title}`}
-          key={propertyDetails?._id}
-          href={`/property-details/${propertyDetails?.slug}`}
-          className="w-full"
-        >
-          <Image
-            alt="Card background"
-            radius="none"
-            className="object-cover w-[330px]  h-[265px]"
-            src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
-          />
-        </Link>
-      </div>
-      <div className="space-y-3 p-5">
-        <div className="flex flex-row items-center  justify-between">
+      {/** end icon favorite */}
+
+      {/* start Image */}
+      <Link
+        title={`${propertyDetails?.title}`}
+        key={propertyDetails?._id}
+        href={`/property-details/${propertyDetails?.slug}`}
+        className=" "
+      >
+        <Image
+          alt="Card background"
+          radius="none"
+          className=" flex object-cover  md:h-[174px] h-[135px] 
+          md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px]
+          "
+          src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
+        />
+      </Link>
+      {/* end Image */}
+
+      {/* start card data */}
+      <div className=" md:p-[20px] p-3 w-full flex flex-col md:gap-y-[16px] gap-y-[6px]">
+        {/* start contact and price */}
+        <div className="flex flex-row items-center justify-between">
           {propertyDetails?.offer !== "For Investment" && (
-            <p className=" font-bold text-darkGreen text-lg">
+            <p className=" font-bold font-inter  text-gray2 text-[18px] md:text-[20px]">
               <span>
                 {language
                   ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
                   : parseInt(propertyDetails?.price).toLocaleString()}{" "}
               </span>
-              {language ? "جنية" : "EGP"}
+              {language ? "ج.م" : "EGP"}
+              <span className="text-gray2 mx-5 md:text-[17px] text-[12px] font-normal"></span>
             </p>
           )}
-          <p className="text-md    uppercase font-semibold">
+          <div className="flex justify-between  gap-x-3 md:gap-0 md:w-[95px] ">
+            <div className="bg-sky-200 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
+              <IoIosCall className="text-[16px] md:text-[30px] text-blue-600" />
+            </div>
+            <div className="bg-green-600 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
+              <FaWhatsapp className="text-[16px]  md:text-[30px] text-white" />
+            </div>
+          </div>
+        </div>
+        {/* end contact and price */}
+
+        {/* start title */}
+        <Link
+          title={`${propertyDetails?.title}`}
+          key={propertyDetails?._id}
+          href={`/property-details/${propertyDetails?.slug}`}
+          className="md:w-full"
+        >
+          <h4 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[15px] md:text-[20px] line-clamp-1  ">
+            {propertyDetails?.title}
+          </h4>
+        </Link>
+        {/* end title */}
+
+        {/* start location and details rooms ...etc*/}
+        <div className="md:flex  md:items-center  md:justify-between md:space-y-[0px] space-y-[8px]">
+          <p className="flex items-center  min-w-max text-gray2 md:text-[17px] text-[12px] gap-1  ">
+            {propertyDetails?.address?.region
+              ? propertyDetails?.address?.region
+              : propertyDetails?.address?.governrate}
+          </p>
+          <div className="  flex items-center  min-w-max  text-darkGray ">
+            {propertyDetails?.rooms > 0 && (
+              <ul className="flex items-center gap-x-1  ">
+                <li className="font-bold text-[11px] font-inter md:text-[17px]">
+                  {language
+                    ? propertyDetails?.rooms.toLocaleString("ar-Eg")
+                    : propertyDetails?.rooms.toLocaleString()}
+                </li>
+                <LiaBedSolid className="md:text-[25px]" />
+              </ul>
+            )}
+            {propertyDetails?.bathRooms > 0 && (
+              <>
+                <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
+                <ul className="flex items-center gap-x-1  ">
+                  <li className="font-bold text-[11px] font-inter md:text-[17px]">
+                    {language
+                      ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
+                      : propertyDetails?.bathRooms.toLocaleString()}
+                  </li>
+                  <PiBathtub className="md:text-[25px]" />
+                </ul>
+              </>
+            )}
+            {propertyDetails?.area > 0 && (
+              <>
+                {propertyDetails?.rooms > 0 &&
+                  propertyDetails?.bathRooms > 0 && (
+                    <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
+                  )}
+
+                <ul className="flex items-center gap-x-1  ">
+                  <LiaVectorSquareSolid className=" md:text-[20px]" />
+                  <li className="font-bold text-[11px] font-inter md:text-[17px]">
+                    {language
+                      ? propertyDetails?.area.toLocaleString("ar-Eg") + " م "
+                      : propertyDetails?.area.toLocaleString() + " m "}
+                  </li>
+                </ul>
+              </>
+            )}
+          </div>
+        </div>
+        {/* end location and details rooms ...etc*/}
+      </div>
+      {/* end card data */}
+    </div>
+  );
+};
+export default RealtyCard;
+
+/* <p className="text-md    uppercase font-semibold">
             {" "}
             {propertyDetails?.offer === "For Sale"
               ? language
@@ -109,31 +194,9 @@ const RealtyCard = ({ propertyDetails }) => {
               : language
               ? "للإستثمار"
               : "For Investment"}
-          </p>
-        </div>
-        <Link
-          title={`${propertyDetails?.title}`}
-          key={propertyDetails?._id}
-          href={`/property-details/${propertyDetails?.slug}`}
-          className="w-full"
-        >
-          <h4 className="font-semibold text-large line-clamp-1 ">
-            {propertyDetails?.title}
-          </h4>
-        </Link>
-        <p className="flex items-center gap-1 line-clamp-1">
-          <FaLocationDot className="text-lightOrange font-bold" />{" "}
-          <span className="line-clamp-1">
-            {`${propertyDetails?.address?.governrate}${
-              propertyDetails?.address?.region && " ,"
-            }${
-              propertyDetails?.address?.region &&
-              propertyDetails?.address?.region
-            }`}
-          </span>
-        </p>
+          </p> */
 
-        <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
+/* <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
         <div className=" text-darkGray w-full  flex  justify-between ">
           <div className="flex items-center justify-start gap-1">
             {" "}
@@ -164,7 +227,7 @@ const RealtyCard = ({ propertyDetails }) => {
                 : propertyDetails?.area.toLocaleString()}{" "}
               {language ? (
                 <span>
-                  م<sup>2</sup>
+                  <sup>2</sup>
                 </span>
               ) : (
                 <span>
@@ -173,9 +236,4 @@ const RealtyCard = ({ propertyDetails }) => {
               )}
             </p>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-export default RealtyCard;
+        </div> */
