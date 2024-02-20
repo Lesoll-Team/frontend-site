@@ -10,9 +10,7 @@ const index = ({ propertyData }) => {
         <NewPropDetails propertyData={propertyData} />
       </section>
 
-      <ContactLinksMobile
-        phone={propertyData?.user?.code + propertyData.user.phone}
-      />
+      <ContactLinksMobile propertyData={propertyData} />
     </main>
   );
 };

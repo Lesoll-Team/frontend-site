@@ -29,6 +29,7 @@ export default function ContactBtnsModal({
         {children}
       </div>
       <Modal
+        radius="sm"
         isOpen={isOpen}
         placement={"bottom-center"}
         onOpenChange={onOpenChange}

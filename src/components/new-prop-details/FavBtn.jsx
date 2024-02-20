@@ -26,7 +26,7 @@ const FavBtn = ({ id = "adad" }) => {
     }
   };
 
-  return (
+  return userInfo ? (
     <button
       onClick={() => {
         addToFAv();
@@ -40,6 +40,6 @@ const FavBtn = ({ id = "adad" }) => {
         <FaRegHeart className="text-lg" />
       )}
     </button>
-  );
+  ) : null;
 };
 export default FavBtn;

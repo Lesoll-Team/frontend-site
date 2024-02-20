@@ -8,14 +8,7 @@ import { useSelector } from "react-redux";
 const PropertyImages = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.userProfile.userData);
-  const isLoved = useMemo(() => {
-    // if (userInfo.favorites.index0f(propertyData._id) !== -1) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-  }, [userInfo]);
-  console.log(userInfo);
+
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
@@ -43,7 +36,7 @@ const PropertyImages = ({ propertyData }) => {
     <section className="grid grid-cols-3 md:grid-cols-4 grid-rows-2 gap-3 justify-center items-center max-h-[550px]">
       <div className="col-span-3 md:col-span-2 row-span-2 h-full max-h-[150px] sm:max-h-[200px] md:max-h-full flex relative">
         <div className="absolute top-4 mx-4 z-[5] flex items-center gap-2">
-          {userInfo && <FavBtn id={propertyData._id} />}
+          <FavBtn id={propertyData._id} />
           <ShareBtn propertyData={propertyData} />
         </div>
         <div

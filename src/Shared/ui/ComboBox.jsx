@@ -40,8 +40,9 @@ const ComboBox = ({
       const highlightedOption = dropdownRef.current.children[focusedIndex];
       if (highlightedOption) {
         highlightedOption.scrollIntoView({
-          behavior: "smooth",
+          behavior: "instant",
           block: "nearest",
+          inline: "start",
         });
       }
     }

@@ -1,6 +1,6 @@
 import PropertyImages from "./PropertyImages";
 import PriceTitle from "./PriceTitle";
-import PropertyOwner from "./propertyUserData/PropertyOwner";
+import PropertyOwner from "./PropertyOwner";
 import PropertyDetails from "./propertyDetails/PropertyDetails";
 
 const NewPropDetails = ({ propertyData }) => {

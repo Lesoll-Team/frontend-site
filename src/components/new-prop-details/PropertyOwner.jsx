@@ -1,11 +1,16 @@
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import ContactLinks from "./ContactLinks";
+
+import useContactLinks from "@/Hooks/useContactLinks";
 
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const message = "";
+  const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
+    phoneNumber: propertyData?.user?.code + propertyData?.user?.phone,
+    message: message,
+  });
   return (
     <div
       className={cn(
@@ -31,7 +36,10 @@ const PropertyOwner = ({ propertyData, className }) => {
           </p>
         </div>
       </div>
-      <ContactLinks propertyData={propertyData} />
+      <div className=" hidden  md:flex flex-col gap-3 w-full">
+        <CallLinkBtn className="py-2 text-xl rounded flex items-center justify-center w-full gap-2 bg-lightNeutral text-[#5F98D1]" />
+        <WhatappLinkBtn className="py-2 text-xl rounded flex items-center justify-center w-full gap-2 bg-[#39AE41] text-white" />
+      </div>
     </div>
   );
 };
