@@ -7,7 +7,7 @@ import PropertyLocation from "./sections/PropertyLocation";
 
 const PropertyDetails = ({ propertyData, className }) => {
   return (
-    <div className={cn("space-y-[30px] md:space-y-[58px]", className)}>
+    <div className={cn("space-y-[30px] md:space-y-[58px] pb-5", className)}>
       <PropertyInfo propertyData={propertyData} />
       {propertyData.service.length > 0 && (
         <PropertyFeatures propertyData={propertyData} />
