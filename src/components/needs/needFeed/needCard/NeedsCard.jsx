@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const NeedsCard = ({ need }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
-    need.userId[0]?.code + need.userId[0]?.phone
+    need.userId[0]?.code + need?.userId[0]?.phone
   }`;
 
   return (
@@ -109,7 +109,7 @@ const NeedsCard = ({ need }) => {
           <div className="flex items-center gap-2">
             <Avatar src="" className="w-[30px] h-[30px]" />
             <p className="font-semibold">
-              <span className="text-base">{need.userId[0].fullname}</span>
+              <span className="text-base">{need.userId[0]?.fullname}</span>
             </p>
           </div>
           <div className="flex md:hidden gap-3 items-center justify-end">

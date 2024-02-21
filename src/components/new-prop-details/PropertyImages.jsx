@@ -64,7 +64,7 @@ const PropertyImages = ({ propertyData }) => {
           width={1400}
           height={1000}
           alt={propertyData.title}
-          src={propertyData.album[0].image}
+          src={propertyData?.album[0]?.image}
           className="rounded-md object-cover"
         />
       </div>
@@ -78,7 +78,7 @@ const PropertyImages = ({ propertyData }) => {
           width={1400}
           height={1000}
           alt={propertyData.title}
-          src={propertyData.album[1].image}
+          src={propertyData?.album[1]?.image}
           className="rounded-md object-cover"
         />
       </div>
@@ -102,7 +102,7 @@ const PropertyImages = ({ propertyData }) => {
           width={1400}
           height={1000}
           alt={propertyData.title}
-          src={propertyData.album[2].image}
+          src={propertyData?.album[2]?.image}
           className="rounded-md brightness-75 object-cover md:brightness-100 "
         />
       </div>
