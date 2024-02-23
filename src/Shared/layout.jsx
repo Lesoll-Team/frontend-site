@@ -39,8 +39,13 @@ export default function Layout({ children }) {
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
   useEffect(() => {
-    const lang = JSON.parse(localStorage.getItem("language"));
-    dispatch(setLang(lang));
+    const isItemInLocalStorage = (key) => {
+      return localStorage.getItem(key) !== null;
+    };
+    if (isItemInLocalStorage("language")) {
+      const lang = JSON.parse(localStorage.getItem("language"));
+      dispatch(setLang(lang));
+    }
   }, []);
   return (
     <div

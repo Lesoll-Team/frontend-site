@@ -12,7 +12,7 @@ const ProfileLayout = ({ children, hideHeader = true }) => {
         </aside>
       )}
       <main
-        className={`md:container max-w-[1400px] mx-auto w-full mt-7 md:mt-[80px]  `}
+        className={`md:container max-w-[1400px] mx-auto w-full mt-7 md:mt-[80px] pb-16 `}
       >
         <ProfileHeader hideHeader={hideHeader} />
         {children}

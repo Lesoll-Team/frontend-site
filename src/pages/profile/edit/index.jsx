@@ -3,8 +3,11 @@ import ProfileLayout from "../ProfileLayout";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
+import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
+import useIsAuth from "@/Hooks/useIsAuth";
 
 const index = () => {
+  const { isAuth } = useIsAuth();
   const { windowWidth } = useWindowWidth();
   const router = useRouter();
   //   useEffect(() => {
@@ -15,7 +18,9 @@ const index = () => {
   //     }
   //   }, [windowWidth]);
   return (
-    <ProfileLayout hideHeader={false}>{/* <ProfileHeader /> */}</ProfileLayout>
+    <ProfileLayout hideHeader={true}>
+      <AllDataForm />
+    </ProfileLayout>
   );
 };
 export default index;
