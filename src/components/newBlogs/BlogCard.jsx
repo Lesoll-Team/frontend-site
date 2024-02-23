@@ -33,13 +33,13 @@ const BlogCard = ({ blog }) => {
   });
 
   return (
-    <div className="flex md:flex-row flex-col gap-y-[12px] md:gap-x-[32px] border-2 md:border-none">
+    <div className="flex md:flex-row flex-col rounded-md overflow-hidden md:rounded-none gap-y-[12px] md:gap-x-[32px] border-2 md:border-none">
       <Image
         src={blog.BlogImage}
         alt={blog.title.ar}
         width={250}
         height={266}
-        className="w-full max-h-[150px] object-cover md:w-fit md:max-h-fit"
+        className="w-full max-h-[150px] object-cover md:w-fit md:max-w-[35%] md:max-h-fit"
       />
       <div className="flex flex-col justify-between gap-[22px] p-[8px] px-[10px]">
         {" "}
