@@ -12,7 +12,9 @@ export async function getServerSideProps({ query }) {
   const keyword = query;
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/allblogs?page=${keyword.page}&search=${keyword.search}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/allblogs?page=${
+        keyword.page || 1
+      }&limit=${"5"}&keyword=${keyword.search || ""}`
     );
     const data = response.data.getBlogs;
     return {

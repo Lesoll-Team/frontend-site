@@ -7,9 +7,10 @@ const BlogSearch = () => {
   const router = useRouter();
   const [SearchInput, setSearchInput] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const pushSearch = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (SearchInput) {
-      router.push(`/search/${SearchInput}`);
+      router.push(`/blogs?search=${encodeURIComponent(SearchInput)}`);
     }
   };
   const onSearchInputChange = (e) => {
@@ -17,7 +18,11 @@ const BlogSearch = () => {
   };
   return (
     <div className="px-5 py-4 md:py-0 md:px-0 md:bg-transparent bg-white">
-      <div className="w-full flex items-center bg-white rounded border md:drop-shadow-md h-12  overflow-hidden">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="w-full flex items-center bg-white rounded border md:drop-shadow-md h-12  overflow-hidden"
+      >
         <IoIosSearch className="text-3xl text-baseGray mx-4" />
         <input
           value={SearchInput}
@@ -27,12 +32,12 @@ const BlogSearch = () => {
           className="placeholder:text-baseGray h-full w-full focus:outline-none focus:ring-0 "
         />
         <button
-          onClick={pushSearch}
+          type="submit"
           className="bg-lightGreen font-bold px-7 py-1 w-fit h-full text-white focus:outline-none focus:ring-0"
         >
           {language ? "أبحث" : "Search"}
         </button>
-      </div>
+      </form>
     </div>
   );
 };
