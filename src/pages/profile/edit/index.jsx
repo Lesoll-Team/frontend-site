@@ -7,16 +7,16 @@ import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataF
 import useIsAuth from "@/Hooks/useIsAuth";
 
 const index = () => {
-  const { isAuth } = useIsAuth();
+  const IsAuth = useIsAuth();
   const { windowWidth } = useWindowWidth();
   const router = useRouter();
-  //   useEffect(() => {
-  //     if (windowWidth) {
-  //       if (windowWidth > 768) {
-  //         router.push(`/profile`);
-  //       }
-  //     }
-  //   }, [windowWidth]);
+  useEffect(() => {
+    if (windowWidth) {
+      if (windowWidth > 768) {
+        router.push(`/profile`);
+      }
+    }
+  }, [windowWidth]);
   return (
     <ProfileLayout hideHeader={true}>
       <AllDataForm />
