@@ -10,13 +10,13 @@ const index = () => {
   const IsAuth = useIsAuth();
   const { windowWidth } = useWindowWidth();
   const router = useRouter();
-  useEffect(() => {
-    if (windowWidth) {
-      if (windowWidth > 768) {
-        router.push(`/profile`);
-      }
-    }
-  }, [windowWidth]);
+  // useEffect(() => {
+  //   if (windowWidth) {
+  //     if (windowWidth > 768) {
+  //       router.push(`/profile`);
+  //     }
+  //   }
+  // }, [windowWidth]);
   return (
     <ProfileLayout hideHeader={true}>
       <AllDataForm />

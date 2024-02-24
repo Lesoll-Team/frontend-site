@@ -1,44 +1,73 @@
-import { useSelector } from "react-redux";
-// import { Link } from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
 import { useEffect } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
-const regexLink = /^(ftp|http|https):\/\/[^ "]+$/;
+import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
+
 const AllDataForm = () => {
   const userData = useSelector((state) => state.userProfile.userData);
-
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const form = useForm({
-    defaultValues: {
-      fullname: userData?.fullname,
-    },
-  });
-  const { register, handleSubmit, formState, setValue } = form;
+  const formStatus = useSelector((state) => state.editUser.status);
+  const formError = useSelector((state) => state.editUser.error);
+  const dispatch = useDispatch();
+  const form = useForm();
+  const { register, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
+
+  const phoneNumberwithoutCode = (phone, code) => {
+    return phone.startsWith(code) ? phone.substring(code.length) : phone;
+  };
+
   useEffect(() => {
     if (userData) {
-      setValue("fullname", userData?.fullname);
-      setValue("email", userData?.email);
+      const { fullname, email, code, phone } = userData;
+
+      setValue("phone", code + phoneNumberwithoutCode(phone, code));
+      setValue("code", phoneNumberwithoutCode(phone, code));
     }
   }, [userData]);
+
+  const onSubmit = (data) => {
+    // console.log(data);
+    const formData = new FormData();
+    formData.append("fullname", data.fullname);
+    formData.append("code", data.code);
+    formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
+    formData.append("instagramLink", data.instagramLink);
+    formData.append("faceLink", data.faceLink);
+    console.log();
+    dispatch(
+      updateUser({
+        userData: formData,
+        id: userData?._id,
+      })
+    );
+  };
+
   if (userData) {
+    const initailPhone = userData.code + userData?.phone;
     return (
       <div className="container mx-auto space-y-8">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-baseGray">
             {language ? "المعلومات الشخصية" : "Personal Info"}
           </h3>
-
           <Link href={"/profile"}>
             <FaArrowLeftLong className="text-baseGray text-2xl" />
           </Link>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-y-10">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-y-10"
+        >
+          {/* {formStatus === "failed" && <p>{formError.message}</p>} */}
           <div className="flex flex-col gap-y-8">
             <UserInputContainer
               title={language ? "الإسم بالكامل" : "Full Name"}
@@ -46,33 +75,68 @@ const AllDataForm = () => {
               <input
                 autoComplete="off"
                 type="text"
-                readOnly
-                defaultValue={userData?.fullname}
+                // readOnly
+                defaultValue={userData.fullname}
                 {...register("fullname", {})}
-                className="p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen"
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
               />
             </UserInputContainer>
             <UserInputContainer
               title={language ? " البريد الالكتروني" : " Email"}
             >
               <input
-                // disabled
-                // autoComplete="off"
                 readOnly
                 type="text"
-                defaultValue={userData?.email}
+                defaultValue={userData.email}
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
             <UserInputContainer
               title={language ? " رقم التليفون " : " Phone number"}
             >
-              <input
-                autoComplete="off"
-                type="text"
-                {...register("phone", {})}
-                className="p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen"
-              />
+              <div dir="ltr">
+                <PhoneInput
+                  inputStyle={{
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
+                    height: "40px",
+                    fontSize: "16px",
+                    color: "#1b6e6d",
+                    borderRadius: "8px",
+                    border: "1px",
+                  }}
+                  buttonStyle={{ height: "40px", backgroundColor: "white" }}
+                  dropdownStyle={{ height: "150px" }}
+                  autocompleteSearch={true}
+                  countryCodeEditable={false}
+                  enableSearch={true}
+                  country={"eg"}
+                  excludeCountries={["IL"]}
+                  value={watch("phone")}
+                  onChange={(e, info) => {
+                    setValue("phone", e);
+                    setValue("code", info.dialCode);
+                  }}
+                />
+                {errors.phone && (
+                  <p dir={language ? "rtl" : "ltr"} className="text-red-500">
+                    {errors.phone.message}
+                  </p>
+                )}
+                <input
+                  {...register("phone", {
+                    required: {
+                      value: true,
+                      message: language
+                        ? "ادخل رقم الهاتف"
+                        : " Please enter your Phone number",
+                    },
+                  })}
+                  hidden
+                  className="hidden"
+                  type="text"
+                />
+              </div>
             </UserInputContainer>
           </div>
           <div className="flex flex-col gap-y-8">
@@ -84,10 +148,14 @@ const AllDataForm = () => {
               imgLink={"/social-icons/facebook.svg"}
             >
               <input
+                dir="ltr"
                 autoComplete="off"
                 type="text"
-                {...register("fullname", {})}
-                className="p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen"
+                defaultValue={userData.faceLink}
+                {...register("faceLink", {})}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
+                  errors.faceLink && "border-red-500 focus:border-red-500"
+                }`}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -97,13 +165,18 @@ const AllDataForm = () => {
               <input
                 autoComplete="off"
                 type="text"
-                {...register("fullname", {})}
-                className="p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen"
+                defaultValue={userData.instagramLink}
+                {...register("instagramLink", {})}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
               />
             </UserSocialMediaContainer>
           </div>
           <div className="flex justify-end">
-            <Button className={"w-fit min-w-[140px]"}>
+            <Button
+              disabled={formState === "loading"}
+              type={"submit"}
+              className={"w-fit min-w-[140px]"}
+            >
               {language ? "حفظ" : "Save"}
             </Button>
           </div>
@@ -117,12 +190,10 @@ const AllDataForm = () => {
           <h3 className="text-lg font-bold text-baseGray">
             {language ? "المعلومات الشخصية" : "Personal Info"}
           </h3>
-
           <Link href={"/profile"}>
             <FaArrowLeftLong className="text-baseGray text-2xl" />
           </Link>
         </div>
-
         <div className="flex flex-col gap-y-10">
           <div className="flex flex-col gap-y-8">
             <InputSkeleton />
@@ -136,27 +207,25 @@ const AllDataForm = () => {
     );
   }
 };
+
 export default AllDataForm;
 
-const UserInputContainer = ({ title, children }) => {
-  return (
-    <div className="flex flex-col gap-y-2">
-      <h4 className="text-base text-outLine">{title}</h4>
-      {children}
-    </div>
-  );
-};
-const UserSocialMediaContainer = ({ imgLink, children, name }) => {
-  return (
-    <div className="flex items-center   gap-x-8">
-      <Image
-        width={32}
-        height={32}
-        src={imgLink}
-        alt={name}
-        className="object-cover"
-      />
-      {children}
-    </div>
-  );
-};
+const UserInputContainer = ({ title, children }) => (
+  <div className="flex flex-col gap-y-2">
+    <label className="text-base text-outLine">{title}</label>
+    {children}
+  </div>
+);
+
+const UserSocialMediaContainer = ({ imgLink, children, name }) => (
+  <div className="flex items-center gap-x-8">
+    <Image
+      width={32}
+      height={32}
+      src={imgLink}
+      alt={name}
+      className="object-cover"
+    />
+    {children}
+  </div>
+);

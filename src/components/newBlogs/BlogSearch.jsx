@@ -10,7 +10,7 @@ const BlogSearch = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (SearchInput) {
-      router.push(`/blogs?search=${encodeURIComponent(SearchInput)}`);
+      router.push(`?search=${encodeURIComponent(SearchInput)}`);
     }
   };
   const onSearchInputChange = (e) => {

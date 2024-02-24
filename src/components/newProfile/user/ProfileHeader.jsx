@@ -12,7 +12,7 @@ const ProfileHeader = ({ hideHeader }) => {
   if (userData)
     return (
       <header
-        className={` w-full flex flex-col lg:flex-row justify-center items-center   gap-[14px] lg:gap-[24px] ${
+        className={` w-full flex flex-col lg:flex-row justify-center items-center md:mb-20   gap-[14px] lg:gap-[24px] ${
           hideHeader && "md:flex hidden"
         } `}
       >
@@ -59,7 +59,7 @@ const ProfileHeader = ({ hideHeader }) => {
   else
     return (
       <header
-        className={` w-full flex flex-col lg:flex-row justify-center items-center   gap-[14px] lg:gap-[24px] ${
+        className={` w-full flex flex-col lg:flex-row justify-center items-center  md:mb-20   gap-[14px] lg:gap-[24px] ${
           hideHeader && "md:flex hidden"
         } `}
       >

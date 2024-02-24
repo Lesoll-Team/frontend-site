@@ -45,8 +45,6 @@ export default function Layout({ children }) {
     if (isItemInLocalStorage("language")) {
       const lang = JSON.parse(localStorage.getItem("language"));
       dispatch(setLang(lang));
-    } else {
-      // localStorage.setItem("language");
     }
   }, []);
   return (

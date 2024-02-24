@@ -1,0 +1,54 @@
+import { useRouter } from "next/router";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+
+const PropertiesTabs = ({ params, currentTab }) => {
+  const router = useRouter();
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
+  const handleTabClick = (tab) => {
+    router.push(`?tab=${tab}`);
+  };
+
+  return (
+    <div className="flex items-center md:justify-center lg:justify-start md:gap-5">
+      <button
+        className={`rounded-md  text-bae font-medium px-5 py-2 ${
+          currentTab === "active"
+            ? "bg-lightGreen text-white"
+            : "text-baseGray bg-gray-100"
+        }`}
+        onClick={() => {
+          handleTabClick("active");
+        }}
+      >
+        {language ? "النشطة" : "Active"}
+      </button>
+      <button
+        className={`rounded-md  text-bae font-medium px-5 py-2 ${
+          currentTab === "pending"
+            ? "bg-lightGreen text-white"
+            : "text-baseGray bg-gray-100"
+        }`}
+        onClick={() => {
+          handleTabClick("pending");
+        }}
+      >
+        {language ? "قيد المراجعة" : "Pending"}
+      </button>
+      <button
+        className={`rounded-md  text-bae font-medium px-5 py-2 ${
+          currentTab === "sold"
+            ? "bg-lightGreen text-white"
+            : "text-baseGray bg-gray-100"
+        }`}
+        onClick={() => {
+          handleTabClick("sold");
+        }}
+      >
+        {language ? "تم البيع" : "Sold"}
+      </button>
+    </div>
+  );
+};
+export default PropertiesTabs;
