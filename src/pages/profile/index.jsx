@@ -3,12 +3,16 @@ import Profile from "@/components/profile/Profile";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import ProfileLayout from "./ProfileLayout";
+import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
+import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
+import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
 const ProfilePage = () => {
   const router = useRouter();
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const status = useSelector((state) => state.userProfile.status);
-
+  const isCompany = userData?.typeOfUser === "company";
   useEffect(() => {
     if (status === "failed") {
       router.push("/");
@@ -24,7 +28,14 @@ const ProfilePage = () => {
       </Head>
 
       {userData ? (
-        <Profile />
+        <ProfileLayout hideHeader={false}>
+          {isCompany ? (
+            <CompanyInfoForm main={true} />
+          ) : (
+            <AllDataForm main={true} />
+          )}
+          <ProfileLinks main={true} />
+        </ProfileLayout>
       ) : (
         <div className="w-full flex justify-center items-center h-screen ">
           <b> You not have access...</b>

@@ -10,26 +10,40 @@
 .paginationContainer {
   list-style: none;
   display: flex;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
 
 .paginationPage {
-  margin: 0 5px;
   cursor: pointer;
-  padding: 5px 10px;
-  background-color: #3ababeff;
+  /* padding: 5px 10px; */
+  margin: 0 5px;
+  /* background-color: #3ababeff; */
   border-radius: 4px;
-  color: white;
+  color: #5c5a5a ;
+  /* margin: 0; */
+  padding: 5px 0px;
+}
+.paginationPage a{
+  /* background: #000; */
+  /* width: 100%; */
+  /* padding:20px 8px ; */
+  padding: 5px 10px;
+  
+  
 
 }
 
 .activePage {
   /* background-color: #3ababeff;
   color: #fff; */
-  background-color: white;
-  border:2px #d2512d solid;
-  color: #d2512d;
+  
+  background-color: #3ababeff;
+  /* border:2px #d2512d solid; */
+  color: white;
+  border-radius: 8px;
+  
 }
 
 /* Previous and Next buttons */
@@ -37,11 +51,21 @@
 .paginationNext {
   margin: 0 5px;
   cursor: pointer;
-  padding: 5px 10px;
-  background-color: #3ababeff;
-  color: #fff;
+  /* background-color: #3ababeff; */
+  color: #5c5a5a;
+  font-weight: bold;
   border: none;
   border-radius: 4px;
+  padding: 5px 0px;
+
+}
+
+.paginationPrevious a,
+.paginationNext a {
+/* background: #000; */
+padding: 5px 15px;
+
+
 }
 
 .paginationDisabled {

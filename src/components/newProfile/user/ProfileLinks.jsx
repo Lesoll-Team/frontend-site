@@ -7,11 +7,14 @@ import {
 } from "react-icons/md";
 import { useSelector } from "react-redux";
 
-const ProfileLinks = () => {
+const ProfileLinks = ({ main }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const userData = useSelector((state) => state.userProfile.userData);
+  const isCompany = userData?.typeOfUser === "company";
   return (
-    <div className="px-10 flex flex-col gap-5 mt-2">
+    <div
+      className={`md:px-10 flex flex-col gap-5 mt-2 ${main && "md:hidden"} `}
+    >
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/edit"}
@@ -50,16 +53,17 @@ const ProfileLinks = () => {
         </Link>
         <hr />
       </div>
-      <div className="flex flex-col gap-5">
-        <Link
-          href={"/profile/needs"}
-          className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
-        >
-          <BiEditAlt className="md:text-3xl" />
-          {language ? " الطلبات" : " Needs"}
-        </Link>
-        <hr />
-      </div>
+      {!isCompany && (
+        <div className="flex flex-col gap-5">
+          <Link
+            href={"/profile/needs"}
+            className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
+          >
+            <BiEditAlt className="md:text-3xl" />
+            {language ? " الطلبات" : " Needs"}
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

@@ -24,6 +24,7 @@ import getFeaturesReducer from "./features/property/getFeaturesSlice";
 import editUserDataReducer from "./features/user/editUserDataSlice";
 import userPropertiesReducer from "./features/user/userPropertiesSlice";
 import userNeedsReducer from "./features/user/userNeedsSlice";
+import userSavedItemsReducer from "./features/user/userSavedItemsSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -47,5 +48,6 @@ export default combineReducers({
   editUser: editUserDataReducer,
   userProperties: userPropertiesReducer,
   userNeeds: userNeedsReducer,
+  userSavedItems: userSavedItemsReducer,
   // Compare:compareReducer,
 });

@@ -11,8 +11,10 @@ import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { cn } from "@/utils/cn";
+import LinksForm from "./LinksForm";
 
-const AllDataForm = ({ main }) => {
+const CompanyInfoForm = ({ main }) => {
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
@@ -41,9 +43,17 @@ const AllDataForm = ({ main }) => {
     formData.append("fullname", data.fullname);
     formData.append("code", data.code);
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
-    formData.append("instagramLink", data.instagramLink);
-    formData.append("faceLink", data.faceLink);
-    console.log(phoneNumberwithoutCode(data.phone, data.code));
+    // formData.append("instagramLink", data.instagramLink);
+    formData.append(
+      "theCommercialRegistrationImg",
+      data.theCommercialRegistrationImg[0]
+    );
+    formData.append("taxCardImg", data.taxCard[0]);
+    formData.append("companyAddress", data.companyAddress);
+    formData.append("Bio", data.bio);
+    // formData.append("workingHours", data.workingHours);
+    // formData.append("workingHours", data.workingHours);
+    // console.log(phoneNumberwithoutCode(data.phone, data.code));
     await dispatch(
       updateUser({
         userData: formData,
@@ -51,6 +61,7 @@ const AllDataForm = ({ main }) => {
       })
     );
     dispatch(getUserData());
+    console.log(data.taxCard[0]);
   };
 
   if (userData) {
@@ -148,8 +159,69 @@ const AllDataForm = ({ main }) => {
                 />
               </div>
             </UserInputContainer>
+            <UserInputContainer
+              // className={"md:col-span-2"}
+              title={language ? "عنوان الشركة" : "Company Address"}
+            >
+              <input
+                autoComplete="off"
+                type="text"
+                // defaultValue={userData.workingHours}
+                {...register("companyAddress")}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+              />
+            </UserInputContainer>
+
+            <UserInputContainer
+              // className={"md:col-span-2"}
+              title={language ? " صورة السجل التجاري" : " صورة السجل التجاري"}
+            >
+              <input
+                autoComplete="off"
+                type="file"
+                // defaultValue={userData.workingHours}
+                {...register("theCommercialRegistrationImg")}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+              />
+            </UserInputContainer>
+            <UserInputContainer
+              title={language ? " صورة البطاقة الضريبية" : "Working Hours"}
+            >
+              <input
+                autoComplete="off"
+                type="file"
+                // defaultValue={userData.workingHours}
+                {...register("taxCard")}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+              />
+            </UserInputContainer>
+
+            <UserInputContainer
+              className={"md:col-span-2"}
+              title={language ? " مواعيد العمل" : "Working Hours"}
+            >
+              <input
+                autoComplete="off"
+                type="text"
+                // defaultValue={userData.workingHours}
+                {...register("workingHours")}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+              />
+            </UserInputContainer>
+            <UserInputContainer
+              className={"md:col-span-2"}
+              title={language ? " نبذة عن الشركة" : "About Company"}
+            >
+              <textarea
+                autoComplete="off"
+                type="text"
+                defaultValue={userData.bio}
+                {...register("bio")}
+                className={`p-2 placeholder:text-outLine min-h-[150px] resize-none rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+              />
+            </UserInputContainer>
           </div>
-          <div className="flex flex-col gap-y-8 md:gap-y-11">
+          {/* <div className="flex flex-col gap-y-8 md:gap-y-11">
             <h3 className="text-base md:text-xl font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
             </h3>
@@ -181,7 +253,7 @@ const AllDataForm = ({ main }) => {
                 className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
               />
             </UserSocialMediaContainer>
-          </div>
+          </div> */}
           <div className="flex justify-end">
             <Button
               disabled={formStatus === "loading"}
@@ -192,6 +264,7 @@ const AllDataForm = ({ main }) => {
             </Button>
           </div>
         </form>
+        <LinksForm />
       </div>
     );
   } else {
@@ -219,11 +292,11 @@ const AllDataForm = ({ main }) => {
   }
 };
 
-export default AllDataForm;
+export default CompanyInfoForm;
 
-const UserInputContainer = ({ title, children }) => (
-  <div className="flex flex-col gap-y-2">
-    <label className="text-base md:text-xl text-outLine">{title}</label>
+const UserInputContainer = ({ title, children, className }) => (
+  <div className={cn("flex flex-col gap-y-2", className)}>
+    <label className={"text-base md:text-xl text-outLine"}>{title}</label>
     {children}
   </div>
 );

@@ -21,12 +21,10 @@ const initialState = {
 
 export const getActiveProp = createAsyncThunk(
   "userProperties/getActive",
-  async (thunkAPI) => {
+  async (page = 1, thunkAPI) => {
     try {
       const response = await axios.get(
-        `${
-          process.env.NEXT_PUBLIC_API_URL
-        }/user/confirmedprofile?limit=9&page=${1}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=1&page=${page}`,
         {
           headers: {
             token: JSON.parse(localStorage.getItem("userToken")),

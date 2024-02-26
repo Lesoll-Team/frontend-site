@@ -11,8 +11,9 @@ import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import LinksForm from "./LinksForm";
 
-const AllDataForm = ({ main }) => {
+const CompanyEditProfile = ({ main }) => {
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
@@ -219,7 +220,7 @@ const AllDataForm = ({ main }) => {
   }
 };
 
-export default AllDataForm;
+export default CompanyEditProfile;
 
 const UserInputContainer = ({ title, children }) => (
   <div className="flex flex-col gap-y-2">

@@ -3,8 +3,12 @@ import PropertiesTabs from "./PropertiesTabs";
 import ActiveProperties from "./ActiveProperties";
 import PendingProperties from "./PendingProperties";
 import SoldProperties from "./SoldProperties";
+import MobilePageTitle from "../MobilePageTitle";
+import { useSelector } from "react-redux";
 
 const UserProperties = ({ params }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   console.log(params);
   const currentTab = useMemo(() => {
     switch (params?.tab) {
@@ -32,6 +36,7 @@ const UserProperties = ({ params }) => {
   }, [currentTab]);
   return (
     <div className="space-y-6 md:space-y-8">
+      <MobilePageTitle title={language ? "الاعلانات" : "Properties"} />
       <PropertiesTabs params={params} currentTab={currentTab} />
       {renderTab()}
     </div>
