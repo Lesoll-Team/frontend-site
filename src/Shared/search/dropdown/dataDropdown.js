@@ -1,48 +1,62 @@
-export const propertyType = {
-  ar: [
-    // { value: "sale", name: "بيع", id: 1 },
-    // { value: "rent", name: "للإيجار", id: 2 },
-    { value: "investment", name: "إستثمار", id: 3 },
-    { value: "finance", name: "تمويل عقاري", id: 4 },
-    { value: "graves", name: "مدافن", id: 5 },
-    { value: "commercial", name: "تجاري", id: 6 },
-    { value: "compounds", name: "كمباوند", id: 7 },
-    { value: "lands", name: "اراضي", id: 8 },
-  ],
+export const paymentMethodData = {
   en: [
-    // { value: "sale", name: "Sale", id: 1 },
-    // { value: "rent", name: "Rent", id: 1 },
-    { value: "investment", name: "Investment", id: 1 },
-    { value: "finance", name: "Finance", id: 1 },
-    { value: "graves", name: "Graves", id: 1 },
-    { value: "commercial", name: "Commercial", id: 1 },
-    { value: "compounds", name: "Compounds", id: 1 },
-    { value: "lands", name: "Lands", id: 1 },
+    { value: "cash", name: "Cash", id: 1 },
+    { value: "installment", name: "Installment", id: 2 },
+  ],
+  ar: [
+    { value: "cash", name: "كاش", id: 1 },
+    { value: "installment", name: "تقسيط", id: 2 },
   ],
 };
-export const categoryType = [
-  "sale",
-  "rent",
-  // "residential",
-  // { value: "installment", name: "Installment", id: 2 },
-  "investment",
-  "finance",
-  "graves",
+export const propertyType = {
+  ar: [
+    { value: "residential", name: "سكني", id: 1 },
+    { value: "compounds", name: "كمباوند", id: 5 },
+    { value: "commercial", name: "تجاري", id: 4 },
+    { value: "graves", name: "مدافن", id: 3 },
+    { value: "lands", name: "اراضي", id: 6 },
+    { value: "finance", name: "تمويل عقاري", id: 2 },
 
-  "commercial",
-  // "commercial-sale",
-  // "commercial-rent",
+    // { value: "investment", name: "إستثمار", id: 1 },
+  ],
+  en: [
+    { value: "residential", name: "Residential", id: 1 },
+    { value: "compounds", name: "Compounds", id: 5 },
+    { value: "commercial", name: "Commercial", id: 4 },
+    { value: "graves", name: "Graves", id: 3 },
+    { value: "lands", name: "Lands", id: 6 },
+    { value: "finance", name: "Finance", id: 2 },
+    // { value: "investment", name: "Investment", id: 1 },
+  ],
+};
+export const saleOptionsType = {
+  en: [
+    { value: "sale", name: "For Sale", id: 1 },
+    { value: "rent", name: "For Rent", id: 2 },
+  ],
+  ar: [
+    { value: "sale", name: "للبيع", id: 1 },
+    { value: "rent", name: "للإيحار", id: 2 },
+  ],
+};
 
-  "compounds",
-  // "compounds-rent",
-  // "compounds-sale",
+export const finishingOptionsData = {
+  en: [
+    { value: "super_lux", name: "Super Lux", id: 1 },
+    { value: "lux", name: "Lux", id: 2 },
+    { value: "Semi_finished", name: "Semi Finished", id: 3 },
+    { value: "not_finished", name: "Not Finished", id: 4 },
+  ],
+  ar: [
+    { value: "super_lux", name: "سوبر لوكس", id: 1 },
+    { value: "lux", name: "لوكس", id: 2 },
+    { value: "Semi_finished", name: "نصف تشطيب", id: 3 },
+    { value: "not_finished", name: "بدون تشطيب", id: 4 },
+  ],
+};
 
-  "lands",
-  // "lands-rent",
-  // "lands-sale",
-  // "cash",
-  // "installment",
-];
+//////////////////////////////////*done bar filter*////////////////////////////////
+
 export const categoryUnitType = [
   "apartment",
   "apartment_with_garden",
@@ -51,11 +65,11 @@ export const categoryUnitType = [
   "penthouse",
   "hotel_apartment",
   "floor",
-  "fesidential_building",
+  "residential_building",
   "home",
-  "chalete",
+  "chalet",
   "cabin",
-  "village",
+  "villa",
   "townhouse",
   "twin_house",
   "clinic",
@@ -69,163 +83,131 @@ export const categoryUnitType = [
   "shop",
   "building",
   "agriculture",
-  // "all",
 ];
-export const paymentMethodData = {
-  en: [
-    { value: "cash", name: "Cash", id: 1 },
-    { value: "installment", name: "Installment", id: 2 },
-  ],
-  ar: [
-    { value: "cash", name: "كاش", id: 1 },
-    { value: "installment", name: "تقسيط", id: 2 },
-  ],
-};
+//////////////////////////////////*_*////////////////////////////////
+
 export const percentageProperty = {
   en: [
-    { value: "3_Real_Estate_Finance", name: " CBE 3% Initiative" },
-    { value: "8_Real_Estate_Finance", name: "CBE 8% Initiative" },
+    { value: "3_Real_Estate_Finance", name: " CBE 3% Initiative", id: 1 },
+    { value: "8_Real_Estate_Finance", name: "CBE 8% Initiative", id: 2 },
   ],
   ar: [
-    { value: "تمويل_عقاري_3_بالمئة", name: "3% تمويل عقارى" },
-    { value: "تمويل_عقاري_8_بالمئة", name: "8% تمويل عقارى " },
+    { value: "تمويل_عقاري_3_بالمئة", name: "3% تمويل عقارى", id: 1 },
+    { value: "تمويل_عقاري_8_بالمئة", name: "8% تمويل عقارى ", id: 2 },
   ],
-};
-export const finishingOptionsData = {
-  en: [
-    { value: "", name: " All" },
-    { value: "Super_Lux", name: "Super Lux" },
-    { value: "Lux", name: "Lux" },
-    { value: "Finished", name: "Semi Finished" },
-    { value: "Not_Finished", name: "Not Finished" },
-  ],
-  ar: [
-    { value: "", name: "الكل" },
-    { value: "سوبر_لوكس", name: "سوبر لوكس" },
-    { value: "لوكس", name: "لوكس" },
-    { value: "نصف_تشطيب", name: "نصف تشطيب" },
-    { value: "بدون_تشطيب", name: "بدون تشطيب" },
-  ],
-};
-export const saleOptionsData = {
-  en: [
-    { value: "all", name: " All" },
-    { value: "For_Sale", name: "For Sale" },
-    { value: "For_Rent", name: "For Rent" },
-    { value: "For_Investment", name: "For Investment" },
-  ],
-  ar: [
-    { value: "كل", name: "الكل" },
-    { value: "للبيع", name: "للبيع" },
-    { value: "للايجار", name: "للإيحار" },
-    { value: "للإستثمار", name: "للإستثمار" },
-  ],
-};
-export const propertyTypeData = {
-  en: [
-    { value: "", name: " All" },
-    { value: "residential", name: "Residential" },
-    { value: "commercial", name: "Commercial" },
-    { value: "land", name: "Land" },
-  ],
-  ar: [
-    { value: "", name: "الكل" },
-    { value: "residential", name: "سكني" },
-    { value: "commercial", name: "تجاري" },
-    { value: "land", name: "أرض" },
-  ],
-};
-
-export const unitTypeData = {
-  en: {
-    Residential: [
-      { value: "Apartment", name: "Apartment" },
-      { value: "Apartment_with_garden", name: "Apartment with garden" },
-      { value: "Duplex", name: "Duplex" },
-      { value: "Studio", name: "Studio" },
-      { value: "Penthouse", name: "Penthouse" },
-      { value: "Hotel_Apartment", name: "Hotel Apartment" },
-      { value: "Floor", name: "Floor" },
-      { value: "Residential_Building", name: "Residential Building" },
-      { value: "Home", name: "Home" },
-      { value: "Chalete", name: "Chalete" },
-      { value: "Cabin", name: "Cabin" },
-      { value: "Village", name: "Village" },
-      { value: "Townhouse", name: "Townhouse" },
-      { value: "Twin_house", name: "Twin house" },
-    ],
-
-    Commercial: [
-      { value: "Clinic", name: "Clinic" },
-      { value: "Office", name: "Office" },
-      { value: "Garage", name: "Garage" },
-      { value: "Factory", name: "Factory" },
-      { value: "Warehouse", name: "Warehouse" },
-      { value: "Retail", name: "Retail" },
-      { value: "Restaurant", name: "Restaurant" },
-      { value: "Cafe", name: "Cafe" },
-      { value: "Shop", name: "Shop" },
-    ],
-
-    Land: [
-      { value: "Building", name: "Land for building" },
-      { value: "Agriculture", name: "Agrarian" },
-    ],
-  },
-
-  ar: {
-    Residential: [
-      { value: "شقة", name: "شقة" },
-      { value: "شقة_بحديقة", name: "شقة بحديقة" },
-      { value: "دوبلكس", name: "دوبلكس" },
-      { value: "ستوديو", name: "ستوديو" },
-      { value: "بينتهاوس", name: "بينتهاوس" },
-      { value: "شقق_فندقية", name: "شقق فندقية" },
-      { value: "أرضى", name: "أرضى" },
-      { value: "شقق_مفروشة", name: "شقق مفروشة" },
-      // { value: "642449f07502ee416a864e95", name: "عمارة" },
-      { value: "بيت", name: "بيت" },
-      { value: "شالية", name: "شالية" },
-      { value: "كابينة", name: "كابينة" },
-      { value: "فيلا", name: "فيلا" },
-      { value: "تاون_هاوس", name: "تاون هاوس" },
-      { value: "توين_هاوس", name: "توين هاوس" },
-    ],
-
-    Commercial: [
-      { value: "عياده", name: "عيادة" },
-      { value: "مكتب", name: "مكتب" },
-      { value: "جراج", name: "جراج" },
-      { value: "مصنع", name: "مصنع" },
-      { value: "مستودع", name: "مستودع" },
-      { value: "ريتيل", name: "ريتيل" },
-      { value: "مطعم", name: "مطعم" },
-      { value: "كافية", name: "كافية" },
-      { value: "محل", name: "محل" },
-    ],
-
-    Land: [
-      { value: "زراعية", name: "زراعى" },
-      { value: "مبانى", name: "ارض للبناء" },
-    ],
-  },
 };
 
 export const sortedData = {
   en: [
-    { value: "", name: " All" },
-    { value: "min_price", name: "Low Price" },
-    { value: "max_price", name: "High Price" },
-    { value: "max_view", name: "Most viewed" },
-    { value: "min_view", name: "Less viewed" },
-    { value: "old_prop", name: "Old" },
+    { value: "", name: "recently", id: 6 },
+    { value: "min_price", name: "Low Price", id: 1 },
+    { value: "max_price", name: "High Price", id: 2 },
+    { value: "max_view", name: "Most viewed", id: 3 },
+    { value: "min_view", name: "Less viewed", id: 4 },
+    { value: "old_prop", name: "Old", id: 5 },
   ],
   ar: [
-    { value: "", name: "الكل" },
-    { value: "أقل_سعر", name: "أقل سعر" },
-    { value: "أكثر_سعر", name: "أكثر سعر" },
-    { value: "أكثر_مشاهدة", name: "أكثر مشاهدة" },
-    { value: "أقل_مشاهدة", name: "أقل مشاهدة" },
-    { value: "أقدم", name: "أقدم" },
+    { value: "", name: "الاحدث", id: 6 },
+    { value: "min_price", name: "أقل سعر", id: 1 },
+    { value: "max_price", name: "أكثر سعر", id: 2 },
+    { value: "max_view", name: "أكثر مشاهدة", id: 3 },
+    { value: "min_view", name: "أقل مشاهدة", id: 4 },
+    { value: "old_prop", name: "أقدم", id: 5 },
+  ],
+};
+
+//////////////* not call.. just for Dropdown*///////////////
+export const unitTypeResidential = {
+  en: [
+    { value: "apartment", name: "Apartment", id: 1, key: "residential" },
+    {
+      value: "apartment_with_garden",
+      name: "Apartment with garden",
+      id: 2,
+      key: "residential",
+    },
+    { value: "duplex", name: "Duplex", id: 3, key: "residential" },
+    { value: "Studio", name: "Studio", id: 4, key: "residential" },
+    { value: "penthouse", name: "Penthouse", id: 5, key: "residential" },
+    {
+      value: "hotel_apartment",
+      name: "Hotel Apartment",
+      id: 6,
+      key: "residential",
+    },
+    { value: "floor", name: "Floor", id: 7 },
+    {
+      value: "residential_building",
+      name: "Residential Building",
+      id: 8,
+      key: "residential",
+    },
+    { value: "home", name: "Home", id: 9, key: "residential" },
+    { value: "chalet", name: "Chalet", id: 10, key: "residential" },
+    { value: "cabin", name: "Cabin", id: 11, key: "residential" },
+    { value: "villa", name: "Village", id: 12, key: "residential" },
+    { value: "townhouse", name: "Townhouse", id: 13, key: "residential" },
+    { value: "twin_house", name: "Twin house", id: 14, key: "residential" },
+  ],
+
+  ar: [
+    { value: "apartment", name: "شقة", id: 1, key: "residential" },
+    {
+      value: "apartment_with_garden",
+      name: "شقة بحديقة",
+      id: 2,
+      key: "residential",
+    },
+    { value: "duplex", name: "دوبلكس", id: 3, key: "residential" },
+    { value: "studio", name: "ستوديو", id: 4, key: "residential" },
+    { value: "penthouse", name: "بينتهاوس", id: 5, key: "residential" },
+    { value: "hotel_apartment", name: "شقق فندقية", id: 6, key: "residential" },
+    { value: "floor", name: "أرضية", id: 7, key: "residential" },
+    {
+      value: "residential_building",
+      name: "شقق مفروشة",
+      id: 8,
+      key: "residential",
+    },
+    { value: "home", name: "بيت", id: 9, key: "residential" },
+    { value: "chalet", name: "شالية", id: 10, key: "residential" },
+    { value: "cabin", name: "كابينة", id: 11, key: "residential" },
+    { value: "villa", name: "فيلا", id: 12, key: "residential" },
+    { value: "townhouse", name: "تاون هاوس", id: 13, key: "residential" },
+    { value: "twin_house", name: "توين هاوس", id: 14, key: "residential" },
+  ],
+};
+export const unitTypeCommercial = {
+  en: [
+    { value: "clinic", name: "Clinic", id: 1, key: "commercial" },
+    { value: "office", name: "Office", id: 2, key: "commercial" },
+    { value: "garage", name: "Garage", id: 3, key: "commercial" },
+    { value: "factory", name: "Factory", id: 4, key: "commercial" },
+    { value: "warehouse", name: "Warehouse", id: 5, key: "commercial" },
+    { value: "restaurant", name: "Restaurant", id: 6, key: "commercial" },
+    { value: "cafe", name: "Cafe", id: 7, key: "commercial" },
+    { value: "shop", name: "Shop", id: 8, key: "commercial" },
+  ],
+
+  ar: [
+    { value: "clinic", name: "عيادة", id: 1, key: "commercial" },
+    { value: "office", name: "مكتب", id: 2, key: "commercial" },
+    { value: "garage", name: "جراج", id: 3, key: "commercial" },
+    { value: "factory", name: "مصنع", id: 4, key: "commercial" },
+    { value: "warehouse", name: "مستودع", id: 5, key: "commercial" },
+    { value: "restaurant", name: "مطعم", id: 6, key: "commercial" },
+    { value: "cafe", name: "كافية", id: 7, key: "commercial" },
+    { value: "shop", name: "محل", id: 8, key: "commercial" },
+  ],
+};
+export const unitTypeLand = {
+  en: [
+    { value: "agriculture", name: "Agrarian", id: 1, key: "lands" },
+    { value: "building", name: "Land for building", id: 2, key: "lands" },
+  ],
+
+  ar: [
+    { value: "agriculture", name: "أرض زراعية", id: 1, key: "lands" },
+    { value: "building", name: "ارض للبناء", id: 2, key: "lands" },
   ],
 };

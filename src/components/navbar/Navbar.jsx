@@ -10,7 +10,7 @@ import { IoLanguage } from "react-icons/io5";
 // import { FaSearch } from "react-icons/fa";
 import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
-const UserDropdown = dynamic(() => import("./userDropdown"));
+// const UserDropdown = dynamic(() => import("./userDropdown"));
 
 import LinksNavbar from "./linksNavbar";
 import MobileMenu from "./mobileMenu";
@@ -19,11 +19,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "@/redux-store/features/globalState";
 import { Badge, Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import { useFilterContextState } from "@/Shared/layout";
-import SidebarFilter from "../category/sidebarFilter";
+// import { useFilterContextState } from "@/Shared/layout";
+// import SidebarFilter from "../category/sidebarFilter";
+import UserDropdown from "./userDropdown";
 export default function Navbar() {
   const router = useRouter();
-  let { openFilter, setOpenFilter } = useFilterContextState();
+  // let { openFilter, setOpenFilter } = useFilterContextState();
 
   const dispatch = useDispatch();
   const [countNotifications, setCountNotifications] = useState(0);
@@ -32,27 +33,21 @@ export default function Navbar() {
     setCountNotifications(dataFromChild);
   };
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-
   const [open, setOpen] = useState(true);
-
-  const [openUserMenu, setOpenUserMenu] = useState(false);
-  // const [openFilter, setOpenFilter] = useState(false);
+  // const [openUserMenu, setOpenUserMenu] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  // const [mobileOpen, setMobileOpen] = useState(false);
-
   const isLoading = useSelector((state) => state.Auth.isLoding);
-
-  const [isAuth, setAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    setAuth(isLoading);
+    setIsAuth(isLoading);
   });
   const mobileMenuRef = useRef(null);
   const notificationsMenuRef = useRef(null);
 
-  const handleInputClick = (value) => {
-    setOpenUserMenu(setOpen(value));
-  };
+  // const handleInputClick = (value) => {
+  //   setOpenUserMenu(setOpen(value));
+  // };
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -69,24 +64,12 @@ export default function Navbar() {
         setNotifications(false);
         // setOpenFilter(false);
       }
-      if (
-        notificationsMenuRef.current &&
-        !notificationsMenuRef.current.contains(event.target)
-      ) {
-        // setNotifications(false);
-        setOpenFilter(false);
-      }
     }
-    document.addEventListener("scroll", handleOutsideClick);
-    function handleOutsideClick() {
-      // setNotifications(false);
-      // setOpen(true);
-      setOpenFilter(false);
-    }
+
     function handleRouteChangeStart() {
       setNotifications(false);
       setOpen(true);
-      setOpenFilter(false);
+      // setOpenFilter(false);
     }
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -98,7 +81,7 @@ export default function Navbar() {
     };
   }, [mobileMenuRef, notificationsMenuRef, router]);
   return (
-    <nav className="w-full  z-[900]  sticky  top-0 drop-shadow-md ">
+    <nav className="w-full  z-[700]  sticky  top-0 drop-shadow-md ">
       {/**
        *
        *
@@ -113,54 +96,13 @@ export default function Navbar() {
        *
        */}
 
-      {true && (
-        // <div className="  absolute left-0  w-full  h-screen flex   ">
-        //   <div
-        //     dir={languageIs ? "rtl" : "ltr"}
-        //     ref={notificationsMenuRef}
-        //     className={` bg-white  shadow-r-sm z-[1000] h-screen  md:w-[37.7vw] w-full pb-[100px] px-[2vw] pt-[50px] flex flex-col gap-y-[4.5vh]`}
-        //   >
-        //     <div className=" w-full flex justify-between items-center">
-        //       <span className="text-[25px]">
-        //         {languageIs ? "بحث" : "Search"}
-        //       </span>
-        //       <IoClose
-        //         onClick={() => setOpenFilter(false)}
-        //         className="text-[20px] cursor-pointer"
-        //       />
-        //     </div>
-
-        //     <div className="">
-        //       <div className="flex gap-x-2">
-        //         <span>{languageIs ? "السعر" : "Price"}</span>
-
-        //         <span className="text-gray1">
-        //           {languageIs ? "(جنيه)" : "(EGY)"}
-        //         </span>
-        //       </div>
-        //       <div className="flex justify-between gap-x-[1.5vw]">
-        //         <input
-        //           type="text"
-        //           className="indent-2 md:h-[5.7vh] h-[33px] w-6/12  border-1 border-gray1  focus:outline-none rounded-[1vh]"
-        //           placeholder={languageIs ? "من" : "from"}
-        //         />
-
-        //         <input
-        //           type="text"
-        //           className="indent-2 md:h-[5.7vh] h-[33px] w-6/12  border-1 border-gray1  focus:outline-none rounded-[1vh]"
-        //           placeholder={languageIs ? "الى" : "to"}
-        //         />
-        //       </div>
-        //     </div>
-        //   </div>
-        //   <div className="h-screen absolute  z-[600] w-full bg-[#323232] opacity-30" />
-        // </div>
+      {/* {openFilter && (
         <SidebarFilter
           notificationsMenuRef={notificationsMenuRef}
           languageIs={languageIs}
           setOpenFilter={setOpenFilter}
         />
-      )}
+      )} */}
 
       {/**
        *
@@ -176,7 +118,7 @@ export default function Navbar() {
        */}
       <section
         className="flex  relative bg-white  h-[80px] items-center "
-        dir={`${languageIs ? "rtl" : ""}`}
+        dir={`${languageIs && "rtl"}`}
       >
         {/* <button onClick={() => setOpenFilter(!openFilter)}>sss</button> */}
         {/*Logo */}
@@ -239,7 +181,7 @@ export default function Navbar() {
           </li>
 
           {/*button Notifications */}
-          <li className={` ${isAuth ? " " : "hidden"} relative`}>
+          <li className={` ${!isAuth && "hidden"} relative`}>
             <Badge content={countNotifications} shape="circle" color="danger">
               <Button
                 onClick={() => setNotifications(!notifications)}
@@ -255,21 +197,21 @@ export default function Navbar() {
           </li>
 
           {/*button SignUp*/}
-          <li className={`  ${isAuth ? "hidden" : ``} `}>
+          <li className={`  ${isAuth && "hidden"} `}>
             <button className="">
               <Link
-                title={isAuth ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
+                title={isAuth ?? languageIs ? "تسجيل الدخول" : "Sign In"}
                 className="  py-1 px-1 sm:px-5 text-sm sm:text-md font-semibold  border-lightOrange border-[2px] sm:text-md bg-white 
                 rounded-3xl duration-300 text-lightOrangeHover hover:bg-lightOrangeHover hover:text-white active:scale-95"
                 href="/signin"
               >
-                {isAuth ? "" : languageIs ? "تسجيل الدخول" : "Sign In"}
+                {isAuth ?? languageIs ? "تسجيل الدخول" : "Sign In"}
               </Link>
             </button>
           </li>
 
           {/*user section*/}
-          <UserDropdown classNamed={`  ${isAuth ? "" : "hidden"} relative`} />
+          <UserDropdown classNamed={`  ${isAuth ?? "hidden"} relative`} />
         </ul>
 
         {/*button mobile links*/}
@@ -294,15 +236,12 @@ export default function Navbar() {
         className="  flex justify-end  relative"
       >
         <div
-          className={`  w-full h-screen  bg-white lg:hidden ${
-            open
-              ? "hidden"
-              : `${notifications ? `${setNotifications(false)}` : ``}`
-          } `}
+          className={`w-full h-screen  bg-white lg:hidden 
+          ${open ? "hidden" : notifications && setNotifications(false)} `}
           ref={mobileMenuRef}
         >
           <div className="items-center overflow-hidden ">
-            <MobileMenu onInputClick={handleInputClick} />
+            <MobileMenu />
             <div className={` flex  justify-center`}>
               <button
                 onClick={() => dispatch(handleLanguage())}

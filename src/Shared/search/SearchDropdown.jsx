@@ -104,8 +104,7 @@ export function SearchDropdown({
     //     setKeywords(searchTerm)
     //   //   searchTerm.includes(value)
     // );
-    // console.log(filterKeyword);
-    // console.log("filtered is ::", filterKeyword);
+
     setFilteredOptions(
       govNum > 0
         ? filtered.filter((gov) => gov.numberReg_governorate_number === govNum)

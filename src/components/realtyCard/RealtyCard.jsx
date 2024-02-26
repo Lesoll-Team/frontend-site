@@ -1,6 +1,6 @@
 import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
-import { Image } from "@nextui-org/react";
+// import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -9,6 +9,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
 import { PiBathtub } from "react-icons/pi";
 import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
+import Image from "next/image";
 
 const RealtyCard = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
@@ -76,9 +77,12 @@ const RealtyCard = ({ propertyDetails }) => {
         <Image
           alt="Card background"
           radius="none"
-          className=" flex object-cover  md:h-[174px] h-[135px] 
+          className=" flex object-cover  md:h-[174px] h-[135px]
           md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px]
           "
+          // className="flex  md:h-[174px] h-[135px]"
+          width={400}
+          height={174}
           src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
         />
       </Link>

@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 export function SearchDropdownLocation({
   setLocationGovernorate,
   setLocationRegion,
+  defaultGovernorate,
+  defaultRegion,
 }) {
   const [governorates, setGovernorates] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
@@ -15,7 +17,7 @@ export function SearchDropdownLocation({
   const [govNum, setGovNum] = useState(0);
   const [highlightedIndex, setHighlightedIndex] = useState(-1); // To keep track of the currently highlighted option
   const dropdownRef = useRef(null);
-
+  const [clearDefault, setClearDefault] = useState(true);
   useEffect(() => {
     if (highlightedIndex !== -1 && dropdownRef.current) {
       const highlightedOption = dropdownRef.current.children[highlightedIndex];
@@ -39,11 +41,9 @@ export function SearchDropdownLocation({
           name_en: item.name_en,
           value_ar: item.value_ar,
           value_en: item.value_en,
-          // _id: index,
         });
       });
-      console.log(fetchedGovernorates);
-      console.log(mapLocation);
+
       setGovernorates(fetchedGovernorates.result);
       setMapLocation(mapLocation);
     } catch (error) {
@@ -64,6 +64,7 @@ export function SearchDropdownLocation({
       fetchGovernoratesData();
       const term = e.target.value;
       setSearchTerm(term);
+      setClearDefault(false);
     },
     [fetchGovernoratesData]
   );
@@ -187,10 +188,10 @@ export function SearchDropdownLocation({
   return (
     <div
       dir={languageIs ? "rtl" : "ltr"}
-      className="relative w-full focus:outline-none "
+      className="relative w-full focus:outline-none h-full"
     >
-      <div className="flex items-center gap-x-1 md:gap-x-3 ">
-        {selectedValues.length > 0 && (
+      <div className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 ">
+        {selectedValues.length > 0 ? (
           <div
             className="flex items-center
      gap-x-1 md:gap-x-3
@@ -217,9 +218,34 @@ export function SearchDropdownLocation({
               &times;
             </button>
           </div>
-        )}
+        ) : null}
 
-        <div className="w-full ">
+        {defaultGovernorate && clearDefault ? (
+          <div
+            className="flex items-center
+     gap-x-1 md:gap-x-3
+    px-1 md:px-3 md:py-1 
+   bg-lightGreen rounded-sm md:rounded-md "
+          >
+            <span
+              className=" 
+    text-[10px]  md-text-[13px] lg:text-[16px]
+    whitespace-nowrap text-white "
+            >
+              {defaultGovernorate}
+              {defaultRegion &&
+                defaultRegion !== defaultGovernorate &&
+                `-${defaultRegion}`}
+            </span>
+            <button
+              onClick={() => setClearDefault(false)}
+              className="text-gray2  items-center flex text-lg md:text-xl lg:text-2xl font-semibold"
+            >
+              &times;
+            </button>
+          </div>
+        ) : null}
+        <div className="w-full   h-full">
           <input
             type="text"
             placeholder={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
@@ -228,8 +254,11 @@ export function SearchDropdownLocation({
             onChange={handleSearch}
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
-            className="w-full font-inter text-[13px] md:text-[18px]  text-black h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]  
-            active:outline-none hover:outline-none focus:outline-none indent-3"
+            className="w-full focus:outline-none text-gray-600  flex h-full"
+
+            //h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]
+            // className="w-full font-inter text-[13px] md:text-[18px] rounded-[1vw] text-black
+            // active:outline-none hover:outline-none focus:outline-none indent-3"
           />
         </div>
       </div>
@@ -241,12 +270,12 @@ export function SearchDropdownLocation({
             {filteredOptions.map((governorate, index) => (
               <div
                 key={index}
-                // role="listbox"
                 onClick={() => handleSelectByLanguage(governorate)}
                 className={`${
                   index === highlightedIndex ? "bg-gray-200" : "bg-white"
                 }  px-4 py-2 cursor-pointer hover:bg-gray-100 
-           text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] w-full 2xl:text-[24px]`}
+           text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] w-full 
+           2xl:text-[24px]`}
               >
                 {languageIs ? governorate.name_ar : governorate.name_en}
               </div>
@@ -257,54 +286,3 @@ export function SearchDropdownLocation({
     </div>
   );
 }
-
-// onClick={languageIs? () =>handleSelect({
-//           selectedOption: governorate.name_ar,
-//           selectedValue: governorate.value_ar,
-//           selectedEnValue: governorate.value_en,
-//           numberGovFromReg:
-//             govFromReg == 0
-//               ? governorate.numberReg_governorate_number || 0
-//               : govFromReg,
-//           numberGov:
-//             govNum == 0 ? governorate.numberGov || 0 : govNum,
-//         })
-//     : () =>
-//         handleSelect({
-//           selectedOption: governorate.name_en,
-//           selectedValue: governorate.value_en,
-//           selectedEnValue: governorate.value_en,
-//           numberGovFromReg:
-//             govFromReg == 0
-//               ? governorate.numberReg_governorate_number || 0
-//               : govFromReg,
-//           numberGov:
-//             govNum == 0 ? governorate.numberGov || 0 : govNum,
-//         })
-// }
-
-/* {selectedValues.map((value, index) => (
-          <div
-            className="flex items-center
-             gap-x-1 md:gap-x-3
-            px-1 md:px-3 md:py-1 
-           bg-lightGreen rounded-sm md:rounded-md "
-            key={value}
-            // key={selectedValues[1] || selectedValues[0]}
-            //selectedValues.slice(-1)
-          >
-            <span
-              className=" 
-            text-[10px]  md-text-[13px] lg:text-[16px]
-            whitespace-nowrap text-white "
-            >
-              {value}
-            </span>
-            <button
-              onClick={() => handleClearCared(index, value)}
-              className="text-gray2  items-center flex text-lg md:text-xl lg:text-2xl font-semibold"
-            >
-              &times;
-            </button>
-          </div>
-        ))} */

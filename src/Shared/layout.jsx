@@ -5,18 +5,22 @@ import { fetchUserData } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  // createContext, useContext,
+  useEffect,
+  //  useMemo, useState
+} from "react";
 import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
 
-const FilterContextState = createContext({});
+// const FilterContextState = createContext({});
 
 export default function Layout({ children }) {
-  const [openFilter, setOpenFilter] = useState(false);
-  const contextState = useMemo(
-    () => ({ openFilter, setOpenFilter }),
-    [openFilter, setOpenFilter]
-  );
+  // const [openFilter, setOpenFilter] = useState(false);
+  // const contextState = useMemo(
+  //   () => ({ openFilter, setOpenFilter }),
+  //   [openFilter, setOpenFilter]
+  // );
   const router = useRouter();
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
@@ -38,15 +42,7 @@ export default function Layout({ children }) {
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
   return (
-    <div
-      style={{
-        minHeight: "100dvh",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      className={`globalBody bg-gradient`}
-    >
+    <div className={``}>
       <Head>
         <title>
           {language
@@ -68,13 +64,13 @@ export default function Layout({ children }) {
           content="Real estate, Property listings, Homes for sale, Apartments for rent, Commercial properties, Realtor, Real estate agent, House hunting, Real estate market, Property management, Real estate investment, Rental properties, Property search, Buy a house, Sell a house, Foreclosures, Mortgage rates, Property valuation, Open house, Home inspection, عقارات, قائمة العقارات, منازل للبيع, شقق للإيجار, عقارات تجارية, وكيل عقاري, سوق العقارات, إدارة العقارات, استثمار العقارات, عقارات للإيجار, البحث عن عقار, شراء منزل, بيع منزل, العقارات المستصرفة, أسعار الرهن العقاري, تقييم العقار, منازل مفتوحة للزيارة, فحص المنزل"
         />
       </Head>
-      <FilterContextState.Provider value={contextState}>
-        <Navbar />
-        <main dir={`${language ? "rtl" : ""}`}>{children}</main>
-        <Footer dir={`${language ? "rtl" : ""}`} />
-        <ScrollToTopButton />
-      </FilterContextState.Provider>
+      {/* <FilterContextState.Provider value={contextState}> */}
+      <Navbar />
+      <main dir={`${language && "rtl"}`}>{children}</main>
+      <Footer dir={`${language && "rtl"}`} />
+      <ScrollToTopButton />
+      {/* </FilterContextState.Provider> */}
     </div>
   );
 }
-export const useFilterContextState = () => useContext(FilterContextState);
+// export const useFilterContextState = () => useContext(FilterContextState);
