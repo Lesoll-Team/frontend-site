@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { useSelector } from "react-redux";
 
-const BlogCategories = () => {
+const BlogCategories = ({ blogs }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -15,11 +16,16 @@ const BlogCategories = () => {
         </div>
       </div>
       <div className="flex gap-4 overflow-auto no-scroll-bars md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:block md:space-y-[32px] w-full">
-        <p className="text-sm md:text-xl min-w-fit ">اخبار عقارية</p>
-        <p className="text-sm md:text-xl min-w-fit">اخبار عقارية</p>
-        <p className="text-sm md:text-xl min-w-fit">اخبار عقارية</p>
-        <p className="text-sm md:text-xl min-w-fit">اخبار عقارية</p>
-        <p className="text-sm md:text-xl min-w-fit ">اخبار عقارية</p>
+        {blogs.categories.map((item) => {
+          return (
+            <Link
+              href={`?category=${item.categoryNameEn}`}
+              className="text-sm md:text-xl min-w-fit"
+            >
+              {language ? item.categoryNameAr : item.categoryNameEn}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
