@@ -1,7 +1,6 @@
 import AddProperty from "@/components/newAddProperty/AddProperty";
 
 const addPropertyPage = () => {
-  // console.log(firstSegment);
   return <AddProperty />;
 };
 

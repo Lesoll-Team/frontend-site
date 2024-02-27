@@ -32,7 +32,7 @@ const Installment = ({
     name: "installment",
     control,
   });
-  console.log(errors);
+
   // const lll = (number) => {
   //   let arr = [];
   //   for (let i = 0; i < watch("installment").length; i++) {
@@ -60,7 +60,6 @@ const Installment = ({
     [watch("installment")]
   );
 
-  console.log(watch(`installment.${0}.type.value`));
   return (
     <>
       <div className="lg:col-span-2 ">
@@ -110,7 +109,7 @@ const Installment = ({
                       errors?.installment[index]?.type?.value?.message
                     }
                   />
-                  {/* {console.log(watch("saleOption.name.ar"))} */}
+
                   <input
                     type="text"
                     hidden

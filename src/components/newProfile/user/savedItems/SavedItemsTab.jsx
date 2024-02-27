@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const SavedItemsTabs = ({ params, currentTab }) => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(currentTab);
+
   const handleTabClick = (tab) => {
     router.push(`?tab=${tab}`);
   };

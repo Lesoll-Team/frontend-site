@@ -28,8 +28,6 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
     message
   )}`;
   const haveNoPhoneNiumber = Boolean(userData && !userData.phone);
-  //   console.log(userData.phone);
-  console.log(haveNoPhoneNiumber);
   const WhatappLinkBtn = ({ className }) =>
     userData ? (
       haveNoPhoneNiumber ? (

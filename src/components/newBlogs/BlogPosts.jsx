@@ -10,7 +10,6 @@ const BlogPosts = ({ blogs, className, keyword }) => {
     router.push(`?page=${page + 1}`);
   };
 
-  console.log(blogs.totalPages);
   return (
     <div
       className={cn(

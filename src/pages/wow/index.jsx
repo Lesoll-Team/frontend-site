@@ -3,8 +3,6 @@
 import axios from "axios";
 
 const index = ({ keyword, data }) => {
-  console.log(keyword);
-  console.log(data);
   return <div>hi</div>;
 };
 export default index;

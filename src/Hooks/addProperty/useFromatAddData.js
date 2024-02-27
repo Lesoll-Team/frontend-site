@@ -19,7 +19,6 @@ const useFromatAddData = (data) => {
     return item;
   });
   const formData = new FormData();
-  // console.log("wow", installment);
   formData.append("title", data.title);
   formData.append("offer", data.offer);
   formData.append("mainImage", data.mainImage);

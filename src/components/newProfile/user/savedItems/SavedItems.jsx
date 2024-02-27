@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import MobilePageTitle from "../MobilePageTitle";
 
 const SavedItems = ({ params }) => {
-  console.log("saved items params: ", params);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const currentTab = useMemo(() => {

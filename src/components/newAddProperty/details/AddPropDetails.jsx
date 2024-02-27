@@ -8,7 +8,7 @@ const AddPropDetails = ({ errors, register, setValue, watch, clearErrors }) => {
     phoneNumber: 2001146425301,
     message: "bash msr",
   });
-  console.log(callLink);
+
   const renderDetails = () => {
     if (watch("propType.value") === "Land") {
       return (

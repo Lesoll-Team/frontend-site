@@ -37,14 +37,12 @@ const CompanyEditProfile = ({ main }) => {
   }, [userData]);
 
   const onSubmit = async (data) => {
-    // console.log(data);
     const formData = new FormData();
     formData.append("fullname", data.fullname);
     formData.append("code", data.code);
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
     formData.append("instagramLink", data.instagramLink);
     formData.append("faceLink", data.faceLink);
-    console.log(phoneNumberwithoutCode(data.phone, data.code));
     await dispatch(
       updateUser({
         userData: formData,

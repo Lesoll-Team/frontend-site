@@ -22,7 +22,7 @@ export const updateUser = createAsyncThunk(
           },
         }
       );
-      console.log("data", data);
+
       return response.data.userData;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

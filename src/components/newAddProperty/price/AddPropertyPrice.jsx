@@ -17,7 +17,6 @@ const AddPropertyPrice = ({
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.userProfile.userData);
-  console.log(userInfo);
 
   const renderPrice = () => {
     switch (watch("offer")) {
@@ -52,7 +51,7 @@ const AddPropertyPrice = ({
         break;
     }
   };
-  console.log("aaa", watch("saleOption.value").length);
+
   return (
     <>
       <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>

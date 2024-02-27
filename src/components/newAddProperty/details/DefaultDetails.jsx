@@ -14,7 +14,6 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const deliveryDateRef = useRef(null);
   const handleStartDateChange = (date) => {
     setValue("deliveryDate", date);
-    console.log("woooo", watch("deliveryDate"));
   };
   const selectedDate = useMemo(() => {
     if (watch("deliveryDate")) {

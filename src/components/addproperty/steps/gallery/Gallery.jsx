@@ -17,7 +17,7 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       mainImageInputRef.current.value = null;
     }
   };
-  console.log(propertyDetils.multiImage);
+
   const handleDeleteMultiImage = (index) => {
     const updatedMultiImage = Array.from(propertyDetils.multiImage);
     updatedMultiImage.splice(index, 1);
@@ -71,7 +71,6 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       }
     }
   };
-  console.log(propertyDetils.multiImage?.length);
 
   return (
     <div className="space-y-7">

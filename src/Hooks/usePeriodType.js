@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 
 const usePeriodType = (period) => {
   // const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(period);
   const periodType = () => {
     switch (period) {
       case "Monthly":

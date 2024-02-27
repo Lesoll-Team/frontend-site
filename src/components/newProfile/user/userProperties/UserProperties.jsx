@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 const UserProperties = ({ params }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  console.log(params);
   const currentTab = useMemo(() => {
     switch (params?.tab) {
       case "active":

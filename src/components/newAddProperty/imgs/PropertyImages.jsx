@@ -50,17 +50,16 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
       clearErrors("multiImage");
     }
   };
-  console.log(multiImage);
+
   const handleDeleteImage = (index) => {
     const newImages = multiImage.filter((_, i) => i !== index);
-    console.log(newImages);
+
     if (newImages.length > 0) {
       setMultiImage(newImages);
     } else {
       setMultiImage(null);
     }
   };
-  console.log(multiImage);
 
   return (
     <AddPropSectionContainer className={"flex flex-col"}>

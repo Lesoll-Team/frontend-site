@@ -97,7 +97,7 @@ const Sale = ({
           error={errors?.saleOption?.name.ar}
           errorMessage={errors?.saleOption?.name?.ar?.message}
         />
-        {/* {console.log(watch("saleOption.name.ar"))} */}
+
         <input
           type="text"
           hidden

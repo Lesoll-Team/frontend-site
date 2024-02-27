@@ -4,25 +4,25 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  Button,
+  // Button,
   useDisclosure,
 } from "@nextui-org/react";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/router";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { SearchDropdown } from "@/Shared/search/SearchDropdown";
+import { AiOutlineSearch } from "react-icons/ai";
+import Button from "@/Shared/ui/Button";
 
 export default function SearchModel() {
-
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
 
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [locationName, setLocationName] = useState("");
-    const [locationValue, setLocationValue] = useState("");
-    const [isTyping, setTyping] = useState(false);
-
+  const [locationName, setLocationName] = useState("");
+  const [locationValue, setLocationValue] = useState("");
+  const [isTyping, setTyping] = useState(false);
 
   const handelSearchButton = (e) => {
     e.preventDefault();
@@ -36,15 +36,13 @@ export default function SearchModel() {
   };
 
   return (
-    <div>
-      <Button
-        className="bg-inherit"
-        disableRipple="false"
-        size="sm"
-        onPress={onOpen}
+    <>
+      <button
+        onClick={onOpen}
+        className="text-lightGreen text-2xl hidden md:block"
       >
-        <FaSearch className="text-lg  text-lightOrange" />
-      </Button>
+        <AiOutlineSearch />
+      </button>
       <Modal
         size="5xl"
         backdrop=""
@@ -78,9 +76,7 @@ export default function SearchModel() {
               <ModalHeader className="flex flex-col gap-1">
                 {languageIs ? "بحث" : "Search"}
               </ModalHeader>
-              <ModalBody
-                className={`  ${isTyping ?  "pb-72 h-[300px]":""}`}
-              >
+              <ModalBody className={`  ${isTyping ? "pb-72 h-[300px]" : ""}`}>
                 <form
                   onSubmit={handelSearchButton}
                   className="flex items-center gap-2"
@@ -94,7 +90,8 @@ export default function SearchModel() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-[20p] h-[20px] bg-lightOrange py-5 text-white font-bold"
+                    className="w-fit mt-2"
+                    // className="w-[20p] h-[20px] bg-lightOrange py-5 text-white font-bold"
                   >
                     {languageIs ? "بحث" : "Search"}
                   </Button>
@@ -104,6 +101,6 @@ export default function SearchModel() {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }

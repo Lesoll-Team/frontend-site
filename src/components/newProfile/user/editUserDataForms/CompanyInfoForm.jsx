@@ -38,12 +38,11 @@ const CompanyInfoForm = ({ main }) => {
   }, [userData]);
 
   const onSubmit = async (data) => {
-    // console.log(data);
     const formData = new FormData();
     formData.append("fullname", data.fullname);
     formData.append("code", data.code);
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
-    // formData.append("instagramLink", data.instagramLink);
+
     formData.append(
       "theCommercialRegistrationImg",
       data.theCommercialRegistrationImg[0]
@@ -51,9 +50,7 @@ const CompanyInfoForm = ({ main }) => {
     formData.append("taxCardImg", data.taxCard[0]);
     formData.append("companyAddress", data.companyAddress);
     formData.append("Bio", data.bio);
-    // formData.append("workingHours", data.workingHours);
-    // formData.append("workingHours", data.workingHours);
-    // console.log(phoneNumberwithoutCode(data.phone, data.code));
+
     await dispatch(
       updateUser({
         userData: formData,
@@ -61,7 +58,6 @@ const CompanyInfoForm = ({ main }) => {
       })
     );
     dispatch(getUserData());
-    console.log(data.taxCard[0]);
   };
 
   if (userData) {

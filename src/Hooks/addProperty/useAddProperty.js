@@ -33,7 +33,6 @@ const useAddProperty = () => {
       const { formData } = useFromatAddData(data);
       dispatch(submitProperty(formData));
     }
-    console.log(data);
   });
 
   return {

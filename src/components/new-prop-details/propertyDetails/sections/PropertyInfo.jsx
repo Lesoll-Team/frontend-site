@@ -11,7 +11,7 @@ import { TbCalendarCheck, TbStairsUp } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
 const PropertyInfo = ({ propertyData }) => {
-  console.log(propertyData);
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { year } = formatDate(propertyData.deliveryDate);
   const offer = useMemo(() => {

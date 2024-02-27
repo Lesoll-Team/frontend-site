@@ -12,13 +12,16 @@ import ChangeLang from "./ChangeLang";
 import { logoutUserToken } from "@/redux-store/features/authSlice";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useRouter } from "next/router";
+import { useWindowWidth } from "@/Hooks/useWindowWidth";
 
 const SideMenu = () => {
+  const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
   const router = useRouter();
-  const [showSideMenu, setShowSideMenu] = useState(true);
+  const isCompany = userData?.typeOfUser === "company";
+  const [showSideMenu, setShowSideMenu] = useState(false);
   const openSideMenu = () => {
     setShowSideMenu(true);
   };
@@ -44,7 +47,11 @@ const SideMenu = () => {
       document.body.style.overflow = "auto";
     };
   }, [showSideMenu]);
-
+  useEffect(() => {
+    if (windowWidth > 1024) {
+      setShowSideMenu(false);
+    }
+  }, [windowWidth]);
   return (
     <>
       <button onClick={openSideMenu} className="lg:hidden">
@@ -66,16 +73,24 @@ const SideMenu = () => {
           </div>
           {userData && (
             <div className="mx-auto flex justify-center items-center gap-3 flex-col">
-              <Image
-                src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
-                width={84}
-                height={84}
-                className="rounded-full object-cover"
-                alt="Profile image"
-              />
-              <p className="text-base text-darkGray font-bold max-w-[95%] ">
-                {userData?.fullname}
-              </p>
+              <Link href={"/profile"} onClick={closeSideMenu}>
+                <Image
+                  src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+                  width={84}
+                  height={84}
+                  className="rounded-full object-cover"
+                  alt="Profile image"
+                />
+              </Link>
+              <Link
+                href={"/profile"}
+                onClick={closeSideMenu}
+                className="max-w-[95%] text-center"
+              >
+                <p className="text-base text-darkGray font-bold  ">
+                  {userData?.fullname}
+                </p>
+              </Link>
               <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
                 <p>
                   {language ? "الطلبات" : "Needs"}{" "}
@@ -88,7 +103,7 @@ const SideMenu = () => {
               </div>
             </div>
           )}
-          <div className="flex flex-col justify-start gap-6 text-base text-darkGray">
+          <div className="flex flex-col justify-start gap-7 text-base text-darkGray">
             <Link
               onClick={closeSideMenu}
               href={"/"}
@@ -121,12 +136,21 @@ const SideMenu = () => {
             </Link>
             <Link
               onClick={closeSideMenu}
-              href={"/add-need"}
+              href={isCompany ? "/needs" : "add-need"}
               className="flex items-center gap-4"
             >
               <AiOutlineEdit className="text-baseGray text-lg" />
 
-              <span>{language ? "إضافة طلب" : "Add Need"}</span>
+              <span>
+                {" "}
+                {isCompany
+                  ? language
+                    ? "الطلبات"
+                    : " Needs"
+                  : language
+                  ? "إضافة طلب"
+                  : "Add Need"}
+              </span>
             </Link>
             <Link
               onClick={closeSideMenu}
@@ -139,7 +163,7 @@ const SideMenu = () => {
             </Link>
             <Link
               onClick={closeSideMenu}
-              href={"/"}
+              href={"/contact-us"}
               className="flex items-center gap-4"
             >
               <MdOutlineHeadsetMic className="text-baseGray text-lg" />

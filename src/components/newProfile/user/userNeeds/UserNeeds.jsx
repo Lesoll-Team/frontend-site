@@ -10,7 +10,6 @@ const UserNeeds = () => {
   const needsData = useSelector((state) => state.userNeeds.needs.data);
   const dispatch = useDispatch();
 
-  console.log(needsData);
   useEffect(() => {
     dispatch(getUserNeeds());
   }, []);

@@ -2,8 +2,6 @@ import BlogFeed from "@/components/newBlogs/BlogFeed";
 import axios from "axios";
 
 const index = ({ keyword, data }) => {
-  console.log(keyword);
-  console.log(data);
   return <BlogFeed blogs={data} keyword={keyword} />;
 };
 export default index;

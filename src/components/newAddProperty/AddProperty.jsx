@@ -28,7 +28,7 @@ const AddProperty = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
   const dispatch = useDispatch();
-  console.log(watch("saleOption"));
+
   const installment = watch("installment").map((plan) => {
     return {
       type: plan.type.value,
@@ -38,7 +38,7 @@ const AddProperty = () => {
       discount: plan.discount || "",
     };
   });
-  console.log(installment);
+
   useEffect(() => {
     if (!features) {
       dispatch(getFeatures());

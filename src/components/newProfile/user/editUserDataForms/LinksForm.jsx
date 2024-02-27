@@ -20,7 +20,6 @@ const LinksForm = ({ main }) => {
   const { register, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
   const onSubmit = async (data) => {
-    // console.log(data);
     const formData = new FormData();
     formData.append("faceLink", data.faceLink);
     formData.append("instagramLink", data.instagramLink);
@@ -35,7 +34,6 @@ const LinksForm = ({ main }) => {
       })
     );
     dispatch(getUserData());
-    console.log(data);
   };
 
   if (userData) {

@@ -7,7 +7,7 @@ import UserProperties from "@/components/newProfile/user/userProperties/UserProp
 const index = ({ params }) => {
   const IsAuth = useIsAuth();
   const router = useRouter();
-  console.log(params);
+
   return (
     <ProfileLayout>
       <UserProperties params={params} />
