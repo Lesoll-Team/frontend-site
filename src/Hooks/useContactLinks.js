@@ -9,19 +9,26 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
   const userData = useSelector((state) => state.userProfile.userData);
 
   const removePlus = (phoneNumber) => {
-    // Check if the phone number starts with "+"
-    if (phoneNumber.startsWith("+")) {
-      // Return the phone number without the "+"
-      return phoneNumber.substring(1);
+    // Check if phoneNumber exists and is a string
+    if (phoneNumber && typeof phoneNumber === "string") {
+      // Check if the phone number starts with "+"
+      if (phoneNumber.startsWith("+")) {
+        // Return the phone number without the "+"
+        return phoneNumber.substring(1);
+      } else {
+        // If the phone number doesn't start with "+", return as is
+        return phoneNumber;
+      }
     } else {
-      // If the phone number doesn't start with "+", return as is
-      return phoneNumber;
+      // If phoneNumber is not a string or undefined, return an empty string
+      return "";
     }
   };
 
   // Example usage:
   // let phoneNumber = "+201147085506";
   let phoneNumberWithoutPlus = removePlus(phoneNumber);
+
   let phoneNumberWithePlus = "+" + phoneNumberWithoutPlus;
   const callLink = `tel:${phoneNumberWithePlus}`;
   const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumberWithoutPlus}&text=${encodeURIComponent(

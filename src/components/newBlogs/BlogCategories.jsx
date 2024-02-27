@@ -15,10 +15,11 @@ const BlogCategories = ({ blogs }) => {
           <div className="h-[2px] bg-outLine w-8/12"></div>
         </div>
       </div>
-      <div className="flex gap-4 overflow-auto no-scroll-bars md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:block md:space-y-[32px] w-full">
+      <div className="flex gap-4 overflow-auto no-scroll-bars md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:flex-col md:space-y-[32px] w-full ">
         {blogs.categories.map((item) => {
           return (
             <Link
+              key={item._id}
               href={`?category=${item.categoryNameEn}`}
               className="text-sm md:text-xl min-w-fit"
             >
