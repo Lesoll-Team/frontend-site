@@ -42,7 +42,7 @@ export default function about() {
           <p className="text-sm md:text-2xl text-darkGray">
             {language
               ? "ليسول هي سوق مفتوح لعرض العقارات عبر الانترنت تأسست في 2022. توفر ليسول تجربة رقمية سلسة لشراء و تأجير و بيع العقارات في مصر. نحن في ليسول ملتزمون بإعادة تشكيل مفهوم العقارات في مصر، من خلال منصة مبتكرة وسهلة الاستخدام للتعاملات العقارية. كما خصصت ليسول جزءًا من المنصة لفرص الاستثمار، لتكون مركزًا جذابًا لأصحاب العقارات والمستثمرين."
-              : "ليسول هي سوق مفتوح لعرض العقارات عبر الانترنت تأسست في 2022. توفر ليسول تجربة رقمية سلسة لشراء و تأجير و بيع العقارات في مصر. نحن في ليسول ملتزمون بإعادة تشكيل مفهوم العقارات في مصر، من خلال منصة مبتكرة وسهلة الاستخدام للتعاملات العقارية. كما خصصت ليسول جزءًا من المنصة لفرص الاستثمار، لتكون مركزًا جذابًا لأصحاب العقارات والمستثمرين."}
+              : "Founded in 2022 in Cairo, Egypt. Lesoll is a leading online real estate marketplace that provides a seamless digital experience for buying, selling, and renting properties. At Lesoll, we are dedicated to redefining the real estate landscape in Egypt, providing an innovative, seamless, and convenient platform for property transactions. Lesoll dedicated part of the platform for investment opportunities to be a hub for owners and investors."}
           </p>
         </section>
         <section className="space-y-2 md:space-y-6">
@@ -52,7 +52,7 @@ export default function about() {
           <p className="text-sm md:text-2xl text-darkGray">
             {language
               ? "مهمتنا في ليسول هي تبسيط وتحسين تجربة العقارات في مصر. نحن نسعى لجعل عملية الشراء والبيع والإيجار أكثر يسرًا وسهولة من خلال منصتنا المبتكرة. نهدف إلى تمكين الأفراد من خلال توفير منصة سهلة الاستخدام توفر مجموعة واسعة من خيارات العقارات. بفضل خدماتنا الشاملة، نعمل على ربط أصحاب العقارات والمشترين والمستأجرين معًا، مع زيادة الشفافية والراحة وبناء الثقة في سوق العقارات."
-              : "مهمتنا في ليسول هي تبسيط وتحسين تجربة العقارات في مصر. نحن نسعى لجعل عملية الشراء والبيع والإيجار أكثر يسرًا وسهولة من خلال منصتنا المبتكرة. نهدف إلى تمكين الأفراد من خلال توفير منصة سهلة الاستخدام توفر مجموعة واسعة من خيارات العقارات. بفضل خدماتنا الشاملة، نعمل على ربط أصحاب العقارات والمشترين والمستأجرين معًا، مع زيادة الشفافية والراحة وبناء الثقة في سوق العقارات."}
+              : "Our mission at Lesoll is to simplify and transform the real estate experience in Egypt. We aim to empower individuals by providing them with a user-friendly platform and a wide range of property options. Through our comprehensive services, we strive to connect owners, buyers, and renters, fostering transparency, convenience, and trust in the real estate market."}
           </p>
         </section>
         <section className="space-y-2 md:space-y-6">
@@ -62,7 +62,7 @@ export default function about() {
           <p className="text-sm md:text-2xl text-darkGray">
             {language
               ? "رؤيتنا في ليسول هي تمكين الأفراد والشركات من تجربة رقمية تبسّط عمليات الشراء والبيع والإيجار، من خلال تقديم خدمات شاملة تغطي كافة الجوانب وتقدم حلولًا متكاملة للعقارات."
-              : "رؤيتنا في ليسول هي تمكين الأفراد والشركات من تجربة رقمية تبسّط عمليات الشراء والبيع والإيجار، من خلال تقديم خدمات شاملة تغطي كافة الجوانب وتقدم حلولًا متكاملة للعقارات."}
+              : "Our vision is to empower individuals and businesses, offering a digital experience that simplifies buying, selling, and renting properties while providing end-to-end service and support."}
           </p>
         </section>
       </main>
