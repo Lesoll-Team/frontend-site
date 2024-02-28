@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import RealtyCard from "../realtyCard/RealtyCard";
 
-const RecommendedProperties = ({ propertyData }) => {
+const RecommendedProperties = ({ propertyData, slug }) => {
   const [recommended, setRecommended] = useState();
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -11,7 +11,7 @@ const RecommendedProperties = ({ propertyData }) => {
   useEffect(() => {
     async function fetchRecommendations() {
       try {
-        const data = await getRecommendRealty(propertyData._id);
+        const data = await getRecommendRealty(slug);
         setRecommended(data);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
@@ -34,22 +34,3 @@ const RecommendedProperties = ({ propertyData }) => {
   ) : null;
 };
 export default RecommendedProperties;
-
-export async function getServerSideProps(context) {
-  try {
-    const data = await getRecommendRealty(singleProperty._id);
-    return {
-      props: { recommendations: data },
-      // revalidate: 10,
-    };
-  } catch (error) {
-    return {
-      props: {},
-      // revalidate: 10,
-    };
-  }
-
-  // return {
-  //   props: {}, // will be passed to the page component as props
-  // };
-}

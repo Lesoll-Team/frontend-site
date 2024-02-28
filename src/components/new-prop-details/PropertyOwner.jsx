@@ -3,12 +3,17 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 
 import useContactLinks from "@/Hooks/useContactLinks";
+import Link from "next/link";
 
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = "";
+  console.log(propertyData);
+  const conatactNumber = propertyData.connectPhoneNumber
+    ? propertyData.connectPhoneNumber
+    : propertyData?.user?.code + propertyData?.user?.phone;
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
-    phoneNumber: propertyData?.user?.code + propertyData?.user?.phone,
+    phoneNumber: conatactNumber,
     message: message,
   });
   return (
@@ -31,9 +36,12 @@ const PropertyOwner = ({ propertyData, className }) => {
         </p>
         <div className="font-medium flex gap-2 flex-wrap md:justify-center items-center">
           <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p>
-          <p className="text-linkColor md:text-base text-sm underline">
+          <Link
+            href={`/view-profile/${propertyData.user?.username}`}
+            className="text-linkColor md:text-base text-sm underline"
+          >
             {language ? "رؤية جميع الإعلانات" : "See all properties"}
-          </p>
+          </Link>
         </div>
       </div>
       <div className=" hidden  md:flex flex-col gap-3 w-full">

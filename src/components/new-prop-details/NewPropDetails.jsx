@@ -3,10 +3,28 @@ import PriceTitle from "./PriceTitle";
 import PropertyOwner from "./PropertyOwner";
 import PropertyDetails from "./propertyDetails/PropertyDetails";
 import RecommendedProperties from "./RecommendedProperties";
+import Head from "next/head";
 
-const NewPropDetails = ({ propertyData }) => {
+const NewPropDetails = ({ propertyData, slug }) => {
   return (
     <div className="min-h-[50dvh] mt-10 space-y-[30px] md:space-y-10">
+      <Head>
+        <title>{propertyData?.title}</title>
+        <meta
+          name="description"
+          content={propertyData?.description.slice(0, 160)}
+        />
+        <meta property="og:title" content={propertyData?.title.slice(0, 50)} />
+        <meta property="og:description" content={propertyData?.description} />
+        <meta
+          property="og:image"
+          content={`${propertyData.thumbnail || propertyData?.album[0]?.image}`}
+        />
+        <link
+          rel="canonical"
+          href={`https://lesoll.com/property-details/${slug}`}
+        />
+      </Head>
       <PropertyImages propertyData={propertyData} />
       <PriceTitle propertData={propertyData} />
       <div className="relative md:grid  grid-cols-3 gap-2">
@@ -24,7 +42,7 @@ const NewPropDetails = ({ propertyData }) => {
           da
         </div> */}
       </div>
-      <RecommendedProperties propertyData={propertyData} />
+      <RecommendedProperties propertyData={propertyData} slug={slug} />
     </div>
   );
 };

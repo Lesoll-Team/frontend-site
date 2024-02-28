@@ -18,9 +18,7 @@ const ViewUser = ({ user, properties, params }) => {
           <Image
             width={140}
             height={140}
-            src={
-              user.getUser?.avatarUrl || "/public/user-avatar-placeholder.png"
-            }
+            src={user.getUser?.avatarUrl || "/user-avatar-placeholder.png"}
             className="rounded-full object-cover w-[50px] h-[50px] md:w-[140px] md:h-[140px]"
           />
           <div className="flex flex-col gap-2 md:gap-4">

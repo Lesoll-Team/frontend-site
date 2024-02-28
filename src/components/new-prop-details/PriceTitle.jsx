@@ -1,6 +1,7 @@
 import useContactLinks from "@/Hooks/useContactLinks";
 import { localizedNumber } from "@/utils/localizedNumber";
 import Link from "next/link";
+import { useMemo } from "react";
 import { GoPencil } from "react-icons/go";
 import { MdOutlineAnalytics } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -15,20 +16,41 @@ const PriceTitle = ({ propertData }) => {
   const showEditBtn =
     userData && (userData._id === propertData.user._id || userData.supAdmin);
   const showAdminBtn = userData && userData.isAdmin;
+  const sideInfoToPrice = useMemo(() => {
+    if (propertData.offer === "For Sale") {
+      if (propertData.RealEstateFinance) {
+        return language
+          ? "(متاح تمويل عقارى)"
+          : "(RealEstate Finance Avilable)";
+      } else if (propertData.negotiable) {
+        language ? "(قابل للتفاوض)" : "(Negotiable)";
+      }
+    } else {
+      return "";
+    }
+  }, [language, propertData]);
+
   return (
     <section className="space-y-1 md:space-y-4 md:border-b-1 md:pb-10">
       <h1 className="text-lg md:text-4xl font-bold text-darkGray  md:text-black md:font-medium">
         {propertData.title}{" "}
       </h1>
       <div className="flex justify-between items-center flex-wrap gap-2">
-        <h2 className="text-lg md:text-4xl font-bold text-lightGreen  ">
-          {price + " "} {language ? "ج.م " : "Egp "}
-          {!propertData.negotiable && (
-            <span className="text-sm md:text-2xl text-darkGray font-normal ">
-              {language ? "(قابل للتفاوض)" : "(Negotiable)"}
-            </span>
-          )}
-        </h2>
+        {propertData.offer === "For Investment" ? (
+          <h2 className="text-lg md:text-4xl font-bold text-lightGreen  ">
+            {language ? "للإستثمار" : "For Investment "}
+          </h2>
+        ) : (
+          <h2 className="text-lg md:text-4xl font-bold text-lightGreen  ">
+            {price + " "} {language ? "ج.م " : "Egp "}
+            {sideInfoToPrice && (
+              <span className="text-sm md:text-2xl text-darkGray font-normal ">
+                {sideInfoToPrice}
+              </span>
+            )}
+          </h2>
+        )}
+
         {showEditBtn && (
           <Link
             href={`/editproperty/${propertData.slug}`}
