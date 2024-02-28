@@ -4,14 +4,15 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { Ring } from "@uiball/loaders";
 import ComboBox from "@/Shared/ui/ComboBox";
+import useCompound from "./useCompound";
 
 const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
   const [govInput, setGovInput] = useState("");
   const [regionInput, setRegionInput] = useState("");
+  const [compoundInput, setCompoundInput] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
   const govStatus = useSelector((state) => state.getGov.status);
   const regionStatus = useSelector((state) => state.getRegion.status);
-
   const {
     filteredGov,
     searchedRegions,
@@ -28,9 +29,74 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
     setValue,
     clearErrors,
   });
-
+  const { filterdCompunds } = useCompound(compoundInput);
+  const clearCompound = () => {
+    setValue("compaounds", {});
+  };
+  console.log(watch("compaounds"));
   return (
     <>
+      {watch("isCompound") && (
+        <div className="space-y-2 md:col-span-2">
+          <h3 className="text-xl">{language ? "الكومباوند" : "Compound"}</h3>
+          <div className="relative">
+            <div className="flex items-center">
+              <div className="flex w-full items-center">
+                <ComboBox
+                  setInputValue={(value) => setCompoundInput(value)}
+                  disabled={watch("compaounds._id") || govStatus === "loading"}
+                  filteredOptions={filterdCompunds}
+                  onSelect={(compaound) => {
+                    // selectGov(gov);
+                    setCompoundInput("");
+                    setValue("compaounds", compaound);
+                    clearErrors("compaounds._id");
+                  }}
+                  renderItem={(option) => {
+                    return language ? option.CompoundsAR : option.CompoundsEN;
+                  }}
+                  inputValue={compoundInput}
+                  error={errors?.compaounds?._id}
+                  errorMessage={errors?.compaounds?._id.message}
+                />
+                {govStatus === "loading" && (
+                  <div className="-mx-10">
+                    <Ring size={20} />
+                  </div>
+                )}
+              </div>
+              {watch("compaounds._id") && (
+                <div className="absolute mx-4 bg-gray-200 px-3 py-[2px] rounded flex items-center gap-2">
+                  <p>
+                    {" "}
+                    {language
+                      ? watch("compaounds.CompoundsAR")
+                      : watch("compaounds.CompoundsEN")}
+                  </p>
+                  <button
+                    type="button"
+                    className="mt-[2px]"
+                    onClick={clearCompound}
+                  >
+                    <FaCircleXmark className="text-xs" />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          <input
+            type="text"
+            hidden
+            {...register("compaounds._id", {
+              required: {
+                value: true,
+                message: "please enter property type",
+              },
+            })}
+          />
+        </div>
+      )}
+
       {/* Governorate section */}
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "المحافظة" : "Governorate"}</h3>

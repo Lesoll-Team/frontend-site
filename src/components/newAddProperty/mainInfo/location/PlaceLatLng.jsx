@@ -33,7 +33,7 @@ const PlaceLatLng = ({ errors, register, setValue, watch, clearErrors }) => {
         onSelect={handleSelect}
         renderItem={(option) => option.description}
         error={errors?.address?.name}
-        errorMessage={errors?.address?.name.message}
+        errorMessage={errors?.address?.name?.message}
       />
       <input
         type="text"

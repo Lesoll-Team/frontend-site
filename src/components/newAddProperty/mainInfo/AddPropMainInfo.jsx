@@ -80,7 +80,7 @@ const AddPropMainInfo = ({
         />
         {errors.title && <p>{errors.title.message}</p>}
       </div>
-      <div className="lg:col-span-2 space-y-2">
+      <div className=" space-y-2">
         <h3 className="text-xl">{language ? "نوع الإعلان" : "Offer Type"}</h3>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
@@ -121,6 +121,39 @@ const AddPropMainInfo = ({
               )}
             </span>
             {language ? "للإستثمار" : "For Investment"}
+          </button>
+        </div>
+      </div>
+      <div className=" space-y-2">
+        <h3 className="text-xl">
+          {language ? "العقار فى كومباوند " : "Property in compound"}
+        </h3>
+        <div className=" flex justify-start gap-10 flex-wrap">
+          <button
+            type="button"
+            className="flex gap-1 items-center"
+            onClick={() => setValue("isCompound", false)}
+          >
+            {" "}
+            <span className="border-2 w-4 h-4 p-[2px] rounded-full">
+              {!watch("isCompound") && (
+                <div className="h-full w-full rounded-full bg-blue-600"></div>
+              )}
+            </span>
+            {language ? "لا" : "No"}
+          </button>
+          <button
+            type="button"
+            className="flex gap-1 items-center"
+            onClick={() => setValue("isCompound", true)}
+          >
+            {" "}
+            <span className="border-2 w-4 h-4 p-[2px] rounded-full">
+              {watch("isCompound") && (
+                <div className="h-full w-full rounded-full bg-blue-600"></div>
+              )}
+            </span>
+            {language ? "نعم" : "Yes"}
           </button>
         </div>
       </div>

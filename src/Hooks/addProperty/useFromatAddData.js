@@ -20,7 +20,10 @@ const useFromatAddData = (data) => {
   });
   const formData = new FormData();
   formData.append("title", data.title);
+  formData.append("isCompound", data.isCompound);
+  formData.append("compaounds", data.compaounds._id);
   formData.append("offer", data.offer);
+
   formData.append("mainImage", data.mainImage);
   // Append each file individually from the multibulImg array
   for (let i = 0; i < data.multiImage.length; i++) {

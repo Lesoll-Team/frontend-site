@@ -1,12 +1,11 @@
-import AddProperty from "@/components/addproperty/AddProperty";
+// import AddProperty from "@/components/addproperty/AddProperty";
 import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
-import { AiFillCheckCircle } from "react-icons/ai";
-import Link from "next/link";
-import { BiSolidLogIn, BiSolidLogInCircle } from "react-icons/bi";
+
 import UserTypeForm from "@/components/addproperty/userTypeForm/UserTypeForm";
 import NotSignedScreen from "@/components/addproperty/NotSignedScreen";
+import AddProperty from "@/components/newAddProperty/AddProperty";
 const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.userProfile.userData);

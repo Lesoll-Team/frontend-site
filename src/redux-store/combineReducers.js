@@ -26,6 +26,7 @@ import userPropertiesReducer from "./features/user/userPropertiesSlice";
 import userNeedsReducer from "./features/user/userNeedsSlice";
 import userSavedItemsReducer from "./features/user/userSavedItemsSlice";
 import notifiicationSlice from "./features/user/notifiicationSlice";
+import compoundSlice from "./features/property/compoundSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -51,5 +52,6 @@ export default combineReducers({
   userNeeds: userNeedsReducer,
   userSavedItems: userSavedItemsReducer,
   notifications: notifiicationSlice,
+  compounds: compoundSlice,
   // Compare:compareReducer,
 });

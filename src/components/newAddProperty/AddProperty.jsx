@@ -9,6 +9,7 @@ import AddPropDetails from "./details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "./price/AddPropertyPrice";
 import PropertyImages from "./imgs/PropertyImages";
+import { getCompounds } from "@/redux-store/features/property/compoundSlice";
 
 const AddProperty = () => {
   const {
