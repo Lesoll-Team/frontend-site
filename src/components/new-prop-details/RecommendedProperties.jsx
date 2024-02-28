@@ -11,7 +11,7 @@ const RecommendedProperties = ({ propertyData, slug }) => {
   useEffect(() => {
     async function fetchRecommendations() {
       try {
-        const data = await getRecommendRealty(slug);
+        const data = await getRecommendRealty(propertyData._id);
         setRecommended(data);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
