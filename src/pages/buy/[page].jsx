@@ -4,7 +4,6 @@ import RealtyCardBuy from "../../components/realtyCard/RealtyCard.jsx";
 import PaginationPage from "../../Shared/Pagination/Pagination.jsx";
 import { useRouter } from "next/router";
 // import Link from "next/link";
-import { SearchBar } from "@/Shared/search/SearchBar.jsx";
 import { useSelector } from "react-redux";
 export default function PropertyBuy({ propertyForBuy }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -29,7 +28,6 @@ export default function PropertyBuy({ propertyForBuy }) {
         />
         <link rel="canonical" href={`https://lesoll.com${path}`} />
       </Head>
-      {/* <SearchBar pageSaleOption="For Sale" /> */}
       <div>
         <h1 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات للبيع فى مصر" : " Properties for Buy in Egypt"}

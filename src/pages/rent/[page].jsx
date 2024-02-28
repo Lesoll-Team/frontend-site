@@ -3,7 +3,6 @@ import Head from "next/head";
 import PaginationPage from "../../Shared/Pagination/Pagination";
 import { useRouter } from "next/router";
 import RealtyCardRent from "../../components/realtyCard/RealtyCard";
-import { SearchBar } from "@/Shared/search/SearchBar";
 import { useSelector } from "react-redux";
 
 export default function PropertyRent({ propertyForRent }) {
@@ -29,7 +28,6 @@ export default function PropertyRent({ propertyForRent }) {
           }
         />
       </Head>
-      <SearchBar pageSaleOption="For Rent" />
       <div>
         <h1 className="font-bold text-5xl pt-20 md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات للإيجار فى مصر" : " Properties for Rent in Egypt"}
@@ -79,7 +77,6 @@ export async function getServerSideProps(context) {
 // import PaginationPage from "../../Shared/Pagination/Pagination";
 // import { useRouter } from "next/router";
 // import RealtyCardRent from "../../components/realtyCard/RealtyCard";
-// import { SearchBar } from "@/Shared/search/SearchBar";
 // import { useSelector } from "react-redux";
 // export default function PropertyRent({ propertyForRent }) {
 //   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -94,7 +91,6 @@ export async function getServerSideProps(context) {
 //           content="استكشف مجموعة واسعة من العقارات المتاحة للإيجار على منصتنا للعقارات. ابحث عن شقق ومنازل ومساحات تجارية للإيجار في المواقع الرئيسية. ابحث عن العقار المؤجَّر المثالي اليوم!"
 //         />
 //       </Head>
-//       <SearchBar />
 //       <div>
 //         <h2 className="font-bold text-5xl pt-20  md:flex md:justify-start flex justify-center text-lightGreen">
 //           {language ? "عقارات للإيجار" : " Properties for Rent"}

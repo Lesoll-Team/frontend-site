@@ -22,58 +22,122 @@ import {
   // VillaIcon,
   WarehouseIcon,
 } from "./iconsSVG";
-import { PiPlantBold } from "react-icons/pi";
+// import { PiPlantBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 
-const UnitTypeIcons = ({ unitType, items }) => {
+const UnitTypeIcons = ({
+  category,
+  items,
+  setUnitTypesKey,
+  unitTypesKey,
+  setLocationGovernorate,
+  setLocationRegion,
+  setCategoryTypeKey,
+  setClickOnTap,
+  clickOnTap,
+  locationGovernorate,
+  locationRegion,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  switch (unitType) {
-    case "residential":
-    case "compounds":
-    case "finance":
-      return (
-        <div
-          className="flex gap-x-5 md:overflow-hidden
+  const handleTapClicked = (Key) => {
+    if (!category) {
+      setClickOnTap(!clickOnTap);
+      setCategoryTypeKey(Key);
+    } else if (!unitTypesKey) {
+      setClickOnTap(!clickOnTap);
+      setUnitTypesKey(Key);
+    } else if (!locationGovernorate) {
+      setClickOnTap(!clickOnTap);
+      setLocationGovernorate(Key);
+    } else if (!locationRegion) {
+      setClickOnTap(!clickOnTap);
+      setLocationRegion(Key);
+    }
+  };
+  return (
+    <div
+      className="flex gap-x-5 md:overflow-hidden
          overflow-x-auto no-scrollbar justify-start "
+    >
+      {items?.map((item) => (
+        <button
+          key={item.keyword}
+          onClick={() => handleTapClicked(item.keyword)}
+          className={` group  cursor-pointer items-center `}
         >
-          {items?.map((item) => (
-            <div
-              key={item.keyword}
-              className=" group  cursor-pointer    items-center "
-            >
-              <span className="text-[0.75rem] md:text[1.25rem] 	flex leading-none text-center group-hover:text-lightGreen ">
-                {language ? item.ar : item.en}
-              </span>
-            </div>
-          ))}
-        </div>
-      );
+          <span className="text-[0.75rem] md:text[1.25rem] 	flex leading-none text-center group-hover:text-lightGreen ">
+            {language ? item.ar : item.en}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+  // switch (category) {
+  //   case "residential":
+  //   case "compounds":
+  //   case "finance":
+  //     return (
+  //       <div
+  //         className="flex gap-x-5 md:overflow-hidden
+  //        overflow-x-auto no-scrollbar justify-start "
+  //       >
+  //         {items?.map((item) => (
+  //           <button
+  //             key={item.keyword}
+  //             onClick={() => handleTapClicked(item.keyword)}
+  //             className=" group  cursor-pointer    items-center "
+  //           >
+  //             <span className="text-[0.75rem] md:text[1.25rem] 	flex leading-none text-center group-hover:text-lightGreen ">
+  //               {language ? item.ar : item.en}
+  //             </span>
+  //           </button>
+  //         ))}
+  //       </div>
+  //     );
 
-    case "commercial":
-      return (
-        <div className="flex gap-x-3">
-          <FactoryIcon />
-          <OfficeIcon />
-          <RestaurantIcon />
-          <ShopIcon />
-          <CoffeeIcon />
-          <GarageIcon />
-          <ClinicIcon />
-          <WarehouseIcon />
-        </div>
-      );
-    case "graves":
-      return null;
-    case "lands":
-      return (
-        <div className="flex gap-x-3">
-          <HotelApartmentIcon />
-          <PiPlantBold />
-        </div>
-      );
-  }
+  //   case "commercial":
+  //     return (
+  //       <div
+  //         className="flex gap-x-5 md:overflow-hidden
+  //        overflow-x-auto no-scrollbar justify-start "
+  //       >
+  //         {items?.map((item) => (
+  //           <button
+  //             key={item.keyword}
+  //             onClick={() => handleTapClicked(item.keyword)}
+  //             className=" group  cursor-pointer    items-center "
+  //           >
+  //             <span className="text-[0.75rem] md:text[1.25rem] 	flex leading-none text-center group-hover:text-lightGreen ">
+  //               {language ? item.ar : item.en}
+  //             </span>
+  //           </button>
+  //         ))}
+  //       </div>
+  //     );
+  //   case "graves":
+  //     return null;
+  //   case "lands":
+  //     return (
+  //       <div
+  //         className="flex gap-x-5 md:overflow-hidden
+  //        overflow-x-auto no-scrollbar justify-start "
+  //       >
+  //         {items?.map((item) => (
+  //           <button
+  //             key={item.keyword}
+  //             onClick={() => handleTapClicked(item.keyword)}
+  //             className=" group  cursor-pointer    items-center "
+  //           >
+  //             <span className="text-[0.75rem] md:text[1.25rem] 	flex leading-none text-center group-hover:text-lightGreen ">
+  //               {language ? item.ar : item.en}
+  //             </span>
+  //           </button>
+  //         ))}
+  //       </div>
+  //     );
+  // }
 };
 
 export default UnitTypeIcons;

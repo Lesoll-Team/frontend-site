@@ -26,7 +26,6 @@ const SidebarAndBarFilter = ({
   page,
 }) => {
   const router = useRouter();
-  // console.log(result);
   /***start init state BarFilter Components*/
   const [pageNumber, setPageNumber] = useState(0); //**********************************
   const [categoryType, setCategoryType] = useState(""); ////xxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -57,90 +56,115 @@ const SidebarAndBarFilter = ({
   const [messageConfirmed, setMessageConfirmed] = useState(""); ////xxxxxxxxxxxxxxxxxxx
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [openFilter, setOpenFilter] = useState(false);
+  const [clickOnTap, setClickOnTap] = useState(false);
 
   useEffect(() => {
     setLocationGovernorate(governorate);
     setLocationRegion(region);
-    setUnitTypesKey(unitType);
-    setSaleOptionKey(saleOptions);
-    setCategoryTypeKey(category);
-    setSearchKeyword(searchKeywords.keyword);
-    setPropFinancing(searchKeywords.mortgage);
-    setAreaFrom(searchKeywords.areaFrom);
-    setAreaTo(searchKeywords.areaTo);
-    setNumBathrooms(searchKeywords.numBathrooms);
-    setNumBedrooms(searchKeywords.numBedrooms);
-    setPriceFrom(searchKeywords.priceFrom);
-    setPriceTo(searchKeywords.priceTo);
-    setPageNumber(searchKeywords.page);
-    setFinishedOptionKey(searchKeywords.finishedOption);
-    setPaymentTypeKey(searchKeywords.paymentType);
-    setSortKey(searchKeywords.sort);
   }, []);
   const filterInput = {
-    category: categoryTypeKey || category,
-    saleOptions: saleOptionKey || saleOptions,
-    unitType: unitTypesKey || unitType,
-    governorate: locationGovernorate || governorate,
-    region: locationRegion || region,
+    category: categoryTypeKey, //|| category,
+    saleOptions: saleOptionKey, //|| saleOptions,
+    unitType: unitTypesKey, //|| unitType,
+    governorate: locationGovernorate, //|| governorate,
+    region: locationRegion, //|| region,
   };
   const queryInput = {
-    priceFrom: priceFrom || searchKeywords.priceFrom,
-    priceTo: priceTo || searchKeywords.priceTo,
-    areaFrom: areaFrom || searchKeywords.areaFrom,
-    areaTo: areaTo || searchKeywords.areaTo,
-    numBathrooms: numBathrooms || searchKeywords.numBathrooms,
-    numBedrooms: numBedrooms || searchKeywords.numBedrooms,
-    finishedOption: finishedOptionKey || searchKeywords.finishedOption,
-    keyword: searchKeyword || searchKeywords.keyword,
-    paymentType: paymentTypeKey || searchKeywords.paymentType,
-    page: pageNumber || searchKeywords.page,
-    mortgage: propFinancing || searchKeywords.mortgage,
-    sort: sortKey || searchKeywords.sort,
+    priceFrom: priceFrom, //|| searchKeywords.priceFrom,
+    priceTo: priceTo, //|| searchKeywords.priceTo,
+    areaFrom: areaFrom, //|| searchKeywords.areaFrom,
+    areaTo: areaTo, //|| searchKeywords.areaTo,
+    numBathrooms: numBathrooms, //|| searchKeywords.numBathrooms,
+    numBedrooms: numBedrooms, //|| searchKeywords.numBedrooms,
+    finishedOption: finishedOptionKey, //|| searchKeywords.finishedOption,
+    keyword: searchKeyword, //|| searchKeywords.keyword,
+    paymentType: paymentTypeKey, //|| searchKeywords.paymentType,
+    page: pageNumber, //|| searchKeywords.page,
+    mortgage: propFinancing, //|| searchKeywords.mortgage,
+    sort: sortKey, //|| searchKeywords.sort,
+  };
+  const routes = {
+    category,
+    saleOptions,
+    unitType,
   };
   const handleFilterAction = useCallback(() => {
-    // console.log("test-1");
-
     const filteredKeywords = Object.fromEntries(
       Object.entries(queryInput).filter(
-        ([_, value]) =>
-          value != null && value !== "" && value !== " " && value !== 0
+        ([_, value]) => value != null && value !== "" && value !== 0
       )
     );
 
     const filteredKeywords2 = Object.fromEntries(
       Object.entries(searchKeywords).filter(
-        ([_, value]) =>
-          value != null && value !== "" && value !== " " && value !== 0
+        ([_, value]) => value != null && value !== "" && value !== 0
       )
     );
 
     const filterInputAfter = Object.fromEntries(
       Object.entries(filterInput).filter(
-        ([_, value]) =>
-          value != null && value !== "" && value !== " " && value !== 0
+        ([_, value]) => value != null && value !== "" && value !== 0
       )
     );
 
-    const pagesInput3 = Object.keys(filterInputAfter)
-      .map((key) => `${filterInputAfter[key]}`)
+    const filteredRoots = Object.fromEntries(
+      Object.entries(routes).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
+    const combinedToObject = { ...filteredRoots, ...filterInputAfter };
+
+    const pagesInput3 = Object.keys(combinedToObject)
+      .map((key) => `${combinedToObject[key]}`)
       .join("/")
       .toLowerCase();
+
     const existingQueryParams = new URLSearchParams(
       router.asPath.split("?")[1]
     );
+
     const combinedKeywords = { ...filteredKeywords2, ...filteredKeywords };
     for (const [key, value] of Object.entries(combinedKeywords)) {
       existingQueryParams.set(key, value);
     }
+
     const queryString = existingQueryParams.toString(combinedKeywords);
-    router.push(`/properties/${pagesInput3}/search?${queryString}`);
-  }, [queryInput, filterInput]);
+
+    router.push(
+      `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
+    );
+  }, [
+    queryInput,
+    searchKeyword,
+    filterInput,
+    propFinancing,
+    sortKey,
+    sort,
+    paymentTypeKey,
+    paymentType,
+    finishedOptionKey,
+    finishedOption,
+    areaTo,
+    areaFrom,
+    numBedrooms,
+    numBathrooms,
+    priceTo,
+    priceFrom,
+    locationRegion,
+    unitTypesKey,
+    locationGovernorate,
+    unitTypes,
+    saleOptionKey,
+    saleOption,
+    categoryTypeKey,
+    categoryType,
+    pageNumber,
+  ]);
 
   const getNameWithValue = useGetNameWithValue(sortKey);
   useEffect(() => {
     handleFilterAction();
-  }, [sort, pageNumber]);
+  }, [sort, pageNumber, clickOnTap]);
   useEffect(() => {
     setIsSaveed(false);
     setConfirmSendMessage(false);
@@ -158,25 +182,25 @@ const SidebarAndBarFilter = ({
     });
     setOpenSaveFilterInput(!openSaveFilterInput);
   };
-  useEffect(() => {
-    setLocationGovernorate(governorate);
-    setLocationRegion(region);
-    setUnitTypesKey(unitType);
-    setSaleOptionKey(saleOptions);
-    setCategoryTypeKey(category);
-    setSearchKeyword(searchKeywords.keyword);
-    setPropFinancing(searchKeywords.mortgage);
-    setAreaFrom(searchKeywords.areaFrom);
-    setAreaTo(searchKeywords.areaTo);
-    setNumBathrooms(searchKeywords.numBathrooms);
-    setNumBedrooms(searchKeywords.numBedrooms);
-    setPriceFrom(searchKeywords.priceFrom);
-    setPriceTo(searchKeywords.priceTo);
-    setPageNumber(searchKeywords.page);
-    setFinishedOptionKey(searchKeywords.finishedOption);
-    setPaymentTypeKey(searchKeywords.paymentType);
-    setSortKey(searchKeywords.sort);
-  }, []);
+  // useEffect(() => {
+  //   setLocationGovernorate(governorate);
+  //   setLocationRegion(region);
+  //   setUnitTypesKey(unitType);
+  //   setSaleOptionKey(saleOptions);
+  //   setCategoryTypeKey(category);
+  //   setSearchKeyword(searchKeywords.keyword);
+  //   setPropFinancing(searchKeywords.mortgage);
+  //   setAreaFrom(searchKeywords.areaFrom);
+  //   setAreaTo(searchKeywords.areaTo);
+  //   setNumBathrooms(searchKeywords.numBathrooms);
+  //   setNumBedrooms(searchKeywords.numBedrooms);
+  //   setPriceFrom(searchKeywords.priceFrom);
+  //   setPriceTo(searchKeywords.priceTo);
+  //   setPageNumber(searchKeywords.page);
+  //   setFinishedOptionKey(searchKeywords.finishedOption);
+  //   setPaymentTypeKey(searchKeywords.paymentType);
+  //   setSortKey(searchKeywords.sort);
+  // }, []);
   return (
     <>
       {/* pop UP module after save  */}
@@ -255,7 +279,7 @@ const SidebarAndBarFilter = ({
       )}
       {/******************************/}
       {/* bar filter */}
-      <div className=" container mx-auto z-[500] bg-white flex justify-center sticky top-[80px]">
+      <div className=" md:container md:mx-auto mx-[10px] z-[500] bg-white flex justify-center sticky top-[80px]">
         <BarFilter
           handleFilterAction={handleFilterAction}
           setOpenFilter={setOpenFilter}
@@ -288,15 +312,24 @@ const SidebarAndBarFilter = ({
       </div>
       {/******************************/}
       {/* unit types  */}
-      <div className="container mx-auto md:block hidden">
+      <div className="md:container md:mx-auto mx-[10px md:block hidden">
         <UnitTypeIcons
-          unitType={categoryTypeKey || category}
+          category={categoryTypeKey || category}
           items={result?.aggregation_links}
+          setUnitTypesKey={setUnitTypesKey}
+          unitTypesKey={unitTypesKey}
+          setLocationGovernorate={setLocationGovernorate}
+          setLocationRegion={setLocationRegion}
+          setCategoryTypeKey={setCategoryTypeKey}
+          setClickOnTap={setClickOnTap}
+          clickOnTap={clickOnTap}
+          locationGovernorate={locationGovernorate}
+          locationRegion={locationRegion}
         />
       </div>
       {/******************************/}
       {/* title & save and filter button  */}
-      <div className="container mx-auto flex flex-wrap justify-between items-center ">
+      <div className="md:container md:mx-auto mx-[10px flex flex-wrap justify-between items-center ">
         {/*title filter page */}
         <div className=" w-full md:w-6/12">
           {language
@@ -345,7 +378,7 @@ const SidebarAndBarFilter = ({
       {/******************************/}
       {/*filter result  */}
       <div
-        className="  container mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
+        className="  md:container mx-[10px] md:mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
       gap-x-5 gap-y-3 md:gap-y-16 mt-5 md:mt-12 "
       >
         {result?.categoryResults?.map((property) => (
@@ -353,18 +386,20 @@ const SidebarAndBarFilter = ({
         ))}
       </div>
       {result == null && (
-        <div className="w-full container mx-auto ">
+        <div className="w-full md:container md:mx-auto mx-[10px">
           <ResultNotFound />
         </div>
       )}
       {/******************************/}
       {/*Pagination   */}
       {result?.totalPages && (
-        <PaginationPage
-          totalPage={result.totalPages}
-          currentPage={page}
-          setPageNumber={setPageNumber}
-        />
+        <div className="my-[4vh]">
+          <PaginationPage
+            totalPage={result.totalPages}
+            currentPage={page}
+            setPageNumber={setPageNumber}
+          />
+        </div>
       )}
 
       {/******************************/}

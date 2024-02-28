@@ -125,17 +125,7 @@ export async function getServerSideProps(context) {
 
   /*
    for (const key in context.query) {
-  //   if (key !== "roots") {
-  //     // Use square brackets to access property dynamically
-  //     queryKeywords[key] = context.query[key];
-  //   }
-  // }
-  // const queryKeyword = {
-  //   ...queryKeywords,
-  // };
-  //1console.log("queryKeyword", queryKeyword);
-  //1console.log("***************************");
-  1console.log("queryKeywords", queryKeywords);
+
   */
   //* here i call api and pass all keywords as object
   let response = await foundKeyword(queryKeywords);

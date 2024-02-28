@@ -72,14 +72,15 @@ const RealtyCard = ({ propertyDetails }) => {
         title={`${propertyDetails?.title}`}
         key={propertyDetails?._id}
         href={`/property-details/${propertyDetails?.slug}`}
-        className=" "
+        className="
+         md:h-[174px] h-[135px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
       >
         <Image
           alt="Card background"
           radius="none"
-          className=" flex object-cover  md:h-[174px] h-[135px]
-          md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px]
+          className=" flex object-cover  
           "
+          priority
           // className="flex  md:h-[174px] h-[135px]"
           width={400}
           height={174}

@@ -1,7 +1,3 @@
-// import { Image } from "@nextui-org/react";
-import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   CommercialRent,
   CommercialSale,
@@ -12,9 +8,12 @@ import {
   LandsIcon,
   ResidentialRent,
   ResidentialSale,
-} from "./iconHomeSVG";
-// import { SearchBarHome } from "@/Shared/search/SearchBarHome";
-const PropertiesCategories = () => {
+} from "@/components/homePage/iconHomeSVG";
+import Link from "next/link";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+
+const Index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const categories = [
     {
@@ -35,7 +34,15 @@ const PropertiesCategories = () => {
       url: "/properties/residential/rent",
       id: 2,
     },
-
+    {
+      icon: <InvestmentIcon />,
+      titleAr: "استثمار عقاري",
+      titleEn: "real estate investment",
+      totalAr: "( 300+ وحدة )",
+      totalEn: "( +300 Uint )",
+      url: "/properties/investment/lands",
+      id: 3,
+    },
     {
       icon: <CommercialRent />,
       titleAr: "تجاري للإيجار",
@@ -53,6 +60,15 @@ const PropertiesCategories = () => {
       totalEn: "( +255 Uint )",
       url: "/properties/commercial/sale",
       id: 5,
+    },
+    {
+      icon: <LandsIcon />,
+      titleAr: "أراضي",
+      titleEn: "lands",
+      totalAr: "( 180+ وحدة )",
+      totalEn: "( +180 Uint )",
+      url: "/properties/lands/sale",
+      id: 6,
     },
     {
       icon: <ComponentsIcon />,
@@ -73,26 +89,6 @@ const PropertiesCategories = () => {
       id: 8,
     },
     {
-      icon: <InvestmentIcon />,
-      titleAr: "استثمار عقاري",
-      titleEn: "real estate investment",
-      totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
-      url: "/properties/investment/lands",
-      id: 3,
-    },
-
-    {
-      icon: <LandsIcon />,
-      titleAr: "أراضي",
-      titleEn: "lands",
-      totalAr: "( 180+ وحدة )",
-      totalEn: "( +180 Uint )",
-      url: "/properties/lands/sale",
-      id: 6,
-    },
-
-    {
       icon: <GraveIcon />,
       titleAr: "مدافن",
       titleEn: "graves",
@@ -102,34 +98,12 @@ const PropertiesCategories = () => {
       id: 9,
     },
   ];
-  const [seeMore, setSeeMore] = useState(8);
-  useEffect(() => {
-    const handleResize = () => {
-      window.innerWidth <= 1280 ? setSeeMore(6) : setSeeMore(8);
-      window.innerWidth <= 770 && setSeeMore(4);
-      // setSeeMore(window.innerWidth <= 1280); // Set to true for screens less than or equal to 640px
-    };
-
-    handleResize(); // Call the function to set the initial value
-    window.addEventListener("resize", handleResize); // Add event listener for resize
-
-    return () => {
-      window.removeEventListener("resize", handleResize); // Clean up event listener
-    };
-  }, []);
-  //onClick={() => setSeeMore(!seeMore)}
   return (
     <Fragment>
-      <div className="md:w-full flex items-center justify-between  md:container md:mx-auto mx-[20px] ">
+      <div className="md:w-full flex items-center justify-between mt-10 md:container md:mx-auto mx-[20px] ">
         <h6 className="font-bold md:text-[1.6vw] text-[12px] flex mx-[10px] text-grayText2">
-          {language ? "نوع العقار" : "Property type"}
+          {language ? "نوع العقارات" : "Propertys type"}
         </h6>
-        <Link
-          href={"/categories"}
-          className=" underline text-[12px] md:text-[1.6vw]"
-        >
-          {language ? "رؤية المزيد" : "see more"}
-        </Link>
       </div>
 
       <div
@@ -138,13 +112,11 @@ const PropertiesCategories = () => {
         className="mt-[30px] mb-[32px] md:flex grid grid-cols-2  md:flex-wrap md:container md:mx-auto mx-[20px]  gap-6   md:justify-between  "
         // className="mt-[30px] mb-[32px] flex flex-wrap md:container md:mx-auto mx-[10px]  gap-6  lg:justify-normal justify-center "
       >
-        {categories
-          ?.filter((_, i) => i < seeMore)
-          ?.map((category) => (
-            <Link
-              href={category.url}
-              key={category.id}
-              className="
+        {categories.map((category) => (
+          <Link
+            href={category.url}
+            key={category.id}
+            className="
           shadow-none md:hover:border-none md:hover:shadow-[4px_4px_21px_0px_#A3A1A1]	 
            cursor-pointer shadow-black
             flex flex-col  justify-center items-center  border-[#CCCCCC] rounded-[8px]  border-2
@@ -153,29 +125,27 @@ const PropertiesCategories = () => {
                       w-full
                md:h-[300px]
              "
-              //w-[50%]  h-[60px]
-              // h-[300px]
-            >
-              <div className=" flex items-center justify-center  m-2 w-[50%] min-w-[50px]   sm:h-[150px] min-h-[100px] ">
-                {category.icon}
-              </div>
-              <div className="  text-center flex flex-col  ">
-                <p className="font-bold  text-grayText2">
-                  {language ? category.titleAr : category.titleEn}
-                </p>
-                <p
-                  className=" 
+          >
+            <div className=" flex items-center justify-center  m-2 w-[50%] min-w-[50px]   sm:h-[150px] min-h-[100px] ">
+              {category.icon}
+            </div>
+            <div className="  text-center flex flex-col  ">
+              <p className="font-bold  text-grayText2">
+                {language ? category.titleAr : category.titleEn}
+              </p>
+              <p
+                className=" 
                text-[10px] md:text-[13px] lg:text-[16px] xl:text-[20px]
               text-lightGreen"
-                >
-                  {language ? category.totalAr : category.totalEn}
-                </p>
-              </div>
-            </Link>
-          ))}
+              >
+                {language ? category.totalAr : category.totalEn}
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
     </Fragment>
   );
 };
 
-export default PropertiesCategories;
+export default Index;

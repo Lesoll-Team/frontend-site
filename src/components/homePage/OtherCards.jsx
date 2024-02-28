@@ -18,14 +18,17 @@ const OtherCards = () => {
         <Image
           src={"home/icon-add-property.svg"}
           alt={`icon add property`}
-          width="100"
-          height="100"
+          width={100}
+          height={100}
           radius="none"
           className="min-w-[30px]"
         />
       </Link>
 
-      <div className="flex p-5 lg:h-[205px] h-[120px]  cursor-pointer justify-around items-center md:w-[49%] w-full  bg-gradient-to-b border border-gray-100 from-[#e2f5ff] to-[#8ed9ff00] rounded-lg shadow">
+      <Link
+        href="/"
+        className="flex p-5 lg:h-[205px] h-[120px]  cursor-pointer justify-around items-center md:w-[49%] w-full  bg-gradient-to-b border border-gray-100 from-[#e2f5ff] to-[#8ed9ff00] rounded-lg shadow"
+      >
         <label className="min-w-[70%] cursor-pointer">
           <h5 className="text-[#0F3963] font-bold">حدد طلبك</h5>
           <p className="font-bold text-gray2 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
@@ -35,12 +38,12 @@ const OtherCards = () => {
         <Image
           src={"home/select-your-property.svg"}
           alt={`icon add property`}
-          width="100"
-          height="100"
+          width={100}
+          height={100}
           radius="none"
           className="min-w-[30px]"
         />
-      </div>
+      </Link>
     </Fragment>
   );
 };

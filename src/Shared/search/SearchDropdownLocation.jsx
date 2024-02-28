@@ -108,7 +108,6 @@ export function SearchDropdownLocation({
     selectedEnValue,
     numberGovFromReg,
     numberGov,
-    selectedValue,
   }) => {
     setSearchTerm("");
     setSelectedValues((prevValues) => {
@@ -155,33 +154,72 @@ export function SearchDropdownLocation({
     },
     [selectedValues]
   );
+
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "ArrowDown") {
+  //     e.preventDefault();
+  //     setHighlightedIndex((prevIndex) =>
+  //       prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
+  //     );
+  //   } else if (e.key === "ArrowUp") {
+  //     e.preventDefault();
+  //     setHighlightedIndex((prevIndex) =>
+  //       prevIndex > 0 ? prevIndex - 1 : prevIndex
+  //     );
+  //   } else if (e.key === "Enter" && highlightedIndex !== -1) {
+  //     e.preventDefault();
+  //     const selectedOption = filteredOptions[highlightedIndex];
+  //     handleSelect({
+  //       selectedOption: languageIs
+  //         ? selectedOption.name_ar
+  //         : selectedOption.name_en,
+  //       selectedValue: selectedOption.value_en,
+  //       selectedEnValue: selectedOption.value_en,
+  //       numberGovFromReg:
+  //         govFromReg == 0
+  //           ? selectedOption.numberReg_governorate_number || 0
+  //           : govFromReg,
+  //       numberGov: govNum == 0 ? selectedOption.numberGov || 0 : govNum,
+  //     });
+  //     setHighlightedIndex(-1);
+  //   }
+  // };
+
   const handleKeyDown = (e) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setHighlightedIndex((prevIndex) =>
-        prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
-      );
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setHighlightedIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : prevIndex
-      );
-    } else if (e.key === "Enter" && highlightedIndex !== -1) {
-      e.preventDefault();
-      const selectedOption = filteredOptions[highlightedIndex];
-      handleSelect({
-        selectedOption: languageIs
-          ? selectedOption.name_ar
-          : selectedOption.name_en,
-        selectedValue: selectedOption.value_en,
-        selectedEnValue: selectedOption.value_en,
-        numberGovFromReg:
-          govFromReg == 0
-            ? selectedOption.numberReg_governorate_number || 0
-            : govFromReg,
-        numberGov: govNum == 0 ? selectedOption.numberGov || 0 : govNum,
-      });
-      setHighlightedIndex(-1);
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setHighlightedIndex((prevIndex) =>
+          prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
+        );
+        break;
+
+      case "ArrowUp":
+        e.preventDefault();
+        setHighlightedIndex((prevIndex) =>
+          prevIndex > 0 ? prevIndex - 1 : prevIndex
+        );
+        break;
+
+      case "Enter":
+        e.preventDefault();
+        if (highlightedIndex !== -1) {
+          const selectedOption = filteredOptions[highlightedIndex];
+          handleSelect({
+            selectedOption: languageIs
+              ? selectedOption.name_ar
+              : selectedOption.name_en,
+            selectedValue: selectedOption.value_en,
+            selectedEnValue: selectedOption.value_en,
+            numberGovFromReg:
+              govFromReg == 0
+                ? selectedOption.numberReg_governorate_number || 0
+                : govFromReg,
+            numberGov: govNum == 0 ? selectedOption.numberGov || 0 : govNum,
+          });
+          setHighlightedIndex(-1);
+        }
+        break;
     }
   };
 
@@ -250,15 +288,11 @@ export function SearchDropdownLocation({
             type="text"
             placeholder={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
             value={searchTerm}
-            disabled={selectedValues.length >= 3}
+            disabled={selectedValues.length >= 2}
             onChange={handleSearch}
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
             className="w-full focus:outline-none text-gray-600  flex h-full"
-
-            //h-[30px] md:h-[40px] xl:h-[50px] 2xl:h-[60px]
-            // className="w-full font-inter text-[13px] md:text-[18px] rounded-[1vw] text-black
-            // active:outline-none hover:outline-none focus:outline-none indent-3"
           />
         </div>
       </div>
@@ -268,17 +302,17 @@ export function SearchDropdownLocation({
         >
           <div ref={dropdownRef}>
             {filteredOptions.map((governorate, index) => (
-              <div
+              <button
                 key={index}
                 onClick={() => handleSelectByLanguage(governorate)}
                 className={`${
                   index === highlightedIndex ? "bg-gray-200" : "bg-white"
-                }  px-4 py-2 cursor-pointer hover:bg-gray-100 
+                }  px-4 py-2  hover:bg-gray-100 
            text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] w-full 
            2xl:text-[24px]`}
               >
                 {languageIs ? governorate.name_ar : governorate.name_en}
-              </div>
+              </button>
             ))}
           </div>
         </div>

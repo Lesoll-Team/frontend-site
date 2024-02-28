@@ -2,7 +2,6 @@ import Head from "next/head";
 import PaginationPage from "../../Shared/Pagination/Pagination";
 import { useRouter } from "next/router";
 import RealtyCardMostView from "../../components/realtyCard/RealtyCard";
-import { SearchBar } from "@/Shared/search/SearchBar";
 import { useSelector } from "react-redux";
 
 function MostView({ propertyForView }) {
@@ -23,7 +22,6 @@ function MostView({ propertyForView }) {
 
         <link rel="canonical" href={`https://lesoll.com${[path]}`} />
       </Head>
-      <SearchBar />
       <div>
         <h1 className="font-bold text-5xl pt-20 md:flex md:justify-start flex justify-center text-lightGreen">
           {language ? "عقارات الأكثر مشاهدة" : "properties for most view"}
