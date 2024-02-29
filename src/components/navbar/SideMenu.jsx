@@ -117,14 +117,14 @@ const SideMenu = () => {
               <GoHome className="text-baseGray text-lg" />
               <span>{language ? "الرئيسية" : "Home"}</span>
             </Link>
-            <Link
+            {/* <Link
               onClick={closeSideMenu}
               href={"/"}
               className="flex items-center gap-4"
             >
               <IoMdCard className="text-baseGray text-lg" />
               <span>{language ? "الباقات" : "Packages"}</span>
-            </Link>
+            </Link> */}
             <Link
               onClick={closeSideMenu}
               href={"/add-property"}

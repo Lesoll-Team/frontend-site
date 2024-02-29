@@ -44,6 +44,7 @@ export default function Navbar() {
         <div className="flex items-center gap-24">
           <Link href="/">
             <Image
+              priority
               src={"/logo.svg"}
               width={114}
               height={46}
@@ -56,11 +57,11 @@ export default function Navbar() {
             <li>
               <Link href="/">{languageIs ? "الرئيسية" : "Home"}</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/Packages">
                 {languageIs ? "الباقات" : "Packages"}
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/add-property">
                 {languageIs ? "إضافة عقار" : "Add Property"}

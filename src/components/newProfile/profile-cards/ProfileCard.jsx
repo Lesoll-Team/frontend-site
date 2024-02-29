@@ -74,7 +74,7 @@ const ProfileCard = ({ data, type, onDelete }) => {
           <div className="w-full space-y-3">
             <button
               onClick={() => {
-                router.push("/profile/edit");
+                router.push(`/editproperty/${data.slug}`);
               }}
               className="text-base text-lightGreen text-center w-full py-2 px-5 border-2 rounded-md"
             >

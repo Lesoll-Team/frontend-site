@@ -89,7 +89,7 @@ const Notifications = () => {
                 const { formattedDate } = formatDate(item.createdAt);
                 return (
                   <Link
-                    href={item.link}
+                    href={item?.link || ""}
                     key={item._id}
                     onClick={() => handleNotificationClick(item._id)}
                     className={`flex items-center justify-between gap-1 flex-wrap `}

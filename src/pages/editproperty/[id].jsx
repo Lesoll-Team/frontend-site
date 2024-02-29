@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import EditProp from "@/components/editproperty/EditProp";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
+import AddProperty from "@/components/newAddProperty/AddProperty";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
@@ -22,6 +23,7 @@ const EditProperty = () => {
     }
   }, [propertyId]);
 
+  console.log(propData);
   return (
     <div>
       {/* EditProperty {propertyId}
@@ -29,7 +31,7 @@ const EditProperty = () => {
       {/* <EditProperty/> */}
       {/* <EditProp propData={propData} /> */}
       {propData ? (
-        <EditProp propData={propData} setPropData={setPropData} />
+        <AddProperty propData={propData} />
       ) : (
         <div className="h-[90vh] flex items-center justify-center">
           <DotPulse size={60} speed={1.3} color="#309da0" />
