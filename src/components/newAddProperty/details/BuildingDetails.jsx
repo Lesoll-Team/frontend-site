@@ -7,6 +7,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import DropDown from "@/Shared/ui/DropDown";
 import { finishingType } from "../finishingType";
 import RadioBtn from "@/Shared/ui/RadioBtn";
+import Error from "@/Shared/ui/Error";
 
 const BuildingDetails = ({
   errors,
@@ -28,11 +29,18 @@ const BuildingDetails = ({
           {...register("area", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل مساحة العقار"
+                : "please enter area",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "يجب ان تكون مساحة العقار رقم"
+                    : "Propert area must be a number")
+                );
               },
             },
           })}
@@ -53,11 +61,18 @@ const BuildingDetails = ({
           {...register("level", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل الدور"
+                : "please enter the level",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "يجب ان يكون الدور رقما"
+                    : "level must be a number")
+                );
               },
             },
           })}
@@ -66,7 +81,7 @@ const BuildingDetails = ({
           }`}
           // className={"border-none"}
         />
-        {errors.level && <p className="text-red-500">{errors.level.message}</p>}{" "}
+        {errors.level && <Error>{errors.level.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
@@ -75,11 +90,18 @@ const BuildingDetails = ({
           {...register("rooms", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل عددالغرف"
+                : "please enter the number of rooms",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "عدد الغرف يجب ان يكون رقما"
+                    : "Rooms must be a number")
+                );
               },
             },
           })}
@@ -88,7 +110,7 @@ const BuildingDetails = ({
           }`}
           // className={"border-none"}
         />
-        {errors.rooms && <p className="text-red-500">{errors.rooms.message}</p>}{" "}
+        {errors.rooms && <Error>{errors.rooms.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "عدد الحمامات" : "Bathrooms"}</h3>
@@ -97,11 +119,18 @@ const BuildingDetails = ({
           {...register("bathRooms", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل الحمامات"
+                : "please enter the number of bathrooms",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "عدد الحمامات يجب ان يكون رقما"
+                    : "Rooms must be a number")
+                );
               },
             },
           })}
@@ -110,9 +139,7 @@ const BuildingDetails = ({
           }`}
           // className={"border-none"}
         />
-        {errors.bathRooms && (
-          <p className="text-red-500">{errors.bathRooms.message}</p>
-        )}{" "}
+        {errors.bathRooms && <Error>{errors.bathRooms.message}</Error>}{" "}
       </div>
 
       <div className="space-y-2">
@@ -133,7 +160,9 @@ const BuildingDetails = ({
           {...register("finishingType", {
             required: {
               value: true,
-              message: "please enter finish type",
+              message: language
+                ? "اختر نوع التشطيب"
+                : "please choose finish type",
             },
           })}
         />

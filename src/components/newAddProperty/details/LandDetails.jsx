@@ -4,6 +4,7 @@ import AddPropSectionContainer from "../AddPropSectionContainer";
 import "react-datepicker/dist/react-datepicker.css";
 
 import RadioBtn from "@/Shared/ui/RadioBtn";
+import Error from "@/Shared/ui/Error";
 
 const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -17,11 +18,18 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("area", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل مساحة العقار"
+                : "please enter area",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "يجب ان تكون مساحة العقار رقم"
+                    : "Propert area must be a number")
+                );
               },
             },
           })}
@@ -30,7 +38,9 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.area && <p className="text-red-500">{errors.area.message}</p>}{" "}
+        {errors.area && (
+          <Error className="text-red-500">{errors.area.message}</Error>
+        )}{" "}
       </div>
 
       <div className="flex gap-4">

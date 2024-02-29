@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { FaMinusCircle } from "react-icons/fa";
 import { SiAddthis } from "react-icons/si";
+import Error from "@/Shared/ui/Error";
 
 const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -64,7 +65,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <AddPropSectionContainer className={"flex flex-col"}>
       <div
-        className={`w-full  bg-white border-dashed border-2  border-outLine py-10 px-5 flex flex-col items-center justify-center ${
+        className={`w-full  bg-white border-dashed border-2 gap-3 md:gap-5  border-outLine py-5 md:py-10 px-5 flex flex-col items-center justify-center ${
           errors.mainImage && "border-red-500"
         }`}
       >
@@ -88,7 +89,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               alt="add image icon"
               className="cursor-pointer"
             />
-            <h3 className="text-center text-lg md:text-2xl text-darkGray font-bold">
+            <h3 className="text-center text-base sm:text-lg md:text-2xl text-darkGray font-bold">
               {language
                 ? "اضف الصورة الرئيسية للعقار"
                 : "Add main image for the property"}
@@ -117,14 +118,14 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             </button>
             <Image
               alt="main-image"
-              className="w-[420] rounded object-cover h-[300px] border-2 border-outLine"
+              className="max-w-[420] rounded object-cover max-h-[300px] border-2 border-outLine"
               width={400}
               height={300}
               src={URL.createObjectURL(mainImage)}
             />
           </div>
         )}
-        {errors.mainImage && <p>{errors.mainImage.message}</p>}
+        {errors.mainImage && <Error>{errors.mainImage.message}</Error>}
         <input
           type="text"
           hidden
@@ -138,7 +139,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           })}
         />
       </div>
-      <div className="w-full space-y-2 bg-white border-dashed border-2 border-outLine py-10 px-5 flex flex-col items-center justify-center">
+      <div className="w-full  bg-white border-dashed border-2 gap-3 md:gap-5 border-outLine py-5 md:py-10 px-5 flex flex-col items-center justify-center">
         <input
           ref={multiImgInputRef}
           className="hidden"
@@ -208,7 +209,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             />
           </div>
         )}
-        <p>{errors?.multiImage?.message}</p>
+        <Error>{errors?.multiImage?.message}</Error>
         <input
           type="text"
           hidden
@@ -221,10 +222,20 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             },
             validate: {
               min: (value) => {
-                return value.length > 2 || "must be a at least 3 images";
+                return (
+                  value.length > 2 ||
+                  (language
+                    ? "يجب ان لا يقل عدد الصور الاخرى عن 3"
+                    : " must be a at least 3 images")
+                );
               },
               max: (value) => {
-                return value.length < 21 || "max is 20";
+                return (
+                  value.length < 21 ||
+                  (language
+                    ? "يجب الا يزيد عدد الصور عن 20"
+                    : "only 20 images a re allowed")
+                );
               },
             },
           })}
