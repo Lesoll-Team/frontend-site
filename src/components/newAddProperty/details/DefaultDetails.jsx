@@ -7,6 +7,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import DropDown from "@/Shared/ui/DropDown";
 import { finishingType } from "../finishingType";
 import RadioBtn from "@/Shared/ui/RadioBtn";
+import Error from "@/Shared/ui/Error";
 
 const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -29,11 +30,18 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("area", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل مساحة العقار"
+                : "please enter area",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "يجب ان تكون مساحة العقار رقم"
+                    : "Propert area must be a number")
+                );
               },
             },
           })}
@@ -42,7 +50,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.area && <p className="text-red-500">{errors.area.message}</p>}{" "}
+        {errors.area && (
+          <Error className="text-red-500">{errors.area.message}</Error>
+        )}{" "}
       </div>
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "الدور" : "level"}</h3>
@@ -52,11 +62,18 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("level", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل الدور"
+                : "please enter the level",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "يجب ان يكون الدور رقما"
+                    : "level must be a number")
+                );
               },
             },
           })}
@@ -65,7 +82,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.level && <p className="text-red-500">{errors.level.message}</p>}{" "}
+        {errors.level && (
+          <Error className="text-red-500">{errors.level.message}</Error>
+        )}{" "}
       </div>
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
@@ -74,11 +93,18 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("rooms", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل عددالغرف"
+                : "please enter the number of rooms",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "عدد الغرف يجب ان يكون رقما"
+                    : "Rooms must be a number")
+                );
               },
             },
           })}
@@ -96,11 +122,18 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("bathRooms", {
             required: {
               value: true,
-              message: "please enter area",
+              message: language
+                ? "من فضلك ادخل الحمامات"
+                : "please enter the number of bathrooms",
             },
             validate: {
               mustBeNumber: (value) => {
-                return !isNaN(value) || "must be a number";
+                return (
+                  !isNaN(value) ||
+                  (language
+                    ? "عدد الحمامات يجب ان يكون رقما"
+                    : "Rooms must be a number")
+                );
               },
             },
           })}
@@ -115,7 +148,10 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
       <div className="w-full space-y-2">
         <h3 className="text-xl">
-          {language ? " سنة التسليم" : "Delivery Date"}
+          {language ? " سنة التسليم" : "Delivery Date"}{" "}
+          <span className="text-outLine">
+            {language ? "(إختيارى)" : "(optional)"}
+          </span>
         </h3>
 
         <div
@@ -165,7 +201,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("finishingType", {
             required: {
               value: true,
-              message: "please enter finish type",
+              message: language
+                ? "اختر نوع التشطيب"
+                : "please choose finish type",
             },
           })}
         />

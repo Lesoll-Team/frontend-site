@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Installment from "./Installment";
 import { useCallback } from "react";
 import Cash from "./Cash";
+import Error from "@/Shared/ui/Error";
 
 const Sale = ({
   errors,
@@ -58,14 +59,24 @@ const Sale = ({
             {...register("price", {
               required: {
                 value: true,
-                message: "please enter price",
+                message: language ? "من فضلك ادخل السعر" : "please enter price",
               },
               validate: {
                 mustBeNumber: (value) => {
-                  return !isNaN(value) || "must be a number";
+                  return (
+                    !isNaN(value) ||
+                    (language
+                      ? "السعر يجب ان يكون رقم"
+                      : "the price must be a number")
+                  );
                 },
                 max: (value) => {
-                  return parseInt(value) > 100 || "min is 100";
+                  return (
+                    parseInt(value) >= 100 ||
+                    (language
+                      ? "لا يجب ان يقل السعر عن 100 جنية"
+                      : "price must be at least 100 egp")
+                  );
                 },
               },
             })}
@@ -81,7 +92,7 @@ const Sale = ({
             {language ? "جنية" : "Egp"}
           </span>
         </div>
-        {errors.price && <p>{errors.price.message}</p>}
+        {errors.price && <Error>{errors.price.message}</Error>}
       </div>
       <div className="space-y-2">
         <h3 className="text-xl">
@@ -104,7 +115,9 @@ const Sale = ({
           {...register("saleOption.name.ar", {
             required: {
               value: true,
-              message: "please choose price",
+              message: language
+                ? "من فضلك اختر طريقة الدفع"
+                : "please choose payment method",
             },
           })}
         />

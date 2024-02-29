@@ -7,6 +7,7 @@ import { useEffect, useMemo } from "react";
 import GovRegion from "./location/GovRegion";
 import PlaceLatLng from "./location/PlaceLatLng";
 import { useLoadScript } from "@react-google-maps/api";
+import Error from "@/Shared/ui/Error";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
 const AddPropMainInfo = ({
@@ -57,18 +58,23 @@ const AddPropMainInfo = ({
           {...register("title", {
             required: {
               value: true,
-              message: "please enter title",
+              message: language ? "ادخل عنوان العقاار" : "please enter title",
             },
             validate: {
               // mustBeNumber: (value) => {
               //   return !isNaN(value) || "must be a number";
               // },
               max: (value) => {
-                return value.length < 100 || "max is 100";
+                return value.length < 100 || language
+                  ? "لايجب ان يزيد عن 100 حرف"
+                  : "the title should not be more than 100 characters";
               },
               max: (value) => {
                 return (
-                  !value.match(phoneRegex) || "title contain a phone number"
+                  !value.match(phoneRegex) ||
+                  (language
+                    ? "رقم الهاتف فى العنوان غير  مسموح"
+                    : "Phone number in title are not allowed")
                 );
               },
             },
@@ -78,9 +84,9 @@ const AddPropMainInfo = ({
           }`}
           // className={"border-none"}
         />
-        {errors.title && <p>{errors.title.message}</p>}
+        {errors.title && <Error className="">{errors.title.message}</Error>}
       </div>
-      <div className=" space-y-2">
+      <div className=" space-y-5">
         <h3 className="text-xl">{language ? "نوع الإعلان" : "Offer Type"}</h3>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
@@ -124,7 +130,7 @@ const AddPropMainInfo = ({
           </button>
         </div>
       </div>
-      <div className=" space-y-2">
+      <div className=" space-y-5">
         <h3 className="text-xl">
           {language ? "العقار فى كومباوند " : "Property in compound"}
         </h3>
@@ -165,7 +171,9 @@ const AddPropMainInfo = ({
           {...register("propType.value", {
             required: {
               value: true,
-              message: "please enter property type",
+              message: language
+                ? "من فضلك اختر نوع العقار"
+                : "please choose property type",
             },
           })}
         />
@@ -181,6 +189,9 @@ const AddPropMainInfo = ({
           }}
           options={propTypeList}
         />
+        {errors?.propType?.value && (
+          <Error>{errors.propType.value.message}</Error>
+        )}
       </div>
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "نوع الوحده" : "Unit Type"}</h3>
@@ -190,7 +201,9 @@ const AddPropMainInfo = ({
           {...register("unitType.value", {
             required: {
               value: true,
-              message: "please enter unit type",
+              message: language
+                ? "من فضلك اختر نوع الوحدة"
+                : "please enter unit type",
             },
           })}
         />
@@ -203,6 +216,9 @@ const AddPropMainInfo = ({
           disabled={!watch("propType.value")}
           options={determineOptions}
         />
+        {errors?.unitType?.value && (
+          <Error>{errors.unitType.value.message}</Error>
+        )}
       </div>
       <GovRegion
         errors={errors}
@@ -242,12 +258,19 @@ const AddPropMainInfo = ({
               //   return !isNaN(value) || "must be a number";
               // },
               min: (value) => {
-                return value.length > 20 || "min is 20";
+                return (
+                  value.length > 20 ||
+                  (language
+                    ? "يجب الا يقل الوصف عن 20 حرف"
+                    : "description must be at least 20 characters long")
+                );
               },
               containPhone: (value) => {
                 return (
                   !value.match(phoneRegex) ||
-                  "description contain a phone number"
+                  (language
+                    ? "رقم الهاتف فى الوصف غير  مسموح"
+                    : "Phone number in description are not allowed")
                 );
               },
             },
@@ -259,7 +282,9 @@ const AddPropMainInfo = ({
             errors.description && "border-red-500 focus:border-red-500"
           }`}
         />
-        {errors.description && <p>{errors.description.message}</p>}
+        {errors.description && (
+          <Error className="">{errors.description.message}</Error>
+        )}
       </div>
       {/* <div className="h-screen"></div> */}
     </AddPropSectionContainer>

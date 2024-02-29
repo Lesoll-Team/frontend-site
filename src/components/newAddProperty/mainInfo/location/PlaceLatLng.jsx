@@ -41,7 +41,9 @@ const PlaceLatLng = ({ errors, register, setValue, watch, clearErrors }) => {
         {...register("address.name", {
           required: {
             value: true,
-            message: "please enter property address",
+            message: language
+              ? "من فضلك ادخل العنوان بالتفصيل"
+              : "please enter property address",
           },
         })}
       />

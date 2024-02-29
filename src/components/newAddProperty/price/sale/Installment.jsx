@@ -6,6 +6,7 @@ import { useFieldArray } from "react-hook-form";
 import { FaSquareMinus } from "react-icons/fa6";
 
 import { useCallback } from "react";
+import Error from "@/Shared/ui/Error";
 const INSTALLMENT = {
   type: {
     value: "",
@@ -116,7 +117,9 @@ const Installment = ({
                     {...register(`installment.${index}.type.value`, {
                       required: {
                         value: true,
-                        message: "please choose installment type",
+                        message: language
+                          ? "من فضلك اختر نوع التقسيط"
+                          : "please choose installment type",
                       },
                     })}
                   />
@@ -132,11 +135,18 @@ const Installment = ({
                       {...register(`installment.${index}.period`, {
                         required: {
                           value: true,
-                          message: "please enter period",
+                          message: language
+                            ? "من فضلك ادخل مدة التقسيط"
+                            : "please enter installment period",
                         },
                         validate: {
                           mustBeNumber: (value) => {
-                            return !isNaN(value) || "must be a number";
+                            return (
+                              !isNaN(value) ||
+                              (language
+                                ? "يجب ان تكون مدة التقسيط رقم"
+                                : "installment period must be a number")
+                            );
                           },
                           // max: (value) => {
                           //   return parseInt(value) > 100 || "min is 100";
@@ -157,6 +167,12 @@ const Installment = ({
                       {language ? "سنين" : "years"}
                     </span>
                   </div>
+                  {errors?.installment &&
+                    errors?.installment[index]?.period && (
+                      <Error>
+                        {errors?.installment[index]?.period?.message}
+                      </Error>
+                    )}
                 </div>
               </div>
 
@@ -171,14 +187,26 @@ const Installment = ({
                       {...register(`installment.${index}.downPayment`, {
                         required: {
                           value: true,
-                          message: "please enter downPayment",
+                          message: language
+                            ? "من فضلك ادخل المقدم"
+                            : "please enter Down Payment",
                         },
                         validate: {
                           mustBeNumber: (value) => {
-                            return !isNaN(value) || "must be a number";
+                            return (
+                              !isNaN(value) ||
+                              (language
+                                ? "يجب ان يكون المقدم رقم"
+                                : "Down Payment must be a number")
+                            );
                           },
                           max: (value) => {
-                            return parseInt(value) > 100 || "min is 100";
+                            return (
+                              parseInt(value) >= 1000 ||
+                              (language
+                                ? "يجب ان لا يقل المقدم عن 1000 جنية "
+                                : "Down Payment must be at least 1000 Egp")
+                            );
                           },
                         },
                       })}
@@ -196,7 +224,19 @@ const Installment = ({
                       {language ? "جنية" : "Egp"}
                     </span>
                   </div>
+                  {/* {errors?.installment[index]?.downPayment && (
+                    <Error>
+                      {errors?.installment[index]?.downPayment.message}
+                    </Error>
+                  )} */}
+                  {errors?.installment &&
+                    errors?.installment[index]?.downPayment && (
+                      <Error>
+                        {errors?.installment[index]?.downPayment?.message}
+                      </Error>
+                    )}
                 </div>
+
                 <div className="space-y-2 w-full">
                   <h3 className="text-xl">
                     {language ? "قيمة التقسيط" : "Installment amount"}
@@ -207,14 +247,26 @@ const Installment = ({
                       {...register(`installment.${index}.amount`, {
                         required: {
                           value: true,
-                          message: "please enter amount",
+                          message: language
+                            ? "من فضلك ادخل قيمة التقسيط"
+                            : "please enter installment amount",
                         },
                         validate: {
                           mustBeNumber: (value) => {
-                            return !isNaN(value) || "must be a number";
+                            return (
+                              !isNaN(value) ||
+                              (language
+                                ? "يجب ان تكون قيمة التقسيط رقم"
+                                : "Installment amount must be a number")
+                            );
                           },
                           max: (value) => {
-                            return parseInt(value) > 100 || "min is 100";
+                            return (
+                              parseInt(value) >= 1000 ||
+                              (language
+                                ? " يجب ان لا تقل قيمة التقسيط عن 1000 جنية"
+                                : "Installment amount must be at least 1000 Egp")
+                            );
                           },
                         },
                       })}
@@ -231,7 +283,14 @@ const Installment = ({
                     >
                       {egpPer(watch(`installment.${index}.type.value`))}
                     </span>
+                    {/* {console.log(errors?.installment[index])} */}
                   </div>
+                  {errors?.installment &&
+                    errors?.installment[index]?.amount && (
+                      <Error>
+                        {errors?.installment[index]?.amount.message}
+                      </Error>
+                    )}
                 </div>
               </div>
               {fields.length === index + 1 && index < 3 && (

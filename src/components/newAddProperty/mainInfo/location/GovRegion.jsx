@@ -90,7 +90,9 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
             {...register("compaounds._id", {
               required: {
                 value: true,
-                message: "please enter property type",
+                message: language
+                  ? "من فضلك اختر كومباوند من القائمة المقترحة"
+                  : "please choose a compound from the suggestions list",
               },
             })}
           />
@@ -120,8 +122,8 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
                     : option.governorate_name_en;
                 }}
                 inputValue={govInput}
-                error={errors?.governrate?._id}
-                errorMessage={errors?.governrate?._id.message}
+                error={errors?.address?.governrate?._id}
+                errorMessage={errors?.address?.governrate?._id.message}
               />
               {govStatus === "loading" && (
                 <div className="-mx-10">
@@ -150,7 +152,9 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("address.governrate._id", {
             required: {
               value: true,
-              message: "please enter property type",
+              message: language
+                ? "من فضلك اختر محافظة من القائمة المقترحة"
+                : "please choose governorate from the suggestions list",
             },
           })}
         />
@@ -212,7 +216,9 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("address.region._id", {
             required: {
               value: true,
-              message: "please enter property type",
+              message: language
+                ? "من فضلك اختر منطقة من القائمة المقترحة"
+                : "please choose region from the suggestions list",
             },
           })}
         />

@@ -4,11 +4,6 @@ import LandDetails from "./LandDetails";
 import BuildingDetails from "./BuildingDetails";
 import useContact from "@/Hooks/useContact";
 const AddPropDetails = ({ errors, register, setValue, watch, clearErrors }) => {
-  const { whatsAppLink, callLink } = useContact({
-    phoneNumber: 2001146425301,
-    message: "bash msr",
-  });
-
   const renderDetails = () => {
     if (watch("propType.value") === "Land") {
       return (
@@ -44,7 +39,6 @@ const AddPropDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   };
   return (
     <section className="space-y-4">
-      <a href={callLink}>aadda</a>
       {renderDetails()}
       {watch("propType.value") !== "Land" && (
         <SelectFeatures setValue={setValue} watch={watch} />

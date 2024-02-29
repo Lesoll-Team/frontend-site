@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
+import { useSelector } from "react-redux";
 const ComboBox = ({
   filteredOptions,
   onSelect,
@@ -13,6 +14,8 @@ const ComboBox = ({
   inputStyle,
   optionStyle,
 }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const [showOptions, setShowOptions] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const inputRef = useRef(null);
@@ -90,7 +93,7 @@ const ComboBox = ({
   };
 
   return (
-    <div className=" w-full">
+    <div className=" w-full space-y-2">
       <div className="relative w-full">
         <input
           autoComplete="off"
@@ -135,7 +138,7 @@ const ComboBox = ({
               ))
             ) : (
               <div className="w-full grid place-content-center min-h-[150px]">
-                <p>No results</p>
+                <p>{language ? "لا توجد نتائج مشابهة" : "No Result"}</p>
               </div>
             )}
           </div>
