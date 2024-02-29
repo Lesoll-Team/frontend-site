@@ -25,10 +25,10 @@ const useCompound = (searchKeyword) => {
               )
           );
         } else {
-          return gov;
+          return compounds;
         }
       } else {
-        return gov; // Return gov if govInput is not a string
+        return compounds; // Return gov if govInput is not a string
       }
     }
   }, [searchKeyword, compounds]);

@@ -39,7 +39,7 @@ const ComboBox = ({
     }
   }, [error]);
   useEffect(() => {
-    if (showOptions && filteredOptions.length > 0) {
+    if (showOptions && filteredOptions && filteredOptions?.length > 0) {
       const highlightedOption = dropdownRef.current.children[focusedIndex];
       if (highlightedOption) {
         highlightedOption.scrollIntoView({
@@ -118,7 +118,7 @@ const ComboBox = ({
               "absolute fade-in border z-10 mt-[1px] w-full bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px]"
             }
           >
-            {filteredOptions.length > 0 ? (
+            {filteredOptions && filteredOptions.length > 0 ? (
               filteredOptions.map((option, index) => (
                 <div key={index}>
                   <button

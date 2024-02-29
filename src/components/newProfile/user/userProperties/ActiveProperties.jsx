@@ -39,7 +39,7 @@ const ActiveProperties = () => {
           </>
         )}
       </div>
-      {activeProp?.totalPages > 0 && (
+      {activeProp?.totalPages > 1 && (
         <div dir="ltr" className={styles.pagination}>
           <ReactPaginate
             breakLabel={

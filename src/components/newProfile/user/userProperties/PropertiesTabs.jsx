@@ -13,10 +13,10 @@ const PropertiesTabs = ({ params, currentTab }) => {
   return (
     <div className="flex items-center md:justify-center lg:justify-start md:gap-5">
       <button
-        className={`rounded-md  text-bae font-medium px-5 py-2 ${
+        className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
           currentTab === "active"
-            ? "bg-lightGreen text-white"
-            : "text-baseGray bg-gray-100"
+            ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
+            : "text-baseGray md:bg-gray-100"
         }`}
         onClick={() => {
           handleTabClick("active");
@@ -25,10 +25,10 @@ const PropertiesTabs = ({ params, currentTab }) => {
         {language ? "النشطة" : "Active"}
       </button>
       <button
-        className={`rounded-md  text-bae font-medium px-5 py-2 ${
+        className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
           currentTab === "pending"
-            ? "bg-lightGreen text-white"
-            : "text-baseGray bg-gray-100"
+            ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
+            : "text-baseGray md:bg-gray-100"
         }`}
         onClick={() => {
           handleTabClick("pending");
@@ -37,10 +37,10 @@ const PropertiesTabs = ({ params, currentTab }) => {
         {language ? "قيد المراجعة" : "Pending"}
       </button>
       <button
-        className={`rounded-md  text-bae font-medium px-5 py-2 ${
+        className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
           currentTab === "sold"
-            ? "bg-lightGreen text-white"
-            : "text-baseGray bg-gray-100"
+            ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
+            : "text-baseGray md:bg-gray-100"
         }`}
         onClick={() => {
           handleTabClick("sold");
