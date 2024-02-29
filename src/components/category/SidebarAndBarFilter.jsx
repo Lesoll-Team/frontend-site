@@ -58,9 +58,51 @@ const SidebarAndBarFilter = ({
   const [openFilter, setOpenFilter] = useState(false);
   const [clickOnTap, setClickOnTap] = useState(false);
 
+  // useEffect(() => {
+
+  //   setLocationGovernorate(governorate);
+  //   setLocationRegion(region);
+  // }, []);
+  const firstFetchData = () => {
+    do {
+      setLocationGovernorate(governorate);
+      setLocationRegion(region);
+      setUnitTypesKey(unitType);
+      setSaleOptionKey(saleOptions);
+      setCategoryTypeKey(category);
+      setSearchKeyword(searchKeywords.keyword);
+      setPropFinancing(searchKeywords.mortgage);
+      setAreaFrom(searchKeywords.areaFrom);
+      setAreaTo(searchKeywords.areaTo);
+      setNumBathrooms(searchKeywords.numBathrooms);
+      setNumBedrooms(searchKeywords.numBedrooms);
+      setPriceFrom(searchKeywords.priceFrom);
+      setPriceTo(searchKeywords.priceTo);
+      setPageNumber(searchKeywords.page);
+      setFinishedOptionKey(searchKeywords.finishedOption);
+      setPaymentTypeKey(searchKeywords.paymentType);
+      setSortKey(searchKeywords.sort);
+      // setLocationGovernorate(locationGovernorate || governorate);
+      // setLocationRegion(locationRegion || region);
+      // setUnitTypesKey(unitTypesKey || unitType);
+      // setSaleOptionKey(saleOptionKey || saleOptions);
+      // setCategoryTypeKey(categoryTypeKey || category);
+      // setSearchKeyword(searchKeyword || searchKeywords.keyword);
+      // setPropFinancing(propFinancing || searchKeywords.mortgage);
+      // setAreaFrom(areaFrom || searchKeywords.areaFrom);
+      // setAreaTo(areaTo || searchKeywords.areaTo);
+      // setNumBathrooms(numBathrooms || searchKeywords.numBathrooms);
+      // setNumBedrooms(numBedrooms || searchKeywords.numBedrooms);
+      // setPriceFrom(priceFrom || searchKeywords.priceFrom);
+      // setPriceTo(priceTo || searchKeywords.priceTo);
+      // setPageNumber(pageNumber || searchKeywords.page);
+      // setFinishedOptionKey(finishedOptionKey || searchKeywords.finishedOption);
+      // setPaymentTypeKey(paymentTypeKey || searchKeywords.paymentType);
+      // setSortKey(sortKey || searchKeywords.sort);
+    } while (false);
+  };
   useEffect(() => {
-    setLocationGovernorate(governorate);
-    setLocationRegion(region);
+    firstFetchData();
   }, []);
   const filterInput = {
     category: categoryTypeKey, //|| category,
@@ -83,88 +125,83 @@ const SidebarAndBarFilter = ({
     mortgage: propFinancing, //|| searchKeywords.mortgage,
     sort: sortKey, //|| searchKeywords.sort,
   };
-  const routes = {
-    category,
-    saleOptions,
-    unitType,
-  };
-  const handleFilterAction = useCallback(() => {
-    const filteredKeywords = Object.fromEntries(
-      Object.entries(queryInput).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
+  // const routes = {
+  //   category,
+  //   saleOptions,
+  //   unitType,
+  // };
+  const handleFilterAction =
+    // useCallback(
+    () => {
+      firstFetchData();
 
-    const filteredKeywords2 = Object.fromEntries(
-      Object.entries(searchKeywords).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
+      const filteredKeywords = Object.fromEntries(
+        Object.entries(queryInput).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
 
-    const filterInputAfter = Object.fromEntries(
-      Object.entries(filterInput).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
+      const filterInputAfter = Object.fromEntries(
+        Object.entries(filterInput).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
 
-    const filteredRoots = Object.fromEntries(
-      Object.entries(routes).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
-    const combinedToObject = { ...filteredRoots, ...filterInputAfter };
+      const combinedToObject = { ...filterInputAfter };
 
-    const pagesInput3 = Object.keys(combinedToObject)
-      .map((key) => `${combinedToObject[key]}`)
-      .join("/")
-      .toLowerCase();
+      const pagesInput3 = Object.keys(combinedToObject)
+        .map((key) => `${combinedToObject[key]}`)
+        .join("/")
+        .toLowerCase();
 
-    const existingQueryParams = new URLSearchParams(
-      router.asPath.split("?")[1]
-    );
+      const existingQueryParams = new URLSearchParams(
+        router.asPath.split("?")[1]
+      );
 
-    const combinedKeywords = { ...filteredKeywords2, ...filteredKeywords };
-    for (const [key, value] of Object.entries(combinedKeywords)) {
-      existingQueryParams.set(key, value);
-    }
+      const combinedKeywords = { ...filteredKeywords };
+      for (const [key, value] of Object.entries(combinedKeywords)) {
+        existingQueryParams.set(key, value);
+      }
 
-    const queryString = existingQueryParams.toString(combinedKeywords);
+      const queryString = existingQueryParams.toString(combinedKeywords);
 
-    router.push(
-      `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
-    );
-  }, [
-    queryInput,
-    searchKeyword,
-    filterInput,
-    propFinancing,
-    sortKey,
-    sort,
-    paymentTypeKey,
-    paymentType,
-    finishedOptionKey,
-    finishedOption,
-    areaTo,
-    areaFrom,
-    numBedrooms,
-    numBathrooms,
-    priceTo,
-    priceFrom,
-    locationRegion,
-    unitTypesKey,
-    locationGovernorate,
-    unitTypes,
-    saleOptionKey,
-    saleOption,
-    categoryTypeKey,
-    categoryType,
-    pageNumber,
-  ]);
+      router.push(
+        `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
+      );
+    };
+  // , [
+  //   queryInput,
+  //   searchKeyword,
+  //   filterInput,
+  //   propFinancing,
+  //   sortKey,
+  //   sort,
+  //   paymentTypeKey,
+  //   paymentType,
+  //   finishedOptionKey,
+  //   finishedOption,
+  //   areaTo,
+  //   areaFrom,
+  //   numBedrooms,
+  //   numBathrooms,
+  //   priceTo,
+  //   priceFrom,
+  //   locationRegion,
+  //   unitTypesKey,
+  //   locationGovernorate,
+  //   unitTypes,
+  //   saleOptionKey,
+  //   saleOption,
+  //   categoryTypeKey,
+  //   categoryType,
+  //   pageNumber,
+  // ]);
 
   const getNameWithValue = useGetNameWithValue(sortKey);
-  useEffect(() => {
-    handleFilterAction();
-  }, [sort, pageNumber, clickOnTap]);
+  // useEffect(() => {
+
+  //   handleFilterAction();
+  // }, [sort, pageNumber, clickOnTap]);
   useEffect(() => {
     setIsSaveed(false);
     setConfirmSendMessage(false);
@@ -267,7 +304,7 @@ const SidebarAndBarFilter = ({
             priceFrom={priceFrom}
             priceTo={priceTo}
             filterData={{
-              searchKeywords,
+              searchKeywords: searchKeywords || "",
               governorate,
               region,
               unitType,
@@ -337,7 +374,7 @@ const SidebarAndBarFilter = ({
             : result?.supTitleCategory?.en}
         </div>
         {/*sorted and save search filter page */}
-        <div className="flex  gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
+        <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
           <div className="flex  whitespace-nowrap gap-x-3 items-center">
             <span>الترتيب حسب:</span>
             <Dropdown
@@ -401,7 +438,6 @@ const SidebarAndBarFilter = ({
           />
         </div>
       )}
-
       {/******************************/}
     </>
   );

@@ -14,7 +14,6 @@ import SimilarBlogs from "./SimilarBlogs";
 
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // console.log(BlogData);
   return (
     <div className="py-10 md:container md:mx-auto mx-[20px]">
       <div className="relative ">

@@ -19,7 +19,7 @@ const Dropdown = ({
   dataOptions,
   isDisabled,
   baseIcon,
-  setSortKey,
+  // setSortKey,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -153,7 +153,7 @@ const Dropdown = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         disabled={isDisabled}
-        className={` w-full  h-[1.875rem] md:h-[3.313rem] text-gray1 text-md flex items-center justify-between
+        className={` w-full ${classNames}  h-[40px] md:h-[3.313rem] text-gray1 text-md flex items-center justify-between
          rounded-[1vh] md:px-3 md:p-2 p-1 px-1 cursor-pointer  ${
            baseIcon ? "shadow-md bg-[#F2F8F9]" : "border-[1px] border-gray1 "
          }`}

@@ -41,7 +41,7 @@ const RealtyCard = ({ propertyDetails }) => {
       <div className="flex absolute md:mt-[16px] m-[10px] md:mr-[20px]">
         {userInfo && (
           <div
-            className="z-[10000] bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center 
+            className=" bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center 
             md:text-2xl text-md rounded-full  text-center  cursor-pointer  "
           >
             {userInfo &&
@@ -105,7 +105,7 @@ const RealtyCard = ({ propertyDetails }) => {
             </p>
           )}
           <div className="flex justify-between  gap-x-3 md:gap-0 md:w-[95px] ">
-            <div className="bg-sky-200 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
+            <div className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
               <IoIosCall className="text-[16px] md:text-[30px] text-blue-600" />
             </div>
             <div className="bg-green-600 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">

@@ -28,10 +28,10 @@ export async function foundKeyword(keyword) {
   try {
     const filteredKeywords = Object.fromEntries(
       Object.entries(keyword).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
+        ([_, value]) =>
+          value != null && value !== "" && value !== " " && value !== 0
       )
     );
-
     const queryString = Object.keys(filteredKeywords)
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
