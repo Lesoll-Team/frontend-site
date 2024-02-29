@@ -37,7 +37,6 @@ const addPropertySlice = createSlice({
     },
     resetAddProp: (state) => {
       state.error = null;
-      state.step = 1;
       state.status = "idle";
     },
   },

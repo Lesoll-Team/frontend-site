@@ -1,10 +1,8 @@
-import { BiImageAdd } from "react-icons/bi";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import { FaMinusCircle } from "react-icons/fa";
-import { SiAddthis } from "react-icons/si";
+
 import Error from "@/Shared/ui/Error";
 
 const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
@@ -46,7 +44,8 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
     } else {
       setMultiImage(newImages);
     }
-    const photosnumber = newImages.length + multiImage.length;
+    const photosnumber =
+      newImages.length + (multiImage ? multiImage.length : 0); // Ensure multiImage is not null
     if (photosnumber >= 3) {
       clearErrors("multiImage");
     }

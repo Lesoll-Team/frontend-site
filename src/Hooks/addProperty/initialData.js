@@ -85,5 +85,11 @@ export const initialAddPropData = {
   downPaymentAmount: "",
   installmentPeriodType: "yearly",
   // installmentPeriod: 0,
-  phoneChoice: "same", // "same" , "other"
+  otherPhone: false, // "same" , "other"
+  isCompound: false,
+  compaounds: {
+    _id: "",
+    CompoundsAR: "",
+    CompoundsEN: "",
+  },
 };

@@ -19,27 +19,38 @@ const useFromatAddData = (data) => {
     return item;
   });
   const formData = new FormData();
-  formData.append("title", data.title);
-  formData.append("isCompound", data.isCompound);
-  formData.append("compaounds", data.compaounds._id);
-  formData.append("offer", data.offer);
-
-  formData.append("mainImage", data.mainImage);
-  // Append each file individually from the multibulImg array
   for (let i = 0; i < data.multiImage.length; i++) {
     formData.append("multiImage", data.multiImage[i]);
   }
-  formData.append("rentalPeriod", data.rentalPeriod.value);
-  formData.append("insurance", data.insurance);
   for (let i = 0; i < saleOption.length; i++) {
     formData.append("saleOption", saleOption[i]);
   }
+  for (let i = 0; i < installment.length; i++) {
+    formData.append("installment", JSON.stringify(installment[i]));
+  }
+  data.service.map((service) => {
+    formData.append("service", service);
+  });
+  data.otherPhone &&
+    formData.append("connectPhoneNumber", data.connectPhoneNumber);
+  data.deliveryDate && formData.append("deliveryDate", data.deliveryDate);
+  formData.append("title", data.title);
+  formData.append("isCompound", data.isCompound);
+  data.isCompound && formData.append("compaounds", data.compaounds?._id);
+  formData.append("offer", data.offer);
+  formData.append("mainImage", data.mainImage);
+  formData.append("installmentOption", JSON.stringify(data.installmentOption));
+  formData.append("address", JSON.stringify(address));
+  formData.append("negotiable", data.negotiable);
+  formData.append("finishingType", data.finishingType.value);
+  formData.append("isFurnished", data.isFurnished);
+  formData.append("isRegisterd", data.isRegisterd);
+  formData.append("rentalPeriod", data.rentalPeriod.value);
+  formData.append("insurance", data.insurance);
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
-  // formData.append("landType", data.landType);
   formData.append("price", data.price);
   formData.append("area", data.area);
-  // formData.append("areaType", data.areaType);
   formData.append("RealEstateFinance", data.realEstateFinance);
   formData.append("downPayment", data.downPayment);
   formData.append("maintenancePayment", data.maintenancePayment);
@@ -47,26 +58,6 @@ const useFromatAddData = (data) => {
   formData.append("bathRooms", data.bathRooms);
   formData.append("description", data.description);
   formData.append("level", data.level);
-  formData.append("deliveryDate", data.deliveryDate);
-  data.service.map((service) => {
-    formData.append("service", service);
-  });
-
-  for (let i = 0; i < installment.length; i++) {
-    formData.append("installment", JSON.stringify(installment[i]));
-  }
-  // formData.append("region", data.region.city_name_ar);
-  // formData.append("governrate", data.governrate.governorate_name_ar);
-  formData.append("installmentOption", JSON.stringify(data.installmentOption));
-  formData.append("address", JSON.stringify(address));
-  if (data.connectPhoneNumber) {
-    formData.append("connectPhoneNumber", data.connectPhoneNumber);
-  }
-  // formData.append("status", data.status);
-  formData.append("negotiable", data.negotiable);
-  formData.append("finishingType", data.finishingType.value);
-  formData.append("isFurnished", data.isFurnished);
-  formData.append("isRegisterd", data.isRegisterd);
   return { formData };
 };
 export default useFromatAddData;

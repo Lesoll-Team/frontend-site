@@ -15,12 +15,16 @@ const PhoneNumber = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.userProfile.userData);
   const showPhoneInput = watch("otherPhone");
+  const cancelOtherPhoneNumber = () => {
+    setValue("otherPhone", false);
+    setValue("connectPhoneNumber", "");
+  };
   return (
     <AddPropSectionContainer className={"flex flex-cols"}>
       {showPhoneInput ? (
         <div className="p-5 bg-white w-full rounded space-y-4 relative">
           <button
-            onClick={() => setValue("otherPhone", false)}
+            onClick={cancelOtherPhoneNumber}
             type="button"
             className={`absolute top-3 ${language ? "left-2" : "right-2"} `}
           >
