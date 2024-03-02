@@ -6,6 +6,13 @@ module.exports = async () => {
    */
   const nextConfig = {
     /* config options here */
+    images: {
+      domains: [
+        "cloud.lesoll.com",
+        "lh3.googleusercontent.com",
+        "https://cloud.lesoll.com/v0/public/Blogs",
+      ],
+    },
     async redirects() {
       return [
         {

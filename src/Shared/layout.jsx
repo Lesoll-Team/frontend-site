@@ -31,15 +31,7 @@ export default function Layout({ children }) {
   }, [dispatch, language, children]);
 
   return (
-    <div
-      style={{
-        minHeight: "100dvh",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      className={`globalBody bg-gradient`}
-    >
+    <div>
       <Head>
         <title>
           {language
@@ -62,8 +54,8 @@ export default function Layout({ children }) {
         />
       </Head>
       <Navbar />
-      <main dir={`${language ? "rtl" : ""}`}>{children}</main>
-      <Footer dir={`${language ? "rtl" : ""}`} />
+      <main dir={`${language && "rtl"}`}>{children}</main>
+      <Footer dir={`${language && "rtl"}`} />
       <ScrollToTopButton />
     </div>
   );

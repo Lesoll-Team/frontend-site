@@ -28,7 +28,7 @@
   /* background-color: #3ababeff;
   color: #fff; */
   background-color: white;
-  border:2px #d2512d solid;
+  border: 2px #d2512d solid;
   color: #d2512d;
 }
 
@@ -37,7 +37,6 @@
 .paginationNext {
   margin: 0 5px;
   cursor: pointer;
-  padding: 5px 10px;
   background-color: #3ababeff;
   color: #fff;
   border: none;

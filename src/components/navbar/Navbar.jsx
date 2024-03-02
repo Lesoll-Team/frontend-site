@@ -8,7 +8,7 @@ import { MdNotificationsNone, MdClear } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLanguage } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-import SearchModel from "./SearchModel";
+// import SearchModel from "./SearchModel";
 const NotificationMenu = dynamic(() => import("./notificationMenu"));
 const UserDropdown = dynamic(() => import("./userDropdown"));
 
@@ -78,7 +78,7 @@ export default function Navbar() {
     };
   }, [mobileMenuRef, notificationsMenuRef, router]);
   return (
-    <nav className="w-full  z-[1000]  sticky  top-0 drop-shadow-md ">
+    <nav className="w-full  z-[700]  sticky  top-0 drop-shadow-md ">
       <section
         className="flex  relative bg-white  h-[80px] items-center "
         dir={`${languageIs ? "rtl" : ""}`}
@@ -107,7 +107,7 @@ export default function Navbar() {
           className={`lg:w-4/12 w-8/12  flex justify-end lg:justify-center  mr-4  space-x-2 items-center`}
         >
           {/*button search*/}
-          <SearchModel />
+          {/* <SearchModel /> */}
 
           {/*button language*/}
           <li className={`  lg:flex hidden`}>

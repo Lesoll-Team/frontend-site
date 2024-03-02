@@ -1,122 +1,135 @@
-import React, { useEffect, useState } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
-// import { SearchBar } from "@/Shared/search/SearchBar";
-
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { dataFoundFromSearch } from "@/redux-store/features/searchingSlice";
-import SearchResult from "@/components/SearchResult/SearchResult";
-import Head from "next/head";
-
-export default function Searching({ keyword, bestSearch }) {
-  const keyValuePairs = keyword.split("&").map((pair) => pair.split("="));
-
-  // Reverse the filtering
-  const reversedFilteredKeywords = Object.fromEntries(
-    keyValuePairs.filter(
-      ([_, value]) => value != null && value !== "" && value !== "0"
-    )
-  );
+const SearchPageRedirect = () => {
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
-  const dispatch = useDispatch();
-  const query = router.query.keyword;
-  const currentPage = useSelector((state) => state.Searching.currentPage);
   useEffect(() => {
-    if (keyword !== undefined) {
-      dispatch(
-        dataFoundFromSearch({
-          InputKeywords: keyword,
-          page: currentPage,
-        })
-      );
-    }
+    // Redirect to the new URL
+    // const keywords = router.asPath;
+
+    router.push(`/`);
   }, [router]);
-  return (
-    <>
-      <Head>
-        <title>
-          {language
-            ? ` ${
-                reversedFilteredKeywords.unitType == "شقة"
-                  ? " شقق "
-                  : reversedFilteredKeywords.unitType || " عقارات "
-              }  
-                ${
-                  reversedFilteredKeywords.offer == "all" ||
-                  reversedFilteredKeywords.offer == "كل"
-                    ? " للبيع والإيجار "
-                    : reversedFilteredKeywords.offer || " للبيع والإيجار "
-                } فى ${
-                  reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
-                } | ليسول `
-            : `Search About ${
-                reversedFilteredKeywords.unitType || " Properties "
-              } ${
-                reversedFilteredKeywords.offer == "all"
-                  ? " for rent or buy "
-                  : reversedFilteredKeywords.offer || " for rent or buy "
-              } In ${
-                reversedFilteredKeywords?.cdb?.split("_").join(" ") || " Egypt "
-              } | lesoll `}
-        </title>
-        <meta
-          name="description"
-          content={
-            language
-              ? ` ${
-                  reversedFilteredKeywords.unitType == "شقة"
-                    ? " شقق "
-                    : reversedFilteredKeywords.unitType || " عقارات "
-                }  ${
-                  reversedFilteredKeywords.offer == "all" ||
-                  reversedFilteredKeywords.offer == "كل"
-                    ? " للبيع والإيجار "
-                    : reversedFilteredKeywords.offer || " للبيع والإيجار "
-                } فى ${
-                  reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
-                } ` +
-                " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
-              : ` ${
-                  reversedFilteredKeywords.unitType == "شقة"
-                    ? " شقق "
-                    : reversedFilteredKeywords.unitType || " عقارات "
-                }  ${
-                  reversedFilteredKeywords.offer == "all" ||
-                  reversedFilteredKeywords.offer == "كل"
-                    ? " للبيع والإيجار "
-                    : reversedFilteredKeywords.offer || " للبيع والإيجار "
-                } فى ${
-                  reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
-                } ` +
-                " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
-          }
-        />
-        <link rel="canonical" href={`https://lesoll.com/searching/${query}`} />
-      </Head>
+  return null;
+};
+export default SearchPageRedirect;
+// import React, { useEffect, useState } from "react";
 
-      <SearchResult
-        PopularSearches={bestSearch.POPULAR_SEARCHES}
-        MostArea={bestSearch.Most_Area}
-        MostGovernorate={bestSearch.Most_Governorate}
-        Others={bestSearch.Others}
-        reversedFilteredKeywords={reversedFilteredKeywords}
-      />
-    </>
-  );
-}
-export async function getServerSideProps({ params }) {
-  const keyword = params.keyword;
-  const linkHome = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
-  );
-  const linkInHome = await linkHome.json();
+// import { useDispatch, useSelector } from "react-redux";
+// // import { SearchBar } from "@/Shared/search/SearchBar";
 
-  return {
-    props: {
-      keyword,
-      bestSearch: linkInHome,
-    },
-  };
-}
+// import { useRouter } from "next/router";
+// import { dataFoundFromSearch } from "@/redux-store/features/searchingSlice";
+// import SearchResult from "@/components/SearchResult/SearchResult";
+// import Head from "next/head";
+
+// export default function Searching({ keyword, bestSearch }) {
+//   const keyValuePairs = keyword.split("&").map((pair) => pair.split("="));
+
+//   // Reverse the filtering
+//   const reversedFilteredKeywords = Object.fromEntries(
+//     keyValuePairs.filter(
+//       ([_, value]) => value != null && value !== "" && value !== "0"
+//     )
+//   );
+//   const router = useRouter();
+//   const language = useSelector((state) => state.GlobalState.languageIs);
+
+//   const dispatch = useDispatch();
+//   const query = router.query.keyword;
+//   const currentPage = useSelector((state) => state.Searching.currentPage);
+//   useEffect(() => {
+//     if (keyword !== undefined) {
+//       dispatch(
+//         dataFoundFromSearch({
+//           InputKeywords: keyword,
+//           page: currentPage,
+//         })
+//       );
+//     }
+//   }, [router]);
+//   return (
+//     <>
+//       <Head>
+//         <title>
+//           {language
+//             ? ` ${
+//                 reversedFilteredKeywords.unitType == "شقة"
+//                   ? " شقق "
+//                   : reversedFilteredKeywords.unitType || " عقارات "
+//               }
+//                 ${
+//                   reversedFilteredKeywords.offer == "all" ||
+//                   reversedFilteredKeywords.offer == "كل"
+//                     ? " للبيع والإيجار "
+//                     : reversedFilteredKeywords.offer || " للبيع والإيجار "
+//                 } فى ${
+//                   reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
+//                 } | ليسول `
+//             : `Search About ${
+//                 reversedFilteredKeywords.unitType || " Properties "
+//               } ${
+//                 reversedFilteredKeywords.offer == "all"
+//                   ? " for rent or buy "
+//                   : reversedFilteredKeywords.offer || " for rent or buy "
+//               } In ${
+//                 reversedFilteredKeywords?.cdb?.split("_").join(" ") || " Egypt "
+//               } | lesoll `}
+//         </title>
+//         <meta
+//           name="description"
+//           content={
+//             language
+//               ? ` ${
+//                   reversedFilteredKeywords.unitType == "شقة"
+//                     ? " شقق "
+//                     : reversedFilteredKeywords.unitType || " عقارات "
+//                 }  ${
+//                   reversedFilteredKeywords.offer == "all" ||
+//                   reversedFilteredKeywords.offer == "كل"
+//                     ? " للبيع والإيجار "
+//                     : reversedFilteredKeywords.offer || " للبيع والإيجار "
+//                 } فى ${
+//                   reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
+//                 } ` +
+//                 " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
+//               : ` ${
+//                   reversedFilteredKeywords.unitType == "شقة"
+//                     ? " شقق "
+//                     : reversedFilteredKeywords.unitType || " عقارات "
+//                 }  ${
+//                   reversedFilteredKeywords.offer == "all" ||
+//                   reversedFilteredKeywords.offer == "كل"
+//                     ? " للبيع والإيجار "
+//                     : reversedFilteredKeywords.offer || " للبيع والإيجار "
+//                 } فى ${
+//                   reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
+//                 } ` +
+//                 " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
+//           }
+//         />
+//         <link rel="canonical" href={`https://lesoll.com/searching/${query}`} />
+//       </Head>
+
+//       <SearchResult
+//         PopularSearches={bestSearch.POPULAR_SEARCHES}
+//         MostArea={bestSearch.Most_Area}
+//         MostGovernorate={bestSearch.Most_Governorate}
+//         Others={bestSearch.Others}
+//         reversedFilteredKeywords={reversedFilteredKeywords}
+//       />
+//     </>
+//   );
+// }
+// export async function getServerSideProps({ params }) {
+//   const keyword = params.keyword;
+//   const linkHome = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+//   );
+//   const linkInHome = await linkHome.json();
+
+//   return {
+//     props: {
+//       keyword,
+//       bestSearch: linkInHome,
+//     },
+//   };
+// }

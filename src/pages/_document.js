@@ -16,7 +16,7 @@ export default function Document() {
           }}
         />
       </Head>
-      <body>
+      <body className="font-cairo">
         <Main />
         <NextScript />
         <iframe
@@ -25,7 +25,7 @@ export default function Document() {
           width="0"
           style={{ display: "none", visibility: "hidden" }}
           title="GTM"
-        ></iframe>
+        />
       </body>
     </Html>
   );
