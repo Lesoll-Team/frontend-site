@@ -7,7 +7,8 @@ import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 // import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 // import React from "react";
 
-const Home = ({ bestSearch }) => {
+const Home = () => {
+  // const Home = ({ bestSearch }) => {
   return (
     <main className="relative">
       <div className="container mx-auto z-50  w-full">
@@ -22,12 +23,12 @@ const Home = ({ bestSearch }) => {
       <div className="my-24 gap-y-3 container mx-auto flex-wrap flex flex-col md:flex-row justify-between ">
         <OtherCards />
       </div>
-      <BestLinksInHome
+      {/* <BestLinksInHome
         PopularSearches={bestSearch.POPULAR_SEARCHES}
         MostArea={bestSearch.Most_Area}
         MostGovernorate={bestSearch.Most_Governorate}
         Others={bestSearch.Others}
-      />
+      /> */}
       <HeroSection />
     </main>
   );
@@ -35,17 +36,17 @@ const Home = ({ bestSearch }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const linkHome = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
-  );
+// export async function getServerSideProps() {
+//   const linkHome = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+//   );
 
-  const linkInHome = await linkHome.json();
-  // const linkInHome = "await linkHome.json()";
+//   const linkInHome = await linkHome.json();
+//   // const linkInHome = "await linkHome.json()";
 
-  return {
-    props: {
-      bestSearch: linkInHome,
-    },
-  };
-}
+//   return {
+//     props: {
+//       bestSearch: linkInHome,
+//     },
+//   };
+// }

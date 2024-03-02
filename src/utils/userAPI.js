@@ -11,7 +11,7 @@ export async function getUserOffline({ url }) {
     );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    throw error.response;
   }
 }
 

@@ -113,6 +113,7 @@ export function SearchBarHome() {
             ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
             : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
         }  bg-white  md:py-[23px] py-[20px] md:px-[39px] px-[20px] drop-shadow-md  sm:drop-shadow-md h-[257px] md:h-[130px]  md:gap-x-[64px] md:gap-y-[0px] gap-y-[28px]
+        justify-between
           `}
       >
         {/*search box */}
