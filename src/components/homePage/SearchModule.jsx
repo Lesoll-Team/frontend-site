@@ -16,17 +16,17 @@ const SearchModule = () => {
   return (
     <div className="w-full md:h-[500px] lg:h-screen z-50 flex">
       <div className="w-full  flex flex-col md:gap-y-14 xl:gap-y-7  md:justify-normal xl:justify-center  justify-center p-1 z-40">
-        <div className="md:flex md:flex-col  p-1 text-white">
-          <h1 className="w-full font-semibold">
+        <div className="md:flex md:flex-col md:mb-[42px] md:mt-[50px] mb-[22px] mt-[56px]  text-white ">
+          <h1 className="w-full text-[24px] md:text-[61px] font-semibold">
             {language ? "ليسول طريقك لبيتك" : "Lesoll The Way You Home"}
           </h1>
           <p
-            className="hidden md:flex
-              text-[12px] md:text-[16px] lg:text-[20px] xl:text-[25px] 2xl:text-[31px]
+            className="hidden md:flex 
+              text-[16px] md:text-[24px] text-justify 
               "
           >
             {language
-              ? "ليسول هو سوق مفتوح لعرض العقارات على الإنترنت، نقدم من خلاله خدمة رقمية تسهل عملية البحث عن أفضل الصفقات العقارية في أي مكان في مصر، سواء كنت مالكاً، مشترياً أو مستأجراً ."
+              ? "ليسول هو سوق مفتوح لعرض العقارات على الإنترنت، نقدم من خلاله خدمة رقمية تسهل عملية البحث عن أفضل الصفقات العقارية في أي مكان في مصر، سواء كنت مالكاً، مشترياً أو مستأجراً."
               : "Lesoll is an open marketplace for listing real estate online, through which we provide a digital service that facilitates the process of searching for the best real estate deals anywhere in Egypt, whether you are an owner, a buyer or a renter ."}
           </p>
         </div>

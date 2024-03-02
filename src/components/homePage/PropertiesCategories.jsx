@@ -14,13 +14,13 @@ import {
   ResidentialSale,
 } from "./iconHomeSVG";
 // import { SearchBarHome } from "@/Shared/search/SearchBarHome";
-const PropertiesCategories = () => {
+const PropertiesCategories = ({ isHome }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const categories = [
     {
       icon: <ResidentialSale />,
-      titleAr: "عقارات للبيع",
-      titleEn: "Properties for sell",
+      titleAr: "سكني للبيع",
+      titleEn: "Properties for sale",
       totalAr: "( 200+ وحدة )",
       totalEn: "( +200 Uint )",
       url: "/properties/residential/sale",
@@ -28,7 +28,7 @@ const PropertiesCategories = () => {
     },
     {
       icon: <ResidentialRent />,
-      titleAr: "عقارات للإيجار",
+      titleAr: "سكني للإيجار",
       titleEn: "Properties for rent",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
@@ -37,22 +37,41 @@ const PropertiesCategories = () => {
     },
 
     {
+      icon: <CommercialSale />,
+      titleAr: "تجاري للبيع",
+      titleEn: "commercial for sale",
+      totalAr: "( 255+ وحدة )",
+      totalEn: "( +255 Uint )",
+      url: "/properties/commercial/sale",
+      id: 5,
+    },
+    {
       icon: <CommercialRent />,
       titleAr: "تجاري للإيجار",
-      titleEn: "commercial rent",
+      titleEn: "commercial for rent",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
       url: "/properties/commercial/rent",
       id: 4,
     },
     {
-      icon: <CommercialSale />,
-      titleAr: "تجاري للإيجار",
-      titleEn: "commercial rent",
-      totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
-      url: "/properties/commercial/sale",
-      id: 5,
+      icon: <FinanceIcon />,
+
+      titleAr: "استثمار عقاري",
+      titleEn: "real estate investment",
+      totalAr: "( 300+ وحدة )",
+      totalEn: "( +300 Uint )",
+      url: "/properties/investment/lands",
+      id: 3,
+    },
+    {
+      icon: <LandsIcon />,
+      titleAr: "أراضي",
+      titleEn: "lands",
+      totalAr: "( 180+ وحدة )",
+      totalEn: "( +180 Uint )",
+      url: "/properties/lands/sale",
+      id: 6,
     },
     {
       icon: <ComponentsIcon />,
@@ -64,32 +83,14 @@ const PropertiesCategories = () => {
       id: 7,
     },
     {
-      icon: <FinanceIcon />,
+      icon: <InvestmentIcon />,
+
       titleAr: "تمويل عقاري",
       titleEn: "real estate finance",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
       url: "/properties/finance/",
       id: 8,
-    },
-    {
-      icon: <InvestmentIcon />,
-      titleAr: "استثمار عقاري",
-      titleEn: "real estate investment",
-      totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
-      url: "/properties/investment/lands",
-      id: 3,
-    },
-
-    {
-      icon: <LandsIcon />,
-      titleAr: "أراضي",
-      titleEn: "lands",
-      totalAr: "( 180+ وحدة )",
-      totalEn: "( +180 Uint )",
-      url: "/properties/lands/sale",
-      id: 6,
     },
 
     {
@@ -117,62 +118,79 @@ const PropertiesCategories = () => {
       window.removeEventListener("resize", handleResize); // Clean up event listener
     };
   }, []);
-  //onClick={() => setSeeMore(!seeMore)}
   return (
     <Fragment>
       <div className="md:w-full flex items-center justify-between  md:container md:mx-auto mx-[20px] ">
-        <h6 className="font-bold md:text-[1.6vw] text-[12px] flex mx-[10px] text-grayText2">
+        <h6 className="font-bold md:text-[39px] text-[14px] flex mx-[10px] text-grayText2">
           {language ? "نوع العقار" : "Property type"}
         </h6>
-        <Link
-          href={"/categories"}
-          className=" underline text-[12px] md:text-[1.6vw]"
-        >
-          {language ? "رؤية المزيد" : "see more"}
-        </Link>
+        {isHome && (
+          <Link href={"/categories"} className="  text-[12px] md:text-[25px]">
+            {language ? "رؤية المزيد" : "see more"}
+          </Link>
+        )}
       </div>
 
       <div
-        // className="mt-[30px] mb-[32px]  md:container md:mx-auto mx-[10px]  gap-6  lg:justify-normal justify-center bg-red-200
-        // grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 line-clamp-2"
-        className="mt-[30px] mb-[32px] md:flex grid grid-cols-2  md:flex-wrap md:container md:mx-auto mx-[20px]  gap-6   md:justify-between  "
-        // className="mt-[30px] mb-[32px] flex flex-wrap md:container md:mx-auto mx-[10px]  gap-6  lg:justify-normal justify-center "
+        className=" md:container md:mx-auto mx-[20px] 
+        grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+                      md:gap-x-[30px] md:gap-y-[17px]
+                      md:gap-0 gap-[15px]
+         "
       >
-        {categories
-          ?.filter((_, i) => i < seeMore)
-          ?.map((category) => (
-            <Link
-              href={category.url}
-              key={category.id}
-              className="
-          shadow-none md:hover:border-none md:hover:shadow-[4px_4px_21px_0px_#A3A1A1]	 
-           cursor-pointer shadow-black
-            flex flex-col  justify-center items-center  border-[#CCCCCC] rounded-[8px]  border-2
-               md:min-w-[280px] 
-               md:max-w-[280px]
-                      w-full
-               md:h-[300px]
-             "
-              //w-[50%]  h-[60px]
-              // h-[300px]
-            >
-              <div className=" flex items-center justify-center  m-2 w-[50%] min-w-[50px]   sm:h-[150px] min-h-[100px] ">
-                {category.icon}
-              </div>
-              <div className="  text-center flex flex-col  ">
-                <p className="font-bold  text-grayText2">
-                  {language ? category.titleAr : category.titleEn}
-                </p>
-                <p
-                  className=" 
-               text-[10px] md:text-[13px] lg:text-[16px] xl:text-[20px]
-              text-lightGreen"
+        {categories && isHome
+          ? categories
+              .filter((_, i) => i < seeMore)
+              .map((category) => (
+                <Link
+                  href={category.url}
+                  key={category.id}
+                  className="
+               md:hover:border-[2px]
+               cursor-pointer shadow-black  border-[#CCCCCC] border-[1px]
+               flex flex-col items-center justify-center 
+               md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
+               gap-y-[5px]
+              "
                 >
-                  {language ? category.totalAr : category.totalEn}
-                </p>
-              </div>
-            </Link>
-          ))}
+                  <div className="  flex items-center justify-center overflow-hidden md:w-[125px] md:h-[130px] h-[75px] w-[75px]">
+                    {category.icon}
+                  </div>
+                  <div className="  text-center flex flex-col gap-y-3 ">
+                    <p className="font-bold md:text-[25px] text-[11px] text-grayText2">
+                      {language ? category.titleAr : category.titleEn}
+                    </p>
+                    <p className="text-[11px] md:text-[20px] text-lightGreen">
+                      {language ? category.totalAr : category.totalEn}
+                    </p>
+                  </div>
+                </Link>
+              ))
+          : categories.map((category) => (
+              <Link
+                href={category.url}
+                key={category.id}
+                className="
+               md:hover:border-[2px]
+               cursor-pointer shadow-black  border-[#CCCCCC] border-[1px]
+               flex flex-col items-center justify-center 
+               md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
+               gap-y-[5px]
+              "
+              >
+                <div className="  flex items-center justify-center overflow-hidden md:w-[125px] md:h-[130px] h-[75px] w-[75px]">
+                  {category.icon}
+                </div>
+                <div className="  text-center flex flex-col gap-y-3 ">
+                  <p className="font-bold md:text-[25px] text-[11px] text-grayText2">
+                    {language ? category.titleAr : category.titleEn}
+                  </p>
+                  <p className="text-[11px] md:text-[20px] text-lightGreen">
+                    {language ? category.totalAr : category.totalEn}
+                  </p>
+                </div>
+              </Link>
+            ))}
       </div>
     </Fragment>
   );

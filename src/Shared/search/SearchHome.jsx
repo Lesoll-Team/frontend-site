@@ -4,10 +4,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { SearchDropdownLocation } from "./SearchDropdownLocation";
 import { IoIosArrowDown } from "react-icons/io";
-// import DropdownSearchLocation from "./dropdown/DropdownSearchLocation";
-// import Dropdown from "./dropdown/Dropdown";
-// import DropdownMoreHome from "./dropdown/DropdownMoreHome";
-// import Dropdown from "../category/Dropdowns/Dropdown";
 
 export function SearchBarHome() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
@@ -71,7 +67,7 @@ export function SearchBarHome() {
   return (
     <div className=" w-full  flex flex-col justify-end  p-1">
       {/* 3 button in search bar */}
-      <div className=" flex gap-x-1  md:w-4/12 w-full justify-between md:items-end">
+      <div className=" flex gap-x-1 font-inter md:w-4/12 w-full justify-between md:items-end">
         <button
           id="Click-Gtm"
           onClick={setForSaleButton}
@@ -80,7 +76,7 @@ export function SearchBarHome() {
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
           }  
-            w-4/12 h-[30px] rounded-t-md`}
+            w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[20px]`}
         >
           {languageIs ? "للبيع" : "Buy"}
         </button>
@@ -91,7 +87,7 @@ export function SearchBarHome() {
             saleOptions == "rent"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          } w-4/12 h-[30px] rounded-t-md`}
+          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[20px]`}
         >
           {languageIs ? "للإيجار" : "Rent"}
         </button>
@@ -104,7 +100,7 @@ export function SearchBarHome() {
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
           }
-             w-4/12 h-[30px] rounded-t-md`}
+             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[20px]`}
         >
           {languageIs ? "للإستثمار" : "Investment"}
         </button>
@@ -116,38 +112,43 @@ export function SearchBarHome() {
           languageIs
             ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
             : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
-        }  bg-white  p-[20px] drop-shadow-md  sm:drop-shadow-md md:h-auto h-[290px]  md:gap-x-5 gap-y-[28px]
+        }  bg-white  md:py-[23px] py-[20px] md:px-[39px] px-[20px] drop-shadow-md  sm:drop-shadow-md h-[257px] md:h-[130px]  md:gap-x-[64px] md:gap-y-[0px] gap-y-[28px]
           `}
       >
         {/*search box */}
-        <div className="flex flex-col md:w-5/12 w-full  min-h-[63px] md:h-full ">
-          <h6 className="text-gray2 font-medium">بحث بالكلمات المميزة</h6>
-          <div className=" border-1 md:h-full min-h-[33px] bg-white border-gray1 px-1 rounded-[0.5vh] flex items-center">
+        <div className="flex flex-col md:w-[520px] w-full gap-y-[8px] md:gap-y-[12px]  md:h-[84px] h-[63px]  ">
+          <h6 className="text-gray2 font-bold text-[12px] md:text-[20px]">
+            بحث بالكلمات المميزة
+          </h6>
+          <div className=" border-1 md:h-full min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
             <input
               type="text"
-              placeholder={
-                languageIs
-                  ? "بحث : بالكلمات المميزة ."
-                  : "Search by special words..."
-              }
               onChange={(e) => setKeywords(e.target.value)}
               autoComplete="off"
               className=" rounded-[1vw] w-full font-inter h-full  text-black   active:outline-none indent-1 hover:outline-none focus:outline-none"
             />
-            <AiOutlineSearch className="text-grayText md:w-[2vw] md:h-[2vw] w-[3vw] h-[3vw]" />
+            <AiOutlineSearch
+              className="text-[#656565] md:ml-[24px] ml-[8px] md:text-3xl text-xl"
+              // md:w-[full] md:h-[2vw] w-[3vw] h-[3vw]
+            />
           </div>
         </div>
         {/*search with location */}
-        <div className="flex flex-col md:w-5/12  w-full min-h-[63px] md:h-full ">
-          <h6 className="text-gray2 font-medium">بحث بالمنطقة</h6>
-          <div className="  md:h-full min-h-[33px]  bg-white border-gray1 border-b px-1 rounded-[0.5vh] flex items-center">
+        {/**flex flex-col md:w-[52px]  w-full min-h-[63px] md:h-full */}
+        <div className=" flex flex-col md:w-[328px] w-full gap-y-[8px] md:gap-y-[12px]  md:h-[84px] h-[63px]  ">
+          <h6 className="text-gray2 font-bold text-[12px] md:text-[20px]">
+            بحث بالمنطقة
+          </h6>
+          <div className="md:h-full min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 ">
             <SearchDropdownLocation
               // defaultGovernorate={filterData.governorate}
               // defaultRegion={filterData.region}
               setLocationGovernorate={setLocationGovernorate}
               setLocationRegion={setLocationRegion}
             />
-            <IoIosArrowDown className={`text-gray2 duration-150 `} />
+            <IoIosArrowDown
+              className={`text-[#656565]  md:text-3xl text-xl duration-150 `}
+            />
             {/* <input
               type="text"
               placeholder={
@@ -162,12 +163,12 @@ export function SearchBarHome() {
           </div>
         </div>
 
-        <div className="flex min-h-[40px] md:h-full md:w-2/12 w-8/12  ">
+        <div className="flex h-[40px] md:h-[80px] md:w-[177px] w-8/12  ">
           <button
             id="Click-Gtm"
             onClick={handleSubmitSearch}
-            className={`bg-lightGreen text-white font-inter font-bold select-none
-          w-full rounded-[1vh]`}
+            className={`bg-lightGreen text-white text-[14px] md:text-[25px]  font-bold select-none 
+          w-full rounded-[8px]`}
           >
             {languageIs ? "بـحـث" : "Search"}
           </button>
@@ -176,36 +177,3 @@ export function SearchBarHome() {
     </div>
   );
 }
-
-/*
-            /  
-            //    languageIs
-            //       "rounded-sm md:rounded-l-lg  lg:rounded-l-lg"
-            //       "rounded-sm md:rounded-r-lg  lg:rounded-r-lg"
-            //
-            */
-/*search dropdown */
-//h-[30px] sm:h-[45px] md:h-[55px] xl:h-[70px] 2xl:h-[80px]
-
-// onClick={handleSubmitSearch}
-//w-[62px] md:w-[100px] lg:w-[140px]  xl:w-[177px]
-//   text-[13px] md:text-[16px] lg:text-[20px] xl:text-[25px] 2xl:text-[31px]
-/* <div className=" w-[30vw] md:py-2 p-1 flex items-center h-full">
-            <DropdownSearchLocation
-              setKeywords={setKeywords}
-              setLocationGovernorate={setLocationGovernorate}
-              setLocationRegion={setLocationRegion}
-              output="giza-haram"
-            />
-          </div> */
-
-/*search button */
-
-//      {/* <div className="  w-full  flex flex-col justify-end"> */}
-
-// {/* </div> */}
-
-// <div
-//   className="
-//     w-[52px] xl:w-[69px] 2xl:w-[92px] bg-red-200 h-full flex items-center justify-center"
-// ></div>

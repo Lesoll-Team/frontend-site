@@ -14,7 +14,7 @@ const Home = ({ bestSearch }) => {
         <SearchModule />
       </div>
       <div className="mt-10 md:mt-0 ">
-        <PropertiesCategories />
+        <PropertiesCategories isHome />
       </div>
       <div className="">
         <LocationCategories />
