@@ -32,7 +32,12 @@ export const updateUser = createAsyncThunk(
 const editUserDataSlice = createSlice({
   name: "editUserDataSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUpdateUserState: (state) => {
+      state.status = "idle";
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(updateUser.pending, (state) => {
@@ -49,3 +54,5 @@ const editUserDataSlice = createSlice({
 });
 
 export default editUserDataSlice.reducer;
+
+export const { resetUpdateUserState } = editUserDataSlice.actions;

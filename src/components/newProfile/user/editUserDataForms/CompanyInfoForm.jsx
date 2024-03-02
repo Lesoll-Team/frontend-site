@@ -1,41 +1,58 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { FiPaperclip } from "react-icons/fi";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
 import Image from "next/image";
-import Button from "@/Shared/ui/Button";
-import { useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Button from "@/Shared/ui/Button";
 import InputSkeleton from "./InputSkeleton";
-import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
+import CompanyPrograssBar from "../CompanyPrograssBar";
 import MobilePageTitle from "../MobilePageTitle";
+import LinksForm from "./LinksForm";
+import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { cn } from "@/utils/cn";
-import LinksForm from "./LinksForm";
+import CommercialImgInput from "./CommercialImgInput";
 
 const CompanyInfoForm = ({ main }) => {
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
   const formError = useSelector((state) => state.editUser.error);
-  const dispatch = useDispatch();
+
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
 
+  const commercialImgRef = useRef(null);
+  const taxImgRef = useRef(null);
+  // const { ref: comRef, ...restCommercial } = register(
+  //   "theCommercialRegistrationImg"
+  // );
+
+  const handleCommercialImgInputClick = () => {
+    if (!watch("theCommercialRegistrationImg"))
+      commercialImgRef.current.click();
+  };
+  const handleDeleteCommrcialImg = () => {
+    setValue("theCommercialRegistrationImg", null);
+  };
+  useEffect(() => {
+    if (userData) {
+      const { fullname, email, code, phone, Bio } = userData;
+      setValue("phone", code + phoneNumberwithoutCode(phone, code));
+      setValue("code", code);
+      setValue("Bio", Bio);
+    }
+  }, [userData]);
+
   const phoneNumberwithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
-
-  useEffect(() => {
-    if (userData) {
-      const { fullname, email, code, phone } = userData;
-
-      setValue("phone", code + phoneNumberwithoutCode(phone, code));
-      setValue("code", code);
-    }
-  }, [userData]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -43,13 +60,19 @@ const CompanyInfoForm = ({ main }) => {
     formData.append("code", data.code);
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
 
-    formData.append(
-      "theCommercialRegistrationImg",
-      data.theCommercialRegistrationImg[0]
-    );
-    formData.append("taxCardImg", data.taxCard[0]);
+    if (data.theCommercialRegistrationImg) {
+      formData.append(
+        "theCommercialRegistrationImg",
+        data.theCommercialRegistrationImg[0]
+      );
+    }
+    if (data.taxCard) {
+      formData.append("taxCardImg", data.taxCard[0]);
+    }
+
     formData.append("companyAddress", data.companyAddress);
-    formData.append("Bio", data.bio);
+    formData.append("workingHours", data.workingHours);
+    formData.append("Bio", data.Bio);
 
     await dispatch(
       updateUser({
@@ -58,29 +81,27 @@ const CompanyInfoForm = ({ main }) => {
       })
     );
     dispatch(getUserData());
+    // console.log(data.theCommercialRegistrationImg?.name);
   };
 
   if (userData) {
-    const initailPhone = userData.code + userData?.phone;
     return (
-      <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
+      <div className={`mx-auto space-y-8 ${main && "md:block hidden"}`}>
         <MobilePageTitle
           title={language ? "المعلومات الشخصية" : "Personal Info"}
         />
-
+        <CompanyPrograssBar />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-y-10"
         >
-          {/* {formStatus === "failed" && <p>{formError.message}</p>} */}
-          <div className="flex flex-col  gap-y-8 md:grid lg:grid-cols-2 md:gap-x-10 lg:gap-x-14 md:gap-y-8">
+          <div className="flex flex-col gap-y-8 md:grid lg:grid-cols-2 md:gap-x-10 lg:gap-x-14 md:gap-y-8">
             <UserInputContainer
               title={language ? "الإسم بالكامل" : "Full Name"}
             >
               <input
                 autoComplete="off"
                 type="text"
-                // readOnly
                 defaultValue={userData.fullname}
                 {...register("fullname", {
                   required: {
@@ -156,42 +177,59 @@ const CompanyInfoForm = ({ main }) => {
               </div>
             </UserInputContainer>
             <UserInputContainer
-              // className={"md:col-span-2"}
               title={language ? "عنوان الشركة" : "Company Address"}
             >
               <input
                 autoComplete="off"
                 type="text"
-                // defaultValue={userData.workingHours}
+                defaultValue={userData.workingHours}
                 {...register("companyAddress")}
                 className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserInputContainer>
-
-            <UserInputContainer
-              // className={"md:col-span-2"}
+            {/* <UserInputContainer
               title={language ? " صورة السجل التجاري" : " صورة السجل التجاري"}
             >
+              <button
+                type="button"
+                onClick={handleCommercialImgInputClick}
+                className={`h-[40px] px-3 flex items-center gap-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+              >
+                {!watch("theCommercialRegistrationImg") ? (
+                  <>
+                    {" "}
+                    <FiPaperclip className="-rotate-45" />
+                    <p>{language ? "إضافة ملف" : "Add File"}</p>
+                  </>
+                ) : (
+                  <div className="p-1 bg-gray-300">
+                    {watch("theCommercialRegistration").name}
+                  </div>
+                )}
+              </button>
               <input
+                ref={commercialImgRef}
+                hidden
                 autoComplete="off"
                 type="file"
-                // defaultValue={userData.workingHours}
-                {...register("theCommercialRegistrationImg")}
-                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+                onChange={(e) => {
+                  setValue("theCommercialRegistrationImg", e.target.files[0]);
+                }}
+                // {...restCommercial}
               />
-            </UserInputContainer>
+            </UserInputContainer> */}
+            <CommercialImgInput setValue={setValue} watch={watch} />
             <UserInputContainer
               title={language ? " صورة البطاقة الضريبية" : "Working Hours"}
             >
               <input
+                ref={taxImgRef}
                 autoComplete="off"
                 type="file"
-                // defaultValue={userData.workingHours}
                 {...register("taxCard")}
                 className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserInputContainer>
-
             <UserInputContainer
               className={"md:col-span-2"}
               title={language ? " مواعيد العمل" : "Working Hours"}
@@ -199,7 +237,7 @@ const CompanyInfoForm = ({ main }) => {
               <input
                 autoComplete="off"
                 type="text"
-                // defaultValue={userData.workingHours}
+                defaultValue={userData.workingHours}
                 {...register("workingHours")}
                 className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
@@ -211,45 +249,12 @@ const CompanyInfoForm = ({ main }) => {
               <textarea
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.bio}
-                {...register("bio")}
+                defaultValue={userData.Bio}
+                {...register("Bio")}
                 className={`p-2 placeholder:text-outLine min-h-[150px] resize-none rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserInputContainer>
           </div>
-          {/* <div className="flex flex-col gap-y-8 md:gap-y-11">
-            <h3 className="text-base md:text-xl font-bold text-lightGreen">
-              {language ? "مواقع التواصل" : "Social media"}
-            </h3>
-            <UserSocialMediaContainer
-              name={"facebook icon"}
-              imgLink={"/social-icons/facebook.svg"}
-            >
-              <input
-                dir="ltr"
-                autoComplete="off"
-                type="text"
-                defaultValue={userData.faceLink}
-                {...register("faceLink", {})}
-                className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
-                  errors.faceLink && "border-red-500 focus:border-red-500"
-                }`}
-              />
-            </UserSocialMediaContainer>
-            <UserSocialMediaContainer
-              name={"facebook icon"}
-              imgLink={"/social-icons/instagram.svg"}
-            >
-              <input
-                dir="ltr"
-                autoComplete="off"
-                type="text"
-                defaultValue={userData.instagramLink}
-                {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
-              />
-            </UserSocialMediaContainer>
-          </div> */}
           <div className="flex justify-end">
             <Button
               disabled={formStatus === "loading"}

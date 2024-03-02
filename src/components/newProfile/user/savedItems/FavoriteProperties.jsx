@@ -3,10 +3,13 @@ import { getFavProp } from "@/redux-store/features/user/userSavedItemsSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileCard from "../../profile-cards/ProfileCard";
+import NoItems from "../userProperties/NoItems";
 
 const FavoriteProperties = () => {
   const dispatch = useDispatch();
   const favProp = useSelector((state) => state.userSavedItems.fav.data);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const status = useSelector((state) => state.userSavedItems.fav.status);
   const error = useSelector((state) => state.userSavedItems.fav.error);
   useEffect(() => {
@@ -20,9 +23,9 @@ const FavoriteProperties = () => {
             return <RealtyCard propertyDetails={item} key={item?._id} />;
           })
         ) : (
-          <div className="w-full min-h-[200px] md:min-h-[300px] grid place-content-center">
-            <p className="md:text-3xl text-outLine">لا يوجد عقارات مفضلة</p>
-          </div>
+          <NoItems
+            title={language ? "لا توجد إعلانات مفضلة " : "No favorite ads "}
+          />
         )
       ) : (
         <>

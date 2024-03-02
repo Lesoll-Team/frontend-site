@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import ProfileCard from "../../profile-cards/ProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getPendingProp } from "@/redux-store/features/user/userPropertiesSlice";
+import NoItems from "./NoItems";
 
 const PendingProperties = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,15 @@ const PendingProperties = () => {
   return (
     <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
       {pendingProp?.pendingRealty ? (
-        pendingProp.pendingRealty.map((item) => {
-          return <ProfileCard data={item} key={item?._id} type={type} />;
-        })
+        pendingProp.pendingRealty.length > 0 ? (
+          pendingProp.pendingRealty.map((item) => {
+            return <ProfileCard data={item} key={item?._id} type={type} />;
+          })
+        ) : (
+          <NoItems
+            title={language ? "لا توجد اعلانات قيد الراجعة" : "No Pending Ads"}
+          />
+        )
       ) : (
         <>
           {" "}

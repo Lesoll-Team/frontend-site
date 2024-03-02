@@ -5,6 +5,8 @@ import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
 import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
+import Image from "next/image";
+import NoItems from "./NoItems";
 const ActiveProperties = () => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -27,9 +29,15 @@ const ActiveProperties = () => {
     <div>
       <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
         {activeProp?.confirmedRealty ? (
-          activeProp.confirmedRealty.map((item) => {
-            return <ProfileCard data={item} key={item?._id} type={type} />;
-          })
+          activeProp.confirmedRealty.length > 0 ? (
+            activeProp.confirmedRealty.map((item) => {
+              return <ProfileCard data={item} key={item?._id} type={type} />;
+            })
+          ) : (
+            <NoItems
+              title={language ? "لا توجد اعلانات نشطة" : "No Active Ads"}
+            />
+          )
         ) : (
           <>
             {" "}

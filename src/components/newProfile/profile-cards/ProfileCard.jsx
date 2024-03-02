@@ -8,6 +8,8 @@ import PropType from "./PropType";
 
 import ProfileCardSkeleton from "./ProfileCardSkeleton";
 import { propertyIsSold } from "@/utils/propertyAPI";
+import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
+import ConfirmSold from "./ConfirmSold";
 
 const ProfileCard = ({ data, type, onDelete }) => {
   const price = localizedNumber(data?.price);
@@ -15,11 +17,12 @@ const ProfileCard = ({ data, type, onDelete }) => {
   const propertyOnSold = async () => {
     try {
       await propertyIsSold({ propertyId: propertyDetails?._id });
-      dispatch(onSold);
+      dispatch(getActiveProp());
     } catch (error) {
       console.error("Error del prop:", error);
     }
   };
+
   const typeActive = type === "active" || type === "نشطة";
   if (data) {
     return (
@@ -81,14 +84,19 @@ const ProfileCard = ({ data, type, onDelete }) => {
               تعديل
             </button>
             {typeActive && (
-              <button
-                onClick={() => {
-                  router.push("/profile/edit");
-                }}
-                className="text-base bg-lightGreen text-center text-white w-full py-2 px-5 border border-lightGreen rounded-md"
-              >
-                تم البيع
-              </button>
+              <ConfirmSold
+                propertyDetails={data}
+                openBtn={
+                  <button
+                    // onClick={() => {
+                    //   router.push("/profile/edit");
+                    // }}
+                    className="text-base bg-lightGreen text-center text-white w-full py-2 px-5 border border-lightGreen rounded-md"
+                  >
+                    تم البيع
+                  </button>
+                }
+              />
             )}
           </div>
         </div>

@@ -1,18 +1,10 @@
-import SignInForm from "../../components/signin/SignInForm";
-
-// import dynamic from "next/dynamic";
-// const SignInForm = dynamic(() => import("../../components/signin/SigninForm"));
-import Link from "next/link";
-import house from "../../../public/page3.svg";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Signin from "@/components/auth/login/Signin";
 const SignIn = () => {
   const router = useRouter();
-
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
 

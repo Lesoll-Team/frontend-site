@@ -5,6 +5,7 @@ import {
   getPendingProp,
   getSoldProp,
 } from "@/redux-store/features/user/userPropertiesSlice";
+import NoItems from "./NoItems";
 const SoldProperties = () => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -26,9 +27,7 @@ const SoldProperties = () => {
             return <ProfileCard data={item} key={item?._id} type={type} />;
           })
         ) : (
-          <div className="w-full min-h-[200px] md:min-h-[300px] grid place-content-center">
-            <p className="md:text-3xl text-outLine">لا يوجد عقارات مباعة</p>
-          </div>
+          <NoItems title={language ? "لا توجد اعلانات مباعة" : "No sold Ads"} />
         )
       ) : (
         <>

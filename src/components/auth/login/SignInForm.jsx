@@ -37,14 +37,14 @@ const SignInForm = () => {
   }, [status]);
 
   useEffect(() => {
-    if (error?.message === "This password is wrong, try agin") {
+    if (error?.message.toLowerCase().includes("password")) {
       setWrongPasswird(true);
       dispatch(resetLogin());
       setTimeout(function () {
         setWrongPasswird(false);
       }, 3500);
     }
-    if (error?.message === "This Email Not Exist, try agin") {
+    if (error?.message.toLowerCase().includes("email")) {
       setEmailNotFound(true);
       dispatch(resetLogin());
       setTimeout(function () {
@@ -52,7 +52,7 @@ const SignInForm = () => {
       }, 3500);
     }
   }, [error]);
-
+  console.log(error);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

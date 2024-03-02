@@ -172,7 +172,7 @@ const RegisterForm = () => {
               color: "#1b6e6d",
               borderRadius: "8px",
               // border: "1px",
-              // borderColor: errors.phoneNumber && "red",
+              // borderColor: errors.phone && "red",
             }}
             buttonStyle={{
               height: "47px",
@@ -182,7 +182,7 @@ const RegisterForm = () => {
             containerStyle={{
               // border: "1px",
 
-              borderColor: errors.phoneNumber && "red",
+              borderColor: errors.phone && "red",
             }}
             dropdownStyle={{
               height: "150px",
@@ -195,24 +195,24 @@ const RegisterForm = () => {
             enableSearch={true}
             country={"eg"}
             excludeCountries={["IL"]}
-            // value={phoneNumber}
+            // value={phone}
             onChange={(e, info) => {
-              setValue("phoneNumber", e);
+              setValue("phone", e);
               setValue("code", info.dialCode);
               // if (e) {
-              //   setFormError({ ...formError, phoneNumberError: false });
+              //   setFormError({ ...formError, phoneError: false });
               // }
             }}
           />
-          {errors.phoneNumber && (
+          {errors.phone && (
             <p dir={language ? "rtl" : "ltr"} className="text-red-500">
-              {errors.phoneNumber.message}
+              {errors.phone.message}
             </p>
           )}
           <input
-            id="phoneNumber"
-            name="phoneNumber"
-            {...register("phoneNumber", {
+            id="phone"
+            name="phone"
+            {...register("phone", {
               required: {
                 value: true,
                 message: language
