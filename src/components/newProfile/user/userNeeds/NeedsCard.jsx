@@ -1,16 +1,25 @@
 import Skeleton from "@/Shared/ui/Skeleton";
 import { localizedNumber } from "@/utils/localizedNumber";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteNeed,
+  getUserNeeds,
+} from "@/redux-store/features/user/userNeedsSlice";
 
 const NeedsCard = ({ data }) => {
+  const dispatch = useDispatch();
+
+  const [showMenu, setShowMenu] = useState(false);
+  const toggleMenu = () => setShowMenu((prev) => !prev);
+  const menuRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const priceFrom = localizedNumber(data?.price?.from);
   const priceTo = localizedNumber(data?.price?.to);
-  const proptype = useMemo(() => {}, [data, language]);
-  const unitType = useMemo(() => {}, [data, language]);
-  const saleOptian = useMemo(() => {}, [data, language]);
+  // const proptype = useMemo(() => {}, [data, language]);
+  // const unitType = useMemo(() => {}, [data, language]);
+  // const saleOptian = useMemo(() => {}, [data, language]);
   const roomNumbersTitle = language ? "عدد الغرف: " : "Rooms: ";
   const BathNumbersTitle = language ? "عدد الحمامات: " : "Bathrooms: ";
   const currancy = language ? "جنية" : "Egp";
@@ -23,6 +32,25 @@ const NeedsCard = ({ data }) => {
       M<sup>2</sup>
     </span>
   );
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    }
+
+    // Add event listener when component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const onDelete = async () => {
+    await dispatch(deleteNeed(data._id));
+    dispatch(getUserNeeds());
+  };
   if (data) {
     return (
       <div className="p-4 border bg-white drop-shadow rounded space-y-4">
@@ -30,7 +58,24 @@ const NeedsCard = ({ data }) => {
           <h4 className="text-sm md:text-xl text-darkGray font-semibold">
             مطلوب شقة للبيع الجيزة الشيخ زايد
           </h4>
-          <HiDotsVertical />
+          <div className="relative" ref={menuRef}>
+            <button onClick={toggleMenu}>
+              <HiDotsVertical />
+            </button>
+            {showMenu && (
+              <div className="absolute fade-in bg-white min-w-[130px] rounded-lg py-2  drop-shadow left-0 top-5 ">
+                <button
+                  onClick={() => {
+                    setShowMenu(false);
+                    onDelete();
+                  }}
+                  className="text-red-500 text-center w-full"
+                >
+                  {language ? "حذف" : "Delete"}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">

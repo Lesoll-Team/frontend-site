@@ -4,8 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { BiEditAlt } from "react-icons/bi";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { IoPersonAddOutline } from "react-icons/io5";
 import {
   MdOutlineAccountCircle,
+  MdOutlinePersonAddAlt,
+  MdOutlinePersonAddAlt1,
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
@@ -67,13 +70,27 @@ const ProfileLinks = ({ main }) => {
         <hr />
       </div>
       {!isCompany && (
+        <>
+          <div className="flex flex-col gap-5">
+            <Link
+              href={"/profile/needs"}
+              className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
+            >
+              <BiEditAlt className="md:text-3xl" />
+              {language ? " الطلبات" : " Needs"}
+            </Link>
+            <hr />
+          </div>
+        </>
+      )}
+      {isCompany && (
         <div className="flex flex-col gap-5">
           <Link
-            href={"/profile/needs"}
+            href={"/profile/add-subuser"}
             className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
           >
-            <BiEditAlt className="md:text-3xl" />
-            {language ? " الطلبات" : " Needs"}
+            <IoPersonAddOutline className="md:text-3xl" />
+            {language ? " المستخدمين" : "Users"}
           </Link>
           <hr />
         </div>

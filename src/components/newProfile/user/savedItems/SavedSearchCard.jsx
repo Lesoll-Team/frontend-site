@@ -58,22 +58,25 @@ const SavedSearchCard = ({ data }) => {
               <button onClick={() => setShowMenu(!showMenu)}>
                 <HiDotsVertical />
               </button>
-              {showMenu && (
-                <div className="absolute fade-in bg-white min-w-[130px] rounded-lg  drop-shadow left-1 top-5 ">
-                  <EditSearchModal>
-                    <button className="text-xs font-semibold px-4 w-full text-center py-5">
-                      {language ? "إعادة تسمية البحث" : "Rename Search"}
-                    </button>
-                  </EditSearchModal>
-                  <hr />
-                  <button
-                    onClick={onDelete}
-                    className="text-xs  text-red-500 font-semibold px-4 w-full text-center py-5"
-                  >
-                    {language ? "حذف" : "Delete"}
+
+              <div
+                className={`absolute fade-in bg-white min-w-[130px] rounded-lg  drop-shadow left-1 top-5 ${
+                  showMenu ? "block" : "hidden"
+                }`}
+              >
+                <EditSearchModal>
+                  <button className="text-xs font-semibold px-4 w-full text-center py-5">
+                    {language ? "إعادة تسمية البحث" : "Rename Search"}
                   </button>
-                </div>
-              )}
+                </EditSearchModal>
+                <hr />
+                <button
+                  onClick={onDelete}
+                  className="text-xs  text-red-500 font-semibold px-4 w-full text-center py-5"
+                >
+                  {language ? "حذف" : "Delete"}
+                </button>
+              </div>
             </div>
           </div>
           <h4 className="text-sm  md:text-xl font-bold text-darkGray ">

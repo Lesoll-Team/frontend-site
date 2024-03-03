@@ -7,6 +7,10 @@ const initialState = {
     status: "idle", //? "idle" | "loading" | "succeeded" |"failed"
     error: null,
   },
+  delete: {
+    status: "idle", //? "idle" | "loading" | "succeeded" |"failed"
+    error: null,
+  },
 };
 
 export const getUserNeeds = createAsyncThunk(
@@ -16,6 +20,25 @@ export const getUserNeeds = createAsyncThunk(
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/need/get-profile-needs`,
+        {
+          headers: {
+            token: userToken,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+export const deleteNeed = createAsyncThunk(
+  "userNeeds/deleteNeed",
+  async (id, thunkAPI) => {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/need/delete-need/${id}`,
         {
           headers: {
             token: userToken,
@@ -43,6 +66,15 @@ const userNeedsSlice = createSlice({
         state.needs.status = "succeeded";
       })
       .addCase(getUserNeeds.rejected, (state, action) => {
+        state.needs.status = "failed";
+      })
+      .addCase(deleteNeed.pending, (state, action) => {
+        state.needs.status = "loading";
+      })
+      .addCase(deleteNeed.fulfilled, (state, action) => {
+        state.needs.status = "succeeded";
+      })
+      .addCase(deleteNeed.rejected, (state, action) => {
         state.needs.error = action.payload;
         state.needs.status = "failed";
       });
