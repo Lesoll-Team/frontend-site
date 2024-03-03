@@ -3,7 +3,7 @@ import LocationCategories from "@/components/homePage/LocationCategories";
 import OtherCards from "@/components/homePage/OtherCards";
 import PropertiesCategories from "@/components/homePage/PropertiesCategories";
 import SearchModule from "@/components/homePage/SearchModule";
-import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
+// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 // import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 // import React from "react";
 

@@ -108,7 +108,6 @@ const PropertiesCategories = ({ isHome }) => {
     const handleResize = () => {
       window.innerWidth <= 1280 ? setSeeMore(6) : setSeeMore(8);
       window.innerWidth <= 770 && setSeeMore(4);
-      // setSeeMore(window.innerWidth <= 1280); // Set to true for screens less than or equal to 640px
     };
 
     handleResize(); // Call the function to set the initial value
@@ -120,7 +119,7 @@ const PropertiesCategories = ({ isHome }) => {
   }, []);
   return (
     <Fragment>
-      <div className="md:w-full flex items-center justify-between  md:container md:mx-auto mx-[20px] ">
+      <div className="md:w-full flex items-center justify-between  md:container mb-[50px] md:mx-auto mx-[20px] ">
         <h6 className="font-bold md:text-[39px] text-[14px] flex mx-[10px] text-grayText2">
           {language ? "نوع العقار" : "Property type"}
         </h6>
