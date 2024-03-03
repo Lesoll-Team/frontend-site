@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import SideMenu from "./SideMenu";
 import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
+import ProfileDropDown from "./ProfileDropDown";
 export default function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
@@ -97,17 +98,7 @@ export default function Navbar() {
               {userData && <Notifications />}
             </div>
             <ChangeLang bigScreen={true} />
-            {userData && (
-              <Link className=" " href={"/profile"}>
-                <Image
-                  src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
-                  width={50}
-                  height={50}
-                  className="rounded-full object-cover h-7 w-7 sm:w-[30px] sm:h-[30px] lg:h-[50px] lg:w-[50px]"
-                  alt="Profile image"
-                />
-              </Link>
-            )}
+            {userData && <ProfileDropDown />}
           </div>
 
           <SideMenu />

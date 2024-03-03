@@ -78,7 +78,7 @@ const Notifications = () => {
             </div>
             <button
               onClick={handleSeeAll}
-              className="text-xs md:text-xl text-outLine"
+              className="text-xs md:text-base text-outLine"
             >
               {language ? "قراءة الكل" : "Read All"}
             </button>

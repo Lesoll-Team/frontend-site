@@ -1,7 +1,7 @@
 import {
   forgetPassEmail,
   resetForgetPassState,
-} from "@/redux-store/features/user/ForgetPassSlice";
+} from "@/redux-store/features/user/forgetPassSlice";
 import { Waveform } from "@uiball/loaders";
 import Link from "next/link";
 import { useEffect, useState } from "react";
