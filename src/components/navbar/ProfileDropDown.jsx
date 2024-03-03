@@ -49,7 +49,7 @@ const ProfileDropDown = () => {
     };
   }, []);
   const isCompany = useMemo(() => {
-    return userData.typeOfUser === "company" ? true : false;
+    return userData.typeOfUser === "company";
   }, []);
   const showDashboard = useMemo(() => {
     if (userData.isAdmin || userData.superAdmin || userData.supAdmin) {

@@ -1,3 +1,4 @@
+import Button from "@/Shared/ui/Button";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
@@ -24,6 +25,9 @@ const AcceptInvite = () => {
               : ""}
           </p>
         </div>
+        <Button className={"max-w-[350px] w-full"}>
+          {language ? "موافقة" : "Accept"}
+        </Button>
       </div>
       <Image
         src={"/accept-invite.png"}
