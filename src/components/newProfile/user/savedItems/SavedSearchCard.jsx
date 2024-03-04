@@ -7,7 +7,7 @@ import { useDisclosure } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import EditSearchModal from "./editSearchModal";
+import EditSearchModal from "./EditSearchModal";
 import { TbCheckbox } from "react-icons/tb";
 import { RiCheckboxBlankLine } from "react-icons/ri";
 import Skeleton from "@/Shared/ui/Skeleton";
