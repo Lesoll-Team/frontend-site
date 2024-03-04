@@ -14,6 +14,15 @@ import SimilarBlogs from "./SimilarBlogs";
 
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
+
+  const formattedDate = (dateString, language) => {
+    const date = new Date(dateString);
+    const locale = language ? "ar-EG" : "en-US";
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = date.toLocaleDateString(locale, options);
+    return formattedDate;
+  };
+
   return (
     <div className="py-10 md:container md:mx-auto mx-[20px]">
       <div className="relative ">
@@ -40,19 +49,21 @@ function BlogSinglePage({ BlogData }) {
           <div className="sticky top-20 ">
             <div className="flex flex-col gap-y-2">
               <div className="flex flex-col ">
-                <span>2024/2/18</span>
-                <span className="text-[25px]">مقالات مشابهة</span>
-                <div className="relative w-full">
+                <span>
+                  {formattedDate(BlogData?.getBlogs.createdAt, language)}
+                </span>
+                <span className="text-[25px]">
+                  {language ? "مقالات مشابهة" : "Similar Blogs"}
+                </span>
+                <div className="relative w-11/12">
                   <hr className="border-t-3 w-full absolute  border-gray1 " />
                   <hr className="border-t-3 w-5/12 absolute  border-lightGreen " />
                 </div>
               </div>
-              <SimilarBlogs blog={BlogData} />
-              <SimilarBlogs blog={BlogData} />
-              <SimilarBlogs blog={BlogData} />
+              <SimilarBlogs blog={BlogData?.mostVisit} />
             </div>
 
-            <div className=" w-full  ">
+            <div className=" w-11/12  ">
               <p>
                 يمكنك التواصل مع فريقنا المتخصص من خلال كل وسائل التواصل المتاحة
                 عبر:
