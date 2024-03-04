@@ -13,6 +13,7 @@ const SoldProperties = () => {
   const soldPropStatus = useSelector(
     (state) => state.userProperties.sold.status
   );
+  console.log(soldProp);
   const soldPropError = useSelector((state) => state.userProperties.sold.error);
   useEffect(() => {
     dispatch(getSoldProp());
@@ -22,7 +23,7 @@ const SoldProperties = () => {
   return (
     <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
       {soldProp ? (
-        soldProp.length > 0 ? (
+        soldProp.propertySoldProfile.length > 0 ? (
           soldProp.propertySoldProfile.map((item) => {
             return <ProfileCard data={item} key={item?._id} type={type} />;
           })

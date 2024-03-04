@@ -77,7 +77,7 @@ const ProfileDropDown = () => {
           <Link
             onClick={closeMenu}
             href={"/profile/edit"}
-            className="text-baseGray md:hidden flex items-center gap-4 font-semibold  text-sm "
+            className="text-baseGray md:hidden flex items-center gap-4   text-sm "
           >
             <MdOutlineAccountCircle className="" />
             <span className=" whitespace-nowrap break-keep">
@@ -87,7 +87,7 @@ const ProfileDropDown = () => {
           <Link
             onClick={closeMenu}
             href={"/profile"}
-            className="text-baseGray hidden md:flex items-center gap-4 font-semibold text-sm lg:text-xl w-fit"
+            className="text-baseGray hidden md:flex items-center gap-4  text-sm lg:text-xl w-fit"
           >
             <MdOutlineAccountCircle className="" />
             {language ? "المعلومات الشخصية" : "Personal Info"}
@@ -98,7 +98,7 @@ const ProfileDropDown = () => {
               <Link
                 onClick={closeMenu}
                 href={"/dashboard"}
-                className="text-baseGray flex items-center gap-4 font-semibold text-sm lg:text-xl "
+                className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
               >
                 <RiDashboardLine />
                 <span className=" whitespace-nowrap break-keep">
@@ -112,7 +112,7 @@ const ProfileDropDown = () => {
           <Link
             onClick={closeMenu}
             href={"/profile/my-properties"}
-            className="text-baseGray flex items-center gap-4 font-semibold text-sm lg:text-xl "
+            className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
           >
             <MdOutlineRealEstateAgent className="" />
             <span className=" whitespace-nowrap break-keep">
@@ -125,7 +125,7 @@ const ProfileDropDown = () => {
           <Link
             onClick={closeMenu}
             href={"/profile/saved-items"}
-            className="text-baseGray flex items-center gap-4 font-semibold text-sm lg:text-xl "
+            className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
           >
             <IoMdHeartEmpty className="" />
             <span className=" whitespace-nowrap break-keep">
@@ -139,7 +139,7 @@ const ProfileDropDown = () => {
               <Link
                 onClick={closeMenu}
                 href={"/profile/needs"}
-                className="text-baseGray flex items-center gap-4 font-semibold text-sm lg:text-xl "
+                className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
               >
                 <BiEditAlt className="" />
                 <span className=" whitespace-nowrap break-keep">
@@ -151,7 +151,7 @@ const ProfileDropDown = () => {
           )}
           <button
             onClick={handleLogout}
-            className="text-red-500 font-semibold text-sm  lg:text-xl w-fit flex items-center gap-4 "
+            className="text-red-500  text-sm  lg:text-xl w-fit flex items-center gap-4 "
           >
             <RiLogoutBoxLine />
             {language ? "تسجيل الخروج" : "Log out"}

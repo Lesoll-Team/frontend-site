@@ -6,6 +6,7 @@ import EditProp from "@/components/editproperty/EditProp";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
 import AddProperty from "@/components/newAddProperty/AddProperty";
+import { formatApiData } from "@/Hooks/editProperty/fromateApiData";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
@@ -23,7 +24,7 @@ const EditProperty = () => {
     }
   }, [propertyId]);
 
-  console.log(propData);
+  console.log("edit data:", formatApiData(propData));
   return (
     <div>
       {/* EditProperty {propertyId}

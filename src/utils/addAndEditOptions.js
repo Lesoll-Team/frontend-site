@@ -18,3 +18,15 @@ export const installmentTypeOptions = [
     },
   },
 ];
+
+export const propTypeList = [
+  { value: "Residential", name: { ar: "سكنى", en: "Residential" } },
+  { value: "Commercial", name: { ar: "تجارى", en: "Commercial" } },
+  { value: "Land", name: { ar: "أرض", en: "Land" } },
+];
+
+export const rentalTypes = [
+  { value: "Daily", name: { ar: "يومي", en: "Daily" } },
+  { value: "Monthly", name: { ar: "شهري", en: "Monthly" } },
+  { value: "Yearly", name: { ar: "سنوي", en: "Yearly" } },
+];
