@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 const OtherCards = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <Fragment>
       <Link
@@ -11,11 +14,12 @@ const OtherCards = () => {
       >
         <label className="min-w-[70%] max-w-[71%]   cursor-pointer">
           <h5 className="text-[#0F3963] text-[14px] md:text-[25px] font-bold">
-            اضف عقارك
+            {language ? "اضف عقارك" : "Add Property"}
           </h5>
           <p className="font-semibold text-gray2 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
-            {" "}
-            يمكنك الان عرض عقارك للبيع او الإيجار على ليسول بخطوات بسيطة
+            {language
+              ? "يمكنك الان عرض عقارك للبيع او الإيجار على ليسول بخطوات بسيطة"
+              : "You can now list your property for sale or rent on Lysol in simple steps"}
           </p>
         </label>
         <Image
@@ -34,10 +38,12 @@ const OtherCards = () => {
       >
         <label className="min-w-[70%] cursor-pointer">
           <h5 className="text-[#0F3963] text-[14px] md:text-[25px] font-bold">
-            حدد طلبك
+            {language ? "حدد طلبك" : "Select your order"}
           </h5>
           <p className="font-semibold text-gray2 text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
-            يمكنك إضافة مواصفات عقارك لنساعدك في إيجاد انسب عقار{" "}
+            {language
+              ? "اضافة مواصفات عقارك لنساعدك في إيجاده"
+              : "Add your property specifications to help you find it"}
           </p>
         </label>
         <Image

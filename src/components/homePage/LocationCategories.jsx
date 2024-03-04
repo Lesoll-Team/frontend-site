@@ -93,7 +93,9 @@ const LocationCategories = () => {
           {language ? "المحافظات" : "Governorates"}
         </h6>
         <p className="text-gray2 md:text-[25px] text-[12px] my-1 mb-8">
-          اختر المحافظة اللي تريد لنساعدك في إيجاد افضل عقار
+          {language
+            ? "اختر المحافظة لنساعدك في إيجاد افضل العقارات"
+            : "Choose the governorate to help you find the best properties"}
         </p>
       </div>
       <div

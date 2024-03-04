@@ -20,7 +20,7 @@ const Home = () => {
       <HeroSection />
 
       <div
-        className="md:container md:mx-auto mx-[20px] flex-wrap flex flex-col md:flex-row justify-between"
+        className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2 flex-col md:flex-row justify-between"
         // className=" lg:my-0 my-24  gap-y-3 container mx-auto flex-wrap flex flex-col md:flex-row justify-between "
       >
         <OtherCards />
