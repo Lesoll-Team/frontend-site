@@ -181,7 +181,7 @@ const PropertiesCategories = ({ isHome }) => {
                   {category.icon}
                 </div>
                 <div className="  text-center flex flex-col gap-y-3 ">
-                  <p className="font-bold md:text-[20px] text-[11px] bg-red-200 text-grayText2">
+                  <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
                     {language ? category.titleAr : category.titleEn}
                   </p>
                   <p className="text-[11px] md:text-[20px] text-lightGreen">

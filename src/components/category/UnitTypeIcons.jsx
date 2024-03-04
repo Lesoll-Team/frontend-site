@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import {
 //   ApartmentIcon,
 //   // ApartmentWithGardenIcon,
@@ -56,18 +56,36 @@ const UnitTypeIcons = ({
       setLocationRegion(Key);
     }
   };
-  console.log(items);
+  const [seeMore, setSeeMore] = useState(8);
+  useEffect(() => {
+    const handleResize = () => {
+      window.innerWidth <= 1280 ? setSeeMore(6) : setSeeMore(8);
+      window.innerWidth <= 970 && setSeeMore(4);
+      window.innerWidth >= 1280 && setSeeMore(9);
+    };
+
+    handleResize(); // Call the function to set the initial value
+    window.addEventListener("resize", handleResize); // Add event listener for resize
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Clean up event listener
+    };
+  }, []);
+  // console.log(items);
   return (
-    <div className="flex overflow-x-auto no-scrollbar gap-x-[2.05vw] ">
-      {items?.map((item) => (
-        <button
-          key={item.keyword}
-          onClick={() => handleTapClicked(item.keyword)}
-          className=" text-[12px] md:text-[20px] flex  hover:text-lightGreen "
-        >
-          {language ? item.ar : item.en}
-        </button>
-      ))}
+    <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
+      {items
+        ?.filter((_, i) => i < seeMore)
+        .map((item) => (
+          <button
+            key={item.keyword}
+            onClick={() => handleTapClicked(item.keyword)}
+            className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
+          >
+            <span className="text-gray2"> {language ? item.ar : item.en}</span>
+            <span className="text-lightGreen">({item.getDataNumber})</span>
+          </button>
+        ))}
     </div>
   );
   // switch (category) {

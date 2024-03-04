@@ -13,7 +13,7 @@ import Image from "next/image";
 
 const RealtyCard = ({ propertyDetails }) => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  // const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
   const [loved, setLoved] = useState(false);
@@ -34,7 +34,7 @@ const RealtyCard = ({ propertyDetails }) => {
   return (
     <div //md:w-[380px] 2xl:w-[400px]  w-full
       className=" md:max-w-[400px]
-     md:h-[355px] h-[133px] 
+      md:h-[355px] h-[145px] 
      flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative"
     >
       {/* start icon favorite */}
@@ -73,7 +73,7 @@ const RealtyCard = ({ propertyDetails }) => {
         key={propertyDetails?._id}
         href={`/property-details/${propertyDetails?.slug}`}
         className="
-         md:h-[174px] h-[135px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
+         md:h-[174px] h-[145px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
       >
         <Image
           alt="Card background"
@@ -94,13 +94,9 @@ const RealtyCard = ({ propertyDetails }) => {
         {/* start contact and price */}
         <div className="flex flex-row items-center justify-between">
           {propertyDetails?.offer !== "For Investment" && (
-            <p className=" font-bold font-inter  text-gray2 text-[18px] md:text-[20px]">
-              <span>
-                {language
-                  ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
-                  : parseInt(propertyDetails?.price).toLocaleString()}{" "}
-              </span>
-              {language ? "ج.م" : "EGP"}
+            <p className=" font-bold font-inter  text-gray2 text-[12px] md:text-[20px]">
+              <span>{parseInt(propertyDetails?.price)}</span>
+              {" EGP "}
               <span className="text-gray2 mx-5 md:text-[17px] text-[12px] font-normal"></span>
             </p>
           )}
@@ -122,7 +118,7 @@ const RealtyCard = ({ propertyDetails }) => {
           href={`/property-details/${propertyDetails?.slug}`}
           className="md:w-full"
         >
-          <h4 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[15px] md:text-[20px] line-clamp-1  ">
+          <h4 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[11px] md:text-[20px] md:line-clamp-1 line-clamp-2  ">
             {propertyDetails?.title}
           </h4>
         </Link>
@@ -139,9 +135,7 @@ const RealtyCard = ({ propertyDetails }) => {
             {propertyDetails?.rooms > 0 && (
               <ul className="flex items-center gap-x-1  ">
                 <li className="font-bold text-[11px] font-inter md:text-[17px]">
-                  {language
-                    ? propertyDetails?.rooms.toLocaleString("ar-Eg")
-                    : propertyDetails?.rooms.toLocaleString()}
+                  {propertyDetails?.rooms}
                 </li>
                 <LiaBedSolid className="md:text-[25px]" />
               </ul>
@@ -151,9 +145,7 @@ const RealtyCard = ({ propertyDetails }) => {
                 <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
                 <ul className="flex items-center gap-x-1  ">
                   <li className="font-bold text-[11px] font-inter md:text-[17px]">
-                    {language
-                      ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
-                      : propertyDetails?.bathRooms.toLocaleString()}
+                    {propertyDetails?.bathRooms}
                   </li>
                   <PiBathtub className="md:text-[25px]" />
                 </ul>
@@ -169,9 +161,7 @@ const RealtyCard = ({ propertyDetails }) => {
                 <ul className="flex items-center gap-x-1  ">
                   <LiaVectorSquareSolid className=" md:text-[20px]" />
                   <li className="font-bold text-[11px] font-inter md:text-[17px]">
-                    {language
-                      ? propertyDetails?.area.toLocaleString("ar-Eg") + " م "
-                      : propertyDetails?.area.toLocaleString() + " m "}
+                    {propertyDetails?.area + " m "}
                   </li>
                 </ul>
               </>

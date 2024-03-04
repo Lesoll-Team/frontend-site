@@ -57,13 +57,7 @@ const SidebarAndBarFilter = ({
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [openFilter, setOpenFilter] = useState(false);
   const [clickOnTap, setClickOnTap] = useState(false);
-
-  // useEffect(() => {
-
-  //   setLocationGovernorate(governorate);
-  //   setLocationRegion(region);
-  // }, []);
-  const firstFetchData = () => {
+  useEffect(() => {
     do {
       setLocationGovernorate(governorate);
       setLocationRegion(region);
@@ -82,28 +76,9 @@ const SidebarAndBarFilter = ({
       setFinishedOptionKey(searchKeywords.finishedOption);
       setPaymentTypeKey(searchKeywords.paymentType);
       setSortKey(searchKeywords.sort);
-      // setLocationGovernorate(locationGovernorate || governorate);
-      // setLocationRegion(locationRegion || region);
-      // setUnitTypesKey(unitTypesKey || unitType);
-      // setSaleOptionKey(saleOptionKey || saleOptions);
-      // setCategoryTypeKey(categoryTypeKey || category);
-      // setSearchKeyword(searchKeyword || searchKeywords.keyword);
-      // setPropFinancing(propFinancing || searchKeywords.mortgage);
-      // setAreaFrom(areaFrom || searchKeywords.areaFrom);
-      // setAreaTo(areaTo || searchKeywords.areaTo);
-      // setNumBathrooms(numBathrooms || searchKeywords.numBathrooms);
-      // setNumBedrooms(numBedrooms || searchKeywords.numBedrooms);
-      // setPriceFrom(priceFrom || searchKeywords.priceFrom);
-      // setPriceTo(priceTo || searchKeywords.priceTo);
-      // setPageNumber(pageNumber || searchKeywords.page);
-      // setFinishedOptionKey(finishedOptionKey || searchKeywords.finishedOption);
-      // setPaymentTypeKey(paymentTypeKey || searchKeywords.paymentType);
-      // setSortKey(sortKey || searchKeywords.sort);
     } while (false);
-  };
-  useEffect(() => {
-    firstFetchData();
   }, []);
+
   const filterInput = {
     category: categoryTypeKey, //|| category,
     saleOptions: saleOptionKey, //|| saleOptions,
@@ -130,78 +105,48 @@ const SidebarAndBarFilter = ({
   //   saleOptions,
   //   unitType,
   // };
-  const handleFilterAction =
-    // useCallback(
-    () => {
-      firstFetchData();
+  const handleFilterAction = () => {
+    // firstFetchData();
 
-      const filteredKeywords = Object.fromEntries(
-        Object.entries(queryInput).filter(
-          ([_, value]) => value != null && value !== "" && value !== 0
-        )
-      );
+    const filteredKeywords = Object.fromEntries(
+      Object.entries(queryInput).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
 
-      const filterInputAfter = Object.fromEntries(
-        Object.entries(filterInput).filter(
-          ([_, value]) => value != null && value !== "" && value !== 0
-        )
-      );
+    const filterInputAfter = Object.fromEntries(
+      Object.entries(filterInput).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
 
-      const combinedToObject = { ...filterInputAfter };
+    const combinedToObject = { ...filterInputAfter };
 
-      const pagesInput3 = Object.keys(combinedToObject)
-        .map((key) => `${combinedToObject[key]}`)
-        .join("/")
-        .toLowerCase();
+    const pagesInput3 = Object.keys(combinedToObject)
+      .map((key) => `${combinedToObject[key]}`)
+      .join("/")
+      .toLowerCase();
 
-      const existingQueryParams = new URLSearchParams(
-        router.asPath.split("?")[1]
-      );
+    const existingQueryParams = new URLSearchParams(
+      router.asPath.split("?")[1]
+    );
 
-      const combinedKeywords = { ...filteredKeywords };
-      for (const [key, value] of Object.entries(combinedKeywords)) {
-        existingQueryParams.set(key, value);
-      }
+    const combinedKeywords = { ...filteredKeywords };
+    for (const [key, value] of Object.entries(combinedKeywords)) {
+      existingQueryParams.set(key, value);
+    }
 
-      const queryString = existingQueryParams.toString(combinedKeywords);
+    const queryString = existingQueryParams.toString(combinedKeywords);
 
-      router.push(
-        `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
-      );
-    };
-  // , [
-  //   queryInput,
-  //   searchKeyword,
-  //   filterInput,
-  //   propFinancing,
-  //   sortKey,
-  //   sort,
-  //   paymentTypeKey,
-  //   paymentType,
-  //   finishedOptionKey,
-  //   finishedOption,
-  //   areaTo,
-  //   areaFrom,
-  //   numBedrooms,
-  //   numBathrooms,
-  //   priceTo,
-  //   priceFrom,
-  //   locationRegion,
-  //   unitTypesKey,
-  //   locationGovernorate,
-  //   unitTypes,
-  //   saleOptionKey,
-  //   saleOption,
-  //   categoryTypeKey,
-  //   categoryType,
-  //   pageNumber,
-  // ]);
+    router.push(
+      `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
+    );
+  };
 
   const getNameWithValue = useGetNameWithValue(sortKey);
-  // useEffect(() => {
-
-  //   handleFilterAction();
-  // }, [sort, pageNumber, clickOnTap]);
+  useEffect(() => {
+    handleFilterAction();
+  }, [sort, pageNumber, clickOnTap]);
   useEffect(() => {
     setIsSaveed(false);
     setConfirmSendMessage(false);
@@ -219,25 +164,7 @@ const SidebarAndBarFilter = ({
     });
     setOpenSaveFilterInput(!openSaveFilterInput);
   };
-  // useEffect(() => {
-  //   setLocationGovernorate(governorate);
-  //   setLocationRegion(region);
-  //   setUnitTypesKey(unitType);
-  //   setSaleOptionKey(saleOptions);
-  //   setCategoryTypeKey(category);
-  //   setSearchKeyword(searchKeywords.keyword);
-  //   setPropFinancing(searchKeywords.mortgage);
-  //   setAreaFrom(searchKeywords.areaFrom);
-  //   setAreaTo(searchKeywords.areaTo);
-  //   setNumBathrooms(searchKeywords.numBathrooms);
-  //   setNumBedrooms(searchKeywords.numBedrooms);
-  //   setPriceFrom(searchKeywords.priceFrom);
-  //   setPriceTo(searchKeywords.priceTo);
-  //   setPageNumber(searchKeywords.page);
-  //   setFinishedOptionKey(searchKeywords.finishedOption);
-  //   setPaymentTypeKey(searchKeywords.paymentType);
-  //   setSortKey(searchKeywords.sort);
-  // }, []);
+
   return (
     <>
       {/* pop UP module after save  */}
@@ -304,7 +231,7 @@ const SidebarAndBarFilter = ({
             priceFrom={priceFrom}
             priceTo={priceTo}
             filterData={{
-              searchKeywords: searchKeywords || "",
+              searchKeywords,
               governorate,
               region,
               unitType,
@@ -349,7 +276,7 @@ const SidebarAndBarFilter = ({
       </div>
       {/******************************/}
       {/* unit types  */}
-      <div className="md:container md:mx-auto mx-[10px] md:block hidden">
+      <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
         <UnitTypeIcons
           category={categoryTypeKey || category}
           items={result?.aggregation_links}
@@ -366,16 +293,16 @@ const SidebarAndBarFilter = ({
       </div>
       {/******************************/}
       {/* title & save and filter button  */}
-      <div className="md:container md:mx-auto mx-[10px flex flex-wrap justify-between items-center ">
+      <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[20px] gap-y-[10px]">
         {/*title filter page */}
-        <div className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[24px] text-[14px]">
+        <div className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[25px] text-[14px]">
           {language
             ? result?.supTitleCategory?.ar
             : result?.supTitleCategory?.en}
         </div>
         {/*sorted and save search filter page */}
         <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
-          <div className="flex  whitespace-nowrap gap-x-3 items-center">
+          <div className="flex   whitespace-nowrap gap-x-3 items-center">
             <span className="text-[12px] md:text-[20px]">الترتيب حسب:</span>
             <Dropdown
               baseIcon={<LuArrowDownUp />}
@@ -392,6 +319,7 @@ const SidebarAndBarFilter = ({
                   dataObject: sortedData,
                 })
               }
+              isSort
               dataOptions="text"
             />
           </div>
@@ -399,7 +327,12 @@ const SidebarAndBarFilter = ({
           <button
             disabled={isSaveed}
             onClick={handleSendSearchFilter}
-            className="indent-2 h-[1.875rem] md:h-[3.313rem] md:min-w-[8.438rem] min-w-[6rem]   md:px-3 md:p-2 p-1 px-1 rounded-[1vh] flex items-center gap-x-2 justify-between"
+            className="indent-2 h-[24px] md:h-[40px] md:min-w-[8.438rem] min-w-[6rem]  rounded-[1vh] flex items-center gap-x-1 md:justify-between 
+             md:px-3 
+             text-[12px] md:text-[20px]
+             whitespace-nowrap
+            "
+            // md:px-3 md:p-2 p-1 px-1
           >
             {isSaveed ? "تم حفظ البحث" : " حفظ البحث"}
             <IoIosStar
