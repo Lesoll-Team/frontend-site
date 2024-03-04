@@ -155,11 +155,13 @@ const Dropdown = ({
         disabled={isDisabled}
         className={` w-full ${classNames}  h-[40px] md:h-[3.313rem] text-gray1 text-md flex items-center justify-between
          rounded-[1vh] md:px-3 md:p-2 p-1 px-1 cursor-pointer  ${
-           baseIcon ? "shadow-md bg-[#F2F8F9]" : "border-[1px] border-gray1 "
+           baseIcon
+             ? "shadow-md bg-[#F2F8F9]"
+             : "border-[1px] border-[#CCCCCC] "
          }`}
       >
-        {value || defaultValue}
-        {/* <IoIosArrowDown /> */}
+        {(value && <span className="text-[#4E4E4E]">{value}</span>) ||
+          (defaultValue && <span className="text-gray1">{defaultValue}</span>)}
 
         {baseIcon || (
           <IoIosArrowDown

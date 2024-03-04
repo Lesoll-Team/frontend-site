@@ -10,32 +10,40 @@ import SearchModule from "@/components/homePage/SearchModule";
 const Home = () => {
   // const Home = ({ bestSearch }) => {
   return (
-    <main className="relative">
-      <div className="container mx-auto z-50  w-full">
+    <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
+      <div
+        className="md:container md:mx-auto mx-[20px]"
+        //className="md:container md:mx-auto mx-[20px]   md:w-full"
+      >
         <SearchModule />
       </div>
-      <div className="mt-10 md:mt-0 ">
+      <HeroSection />
+
+      <div
+        className="md:container md:mx-auto mx-[20px] flex-wrap flex flex-col md:flex-row justify-between"
+        // className=" lg:my-0 my-24  gap-y-3 container mx-auto flex-wrap flex flex-col md:flex-row justify-between "
+      >
+        <OtherCards />
+      </div>
+      {/**mt-10 md:mt-0 */}
+      <div className=" ">
+        {/* <div className="mt-24  md:mt-0 "> */}
         <PropertiesCategories isHome />
       </div>
       <div className="">
         <LocationCategories />
       </div>
-      <div className="my-24 gap-y-3 container mx-auto flex-wrap flex flex-col md:flex-row justify-between ">
-        <OtherCards />
-      </div>
-      {/* <BestLinksInHome
-        PopularSearches={bestSearch.POPULAR_SEARCHES}
-        MostArea={bestSearch.Most_Area}
-        MostGovernorate={bestSearch.Most_Governorate}
-        Others={bestSearch.Others}
-      /> */}
-      <HeroSection />
     </main>
   );
 };
 
 export default Home;
-
+/* <BestLinksInHome
+        PopularSearches={bestSearch.POPULAR_SEARCHES}
+        MostArea={bestSearch.Most_Area}
+        MostGovernorate={bestSearch.Most_Governorate}
+        Others={bestSearch.Others}
+      /> */
 // export async function getServerSideProps() {
 //   const linkHome = await fetch(
 //     `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`

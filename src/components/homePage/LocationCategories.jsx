@@ -55,7 +55,7 @@ const LocationCategories = () => {
       id: 6,
     },
     {
-      titleAr: "الدقهليه",
+      titleAr: "الدقهلية",
       titleEn: "Dakahlia",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
@@ -88,8 +88,8 @@ const LocationCategories = () => {
   }, []);
   return (
     <Fragment>
-      <div className="md:container mt-[70px] mb-[17px] md:mx-auto mx-[20px]">
-        <h6 className="font-bold md:text-[39px] text-[14px] flex mx-[10px] text-grayText2">
+      <div className="md:container  mb-[17px] md:mx-auto mx-[20px]">
+        <h6 className="font-bold md:text-[31px] text-[14px] flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}
         </h6>
         <p className="text-gray2 md:text-[25px] text-[12px] my-1 mb-8">
@@ -98,12 +98,11 @@ const LocationCategories = () => {
       </div>
       <div
         className="
-  
-                      md:bg-[#EFEFEF]
-                      lg:py-[83px]
-                      lg:px-[100px]
-                       py-[20px]
-                      px-[20px]
+  md:bg-[#EFEFEF]
+  lg:py-[83px]
+  lg:px-[100px]
+   py-[20px]
+  px-[20px]
       "
       >
         <div
@@ -131,7 +130,7 @@ md:p-[0px] p-[30px]
                "
               >
                 <div className=" grid grid-cols-1 text-center md:gap-y-[1.5vh] gap-y-[0.4vh]">
-                  <p className=" md:text-[25px] text-[12px] font-bold">
+                  <p className=" md:text-[20px] text-[12px] font-bold">
                     {language ? location.titleAr : location.titleEn}
                   </p>
                   <p className="text-lightGreen md:text-[20px] text-[11px]">

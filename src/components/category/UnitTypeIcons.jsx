@@ -1,27 +1,27 @@
 import React from "react";
-import {
-  ApartmentIcon,
-  // ApartmentWithGardenIcon,
-  // ArchitectureIcon,
-  // CabinIcon,
-  ClinicIcon,
-  CoffeeIcon,
-  // DuplexIcon,
-  FactoryIcon,
-  // FurnishedApartmentIcon,
-  GarageIcon,
-  HotelApartmentIcon,
-  // HouseIcon,
-  OfficeIcon,
-  // PenthouseIcon,
-  RestaurantIcon,
-  ShopIcon,
-  // StudioIcon,
-  // TownhouseIcon,
-  // TwinHouseIcon,
-  // VillaIcon,
-  WarehouseIcon,
-} from "./iconsSVG";
+// import {
+//   ApartmentIcon,
+//   // ApartmentWithGardenIcon,
+//   // ArchitectureIcon,
+//   // CabinIcon,
+//   ClinicIcon,
+//   CoffeeIcon,
+//   // DuplexIcon,
+//   FactoryIcon,
+//   // FurnishedApartmentIcon,
+//   GarageIcon,
+//   HotelApartmentIcon,
+//   // HouseIcon,
+//   OfficeIcon,
+//   // PenthouseIcon,
+//   RestaurantIcon,
+//   ShopIcon,
+//   // StudioIcon,
+//   // TownhouseIcon,
+//   // TwinHouseIcon,
+//   // VillaIcon,
+//   WarehouseIcon,
+// } from "./iconsSVG";
 // import { PiPlantBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
@@ -56,20 +56,16 @@ const UnitTypeIcons = ({
       setLocationRegion(Key);
     }
   };
+  console.log(items);
   return (
-    <div
-      className="flex gap-x-5 md:overflow-hidden
-         overflow-x-auto no-scrollbar justify-start "
-    >
+    <div className="flex overflow-x-auto no-scrollbar gap-x-[2.05vw] ">
       {items?.map((item) => (
         <button
           key={item.keyword}
           onClick={() => handleTapClicked(item.keyword)}
-          className={` group  cursor-pointer items-center `}
+          className=" text-[12px] md:text-[20px] flex  hover:text-lightGreen "
         >
-          <span className="text-[0.75rem] md:text[1.25rem] 	flex leading-none text-center group-hover:text-lightGreen ">
-            {language ? item.ar : item.en}
-          </span>
+          {language ? item.ar : item.en}
         </button>
       ))}
     </div>

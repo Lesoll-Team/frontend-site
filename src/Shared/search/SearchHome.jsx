@@ -65,7 +65,7 @@ export function SearchBarHome() {
   // end code 3 button in search bar
 
   return (
-    <div className=" w-full  flex flex-col justify-end  p-1">
+    <div className=" md:w-full md:max-w-none max-w-[444px] min-w-[280px] w-full flex flex-col justify-end  p-1">
       {/* 3 button in search bar */}
       <div className=" flex gap-x-1 font-inter md:w-4/12 w-full justify-between md:items-end">
         <button
@@ -76,7 +76,7 @@ export function SearchBarHome() {
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
           }  
-            w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[20px]`}
+            w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[16px]`}
         >
           {languageIs ? "للبيع" : "Buy"}
         </button>
@@ -87,7 +87,7 @@ export function SearchBarHome() {
             saleOptions == "rent"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[20px]`}
+          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[16px]`}
         >
           {languageIs ? "للإيجار" : "Rent"}
         </button>
@@ -100,7 +100,7 @@ export function SearchBarHome() {
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
           }
-             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[20px]`}
+             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[16px]`}
         >
           {languageIs ? "للإستثمار" : "Investment"}
         </button>
@@ -108,20 +108,25 @@ export function SearchBarHome() {
 
       {/*box search bar */}
       <div
-        className={` md:flex md:flex-row flex flex-col  items-center ${
+        className={` md:flex md:flex-row flex flex-col  items-center md:items-center ${
           languageIs
             ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
             : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
-        }  bg-white  md:py-[23px] py-[20px] md:px-[39px] px-[20px] drop-shadow-md  sm:drop-shadow-md h-[257px] md:h-[130px]  md:gap-x-[64px] md:gap-y-[0px] gap-y-[28px]
-        justify-between
-          `}
+        }  bg-white   drop-shadow-md  sm:drop-shadow-md  justify-between
+                md:gap-x-[4.1vw] 
+                md:gap-y-[0px] gap-y-[28px]
+                md:py-[16px] py-[20px] md:px-[25px] px-[20px]
+                md:h-[112px]
+           `}
+        //h-[257px] md:h-[130px]
+        //md:gap-y-[0px] gap-y-[28px]
       >
         {/*search box */}
-        <div className="flex flex-col md:w-[520px] w-full gap-y-[8px] md:gap-y-[12px]  md:h-[84px] h-[63px]  ">
-          <h6 className="text-gray2 font-bold text-[12px] md:text-[20px]">
+        <div className="flex  flex-col md:w-6/12 w-full gap-y-[5px] md:gap-y-[8px]    ">
+          <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
             بحث بالكلمات المميزة
           </h6>
-          <div className=" border-1 md:h-full min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
+          <div className=" border-1 md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
             <input
               type="text"
               onChange={(e) => setKeywords(e.target.value)}
@@ -136,11 +141,11 @@ export function SearchBarHome() {
         </div>
         {/*search with location */}
         {/**flex flex-col md:w-[52px]  w-full min-h-[63px] md:h-full */}
-        <div className=" flex flex-col md:w-[328px] w-full gap-y-[8px] md:gap-y-[12px]  md:h-[84px] h-[63px]  ">
-          <h6 className="text-gray2 font-bold text-[12px] md:text-[20px]">
+        <div className=" flex flex-col md:w-4/12 w-full gap-y-[5px] md:gap-y-[8px]   ">
+          <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
             بحث بالمنطقة
           </h6>
-          <div className="md:h-full min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 ">
+          <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
             <SearchDropdownLocation
               // defaultGovernorate={filterData.governorate}
               // defaultRegion={filterData.region}
@@ -164,12 +169,15 @@ export function SearchBarHome() {
           </div>
         </div>
 
-        <div className="flex h-[40px] md:h-[80px] md:w-[177px] w-8/12  ">
+        <div className="flex items-end h-full md:w-2/12 w-8/12  ">
           <button
             id="Click-Gtm"
             onClick={handleSubmitSearch}
-            className={`bg-lightGreen text-white text-[14px] md:text-[25px]  font-bold select-none 
-          w-full rounded-[8px]`}
+            className={`bg-lightGreen text-white text-[14px] md:text-[16px]  font-bold select-none 
+            h-[40px] md:h-[50px]
+          w-full rounded-[4px]
+          
+          `}
           >
             {languageIs ? "بـحـث" : "Search"}
           </button>

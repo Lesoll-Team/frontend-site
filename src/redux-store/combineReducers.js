@@ -1,17 +1,15 @@
-import { combineReducers } from 'redux'
-import globalState from './features/globalState'; 
-import authReducer from './features/authSlice';
+import { combineReducers } from "redux";
+import globalState from "./features/globalState";
+import authReducer from "./features/authSlice";
 // import propertyReducer from './features/propertySlice';
-import contactReducer from './features/contactSlice';
-// import compareReducer from './features/compareSlice';
+import contactReducer from "./features/contactSlice";
+import categoryReducer from "./features/category/categorySlice";
 // import overViewReducer from "./features/dashboard/overViewSlice";
 // overViewSlice
-import searchingReducer from './features/searchingSlice';
-import profileReducer from './features/profileSlice';
-import blogDashboardReducer from './features/dashboard/blogDashboardSlice';
+import searchingReducer from "./features/searchingSlice";
+import profileReducer from "./features/profileSlice";
+import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
-
- 
 
 export default combineReducers({
   GlobalState: globalState,
@@ -22,5 +20,6 @@ export default combineReducers({
   OverView: overViewReducer,
   Searching: searchingReducer,
   Profile: profileReducer,
+  Category: categoryReducer,
   // Compare:compareReducer,
 });

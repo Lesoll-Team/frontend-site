@@ -316,7 +316,7 @@ const SidebarAndBarFilter = ({
       )}
       {/******************************/}
       {/* bar filter */}
-      <div className=" md:container md:mx-auto mx-[10px] z-[500] bg-white flex justify-center sticky top-[80px]">
+      <div className="  z-[500] shadow-sm bg-white flex justify-center sticky top-[80px]">
         <BarFilter
           handleFilterAction={handleFilterAction}
           setOpenFilter={setOpenFilter}
@@ -349,7 +349,7 @@ const SidebarAndBarFilter = ({
       </div>
       {/******************************/}
       {/* unit types  */}
-      <div className="md:container md:mx-auto mx-[10px md:block hidden">
+      <div className="md:container md:mx-auto mx-[10px] md:block hidden">
         <UnitTypeIcons
           category={categoryTypeKey || category}
           items={result?.aggregation_links}
@@ -368,7 +368,7 @@ const SidebarAndBarFilter = ({
       {/* title & save and filter button  */}
       <div className="md:container md:mx-auto mx-[10px flex flex-wrap justify-between items-center ">
         {/*title filter page */}
-        <div className=" w-full md:w-6/12">
+        <div className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[24px] text-[14px]">
           {language
             ? result?.supTitleCategory?.ar
             : result?.supTitleCategory?.en}
@@ -376,7 +376,7 @@ const SidebarAndBarFilter = ({
         {/*sorted and save search filter page */}
         <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
           <div className="flex  whitespace-nowrap gap-x-3 items-center">
-            <span>الترتيب حسب:</span>
+            <span className="text-[12px] md:text-[20px]">الترتيب حسب:</span>
             <Dropdown
               baseIcon={<LuArrowDownUp />}
               data={sortedData}

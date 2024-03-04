@@ -119,12 +119,12 @@ const PropertiesCategories = ({ isHome }) => {
   }, []);
   return (
     <Fragment>
-      <div className="md:w-full flex items-center justify-between  md:container mb-[50px] md:mx-auto mx-[20px] ">
-        <h6 className="font-bold md:text-[39px] text-[14px] flex mx-[10px] text-grayText2">
+      <div className="md:w-full flex items-center justify-between  md:container mb-[32px] md:mx-auto mx-[16px] ">
+        <h6 className="font-bold md:text-[30px] text-[14px] flex text-grayText2">
           {language ? "نوع العقار" : "Property type"}
         </h6>
         {isHome && (
-          <Link href={"/categories"} className="  text-[12px] md:text-[25px]">
+          <Link href={"/categories"} className="  text-[12px] md:text-[20px]">
             {language ? "رؤية المزيد" : "see more"}
           </Link>
         )}
@@ -156,10 +156,10 @@ const PropertiesCategories = ({ isHome }) => {
                     {category.icon}
                   </div>
                   <div className="  text-center flex flex-col gap-y-3 ">
-                    <p className="font-bold md:text-[25px] text-[11px] text-grayText2">
+                    <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
                       {language ? category.titleAr : category.titleEn}
                     </p>
-                    <p className="text-[11px] md:text-[20px] text-lightGreen">
+                    <p className="text-[11px] md:text-[16px] text-lightGreen">
                       {language ? category.totalAr : category.totalEn}
                     </p>
                   </div>
@@ -181,7 +181,7 @@ const PropertiesCategories = ({ isHome }) => {
                   {category.icon}
                 </div>
                 <div className="  text-center flex flex-col gap-y-3 ">
-                  <p className="font-bold md:text-[25px] text-[11px] text-grayText2">
+                  <p className="font-bold md:text-[20px] text-[11px] bg-red-200 text-grayText2">
                     {language ? category.titleAr : category.titleEn}
                   </p>
                   <p className="text-[11px] md:text-[20px] text-lightGreen">
