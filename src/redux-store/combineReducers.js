@@ -16,7 +16,7 @@ import faqReducer from "./features/faqSlice";
 import registerReducer from "./features/auth/registerSlice";
 import userProfileReducer from "./features/auth/userProfileSlice";
 import loginReducer from "./features/auth/loginSlice";
-import forgetPasswordReducer from "@/redux-store/features/user/ForgetPassSlice";
+import forgetPasswordReducer from "@/redux-store/features/user/forgetPassSlice";
 import addPropertyReducer from "./features/property/addPropertySlice";
 import getGovReducer from "./features/location/getGovSlice";
 import getRegionReducer from "./features/location/getRegionSlice";
