@@ -24,7 +24,6 @@ const EditProperty = () => {
     }
   }, [propertyId]);
 
-  console.log("edit data:", formatApiData(propData));
   return (
     <div>
       {/* EditProperty {propertyId}
