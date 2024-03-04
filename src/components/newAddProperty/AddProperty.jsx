@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
 import { DotPulse } from "@uiball/loaders";
-const AddProperty = () => {
+const AddProperty = ({ data }) => {
   const {
     onSubmit,
     errors,
@@ -29,7 +29,7 @@ const AddProperty = () => {
     fields,
     append,
     remove,
-  } = useAddProperty();
+  } = useAddProperty(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
   const formStatus = useSelector((state) => state.addProperty.status);

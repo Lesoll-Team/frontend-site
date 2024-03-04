@@ -23,7 +23,7 @@ const EditProperty = () => {
       getProperty();
     }
   }, [propertyId]);
-
+  console.log(formatApiData(propData));
   return (
     <div>
       {/* EditProperty {propertyId}
@@ -31,7 +31,7 @@ const EditProperty = () => {
       {/* <EditProperty/> */}
       {/* <EditProp propData={propData} /> */}
       {propData ? (
-        <AddProperty propData={propData} />
+        <AddProperty propData={propData} data={propData} />
       ) : (
         <div className="h-[90vh] flex items-center justify-center">
           <DotPulse size={60} speed={1.3} color="#309da0" />

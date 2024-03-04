@@ -1,15 +1,20 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { initialAddPropData } from "./initialData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFromatAddData from "./useFromatAddData";
 import { useDispatch } from "react-redux";
 import { submitProperty } from "@/redux-store/features/property/addPropertySlice";
-const useAddProperty = () => {
+import { formatApiData } from "../editProperty/fromateApiData";
+const useAddProperty = (data) => {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const form = useForm({
-    defaultValues: initialAddPropData,
+    defaultValues: formatApiData(data),
   });
+  console.log(data.address.governrate);
+  useEffect(() => {
+    setValue("address.governrate", data.address.governrate);
+  }, [data]);
   const {
     handleSubmit,
     control,

@@ -1,6 +1,15 @@
 import { propTypeList, saleOptions } from "@/utils/addAndEditOptions";
-import { rentalTypes } from "@/utils/addAndEditOptions";
+import { rentalTypes, installmentTypeOptions } from "@/utils/addAndEditOptions";
 export const formatApiData = (data) => {
+  const Installment = data?.installment?.map((installment) => {
+    return {
+      ...installment,
+      type:
+        installmentTypeOptions.find(
+          (item) => item.value === installment.type
+        ) || "",
+    };
+  });
   const formatedData = {
     title: data?.title,
     offer: data?.offer,
@@ -20,19 +29,32 @@ export const formatApiData = (data) => {
     },
 
     price: data?.price,
-    service: data?.service,
+    service: data?.service?.map((item) => item._id),
     area: data?.area,
     realEstateFinance: data?.realEstateFinance,
     rooms: data?.rooms,
     bathRooms: data?.bathRooms,
     otherPhone: data?.connectPhoneNumber ? true : false,
+    isCompound: data?.isCompound,
+    level: data?.level || "default",
     compaounds: {
-      _id: data?.compaounds,
-      CompoundsAR: "",
-      CompoundsEN: "",
+      _id: data?.compaounds?._id,
+      CompoundsAR: data?.compaounds?.CompoundsAR,
+      CompoundsEN: data?.compaounds?.CompoundsEN,
     },
+    address: {
+      name: data?.address?.name,
+      governrate: data?.governrate,
+      region: data?.region,
+      longitude: data?.longitude || "",
+      latitude: data?.latitude || "",
+    },
+    installment: Installment,
+    deliveryDate: data?.deliveryDate,
+    description: data?.description,
   };
-  console.log(formatedData.unitType);
+  console.log("data", data);
+  console.log("formatedData", formatedData);
   return data;
 };
 
