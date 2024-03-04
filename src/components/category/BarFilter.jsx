@@ -60,7 +60,7 @@ const BarFilter = ({
     }
   }, [categoryTypeKey, filterData.category]);
   return (
-    <div className="relative md:py-8 py-4 w-full md:container md:mx-auto mx-[20px]">
+    <div className="relative md:py-8 py-4  w-full md:container md:mx-auto mx-[20px]">
       <div
         className="flex gap-x-[1vw] md:bg-inherit  border-1 md:border-0
        shadow-sm md:shadow-none  bg-white rounded-[1vw]  justify-around"
@@ -145,7 +145,7 @@ const BarFilter = ({
           onClick={() => setOpenFilter(true)}
         >
           <span className="whitespace-nowrap hidden md:block text-gray1">
-            خيارات اكثر
+            {language ? "خيارات اكثر" : "More filter"}
           </span>
           <CgOptions className=" text-gray2" />
         </button>
@@ -154,7 +154,7 @@ const BarFilter = ({
           onClick={handleFilterAction}
           className="w-[100px] md:w-[9.97vw] md:min-w-[165px] h-[1.875rem] md:h-[3.313rem] rounded-[1vh] font-bold text-[12px] md:text-[20px] text-white bg-lightGreen"
         >
-          بحث
+          {language ? "بحث" : "Search"}
         </button>
       </div>
     </div>

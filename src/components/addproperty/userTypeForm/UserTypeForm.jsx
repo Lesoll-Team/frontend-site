@@ -8,9 +8,10 @@ import {
   fetchUserData,
   updateUserData,
 } from "@/redux-store/features/globalState";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const UserTypeForm = () => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
   const [useType, setUserType] = useState("");
@@ -32,6 +33,7 @@ const UserTypeForm = () => {
           })
         );
         dispatch(fetchUserData());
+        dispatch(getUserData());
       } catch (error) {
         console.error(error);
       }

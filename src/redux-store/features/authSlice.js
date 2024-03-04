@@ -1,7 +1,12 @@
 // store/SignUpSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { registerUser, loginUser, signWithGoogle, getTokenGoogle } from "../../utils/userAPI";
-import axios from 'axios';
+import {
+  registerUser,
+  loginUser,
+  signWithGoogle,
+  getTokenGoogle,
+} from "../../utils/userAPI";
+import axios from "axios";
 
 const getUserTokenFromLocalStorage = () => {
   if (typeof window !== "undefined") {
@@ -18,13 +23,16 @@ const getUserAuthFromLocalStorage = () => {
   }
   return null;
 };
+// -----------------------------------------------------------------------------
 const initialState = {
   userToken: getUserTokenFromLocalStorage(),
   isRegistering: false,
   registrationError: null,
   isLoding: getUserAuthFromLocalStorage(),
+  errorCode: null,
+  status: "idle", // ? "idle" | "loading" | "succeeded" |"failed"
 };
-
+// =======================================
 export const loginUserAsync = createAsyncThunk(
   "Auth/loginUser",
   async (userData) => {
@@ -44,8 +52,8 @@ export const signupUserAsync = createAsyncThunk(
 export const signInWithGoogle = createAsyncThunk(
   "Auth/signWithGoogle",
   async (token) => {
-      localStorage.setItem("userToken", JSON.stringify(token))
-}
+    localStorage.setItem("userToken", JSON.stringify(token));
+  }
 );
 
 export const deleteAccount = createAsyncThunk(
@@ -53,7 +61,9 @@ export const deleteAccount = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const userToken = JSON.parse(localStorage.getItem("userToken"));
-      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/delete/${data.userID}?token=${userToken}`);
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/delete/${data.userID}?token=${userToken}`
+      );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -76,11 +86,13 @@ const AuthSlice = createSlice({
         state.isRegistering = true;
         state.registrationError = null;
         state.isLoding = false;
+        state.status = "loading";
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.isRegistering = false;
         state.userToken = action.payload;
         state.isLoding = true;
+        state.status = "succeeded";
         localStorage.setItem("userToken", JSON.stringify(action.payload));
         localStorage.setItem("userIsLogin", JSON.stringify(state.isLoding));
       })
@@ -88,6 +100,8 @@ const AuthSlice = createSlice({
         state.isRegistering = false;
         state.registrationError = action.error.message;
         state.isLoding = false;
+        state.status = "failed";
+        state.errorCode = action;
       }) //end case login
       //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*//
       //start case signup
@@ -117,28 +131,26 @@ const AuthSlice = createSlice({
         state.isLoding = true;
       })
       .addCase(deleteAccount.fulfilled, (state) => {
-        localStorage.clear()
-        state.userToken=null
+        localStorage.clear();
+        state.userToken = null;
         state.isRegistering = false;
         state.isLoding = false;
         state.registrationError = null;
       })
-      .addCase(deleteAccount.rejected, (state,action) => {
+      .addCase(deleteAccount.rejected, (state, action) => {
         state.isRegistering = true;
         state.registrationError = action.error.message;
         state.isLoding = true;
         // state.registrationError = action.error;
       })
 
-
-
       // .addCase(signInWithGoogle.pending,(state)=>{
       //   state.isRegistering = true;
       //   state.registrationError = null;
       //   state.isLoding = false;
       // })
-      .addCase(signInWithGoogle.fulfilled,(state,action)=>{
-      const  useToken=localStorage.getItem("userToken");
+      .addCase(signInWithGoogle.fulfilled, (state, action) => {
+        const useToken = localStorage.getItem("userToken");
         if (useToken) {
           state.isRegistering = false;
           state.userToken = action.payload;
@@ -146,18 +158,14 @@ const AuthSlice = createSlice({
           // localStorage.setItem("userToken", JSON.stringify(action.payload));
           localStorage.setItem("userIsLogin", JSON.stringify(state.isLoding));
         }
-
-      })
-      // .addCase(signInWithGoogle.rejected,(state)=>{
-      //   state.isRegistering = false;
-      //   state.registrationError = action.error.message;
-      //   state.isLoding = false;
-      // })
+      });
+    // .addCase(signInWithGoogle.rejected,(state)=>{
+    //   state.isRegistering = false;
+    //   state.registrationError = action.error.message;
+    //   state.isLoding = false;
+    // })
     //end case delete account
     //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*//
-
-
-
   },
 });
 export const selectUserToken = (state) => state.Auth.userToken;

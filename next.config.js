@@ -5,14 +5,10 @@ module.exports = async () => {
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
-    /* config options here */
     images: {
-      domains: [
-        "cloud.lesoll.com",
-        "lh3.googleusercontent.com",
-        "https://cloud.lesoll.com/v0/public/Blogs",
-      ],
+      domains: ["cloud.lesoll.com", "lh3.googleusercontent.com"],
     },
+    /* config options here */
     async redirects() {
       return [
         {
@@ -23,11 +19,6 @@ module.exports = async () => {
         {
           source: "/searching/searching/:slug",
           destination: "/searching/:slug",
-          permanent: true,
-        },
-        {
-          source: "/404",
-          destination: "/",
           permanent: true,
         },
         {

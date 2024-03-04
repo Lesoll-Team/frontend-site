@@ -121,7 +121,6 @@ const SellerInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
                       phone: false,
                     }));
                   }
-
                 }
                 // setCountry(country);
               }

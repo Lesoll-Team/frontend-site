@@ -16,7 +16,7 @@ import { LiaHandshakeSolid } from "react-icons/lia";
 import InActiveAds from "./InActiveAds";
 import SoldOut from "./SoldOut";
 const Profile = () => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [userDataInfo, setUserDataInfo] = useState({});
   const [content, setContent] = useState("active");
@@ -117,9 +117,7 @@ const Profile = () => {
                 }`}
               >
                 <LiaHandshakeSolid />
-                <p className=" ">
-                  {language ? "تم البيع/الإيجار" : "Sold Out"}
-                </p>
+                <p className=" ">{language ? "تم البيع" : "Sold Out"}</p>
               </div>
             </div>
           </div>

@@ -5,41 +5,39 @@ import { useRouter } from "next/router";
 import EditProp from "@/components/editproperty/EditProp";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
-import Head from "next/head";
+import AddProperty from "@/components/newAddProperty/AddProperty";
+import { formatApiData } from "@/Hooks/editProperty/fromateApiData";
 // import EditProp from "@/components/editProperty/EditProp";
 // import EditProp from '@/components/editProperty/EditProp'
 const EditProperty = () => {
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
-  const router = useRouter();
-  const [propData, setPropData] = useState("");
-  const propertyId = router.query.id;
-  const getProperty = async () => {
-    const data = await GetEditAds(propertyId);
-    setPropData(data);
-  };
-  useEffect(() => {
-    if (propertyId) {
-      getProperty();
-    }
-  }, [propertyId]);
-
+  // const userInfo = useSelector((state) => state.userProfile.userData);
+  // const router = useRouter();
+  // const [propData, setPropData] = useState("");
+  // const propertyId = router.query.id;
+  // const getProperty = async () => {
+  //   const data = await GetEditAds(propertyId);
+  //   setPropData(data);
+  // };
+  // useEffect(() => {
+  //   if (propertyId) {
+  //     getProperty();
+  //   }
+  // }, [propertyId]);
+  // console.log(formatApiData(propData));
   return (
     <div>
-      <Head>
-        <title>Edit Property</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
+      <h1>hi</h1>
       {/* EditProperty {propertyId}
       <p>{JSON.stringify(propData)}</p> */}
       {/* <EditProperty/> */}
       {/* <EditProp propData={propData} /> */}
-      {propData ? (
-        <EditProp propData={propData} setPropData={setPropData} />
+      {/* {propData ? (
+        <AddProperty propData={propData} data={propData} />
       ) : (
         <div className="h-[90vh] flex items-center justify-center">
           <DotPulse size={60} speed={1.3} color="#309da0" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

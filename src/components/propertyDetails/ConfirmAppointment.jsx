@@ -4,12 +4,8 @@ import { useSelector } from "react-redux";
 import { ar } from "../../language/ar/common";
 import { en } from "../../language/en/common";
 // import { useRouter } from "next/router";
-import {
-  AiFillHeart,
-  AiOutlineHeart,
-  AiOutlineShareAlt,
-} from "react-icons/ai";
-import { BiPhoneCall} from "react-icons/bi";
+import { AiFillHeart, AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
+import { BiPhoneCall } from "react-icons/bi";
 import { AddToFavorites, CallBtn, WhatsAppBtn } from "@/utils/propertyAPI";
 import Link from "next/link";
 import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
@@ -17,6 +13,8 @@ import { BsWhatsapp } from "react-icons/bs";
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 import { FcViewDetails } from "react-icons/fc";
 import { LuFolderSearch2 } from "react-icons/lu";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { fetchUserData } from "@/redux-store/features/globalState";
 
 function ConfirmAppointment({ userAppointment }) {
   // const router = useRouter();
@@ -29,7 +27,7 @@ function ConfirmAppointment({ userAppointment }) {
       : userAppointment?.user?.code + userAppointment?.user?.phone
   }&text=${encodeURIComponent(message)}`;
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // const userInfo = useSelector((state) => state.GlobalState.userData);
+  // const userInfo = useSelector((state) => state.userProfile.userData);
   function formatDate(dateString) {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     if (language) {
@@ -54,6 +52,7 @@ function ConfirmAppointment({ userAppointment }) {
     try {
       await AddToFavorites(userAppointment?._id);
       dispatch(fetchUserData());
+      dispatch(getUserData());
 
       // Handle success (e.g., show a success message)
     } catch (error) {
@@ -61,7 +60,7 @@ function ConfirmAppointment({ userAppointment }) {
       console.error("Error add to fav :", error);
     }
   };
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   useEffect(() => {
     if (userInfo?.favorites.includes(userAppointment?._id)) {
       setLoved(true);
@@ -347,4 +346,3 @@ function ConfirmAppointment({ userAppointment }) {
   );
 }
 export default memo(ConfirmAppointment);
-

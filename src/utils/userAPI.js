@@ -11,7 +11,7 @@ export async function getUserOffline({ url }) {
     );
     return response.data;
   } catch (error) {
-    throw error.response;
+    throw error.response.data;
   }
 }
 
@@ -101,12 +101,12 @@ export async function verifyEmail() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify?token=${userToken}`
-      // {
-      //   headers: {
-      //     token: userToken,
-      //   },
-      // }
+      `${process.env.NEXT_PUBLIC_API_URL}/user/sendverify`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
     );
     return response.data;
   } catch (error) {

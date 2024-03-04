@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  Image } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { BsBoxArrowInDownRight } from "react-icons/bs";
@@ -10,9 +10,11 @@ function BlogCard({ blogData }) {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    if (userInfo && userInfo?.isAdmin === true || userInfo?.supAdmin === true) {
+    if (
+      (userInfo && userInfo?.isAdmin === true) ||
+      userInfo?.supAdmin === true
+    ) {
       setIsAdmin(true);
-
     }
   }, [userInfo]);
   return (
@@ -77,5 +79,6 @@ function BlogCard({ blogData }) {
         </div>
       ))}
     </div>
-  );}
+  );
+}
 export default React.memo(BlogCard);

@@ -1,13 +1,14 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
-import { fetchUserData } from "@/redux-store/features/globalState";
+import { fetchUserData, setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
 import { useEffect } from "react";
 import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -18,18 +19,31 @@ export default function Layout({ children }) {
       .replace(".", "")
   );
   if (typeof window !== "undefined") {
+    // This code will only execute in a browser environment
     if (!localStorage.getItem("local_storage_device_id")) {
       localStorage.setItem("local_storage_device_id", userKey);
     }
   }
 
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserData());
+    if (!userData) {
+      dispatch(getUserData());
+    }
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
-
+  useEffect(() => {
+    const isItemInLocalStorage = (key) => {
+      return localStorage.getItem(key) !== null;
+    };
+    if (isItemInLocalStorage("language")) {
+      const lang = JSON.parse(localStorage.getItem("language"));
+      dispatch(setLang(lang));
+    }
+  }, []);
   return (
     <div>
       <Head>

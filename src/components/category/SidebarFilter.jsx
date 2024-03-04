@@ -104,16 +104,16 @@ const SidebarFilter = ({
           />
         </div>
         {/*search by keywords  */}
-        <div className=" w-full p-[10px] flex flex-col gap-y-[10px] bg-[#F8F8F8]">
+        <div className=" w-full py-[10px] flex flex-col gap-y-[10px] bg-[#F8F8F8]">
           <label className="font-bold text-gray2" htmlFor="keywords">
-            بحث بالكلمات المميزة
+            {languageIs ? "بحث بالكلمات المميزة" : "Search by keywords"}
           </label>
           <div className="flex h-[34] md:h-[3.313rem] w-full p-1 border-gray1 border-1 items-center rounded-[1vw] bg-white">
             <input
               name="keywords"
               className="w-full h-full focus:outline-none "
               type="text"
-              placeholder="كلمات مميزة "
+              placeholder={languageIs ? "كلمات مميزة " : "spacial keywords"}
               value={searchKeyword}
               // value={searchKeyword || filterData.searchKeywords.keyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
@@ -377,7 +377,10 @@ const SidebarFilter = ({
         </div>
       </div>
 
-      <div className="h-screen absolute w-full bg-[#323232] z-[0] opacity-30" />
+      <div
+        onClick={() => setOpenFilter(false)}
+        className="h-screen absolute w-full bg-[#323232] z-[0] opacity-30"
+      />
       <style>
         {`
       body {

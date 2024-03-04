@@ -1,15 +1,18 @@
-import AddProperty from "@/components/addproperty/AddProperty";
+// import AddProperty from "@/components/addproperty/AddProperty";
 import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
+
 import UserTypeForm from "@/components/addproperty/userTypeForm/UserTypeForm";
 import NotSignedScreen from "@/components/addproperty/NotSignedScreen";
-const Index = () => {
+import AddProperty from "@/components/newAddProperty/AddProperty";
+const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   return (
-    <>
+    // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
+    <div className=" ">
       <Head>
         <title>
           {language
@@ -22,15 +25,20 @@ const Index = () => {
         />
         <link rel="canonical" href={`https://lesoll.com/sell`} />
       </Head>
-      {userInfo &&
-        (userInfo?.typeOfUser !== "normal" ? (
+      {/* // <div className=""> */}
+      {userInfo ? (
+        userInfo?.typeOfUser !== "normal" ? (
           <AddProperty />
         ) : (
           <UserTypeForm />
-        ))}
-      {!userInfo && <NotSignedScreen />}
-    </>
+        )
+      ) : (
+        <NotSignedScreen />
+      )}
+      {/* <AddProperty />
+      ad */}
+    </div>
   );
 };
 
-export default React.memo(Index);
+export default index;

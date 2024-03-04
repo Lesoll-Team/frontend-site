@@ -100,14 +100,7 @@ const SidebarAndBarFilter = ({
     mortgage: propFinancing, //|| searchKeywords.mortgage,
     sort: sortKey, //|| searchKeywords.sort,
   };
-  // const routes = {
-  //   category,
-  //   saleOptions,
-  //   unitType,
-  // };
   const handleFilterAction = () => {
-    // firstFetchData();
-
     const filteredKeywords = Object.fromEntries(
       Object.entries(queryInput).filter(
         ([_, value]) => value != null && value !== "" && value !== 0
@@ -121,7 +114,6 @@ const SidebarAndBarFilter = ({
     );
 
     const combinedToObject = { ...filterInputAfter };
-
     const pagesInput3 = Object.keys(combinedToObject)
       .map((key) => `${combinedToObject[key]}`)
       .join("/")
@@ -137,12 +129,11 @@ const SidebarAndBarFilter = ({
     }
 
     const queryString = existingQueryParams.toString(combinedKeywords);
-
+    setOpenFilter(false);
     router.push(
       `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
     );
   };
-
   const getNameWithValue = useGetNameWithValue(sortKey);
   useEffect(() => {
     handleFilterAction();
@@ -152,7 +143,6 @@ const SidebarAndBarFilter = ({
     setConfirmSendMessage(false);
     setMessageConfirmed("");
   }, [router]);
-
   const handleSendSearchFilter = async () => {
     await saveSearchFilter({
       confirmSendMessage,
@@ -164,6 +154,7 @@ const SidebarAndBarFilter = ({
     });
     setOpenSaveFilterInput(!openSaveFilterInput);
   };
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   return (
     <>
@@ -243,7 +234,11 @@ const SidebarAndBarFilter = ({
       )}
       {/******************************/}
       {/* bar filter */}
-      <div className="  z-[500] shadow-sm bg-white flex justify-center sticky top-[80px]">
+      <div
+        className={` z-20 shadow-sm bg-white flex justify-center sticky ${
+          userInfo ? "top-[60px] md:top-[90px]" : "top-[97px] md:top-[122px]"
+        } `}
+      >
         <BarFilter
           handleFilterAction={handleFilterAction}
           setOpenFilter={setOpenFilter}
@@ -274,7 +269,7 @@ const SidebarAndBarFilter = ({
           setLocationRegion={setLocationRegion}
         />
       </div>
-      {/******************************/}
+      {/********************************/}
       {/* unit types  */}
       <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
         <UnitTypeIcons
@@ -291,8 +286,8 @@ const SidebarAndBarFilter = ({
           locationRegion={locationRegion}
         />
       </div>
-      {/******************************/}
-      {/* title & save and filter button  */}
+      {/********************************/}
+      {/*title & save and filter button*/}
       <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[20px] gap-y-[10px]">
         {/*title filter page */}
         <div className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[25px] text-[14px]">
@@ -303,7 +298,9 @@ const SidebarAndBarFilter = ({
         {/*sorted and save search filter page */}
         <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
           <div className="flex   whitespace-nowrap gap-x-3 items-center">
-            <span className="text-[12px] md:text-[20px]">الترتيب حسب:</span>
+            <span className="text-[12px] md:text-[20px]">
+              {language ? "الترتيب حسب:" : "Sort by"}
+            </span>
             <Dropdown
               baseIcon={<LuArrowDownUp />}
               data={sortedData}
@@ -334,7 +331,13 @@ const SidebarAndBarFilter = ({
             "
             // md:px-3 md:p-2 p-1 px-1
           >
-            {isSaveed ? "تم حفظ البحث" : " حفظ البحث"}
+            {language
+              ? isSaveed
+                ? "تم حفظ البحث"
+                : " حفظ البحث"
+              : isSaveed
+              ? "has been saved"
+              : "Save search"}
             <IoIosStar
               className={`${
                 isSaveed

@@ -45,7 +45,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
 
   const dataSale = useSelector((state) => state.OverView.dataSale);

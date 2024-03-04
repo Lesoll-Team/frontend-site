@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Input, Button } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import AddBlogModule from "../model/blogs/AddBlogModule";
 import {
   deleteOneBlog,
@@ -46,7 +46,7 @@ export default function BlogDashboard() {
 
   useEffect(() => {
     fetchBlogsData();
-  }, [refreshProperty,page,rowsPerPage]);
+  }, [refreshProperty, page, rowsPerPage]);
 
   const fetchBlogsData = async () => {
     try {
@@ -122,7 +122,7 @@ export default function BlogDashboard() {
           <Image
             width={200}
             height={200}
-            src={blog.BlogImage||""}
+            src={blog.BlogImage || ""}
             fallbackSrc="https://via.placeholder.com/300x200"
             alt="NextUI Image with fallback"
           />
@@ -338,4 +338,3 @@ export default function BlogDashboard() {
     </Table>
   );
 }
-

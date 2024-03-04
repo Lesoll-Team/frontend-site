@@ -71,7 +71,6 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
     }
   };
 
-
   return (
     <div className="space-y-7">
       <h3 className="text-2xl text-darkGreen font-bold mb-1">

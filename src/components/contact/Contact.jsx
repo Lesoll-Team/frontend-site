@@ -1,179 +1,63 @@
-import { sendUserMessage } from "@/redux-store/features/contactSlice";
-import Image from "next/image";
-import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
-import { AiFillCheckCircle, AiOutlineArrowLeft } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteMessage } from "../../redux-store/features/contactSlice";
-import { useRouter } from "next/router";
-export default function Contact() {
+import { FaLocationDot } from "react-icons/fa6";
+import ContactForm from "./ContactForm";
+import { useSelector } from "react-redux";
+import { MdCall } from "react-icons/md";
+import { IoAlarm } from "react-icons/io5";
+
+const Contact = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // assage
-  const dispatch = useDispatch();
-  const isSending = useSelector((state) => state.Contact.sending);
-  const errorMessage = useSelector((state) => state.Contact.errorMessage);
-  const confirmMessage = useSelector((state) => state.Contact.message);
-  // dispatch(sendUserMessage)
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const router = useRouter();
-  const handleConfirmMessage = async (e) => {
-    e.preventDefault();
-    const userMessage = { fullName, email, phone, subject, message };
-    dispatch(sendUserMessage(userMessage));
-    setFullName("");
-    setEmail("");
-    setPhone("");
-    setSubject("");
-    setMessage("");
-  };
-
-  const handleNewMessage = () => {
-    dispatch(deleteMessage());
-  };
-
-  useEffect(() => {
-    const handleRouteChange = () => {
-      dispatch(deleteMessage());
-    };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-
-    // Cleanup the event listener when the component is unmounted
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-    };
-  }, [router, dispatch]);
 
   return (
-    <Fragment>
-      {confirmMessage ? (
-        <div className="w-full h-[80dvh] flex justify-center items-center">
-          <div className="flex flex-col justify-center h-[60%] items-center bg-white drop-shadow-xl rounded-lg  border w-[90%] md:w-[60%] space-y-8 ">
-            <div className="space-y-3 flex flex-col justify-center items-center">
-              <AiFillCheckCircle className="text-green-500 text-8xl  animate-appearance-in" />
-              <h3 className="text-2xl font-semibold text-darkGreen text-center">
-                {language
-                  ? "تمت ارسال الرسالة بنجاح سيتم التواصل معك قريبا"
-                  : "The message is Sended successfully lesoll support team will contact you soon"}
-              </h3>
-            </div>
+    <div className="min-h-[90dvh] w-full md:container mx-auto ">
+      <img
+        src="/contact-us.png"
+        className="w-full hidden lg:block lg:max-h-[450px] col-span-2  row-start-1 row-span-3 col-start-1 "
+      />
+      <img src="/contact-phone.png" className="w-full  lg:hidden  " />
 
-            <div
-              dir="ltr"
-              className="flex items-center  w-full gap-10 justify-center"
-            >
-              <Link
-                className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
-                href={"/"}
-                title={language ? "العودة الى الرئيسية" : "Back to home"}
-              >
-                <AiOutlineArrowLeft />
-                {language ? "العودة الى الرئيسية" : "Back to home"}
-              </Link>
-              <Link
-                className="text-xl  text-lightGreen  items-end ji flex justify-center border-lightGreen  font-medium py-1 rounded-lg  text-center hover:underline"
-                href={"/contact"}
-                onClick={handleNewMessage}
-              >
-                {language ? "إرسال رد أخر" : "Send another reply"}
-              </Link>
+      <div className="w-full flex-col-reverse lg:flex-row flex max-w-[90%] md:w-full mx-auto">
+        <div className="w-full mb-3">
+          <div className="flex justify-start my-8 gap-3">
+            <FaLocationDot className="text-lightGreen text-2xl" />
+            <div className="flex flex-col gap-2">
+              <h4 className="text-xl font-bold">
+                {" "}
+                {language ? "العنوان" : "Address"}
+              </h4>
+              <p>
+                {language
+                  ? "12 عمارات العبور, صلاح سالم، مدينة نصر، محافظة القاهرة‬ 11811"
+                  : "12 Al Obour Buildings, Salah Salem, Nasr City, Cairo, 11811"}
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-start my-8 gap-3">
+            <MdCall className="text-lightGreen text-xl" />
+            <div className="flex flex-col gap-2">
+              <h4 className="text-xl font-bold">
+                {" "}
+                {language ? "الإتصال" : "Call"}
+              </h4>
+              <p>01032362898</p>
+            </div>
+          </div>
+          <div className="flex justify-start my-8 gap-3">
+            <IoAlarm className="text-lightGreen text-xl" />
+            <div className="flex flex-col gap-2">
+              <h4 className="text-xl font-bold">
+                {" "}
+                {language ? "مواعيد العمل" : "Call"}
+              </h4>
+              <p>من الأحد الى الخميس 9 صباحاً : 5 مساءً</p>
             </div>
           </div>
         </div>
-      ) : (
-        <div className="md:container mt-14 mb-14 mx-auto md:flex ">
-          <div className="md:w-7/12 ">
-            <h1 className="text-6xl mb-5 text-lightGreen">
-              <b>{language ? "التواصل" : "Contact Us"}</b>
-            </h1>
-            <h6 className="text-lightGreen mb-5 ml-4">
-              <b>{language ? "معلومات التواصل" : " Contact information"} </b>
-            </h6>
-            <form
-              onSubmit={handleConfirmMessage}
-              className=" flex flex-col justify-end items-start  gap-2"
-            >
-              <center className="flex flex-col gap-3 w-full">
-                <div className="flex gap-2">
-                  <input
-                    name="user-name"
-                    type="text"
-                    placeholder={language ? "الاسم بالكامل " : "full name"}
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className=" placeholder:text-gray-500 focus:outline-none  w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
-                  />
-                  <input
-                    name="user-email"
-                    type="email"
-                    placeholder={language ? "البريد الإلكترونى" : "Email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="placeholder:text-gray-500 focus:outline-none   w-[48%] focus:border-lightGreen border-2 rounded-xl px-4 py-2"
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <input
-                    name="user-phone"
-                    type="number"
-                    placeholder={language ? "الهاتف" : "Phone"}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="placeholder:text-gray-500 focus:outline-none   w-[48%] focus:border-lightGreen  border-2 rounded-xl px-4 py-2"
-                  />
-                  <input
-                    type="text"
-                    name="subject"
-                    placeholder={language ? "الموضوع بشأن" : "Subject"}
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    className="placeholder:text-gray-500 focus:outline-none  
-                                 focus:border-lightGreen  border-2 rounded-xl px-4 py-2 w-[48%]"
-                  />
-                </div>
-              </center>
-              {/* <input type='' placeholder='Massage'/> */}
-              <center className=" w-full">
-                <textarea
-                  placeholder={language ? "الرسالة" : "Message"}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="placeholder:text-gray-500  focus:outline-none max-h-56 h-36  focus:border-lightGreen w-[97%] ml-2 border-2 rounded-2xl px-4 py-2"
-                ></textarea>
-                <button
-                  type="submit"
-                  disabled={isSending}
-                  className="rounded-3xl w-10/12  bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
-                >
-                  {isSending
-                    ? language
-                      ? "يتم الإرسال ..."
-                      : "submitting In..."
-                    : language
-                    ? "ارسال"
-                    : "submit"}
-                </button>
-                {errorMessage && <div>{errorMessage}</div>}
-                {confirmMessage && <div>{confirmMessage}</div>}
-              </center>
-            </form>
-          </div>
-          <div className="w-5/12  p-2 md:flex hidden">
-            <Image
-              src="icons/contactImg.svg"
-              width="500"
-              height="500"
-              alt="contact image"
-              // loading="lazy"
-              priority={true}
-            />
-          </div>
+        <div className="w-full  -mt-16 lg:-mt-72 lg:mb-10">
+          {" "}
+          <ContactForm />
         </div>
-      )}
-    </Fragment>
+      </div>
+    </div>
   );
-}
+};
+export default Contact;

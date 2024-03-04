@@ -124,7 +124,7 @@ export function SearchBarHome() {
         {/*search box */}
         <div className="flex  flex-col md:w-6/12 w-full gap-y-[5px] md:gap-y-[8px]    ">
           <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
-            بحث بالكلمات المميزة
+            {languageIs ? "بحث بالكلمات المميزة" : "Search by keywords"}
           </h6>
           <div className=" border-1 md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
             <input
@@ -143,7 +143,7 @@ export function SearchBarHome() {
         {/**flex flex-col md:w-[52px]  w-full min-h-[63px] md:h-full */}
         <div className=" flex flex-col md:w-4/12 w-full gap-y-[5px] md:gap-y-[8px]   ">
           <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
-            بحث بالمنطقة
+            {languageIs ? "بحث بالمنطقة" : "Search by area"}
           </h6>
           <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
             <SearchDropdownLocation

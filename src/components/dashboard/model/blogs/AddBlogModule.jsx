@@ -1,7 +1,5 @@
-import React, {  useState } from "react";
-import {
-  createBlogs,
-} from "@/redux-store/features/dashboard/blogDashboardSlice";
+import React, { useState } from "react";
+import { createBlogs } from "@/redux-store/features/dashboard/blogDashboardSlice";
 import {
   Modal,
   ModalContent,
@@ -18,20 +16,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 function UserModule() {
   //{refreshProperty,setRefreshProperty,onBlogAdded}
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   // const blogSending = useSelector((state) => state.BlogDashboard.blogSending);
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   const [titleAR, setTitleAR] = useState("");
   const [titleEN, setTitleEN] = useState("");
 
-    const [metaTitleAR, setMetaTitleAR] = useState("");
-    const [metaTitleEN, setMetaTitleEN] = useState("");
+  const [metaTitleAR, setMetaTitleAR] = useState("");
+  const [metaTitleEN, setMetaTitleEN] = useState("");
 
-        const [slugAR, setSlugAR] = useState("");
-        const [slugEN, setSlugEN] = useState("");
+  const [slugAR, setSlugAR] = useState("");
+  const [slugEN, setSlugEN] = useState("");
 
   const [descriptionAR, setDescriptionAR] = useState(``);
   const [descriptionEN, setDescriptionEN] = useState(``);
@@ -41,7 +39,6 @@ function UserModule() {
 
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
-
 
   const handleImgChange = (e) => {
     const newImage = e.target.files[0];
@@ -60,7 +57,7 @@ function UserModule() {
     setImage(null);
     setImagePrev(null);
   };
-  const handleBlogButton = async(e) => {
+  const handleBlogButton = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     const metaDescription = {
@@ -85,16 +82,14 @@ function UserModule() {
     };
 
     formData.append("img", selectedImage);
-    formData.append("title", JSON.stringify(title) );
-    formData.append("metaDescription",JSON.stringify(metaDescription));
-    formData.append("description",JSON.stringify(description));
+    formData.append("title", JSON.stringify(title));
+    formData.append("metaDescription", JSON.stringify(metaDescription));
+    formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
     dispatch(
-      createBlogs({blogData:formData}) //, blogData: formData
+      createBlogs({ blogData: formData }) //, blogData: formData
     );
-    
-
   };
   return (
     <div className="">

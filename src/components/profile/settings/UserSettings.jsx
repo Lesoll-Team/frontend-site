@@ -14,7 +14,7 @@ const EditPassword = dynamic(() => import("./EditPassword"));
 // import EditPassword from "./EditPassword";
 
 const UserSettings = () => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const [userDataInfo, setUserDataInfo] = useState({});
 
   const [content, setContent] = useState("info");
@@ -68,20 +68,19 @@ const UserSettings = () => {
                   {language ? "المعلومات العامة" : "General Info"}
                 </p>
               </div>
-              {userDataInfo?.googleId==""&&(
+              {userDataInfo?.googleId == "" && (
                 <div
-                onClick={switchPassword}
-                className={`text-center  cursor-pointer font-semibold pb-1 flex items-center gap-1 text-lg px-2 ${
-                  content === "password" &&
-                  "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
-                }`}
-              >
-                <p className="flex items-center gap-1 ">
-                  {language ? "كلمة السر" : "Password"}
-                </p>
-              </div>
+                  onClick={switchPassword}
+                  className={`text-center  cursor-pointer font-semibold pb-1 flex items-center gap-1 text-lg px-2 ${
+                    content === "password" &&
+                    "border-b-2 text-lightGreen  border-lightGreen  relative -bottom-[1px]"
+                  }`}
+                >
+                  <p className="flex items-center gap-1 ">
+                    {language ? "كلمة السر" : "Password"}
+                  </p>
+                </div>
               )}
-
             </div>
           </div>
         </div>

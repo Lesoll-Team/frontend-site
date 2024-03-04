@@ -43,7 +43,7 @@ export default function ActiveProperty() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
