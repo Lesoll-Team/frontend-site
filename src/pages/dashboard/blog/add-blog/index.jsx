@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 // createBlogs
 const AddBlog = () => {
   const router = useRouter();
@@ -100,7 +101,11 @@ const AddBlog = () => {
 
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
-      <div className=" bg-lightGreenHover sticky top-0 ">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
         <Sidebar />
       </div>
       <div className="w-full p-10 overflow-x-auto overflow-y-hidden">
@@ -250,7 +255,7 @@ const AddBlog = () => {
             onClick={handleBlogButton}
             className="text-3xl font-semibold text-white w-5/12 p-4 rounded-xl justify-center mx-auto  items-center px-10 bg-lightGreen"
           >
-            {messageEventBlog?"add blog...":"add blog"}
+            {messageEventBlog ? "add blog..." : "add blog"}
           </button>
           {blogCreated && (
             <div className="text-green-500 font-semibold text-lg pt-5 text-center">

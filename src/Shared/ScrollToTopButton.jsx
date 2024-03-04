@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import { BsArrowUpShort } from "react-icons/bs";
 
 function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,23 +29,10 @@ function ScrollToTopButton() {
     };
   }, []);
 
-  // const buttonStyle = {
-  //   position: "fixed",
-  //   bottom: "20px",
-  //   right: "20px",
-  //   display: isVisible ? "block" : "none",
-  //   background: "#007BFF",
-  //   color: "#fff",
-  //   padding: "10px 20px",
-  //   border: "none",
-  //   borderRadius: "5px",
-  //   cursor: "pointer",
-  // };
-
   return (
     <>
       <div
-        className={`fixed bottom-5 drop-shadow-xl right-4 md:right-7 cursor-pointer z-[1000] ${
+        className={`fixed bottom-5 drop-shadow-xl right-4 md:right-7 cursor-pointer ${
           isVisible ? "block animate-appearance-in" : "hidden"
         } bg-lightGreen p-4 rounded-full`}
         onClick={scrollToTop}

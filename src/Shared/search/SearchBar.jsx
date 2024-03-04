@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Input } from "@nextui-org/react";
+import { useCallback, useEffect, useState } from "react";
+// import { Input } from "@nextui-org/react";
 import {
   propertyTypeData,
   unitTypeData,
@@ -17,10 +17,7 @@ import { MdClear } from "react-icons/md";
 import { setCurrentPage } from "@/redux-store/features/searchingSlice";
 import { SearchDropdown } from "./SearchDropdown";
 
-export function SearchBar({
-  pageSaleOption,
-  reversedFilteredKeywords,
-}) {
+export function SearchBar({ pageSaleOption, reversedFilteredKeywords }) {
   const router = useRouter();
   let [sortPropChanged, setSortPropChanged] = useState(false);
   const dispatch = useDispatch();
@@ -74,12 +71,6 @@ export function SearchBar({
   let [sortProp, setSortProp] = useState(
     reversedFilteredKeywords?.sort_by || ""
   );
-      const [isTyping, setTyping] = useState(false);
-
-  // let [locationKeyword, setLocationKeyword] =
-  // useState(reversedFilteredKeywords?.cdb
-  //     ? reversedFilteredKeywords?.cdb.trim().split("_").join(" ")
-  //     : "");
 
   const [locationName, setLocationName] = useState("");
   const [locationValue, setLocationValue] = useState("");
@@ -100,25 +91,41 @@ export function SearchBar({
     MortgagePrice: propertyFinance,
     sort_by: sortProp,
     cdb: locationValue || locationName.trim().split(" ").join("_"),
-    // isFurnished,
   };
 
-  const handleSubmitSearch = (e) => {
-    e?.preventDefault();
-    const filteredKeywords = Object.fromEntries(
-      Object.entries(InputKeywords).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
-    const queryString = Object.keys(filteredKeywords)
-      .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-      .join("&");
+  // const handleSubmitSearch = (e) => {
+  //   e?.preventDefault();
+  //   const filteredKeywords = Object.fromEntries(
+  //     Object.entries(InputKeywords).filter(
+  //       ([_, value]) => value != null && value !== "" && value !== 0
+  //     )
+  //   );
+  //   const queryString = Object.keys(filteredKeywords)
+  //     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+  //     .join("&");
 
-    dispatch(setCurrentPage(1));
-    router.push(`/searching/${queryString}`);
-  };
+  //   dispatch(setCurrentPage(1));
+  //   router.push(`/searching/${queryString}`);
+  // };
+  const handleSubmitSearch = useCallback(
+    (e) => {
+      e?.preventDefault();
+      const filteredKeywords = Object.fromEntries(
+        Object.entries(InputKeywords).filter(
+          ([_, value]) => value != null && value !== "" && value !== 0
+        )
+      );
+      const queryString = Object.keys(filteredKeywords)
+        .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+        .join("&");
 
-  const handelClearFilter = () => {
+      dispatch(setCurrentPage(1));
+      router.push(`/searching/${queryString}`);
+    },
+    [InputKeywords, dispatch, router]
+  );
+
+  const handelClearFilter = useCallback(() => {
     setSaleOptions("all");
     setFromPrice(0.0);
     setToPrice(0.0);
@@ -137,7 +144,7 @@ export function SearchBar({
     setLocationValue("");
     setLocationName("");
     dispatch(setCurrentPage(1));
-  };
+  }, [dispatch]);
   const setForSaleButton = (e) => {
     e.preventDefault();
     languageIs ? setSaleOptions("للبيع") : setSaleOptions("For_Sale");
@@ -175,11 +182,14 @@ export function SearchBar({
     }
   }, [sortPropChanged, sortProp]);
 
-  const handleSortPropChange = (value) => {
-    setSortProp(value);
-    setSortPropChanged(true);
-    dispatch(setCurrentPage(1));
-  };
+  const handleSortPropChange = useCallback(
+    (value) => {
+      setSortProp(value);
+      setSortPropChanged(true);
+      dispatch(setCurrentPage(1));
+    },
+    [setSortProp, setSortPropChanged, dispatch]
+  );
 
   return (
     <form
@@ -242,7 +252,7 @@ export function SearchBar({
                 <SearchDropdown
                   setLocationName={setLocationName}
                   setLocationValue={setLocationValue}
-                  setTyping={setTyping}
+                  // setTyping={setTyping}
                 />
               </div>
             </div>
@@ -330,28 +340,32 @@ export function SearchBar({
             ? `${
                 reversedFilteredKeywords?.unitType == "شقة"
                   ? " شقق "
-                  : reversedFilteredKeywords?.unitType || "عقارات "
+                  : reversedFilteredKeywords?.unitType || " عقارات "
               }${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
-                  ? "للبيع والإيجار"
-                  : reversedFilteredKeywords?.offer || "للبيع والإيجار"
-              } فى ${reversedFilteredKeywords?.cdb || "مصر"} `
-            : ` ${reversedFilteredKeywords?.unitType || "Properties"} ${
+                  ? " للبيع والإيجار "
+                  : reversedFilteredKeywords?.offer || " للبيع والإيجار "
+              }  فى  ${
+                reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
+              } `
+            : ` ${reversedFilteredKeywords?.unitType || " Properties "} ${
                 reversedFilteredKeywords?.offer == "all" ||
                 reversedFilteredKeywords?.offer == "كل"
-                  ? "For Rent Or Buy"
-                  : reversedFilteredKeywords?.offer || "for rent or buy"
-              } In ${reversedFilteredKeywords.cdb || "Egypt"}`}{" "}
+                  ? " For Rent Or Buy "
+                  : reversedFilteredKeywords?.offer || " for rent or buy "
+              }  In  ${
+                reversedFilteredKeywords?.cdb?.split("_").join(" ") || " Egypt "
+              }`}{" "}
           <span
             className={`${propLengthResult ? "text-default-500" : "hidden"} `}
           >
             {languageIs
               ? `( ${propLengthResult} ${
-                  reversedFilteredKeywords?.unitType || "عقارات"
+                  reversedFilteredKeywords?.unitType || " عقارات "
                 })  `
               : `( ${propLengthResult} ${
-                  reversedFilteredKeywords?.unitType || "Properties"
+                  reversedFilteredKeywords?.unitType || " Properties "
                 })`}
           </span>
         </h1>

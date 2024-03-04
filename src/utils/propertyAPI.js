@@ -80,7 +80,13 @@ export async function AddToFavorites(propertyid) {
 export async function WhatsAppBtn(propertyid) {
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`
+      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`,
+      {
+        headers: {
+          token: userToken,
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
   } catch (error) {
     throw error;

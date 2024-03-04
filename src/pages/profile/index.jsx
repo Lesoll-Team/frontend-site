@@ -22,6 +22,7 @@ const ProfilePage = () => {
   return (
     <>
       <Head>
+        <meta name="robots" content="noindex, nofollow" />
         <title>{language ? "الصفحة الشخصية" : "Profile"}</title>
         <meta name="description" content="الصفحة الشخصية" />
         <link rel="canonical" href={`https://lesoll.com/profile`} />

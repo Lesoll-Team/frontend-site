@@ -17,10 +17,7 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-// import {
-//   fetchPropertiesView,
-//   fetchSaleView,
-// } from "@/utils/dashboardApi/overviewDashboard";
+
 import {
   getDeleteView,
   getPropertiesView,
@@ -35,6 +32,7 @@ import {
   downloadOverviewData,
   downloadSearchKeyword,
 } from "@/utils/dashboardApi/overviewDashboard";
+import Head from "next/head";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -250,8 +248,13 @@ function Dashboard() {
   };
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh]  flex" dir="ltr">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+
       <div className="relative">
-        <div className="bg-lightGreenHover  sticky top-0">
+        <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
           <Sidebar />
         </div>
       </div>
@@ -266,35 +269,35 @@ function Dashboard() {
 
         <div className="p-5 m-10 bg-gray-100 min-h-[300px] justify-center rounded-2xl flex flex-wrap gap-10  ">
           <div className="text-center">
-            <p className="font-semibold"> users </p>
-            <div className="w-[70px] h-[70px] bg-blue-500 rounded-full flex items-center justify-center font-semibold text-white">
-              {dataUser?.totalCount}
+            <div className="w-[130px] h-[80px] bg-blue-500 rounded-md flex flex-col items-center justify-center font-semibold text-white">
+              <span className="text-3xl">{dataUser?.totalCount}</span>
+              <span>user</span>
             </div>
           </div>
           <div className="text-center">
-            <p className="font-semibold"> Rent </p>
             <div
-              className="w-[70px] h-[70px] bg-orange-500 rounded-full flex items-center
-             justify-center font-semibold text-white"
+              className="w-[130px] h-[80px] bg-orange-500 rounded-md flex items-center
+             justify-center font-semibold text-white flex-col"
             >
-              {dataRents?.totalCount}
+              <span className="text-3xl">{dataRents?.totalCount}</span>
+              <span>Rent</span>
             </div>
           </div>
 
           <div className="text-center">
-            <p className="font-semibold"> Sale </p>
-            <div className="w-[70px] h-[70px] bg-lightGreenHover rounded-full flex items-center justify-center font-semibold text-white">
-              {dataSale?.totalCount}
+            <div className="w-[130px] h-[80px] flex-col bg-lightGreenHover rounded-md flex items-center justify-center font-semibold text-white">
+              <span className="text-3xl">{dataSale?.totalCount}</span>
+              <span>Sale</span>
             </div>
           </div>
 
           <div className="text-center">
-            <p className="font-semibold"> Properties </p>
             <div
-              className="w-[70px] h-[70px] bg-secondary-500 rounded-full flex items-center 
+              className="w-[130px] h-[80px] flex-col bg-secondary-500 rounded-md flex items-center 
             justify-center font-semibold text-white"
             >
-              {dataProperties?.totalCount}
+              <span className="text-3xl"> {dataProperties?.totalCount}</span>
+              <span>Properties</span>
             </div>
           </div>
 
@@ -334,7 +337,7 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className="p-5 m-10 bg-gray-100 min-h-[300px] rounded-2xl  ">
+        <div className="p-5 m-10 bg-gray-100 min-h-[300px] rounded-2xl flex flex-col ">
           <Bar className="w-full" data={dataProperty}></Bar>
         </div>
 

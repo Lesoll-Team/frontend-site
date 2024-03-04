@@ -8,6 +8,7 @@ import { BsBuildings } from "react-icons/bs";
 import { Button } from "@nextui-org/react";
 import { signInWithGoogle } from "@/redux-store/features/authSlice";
 import { updateGoogleData } from "@/utils/userAPI";
+import Head from "next/head";
 function index() {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -76,6 +77,10 @@ function index() {
 
   return (
     <div className="w-full min-h-[93dvh]  text-center justify-center flex">
+      <Head>
+        <title>google log</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <form onSubmit={onSubmit} className=" p-5 flex-col  flex mt-6 md:mt-24 ">
         {type === "normal" ? (
           <div>

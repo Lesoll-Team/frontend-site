@@ -8,7 +8,7 @@ const SellerInfo = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
   // const [country, setCountry] = useState();
 
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
 
   return (
     // <div className="space-y-4 md:space-y-0 grid md:grid-cols-2 gap-4 md:gap-[4%]">

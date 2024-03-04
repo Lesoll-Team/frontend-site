@@ -2,6 +2,7 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import UserDetails from "@/components/dashboard/router/userDetails/UserDetails";
 import { getUserDataDashboard } from "@/utils/userAPI";
 import { DotPulse } from "@uiball/loaders";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -37,7 +38,11 @@ const UserDetailsPage = () => {
 
   return (
     <div className="min-h-[90dvh] w-full flex" dir="ltr">
-      <div className=" bg-lightGreenHover sticky top-0 ">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
         <Sidebar />
       </div>
       <div className="w-full" dir="rtl">

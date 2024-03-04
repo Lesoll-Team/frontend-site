@@ -48,15 +48,7 @@ export default function Layout({ children }) {
     }
   }, []);
   return (
-    <div
-      style={{
-        minHeight: "100dvh",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      className={`globalBody bg-gradient`}
-    >
+    <div className={`globalBody bg-gradient`}>
       <Head>
         <title>
           {language

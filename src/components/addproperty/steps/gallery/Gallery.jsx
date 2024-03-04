@@ -17,7 +17,6 @@ const Gallery = ({ propertyDetils, setData, propErrors, setPropErrors }) => {
       mainImageInputRef.current.value = null;
     }
   };
-
   const handleDeleteMultiImage = (index) => {
     const updatedMultiImage = Array.from(propertyDetils.multiImage);
     updatedMultiImage.splice(index, 1);

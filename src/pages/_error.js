@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Error = () => {
+const ErrorPage = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div className="w-full h-[92dvh] flex flex-col  lg:flex-row container mx-auto gap-5 lg:gap-20 items-center justify-center ">
@@ -32,4 +32,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;

@@ -13,6 +13,8 @@ const index = () => {
             ? "الشروط و الاحكام | ليسول "
             : "Terms & Conditions | Lesoll "}
         </title>
+        <meta name="robots" content="noindex, nofollow" />
+
         <meta
           name="description"
           content={

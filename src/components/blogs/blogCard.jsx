@@ -7,7 +7,7 @@ import { LiaEdit } from "react-icons/lia";
 
 function BlogCard({ blogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const userInfo = useSelector((state) => state.GlobalState.userData);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     if (

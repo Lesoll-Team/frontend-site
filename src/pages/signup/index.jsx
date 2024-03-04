@@ -17,6 +17,8 @@ const SignUp = () => {
   return (
     <>
       <Head>
+        <meta name="robots" content="noindex, nofollow" />
+
         <title>{language ? "الإشتراك" : "Sign Up"}</title>
         <meta
           name="description"

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import UserDashboard from "@/components/dashboard/router/UserDashboardt";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
+import Head from "next/head";
 // import { Button } from "@nextui-org/react";
 // import axios from "axios";
 function Users() {
@@ -15,7 +16,11 @@ function Users() {
   }, [userInfo]);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh] flex" dir="ltr">
-      <div className=" bg-lightGreenHover sticky top-0 ">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
         <Sidebar />
       </div>
       <div className="w-full">

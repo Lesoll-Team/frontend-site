@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getGovernorate } from "@/utils/searchAPI";
 import { useSelector } from "react-redux";
 
-export function SearchDropdown({
-  setLocationName,
-  setTyping,
-  setLocationValue,
-}) {
+export function SearchDropdown({ setLocationName, setLocationValue }) {
   const [governorates, setGovernorates] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -16,10 +12,9 @@ export function SearchDropdown({
   const [govNum, setGovNum] = useState(0);
 
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
-  const fetchGovernoratesData = async () => {
+  const fetchGovernoratesData = useCallback(async () => {
     try {
       const fetchedGovernorates = await getGovernorate();
-
       const mapLocation = new Map();
       fetchedGovernorates.result.forEach((item) => {
         mapLocation.set(item.numberGov, {
@@ -35,20 +30,47 @@ export function SearchDropdown({
     } catch (error) {
       console.error("Error fetching governorates:", error);
     }
-  };
-  useEffect(() => {
-    fetchGovernoratesData();
   }, []);
+  // const fetchGovernoratesData = async () => {
+  //   try {
+  //     const fetchedGovernorates = await getGovernorate();
+
+  //     const mapLocation = new Map();
+  //     fetchedGovernorates.result.forEach((item) => {
+  //       mapLocation.set(item.numberGov, {
+  //         name_ar: item.name_ar,
+  //         name_en: item.name_en,
+  //         value_ar: item.value_ar,
+  //         value_en: item.value_en,
+  //       });
+  //     });
+
+  //     setGovernorates(fetchedGovernorates.result);
+  //     setMapLocation(mapLocation);
+  //   } catch (error) {
+  //     console.error("Error fetching governorates:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchGovernoratesData();
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchGovernoratesData();
+  // }, [fetchGovernoratesData]);
 
   useEffect(() => {
     setFilteredOptions(governorates);
   }, [governorates]);
 
-  const handleSearch = (e) => {
-    setTyping(true);
-    const term = e.target.value;
-    setSearchTerm(term);
-  };
+  const handleSearch = useCallback(
+    (e) => {
+      fetchGovernoratesData();
+      const term = e.target.value;
+      setSearchTerm(term);
+    },
+    [fetchGovernoratesData]
+  );
   useEffect(() => {
     const filtered = governorates.filter(
       (governorate) =>
@@ -62,47 +84,42 @@ export function SearchDropdown({
     );
   }, [searchTerm, govNum, governorates]);
 
-  const handleSelect = ({
-    selectedOption,
-    numberGovFromReg,
-    selectedValue,
-    numberGov,
-  }) => {
-    setSearchTerm("");
-    setSelectedValues((prevValues) => {
-      if (numberGovFromReg == 0) {
-        setTyping(false);
+  const handleSelect = useCallback(
+    ({ selectedOption, numberGovFromReg, selectedValue, numberGov }) => {
+      setSearchTerm("");
+      setSelectedValues((prevValues) => {
+        if (numberGovFromReg === 0) {
+          return [...prevValues, selectedOption];
+        } else {
+          setGovNum(numberGovFromReg);
+          return [mapLocation.get(numberGovFromReg).name_ar, selectedOption];
+        }
+      });
+      setFilteredOptions(governorates);
+      setGovFromReg(numberGovFromReg);
+      setGovNum(numberGov);
+      setLocationName(mapLocation.get(numberGovFromReg)?.name_ar);
+      setLocationValue(selectedValue);
+    },
+    [mapLocation, governorates, setLocationName, setLocationValue]
+  );
 
-        return [...prevValues, selectedOption];
-      } else {
-        setGovNum(numberGovFromReg);
-        setTyping(false);
-
-        return [mapLocation.get(numberGovFromReg).name_ar, selectedOption];
+  const handleClearCared = useCallback(
+    (index, value) => {
+      const updatedValues = [...selectedValues];
+      if (index === 0 && selectedValues[index] === value) {
+        updatedValues.splice(0, 2);
+        setSelectedValues(updatedValues);
+        setGovFromReg(0);
+        setGovNum(0);
+      } else if (index === 1 && selectedValues[index] === value) {
+        setGovFromReg(0);
       }
-    });
-    setFilteredOptions(governorates);
-    setGovFromReg(numberGovFromReg);
-    setGovNum(numberGov);
-    setLocationName(mapLocation.get(numberGovFromReg)?.name_ar);
-    setLocationValue(selectedValue);
-    setTyping(false);
-  };
-
-  const handleClearCared = (index, value) => {
-    const updatedValues = [...selectedValues];
-    if (index == 0 && selectedValues[index] == value) {
-      updatedValues.splice(0, 2);
+      updatedValues.splice(index, 1);
       setSelectedValues(updatedValues);
-      setGovFromReg(0);
-      setGovNum(0);
-    } else if (index == 1 && selectedValues[index] == value) {
-      setGovFromReg(0);
-    }
-    updatedValues.splice(index, 1);
-    setSelectedValues(updatedValues);
-    setTyping(false);
-  };
+    },
+    [selectedValues]
+  );
 
   return (
     <div
@@ -133,7 +150,7 @@ export function SearchDropdown({
                 : "Search by City  Nasr City, Cairo, Maadi..."
             }
             value={searchTerm}
-            disabled={selectedValues.length >= 2 ? true : false}
+            disabled={selectedValues.length >= 2}
             onChange={handleSearch}
             className="w-full  active:outline-none hover:outline-none focus:outline-none"
           />

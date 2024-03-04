@@ -5,18 +5,21 @@ import logo from "../../../public/icons/logoNavbar.png";
 import {
   AiFillFacebook,
   AiFillInstagram,
-  AiFillTwitterCircle,
   AiOutlineMail,
   AiOutlineWhatsApp,
 } from "react-icons/ai";
-import { BsFacebook, BsTwitterX, BsWhatsapp } from "react-icons/bs";
+import { BsTwitterX } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { ImLocation2 } from "react-icons/im";
+import Head from "next/head";
 const Footer = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <footer className="z-10" dir={`${language ? "rtl" : ""}`}>
+    <footer className="" dir={`${language ? "rtl" : ""}`}>
+      <Head>
+        <meta name="robots" content="nosnippet" />
+      </Head>
       <div className="container mx-auto md:grid  drop-shadow-2xl lg:grid-cols-5 grid-cols-3 gap-10 py-10 space-y-4">
         {/* Discription */}
         <div className="col-span-3 lg:col-span-2 space-y-3 relative">

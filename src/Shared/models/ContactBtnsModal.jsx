@@ -3,14 +3,10 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
   useDisclosure,
-  RadioGroup,
-  Radio,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { useState } from "react";
+// import { useState } from "react";
 import { useSelector } from "react-redux";
 export default function ContactBtnsModal({
   title,
@@ -29,7 +25,6 @@ export default function ContactBtnsModal({
         {children}
       </div>
       <Modal
-        radius="sm"
         isOpen={isOpen}
         placement={"bottom-center"}
         onOpenChange={onOpenChange}
