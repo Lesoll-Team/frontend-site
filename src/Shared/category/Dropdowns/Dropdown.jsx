@@ -1,9 +1,10 @@
 // import { paymentMethodData } from "@/Shared/search/dropdown/dataDropdown";
 // import { Button } from "@nextui-org/react";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dropdown = ({
   defaultValue,
@@ -20,19 +21,17 @@ const Dropdown = ({
   isDisabled,
   baseIcon,
   isSort,
+  stateName,
   // setSortKey,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const dropdownContentRef = useRef(null);
-  // const [activeButton, setActiveButton] = useState(null);
 
-  // const handleButtonClick = (index) => {
-  //   // setActiveButton(index);
-  // };
   useEffect(() => {
     const handleClickOutside = (event) => {
       switch (dataOptions) {
@@ -71,6 +70,11 @@ const Dropdown = ({
   const handleSetOption = (e) => {
     setValue(e.name);
     setValueKey(e.value);
+    if (stateName) {
+      const payload = {};
+      payload[stateName] = e.value;
+      dispatch(updateAllStates(payload));
+    }
   };
 
   const renderOptionType = useCallback(

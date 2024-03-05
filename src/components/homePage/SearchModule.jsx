@@ -20,13 +20,17 @@ const SearchModule = () => {
     >
       {/*md:h-[500px] lg:h-[770px]  */}
       <div
-        className="w-full  flex flex-col md:gap-y-[60px] items-center
-       md:pt-[3.492vh]  lg:pt-[14.492vh] pt-[5.492vh] 
+        className="w-full  flex flex-col bg-red-200 md:gap-y-[60px] items-center
+      justify-center
         md:h-screen p-1 z-10
-        
+       lg:h-[600px]  
         "
+
+        //   className="w-full  flex flex-col md:gap-y-[60px] items-center
+        //  md:pt-[3.492vh]  lg:pt-[14.492vh] pt-[5.492vh]
+        //   md:h-screen p-1 z-10
       >
-        <div className="md:flex md:flex-col  gap-y-[20px]   text-white ">
+        <div className="md:flex md:flex-col  gap-y-[3.27vh]  bg-blue-200 text-white ">
           {/**md:mb-[42px] md:mt-[50px] mb-[22px] mt-[56px] */}
           <h1 className="w-full text-[24px] md:pb-0 pb-[32px] md:text-[48px] font-bold">
             {language ? "ليسول طريقك لبيتك" : "Lesoll The Way You Home"}

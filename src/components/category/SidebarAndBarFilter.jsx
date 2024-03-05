@@ -221,6 +221,7 @@ const SidebarAndBarFilter = ({
             setPriceTo={setPriceTo}
             priceFrom={priceFrom}
             priceTo={priceTo}
+            finishedOptionKey={finishedOptionKey}
             filterData={{
               searchKeywords,
               governorate,

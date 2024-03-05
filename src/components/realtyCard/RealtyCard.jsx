@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { FaWhatsapp } from "react-icons/fa";
-import { IoIosCall } from "react-icons/io";
+import { IoCall } from "react-icons/io5";
 import { PiBathtub } from "react-icons/pi";
 import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
 import Image from "next/image";
@@ -94,18 +94,20 @@ const RealtyCard = ({ propertyDetails }) => {
         {/* start contact and price */}
         <div className="flex flex-row items-center justify-between">
           {propertyDetails?.offer !== "For Investment" && (
-            <p className=" font-bold font-inter  text-gray2 text-[12px] md:text-[20px]">
+            <p className=" font-bold font-inter  text-gray2 text-[12px] md:text-[17px]">
               <span>{parseInt(propertyDetails?.price)}</span>
               {" EGP "}
               <span className="text-gray2 mx-5 md:text-[17px] text-[12px] font-normal"></span>
             </p>
           )}
-          <div className="flex justify-between  gap-x-3 md:gap-0 md:w-[95px] ">
-            <div className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
-              <IoIosCall className="text-[16px] md:text-[30px] text-blue-600" />
+          <div className="flex   gap-x-[14px]  ">
+            <div className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center">
+              {/* <IoCall /> */}
+
+              <IoCall className="text-[16px] md:text-[23px] text-blue-600" />
             </div>
-            <div className="bg-green-600 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
-              <FaWhatsapp className="text-[16px]  md:text-[30px] text-white" />
+            <div className="bg-green-600 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center">
+              <FaWhatsapp className="text-[16px]  md:text-[23px] text-white" />
             </div>
           </div>
         </div>
@@ -118,7 +120,7 @@ const RealtyCard = ({ propertyDetails }) => {
           href={`/property-details/${propertyDetails?.slug}`}
           className="md:w-full"
         >
-          <h4 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[11px] md:text-[20px] md:line-clamp-1 line-clamp-2  ">
+          <h4 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[11px] md:text-[17px] md:line-clamp-1 line-clamp-2  ">
             {propertyDetails?.title}
           </h4>
         </Link>

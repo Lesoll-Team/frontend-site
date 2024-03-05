@@ -3,16 +3,16 @@ import LocationCategories from "@/components/homePage/LocationCategories";
 import OtherCards from "@/components/homePage/OtherCards";
 import PropertiesCategories from "@/components/homePage/PropertiesCategories";
 import SearchModule from "@/components/homePage/SearchModule";
-// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
-// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
-// import React from "react";
+//// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
+//// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
+//// import React from "react";
 
 const Home = () => {
   // const Home = ({ bestSearch }) => {
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <div
-        className="md:container md:mx-auto mx-[20px]"
+        className="md:container md:mx-auto  mx-[20px]"
         //className="md:container md:mx-auto mx-[20px]   md:w-full"
       >
         <SearchModule />
