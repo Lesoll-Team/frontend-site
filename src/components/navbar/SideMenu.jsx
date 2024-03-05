@@ -58,15 +58,17 @@ const SideMenu = () => {
         <IoMdMenu className="text-2xl" />
       </button>
       {showSideMenu && (
-        <div className="absolute w-screen h-screen top-0 left-0  lg:hidden bg-white px-8 pt-4 space-y-8 overflow-auto  pb-5">
+        <div className="absolute w-screen h-screen top-0 left-0  lg:hidden  bg-white px-8 pt-4 space-y-8 overflow-auto  pb-20">
           <div className="w-full flex justify-center items-center relative ">
-            <Image
-              src={"/logo.svg"}
-              width={114}
-              height={46}
-              alt="lesoll logo"
-              className="h-[28px] w-[70px] "
-            />
+            <Link href={"/"} onClick={closeSideMenu}>
+              <Image
+                src={"/logo.svg"}
+                width={114}
+                height={46}
+                alt="lesoll logo"
+                className="h-[28px] w-[70px] "
+              />
+            </Link>
             <button onClick={closeSideMenu} className="absolute left-0">
               <IoClose className="text-xl" />
             </button>

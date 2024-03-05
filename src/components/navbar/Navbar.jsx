@@ -39,7 +39,7 @@ export default function Navbar() {
 
       <div
         className={`container mx-auto flex justify-between h-16 ${
-          userData ? "lg:h-[90px]" : "lg:h-[85px]"
+          userData ? "lg:h-[80px]" : "lg:h-[85px]"
         } `}
       >
         <div className="flex items-center gap-24">
@@ -50,11 +50,11 @@ export default function Navbar() {
               width={114}
               height={46}
               alt="lesoll logo"
-              className="h-[28px] w-[70px] lg:h-[46px] lg:w-[114px]"
+              className="h-[28px] w-[70px] lg:h-[36px] lg:w-[90px]"
             />
           </Link>
 
-          <ul className="font-inter hidden text-xl gap-5 text-baseGray lg:flex">
+          <ul className="font-inter hidden text-base gap-5 2xl:text-xl text-baseGray lg:flex items-center">
             <li>
               <Link href="/">{languageIs ? "الرئيسية" : "Home"}</Link>
             </li>
@@ -71,10 +71,10 @@ export default function Navbar() {
             <li>
               <Link
                 href={isCompany ? "/needs" : "/add-need"}
-                className="relative"
+                className="relative text-base 2xl:text-xl"
               >
                 <span
-                  className={`text-sm absolute text-white rounded-xl -top-5 bg-green-500 px-2 py-1 ${
+                  className={`text-xs absolute text-white rounded-xl -top-5 bg-green-500 px-2 py-1 ${
                     languageIs ? "-left-8" : " -right-8"
                   }`}
                 >

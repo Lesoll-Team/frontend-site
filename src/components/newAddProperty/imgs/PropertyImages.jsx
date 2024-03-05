@@ -9,9 +9,12 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const mainImgInputRef = useRef(null);
   const multiImgInputRef = useRef(null);
+  const thumbnail = watch("thumbnail") || "";
   const [mainImage, setMainImage] = useState(watch("mainImage"));
   const [multiImage, setMultiImage] = useState(watch("multiImage"));
+  const [album, setAlbum] = useState(watch("album"));
   const mainImgContainerRef = useRef(null);
+  const showMultiImages = multiImage || album.length > 0;
   useEffect(() => {
     setValue("mainImage", mainImage);
     if (mainImage) {
@@ -21,7 +24,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   useEffect(() => {
     setValue("multiImage", multiImage);
     if (multiImage && multiImage.length > 0) {
-      clearErrors("mainImage");
+      clearErrors("multiImage");
     }
   }, [multiImage]);
   useEffect(() => {
@@ -50,7 +53,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
       clearErrors("multiImage");
     }
   };
-
+  // const album = watch("album");
   const handleDeleteImage = (index) => {
     const newImages = multiImage.filter((_, i) => i !== index);
 
@@ -60,7 +63,14 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
       setMultiImage(null);
     }
   };
-
+  const handleDeleteImageFromAlbum = (id) => {
+    const newAlbum = album.filter((item) => item._id !== id);
+    setValue("album", newAlbum);
+    setAlbum(newAlbum);
+  };
+  const deleteThumbnail = () => {
+    setValue("thumbnail", "");
+  };
   return (
     <AddPropSectionContainer className={"flex flex-col"}>
       <div
@@ -73,7 +83,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           type="button"
           className="w-0 h-0 focus:outline-none focus:ring-0"
         ></button>
-        {!mainImage ? (
+        {!mainImage && !thumbnail ? (
           <>
             {" "}
             <Image
@@ -110,18 +120,29 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           <div className="relative overflow-hidden">
             <button
               type="button"
-              onClick={deleteMainImage}
+              onClick={mainImage ? deleteMainImage : deleteThumbnail}
               className="absolute drop-shadow top-3 mx-2 px-2 py-1 rounded font-bold  text-red-500 bg-white"
             >
               {language ? "حذف" : "Delete"}
             </button>
-            <Image
-              alt="main-image"
-              className="max-w-[420] rounded object-cover max-h-[300px] border-2 border-outLine"
-              width={400}
-              height={300}
-              src={URL.createObjectURL(mainImage)}
-            />
+            {mainImage && (
+              <Image
+                alt="main-image"
+                className="max-w-[420] rounded object-cover max-h-[300px] border-2 border-outLine"
+                width={400}
+                height={300}
+                src={URL.createObjectURL(mainImage)}
+              />
+            )}
+            {thumbnail && (
+              <Image
+                alt="main-image"
+                className="max-w-[420] rounded object-cover max-h-[300px] border-2 border-outLine"
+                width={400}
+                height={300}
+                src={thumbnail}
+              />
+            )}
           </div>
         )}
         {errors.mainImage && <Error>{errors.mainImage.message}</Error>}
@@ -129,11 +150,22 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           type="text"
           hidden
           {...register("mainImage", {
-            required: {
-              value: true,
-              message: language
-                ? "يجب اضافة الصورة الرئيسية للعقار"
-                : "Main image is missing.",
+            // required: {
+            //   value: true,
+            //   message: language
+            //     ? "يجب اضافة الصورة الرئيسية للعقار"
+            //     : "Main image is missing.",
+            // },'
+            validate: {
+              requierd: (value) => {
+                const image = Boolean(value) || Boolean(thumbnail);
+                return (
+                  image ||
+                  (language
+                    ? "يجب اضافة الصورة الرئيسية للعقار"
+                    : "Main image is missing.")
+                );
+              },
             },
           })}
         />
@@ -148,7 +180,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           accept="image/*"
           onChange={handleMultiImageChange}
         />
-        {!multiImage ? (
+        {!showMultiImages ? (
           <>
             {" "}
             <Image
@@ -193,7 +225,26 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
                   </button>
                 </div>
               ))}
-
+            {album.map((item, index) => {
+              return (
+                <div key={index} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteImageFromAlbum(item._id)}
+                    className="absolute drop-shadow top-3 mx-2 px-1 text-xs py-1 rounded font-bold  text-red-500 bg-white"
+                  >
+                    {language ? "حذف" : "Delete"}
+                  </button>
+                  <Image
+                    alt={`multi-image-${index}`}
+                    className="w-[210px] h-[150px]  rounded object-cover border-2 border-outline"
+                    width={400}
+                    height={300}
+                    src={item.image}
+                  />
+                </div>
+              );
+            })}
             <Image
               onClick={() => {
                 if (multiImgInputRef.current) {
@@ -213,16 +264,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           type="text"
           hidden
           {...register("multiImage", {
-            required: {
-              value: true,
-              message: language
-                ? "يجب اضافة الصور الأخرى للعقار"
-                : "Main image is missing.",
-            },
             validate: {
               min: (value) => {
                 return (
-                  value.length > 2 ||
+                  value.length + album.length > 2 ||
                   (language
                     ? "يجب ان لا يقل عدد الصور الاخرى عن 3"
                     : " must be a at least 3 images")
@@ -230,7 +275,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               },
               max: (value) => {
                 return (
-                  value.length < 21 ||
+                  value.length + album.length < 21 ||
                   (language
                     ? "يجب الا يزيد عدد الصور عن 20"
                     : "only 20 images a re allowed")

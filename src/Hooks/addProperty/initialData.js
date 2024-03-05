@@ -92,4 +92,5 @@ export const initialAddPropData = {
     CompoundsAR: "",
     CompoundsEN: "",
   },
+  album: [],
 };
