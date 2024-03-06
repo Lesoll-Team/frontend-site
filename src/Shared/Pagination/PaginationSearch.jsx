@@ -1,16 +1,21 @@
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/Pagination.module.css";
 import { IoIosArrowBack } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
-const PaginationPage = ({ currentPage, setPageNumber, totalPage }) => {
+const PaginationPage = ({ currentPage, totalPage }) => {
+  const dispatch = useDispatch();
   const handlePageClick = (data) => {
-    setPageNumber(data.selected + 1);
+    dispatch(
+      updateAllStates({
+        pageNumber: data.selected + 1,
+      })
+    );
   };
   return (
     <div dir="ltr" className={styles.pagination}>
       <ReactPaginate
-        // breakLabel={"..."}
-        // breakClassName={"break-me"}
         pageCount={totalPage}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}

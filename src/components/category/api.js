@@ -1,38 +1,5 @@
 import axios from "axios";
 
-export const sendFilterSearch = ({ queryInput, filterInput }) => {
-  const filteredKeywords = Object.fromEntries(
-    Object.entries(queryInput).filter(
-      ([_, value]) => value != null && value !== "" && value !== 0
-    )
-  );
-
-  const filterInputAfter = Object.fromEntries(
-    Object.entries(filterInput).filter(
-      ([_, value]) => value != null && value !== "" && value !== 0
-    )
-  );
-
-  // const pagesInput3 = Object.keys(filterInputAfter)
-  //   .map((key) => `${filterInputAfter[key]}`)
-  //   .join("/")
-  //   .toLowerCase();
-
-  // const queryString = Object.keys(filteredKeywords)
-  //   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-  //   .join("&");
-
-  console.log("filteredKeywords", filteredKeywords);
-  console.log("filterInputAfter", filterInputAfter);
-  // console.log("pagesInput3", pagesInput3);
-  // console.log("queryString", queryString);
-  // const newUrl = `/properties/${
-  //   pagesInput3 ? pagesInput3 + "/" : ""
-  // }search?${queryString}`;
-
-  // history.pushState(null, null, newUrl);
-};
-
 export async function saveSearchFilter({
   confirmSendMessage,
   messageConfirmed,
@@ -47,8 +14,6 @@ export async function saveSearchFilter({
         title: messageConfirmed,
         slug,
         sendEmail: confirmSendMessage,
-        supTitleEn: "s",
-        supTitleAr: "s",
       }
     );
     return response.data;
@@ -60,13 +25,13 @@ export async function foundKeyword(keyword) {
   try {
     const filteredKeywords = Object.fromEntries(
       Object.entries(keyword).filter(
-        ([_, value]) =>
-          value != null && value !== "" && value !== " " && value !== 0
+        ([_, value]) => value != null && value !== "" && value !== 0
       )
     );
     const queryString = Object.keys(filteredKeywords)
       .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
       .join("&");
+
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/category/get-data?${queryString}&limit=30`
     );
@@ -75,3 +40,47 @@ export async function foundKeyword(keyword) {
     console.error("Error in foundKeyword function:", error);
   }
 }
+
+// const filteredKeywords = Object.fromEntries(
+//   Object.entries(keyword).filter(
+//     ([_, value]) =>
+//       value != null && value !== "" && value !== " " && value !== 0
+//   )
+// );
+// const queryString = Object.keys(filteredKeywords)
+//   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+//   .join("&");
+// export const sendFilterSearch = ({ queryInput, filterInput }) => {
+//   const filteredKeywords = Object.fromEntries(
+//     Object.entries(queryInput).filter(
+//       ([_, value]) => value != null && value !== "" && value !== 0
+//     )
+//   );
+
+//   const filterInputAfter = Object.fromEntries(
+//     Object.entries(filterInput).filter(
+//       ([_, value]) => value != null && value !== "" && value !== 0
+//     )
+//   );
+
+//   const pagesInput3 = Object.keys(filterInputAfter)
+//     .map((key) => `${filterInputAfter[key]}`)
+//     .join("/")
+//     .toLowerCase();
+
+//   const queryString = Object.keys(filteredKeywords)
+//     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+//     .join("&");
+
+//   // console.log("filteredKeywords", filteredKeywords);
+//   // console.log("filterInputAfter", filterInputAfter);
+//   // console.log("pagesInput3", pagesInput3);
+//   // console.log("queryString", queryString);
+
+//   const newUrl = `/properties/${
+//     pagesInput3 ? pagesInput3 + "/" : ""
+//   }search?${queryString}`;
+//   console.log("newUrl", newUrl);
+
+//   history.pushState(null, null, newUrl);
+// };

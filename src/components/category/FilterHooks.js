@@ -43,3 +43,33 @@ export const useUnitTypesData = (categoryTypeKey) => {
 
   return unitTypesData;
 };
+
+export const useSendFilterSearch = ({ queryInput, filterInput }) => {
+  const filteredKeywords = Object.fromEntries(
+    Object.entries(queryInput).filter(
+      ([_, value]) => value != null && value !== "" && value !== 0
+    )
+  );
+
+  const filterInputAfter = Object.fromEntries(
+    Object.entries(filterInput).filter(
+      ([_, value]) => value != null && value !== "" && value !== 0
+    )
+  );
+
+  const pagesInput3 = Object.keys(filterInputAfter)
+    .map((key) => `${filterInputAfter[key]}`)
+    .join("/")
+    .toLowerCase();
+
+  const queryString = Object.keys(filteredKeywords)
+    .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+    .join("&");
+
+  const newUrl = `/properties/${
+    pagesInput3 ? pagesInput3 + "/" : ""
+  }search?${queryString}`;
+  // console.log("newUrl", newUrl);
+
+  return newUrl;
+};

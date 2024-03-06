@@ -2,7 +2,7 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const FinancingButtons = ({ setPropFinancing }) => {
+const FinancingButtons = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const propFinancing = useSelector((state) => state.Category.propFinancing);
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const FinancingButtons = ({ setPropFinancing }) => {
   const handleFinancingClick = (name) => {
     switch (name) {
       case "cbe3":
-        setPropFinancing("cbe3");
+        // setPropFinancing("cbe3");
         setCbe3ClickCount((prevCount) => prevCount + 1);
         if (cbe3ClickCount % 2 === 0) {
           dispatch(updateAllStates({ propFinancing: "cbe3" }));
@@ -22,7 +22,7 @@ const FinancingButtons = ({ setPropFinancing }) => {
         break;
 
       case "cbe8":
-        setPropFinancing("cbe8");
+        // setPropFinancing("cbe8");
         setCbe8ClickCount((prevCount) => prevCount + 1);
         if (cbe8ClickCount % 2 === 0) {
           dispatch(updateAllStates({ propFinancing: "cbe8" }));

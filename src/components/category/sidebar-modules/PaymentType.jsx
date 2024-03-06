@@ -2,7 +2,7 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const PaymentType = ({ paymentTypeKey, setPaymentTypeKey }) => {
+const PaymentType = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const paymentTypeIs = useSelector((state) => state.Category.paymentType);
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const PaymentType = ({ paymentTypeKey, setPaymentTypeKey }) => {
   const handlePaymentClick = (name) => {
     switch (name) {
       case "installment":
-        setPaymentTypeKey("installment");
+        // setPaymentTypeKey("installment");
         setInstallmentClickCount((prevCount) => prevCount + 1);
         if (installmentClickCount % 2 === 0) {
           dispatch(updateAllStates({ paymentType: "installment" }));
@@ -22,7 +22,7 @@ const PaymentType = ({ paymentTypeKey, setPaymentTypeKey }) => {
         break;
 
       case "cash":
-        setPaymentTypeKey("cash");
+        // setPaymentTypeKey("cash");
         setCashClickCount((prevCount) => prevCount + 1);
         if (cashClickCount % 2 === 0) {
           dispatch(updateAllStates({ paymentType: "cash" }));

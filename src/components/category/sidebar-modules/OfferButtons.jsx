@@ -2,9 +2,9 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const OfferButtons = ({ setSaleOptionKey, saleOptionKey }) => {
+const OfferButtons = () => {
   const dispatch = useDispatch();
-
+  const { saleOption } = useSelector((state) => state.Category);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleOfferClick = (name) => {
     dispatch(
@@ -12,17 +12,6 @@ const OfferButtons = ({ setSaleOptionKey, saleOptionKey }) => {
         saleOption: name,
       })
     );
-    switch (name) {
-      case "sale":
-        setSaleOptionKey("sale");
-        break;
-      case "rent":
-        setSaleOptionKey("rent");
-        break;
-      case "investment":
-        setSaleOptionKey("investment");
-        break;
-    }
   };
 
   //   const handleStateChange = (e) => {
@@ -42,7 +31,7 @@ const OfferButtons = ({ setSaleOptionKey, saleOptionKey }) => {
         <button
           onClick={() => handleOfferClick("sale")}
           className={`py-2 px-5 bg-white ${
-            saleOptionKey == "sale"
+            saleOption == "sale"
               ? "border-1 border-lightGreen text-lightGreen "
               : "border-1 border-gray1"
           }  rounded-[6px] p-[10px] `}
@@ -52,7 +41,7 @@ const OfferButtons = ({ setSaleOptionKey, saleOptionKey }) => {
         <button
           onClick={() => handleOfferClick("rent")}
           className={`py-2 px-5 bg-white ${
-            saleOptionKey == "rent"
+            saleOption == "rent"
               ? "border-1 border-lightGreen text-lightGreen  "
               : "border-1 border-gray1"
           }  rounded-[6px] p-[10px] `}
@@ -62,7 +51,7 @@ const OfferButtons = ({ setSaleOptionKey, saleOptionKey }) => {
         <button
           onClick={() => handleOfferClick("investment")}
           className={`py-2 px-5 bg-white ${
-            saleOptionKey == "investment"
+            saleOption == "investment"
               ? "border-1 border-lightGreen text-lightGreen  "
               : "border-1 border-gray1"
           }  rounded-[6px] p-[10px] `}

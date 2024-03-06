@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getGovernorate } from "@/utils/searchAPI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 export function SearchDropdownLocation({
   setLocationGovernorate,
@@ -8,6 +9,7 @@ export function SearchDropdownLocation({
   defaultGovernorate,
   defaultRegion,
 }) {
+  const dispatch = useDispatch();
   const [governorates, setGovernorates] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -133,6 +135,15 @@ export function SearchDropdownLocation({
     setLocationRegion(
       mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue
     );
+
+    dispatch(
+      updateAllStates({
+        locationGovernorate:
+          mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue,
+        locationRegion:
+          mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue,
+      })
+    );
   };
 
   const handleClearCared = useCallback(
@@ -145,45 +156,27 @@ export function SearchDropdownLocation({
         setGovNum(0);
         setLocationGovernorate("");
         setLocationRegion("");
+        dispatch(
+          updateAllStates({
+            locationGovernorate: null,
+            locationRegion: null,
+          })
+        );
       } else if (index === 1 && selectedValues[index] === value) {
         setGovFromReg(0);
         setLocationRegion("");
+        dispatch(
+          updateAllStates({
+            // locationGovernorate: null,
+            locationRegion: null,
+          })
+        );
       }
       updatedValues.splice(index, 1);
       setSelectedValues(updatedValues);
     },
     [selectedValues]
   );
-
-  // const handleKeyDown = (e) => {
-  //   if (e.key === "ArrowDown") {
-  //     e.preventDefault();
-  //     setHighlightedIndex((prevIndex) =>
-  //       prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
-  //     );
-  //   } else if (e.key === "ArrowUp") {
-  //     e.preventDefault();
-  //     setHighlightedIndex((prevIndex) =>
-  //       prevIndex > 0 ? prevIndex - 1 : prevIndex
-  //     );
-  //   } else if (e.key === "Enter" && highlightedIndex !== -1) {
-  //     e.preventDefault();
-  //     const selectedOption = filteredOptions[highlightedIndex];
-  //     handleSelect({
-  //       selectedOption: languageIs
-  //         ? selectedOption.name_ar
-  //         : selectedOption.name_en,
-  //       selectedValue: selectedOption.value_en,
-  //       selectedEnValue: selectedOption.value_en,
-  //       numberGovFromReg:
-  //         govFromReg == 0
-  //           ? selectedOption.numberReg_governorate_number || 0
-  //           : govFromReg,
-  //       numberGov: govNum == 0 ? selectedOption.numberGov || 0 : govNum,
-  //     });
-  //     setHighlightedIndex(-1);
-  //   }
-  // };
 
   const handleKeyDown = (e) => {
     switch (e.key) {
@@ -226,9 +219,14 @@ export function SearchDropdownLocation({
   return (
     <div
       dir={languageIs ? "rtl" : "ltr"}
-      className="relative w-full focus:outline-none h-full"
+      className="relative w-full focus:outline-none h-full
+      "
+      aria-labelledby="result search"
     >
-      <div className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 ">
+      <div
+        aria-label="Search Results"
+        className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 "
+      >
         {selectedValues.length > 0 ? (
           <div
             className="flex items-center
@@ -236,6 +234,7 @@ export function SearchDropdownLocation({
     px-1 md:px-3 md:py-1 
    bg-lightGreen rounded-sm md:rounded-md "
             key={selectedValues[selectedValues.length - 1]}
+            aria-labelledby="input selectedValues search"
           >
             <span
               className=" 
@@ -245,6 +244,7 @@ export function SearchDropdownLocation({
               {selectedValues[selectedValues.length - 1]}
             </span>
             <button
+              aria-label="delete selected"
               onClick={() =>
                 handleClearCared(
                   selectedValues.length - 1,
@@ -264,6 +264,7 @@ export function SearchDropdownLocation({
      gap-x-1 md:gap-x-3
     px-1 md:px-3 md:py-1 
    bg-lightGreen rounded-sm md:rounded-md "
+            aria-labelledby="out search"
           >
             <span
               className=" 
@@ -283,7 +284,7 @@ export function SearchDropdownLocation({
             </button>
           </div>
         ) : null}
-        <div className="w-full   h-full">
+        <div className="w-full   h-full" aria-labelledby="input search">
           <input
             type="text"
             placeholder={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
@@ -293,14 +294,16 @@ export function SearchDropdownLocation({
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
             className="w-full focus:outline-none text-gray-600  flex h-full"
+            aria-label="Search by region" // Add aria-label attribute
           />
         </div>
       </div>
       {searchTerm !== "" && (
         <div
+          aria-labelledby=" search"
           className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
         >
-          <div ref={dropdownRef}>
+          <div aria-labelledby="result" ref={dropdownRef}>
             {filteredOptions.map((governorate, index) => (
               <button
                 key={index}

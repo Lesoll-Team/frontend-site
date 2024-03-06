@@ -11,8 +11,8 @@ const Dropdown = ({
   data,
   value,
   classNames,
-  setValue,
-  setValueKey,
+  // setValue,
+  // setValueKey,
   setPriceFrom,
   setPriceTo,
   priceTo,
@@ -68,11 +68,10 @@ const Dropdown = ({
   };
 
   const handleSetOption = (e) => {
-    setValue(e.name);
-    setValueKey(e.value);
+    // console.log(e);
     if (stateName) {
       const payload = {};
-      payload[stateName] = e.value;
+      payload[stateName] = e;
       dispatch(updateAllStates(payload));
     }
   };
@@ -167,7 +166,11 @@ const Dropdown = ({
              : "border-[1px] border-[#CCCCCC] "
          }`}
       >
-        {(value && <span className="text-[#4E4E4E]">{value}</span>) ||
+        {(value && (
+          <span className="text-[#4E4E4E]">
+            {language ? value.name : value.value}
+          </span>
+        )) ||
           (defaultValue && <span className="text-gray1">{defaultValue}</span>)}
 
         {baseIcon || (
