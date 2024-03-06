@@ -1,5 +1,38 @@
 import axios from "axios";
 
+export const sendFilterSearch = ({ queryInput, filterInput }) => {
+  const filteredKeywords = Object.fromEntries(
+    Object.entries(queryInput).filter(
+      ([_, value]) => value != null && value !== "" && value !== 0
+    )
+  );
+
+  const filterInputAfter = Object.fromEntries(
+    Object.entries(filterInput).filter(
+      ([_, value]) => value != null && value !== "" && value !== 0
+    )
+  );
+
+  // const pagesInput3 = Object.keys(filterInputAfter)
+  //   .map((key) => `${filterInputAfter[key]}`)
+  //   .join("/")
+  //   .toLowerCase();
+
+  // const queryString = Object.keys(filteredKeywords)
+  //   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
+  //   .join("&");
+
+  console.log("filteredKeywords", filteredKeywords);
+  console.log("filterInputAfter", filterInputAfter);
+  // console.log("pagesInput3", pagesInput3);
+  // console.log("queryString", queryString);
+  // const newUrl = `/properties/${
+  //   pagesInput3 ? pagesInput3 + "/" : ""
+  // }search?${queryString}`;
+
+  // history.pushState(null, null, newUrl);
+};
+
 export async function saveSearchFilter({
   confirmSendMessage,
   messageConfirmed,
@@ -23,7 +56,6 @@ export async function saveSearchFilter({
     throw error.response.data;
   }
 }
-
 export async function foundKeyword(keyword) {
   try {
     const filteredKeywords = Object.fromEntries(
@@ -43,15 +75,3 @@ export async function foundKeyword(keyword) {
     console.error("Error in foundKeyword function:", error);
   }
 }
-// const userToken = JSON.parse(localStorage.getItem("userToken"));
-//&local_storage_device_id=${userToken}
-/**
- *       const filteredKeywords = Object.fromEntries(
-        Object.entries(InputKeywords).filter(
-          ([_, value]) => value != null && value !== "" && value !== 0
-        )
-      );
-      const queryString = Object.keys(filteredKeywords)
-        .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-        .join("&");
- */

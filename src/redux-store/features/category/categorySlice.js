@@ -1,14 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { initialStateCategory } from "./initialState";
-import { foundKeyword } from "@/components/category/api";
-
-export const sendFilterSearch = createAsyncThunk(
-  "Category/foundKeyword",
-  async (keyword) => {
-    const response = await foundKeyword(keyword);
-    return response; // Assuming your API returns user data upon successful
-  }
-);
+import { sendFilterSearch } from "@/components/category/api";
 
 const categorySlice = createSlice({
   name: "Category",
@@ -20,23 +12,34 @@ const categorySlice = createSlice({
         ...action.payload,
       };
     },
-  },
-  extraReducers: (builder) => {
-    builder
-
-      .addCase(sendFilterSearch.pending, (state) => {
-        state.sending = true;
-      })
-      .addCase(sendFilterSearch.fulfilled, (state, action) => {
-        state.sending = false;
-        state.filterResult = action.payload;
-      })
-      .addCase(sendFilterSearch.rejected, (state, action) => {
-        state.sending = false;
-        state.errorResult = action.error.message;
+    sendFilterToRootsPage: (state) => {
+      const filterInput = {
+        category: state.categoryType,
+        saleOptions: state.saleOption,
+        unitType: state.unitTypes,
+        governorate: state.locationGovernorate,
+        region: state.locationRegion,
+      };
+      const queryInput = {
+        priceFrom: state.priceFrom,
+        priceTo: state.priceTo,
+        areaFrom: state.areaFrom,
+        areaTo: state.areaTo,
+        numBathrooms: state.numBathrooms,
+        numBedrooms: state.numBedrooms,
+        finishedOption: state.finishedOption,
+        keyword: state.searchKeyword,
+        paymentType: state.paymentType,
+        page: state.pageNumber,
+        mortgage: state.propFinancing,
+        sort: state.sort,
+      };
+      sendFilterSearch({
+        queryInput,
+        filterInput,
       });
+    },
   },
 });
-export const { updateAllStates } = categorySlice.actions;
-// export default categorySlice;
+export const { updateAllStates, sendFilterToRootsPage } = categorySlice.actions;
 export default categorySlice.reducer;

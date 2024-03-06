@@ -17,6 +17,7 @@ import AreaRange from "./sidebar-modules/AreaRange";
 import FinishingList from "./sidebar-modules/FinishingList";
 import PaymentType from "./sidebar-modules/PaymentType";
 import FinancingButtons from "./sidebar-modules/FinancingButtons";
+import ButtonSearchAction from "./sidebar-modules/ButtonSearchAction";
 // import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 // import React, { memo } from "react";
 // import { IoClose } from "react-icons/io5";
@@ -45,7 +46,7 @@ const SidebarFilter = ({
   setNumBedrooms,
   numBedrooms,
   numBathrooms,
-  handleFilterAction,
+  // handleFilterAction,
   setAreaFrom,
   setAreaTo,
   areaFrom,
@@ -136,15 +137,9 @@ const SidebarFilter = ({
         />
         {/* buttons Property Financing */}
         <FinancingButtons setPropFinancing={setPropFinancing} />
+
         {/* submit button */}
-        <div className="mb-5 flex justify-center">
-          <button
-            onClick={handleFilterAction}
-            className="md:w-[24.2vw] w-full rounded-[1vh] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"
-          >
-            {languageIs ? "عرض النتائج" : "Show results"}
-          </button>
-        </div>
+        <ButtonSearchAction />
       </div>
 
       <div

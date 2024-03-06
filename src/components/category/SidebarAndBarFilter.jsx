@@ -100,44 +100,44 @@ const SidebarAndBarFilter = ({
     mortgage: propFinancing, //|| searchKeywords.mortgage,
     sort: sortKey, //|| searchKeywords.sort,
   };
-  const handleFilterAction = () => {
-    const filteredKeywords = Object.fromEntries(
-      Object.entries(queryInput).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
+  // const handleFilterAction = () => {
+  //   const filteredKeywords = Object.fromEntries(
+  //     Object.entries(queryInput).filter(
+  //       ([_, value]) => value != null && value !== "" && value !== 0
+  //     )
+  //   );
 
-    const filterInputAfter = Object.fromEntries(
-      Object.entries(filterInput).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
-    );
+  //   const filterInputAfter = Object.fromEntries(
+  //     Object.entries(filterInput).filter(
+  //       ([_, value]) => value != null && value !== "" && value !== 0
+  //     )
+  //   );
 
-    const combinedToObject = { ...filterInputAfter };
-    const pagesInput3 = Object.keys(combinedToObject)
-      .map((key) => `${combinedToObject[key]}`)
-      .join("/")
-      .toLowerCase();
+  //   const combinedToObject = { ...filterInputAfter };
+  //   const pagesInput3 = Object.keys(combinedToObject)
+  //     .map((key) => `${combinedToObject[key]}`)
+  //     .join("/")
+  //     .toLowerCase();
 
-    const existingQueryParams = new URLSearchParams(
-      router.asPath.split("?")[1]
-    );
+  //   const existingQueryParams = new URLSearchParams(
+  //     router.asPath.split("?")[1]
+  //   );
 
-    const combinedKeywords = { ...filteredKeywords };
-    for (const [key, value] of Object.entries(combinedKeywords)) {
-      existingQueryParams.set(key, value);
-    }
+  //   const combinedKeywords = { ...filteredKeywords };
+  //   for (const [key, value] of Object.entries(combinedKeywords)) {
+  //     existingQueryParams.set(key, value);
+  //   }
 
-    const queryString = existingQueryParams.toString(combinedKeywords);
-    setOpenFilter(false);
-    router.push(
-      `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
-    );
-  };
+  //   const queryString = existingQueryParams.toString(combinedKeywords);
+  //   setOpenFilter(false);
+  //   router.push(
+  //     `/properties/${pagesInput3 && pagesInput3 + "/"}search?${queryString}`
+  //   );
+  // };
   const getNameWithValue = useGetNameWithValue(sortKey);
-  useEffect(() => {
-    handleFilterAction();
-  }, [sort, pageNumber, clickOnTap]);
+  // useEffect(() => {
+  //   handleFilterAction();
+  // }, [sort, pageNumber, clickOnTap]);
   useEffect(() => {
     setIsSaveed(false);
     setConfirmSendMessage(false);
@@ -191,7 +191,7 @@ const SidebarAndBarFilter = ({
             propFinancing={propFinancing}
             setSearchKeyword={setSearchKeyword}
             searchKeyword={searchKeyword}
-            handleFilterAction={handleFilterAction}
+            // handleFilterAction={handleFilterAction}
             setPaymentTypeKey={setPaymentTypeKey}
             setPaymentType={setPaymentType}
             paymentType={paymentType}
@@ -241,7 +241,7 @@ const SidebarAndBarFilter = ({
         } `}
       >
         <BarFilter
-          handleFilterAction={handleFilterAction}
+          // handleFilterAction={handleFilterAction}
           setOpenFilter={setOpenFilter}
           filterData={{
             searchKeywords,
