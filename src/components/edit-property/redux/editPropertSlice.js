@@ -8,12 +8,14 @@ const initialState = {
 
 export const editProperty = createAsyncThunk(
   "editPropertySlice/editProperty",
-  async (data, id, thunkAPI) => {
+  async (data, thunkAPI) => {
+    console.log(data.id);
+    console.log("data", data.data);
     const userToken = JSON.parse(localStorage.getItem("userToken"));
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${propertyId}`,
-        propertyDetils,
+        `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${data.id}`,
+        data.data,
         {
           headers: {
             token: userToken,

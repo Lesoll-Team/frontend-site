@@ -75,6 +75,7 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("connectPhoneNumber", data?.connectPhoneNumber);
   setValue("deliveryDate", data?.deliveryDate || "");
   setValue("otherPhone", data?.connectPhoneNumber ? true : false);
+  setValue("id", data?._id);
 };
 
 function findSaleOption(saleOptionList = saleOptions, value) {

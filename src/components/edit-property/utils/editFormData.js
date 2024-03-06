@@ -57,6 +57,7 @@ export const editFormData = (data) => {
   formData.append("bathRooms", data.bathRooms);
   formData.append("description", data.description);
   formData.append("level", data.level);
+  formData.append("thumbnail", data?.thumbnail);
   for (let i = 0; i < data.album.length; i++) {
     formData.append("album", data.album[i]._id);
   }

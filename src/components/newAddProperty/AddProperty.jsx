@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
 import { DotPulse } from "@uiball/loaders";
+import AdminAddProperty from "../admin-add-property/AdminAddProperty";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -122,50 +123,54 @@ const AddProperty = () => {
       </div>
     );
   } else if (userData) {
-    return (
-      <form
-        noValidate
-        onSubmit={onSubmit}
-        className={`min-h-[88dvh]  py-10 container mx-auto  ${
-          sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
-        }`}
-      >
-        {sended ? (
-          <AceeptedCard />
-        ) : (
-          <>
-            {" "}
-            <Steps setStep={setStep} step={step} watch={watch} />
-            {renderStep()}
-            <div className="flex items-center gap-4 max-w-[400px]">
-              {step > 1 && (
-                <Button
-                  onClick={() => {
-                    setStep((prev) => prev - 1);
-                  }}
-                  variant="bordered"
-                  type={"button"}
-                  className={"w- h-auto py-2"}
-                >
-                  {language ? "السابق" : "Back"}
+    if (userData.isAdmin) {
+      return <AdminAddProperty />;
+    } else {
+      return (
+        <form
+          noValidate
+          onSubmit={onSubmit}
+          className={`min-h-[88dvh]  py-10 container mx-auto  ${
+            sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
+          }`}
+        >
+          {sended ? (
+            <AceeptedCard />
+          ) : (
+            <>
+              {" "}
+              <Steps setStep={setStep} step={step} watch={watch} />
+              {renderStep()}
+              <div className="flex items-center gap-4 max-w-[400px]">
+                {step > 1 && (
+                  <Button
+                    onClick={() => {
+                      setStep((prev) => prev - 1);
+                    }}
+                    variant="bordered"
+                    type={"button"}
+                    className={"w- h-auto py-2"}
+                  >
+                    {language ? "السابق" : "Back"}
+                  </Button>
+                )}
+                <Button variant="" type={"submit"} className={"w- h-auto py-2"}>
+                  {step > 3
+                    ? language
+                      ? "أضف عقارك"
+                      : "Add your property"
+                    : language
+                    ? "التالى"
+                    : "Next"}
                 </Button>
-              )}
-              <Button variant="" type={"submit"} className={"w- h-auto py-2"}>
-                {step > 3
-                  ? language
-                    ? "أضف عقارك"
-                    : "Add your property"
-                  : language
-                  ? "التالى"
-                  : "Next"}
-              </Button>
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
 
-        {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
-      </form>
-    );
+          {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
+        </form>
+      );
+    }
   } else if (userDataStatus === "failed") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">

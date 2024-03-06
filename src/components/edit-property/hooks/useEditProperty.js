@@ -3,6 +3,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import useFromatAddData from "@/Hooks/addProperty/useFromatAddData";
 import { useDispatch } from "react-redux";
 import { formatApiData } from "../utils/fromateApiData";
+import { editProperty } from "../redux/editPropertSlice";
+import { editFormData } from "../utils/editFormData";
 const useEditProperty = (data) => {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
@@ -31,10 +33,12 @@ const useEditProperty = (data) => {
     } else {
       // const { formData } = useFromatAddData(data);
       // dispatch(submitProperty(formData));
+      const { formData } = editFormData(data);
       console.log(data);
+      dispatch(editProperty(formData, data.id));
     }
   });
-  console.log("address:   ", watch("address"));
+
   return {
     onSubmit,
     errors,

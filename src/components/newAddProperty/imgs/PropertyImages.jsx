@@ -14,7 +14,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const [multiImage, setMultiImage] = useState(watch("multiImage"));
   const [album, setAlbum] = useState(watch("album"));
   const mainImgContainerRef = useRef(null);
-  const showMultiImages = multiImage || album.length > 0;
+  const showMultiImages = multiImage || album?.length > 0;
   useEffect(() => {
     setValue("mainImage", mainImage);
     if (mainImage) {
@@ -225,26 +225,27 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
                   </button>
                 </div>
               ))}
-            {album.map((item, index) => {
-              return (
-                <div key={index} className="relative">
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteImageFromAlbum(item._id)}
-                    className="absolute drop-shadow top-3 mx-2 px-1 text-xs py-1 rounded font-bold  text-red-500 bg-white"
-                  >
-                    {language ? "حذف" : "Delete"}
-                  </button>
-                  <Image
-                    alt={`multi-image-${index}`}
-                    className="w-[210px] h-[150px]  rounded object-cover border-2 border-outline"
-                    width={400}
-                    height={300}
-                    src={item.image}
-                  />
-                </div>
-              );
-            })}
+            {album &&
+              album.map((item, index) => {
+                return (
+                  <div key={index} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImageFromAlbum(item._id)}
+                      className="absolute drop-shadow top-3 mx-2 px-1 text-xs py-1 rounded font-bold  text-red-500 bg-white"
+                    >
+                      {language ? "حذف" : "Delete"}
+                    </button>
+                    <Image
+                      alt={`multi-image-${index}`}
+                      className="w-[210px] h-[150px]  rounded object-cover border-2 border-outline"
+                      width={400}
+                      height={300}
+                      src={item.image}
+                    />
+                  </div>
+                );
+              })}
             <Image
               onClick={() => {
                 if (multiImgInputRef.current) {
@@ -267,7 +268,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             validate: {
               min: (value) => {
                 return (
-                  value.length + album.length > 2 ||
+                  value.length + (album?.length || 0) > 2 ||
                   (language
                     ? "يجب ان لا يقل عدد الصور الاخرى عن 3"
                     : " must be a at least 3 images")
@@ -275,7 +276,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               },
               max: (value) => {
                 return (
-                  value.length + album.length < 21 ||
+                  value.length + (album?.length || 0) < 21 ||
                   (language
                     ? "يجب الا يزيد عدد الصور عن 20"
                     : "only 20 images a re allowed")
