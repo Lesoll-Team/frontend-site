@@ -28,7 +28,7 @@ import userSavedItemsReducer from "./features/user/userSavedItemsSlice";
 import notifiicationSlice from "./features/user/notifiicationSlice";
 import compoundSlice from "./features/property/compoundSlice";
 import categoryReducer from "./features/category/categorySlice";
-
+import editPropertySlice from "@/components/edit-property/redux/editPropertSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -56,5 +56,6 @@ export default combineReducers({
   notifications: notifiicationSlice,
   compounds: compoundSlice,
   Category: categoryReducer,
+  editProperty: editPropertySlice,
   // Compare:compareReducer,
 });
