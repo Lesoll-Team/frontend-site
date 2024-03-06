@@ -1,14 +1,13 @@
-import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
+// import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 import React, { memo } from "react";
 import { IoClose } from "react-icons/io5";
-import {
-  finishingOptionsData,
-  // paymentMethodData,
-  // propertyType,
-  // saleOptionsType,
-} from "@/Shared/search/dropdown/dataDropdown";
+import // finishingOptionsData,
+// paymentMethodData,
+// propertyType,
+// saleOptionsType,
+"@/Shared/search/dropdown/dataDropdown";
 // import UnitTypeIcons from "./UnitTypeIcons";
-import { useGetNameWithValue } from "./FilterHooks";
+// import { useGetNameWithValue } from "./FilterHooks";
 import SearchKeywords from "./sidebar-modules/SearchKeywords";
 import OfferButtons from "./sidebar-modules/OfferButtons";
 import PropertiesTypes from "./sidebar-modules/PropertiesTypes";
@@ -59,7 +58,7 @@ const SidebarFilter = ({
   searchKeyword,
   setSearchKeyword,
   setPropFinancing,
-  propFinancing,
+  // propFinancing,
   finishedOptionKey,
 }) => {
   // const getNameWithValue = useGetNameWithValue(categoryTypeKey);
@@ -149,7 +148,6 @@ const SidebarFilter = ({
       </div>
 
       <div
-        role="button"
         onClick={() => setOpenFilter(false)}
         className="h-screen absolute w-full bg-[#323232] z-[0] opacity-30"
       />

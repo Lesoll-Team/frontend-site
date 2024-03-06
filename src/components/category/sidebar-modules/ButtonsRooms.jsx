@@ -1,38 +1,26 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const ButtonsRooms = ({
-  numBedrooms,
-  numBathrooms,
-  setNumBedrooms,
-  setNumBathrooms,
-}) => {
+const ButtonsRooms = ({ setNumBedrooms, setNumBathrooms }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const { numBedrooms, numBathrooms } = useSelector((state) => state.Category);
   const dispatch = useDispatch();
-  const [bedClickCount, setBedClickCount] = useState(0);
-  const [bathClickCount, setBathClickCount] = useState(0);
-
   const handleButtonClick = (i, name) => {
     switch (name) {
       case "bed":
         setNumBedrooms(numBedrooms === i + 1 ? null : i + 1);
-        setBedClickCount((prevCount) => prevCount + 1);
-        if (bedClickCount % 2 === 0) {
-          dispatch(updateAllStates({ numBedrooms: i + 1 }));
-        } else {
-          dispatch(updateAllStates({ numBedrooms: null }));
-        }
+        dispatch(
+          updateAllStates({ numBedrooms: numBedrooms === i + 1 ? null : i + 1 })
+        );
         break;
-
       case "bath":
         setNumBathrooms(numBathrooms === i + 1 ? null : i + 1);
-        setBathClickCount((prevCount) => prevCount + 1);
-        if (bathClickCount % 2 === 0) {
-          dispatch(updateAllStates({ numBathrooms: i + 1 }));
-        } else {
-          dispatch(updateAllStates({ numBathrooms: null }));
-        }
+        dispatch(
+          updateAllStates({
+            numBathrooms: numBathrooms === i + 1 ? null : i + 1,
+          })
+        );
         break;
 
       default:
