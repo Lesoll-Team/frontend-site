@@ -53,7 +53,7 @@ const ProfileHeader = ({ hideHeader }) => {
                 </div>
               </div>
             </div>
-            <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-lightNeutral h-fit rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap ">
+            {/* <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-lightNeutral h-fit rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap ">
               <p className="text-sm xl:text-base font-bold text-lightGreen">
                 {language ? "الطلبات" : "Needs"}{" "}
                 <span className="text-outLine">{5}</span>
@@ -62,7 +62,7 @@ const ProfileHeader = ({ hideHeader }) => {
                 {language ? "عدد العقارات" : "Properties"}{" "}
                 <span className="text-outLine">{5}</span>
               </p>
-            </div>
+            </div> */}
           </div>
         </header>
       </div>
