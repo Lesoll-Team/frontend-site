@@ -21,6 +21,7 @@ const UnitTypeIcons = ({ items }) => {
             value: item.keyword,
             name: language ? item.ar : item.en,
           },
+          pageNumber: 1,
           clickOnUnits: !clickOnUnits,
         })
       );
@@ -31,6 +32,8 @@ const UnitTypeIcons = ({ items }) => {
             value: item.keyword,
             name: language ? item.ar : item.en,
           },
+          pageNumber: 1,
+
           clickOnUnits: !clickOnUnits,
         })
       );
@@ -40,6 +43,7 @@ const UnitTypeIcons = ({ items }) => {
         updateAllStates({
           locationGovernorate: item.keyword,
           clickOnUnits: !clickOnUnits,
+          pageNumber: 1,
         })
       );
       // setLocationGovernorate(Key);
@@ -49,11 +53,12 @@ const UnitTypeIcons = ({ items }) => {
         updateAllStates({
           locationRegion: item.keyword,
           clickOnUnits: !clickOnUnits,
+          pageNumber: 1,
         })
       );
       // setLocationRegion(Key);
     }
-    console.log(item);
+    // console.log(item);
   };
   const [seeMore, setSeeMore] = useState(8);
   useEffect(() => {

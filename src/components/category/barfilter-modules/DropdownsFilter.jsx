@@ -1,7 +1,7 @@
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
-import { useUnitTypesData } from "../FilterHooks";
+import { useUnitTypesData } from "../shared/FilterHooks";
 import {
   propertyType,
   saleOptionsType,
@@ -43,4 +43,4 @@ const DropdownsFilter = () => {
   );
 };
 
-export default DropdownsFilter;
+export default memo(DropdownsFilter);

@@ -1,6 +1,6 @@
 import { SearchDropdownLocation } from "@/Shared/search/SearchDropdownLocation";
 import { useSelect } from "@nextui-org/react";
-import React from "react";
+import React, { memo } from "react";
 import { IoIosSearch } from "react-icons/io";
 
 const SearchByLocations = ({ setLocationRegion, setLocationGovernorate }) => {
@@ -20,4 +20,4 @@ const SearchByLocations = ({ setLocationRegion, setLocationGovernorate }) => {
   );
 };
 
-export default SearchByLocations;
+export default memo(SearchByLocations);

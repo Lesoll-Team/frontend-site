@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 
 import { propertyType } from "@/Shared/search/dropdown/dataDropdown";
-import { useUnitTypesData } from "../FilterHooks";
+import { useUnitTypesData } from "../shared/FilterHooks";
 
 const PropertiesTypes = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);

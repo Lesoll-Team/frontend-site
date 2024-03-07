@@ -12,7 +12,10 @@ const categorySlice = createSlice({
         ...action.payload,
       };
     },
+    changeNumberPage: (state, action) => {
+      state.pageNumber = action.payload;
+    },
   },
 });
-export const { updateAllStates } = categorySlice.actions;
+export const { updateAllStates, changeNumberPage } = categorySlice.actions;
 export default categorySlice.reducer;

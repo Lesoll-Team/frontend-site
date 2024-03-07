@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SidebarFilter from "./SidebarFilter";
 import BarFilter from "./BarFilter";
 import { useRouter } from "next/router";
-import UnitTypeIcons from "./UnitTypeIcons";
+import UnitTypeIcons from "./shared/UnitTypeIcons";
 import { IoIosStar } from "react-icons/io";
 import { LuArrowDownUp } from "react-icons/lu";
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 import { sortedData } from "@/Shared/search/dropdown/dataDropdown";
-import { saveSearchFilter } from "./api";
+import { saveSearchFilter } from "./shared/api";
 import PaginationPage from "@/Shared/Pagination/PaginationSearch";
 import RealtyCard from "../realtyCard/RealtyCard";
-import ResultNotFound from "./ResultNotFound";
+import ResultNotFound from "./shared/ResultNotFound";
+import ConfirmModule from "./shared/ConfirmModule";
 
 const SidebarAndBarFilter = ({ result, page }) => {
   const router = useRouter();
@@ -26,9 +27,8 @@ const SidebarAndBarFilter = ({ result, page }) => {
   const [isSaveed, setIsSaveed] = useState(false);
   const [messageConfirmed, setMessageConfirmed] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [openFilter, setOpenFilter] = useState(false);
   // const [clickOnTap, setClickOnTap] = useState(false);
-  const { sort } = useSelector((state) => state.Category);
+  const { sort, openFilter } = useSelector((state) => state.Category);
 
   useEffect(() => {
     setIsSaveed(false);
@@ -50,10 +50,25 @@ const SidebarAndBarFilter = ({ result, page }) => {
 
   return (
     <>
+      {/*save filter */}
+      {openSaveFilterInput && (
+        <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-20">
+          <ConfirmModule
+            setConfirmSendMessage={setConfirmSendMessage}
+            confirmSendMessage={confirmSendMessage}
+            setOpenSaveFilterInput={setOpenSaveFilterInput}
+            openSaveFilterInput={openSaveFilterInput}
+            setMessageConfirmed={setMessageConfirmed}
+            messageConfirmed={messageConfirmed}
+            setSaveed={setIsSaveed}
+          />
+          <div className="h-screen absolute -mt-[0px] w-full bg-[#323232] z-[0] opacity-30" />
+        </div>
+      )}
       {/*Sidebar filter */}
       {openFilter && (
         <div className="fixed z-[700] w-full top-0">
-          <SidebarFilter languageIs={language} setOpenFilter={setOpenFilter} />
+          <SidebarFilter languageIs={language} />
         </div>
       )}
       {/*bar filter */}
@@ -63,13 +78,12 @@ const SidebarAndBarFilter = ({ result, page }) => {
         } `}
       >
         <BarFilter
-          setOpenFilter={setOpenFilter}
           setLocationGovernorate={setLocationGovernorate}
           setLocationRegion={setLocationRegion}
         />
       </div>
       {/*unit types */}
-      <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
+      {/* <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
         <UnitTypeIcons
           category={categoryTypeKey}
           items={result?.aggregation_links}
@@ -83,7 +97,7 @@ const SidebarAndBarFilter = ({ result, page }) => {
           locationGovernorate={locationGovernorate}
           locationRegion={locationRegion}
         />
-      </div>
+      </div> */}
       {/*title & save and filter button*/}
       <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[20px] gap-y-[10px]">
         {/*title filter page */}
@@ -108,32 +122,33 @@ const SidebarAndBarFilter = ({ result, page }) => {
               dataOptions="text"
             />
           </div>
-
-          <button
-            disabled={isSaveed}
-            onClick={handleSendSearchFilter}
-            className="indent-2 h-[24px] md:h-[40px] md:min-w-[8.438rem] min-w-[6rem]  rounded-[1vh] flex items-center gap-x-1 md:justify-between 
+          {userInfo && (
+            <button
+              disabled={isSaveed}
+              onClick={handleSendSearchFilter}
+              className="indent-2 h-[24px] md:h-[40px] md:min-w-[8.438rem] min-w-[6rem]  rounded-[1vh] flex items-center gap-x-1 md:justify-between 
              md:px-3 
              text-[12px] md:text-[20px]
              whitespace-nowrap
             "
-            // md:px-3 md:p-2 p-1 px-1
-          >
-            {language
-              ? isSaveed
-                ? "تم حفظ البحث"
-                : " حفظ البحث"
-              : isSaveed
-              ? "has been saved"
-              : "Save search"}
-            <IoIosStar
-              className={`${
-                isSaveed
-                  ? "fill-lightGreen"
-                  : "fill-none stroke-[20px] stroke-black"
-              } `}
-            />
-          </button>
+              // md:px-3 md:p-2 p-1 px-1
+            >
+              {language
+                ? isSaveed
+                  ? "تم حفظ البحث"
+                  : " حفظ البحث"
+                : isSaveed
+                ? "has been saved"
+                : "Save search"}
+              <IoIosStar
+                className={`${
+                  isSaveed
+                    ? "fill-lightGreen"
+                    : "fill-none stroke-[20px] stroke-black"
+                } `}
+              />
+            </button>
+          )}
         </div>
       </div>
       {/*cards result  */}
@@ -161,29 +176,4 @@ const SidebarAndBarFilter = ({ result, page }) => {
   );
 };
 
-export default SidebarAndBarFilter;
-// {
-//   openSaveFilterInput && (
-//     <>
-//       <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-20">
-//         <ConfirmModule
-//           setConfirmSendMessage={setConfirmSendMessage}
-//           confirmSendMessage={confirmSendMessage}
-//           setOpenSaveFilterInput={setOpenSaveFilterInput}
-//           openSaveFilterInput={openSaveFilterInput}
-//           setMessageConfirmed={setMessageConfirmed}
-//           messageConfirmed={messageConfirmed}
-//           setSaveed={setIsSaveed}
-//         />
-//         <div className="h-screen absolute -mt-[0px] w-full bg-[#323232] z-[0] opacity-30" />
-//       </div>
-//       <style>
-//         {`
-// body {
-//   overflow: hidden;
-// }
-// `}
-//       </style>
-//     </>
-//   );
-// }
+export default memo(SidebarAndBarFilter);

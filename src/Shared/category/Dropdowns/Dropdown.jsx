@@ -3,6 +3,7 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import { GoXCircleFill } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -68,7 +69,6 @@ const Dropdown = ({
   };
 
   const handleSetOption = (e) => {
-    // console.log(e);
     if (stateName) {
       const payload = {};
       payload[stateName] = e;
@@ -150,7 +150,13 @@ const Dropdown = ({
     },
     [data, value, router, language]
   );
-
+  const handleDeleteOption = () => {
+    if (stateName) {
+      const payload = {};
+      payload[stateName] = null;
+      dispatch(updateAllStates(payload));
+    }
+  };
   return (
     <div className={`${classNames}  min-w-[9.97vw] relative`}>
       <button
@@ -172,11 +178,18 @@ const Dropdown = ({
           </span>
         )) ||
           (defaultValue && <span className="text-gray1">{defaultValue}</span>)}
-
-        {baseIcon || (
-          <IoIosArrowDown
-            className={`text-black duration-150 ${menuIsOpen && "rotate-180"}`}
-          />
+        {value ? (
+          <button onClick={handleDeleteOption}>
+            <GoXCircleFill className="text-2xl" />
+          </button>
+        ) : (
+          baseIcon || (
+            <IoIosArrowDown
+              className={`text-black duration-150 ${
+                menuIsOpen && "rotate-180"
+              }`}
+            />
+          )
         )}
       </button>
       {menuIsOpen && renderOptionType(dataOptions)}

@@ -1,16 +1,26 @@
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CgOptions } from "react-icons/cg";
 import SearchByLocations from "./barfilter-modules/SearchByLocations";
 import DropdownsFilter from "./barfilter-modules/DropdownsFilter";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 const BarFilter = ({
-  setOpenFilter,
+  // setOpenFilter,
   setLocationGovernorate,
   setLocationRegion,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const dispatch = useDispatch();
+  // const openFilter = useSelector((state) => state.Category.openFilter);
+  const openSideFilter = () => {
+    dispatch(
+      updateAllStates({
+        openFilter: true,
+      })
+    );
+  };
   return (
     <div className="relative md:py-8 py-4  w-full md:container md:mx-auto mx-[20px]">
       <div
@@ -33,7 +43,7 @@ const BarFilter = ({
         <button
           className=" md:gap-x-2 gap-x-0  h-[1.875rem] md:h-[3.313rem] text-gray1 text-md flex items-center justify-between
          md:border-[1px] border-0 md:border-[#CCCCCC] rounded-[1vh] md:px-3 md:p-2 p-1 px-1 cursor-pointer"
-          onClick={() => setOpenFilter(true)}
+          onClick={openSideFilter}
         >
           <span className="whitespace-nowrap hidden md:block text-gray1">
             {language ? "خيارات اكثر" : "More filter"}

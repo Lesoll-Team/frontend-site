@@ -1,7 +1,7 @@
 // import { sendFilterToRootsPage } from "@/redux-store/features/category/categorySlice";
-import React, { useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useSendFilterSearch } from "../FilterHooks";
+import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
 
 const ButtonSearchAction = ({ isBar }) => {
@@ -50,18 +50,20 @@ const ButtonSearchAction = ({ isBar }) => {
       keyword: searchKeyword,
     },
   });
-
-  const handleFilterAction = () => {
+  const handleFilterAction = useCallback(() => {
     router.push(route);
-  };
-  useEffect(() => {
+  }, [router, route, clickOnUnits, pageNumber]);
+
+  // Subscribe to changes in sort, pageNumber, and clickOnUnits
+
+  const handleClick = () => {
     handleFilterAction();
-  }, [sort, pageNumber, clickOnUnits]);
+  };
 
   if (isBar) {
     return (
       <button
-        onClick={handleFilterAction}
+        onClick={handleClick}
         className="w-[100px] md:w-[9.97vw] md:min-w-[165px] h-[1.875rem] md:h-[3.313rem] rounded-[1vh] font-bold text-[12px] md:text-[20px] text-white bg-lightGreen"
       >
         {language ? "بحث" : "Search"}
@@ -71,7 +73,7 @@ const ButtonSearchAction = ({ isBar }) => {
     return (
       <div className="mb-5 flex justify-center">
         <button
-          onClick={handleFilterAction}
+          onClick={handleClick}
           className="md:w-[24.2vw] w-full rounded-[1vh] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"
         >
           {language ? "عرض النتائج" : "Show results"}
@@ -81,4 +83,4 @@ const ButtonSearchAction = ({ isBar }) => {
   }
 };
 
-export default ButtonSearchAction;
+export default memo(ButtonSearchAction);

@@ -69,7 +69,6 @@ export const useSendFilterSearch = ({ queryInput, filterInput }) => {
   const newUrl = `/properties/${
     pagesInput3 ? pagesInput3 + "/" : ""
   }search?${queryString}`;
-  // console.log("newUrl", newUrl);
 
   return newUrl;
 };

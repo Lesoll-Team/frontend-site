@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { IoClose } from "react-icons/io5";
 import SearchKeywords from "./sidebar-modules/SearchKeywords";
 import OfferButtons from "./sidebar-modules/OfferButtons";
@@ -10,8 +10,19 @@ import FinishingList from "./sidebar-modules/FinishingList";
 import PaymentType from "./sidebar-modules/PaymentType";
 import FinancingButtons from "./sidebar-modules/FinancingButtons";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
+import { useDispatch } from "react-redux";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
-const SidebarFilter = ({ languageIs, setOpenFilter }) => {
+const SidebarFilter = ({ languageIs }) => {
+  const dispatch = useDispatch();
+  // const openFilter = useSelector((state) => state.Category.openFilter);
+  const openSideFilter = () => {
+    dispatch(
+      updateAllStates({
+        openFilter: false,
+      })
+    );
+  };
   return (
     <div dir="ltr" className="w-full  h-screen flex   ">
       {/*body content in sidebar */}
@@ -26,7 +37,7 @@ const SidebarFilter = ({ languageIs, setOpenFilter }) => {
             {languageIs ? "خيارات أكثر" : "More Option"}
           </span>
           <IoClose
-            onClick={() => setOpenFilter(false)}
+            onClick={openSideFilter}
             className="text-[20px] cursor-pointer"
           />
         </div>
@@ -66,11 +77,11 @@ const SidebarFilter = ({ languageIs, setOpenFilter }) => {
       </div>
 
       <div
-        onClick={() => setOpenFilter(false)}
+        onClick={openSideFilter}
         className=" h-screen absolute w-full bg-[#323232] z-[0] opacity-30 "
       />
     </div>
   );
 };
 
-export default SidebarFilter;
+export default memo(SidebarFilter);

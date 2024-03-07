@@ -6,7 +6,7 @@ import {
 import { governorateData } from "@/Shared/search/dropdown/governorateLocation";
 import { regionData } from "@/Shared/search/dropdown/regionLocation";
 import SidebarAndBarFilter from "@/components/category/SidebarAndBarFilter";
-import { foundKeyword } from "@/components/category/api";
+import { foundKeyword } from "@/components/category/shared/api";
 
 const SearchPage = ({ page, result }) => {
   return (

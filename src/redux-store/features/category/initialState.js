@@ -1,5 +1,5 @@
 export const initialStateCategory = {
-  pageNumber: 1,
+  pageNumber: 0,
   categoryType: null,
   saleOption: null,
   unitTypes: null,
@@ -16,7 +16,7 @@ export const initialStateCategory = {
   sort: null,
   propFinancing: "",
   searchKeyword: "",
-  // openFilter: false,
+  openFilter: false,
   clickOnUnits: false,
   // sending: false,
   // filterResult: null,
