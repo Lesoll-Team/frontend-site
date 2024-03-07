@@ -35,7 +35,7 @@ const PropertyOwner = ({ propertyData, className }) => {
           {propertyData.user?.fullname}
         </p>
         <div className="font-medium flex gap-2 flex-wrap md:justify-center items-center">
-          <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p>
+          {/* <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p> */}
           <Link
             href={`/view-profile/${propertyData.user?.username}`}
             className="text-linkColor md:text-base text-sm underline"
