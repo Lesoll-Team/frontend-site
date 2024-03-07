@@ -11,8 +11,9 @@ import PropertyImages from "@/components/newAddProperty/imgs/PropertyImages";
 import { resetAddProp } from "@/redux-store/features/property/addPropertySlice";
 import Link from "next/link";
 import AceeptedCard from "@/components/newAddProperty/AceeptedCard";
-import { DotPulse } from "@uiball/loaders";
+import { DotPulse, Ring } from "@uiball/loaders";
 import useEditProperty from "./hooks/useEditProperty";
+import { resetEditPropertySlice } from "./redux/editPropertSlice";
 const EditProperty = ({ data }) => {
   const {
     onSubmit,
@@ -30,7 +31,7 @@ const EditProperty = ({ data }) => {
   } = useEditProperty(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
-  const formStatus = useSelector((state) => state.addProperty.status);
+  const formStatus = useSelector((state) => state.editProperty.status);
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
 
@@ -45,7 +46,7 @@ const EditProperty = ({ data }) => {
   useEffect(() => {
     if (formStatus === "succeeded") {
       setSended(true);
-      dispatch(resetAddProp());
+      dispatch(resetEditPropertySlice());
       setStep(1);
     }
   }, [formStatus]);
@@ -135,6 +136,7 @@ const EditProperty = ({ data }) => {
             <div className="flex items-center gap-4 max-w-[400px]">
               {step > 1 && (
                 <Button
+                  disabled={formStatus === "loading"}
                   onClick={() => {
                     setStep((prev) => prev - 1);
                   }}
@@ -145,14 +147,25 @@ const EditProperty = ({ data }) => {
                   {language ? "السابق" : "Back"}
                 </Button>
               )}
-              <Button variant="" type={"submit"} className={"w- h-auto py-2"}>
-                {step > 3
-                  ? language
-                    ? "أضف عقارك"
-                    : "Add your property"
-                  : language
-                  ? "التالى"
-                  : "Next"}
+              <Button
+                disabled={formStatus === "loading"}
+                variant=""
+                type={"submit"}
+                className={"w- h-auto py-2"}
+              >
+                {formStatus === "loading" ? (
+                  <Ring size={28} color="#fff" />
+                ) : step > 3 ? (
+                  language ? (
+                    "أضف عقارك"
+                  ) : (
+                    "Add your property"
+                  )
+                ) : language ? (
+                  "التالى"
+                ) : (
+                  "Next"
+                )}
               </Button>
               <DevTool control={control} />
             </div>

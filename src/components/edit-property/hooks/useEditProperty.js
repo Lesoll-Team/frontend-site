@@ -35,7 +35,7 @@ const useEditProperty = (data) => {
       // dispatch(submitProperty(formData));
       const { formData } = editFormData(data);
       console.log(data);
-      dispatch(editProperty(formData, data.id));
+      dispatch(editProperty(data, data.id));
     }
   });
 

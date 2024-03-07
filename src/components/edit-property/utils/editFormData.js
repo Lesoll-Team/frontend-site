@@ -44,14 +44,15 @@ export const editFormData = (data) => {
   formData.append("negotiable", data.negotiable);
   formData.append("finishingType", data.finishingType.value || "");
   formData.append("isFurnished", data.isFurnished);
-  formData.append("isRegisterd", data.isRegisterd);
-  formData.append("rentalPeriod", data.rentalPeriod.value) || "";
+  formData.append("isRegisterd", data.isRegisterd || false);
+  formData.append("rentalPeriod", data.rentalPeriod.value || "");
   formData.append("insurance", data.insurance || "");
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
+  formData.append("installmentOption", "");
   formData.append("price", data.price);
   formData.append("area", data.area);
-  formData.append("RealEstateFinance", data.realEstateFinance);
+  formData.append("RealEstateFinance", data.RealEstateFinance);
   formData.append("downPayment", data.downPayment || "");
   formData.append("rooms", data.rooms);
   formData.append("bathRooms", data.bathRooms);
@@ -61,4 +62,5 @@ export const editFormData = (data) => {
   for (let i = 0; i < data.album.length; i++) {
     formData.append("album", data.album[i]._id);
   }
+  return { formData };
 };

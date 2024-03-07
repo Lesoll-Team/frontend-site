@@ -14,8 +14,8 @@ import { resetAddProp } from "@/redux-store/features/property/addPropertySlice";
 import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
-import { DotPulse } from "@uiball/loaders";
-import AdminAddProperty from "../admin-add-property/AdminAddProperty";
+import { DotPulse, Ring, Wobble } from "@uiball/loaders";
+// import AdminAddProperty from "../admin-add-property/AdminAddProperty";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -123,54 +123,65 @@ const AddProperty = () => {
       </div>
     );
   } else if (userData) {
-    if (userData.isAdmin) {
-      return <AdminAddProperty />;
-    } else {
-      return (
-        <form
-          noValidate
-          onSubmit={onSubmit}
-          className={`min-h-[88dvh]  py-10 container mx-auto  ${
-            sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
-          }`}
-        >
-          {sended ? (
-            <AceeptedCard />
-          ) : (
-            <>
-              {" "}
-              <Steps setStep={setStep} step={step} watch={watch} />
-              {renderStep()}
-              <div className="flex items-center gap-4 max-w-[400px]">
-                {step > 1 && (
-                  <Button
-                    onClick={() => {
-                      setStep((prev) => prev - 1);
-                    }}
-                    variant="bordered"
-                    type={"button"}
-                    className={"w- h-auto py-2"}
-                  >
-                    {language ? "السابق" : "Back"}
-                  </Button>
-                )}
-                <Button variant="" type={"submit"} className={"w- h-auto py-2"}>
-                  {step > 3
-                    ? language
-                      ? "أضف عقارك"
-                      : "Add your property"
-                    : language
-                    ? "التالى"
-                    : "Next"}
+    return (
+      <form
+        noValidate
+        onSubmit={onSubmit}
+        className={`min-h-[88dvh]  py-10 container mx-auto  ${
+          sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
+        }`}
+      >
+        {sended ? (
+          <AceeptedCard />
+        ) : (
+          <>
+            {" "}
+            <Steps setStep={setStep} step={step} watch={watch} />
+            {renderStep()}
+            {/* <div>
+              <Ring size={60} color="#309da0" />
+            </div> */}
+            <div className="flex items-center gap-4 max-w-[400px]">
+              {step > 1 && (
+                <Button
+                  disabled={formStatus === "loading"}
+                  onClick={() => {
+                    setStep((prev) => prev - 1);
+                  }}
+                  variant="bordered"
+                  type={"button"}
+                  className={"w- h-auto py-2"}
+                >
+                  {language ? "السابق" : "Back"}
                 </Button>
-              </div>
-            </>
-          )}
+              )}
+              <Button
+                disabled={formStatus === "loading"}
+                variant=""
+                type={"submit"}
+                className={"w- h-auto py-2"}
+              >
+                {formStatus === "loading" ? (
+                  <Ring size={28} color="#fff" />
+                ) : step > 3 ? (
+                  language ? (
+                    "أضف عقارك"
+                  ) : (
+                    "Add your property"
+                  )
+                ) : language ? (
+                  "التالى"
+                ) : (
+                  "Next"
+                )}
+              </Button>
+            </div>
+          </>
+        )}
 
-          {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
-        </form>
-      );
-    }
+        {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
+      </form>
+    );
   } else if (userDataStatus === "failed") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">

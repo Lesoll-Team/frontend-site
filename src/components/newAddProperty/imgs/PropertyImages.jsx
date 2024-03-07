@@ -267,8 +267,9 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("multiImage", {
             validate: {
               min: (value) => {
+                const totalPics = value.length + (album?.length || 0);
                 return (
-                  value.length + (album?.length || 0) > 2 ||
+                  totalPics > 2 ||
                   (language
                     ? "يجب ان لا يقل عدد الصور الاخرى عن 3"
                     : " must be a at least 3 images")

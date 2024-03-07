@@ -36,7 +36,7 @@ const ProfileHeader = ({ hideHeader }) => {
             <div className="lg:space-y-[24px]">
               <h3 className="lg:text-2xl text-lg text-baseGray font-bold">
                 {userData?.fullname}{" "}
-                <spam className="text-xl text-baseGray font-normal">(فرد)</spam>
+                {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
               </h3>
               <div className="hidden lg:flex  items-center gap-14">
                 <div className=" flex items-center gap-2">
