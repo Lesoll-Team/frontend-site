@@ -210,11 +210,11 @@ const NeedsForm = ({
                   autoComplete="off"
                   type="text"
                   placeholder={language ? "من" : "from"}
-                  {...register("areaTo", {
+                  {...register("areaFrom", {
                     required: {
                       value: true,
                       message: language
-                        ? "من فضلك ادخل السعر"
+                        ? "من فضلك المساحة "
                         : "please enter price",
                     },
                     validate: {
@@ -222,8 +222,46 @@ const NeedsForm = ({
                         return (
                           !isNaN(value) ||
                           (language
-                            ? "السعر يجب ان يكون رقم"
-                            : "the price must be a number")
+                            ? "المساحة يجب ان تكون رقم"
+                            : "the area must be a number")
+                        );
+                      },
+                    },
+                  })}
+                  className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                    errors.areaFrom && "border-red-500 focus:border-red-500"
+                  }`}
+                />
+                <span
+                  className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
+                    language ? "left-14" : "right-14"
+                  } `}
+                >
+                  {language ? "م2" : "m2"}
+                </span>
+              </div>
+              {errors.areaFrom && <Error>{errors.areaFrom.message}</Error>}
+            </div>
+            <div className=" space-y-2 w-full">
+              <div className="relative">
+                <input
+                  autoComplete="off"
+                  type="text"
+                  placeholder={language ? "الى" : "to"}
+                  {...register("areaTo", {
+                    required: {
+                      value: true,
+                      message: language
+                        ? "من فضلك ادخل المساحة"
+                        : "please enter area",
+                    },
+                    validate: {
+                      mustBeNumber: (value) => {
+                        return (
+                          !isNaN(value) ||
+                          (language
+                            ? "المساحة يجب ان يكون رقم"
+                            : "the area must be a number")
                         );
                       },
                     },
@@ -242,44 +280,6 @@ const NeedsForm = ({
               </div>
               {errors.areaTo && <Error>{errors.areaTo.message}</Error>}
             </div>
-            <div className=" space-y-2 w-full">
-              <div className="relative">
-                <input
-                  autoComplete="off"
-                  type="text"
-                  placeholder={language ? "الى" : "to"}
-                  {...register("areaTo", {
-                    required: {
-                      value: true,
-                      message: language
-                        ? "من فضلك ادخل السعر"
-                        : "please enter price",
-                    },
-                    validate: {
-                      mustBeNumber: (value) => {
-                        return (
-                          !isNaN(value) ||
-                          (language
-                            ? "السعر يجب ان يكون رقم"
-                            : "the price must be a number")
-                        );
-                      },
-                    },
-                  })}
-                  className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                    errors.areaTo && "border-red-500 focus:border-red-500"
-                  }`}
-                />
-                <span
-                  className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
-                    language ? "left-14" : "right-14"
-                  } `}
-                >
-                  {language ? "م2" : "m2"}
-                </span>
-              </div>
-              {errors.areaTo && <Error>{errors.priceTo.message}</Error>}
-            </div>
           </div>
         </div>
         {watch("saleOption") === "Installment" &&
@@ -295,27 +295,31 @@ const NeedsForm = ({
                     required: {
                       value: true,
                       message: language
-                        ? "من فضلك ادخل عددالغرف"
-                        : "please enter the number of rooms",
+                        ? "من فضلك المقدم "
+                        : "please enter the Down payment",
                     },
                     validate: {
                       mustBeNumber: (value) => {
                         return (
                           !isNaN(value) ||
                           (language
-                            ? "عدد الغرف يجب ان يكون رقما"
+                            ? "المقدم  يجب ان يكون رقما"
                             : "Rooms must be a number")
                         );
                       },
                     },
                   })}
                   className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                    errors.rooms && "border-red-500 focus:border-red-500"
+                    errors.installment &&
+                    errors.installment[0].downPayment &&
+                    "border-red-500 focus:border-red-500"
                   }`}
                   // className={"border-none"}
                 />
-                {errors.rooms && (
-                  <p className="text-red-500">{errors.rooms.message}</p>
+                {errors.installment && errors.installment[0].downPayment && (
+                  <p className="text-red-500">
+                    {errors.installment[0].downPayment.message}
+                  </p>
                 )}{" "}
               </div>
               <div className="space-y-2 w-full">
@@ -328,16 +332,16 @@ const NeedsForm = ({
                     required: {
                       value: true,
                       message: language
-                        ? "من فضلك ادخل عددالغرف"
-                        : "please enter the number of rooms",
+                        ? "من فضلك ادخل مدة التقسيط"
+                        : "please enter the installation period",
                     },
                     validate: {
                       mustBeNumber: (value) => {
                         return (
                           !isNaN(value) ||
                           (language
-                            ? "عدد الغرف يجب ان يكون رقما"
-                            : "Rooms must be a number")
+                            ? "مدة التقسيط  يجب ان تكون رقما"
+                            : "Installment period must be a number")
                         );
                       },
                     },
@@ -409,7 +413,7 @@ const NeedsForm = ({
                       !isNaN(value) ||
                       (language
                         ? "عدد الحمامات يجب ان يكون رقما"
-                        : "Rooms must be a number")
+                        : "bathrooms must be a number")
                     );
                   },
                 },
