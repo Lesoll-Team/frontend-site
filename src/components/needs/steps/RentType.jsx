@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
-import { setRentalPeriod, setStep } from "@/redux-store/features/needsSlice";
-const RentType = () => {
+
+const RentType = ({ setValue, setStep, watch }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const step = useSelector((state) => state.needs.step);
-  const dispatch = useDispatch();
-  const setRentDaily = () => [];
+
   return (
     <div className="min-h-[70dvh] md:min-h-[82dvh] grid place-content-center space-y-8 md:space-y-16 fade-in-right ">
       <h2 className="text-xl text-darkGray md:text-5xl text-center font-bold">
@@ -20,23 +18,23 @@ const RentType = () => {
             }
             title={language ? "إيجار يومي" : "Daily rent"}
             onClick={() => {
-              dispatch(setStep(3));
-              dispatch(setRentalPeriod("Daily"));
+              setStep(3);
+              setValue("rentalPeriod", "Daily");
             }}
           />
           <SelectCard
             icon={<Image className="md:w-[150px]" src="/icons/rent-icon.svg" />}
             title={language ? "إيجار شهري" : "Monthly rent"}
             onClick={() => {
-              dispatch(setRentalPeriod("Monthly"));
-              dispatch(setStep(3));
+              setStep(3);
+              setValue("rentalPeriod", "Monthly");
             }}
           />
         </div>
         <button
           className=" border-2 w-fit mt-8 mx-auto px-4 py-1 rounded-md text-lightGreen text-sm md:text-lg hover:bg-lightGreen hover:text-white border-lightGreen duration-150"
           onClick={() => {
-            dispatch(setStep(step - 1));
+            setStep(1);
           }}
         >
           {language ? "الخطوة السابقة" : "pervious step"}

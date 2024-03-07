@@ -7,6 +7,7 @@ import { TbHomeCheck, TbHomeDown } from "react-icons/tb";
 import Image from "next/image";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { FaRegNewspaper } from "react-icons/fa";
+import { MdOutlineAddHomeWork } from "react-icons/md";
 
 const Sidebar = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -149,6 +150,15 @@ const Sidebar = () => {
             </Link>
           </div>
         </div>
+        <Link
+          href={"/dashboard/add-project"}
+          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+        >
+          <MdOutlineAddHomeWork />{" "}
+          {toggleNav && (
+            <span className="text-lg font-bold hidden md:block">Projects</span>
+          )}
+        </Link>
       </nav>
     </div>
   );

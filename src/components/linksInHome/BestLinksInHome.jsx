@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
 
@@ -155,4 +155,4 @@ function BestLinksInHome({
   );
 }
 
-export default BestLinksInHome;
+export default memo(BestLinksInHome);

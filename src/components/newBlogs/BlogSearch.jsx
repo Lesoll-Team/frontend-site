@@ -9,9 +9,8 @@ const BlogSearch = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (SearchInput) {
-      router.push(`?search=${encodeURIComponent(SearchInput)}`);
-    }
+
+    router.push(`?search=${encodeURIComponent(SearchInput)}`);
   };
   const onSearchInputChange = (e) => {
     setSearchInput(e.target.value);

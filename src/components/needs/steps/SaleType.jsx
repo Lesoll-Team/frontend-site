@@ -1,18 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
-import { setSaleOption, setStep } from "@/redux-store/features/needsSlice";
-const SaleType = () => {
+
+const SaleType = ({ setValue, setStep, watch }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const step = useSelector((state) => state.needs.step);
-  const dispatch = useDispatch();
+
   const setCash = () => {
-    dispatch(setSaleOption("Cash"));
-    dispatch(setStep(step + 1));
+    setValue("saleOption", "Cash");
+    setStep(3);
   };
   const setInstallment = () => {
-    dispatch(setSaleOption("Installment"));
-    dispatch(setStep(step + 1));
+    setValue("saleOption", "Installment");
+    setStep(3);
   };
   return (
     <div className="min-h-[70dvh] md:min-h-[82dvh] grid place-content-center space-y-8 md:space-y-16 fade-in-right relative ">
@@ -45,7 +44,7 @@ const SaleType = () => {
         <button
           className=" border-2 w-fit mt-8 mx-auto px-4 py-1 rounded-md text-lightGreen text-sm md:text-lg hover:bg-lightGreen hover:text-white border-lightGreen duration-150"
           onClick={() => {
-            dispatch(setStep(step - 1));
+            setStep(1);
           }}
         >
           {language ? "الخطوة السابقة" : "pervious step"}

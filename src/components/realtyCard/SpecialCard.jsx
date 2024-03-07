@@ -9,14 +9,14 @@ import { useSelector } from "react-redux";
 // import PriceAndSocial from "./basic-body-card/PriceAndSocial";
 // import TitleCard from "./basic-body-card/TitleCard";
 // import LocationAndRooms from "./basic-body-card/LocationAndRooms";
-import { SiWhatsapp } from "react-icons/si";
+// import { SiWhatsapp } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
-import { IoCallSharp } from "react-icons/io5";
+// import { IoCallSharp } from "react-icons/io5";
 import { useMemo } from "react";
 import useContactLinks from "@/Hooks/useContactLinks";
 
-const SpecialCard = ({ cardDetails, key }) => {
+const SpecialCard = ({ cardDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const phone = useMemo(() => {
     if (cardDetails.connectPhoneNumber) {
@@ -39,7 +39,7 @@ const SpecialCard = ({ cardDetails, key }) => {
   });
   return (
     <div //md:w-[380px] 2xl:w-[400px]  w-full
-      key={key}
+      // key={key}
       className=" 
       md:min-w-[400px] 
       md:max-w-[400px] 
@@ -66,8 +66,8 @@ const SpecialCard = ({ cardDetails, key }) => {
           priority
           width={400}
           height={174}
-          //   src={cardDetails?.thumbnail}
-          src="/delete/Rectangle.png"
+          src={cardDetails?.thumbnail}
+          // src="/delete/Rectangle.png"
         />
       </Link>
       <div className="w-full mt-[2px]  h-[83px]  flex flex-col justify-around">

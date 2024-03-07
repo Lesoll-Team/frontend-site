@@ -1,3 +1,5 @@
+import useContactLinks from "@/Hooks/useContactLinks";
+import { WhatsAppBtn } from "@/utils/propertyAPI";
 import { Avatar, Image } from "@nextui-org/react";
 import { BiPhoneCall, BiSolidBed } from "react-icons/bi";
 import { BsWhatsapp } from "react-icons/bs";
@@ -9,7 +11,9 @@ const NeedsCard = ({ need }) => {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     need.userId[0]?.code + need?.userId[0]?.phone
   }`;
-
+  const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
+    phoneNumber: need.userId[0]?.code + need?.userId[0]?.phone,
+  });
   return (
     <div className=" bg-white rounded-lg flex md:flex-row flex-col   items-start p-5">
       <div className="space-y-4 w-full md:w-7/12">
@@ -83,28 +87,7 @@ const NeedsCard = ({ need }) => {
           </p>
         </div>
         <p>{need.description}</p>
-        {/* <p className="font-semibold">
-          {language ? "تواصل مع" : "Conatct with"} :{" "}
-          <span className="text-base">{need.userId[0].fullname}</span>
-        </p> */}
-        {/* <div className="flex flex-col sm:flex-row items-center gap-2">
-          <a
-            className="w-full text-center border py-2 flex items-center justify-center gap-2"
-            href={`tel:${need.userId[0]?.code + need.userId[0]?.phone}`}
-            target="_blank"
-          >
-            {language ? " اتصال" : "Call"}
-            <BiPhoneCall className="text-e]" />
-          </a>
-          <a
-            className="w-full text-center border py-2 flex items-center justify-center gap-2"
-            href={whatsappUrl}
-            target="_blank"
-          >
-            {language ? "واتس اب" : "Whatsapp"}
-            <BsWhatsapp className="text- text-[#25D366]" />
-          </a>
-        </div> */}
+
         <div className="flex justify-between items-center gap-2 w-full">
           <div className="flex items-center gap-2">
             <Avatar src="" className="w-[30px] h-[30px]" />
@@ -113,22 +96,22 @@ const NeedsCard = ({ need }) => {
             </p>
           </div>
           <div className="flex md:hidden gap-3 items-center justify-end">
-            <a
-              href={`tel:${need.userId[0]?.code + need.userId[0]?.phone}`}
-              target="_blank"
-            >
+            <CallLinkBtn>
               <Image
                 className="w-[30px]"
                 width={50}
                 src="/icons/call-icon.svg"
               />
-            </a>
+            </CallLinkBtn>
+
             <a href={whatsappUrl} target="_blank">
-              <Image
-                className="w-[30px]"
-                width={50}
-                src="/icons/whatsapp-icon.svg"
-              />
+              <WhatappLinkBtn>
+                <Image
+                  className="w-[30px]"
+                  width={50}
+                  src="/icons/whatsapp-icon.svg"
+                />
+              </WhatappLinkBtn>
             </a>
           </div>
         </div>

@@ -30,3 +30,9 @@ export const rentalTypes = [
   { value: "Monthly", name: { ar: "شهري", en: "Monthly" } },
   { value: "Yearly", name: { ar: "سنوي", en: "Yearly" } },
 ];
+export const finishingTypes = [
+  { value: "Super Lux", name: { ar: "سوبر لوكس", en: "Super Lux" } },
+  { value: "Lux", name: { ar: "لوكس", en: "Lux" } },
+  { value: "Semi Finished", name: { ar: "نصف تشطيب", en: "Semi Finished" } },
+  { value: "Not Finished", name: { ar: "بدون تشطيب", en: "Not Finished" } },
+];

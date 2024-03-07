@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import SidebarFilter from "./SidebarFilter";
 import BarFilter from "./BarFilter";
 import { useRouter } from "next/router";
-import UnitTypeIcons from "./shared/UnitTypeIcons";
+// import UnitTypeIcons from "./shared/UnitTypeIcons";
 import { IoIosStar } from "react-icons/io";
 import { LuArrowDownUp } from "react-icons/lu";
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
@@ -17,8 +17,8 @@ import ConfirmModule from "./shared/ConfirmModule";
 const SidebarAndBarFilter = ({ result, page }) => {
   const router = useRouter();
   /***start init state BarFilter Components*/
-  const [categoryTypeKey, setCategoryTypeKey] = useState("");
-  const [unitTypesKey, setUnitTypesKey] = useState("");
+  // const [categoryTypeKey, setCategoryTypeKey] = useState("");
+  // const [unitTypesKey, setUnitTypesKey] = useState("");
   const [locationGovernorate, setLocationGovernorate] = useState("");
   const [locationRegion, setLocationRegion] = useState("");
 
@@ -108,7 +108,7 @@ const SidebarAndBarFilter = ({ result, page }) => {
         </div>
         {/*sorted and save search filter page */}
         <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
-          <div className="flex   whitespace-nowrap gap-x-3 items-center">
+          <div className="flex  whitespace-nowrap gap-x-3 items-center">
             <span className="text-[12px] md:text-[20px]">
               {language ? "الترتيب حسب:" : "Sort by"}
             </span>

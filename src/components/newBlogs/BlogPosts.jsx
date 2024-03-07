@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
 const BlogPosts = ({ blogs, className, keyword }) => {
   const router = useRouter();
   const handlePageChange = (page) => {

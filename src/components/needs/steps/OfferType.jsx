@@ -3,17 +3,16 @@ import SelectCard from "./SelectCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setOffer, setStep } from "@/redux-store/features/needsSlice";
 
-const OfferType = () => {
+const OfferType = ({ setValue, setStep }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const step = useSelector((state) => state.needs.step);
-  const dispatch = useDispatch();
+
   const setOfferSale = () => {
-    dispatch(setOffer("For Sale"));
-    dispatch(setStep(step + 1));
+    setValue("offer", "For Sale");
+    setStep(2);
   };
   const setOfferRent = () => {
-    dispatch(setOffer("For Rent"));
-    dispatch(setStep(step + 1));
+    setValue("offer", "For Rent");
+    setStep(2);
   };
   return (
     <div className="min-h-[70dvh] md:min-h-[82dvh] grid place-content-center space-y-8 md:space-y-16 fade-in-right ">

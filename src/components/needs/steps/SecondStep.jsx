@@ -2,13 +2,11 @@ import { useSelector } from "react-redux";
 import SaleType from "./SaleType";
 import RentType from "./RentType";
 
-const SecondStep = () => {
-  const need = useSelector((state) => state.needs.needsData);
-
-  return need.offer === "For Sale" ? (
-    <SaleType />
-  ) : need.offer === "For Rent" ? (
-    <RentType />
+const SecondStep = ({ setValue, setStep, watch }) => {
+  return watch("offer") === "For Sale" ? (
+    <SaleType setValue={setValue} watch={watch} setStep={setStep} />
+  ) : watch("offer") === "For Rent" ? (
+    <RentType setValue={setValue} watch={watch} setStep={setStep} />
   ) : (
     "No offer Selected"
   );

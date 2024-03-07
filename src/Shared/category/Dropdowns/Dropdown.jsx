@@ -163,9 +163,11 @@ const Dropdown = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         disabled={isDisabled}
-        className={` w-full ${classNames}   text-gray1 text-md flex items-center justify-between
+        className={`  ${classNames}   text-gray1 text-md flex items-center justify-between
          rounded-[1vh] md:px-3 ${
-           isSort ? "  h-[24px] md:h-[40px] " : "h-[40px] md:h-[3.313rem]"
+           isSort
+             ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
+             : "w-full h-[40px] md:h-[3.313rem]"
          } px-1 cursor-pointer  ${
            baseIcon
              ? "shadow-md bg-[#F2F8F9]"

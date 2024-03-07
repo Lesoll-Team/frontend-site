@@ -26,7 +26,7 @@ const useGovRegion = ({
   // filter region  by government id
   const filteredRegions = useMemo(() => {
     if (region) {
-      if (selectedGov.number) {
+      if (selectedGov?.number) {
         return region?.filter(
           (item) => item.governorate_number == selectedGov.number
         );
@@ -34,13 +34,13 @@ const useGovRegion = ({
         return region;
       }
     }
-  }, [selectedGov._id, region]);
+  }, [selectedGov?._id, region]);
 
   const searchedRegions = useMemo(() => {
     if (filteredRegions) {
       if (typeof regionInput === "string") {
         if (regionInput.trim() !== "") {
-          return filteredRegions.filter((item) => {
+          return filteredRegions?.filter((item) => {
             // Ensure to return the result of the comparison
             return (
               (item.city_name_ar && item.city_name_ar.includes(regionInput)) ||

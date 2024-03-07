@@ -14,7 +14,8 @@ import { resetAddProp } from "@/redux-store/features/property/addPropertySlice";
 import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
-import { DotPulse } from "@uiball/loaders";
+import { DotPulse, Ring, Wobble } from "@uiball/loaders";
+// import AdminAddProperty from "../admin-add-property/AdminAddProperty";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -137,9 +138,13 @@ const AddProperty = () => {
             {" "}
             <Steps setStep={setStep} step={step} watch={watch} />
             {renderStep()}
+            {/* <div>
+              <Ring size={60} color="#309da0" />
+            </div> */}
             <div className="flex items-center gap-4 max-w-[400px]">
               {step > 1 && (
                 <Button
+                  disabled={formStatus === "loading"}
                   onClick={() => {
                     setStep((prev) => prev - 1);
                   }}
@@ -150,14 +155,25 @@ const AddProperty = () => {
                   {language ? "السابق" : "Back"}
                 </Button>
               )}
-              <Button variant="" type={"submit"} className={"w- h-auto py-2"}>
-                {step > 3
-                  ? language
-                    ? "أضف عقارك"
-                    : "Add your property"
-                  : language
-                  ? "التالى"
-                  : "Next"}
+              <Button
+                disabled={formStatus === "loading"}
+                variant=""
+                type={"submit"}
+                className={"w- h-auto py-2"}
+              >
+                {formStatus === "loading" ? (
+                  <Ring size={28} color="#fff" />
+                ) : step > 3 ? (
+                  language ? (
+                    "أضف عقارك"
+                  ) : (
+                    "Add your property"
+                  )
+                ) : language ? (
+                  "التالى"
+                ) : (
+                  "Next"
+                )}
               </Button>
             </div>
           </>

@@ -108,7 +108,10 @@ const PropertyImages = ({ propertyData }) => {
       </div>
 
       {!imagesLessThanFour && (
-        <div className=" drop-shadow-md md:flex hidden relative items-center justify-center overflow-hidden rounded-md w-full h-full">
+        <div
+          onClick={() => openLightbox(4)}
+          className=" drop-shadow-md md:flex hidden relative items-center justify-center overflow-hidden rounded-md w-full h-full"
+        >
           {showMoreImages && (
             <span className="underline absolute lg:text-xl font-medium text-white text-center z-[2]">
               {language ? "مشاهدة جميع الصور" : "Show all images"}{" "}
@@ -116,7 +119,6 @@ const PropertyImages = ({ propertyData }) => {
           )}
           <Image
             role="button"
-            onClick={() => openLightbox(4)}
             priority
             width={1400}
             height={1000}
