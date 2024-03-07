@@ -29,12 +29,12 @@ const SpecialCards = ({ specialCardData, isHome }) => {
             {specialCardData?.result.map((cardDetails) => (
               <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
             ))}
-            {specialCardData?.result.map((cardDetails) => (
+            {/* {specialCardData?.result.map((cardDetails) => (
               <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
             ))}
             {specialCardData?.result.map((cardDetails) => (
               <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
-            ))}
+            ))} */}
           </div>
         </div>
       )}
