@@ -56,7 +56,10 @@ const MainInfo = ({
         </div>
         <div className="flex flex-col md:flex-row gap-5 md:gap-10">
           <div className="w-full space-y-2">
-            <label className="text-xl"> {language ? "المساحة" : "Area"}</label>
+            <label className="text-xl">
+              {" "}
+              {language ? "المساحة تبدا من" : "Area starts from"}
+            </label>
             <input
               type="text"
               {...register(`area`, {
@@ -76,7 +79,10 @@ const MainInfo = ({
             {errors?.area && <Error>{errors.area.message}</Error>}
           </div>
           <div className="w-full space-y-2">
-            <label className="text-xl"> {language ? "السعر" : "price"}</label>
+            <label className="text-xl">
+              {" "}
+              {language ? "السعر يبدأ من" : "price starts from"}
+            </label>
             <input
               type="text"
               {...register(`price`, {
@@ -117,9 +123,6 @@ const MainInfo = ({
                 setValue("isCompound", false);
               }}
             />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xl"> {language ? "السعر" : "price"}</label>
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-5 md:gap-x-10">

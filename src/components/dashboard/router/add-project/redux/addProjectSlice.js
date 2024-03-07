@@ -13,8 +13,13 @@ export const addProject = createAsyncThunk(
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/create-new-project`,
-        data
+        `${process.env.NEXT_PUBLIC_API_URL}/property/create-new-project`,
+        data,
+        {
+          headers: {
+            token: userToken,
+          },
+        }
       );
       return response.data;
     } catch (error) {

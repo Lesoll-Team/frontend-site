@@ -19,6 +19,7 @@ const useAddProject = () => {
   } = form;
   const { errors } = formState;
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     const address = {
       name: data.address.name,
       longitude: data.address.longitude,
@@ -26,15 +27,19 @@ const useAddProject = () => {
       region: data.address.region.city_name_ar,
       governrate: data.address.governrate.governorate_name_ar,
     };
-    const formData = FormData();
+    const formData = new FormData();
     formData.append("mainImage", data.mainImage);
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
     formData.append("title", data.title);
+    formData.append("area", data.area);
     formData.append("price", data.price);
-    formData.append("address", address);
-
+    formData.append("address", JSON.stringify(address));
+    formData.append("isCompound", data.isCompound);
+    formData.append("description", data.description);
+    formData.append("about", data.about);
+    data.isCompound && formData.append("compaounds", data.compaounds?._id);
     await dispatch(addProject(formData));
   });
   return {
@@ -47,6 +52,7 @@ const useAddProject = () => {
     setStep,
     step,
     clearErrors,
+    reset,
   };
 };
 export default useAddProject;

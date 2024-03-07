@@ -39,7 +39,7 @@ export const editFormData = (data) => {
   data.isCompound && formData.append("compaounds", data.compaounds?._id);
   formData.append("offer", data.offer);
   formData.append("mainImage", data.mainImage);
-  formData.append("installmentOption", JSON.stringify(data.installmentOption));
+  // formData.append("installmentOption", JSON.stringify(data.installmentOption));
   formData.append("address", JSON.stringify(address));
   formData.append("negotiable", data.negotiable);
   formData.append("finishingType", data.finishingType.value || "");
@@ -49,7 +49,7 @@ export const editFormData = (data) => {
   formData.append("insurance", data.insurance || "");
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
-  formData.append("installmentOption", "");
+  // formData.append("installmentOption", "");
   formData.append("price", data.price);
   formData.append("area", data.area);
   formData.append("RealEstateFinance", data.RealEstateFinance);
