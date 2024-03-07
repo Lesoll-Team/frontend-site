@@ -55,7 +55,7 @@ const SpecialCard = ({ cardDetails }) => {
       <Link
         title={`${cardDetails?.title}`}
         key={cardDetails?._id}
-        href={`/property-details/${cardDetails?.slug}`}
+        href={`/projects/${cardDetails?.slug}`}
         className="
          h-[296px] w-full pt-[20px] pl-[20px] pr-[20px]  flex"
       >
@@ -71,9 +71,12 @@ const SpecialCard = ({ cardDetails }) => {
         />
       </Link>
       <div className="w-full mt-[2px]  h-[83px]  flex flex-col justify-around">
-        <h3 className="line-clamp-1 w-full text-center  text-[20px] font-bold text-lightGreen ">
-          {cardDetails?.title}
-        </h3>
+        <Link
+          href={`/projects/${cardDetails?.slug}`}
+          className="line-clamp-1 w-full text-center  text-[20px] font-bold text-lightGreen "
+        >
+          <h3 className=" text-[20px] font-bold  ">{cardDetails?.title}</h3>
+        </Link>
         <h3 className="line-clamp-1 w-full text-center  text-[16px] font-bold text-[#656565] ">
           {language ? " يبدأ من " : " Started From "}
           {cardDetails?.price.toLocaleString()}
