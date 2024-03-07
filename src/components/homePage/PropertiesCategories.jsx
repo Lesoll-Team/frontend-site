@@ -118,7 +118,7 @@ const PropertiesCategories = ({ isHome }) => {
     };
   }, []);
   return (
-    <Fragment>
+    <div>
       <div className="md:w-full flex items-center justify-between  md:container mb-[32px] md:mx-auto mx-[16px] ">
         <h6 className="font-bold md:text-[30px] text-[14px] flex text-grayText2">
           {language ? "نوع العقار" : "Property type"}
@@ -145,7 +145,6 @@ const PropertiesCategories = ({ isHome }) => {
                   href={category.url}
                   key={category.id}
                   className="
-               md:hover:border-[2px]
                cursor-pointer shadow-black  border-[#CCCCCC] border-[1px]
                flex flex-col items-center justify-center 
                md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
@@ -170,7 +169,6 @@ const PropertiesCategories = ({ isHome }) => {
                 href={category.url}
                 key={category.id}
                 className="
-               md:hover:border-[2px]
                cursor-pointer shadow-black  border-[#CCCCCC] border-[1px]
                flex flex-col items-center justify-center 
                md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
@@ -191,7 +189,7 @@ const PropertiesCategories = ({ isHome }) => {
               </Link>
             ))}
       </div>
-    </Fragment>
+    </div>
   );
 };
 

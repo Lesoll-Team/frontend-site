@@ -7,20 +7,37 @@ const LocationCategories = () => {
 
   const locations = [
     {
+      titleAr: "القاهرة",
+      titleEn: "Cairo",
+      totalAr: "( 2961+ وحدة )",
+      totalEn: "( +2961 Uint )",
+      url: "/properties/cairo/sale/residential",
+      id: 8,
+    },
+    {
       titleAr: "الجيزة",
       titleEn: "Giza",
-      totalAr: "( 200+ وحدة )",
-      totalEn: "( +200 Uint )",
+      totalAr: "( 2505+ وحدة )",
+      totalEn: "( +2505 Uint )",
       url: "/properties/giza/sale/residential",
       id: 1,
     },
     {
       titleAr: "الاسكندرية",
       titleEn: "alexandria",
-      totalAr: "( 290+ وحدة )",
-      totalEn: "( +290 Uint )",
+      totalAr: "( 526+ وحدة )",
+      totalEn: "( +526 Uint )",
       url: "/properties/alexandria/sale/residential",
       id: 2,
+    },
+
+    {
+      titleAr: "القليوبية",
+      titleEn: "Qaliubiya",
+      totalAr: "( 255+ وحدة )",
+      totalEn: "( +255 Uint )",
+      url: "/properties/qaliubiya/sale/residential",
+      id: 4,
     },
     {
       titleAr: "مطروح",
@@ -31,12 +48,12 @@ const LocationCategories = () => {
       id: 3,
     },
     {
-      titleAr: "القليوبية",
-      titleEn: "Qaliubiya",
-      totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
-      url: "/properties/qaliubiya/sale/residential",
-      id: 4,
+      titleAr: "الشرقية",
+      titleEn: "Sharkia",
+      totalAr: "( 290+ وحدة )",
+      totalEn: "( +290 Uint )",
+      url: "/properties/sharkia/sale/residential",
+      id: 6,
     },
     {
       titleAr: "الغربية",
@@ -46,14 +63,7 @@ const LocationCategories = () => {
       url: "/properties/gharbiya/sale/residential",
       id: 5,
     },
-    {
-      titleAr: "الشرقية",
-      titleEn: "Sharkia",
-      totalAr: "( 290+ وحدة )",
-      totalEn: "( +290 Uint )",
-      url: "/properties/sharkia/sale/residential",
-      id: 6,
-    },
+
     {
       titleAr: "الدقهلية",
       titleEn: "Dakahlia",
@@ -61,14 +71,6 @@ const LocationCategories = () => {
       totalEn: "( +300 Uint )",
       url: "/properties/dakahlia/sale/residential",
       id: 7,
-    },
-    {
-      titleAr: "البحر الاحمر",
-      titleEn: "Red sea",
-      totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
-      url: "/properties/red_sea/sale/residential",
-      id: 8,
     },
   ];
   const [seeMore, setSeeMore] = useState(8);
@@ -87,7 +89,7 @@ const LocationCategories = () => {
     };
   }, []);
   return (
-    <Fragment>
+    <div>
       <div className="md:container  mb-[17px] md:mx-auto mx-[20px]">
         <h6 className="font-bold md:text-[31px] text-[14px] flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}
@@ -123,7 +125,7 @@ md:p-[0px] p-[30px]
                 href={location.url}
                 key={location.id}
                 className="
-                    md:hover:border-[2px]
+                  
                cursor-pointer shadow-black 
                flex flex-col items-center justify-center 
                md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
@@ -143,7 +145,7 @@ md:p-[0px] p-[30px]
             ))}
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 
