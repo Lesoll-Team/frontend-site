@@ -33,8 +33,7 @@ const useEditProperty = (data) => {
     } else {
       // const { formData } = useFromatAddData(data);
       // dispatch(submitProperty(formData));
-      const { formData } = editFormData(data);
-      console.log(data);
+
       dispatch(editProperty(data, data.id));
     }
   });

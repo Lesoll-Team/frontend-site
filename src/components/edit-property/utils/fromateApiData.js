@@ -43,7 +43,7 @@ export const formatApiData = ({ setValue, data }) => {
     longitude: data?.longitude || "",
     latitude: data?.latitude || "",
   };
-  console.log("aaaaaa", Installment);
+
   setValue("title", data?.title);
   setValue("description", data?.description);
   setValue("offer", data?.offer);

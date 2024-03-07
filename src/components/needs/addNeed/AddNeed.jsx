@@ -9,7 +9,7 @@ import Accepted from "./Accepted";
 const AddNeed = () => {
   const formStatus = useSelector((state) => state.addNeed.status);
   const [sended, setSended] = useState();
-  console.log(formStatus);
+
   const {
     errors,
     onSubmit,

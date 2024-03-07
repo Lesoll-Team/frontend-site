@@ -81,7 +81,6 @@ const CompanyInfoForm = ({ main }) => {
       })
     );
     dispatch(getUserData());
-    // console.log(data.theCommercialRegistrationImg?.name);
   };
 
   if (userData) {

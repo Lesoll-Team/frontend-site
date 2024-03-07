@@ -4,13 +4,12 @@ import { useSelector } from "react-redux";
 import UserProperties from "./UserProperties";
 
 const ViewUser = ({ user, properties, params }) => {
-  console.log(user);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const phoneNumber = user.getUser.code + user.getUser.phone;
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: phoneNumber,
   });
-  //   console.log(phoneNumber);
+
   return (
     <div className="container mx-auto py-5 md:py-20 space-y-6 md:space-y-20">
       <div className="flex justify-between items-center flex-wrap gap-5">

@@ -2,7 +2,6 @@ import NeedsFeed from "@/components/needs/needFeed/NeedsFeed";
 import axios from "axios";
 
 const NeedsPage = ({ data, keyword }) => {
-  console.log(data);
   return (
     <div className="min-h-[85dvh]">
       <NeedsFeed data={data} keyword={keyword} />

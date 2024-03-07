@@ -7,7 +7,7 @@ import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
 const ProfileHeader = ({ hideHeader }) => {
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(userData);
+
   if (userData)
     return (
       <div>

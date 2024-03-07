@@ -5,7 +5,7 @@ const PropertyInstallmentPlans = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const isInstallment = propertyData.saleOption.includes("Installment");
-  console.log(isInstallment);
+
   return isInstallment ? (
     <section className="md:space-y-[30px] space-y-[16px]">
       <h3 className="text-sm sm:text-3xl ">
