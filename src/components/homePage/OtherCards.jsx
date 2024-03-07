@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { useSelector } from "react-redux";
 
 const OtherCards = () => {
@@ -60,4 +60,4 @@ const OtherCards = () => {
 };
 //background: linear-gradient(180deg, rgba(154, 204, 229, 0.16) 0%, rgba(110, 207, 255, 0.03) 100%);
 
-export default OtherCards;
+export default memo(OtherCards);

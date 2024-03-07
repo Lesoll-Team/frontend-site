@@ -1,16 +1,38 @@
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/Pagination.module.css";
 import { IoIosArrowBack } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeNumberPage,
+  // updateAllStates,
+} from "@/redux-store/features/category/categorySlice";
+import { useRouter } from "next/router";
+import { memo, useEffect } from "react";
 
-const PaginationPage = ({ currentPage, setPageNumber, totalPage }) => {
+const PaginationPage = ({ currentPage, totalPage }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const handlePageClick = (data) => {
-    setPageNumber(data.selected + 1);
+    dispatch(changeNumberPage(data.selected + 1));
   };
+
+  const pageNumber = useSelector((state) => state.Category.pageNumber);
+
+  useEffect(() => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: pageNumber || router.query.page },
+    });
+  }, [pageNumber]);
+
+  // const dispatch = useDispatch();
+  // const handlePageClick = (data) => {
+  //   dispatch(changeNumberPage(data.selected + 1));
+  // };
   return (
     <div dir="ltr" className={styles.pagination}>
       <ReactPaginate
-        // breakLabel={"..."}
-        // breakClassName={"break-me"}
         pageCount={totalPage}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
@@ -33,4 +55,4 @@ const PaginationPage = ({ currentPage, setPageNumber, totalPage }) => {
   );
 };
 
-export default PaginationPage;
+export default memo(PaginationPage);

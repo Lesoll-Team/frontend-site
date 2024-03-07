@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
 
-function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) {
+function BestLinksInHome({
+  PopularSearches,
+  MostArea,
+  Others,
+  MostGovernorate,
+}) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
   const [toggleLinks, setToggleLinks] = useState(0);
@@ -39,18 +44,7 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
 
             //ustify-center md:justify-normal
           >
-            <Link
-              href={
-                language
-                  ? router.pathname === "/searching/[keyword]"
-                    ? `${links.name.keywords.ar}`
-                    : `searching/${links.name.keywords.ar}`
-                  : router.pathname === "/searching/[keyword]"
-                  ? `${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.ar}`
-              }
-              className="w-max line-clamp-1 "
-            >
+            <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1  font-bold ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
@@ -83,18 +77,7 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
             }`}
             //justify-center md:justify-normal
           >
-            <Link
-              href={
-                language
-                  ? router.pathname === "/searching/[keyword]"
-                    ? `${links.name.keywords.ar}`
-                    : `searching/${links.name.keywords.ar}`
-                  : router.pathname === "/searching/[keyword]"
-                  ? `${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.ar}`
-              }
-              className="w-max line-clamp-1 "
-            >
+            <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1 font-bold">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
@@ -127,18 +110,7 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
             }`}
             // justify-center md:justify-normal
           >
-            <Link
-              href={
-                language
-                  ? router.pathname === "/searching/[keyword]"
-                    ? `${links.name.keywords.ar}`
-                    : `searching/${links.name.keywords.ar}`
-                  : router.pathname === "/searching/[keyword]"
-                  ? `${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.ar}`
-              }
-              className="w-max line-clamp-1 "
-            >
+            <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1 font-bold">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
@@ -171,18 +143,7 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
             }`}
             //justify-center md:justify-normal
           >
-            <Link
-              href={
-                language
-                  ? router.pathname === "/searching/[keyword]"
-                    ? `${links.name.keywords.ar}`
-                    : `searching/${links.name.keywords.ar}`
-                  : router.pathname === "/searching/[keyword]"
-                  ? `${links.name.keywords.ar}`
-                  : `searching/${links.name.keywords.ar}`
-              }
-              className="w-max line-clamp-1"
-            >
+            <Link href={links.name.keywords.ar} className="w-max line-clamp-1">
               <p className="text-gray2 font-bold line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
@@ -194,4 +155,4 @@ function BestLinksInHome({ PopularSearches, MostArea,Others, MostGovernorate }) 
   );
 }
 
-export default BestLinksInHome;
+export default memo(BestLinksInHome);

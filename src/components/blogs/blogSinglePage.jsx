@@ -30,7 +30,7 @@ function BlogSinglePage({ BlogData }) {
           width={500}
           height={100}
           alt={BlogData.getBlogs.title.ar}
-          className="w-full h-[381px] object-cover md:mb-[80px] mb-[20px] brightness-50"
+          className="w-full h-[381px] object-cover md:mb-[80px] mb-[10px] brightness-50"
           src={BlogData.getBlogs.BlogImage}
           priority
         />
@@ -44,26 +44,48 @@ function BlogSinglePage({ BlogData }) {
         </div>
       </div>
 
-      <div className=" grid grid-cols-1 gap-x-5 md:grid-cols-3 ">
-        <div className="md:row-start-1 row-start-2 col-span-1">
-          <div className="sticky top-20 ">
-            <div className="flex flex-col gap-y-2">
-              <div className="flex flex-col ">
-                <span>
+      <div className=" grid grid-cols-1 md:gap-x-[73px] md:grid-cols-3 ">
+        <div className="md:row-start-1 md:pt-0 pt-[40px] row-start-2 col-span-1">
+          <div className="sticky top-24 ">
+            <div className="flex flex-col gap-y-[20px] ">
+              <div className="flex flex-col md:gap-y-[0.8vw] xl:gap-y-[0.5vw] gap-y-[0.5vw] ">
+                <span className="text-[14px] md:block hidden md:text-[18px]">
                   {formattedDate(BlogData?.getBlogs.createdAt, language)}
                 </span>
-                <span className="text-[25px]">
+                <span className="text-[16px] md:text-[20px]">
                   {language ? "مقالات مشابهة" : "Similar Blogs"}
                 </span>
-                <div className="relative w-11/12">
-                  <hr className="border-t-3 w-full absolute  border-gray1 " />
-                  <hr className="border-t-3 w-5/12 absolute  border-lightGreen " />
+                <div className="relative w-full">
+                  <hr className="border-t-2 w-full absolute  border-[#cccccc] " />
+                  <hr className="border-t-2 w-5/12 absolute  border-lightGreen " />
                 </div>
               </div>
               <SimilarBlogs blog={BlogData?.mostVisit} />
             </div>
+          </div>
+        </div>
+        <div className="w-full col-span-2 ">
+          <span className="text-[14px] md:hidden block  md:text-[18px]">
+            {formattedDate(BlogData?.getBlogs.createdAt, language)}
+          </span>
+          <div
+            dir={language ? "rtl" : "ltr"}
+            className={` text-md sm:text-lg text-darkGray font-inter  ${styles.genericDiv}`}
+            dangerouslySetInnerHTML={
+              language
+                ? { __html: BlogData.getBlogs.description.ar }
+                : { __html: BlogData.getBlogs.description.en }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            <div className=" w-11/12  ">
+export default React.memo(BlogSinglePage);
+/**
+ *             <div className=" w-11/12  ">
               <p>
                 يمكنك التواصل مع فريقنا المتخصص من خلال كل وسائل التواصل المتاحة
                 عبر:
@@ -97,22 +119,4 @@ function BlogSinglePage({ BlogData }) {
                 </Link>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="w-full col-span-2 ">
-          <div
-            dir={language ? "rtl" : "ltr"}
-            className={` text-md sm:text-lg text-darkGray  ${styles.genericDiv}`}
-            dangerouslySetInnerHTML={
-              language
-                ? { __html: BlogData.getBlogs.description.ar }
-                : { __html: BlogData.getBlogs.description.en }
-            }
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default React.memo(BlogSinglePage);
+ */

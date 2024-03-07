@@ -1,17 +1,19 @@
 // import { paymentMethodData } from "@/Shared/search/dropdown/dataDropdown";
 // import { Button } from "@nextui-org/react";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import { GoXCircleFill } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dropdown = ({
   defaultValue,
   data,
   value,
   classNames,
-  setValue,
-  setValueKey,
+  // setValue,
+  // setValueKey,
   setPriceFrom,
   setPriceTo,
   priceTo,
@@ -20,19 +22,17 @@ const Dropdown = ({
   isDisabled,
   baseIcon,
   isSort,
+  stateName,
   // setSortKey,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const dropdownContentRef = useRef(null);
-  // const [activeButton, setActiveButton] = useState(null);
 
-  // const handleButtonClick = (index) => {
-  //   // setActiveButton(index);
-  // };
   useEffect(() => {
     const handleClickOutside = (event) => {
       switch (dataOptions) {
@@ -69,8 +69,11 @@ const Dropdown = ({
   };
 
   const handleSetOption = (e) => {
-    setValue(e.name);
-    setValueKey(e.value);
+    if (stateName) {
+      const payload = {};
+      payload[stateName] = e;
+      dispatch(updateAllStates(payload));
+    }
   };
 
   const renderOptionType = useCallback(
@@ -147,29 +150,48 @@ const Dropdown = ({
     },
     [data, value, router, language]
   );
-
+  const handleDeleteOption = () => {
+    if (stateName) {
+      const payload = {};
+      payload[stateName] = null;
+      dispatch(updateAllStates(payload));
+    }
+  };
   return (
     <div className={`${classNames}  min-w-[9.97vw] relative`}>
       <button
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         disabled={isDisabled}
-        className={` w-full ${classNames}   text-gray1 text-md flex items-center justify-between
+        className={`  ${classNames}   text-gray1 text-md flex items-center justify-between
          rounded-[1vh] md:px-3 ${
-           isSort ? "  h-[24px] md:h-[40px] " : "h-[40px] md:h-[3.313rem]"
+           isSort
+             ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
+             : "w-full h-[40px] md:h-[3.313rem]"
          } px-1 cursor-pointer  ${
            baseIcon
              ? "shadow-md bg-[#F2F8F9]"
              : "border-[1px] border-[#CCCCCC] "
          }`}
       >
-        {(value && <span className="text-[#4E4E4E]">{value}</span>) ||
+        {(value && (
+          <span className="text-[#4E4E4E]">
+            {language ? value.name : value.value}
+          </span>
+        )) ||
           (defaultValue && <span className="text-gray1">{defaultValue}</span>)}
-
-        {baseIcon || (
-          <IoIosArrowDown
-            className={`text-black duration-150 ${menuIsOpen && "rotate-180"}`}
-          />
+        {value ? (
+          <button onClick={handleDeleteOption}>
+            <GoXCircleFill className="text-2xl" />
+          </button>
+        ) : (
+          baseIcon || (
+            <IoIosArrowDown
+              className={`text-black duration-150 ${
+                menuIsOpen && "rotate-180"
+              }`}
+            />
+          )
         )}
       </button>
       {menuIsOpen && renderOptionType(dataOptions)}

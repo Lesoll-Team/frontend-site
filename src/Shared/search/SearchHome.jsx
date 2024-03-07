@@ -43,7 +43,7 @@ export function SearchBarHome() {
       .join("/")
       .toLowerCase();
 
-    const url = `${pagesInput}/search?page=1${
+    const url = `${pagesInput}/residential/search?page=1${
       keywords && "&keyword=" + keywords.split(" ").join("_")
     }`;
     router.push(`/properties/${url}`);

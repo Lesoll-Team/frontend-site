@@ -10,7 +10,7 @@ const HeroSection = () => {
         alt="Hero Image"
         width={1440}
         height={681}
-        className="object-cover flex w-full md:h-screen  h-[313px] brightness-50 "
+        className="object-cover flex w-full md:h-screen lg:h-[600px]  h-[313px] brightness-50 "
         radius="none"
         priority
       />
