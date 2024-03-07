@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const PropertyInstallmentPlans = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  console.log(propertyData);
   const isInstallment = propertyData.saleOption.includes("Installment");
 
   return isInstallment ? (
