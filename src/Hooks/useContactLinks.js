@@ -35,7 +35,7 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
     message
   )}`;
   const haveNoPhoneNiumber = Boolean(userData && !userData.phone);
-  const WhatappLinkBtn = ({ className }) =>
+  const WhatappLinkBtn = ({ className, children }) =>
     userData ? (
       haveNoPhoneNiumber ? (
         <ContactBtnsModal
@@ -46,15 +46,25 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
               : "You can't contact with the seller with out completeing your account phone number "
           }
         >
-          <p className={cn("cursor-pointer", className)}>
-            {language ? "واتساب" : "Whatsapp"}
-            <FaWhatsapp />
-          </p>
+          {children ? (
+            children
+          ) : (
+            <p className={cn("cursor-pointer", className)}>
+              {language ? "واتساب" : "Whatsapp"}
+              <FaWhatsapp />
+            </p>
+          )}
         </ContactBtnsModal>
       ) : (
         <a target="_blank" href={whatsAppLink} className={cn("", className)}>
-          {language ? "واتساب" : "Whatsapp"}
-          <FaWhatsapp />
+          {children ? (
+            children
+          ) : (
+            <>
+              {language ? "واتساب" : "Whatsapp"}
+              <FaWhatsapp />
+            </>
+          )}
         </a>
       )
     ) : (
@@ -66,13 +76,17 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
             : "You can't contact with the seller with out signing in "
         }
       >
-        <p className={cn("cursor-pointer", className)}>
-          {language ? "واتساب" : "Whatsapp"}
-          <FaWhatsapp />
-        </p>
+        {children ? (
+          children
+        ) : (
+          <p className={cn("cursor-pointer", className)}>
+            {language ? "واتساب" : "Whatsapp"}
+            <FaWhatsapp />
+          </p>
+        )}
       </ContactBtnsModal>
     );
-  const CallLinkBtn = ({ className }) =>
+  const CallLinkBtn = ({ className, children }) =>
     userData ? (
       haveNoPhoneNiumber ? (
         <ContactBtnsModal
@@ -84,15 +98,25 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
           }
         >
           {" "}
-          <p className={cn("cursor-pointer", className)}>
-            {language ? "اتصال" : "Call"}
-            <IoCallSharp className="" />
-          </p>
+          {children ? (
+            children
+          ) : (
+            <p className={cn("cursor-pointer", className)}>
+              {language ? "اتصال" : "Call"}
+              <IoCallSharp className="" />
+            </p>
+          )}
         </ContactBtnsModal>
       ) : (
         <a target="_blank" href={callLink} className={cn("", className)}>
-          {language ? "اتصال" : "Call"}
-          <IoCallSharp className="" />
+          {children ? (
+            children
+          ) : (
+            <>
+              {language ? "اتصال" : "Call"}
+              <IoCallSharp className="" />
+            </>
+          )}
         </a>
       )
     ) : (
@@ -104,10 +128,14 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
             : "You can't contact with the seller with out signing in "
         }
       >
-        <p className={cn("cursor-pointer", className)}>
-          {language ? "اتصال" : "Call"}
-          <IoCallSharp className="" />
-        </p>
+        {children ? (
+          children
+        ) : (
+          <p className={cn("cursor-pointer", className)}>
+            {language ? "اتصال" : "Call"}
+            <IoCallSharp className="" />
+          </p>
+        )}
       </ContactBtnsModal>
     );
   return { WhatappLinkBtn, CallLinkBtn };

@@ -1,4 +1,4 @@
-import AddNeed from "@/components/needs/AddNeed";
+import AddNeed from "@/components/needs/addNeed/AddNeed";
 import Head from "next/head";
 
 export default function need() {

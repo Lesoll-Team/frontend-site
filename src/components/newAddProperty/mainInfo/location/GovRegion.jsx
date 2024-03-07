@@ -37,7 +37,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <>
       {watch("isCompound") && (
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2 md:col-span-2 w-full">
           <h3 className="text-xl">{language ? "الكومباوند" : "Compound"}</h3>
           <div className="relative">
             <div className="flex items-center">
@@ -100,7 +100,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
       )}
 
       {/* Governorate section */}
-      <div className="space-y-2">
+      <div className="space-y-2 w-full">
         <h3 className="text-xl">{language ? "المحافظة" : "Governorate"}</h3>
         <div className="relative">
           <div className="flex items-center">
@@ -161,7 +161,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
 
       {/* Region section */}
-      <div className="space-y-2">
+      <div className="space-y-2 w-full">
         <h3 className="text-xl">{language ? "المنطقة" : "Region"}</h3>
 
         <div className="relative">
