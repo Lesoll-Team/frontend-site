@@ -29,11 +29,21 @@ const useAddProperty = () => {
     control,
   });
   const onSubmit = handleSubmit((data) => {
-    if (step < 4) {
-      setStep(step + 1);
+    const isInvestment = watch("offer") === "For Investment";
+    if (isInvestment) {
+      if (step < 3) {
+        setStep(step + 1);
+      } else {
+        const { formData } = useFromatAddData(data);
+        dispatch(submitProperty(formData));
+      }
     } else {
-      const { formData } = useFromatAddData(data);
-      dispatch(submitProperty(formData));
+      if (step < 4) {
+        setStep(step + 1);
+      } else {
+        const { formData } = useFromatAddData(data);
+        dispatch(submitProperty(formData));
+      }
     }
   });
 
