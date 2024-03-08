@@ -162,7 +162,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
           <div className="flex justify-between md:flex-row flex-col">
             <p className="flex items-center gap-5">
               <span>{language ? "رقم التواصل :" : "Contact Number :"}</span>
-              <span>{userInfo?.code + userInfo?.phone}</span>
+              <span dir="ltr">{userInfo?.code + userInfo?.phone}</span>
             </p>
             <button
               onClick={() => setValue("otherPhone", true)}

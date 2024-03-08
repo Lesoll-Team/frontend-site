@@ -8,11 +8,11 @@ const HeadMetaTags = ({ result }) => {
   return (
     <Head>
       <title>
-        {language ? result.supTitleCategory.ar : result.supTitleCategory.en}
+        {language ? result?.supTitleCategory.ar : result?.supTitleCategory.en}
       </title>
       <meta
         name="description"
-        content={`${result.supTitleCategory?.ar} لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة  اراضي، محلات تجارية, شقة `}
+        content={`${result?.supTitleCategory?.ar} لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة  اراضي، محلات تجارية, شقة `}
       />
     </Head>
   );
