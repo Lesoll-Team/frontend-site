@@ -6,7 +6,7 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-const PropertyImages = ({ propertyData, fav = true, query }) => {
+const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
 
@@ -20,15 +20,13 @@ const PropertyImages = ({ propertyData, fav = true, query }) => {
   const images = [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
 
   // lightbox logic
-  const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const openLightbox = (index) => {
-    router.push(`${query.id}?images=true`);
-    setLightboxIsOpen(true);
+    router.push(`${slug}?images=true`);
     setLightboxIndex(index);
   };
   const closeLightbox = () => {
-    router.push(`${query.id}?images=`);
+    router.push(`${slug}?images=`);
   };
 
   // used to contro conditional redering and layout of images and text on images

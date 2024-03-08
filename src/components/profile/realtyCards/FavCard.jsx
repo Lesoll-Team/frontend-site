@@ -15,7 +15,6 @@ import Link from "next/link";
 import { useMemo, memo } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "@/redux-store/features/globalState";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const FavCard = ({ propDetails, onRemove }) => {
@@ -28,7 +27,6 @@ const FavCard = ({ propDetails, onRemove }) => {
       await AddToFavorites(propDetails?._id);
       // After successfully adding to favorites, trigger the removal callback
       onRemove(propDetails._id);
-      dispatch(fetchUserData());
       dispatch(getUserData());
     } catch (error) {
       console.error("Error add to fav:", error);

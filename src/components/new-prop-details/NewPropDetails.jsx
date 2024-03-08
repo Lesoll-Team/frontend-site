@@ -25,7 +25,7 @@ const NewPropDetails = ({ propertyData, slug, query }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         />
       </Head>
-      <PropertyImages propertyData={propertyData} query={query} />
+      <PropertyImages propertyData={propertyData} query={query} slug={slug} />
       <PriceTitle propertData={propertyData} />
       <div className="relative md:grid  grid-cols-3 gap-2">
         <div className=" col-start-3 md:sticky top-24 h-fit flex justify-end py-2">

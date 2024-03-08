@@ -4,10 +4,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaRegHandshake } from "react-icons/fa";
 import { BsBuildings } from "react-icons/bs";
 import SelectBtn from "./SelectBtn";
-import {
-  fetchUserData,
-  updateUserData,
-} from "@/redux-store/features/globalState";
+import { updateUserData } from "@/redux-store/features/globalState";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const UserTypeForm = () => {
@@ -32,7 +29,7 @@ const UserTypeForm = () => {
             userUpdate: formData,
           })
         );
-        dispatch(fetchUserData());
+
         dispatch(getUserData());
       } catch (error) {
         console.error(error);

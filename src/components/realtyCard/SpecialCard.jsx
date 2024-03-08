@@ -1,15 +1,5 @@
-// import { fetchUserData } from "@/redux-store/features/globalState";
-// import { AddToFavorites } from "@/utils/propertyAPI";
-// import { Image } from "@nextui-org/react";
-// import Link from "next/link";
-// import { useEffect } from "react";
-// import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-// import Image from "next/image";
-// import PriceAndSocial from "./basic-body-card/PriceAndSocial";
-// import TitleCard from "./basic-body-card/TitleCard";
-// import LocationAndRooms from "./basic-body-card/LocationAndRooms";
-// import { SiWhatsapp } from "react-icons/si";
+
 import Image from "next/image";
 import Link from "next/link";
 // import { IoCallSharp } from "react-icons/io5";

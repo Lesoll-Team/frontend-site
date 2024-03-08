@@ -14,7 +14,6 @@ import SocialMediaModal from "@/Shared/models/SocialMediaModal";
 import { FcViewDetails } from "react-icons/fc";
 import { LuFolderSearch2 } from "react-icons/lu";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { fetchUserData } from "@/redux-store/features/globalState";
 
 function ConfirmAppointment({ userAppointment }) {
   // const router = useRouter();
@@ -51,7 +50,7 @@ function ConfirmAppointment({ userAppointment }) {
   const addToFAv = async () => {
     try {
       await AddToFavorites(userAppointment?._id);
-      dispatch(fetchUserData());
+
       dispatch(getUserData());
 
       // Handle success (e.g., show a success message)

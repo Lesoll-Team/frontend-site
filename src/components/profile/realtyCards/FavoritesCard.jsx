@@ -1,5 +1,4 @@
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
@@ -22,7 +21,6 @@ const FavoritesCard = ({ propertyDetails, onRemove }) => {
       await AddToFavorites(propertyDetails?._id);
       onRemove(propertyDetails._id);
 
-      dispatch(fetchUserData());
       dispatch(getUserData());
 
       // Handle success (e.g., show a success message)

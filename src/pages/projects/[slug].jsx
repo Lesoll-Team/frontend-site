@@ -1,8 +1,10 @@
 import SingleProject from "@/components/projects/singleProject/SingleProject";
 import axios from "axios";
 
-const SingleProjectPage = ({ data }) => {
-  return <SingleProject propertyData={data.result} allData={data} />;
+const SingleProjectPage = ({ data, query }) => {
+  return (
+    <SingleProject propertyData={data.result} allData={data} query={query} />
+  );
 };
 export default SingleProjectPage;
 
@@ -15,7 +17,7 @@ export async function getServerSideProps(context) {
 
     const data = res.data;
     return {
-      props: { data: data },
+      props: { data: data, query: context.query },
       // revalidate: 10,
     };
   } catch (error) {

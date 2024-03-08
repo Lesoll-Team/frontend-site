@@ -8,7 +8,7 @@ import PropertyLocation from "@/components/new-prop-details/propertyDetails/sect
 import AboutCompany from "./AboutCompany";
 import ProjectUnits from "./ProjectUnits";
 
-const SingleProject = ({ propertyData, allData }) => {
+const SingleProject = ({ propertyData, allData, query }) => {
   return (
     <div className="min-h-[50dvh] mt-10 space-y-6 mb-10">
       <Head>
@@ -29,7 +29,12 @@ const SingleProject = ({ propertyData, allData }) => {
         /> */}
       </Head>
       <div className="container mx-auto space-y-[30px] md:space-y-10">
-        <PropertyImages fav={false} propertyData={propertyData} />
+        <PropertyImages
+          fav={false}
+          propertyData={propertyData}
+          query={query}
+          slug={query.slug}
+        />
         <ProjectTitlePrice projectData={propertyData} />
 
         {/* <PriceTitle propertData={propertyData} /> */}
