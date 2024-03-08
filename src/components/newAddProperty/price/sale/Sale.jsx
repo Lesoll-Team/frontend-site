@@ -47,7 +47,7 @@ const Sale = ({
         );
       }
     }
-  }, [watch("saleOption")]);
+  }, [watch("saleOption.value")]);
   return (
     <>
       <div className=" space-y-2">
