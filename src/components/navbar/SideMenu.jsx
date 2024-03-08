@@ -18,6 +18,7 @@ const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
+  // console.log(userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const isCompany = userData?.typeOfUser === "company";
@@ -93,7 +94,9 @@ const SideMenu = () => {
                   {userData?.fullname}
                 </p>
               </Link>
-              <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
+              {/*
+
+         <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
                 <p>
                   {language ? "الطلبات" : "Needs"}{" "}
                   <span className="text-baseGray">2</span>
@@ -103,6 +106,7 @@ const SideMenu = () => {
                   <span className="text-baseGray">2</span>
                 </p>
               </div>
+         */}
             </div>
           )}
           <div className="flex flex-col justify-start gap-7 text-base text-darkGray">
@@ -138,7 +142,7 @@ const SideMenu = () => {
             </Link>
             <Link
               onClick={closeSideMenu}
-              href={isCompany ? "/needs" : "add-need"}
+              href={isCompany ? "/needs" : "/add-need"}
               className="flex items-center gap-4"
             >
               <AiOutlineEdit className="text-baseGray text-lg" />

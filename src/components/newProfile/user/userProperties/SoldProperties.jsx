@@ -25,7 +25,7 @@ const SoldProperties = () => {
       {soldProp ? (
         soldProp.propertySoldProfile.length > 0 ? (
           soldProp.propertySoldProfile.map((item) => {
-            return <ProfileCard sold data={item} key={item?._id} type={type} />;
+            return <ProfileCard data={item} key={item?._id} type={type} />;
           })
         ) : (
           <NoItems title={language ? "لا توجد اعلانات مباعة" : "No sold Ads"} />
