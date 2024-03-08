@@ -21,7 +21,7 @@ const About = () => {
             </>
           )}
         </h1>
-        <p className="text-xl leading-loose md:text-justify">
+        <p className="text-xl leading-loose md:text-justify font-inter">
           {language ? (
             <span>
               ليسول هو سوق مفتوح لعرض العقارات على الإنترنت، نقدم من خلاله خدمة
@@ -69,7 +69,7 @@ const About = () => {
             <p className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               {language ? "مهمتنا" : "Our Mission"}
             </p>
-            <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose">
+            <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose font-inter">
               {language
                 ? " توفير بيئة سهلة ومريحة للأفراد والشركات والمستثمرين للبحث عن العقار المناسب سواءً للشراء أو البيع أو التأجير في مصر. نحن نسعى لتوفير تجربة رقمية مميزة ومريحة تجمع بين الشفافية والملاءمة والأمان، حيث يمكن للجميع الاعتماد على منصتنا لتلبية احتياجاتهم العقارية."
                 : " Our mission at Lesoll is to simplify and transform the real estate experience in Egypt. We aim to empower individuals by providing them with a user-friendly platform and a wide range of property options. Through our comprehensive services, we strive to connect owners, buyers, and renters, fostering transparency, convenience, and trust in the real estate market."}
@@ -81,7 +81,7 @@ const About = () => {
             <h2 className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               {language ? "رؤيتنا" : "OUR VISION"}
             </h2>
-            <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose">
+            <p className="text-xl md:text-2xl  text-center md:text-start md:leading-loose font-inter">
               {language
                 ? "أن نكون الخيار الأول والموقع الرئيسي في مصر للبحث عن العقارات، ونسعى لأن نصبح الشركة الرائدة في مجال التسويق العقاري على الإنترنت، حيث نقدم خدمات متميزة -غير تقليدية- للبحث عن العقارات المناسبة، كما نتطلع إلى مستقبل يتيح للأفراد الوصول إلى بيت الأحلام عبر حلول مبتكرة."
                 : "Our vision is to become the ultimate destination for real estate transactions in Egypt. We envision Lesoll as the go-to online marketplace where individuals can effortlessly navigate the real estate market, discover their dream properties, and achieve their investment goals. We aim to revolutionize the way people buy, sell, and rent properties, offering a seamless digital experience that exceeds expectations."}
@@ -111,7 +111,7 @@ const About = () => {
             <h2 className="text-5xl text-center md:text-start md:text-7xl text-lightGreen font-bold">
               {language ? "أهدافنا" : "OUR GOALS"}
             </h2>
-            <p className="text-xl md:text-2xl  text-center md:text-start ">
+            <p className="text-xl md:text-2xl  text-center md:text-start font-inter ">
               {language
                 ? "1. توفير تجربة متميزة تلبي احتياجات العملاء وتوفر لهم المرونة والسهولة لإتمام صفقاتهم العقارية. "
                 : " 1 .Simplify the real estate journey: We aim to streamline the process of buying, selling, and renting properties by providing a user-friendly interface, advanced search features, and comprehensive property information."}
