@@ -13,7 +13,7 @@ const SearchModule = () => {
         "
       >
         <div className="md:flex md:flex-col  gap-y-[3.27vh]   text-white ">
-          <h1 className="w-full text-[24px] md:pb-0 pb-[32px] md:text-[48px] font-bold">
+          <h1 className="w-full text-[24px] md:pb-0 pb-[32px] md:text-[48px] py-10 md:py-0 font-bold">
             {language ? "ليسول طريقك لبيتك" : "Lesoll The Way You Home"}
           </h1>
           <p
