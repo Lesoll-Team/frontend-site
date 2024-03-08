@@ -5,7 +5,7 @@ import PropertyDetails from "./propertyDetails/PropertyDetails";
 import RecommendedProperties from "./RecommendedProperties";
 import Head from "next/head";
 
-const NewPropDetails = ({ propertyData, slug }) => {
+const NewPropDetails = ({ propertyData, slug, query }) => {
   return (
     <div className="min-h-[50dvh] mt-10 space-y-[30px] md:space-y-10">
       <Head>
@@ -25,7 +25,7 @@ const NewPropDetails = ({ propertyData, slug }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         />
       </Head>
-      <PropertyImages propertyData={propertyData} />
+      <PropertyImages propertyData={propertyData} query={query} />
       <PriceTitle propertData={propertyData} />
       <div className="relative md:grid  grid-cols-3 gap-2">
         <div className=" col-start-3 md:sticky top-24 h-fit flex justify-end py-2">

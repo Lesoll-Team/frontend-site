@@ -5,10 +5,12 @@ import { useMemo, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
-const PropertyImages = ({ propertyData, fav = true }) => {
+import { useRouter } from "next/router";
+const PropertyImages = ({ propertyData, fav = true, query }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const router = useRouter();
 
+  // console.log(isSliderOpen);
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
@@ -21,11 +23,12 @@ const PropertyImages = ({ propertyData, fav = true }) => {
   const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const openLightbox = (index) => {
+    router.push(`${query.id}?images=true`);
     setLightboxIsOpen(true);
     setLightboxIndex(index);
   };
   const closeLightbox = () => {
-    setLightboxIsOpen(false);
+    router.push(`${query.id}?images=`);
   };
 
   // used to contro conditional redering and layout of images and text on images
@@ -131,7 +134,7 @@ const PropertyImages = ({ propertyData, fav = true }) => {
         </div>
       )}
 
-      {lightboxIsOpen && (
+      {query?.images && (
         <Lightbox
           mainSrc={images[lightboxIndex].link}
           nextSrc={images[(lightboxIndex + 1) % images.length].link}
