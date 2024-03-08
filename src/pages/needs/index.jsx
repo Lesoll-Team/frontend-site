@@ -2,6 +2,7 @@ import NeedsFeed from "@/components/needs/needFeed/NeedsFeed";
 import axios from "axios";
 
 const NeedsPage = ({ data, keyword }) => {
+  console.log(data);
   return (
     <div className="min-h-[85dvh]">
       <NeedsFeed data={data} keyword={keyword} />
@@ -25,12 +26,16 @@ export async function getServerSideProps({ query }) {
       },
     };
   } catch (error) {
-    throw error.response.data;
+    console.log();
+    if (error.response.status == 400) {
+      return {
+        props: {
+          keyword: keyword,
+          data: { getAllData: [] },
+        },
+      };
+    } else {
+      throw error.response.data;
+    }
   }
-
-  return {
-    props: {
-      keyword,
-    },
-  };
 }
