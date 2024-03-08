@@ -3,10 +3,11 @@ import OfferType from "../steps/OfferType";
 import NeedsForm from "../steps/form/NeedsForm";
 import SecondStep from "../steps/SecondStep";
 import useAddNeed from "./hooks/useAddNeed";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import Link from "next/link";
+import { resetAddNeed } from "./redux/addNeedSlice";
 
 const AddNeed = () => {
   const formStatus = useSelector((state) => state.addNeed.status);
@@ -14,7 +15,7 @@ const AddNeed = () => {
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const dispatch = useDispatch();
   const {
     errors,
     onSubmit,
@@ -58,6 +59,7 @@ const AddNeed = () => {
   useEffect(() => {
     if (formStatus === "succeeded") {
       setSended(true);
+      dispatch(resetAddNeed());
     }
   }, [formStatus]);
   if (userDataStatus === "loading") {
@@ -71,12 +73,12 @@ const AddNeed = () => {
       <form
         noValidate
         onSubmit={onSubmit}
-        className={`min-h-[88dvh]  py-10 container mx-auto  ${
+        className={`min-h-[88dvh]  py-10 px-5  md:px-0 md:container md:mx-auto  ${
           sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
         }`}
       >
         {sended ? (
-          <AceeptedCard />
+          <Accepted />
         ) : (
           <div className=" my-10">
             <div className="container mx-auto ">

@@ -18,7 +18,6 @@ const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
-  // console.log(userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const isCompany = userData?.typeOfUser === "company";

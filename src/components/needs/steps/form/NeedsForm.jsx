@@ -32,7 +32,7 @@ const NeedsForm = ({
     }
   }, [watch("propType.value")]);
   return (
-    <form onSubmit={onSubmit} className="space-y-6 fade-in-right">
+    <div className="space-y-6 fade-in-right">
       <div className="flex items-center gap-2 ">
         <button
           onClick={() => {
@@ -488,7 +488,7 @@ const NeedsForm = ({
             : "Add your need"}
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 export default NeedsForm;
