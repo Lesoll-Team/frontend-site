@@ -23,7 +23,7 @@ const Notifications = () => {
     setShowMenu((prev) => !prev);
   };
   useEffect(() => {
-    if (userNotifications) {
+    if (!userNotifications) {
       dispatch(getNotifications());
     }
   }, []);
