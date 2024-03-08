@@ -25,6 +25,7 @@ const BuildingDetails = ({
           {language ? "مساحة المبنى " : "Building Area"}
         </h3>
         <input
+          inputMode="numeric"
           type="text"
           {...register("area", {
             required: {
@@ -56,15 +57,10 @@ const BuildingDetails = ({
           {language ? "عدد الادوار" : "Number of floors"}
         </h3>
         <input
+          inputMode="numeric"
           type="text"
           multiple
           {...register("level", {
-            required: {
-              value: true,
-              message: language
-                ? "من فضلك ادخل الدور"
-                : "please enter the level",
-            },
             validate: {
               mustBeNumber: (value) => {
                 return (
@@ -87,6 +83,7 @@ const BuildingDetails = ({
         <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
         <input
           type="text"
+          inputMode="numeric"
           {...register("rooms", {
             required: {
               value: true,
@@ -116,6 +113,7 @@ const BuildingDetails = ({
         <h3 className="text-xl">{language ? "عدد الحمامات" : "Bathrooms"}</h3>
         <input
           type="text"
+          inputMode="numeric"
           {...register("bathRooms", {
             required: {
               value: true,

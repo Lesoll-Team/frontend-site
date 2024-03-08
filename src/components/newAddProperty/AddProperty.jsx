@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
 import { DotPulse, Ring, Wobble } from "@uiball/loaders";
+import { scrollToTop } from "@/utils/scrollToTop";
 // import AdminAddProperty from "../admin-add-property/AdminAddProperty";
 const AddProperty = () => {
   const {
@@ -50,6 +51,7 @@ const AddProperty = () => {
       setSended(true);
       dispatch(resetAddProp());
       setStep(1);
+      scrollToTop();
     }
   }, [formStatus]);
   // const addNewwProp = () => {
@@ -211,6 +213,7 @@ const AddProperty = () => {
                 <Button
                   disabled={formStatus === "loading"}
                   onClick={() => {
+                    scrollToTop();
                     setStep((prev) => prev - 1);
                   }}
                   variant="bordered"

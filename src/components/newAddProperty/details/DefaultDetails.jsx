@@ -27,6 +27,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         <h3 className="text-xl">{language ? "المساحة " : "Space"}</h3>
         <input
           type="text"
+          inputMode="numeric"
           {...register("area", {
             required: {
               value: true,
@@ -55,17 +56,23 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         )}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "الدور" : "level"}</h3>
+        <h3 className="text-xl">
+          {language ? "الدور" : "level"}{" "}
+          <span className="text-outLine">
+            {language ? "(إختيارى)" : "(optional)"}
+          </span>
+        </h3>
         <input
+          inputMode="numeric"
           type="text"
           multiple
           {...register("level", {
-            required: {
-              value: true,
-              message: language
-                ? "من فضلك ادخل الدور"
-                : "please enter the level",
-            },
+            // required: {
+            //   value: true,
+            //   message: language
+            //     ? "من فضلك ادخل الدور"
+            //     : "please enter the level",
+            // },
             validate: {
               mustBeNumber: (value) => {
                 return (
@@ -90,6 +97,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
         <input
           type="text"
+          inputMode="numeric"
           {...register("rooms", {
             required: {
               value: true,
@@ -118,6 +126,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       <div className="space-y-2">
         <h3 className="text-xl">{language ? "عدد الحمامات" : "Bathrooms"}</h3>
         <input
+          inputMode="numeric"
           type="text"
           {...register("bathRooms", {
             required: {
@@ -162,7 +171,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
               deliveryDateRef.current.setOpen(true);
             }
           }}
-          className={` w-full text-start bg-white text-lg font-semibold flex justify-between items-center focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-[12px] ${
+          className={` w-full text-start bg-white text-lg font-semibold flex justify-between items-center focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-[8px] ${
             errors?.deliveryDate && "border-red-500 focus:border-red-500"
           }`}
         >

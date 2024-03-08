@@ -71,9 +71,26 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const deleteThumbnail = () => {
     setValue("thumbnail", "");
   };
+  const addMainImage = () => {
+    if (mainImage || thumbnail) {
+    } else {
+      if (mainImgInputRef.current) {
+        mainImgInputRef.current.click();
+      }
+    }
+  };
+  const addMultiImage = () => {
+    if (multiImage?.length > 0 || album?.length > 0) {
+    } else {
+      if (multiImgInputRef.current) {
+        multiImgInputRef.current.click();
+      }
+    }
+  };
   return (
     <AddPropSectionContainer className={"flex flex-col"}>
       <div
+        onClick={addMainImage}
         className={`w-full  bg-white border-dashed border-2 gap-3 md:gap-5  border-outLine py-5 md:py-10 px-5 flex flex-col items-center justify-center ${
           errors.mainImage && "border-red-500"
         }`}
@@ -128,7 +145,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             {mainImage && (
               <Image
                 alt="main-image"
-                className="max-w-[420] rounded object-cover max-h-[300px] border-2 border-outLine"
+                className="max-w-[420] cursor-default rounded object-cover max-h-[300px] border-2 border-outLine"
                 width={400}
                 height={300}
                 src={URL.createObjectURL(mainImage)}
@@ -170,7 +187,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           })}
         />
       </div>
-      <div className="w-full  bg-white border-dashed border-2 gap-3 md:gap-5 border-outLine py-5 md:py-10 px-5 flex flex-col items-center justify-center">
+      <div
+        onClick={addMultiImage}
+        className="w-full   bg-white border-dashed border-2 gap-3 md:gap-5 border-outLine py-5 md:py-10 px-5 flex flex-col items-center justify-center"
+      >
         <input
           ref={multiImgInputRef}
           className="hidden"

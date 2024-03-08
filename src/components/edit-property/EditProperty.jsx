@@ -3,7 +3,7 @@ import { DevTool } from "@hookform/devtools";
 import AddPropMainInfo from "@/components/newAddProperty/mainInfo/AddPropMainInfo";
 import Steps from "@/components/newAddProperty/Steps";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import AddPropDetails from "@/components/newAddProperty/details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "@/components/newAddProperty/price/AddPropertyPrice";
@@ -14,6 +14,7 @@ import AceeptedCard from "@/components/newAddProperty/AceeptedCard";
 import { DotPulse, Ring } from "@uiball/loaders";
 import useEditProperty from "./hooks/useEditProperty";
 import { resetEditPropertySlice } from "./redux/editPropertSlice";
+import { scrollToTop } from "@/utils/scrollToTop";
 const EditProperty = ({ data }) => {
   const {
     onSubmit,
@@ -48,66 +49,131 @@ const EditProperty = ({ data }) => {
       setSended(true);
       dispatch(resetEditPropertySlice());
       setStep(1);
+      scrollToTop();
     }
   }, [formStatus]);
+  const submitBtnText = useMemo(() => {
+    const isInvestment = watch("offer") === "For Investment";
+    if (isInvestment) {
+      if (step < 3) {
+        return language ? "التالى" : "next";
+      } else {
+        return language ? "عدل عقارك" : "Add your property";
+      }
+    } else {
+      if (step < 4) {
+        return language ? "التالى" : "next";
+      } else {
+        return language ? "عدل عقارك" : "Add your property";
+      }
+    }
+  }, [step, language]);
   const renderStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <AddPropMainInfo
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
-      case 2:
-        return (
-          <AddPropertyPrice
-            fields={fields}
-            append={append}
-            remove={remove}
-            control={control}
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+    const isInvestment = watch("offer") === "For Investment";
+    if (isInvestment) {
+      switch (step) {
+        case 1:
+          return (
+            <AddPropMainInfo
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        case 2:
+          return (
+            <AddPropDetails
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
 
-      case 3:
-        return (
-          <AddPropDetails
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
-      case 4:
-        return (
-          <PropertyImages
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+        case 3:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
 
-      default:
-        return (
-          <PropertyImages
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+        default:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+      }
+    } else {
+      switch (step) {
+        case 1:
+          return (
+            <AddPropMainInfo
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        case 2:
+          return (
+            <AddPropertyPrice
+              fields={fields}
+              append={append}
+              remove={remove}
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+
+        case 3:
+          return (
+            <AddPropDetails
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        case 4:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+
+        default:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+      }
     }
   };
   // const errorSubmit = useSelector((state) => state.addProperty.error);
@@ -138,6 +204,7 @@ const EditProperty = ({ data }) => {
                 <Button
                   disabled={formStatus === "loading"}
                   onClick={() => {
+                    scrollToTop();
                     setStep((prev) => prev - 1);
                   }}
                   variant="bordered"
@@ -155,19 +222,10 @@ const EditProperty = ({ data }) => {
               >
                 {formStatus === "loading" ? (
                   <Ring size={28} color="#fff" />
-                ) : step > 3 ? (
-                  language ? (
-                    "أضف عقارك"
-                  ) : (
-                    "Add your property"
-                  )
-                ) : language ? (
-                  "التالى"
                 ) : (
-                  "Next"
+                  submitBtnText
                 )}
               </Button>
-              <DevTool control={control} />
             </div>
           </>
         )}

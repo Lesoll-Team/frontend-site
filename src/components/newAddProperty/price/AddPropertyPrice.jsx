@@ -56,12 +56,9 @@ const AddPropertyPrice = ({
   return (
     <>
       <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
-      {watch("saleOption.value").length > 1 && (
+      {watch("saleOption.value")?.length > 1 && (
         <AddPropSectionContainer>
           <CashAndInstallment
-            // fields={fields}
-            // append={append}
-            // remove={remove}
             errors={errors}
             clearErrors={clearErrors}
             register={register}
