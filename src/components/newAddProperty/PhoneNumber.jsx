@@ -81,7 +81,6 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
               <Error>{errors.connectPhoneNumber.message}</Error>
             )}
           </div>
-          {/* {console.log(errors)} {console.log(watch("connectPhoneNumber"))} */}
         </div>
       ) : showPhoneInput ? (
         <div className="p-5 bg-white w-full rounded space-y-4 relative">
@@ -152,7 +151,6 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
               <Error>{errors.connectPhoneNumber.message}</Error>
             )}
           </div>
-          {/* {console.log(errors)} {console.log(watch("connectPhoneNumber"))} */}
         </div>
       ) : (
         <div className="p-5 bg-white w-full rounded space-y-4">

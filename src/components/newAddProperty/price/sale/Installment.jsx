@@ -283,7 +283,6 @@ const Installment = ({
                     >
                       {egpPer(watch(`installment.${index}.type.value`))}
                     </span>
-                    {/* {console.log(errors?.installment[index])} */}
                   </div>
                   {errors?.installment &&
                     errors?.installment[index]?.amount && (

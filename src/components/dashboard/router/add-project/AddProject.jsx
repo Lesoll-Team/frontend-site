@@ -9,7 +9,7 @@ import { resetAddPoject } from "./redux/addProjectSlice";
 
 const AddProject = () => {
   const formStatus = useSelector((state) => state.addProject.status);
-  console.log(formStatus);
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
   const [sended, setSended] = useState(false);

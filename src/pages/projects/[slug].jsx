@@ -2,13 +2,11 @@ import SingleProject from "@/components/projects/singleProject/SingleProject";
 import axios from "axios";
 
 const SingleProjectPage = ({ data }) => {
-  console.log(data);
-  return <SingleProject propertyData={data.result} />;
+  return <SingleProject propertyData={data.result} allData={data} />;
 };
 export default SingleProjectPage;
 
 export async function getServerSideProps(context) {
-  console.log(context.query.slug);
   const slug = context?.query?.slug;
   try {
     const res = await axios.get(

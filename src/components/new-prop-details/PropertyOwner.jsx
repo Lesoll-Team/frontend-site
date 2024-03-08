@@ -8,7 +8,7 @@ import Link from "next/link";
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = "";
-  console.log(propertyData);
+
   const conatactNumber = propertyData.connectPhoneNumber
     ? propertyData.connectPhoneNumber
     : propertyData?.user?.code + propertyData?.user?.phone;

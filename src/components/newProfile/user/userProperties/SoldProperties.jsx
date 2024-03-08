@@ -13,7 +13,7 @@ const SoldProperties = () => {
   const soldPropStatus = useSelector(
     (state) => state.userProperties.sold.status
   );
-  console.log(soldProp);
+
   const soldPropError = useSelector((state) => state.userProperties.sold.error);
   useEffect(() => {
     dispatch(getSoldProp());

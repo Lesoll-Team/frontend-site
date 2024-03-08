@@ -19,7 +19,7 @@ const useAddProject = () => {
   } = form;
   const { errors } = formState;
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    // console.log(data);
     const address = {
       name: data.address.name,
       longitude: data.address.longitude,

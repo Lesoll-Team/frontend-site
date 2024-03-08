@@ -33,7 +33,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
   const clearCompound = () => {
     setValue("compaounds", {});
   };
-  console.log(watch("compaounds"));
+
   return (
     <>
       {watch("isCompound") && (

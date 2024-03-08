@@ -62,7 +62,6 @@ const CommercialImgInput = ({ watch, setValue }) => {
         autoComplete="off"
         type="file"
         onChange={(e) => {
-          console.log(e.target.files[0]);
           setValue("theCommercialRegistrationImg", e.target.files[0]);
         }}
         // {...restCommercial}

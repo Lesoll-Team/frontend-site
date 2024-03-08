@@ -24,7 +24,7 @@ const EditPropertyPage = () => {
       getProperty();
     }
   }, [propertyId]);
-  // console.log(formatApiData(propData));
+
   return (
     <div>
       {propData ? (

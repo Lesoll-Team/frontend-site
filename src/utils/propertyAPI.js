@@ -23,7 +23,6 @@ export async function createNewProperty(propertyDetils) {
 export async function propertyIsSold({ propertyId }) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
-    console.log(propertyId);
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`,
       {

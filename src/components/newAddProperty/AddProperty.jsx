@@ -38,7 +38,7 @@ const AddProperty = () => {
   const userDataStatus = useSelector((state) => state.userProfile.status);
 
   const [sended, setSended] = useState(false);
-  console.log(formStatus);
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (!features) {
