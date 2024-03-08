@@ -24,7 +24,7 @@ const LocationCategories = () => {
     },
     {
       titleAr: "الاسكندرية",
-      titleEn: "alexandria",
+      titleEn: "Alexandria",
       totalAr: "( 526+ وحدة )",
       totalEn: "( +526 Uint )",
       url: "/properties/alexandria/sale/residential",
