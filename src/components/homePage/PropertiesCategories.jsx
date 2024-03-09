@@ -13,6 +13,7 @@ import {
   ResidentialRent,
   ResidentialSale,
 } from "./iconHomeSVG";
+import { IoIosArrowBack } from "react-icons/io";
 // import { SearchBarHome } from "@/Shared/search/SearchBarHome";
 const PropertiesCategories = ({ isHome }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -119,13 +120,22 @@ const PropertiesCategories = ({ isHome }) => {
   }, []);
   return (
     <div>
-      <div className="md:w-full flex items-center justify-between  md:container mb-[32px] md:mx-auto mx-[16px] ">
-        <h6 className="font-bold md:text-[30px] text-[14px] flex text-grayText2">
+      <div className="md:w-full flex items-center justify-between  md:container md:mb-[32px] mb-[16px] md:mx-auto mx-[16px] ">
+        <h6 className="font-bold md:text-[30px] text-[18px] flex text-grayText2">
           {language ? "نوع العقار" : "Property type"}
         </h6>
-        {isHome && (
+        {isHome ? (
           <Link href={"/categories"} className="  text-[12px] md:text-[20px]">
             {language ? "رؤية المزيد" : "see more"}
+          </Link>
+        ) : (
+          <Link
+            href={"/"}
+            className="  text-[12px] md:text-[20px] font-semibold flex items-center"
+          >
+            {language ? "رجوع" : "back"}
+
+            <IoIosArrowBack className={`${!language && "rotate-180"}`} />
           </Link>
         )}
       </div>
