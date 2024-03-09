@@ -43,7 +43,7 @@ export const formatApiData = ({ setValue, data }) => {
     longitude: data?.longitude || "",
     latitude: data?.latitude || "",
   };
-
+  // console.log(saleOption);
   setValue("title", data?.title);
   setValue("description", data?.description);
   setValue("offer", data?.offer);
@@ -52,7 +52,9 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("multiImage", "");
   setValue("rentalPeriod", rentalPeriod);
   setValue("unitType", unitType);
-  setValue("saleOption", saleOption);
+  if (saleOption) {
+    setValue("saleOption", saleOption);
+  }
   setValue("insurance", data?.insurance);
   setValue("price", data?.price);
   setValue("service", services);
