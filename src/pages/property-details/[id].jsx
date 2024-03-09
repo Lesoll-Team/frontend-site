@@ -1,6 +1,6 @@
 import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
+import DeletedProperty from "@/components/new-prop-details/DeletedProperty";
 import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
-import DeletedProperty from "@/components/propertyDetails/DeletedProperty";
 import axios from "axios";
 import React from "react";
 
