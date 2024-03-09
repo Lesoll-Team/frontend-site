@@ -17,7 +17,7 @@ const addPropertyPage = () => {
           name="description"
           content="اضف عقارك مع ليسول، فحن متخصصون في بيع وايجار جميع أنواع العقارات، شقق للبيع، شقق للايجار، اراضي للبيع والايجار، محلات للبيع والايجار، شقق دوبلكس"
         />
-        <link rel="canonical" href={`https://lesoll.com/sell`} />
+        <link rel="canonical" href={`https://lesoll.com/add-property`} />
       </Head>
       <AddProperty />
     </>
