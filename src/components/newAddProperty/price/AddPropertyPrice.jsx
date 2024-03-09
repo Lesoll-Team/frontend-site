@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import Rent from "./Rent";
 import Sale from "./sale/Sale";
 import CashAndInstallment from "./sale/CashAndInstallment";
-import PhoneNumber from "../PhoneNumber";
+// import PhoneNumber from "../PhoneNumber";
 
 const AddPropertyPrice = ({
   errors,
@@ -16,8 +16,8 @@ const AddPropertyPrice = ({
   append,
   remove,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  // const language = useSelector((state) => state.GlobalState.languageIs);
+  // const userInfo = useSelector((state) => state.userProfile.userData);
 
   const renderPrice = () => {
     switch (watch("offer")) {
@@ -69,13 +69,13 @@ const AddPropertyPrice = ({
         </AddPropSectionContainer>
       )}
 
-      <PhoneNumber
+      {/* <PhoneNumber
         clearErrors={clearErrors}
         errors={errors}
         register={register}
         watch={watch}
         setValue={setValue}
-      />
+      /> */}
     </>
   );
 };
