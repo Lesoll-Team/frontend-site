@@ -10,9 +10,6 @@ import searchingReducer from "./features/searchingSlice";
 import profileReducer from "./features/profileSlice";
 import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
-import needsReducer from "./features/needsSlice";
-import needPostReducer from "./features/needsFeedSlice";
-import faqReducer from "./features/faqSlice";
 import registerReducer from "./features/auth/registerSlice";
 import userProfileReducer from "./features/auth/userProfileSlice";
 import loginReducer from "./features/auth/loginSlice";
@@ -40,9 +37,6 @@ export default combineReducers({
   OverView: overViewReducer,
   Searching: searchingReducer,
   Profile: profileReducer,
-  needs: needsReducer,
-  needsPosts: needPostReducer,
-  faq: faqReducer,
   register: registerReducer,
   login: loginReducer,
   userProfile: userProfileReducer,

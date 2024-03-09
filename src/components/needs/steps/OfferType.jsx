@@ -1,7 +1,6 @@
 import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
-import { useDispatch, useSelector } from "react-redux";
-import { setOffer, setStep } from "@/redux-store/features/needsSlice";
+import { useSelector } from "react-redux";
 
 const OfferType = ({ setValue, setStep }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
