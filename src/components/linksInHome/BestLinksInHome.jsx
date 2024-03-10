@@ -24,7 +24,7 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between  border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
-          <h6 className=" font-bold ">
+          <h6 className=" font-bold text-[16px]">
             {language
               ? "الكلمات الأكثر استخداما"
               : "Most frequently used words"}
@@ -45,7 +45,7 @@ function BestLinksInHome({
             //ustify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
-              <p className="text-gray2 line-clamp-1  font-bold ">
+              <p className="text-gray2 text-[14px] line-clamp-1   ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
@@ -78,7 +78,7 @@ function BestLinksInHome({
             //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
-              <p className="text-gray2 line-clamp-1 font-bold">
+              <p className="text-gray2 text-[14px] line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
@@ -111,7 +111,7 @@ function BestLinksInHome({
             // justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
-              <p className="text-gray2 line-clamp-1 font-bold">
+              <p className="text-gray2 text-[14px] line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
@@ -144,7 +144,7 @@ function BestLinksInHome({
             //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1">
-              <p className="text-gray2 font-bold line-clamp-1 ">
+              <p className="text-gray2 text-[14px] line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
