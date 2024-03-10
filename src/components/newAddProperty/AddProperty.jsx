@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
 import { DotPulse, Ring, Wobble } from "@uiball/loaders";
+import { scrollToTop } from "@/utils/scrollToTop";
 // import AdminAddProperty from "../admin-add-property/AdminAddProperty";
 const AddProperty = () => {
   const {
@@ -50,69 +51,135 @@ const AddProperty = () => {
       setSended(true);
       dispatch(resetAddProp());
       setStep(1);
+      scrollToTop();
     }
   }, [formStatus]);
   // const addNewwProp = () => {
   //   setSended(false);
   // };
+
+  const submitBtnText = useMemo(() => {
+    const isInvestment = watch("offer") === "For Investment";
+    if (isInvestment) {
+      if (step < 3) {
+        return language ? "التالى" : "next";
+      } else {
+        return language ? "اضف عقارك" : "Add your property";
+      }
+    } else {
+      if (step < 4) {
+        return language ? "التالى" : "next";
+      } else {
+        return language ? "اضف عقارك" : "Add your property";
+      }
+    }
+  }, [step, language]);
   const renderStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <AddPropMainInfo
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
-      case 2:
-        return (
-          <AddPropertyPrice
-            fields={fields}
-            append={append}
-            remove={remove}
-            control={control}
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+    const isInvestment = watch("offer") === "For Investment";
+    if (isInvestment) {
+      switch (step) {
+        case 1:
+          return (
+            <AddPropMainInfo
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        case 2:
+          return (
+            <AddPropDetails
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
 
-      case 3:
-        return (
-          <AddPropDetails
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
-      case 4:
-        return (
-          <PropertyImages
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+        case 3:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
 
-      default:
-        return (
-          <PropertyImages
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+        default:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+      }
+    } else {
+      switch (step) {
+        case 1:
+          return (
+            <AddPropMainInfo
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        case 2:
+          return (
+            <AddPropertyPrice
+              fields={fields}
+              append={append}
+              remove={remove}
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+
+        case 3:
+          return (
+            <AddPropDetails
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        case 4:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+
+        default:
+          return (
+            <PropertyImages
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+      }
     }
   };
   // const errorSubmit = useSelector((state) => state.addProperty.error);
@@ -146,6 +213,7 @@ const AddProperty = () => {
                 <Button
                   disabled={formStatus === "loading"}
                   onClick={() => {
+                    scrollToTop();
                     setStep((prev) => prev - 1);
                   }}
                   variant="bordered"
@@ -163,16 +231,8 @@ const AddProperty = () => {
               >
                 {formStatus === "loading" ? (
                   <Ring size={28} color="#fff" />
-                ) : step > 3 ? (
-                  language ? (
-                    "أضف عقارك"
-                  ) : (
-                    "Add your property"
-                  )
-                ) : language ? (
-                  "التالى"
                 ) : (
-                  "Next"
+                  submitBtnText
                 )}
               </Button>
             </div>

@@ -25,12 +25,16 @@ export async function getServerSideProps({ query }) {
       },
     };
   } catch (error) {
-    throw error.response.data;
+    // console.log();
+    if (error.response.status == 400) {
+      return {
+        props: {
+          keyword: keyword,
+          data: { getAllData: [] },
+        },
+      };
+    } else {
+      throw error.response.data;
+    }
   }
-
-  return {
-    props: {
-      keyword,
-    },
-  };
 }

@@ -15,6 +15,7 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         <h3 className="text-xl">{language ? "المساحة " : "Space"}</h3>
         <input
           type="text"
+          inputMode="numeric"
           {...register("area", {
             required: {
               value: true,

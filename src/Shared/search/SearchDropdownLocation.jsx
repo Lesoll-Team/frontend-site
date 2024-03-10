@@ -63,7 +63,7 @@ export function SearchDropdownLocation({
 
   const handleSearch = useCallback(
     (e) => {
-      fetchGovernoratesData();
+      // fetchGovernoratesData();
       const term = e.target.value;
       setSearchTerm(term);
       setClearDefault(false);

@@ -93,7 +93,7 @@ const DropDown = ({
       </button>
       {menuIsOpen && (
         <div
-          className={`absolute fade-in border z-50 w-[70%] md:w-[50%] top-10 bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px] ${
+          className={`absolute fade-in border z-50 w-full top-10 bg-white duration-200 drop-shadow-xl overflow-y-auto rounded-md max-h-[300px] ${
             language ? "left-0" : "right-0"
           }`}
         >
@@ -109,7 +109,7 @@ const DropDown = ({
                     handleOptionClick(option);
                   }
                 }}
-                className={`dropdown-option text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
+                className={`dropdown-option text-lg w-full text-start  font-semibold text-darkGray py-2 px-5 md:px-8 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
                   focusedOptionIndex === i && "bg-gray-200"
                 }`}
               >

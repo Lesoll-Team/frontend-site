@@ -54,6 +54,7 @@ const Sale = ({
         <h3 className="text-xl">{language ? " سعر الوحدة" : " Unit price"}</h3>
         <div className="relative">
           <input
+            inputMode="numeric"
             autoComplete="off"
             type="text"
             {...register("price", {
@@ -123,7 +124,7 @@ const Sale = ({
         />
       </div>
       {/* {watch("saleOption.value").length === 1 && watch("saleOption")} */}
-      {watch("saleOption.value").length < 2 && selectedSaleOption()}
+      {watch("saleOption.value")?.length < 2 && selectedSaleOption()}
     </>
   );
 };

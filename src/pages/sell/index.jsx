@@ -3,16 +3,13 @@ import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import UserTypeForm from "@/components/addproperty/userTypeForm/UserTypeForm";
-import NotSignedScreen from "@/components/addproperty/NotSignedScreen";
 import AddProperty from "@/components/newAddProperty/AddProperty";
 const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
 
   return (
     // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
-    <div className=" ">
+    <>
       <Head>
         <title>
           {language
@@ -25,19 +22,10 @@ const index = () => {
         />
         <link rel="canonical" href={`https://lesoll.com/sell`} />
       </Head>
-      {/* // <div className=""> */}
-      {userInfo ? (
-        userInfo?.typeOfUser !== "normal" ? (
-          <AddProperty />
-        ) : (
-          <UserTypeForm />
-        )
-      ) : (
-        <NotSignedScreen />
-      )}
+      <AddProperty />
       {/* <AddProperty />
       ad */}
-    </div>
+    </>
   );
 };
 

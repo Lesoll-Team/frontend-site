@@ -6,7 +6,7 @@ import BlogsHeader from "./BlogsHeader";
 
 const BlogFeed = ({ blogs, keyword }) => {
   const userData = useSelector((state) => state.userProfile.userData);
-  console.log(userData);
+
   return (
     <div className="flex flex-col md:gap-y-[80px] mb-10">
       <BlogsHeader />

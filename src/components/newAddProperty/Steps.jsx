@@ -10,14 +10,22 @@ const Steps = ({ step = 1, setStep, watch }) => {
   const isStepAboveOne = step > 1;
   const isStepAboveTwo = step > 2;
   const isStepAboveThree = step > 3;
-
+  const detailsStepLogic = () => {
+    if (isForInvestment) {
+      if (step > 2) {
+        return "button";
+      } else {
+        return "submit";
+      }
+    }
+  };
   return (
     <div className="w-full md:w-[80%] mx-auto space-y-2 ">
       <div className="flex justify-between items-center mb-16">
         {/* Main Info Step */}
-        <button
+        <div
           type="button"
-          onClick={() => setStep(1)}
+          // onClick={() => setStep(1)}
           className="relative text-center "
         >
           <Image
@@ -37,7 +45,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
               "Main Info"
             )}
           </p>
-        </button>
+        </div>
 
         {/* Horizontal line separating steps */}
         <hr
@@ -50,12 +58,13 @@ const Steps = ({ step = 1, setStep, watch }) => {
         {/* Conditional rendering based on offer type */}
         {!isForInvestment && (
           <>
-            <button
-              onClick={() => {
-                if (isStepAboveOne) {
-                  setStep(1);
-                }
-              }}
+            <div
+              // onClick={() => {
+              //   if (isStepAboveOne) {
+              //     setStep(1);
+              //   }
+              // }}
+              type="button"
               className="relative "
             >
               <Image
@@ -78,7 +87,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
               >
                 {language ? "السعر" : "Price"}
               </p>
-            </button>
+            </div>
             {/* Horizontal line separating steps */}
             <hr
               className={`h-1 w-[30%] ${
@@ -89,13 +98,15 @@ const Steps = ({ step = 1, setStep, watch }) => {
         )}
 
         {/* Details Step */}
-        <button
+        <div
+          // type={detailsStepLogic()}
+          // onClick={() => {
+          //   if (isForInvestment) {
+          //     console.log(step);
+          //     step > 1 && setStep(2);
+          //   }
+          // }}
           type="button"
-          onClick={() => {
-            if (isStepAboveTwo) {
-              setStep(3);
-            }
-          }}
           className="relative "
         >
           <Image
@@ -122,7 +133,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
           >
             {language ? "التفاصيل" : "Details"}
           </p>
-        </button>
+        </div>
         {/* Horizontal line separating steps */}
         <hr
           className={`h-1 ${isForInvestment ? " w-[48%]" : " w-[30%]"} ${
