@@ -35,16 +35,16 @@ const ButtonsRooms = () =>
     };
 
     return (
-      <div className="flex bg-[#F8F8F8] gap-y-[10px] flex-col p-1 gap-x-[1.5vw]">
-        <div className="flex w-full flex-col   gap-x-2">
+      <div className="flex bg-[#F8F8F8] gap-y-[2vh] flex-col p-[1.5vw] ">
+        <div className="flex w-full flex-col gap-y-[1.5vh]">
           <span className="font-bold text-gray2">
             {language ? "عدد الغرف" : "Bedrooms"}
           </span>
 
-          <div className="p-1 flex gap-x-[14px] ">
+          <div className=" flex gap-x-[0.78vw] ">
             {Array.from(Array(7), (_, i) => (
               <button
-                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[1vw]  
+                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]  
                              transition-colors duration-200 ease-in-out md:hover:bg-gray-200 md:active:bg-gray-300
                              ${
                                numBedrooms == i + 1
@@ -59,15 +59,15 @@ const ButtonsRooms = () =>
             ))}
           </div>
         </div>
-        <div className="flex w-full flex-col  gap-x-2">
+        <div className="flex w-full flex-col gap-y-[1.5vh]">
           <span className="font-bold text-gray2">
             {language ? "عدد الحمامات" : "Bathrooms"}
           </span>
 
-          <div className="p-1 flex gap-x-[14px] ">
+          <div className=" flex gap-x-[0.78vw] ">
             {Array.from(Array(7), (_, i) => (
               <button
-                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[1vw]  
+                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]  
                              transition-colors duration-200 ease-in-out md:hover:bg-gray-200 md:active:bg-gray-300
                              ${
                                numBathrooms == i + 1

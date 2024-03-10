@@ -17,8 +17,7 @@ import ConfirmModule from "./shared/ConfirmModule";
 const SidebarAndBarFilter = ({ result, page }) => {
   const router = useRouter();
   /***start init state BarFilter Components*/
-  // const [categoryTypeKey, setCategoryTypeKey] = useState("");
-  // const [unitTypesKey, setUnitTypesKey] = useState("");
+
   const [locationGovernorate, setLocationGovernorate] = useState("");
   const [locationRegion, setLocationRegion] = useState("");
 
@@ -27,7 +26,6 @@ const SidebarAndBarFilter = ({ result, page }) => {
   const [isSaveed, setIsSaveed] = useState(false);
   const [messageConfirmed, setMessageConfirmed] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // const [clickOnTap, setClickOnTap] = useState(false);
   const { sort, openFilter } = useSelector((state) => state.Category);
 
   useEffect(() => {
@@ -101,7 +99,7 @@ const SidebarAndBarFilter = ({ result, page }) => {
         />
       </div> */}
       {/*title & save and filter button*/}
-      <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[20px] gap-y-[10px]">
+      <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
         {/*title filter page */}
         <div className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[25px] text-[14px]">
           {language
@@ -156,7 +154,7 @@ const SidebarAndBarFilter = ({ result, page }) => {
       {/*cards result  */}
       <div
         className="  md:container mx-[10px] md:mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
-      gap-x-5 gap-y-3 md:gap-y-16 mt-5 md:mt-12 "
+      gap-x-5 gap-y-3 md:gap-y-16  "
       >
         {result?.categoryResults?.map((property) => (
           <RealtyCard key={property._id} propertyDetails={property} />
