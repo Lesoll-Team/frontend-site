@@ -30,8 +30,8 @@ const SocialMedia = () => {
     },
     {
       icon: <BsTwitterX className={stylesIconsX} />,
-      link: "https://wa.me/+201032362898",
-      title: "WhatsApp",
+      link: "https://twitter.com/LesollRealstate",
+      title: "twitter",
       id: 4,
     },
   ];

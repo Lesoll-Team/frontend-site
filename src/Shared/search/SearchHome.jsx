@@ -23,21 +23,19 @@ export function SearchBarHome() {
     // keyword: keywords,
   };
 
-  // /**
-  //  * @function handleSubmitSearch got to searching page with input search
-  //  * @param filteredKeywords make filter "InputKeywords" just get value is equal data
-  //  * @param queryString make "filteredKeywords" to query text
-  //  */
+  /**
+   * @function handleSubmitSearch got to searching page with input search
+   * @param filteredKeywords make filter "InputKeywords" just get value is equal data
+   * @param queryString make "filteredKeywords" to query text
+   */
   const handleSubmitSearch = (e) => {
     e?.preventDefault();
-    //   //  this step make filter "InputKeywords" just get value is equal data
     const filteredKeywords = Object.fromEntries(
       Object.entries(InputKeywords).filter(
         ([_, value]) => value != null && value !== "" && value !== 0
       )
     );
 
-    //   //  this step make "filteredKeywords" to query text
     const pagesInput = Object.keys(filteredKeywords)
       .map((key) => `${filteredKeywords[key]}`)
       .join("/")
@@ -118,8 +116,6 @@ export function SearchBarHome() {
                 md:py-[16px] py-[20px] md:px-[25px] px-[20px]
                 md:h-[112px]
            `}
-        //h-[257px] md:h-[130px]
-        //md:gap-y-[0px] gap-y-[28px]
       >
         {/*search box */}
         <div className="flex  flex-col md:w-6/12 w-full gap-y-[5px] md:gap-y-[8px]    ">
@@ -140,32 +136,19 @@ export function SearchBarHome() {
           </div>
         </div>
         {/*search with location */}
-        {/**flex flex-col md:w-[52px]  w-full min-h-[63px] md:h-full */}
+
         <div className=" flex flex-col md:w-4/12 w-full gap-y-[5px] md:gap-y-[8px]   ">
           <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
             {languageIs ? "بحث بالمنطقة" : "Search by area"}
           </h6>
           <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
             <SearchDropdownLocation
-              // defaultGovernorate={filterData.governorate}
-              // defaultRegion={filterData.region}
               setLocationGovernorate={setLocationGovernorate}
               setLocationRegion={setLocationRegion}
             />
             <IoIosArrowDown
               className={`text-[#656565]  md:text-3xl text-xl duration-150 `}
             />
-            {/* <input
-              type="text"
-              placeholder={
-                languageIs
-                  ? "بحث : بالكلمات المميزة ."
-                  : "Search by special words..."
-              }
-              autoComplete="off"
-              className=" rounded-[1vw] w-full font-inter h-full  text-black   active:outline-none indent-1 hover:outline-none focus:outline-none"
-            /> */}
-            {/* <AiOutlineSearch className="text-grayText md:w-[2vw] md:h-[2vw] w-[3vw] h-[3vw]" /> */}
           </div>
         </div>
 

@@ -5,7 +5,7 @@ import BlogDashboard from "@/components/dashboard/router/BlogDashboard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import Head from "next/head";
 function Blog() {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
   useEffect(() => {
     if (userInfo && userInfo.isAdmin === false && userInfo.supAdmin === false) {

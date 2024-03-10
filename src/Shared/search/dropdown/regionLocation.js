@@ -1,5 +1,4 @@
 export const regionData = [
-  // القاهرة
   {
     _id: { $oid: "647bc9a420ad51d2b74a51bf" },
     number: "1",
@@ -118,6 +117,41 @@ export const regionData = [
     governorate_number: "1",
     city_name_ar: "القاهرة الجديدة",
     city_name_en: "New Cairo",
+  },
+  {
+    _id: { $oid: "65bbb3541f38895ebe287769" },
+    number: "17",
+    governorate_number: "1",
+    city_name_ar: "التجمع الاول",
+    city_name_en: "1st Settlement",
+  },
+  {
+    _id: { $oid: "65bbb3541f38895ebe287770" },
+    number: "17",
+    governorate_number: "1",
+    city_name_ar: "التجمع الثاني",
+    city_name_en: "2nd Settlement",
+  },
+  {
+    _id: { $oid: "65bbb3541f38895ebe287771" },
+    number: "17",
+    governorate_number: "1",
+    city_name_ar: "التجمع الثالث",
+    city_name_en: "3rd Settlement",
+  },
+  {
+    _id: { $oid: "65bbb3541f38895ebe287772" },
+    number: "17",
+    governorate_number: "1",
+    city_name_ar: "التجمع الرابع",
+    city_name_en: "4th Settlement",
+  },
+  {
+    _id: { $oid: "65bbb3541f38895ebe287773" },
+    number: "17",
+    governorate_number: "1",
+    city_name_ar: "التجمع الخامس",
+    city_name_en: "5th Settlement",
   },
   {
     _id: { $oid: "6422f15f5ea4b41021854d61" },
