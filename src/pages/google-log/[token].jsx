@@ -1,4 +1,4 @@
-import SelectBtn from "@/components/addproperty/userTypeForm/SelectBtn";
+import SelectBtn from "@/components/userTypeForm/SelectBtn";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +23,6 @@ function index() {
   const phone = router.query.phone;
   const type = router.query.type;
 
-
   useEffect(() => {
     if (type !== "normal") {
       setUserType(type);
@@ -47,7 +46,7 @@ function index() {
           language
             ? setMessageError("يجب عليك تحديد من انت أولاً")
             : setMessageError("You must define who you are first");
-          return; 
+          return;
         } else {
           setMessageError(null);
         }
@@ -61,7 +60,7 @@ function index() {
             : setMessageError(
                 "You must enter a phone number so that you can communicate and be contacted"
               );
-          return; 
+          return;
         } else {
           setMessageError(null);
         }
@@ -165,4 +164,3 @@ function index() {
   );
 }
 export default index;
-

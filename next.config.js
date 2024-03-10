@@ -5,6 +5,9 @@ module.exports = async () => {
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
+    images: {
+      domains: ["cloud.lesoll.com", "lh3.googleusercontent.com"],
+    },
     /* config options here */
     async redirects() {
       return [

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import { BsArrowUpShort } from "react-icons/bs";
 
 function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,19 +28,6 @@ function ScrollToTopButton() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // const buttonStyle = {
-  //   position: "fixed",
-  //   bottom: "20px",
-  //   right: "20px",
-  //   display: isVisible ? "block" : "none",
-  //   background: "#007BFF",
-  //   color: "#fff",
-  //   padding: "10px 20px",
-  //   border: "none",
-  //   borderRadius: "5px",
-  //   cursor: "pointer",
-  // };
 
   return (
     <>

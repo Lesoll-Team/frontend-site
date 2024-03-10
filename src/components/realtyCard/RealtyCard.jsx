@@ -1,29 +1,27 @@
-import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
-import { Image } from "@nextui-org/react";
+// import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BiSolidBed } from "react-icons/bi";
-import { FaBath } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { TbRulerMeasure } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import PriceAndSocial from "./basic-body-card/PriceAndSocial";
+import TitleCard from "./basic-body-card/TitleCard";
+import LocationAndRooms from "./basic-body-card/LocationAndRooms";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const userInfo = useSelector((state) => state.userProfile.userData);
+
+  // const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
   const [loved, setLoved] = useState(false);
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
-      dispatch(fetchUserData());
-
-      // Handle success (e.g., show a success message)
+      dispatch(getUserData());
     } catch (error) {
-      // Handle error (e.g., display an error message)
       console.error("Error add to fav :", error);
     }
   };
@@ -34,145 +32,73 @@ const RealtyCard = ({ propertyDetails }) => {
     }
   }, [userInfo?.favorites]);
   return (
-    <div className="w-[330px] h-[448px] overflow-hidden  bg-white drop-shadow-md rounded-xl relative">
-      <div className="flex items-center justify-between absolute  top-10">
-        {/* <div className=" bg-white  top-9 text-sm w-20 text-center px-2 py-1  rounded-r-full">
-          <span>views</span> <span>{propertyDetails?.users.views.length}</span>
-        </div> */}
+    <div //md:w-[380px] 2xl:w-[400px]  w-full
+      className=" md:max-w-[400px]
+      md:h-[355px] h-[145px] 
+     flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative"
+    >
+      {/* start icon favorite */}
+      <div className="flex absolute md:mt-[16px] m-[10px] md:mr-[20px]">
         {userInfo && (
-          <div className="z-[10000] bg-white  drop-shadow-md flex items-center  mx-2  text-2xl rounded-full h-10 w-10 text-center px-2 py-1 cursor-pointer  ">
-            {userInfo ? (
-              loved ? (
+          <div
+            className=" bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center 
+            md:text-2xl text-md rounded-full  text-center  cursor-pointer  "
+          >
+            {userInfo &&
+              (loved ? (
                 <AiFillHeart
                   className="text-red-500 animate-appearance-in"
                   onClick={() => {
                     addToFAv();
-
                     setLoved(!loved);
                   }}
                 />
               ) : (
                 <AiOutlineHeart
-                  className="text-red-500 animate-appearance-in"
+                  className="text-black animate-appearance-in"
                   onClick={() => {
                     addToFAv();
                     setLoved(!loved);
                   }}
                 />
-              )
-            ) : (
-              ""
-            )}
-            {/* <AiFillHeart className="text-red-500"  /> */}
+              ))}
           </div>
         )}
       </div>
-      <div className="">
-        <Link
-          title={`${propertyDetails?.title}`}
-          key={propertyDetails?._id}
-          href={`/property-details/${propertyDetails?.slug}`}
-          className="w-full"
-        >
-          <Image
-            alt="Card background"
-            radius="none"
-            className="object-cover w-[330px]  h-[265px]"
-            src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
-          />
-        </Link>
-      </div>
-      <div className="space-y-3 p-5">
-        <div className="flex flex-row items-center  justify-between">
-          {propertyDetails?.offer !== "For Investment" && (
-            <p className=" font-bold text-darkGreen text-lg">
-              <span>
-                {language
-                  ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
-                  : parseInt(propertyDetails?.price).toLocaleString()}{" "}
-              </span>
-              {language ? "جنية" : "EGP"}
-            </p>
-          )}
-          <p className="text-md    uppercase font-semibold">
-            {" "}
-            {propertyDetails?.offer === "For Sale"
-              ? language
-                ? "للبيع"
-                : "For Sale"
-              : propertyDetails?.offer === "For Rent"
-              ? language
-                ? "للإيجار"
-                : "For Rent"
-              : language
-              ? "للإستثمار"
-              : "For Investment"}
-          </p>
-        </div>
-        <Link
-          title={`${propertyDetails?.title}`}
-          key={propertyDetails?._id}
-          href={`/property-details/${propertyDetails?.slug}`}
-          className="w-full"
-        >
-          <h4 className="font-semibold text-large line-clamp-1 ">
-            {propertyDetails?.title}
-          </h4>
-        </Link>
-        <p className="flex items-center gap-1 line-clamp-1">
-          <FaLocationDot className="text-lightOrange font-bold" />{" "}
-          <span className="line-clamp-1">
-            {`${propertyDetails?.address?.governrate}${
-              propertyDetails?.address?.region && " ,"
-            }${
-              propertyDetails?.address?.region &&
-              propertyDetails?.address?.region
-            }`}
-          </span>
-        </p>
 
-        <div className="w-full h-[2px] bg-slate-100 rounded-full"></div>
-        <div className=" text-darkGray w-full  flex  justify-between ">
-          <div className="flex items-center justify-start gap-1">
-            {" "}
-            <BiSolidBed className="text-xl " />{" "}
-            <p className=" font-semibold text-darkGray">
-              {language
-                ? propertyDetails?.rooms.toLocaleString("ar-Eg")
-                : propertyDetails?.rooms.toLocaleString()}{" "}
-              {language ? "غرف" : "Rooms"}
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            {" "}
-            <FaBath className="text-xl " />{" "}
-            <p className=" font-semibold text-darkGray">
-              {language
-                ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
-                : propertyDetails?.bathRooms.toLocaleString()}{" "}
-              {language ? "حمام" : "Bath"}
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            {" "}
-            <TbRulerMeasure className="text-l " />{" "}
-            <p className=" font-semibold text-darkGray">
-              {language
-                ? propertyDetails?.area.toLocaleString("ar-Eg")
-                : propertyDetails?.area.toLocaleString()}{" "}
-              {language ? (
-                <span>
-                  م<sup>2</sup>
-                </span>
-              ) : (
-                <span>
-                  m<sup>2</sup>
-                </span>
-              )}
-            </p>
-          </div>
-        </div>
+      {/* start Image */}
+      <Link
+        title={`${propertyDetails?.title}`}
+        key={propertyDetails?._id}
+        href={`/property-details/${propertyDetails?.slug}`}
+        className="
+         md:h-[174px] h-[145px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
+      >
+        <Image
+          alt="Card background"
+          radius="none"
+          className=" flex object-cover  
+          "
+          priority
+          // className="flex  md:h-[174px] h-[135px]"
+          width={400}
+          height={174}
+          src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}
+        />
+      </Link>
+
+      {/* start card data */}
+      <div className=" md:p-[20px]   p-3 w-full h-full flex flex-col md:gap-y-[16px] gap-y-[6px]">
+        {/* start contact and price */}
+        <PriceAndSocial propertyDetails={propertyDetails} />
+
+        {/* start title */}
+        <TitleCard propertyDetails={propertyDetails} />
+
+        {/* start location and details rooms ...etc*/}
+        <LocationAndRooms propertyDetails={propertyDetails} />
       </div>
+      {/* end card data */}
     </div>
   );
 };

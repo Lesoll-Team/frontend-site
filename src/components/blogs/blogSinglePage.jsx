@@ -1,79 +1,82 @@
 import React from "react";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Image,
-} from "@nextui-org/react";
+
 import { useSelector } from "react-redux";
 import styles from "../../styles/blogs.module.css";
-import Link from "next/link";
+import Image from "next/image";
+import SimilarBlogs from "./SimilarBlogs";
 
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
+  const formattedDate = (dateString, language) => {
+    const date = new Date(dateString);
+    const locale = language ? "ar-EG" : "en-US";
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = date.toLocaleDateString(locale, options);
+    return formattedDate;
+  };
+
   return (
-    <div>
-      <Card className=" shadow-none p-5">
-        <CardBody className=" ">
-          <Image
-            radius="lg"
-            width="100%"
-            alt={"item.title"}
-            className="w-full h-[450px] object-cover"
-            src={BlogData.getBlogs.BlogImage}
-          />
-        </CardBody>
-        <CardHeader className="">
-          <h1 className="overflow-hidden text-lightGreen sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl">
+    <div className="py-10 md:container md:mx-auto mx-[20px]">
+      <div className="relative ">
+        <Image
+          width={500}
+          height={100}
+          alt={BlogData.getBlogs.title.ar}
+          className="w-full h-[381px] object-cover md:mb-[80px] mb-[10px] brightness-50"
+          src={BlogData.getBlogs.BlogImage}
+          priority
+        />
+        <div className="absolute flex items-center justify-center top-0 w-full h-[381px] ">
+          <h1 className="overflow-hidden text-white sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl">
             {language ? BlogData.getBlogs.title.ar : BlogData.getBlogs.title.en}
           </h1>
-        </CardHeader>
+        </div>
+      </div>
 
-        <CardFooter className="flex flex-col">
+      <div className=" grid grid-cols-1 md:gap-x-[73px] md:grid-cols-3 ">
+        <div className="md:row-start-1 md:pt-0 pt-[40px] row-start-2 col-span-1">
+          <div className="sticky top-24 ">
+            <div className="flex flex-col gap-y-[20px] ">
+              <div className="flex flex-col md:gap-y-[0.8vw] xl:gap-y-[0.5vw] gap-y-[0.5vw] ">
+                <span className="text-[14px] md:block hidden md:text-[18px]">
+                  {formattedDate(BlogData?.getBlogs.createdAt, language)}
+                </span>
+                <span className="text-[16px] md:text-[20px]">
+                  {language ? "مقالات مشابهة" : "Similar Blogs"}
+                </span>
+                <div className="relative w-full">
+                  <hr className="border-t-2 w-full absolute  border-[#cccccc] " />
+                  <hr className="border-t-2 w-5/12 absolute  border-lightGreen " />
+                </div>
+              </div>
+              <SimilarBlogs blog={BlogData?.mostVisit} />
+            </div>
+          </div>
+        </div>
+        <div className="w-full col-span-2  ">
+          <span className="text-[14px] md:hidden block pb-2  text-gray1 md:text-[18px]">
+            {language
+              ? `بتاريخ : ${formattedDate(
+                  BlogData?.getBlogs.createdAt,
+                  language
+                )}`
+              : `Date : ${formattedDate(
+                  BlogData?.getBlogs.createdAt,
+                  language
+                )}`}
+          </span>
           <div
             dir={language ? "rtl" : "ltr"}
-            className={`text-md sm:text-lg text-darkGray sm:px-10 px-0  ${styles.genericDiv}`}
+            className={` text-md sm:text-lg text-darkGray font-inter  ${styles.genericDiv}`}
             dangerouslySetInnerHTML={
               language
                 ? { __html: BlogData.getBlogs.description.ar }
                 : { __html: BlogData.getBlogs.description.en }
             }
           />
-          <div className="mt-8 w-full px-10">
-          <p >
-            يمكنك التواصل مع فريقنا المتخصص من خلال كل وسائل التواصل المتاحة
-            عبر:
-          </p>
-
-          <div className="flex gap-x-4 mt-3">
-            <Link href="https://wa.me/+201032362898">
-              <img
-                src="https://img.icons8.com/?size=50&amp;id=16713&amp;format=png"
-                width="35px"
-                alt="whats app icon"
-              />
-            </Link>
-            <Link href="mailto: Info@Lesoll.com">
-              <img
-                src="https://img.icons8.com/?size=50&amp;id=OumT4lIcOllS&amp;format=png"
-                width="35px"
-                alt="mail icon"
-              />
-            </Link>
-
-            <Link href="https://facebook.com/LesollRealestate/" target="_blank">
-              <img
-                src="https://img.icons8.com/?size=50&amp;id=118497&amp;format=png"
-                width="35px"
-                alt="facebook icon"
-              />
-            </Link>
-          </div>
-          </div>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

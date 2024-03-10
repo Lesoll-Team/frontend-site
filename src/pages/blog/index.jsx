@@ -1,35 +1,35 @@
-import BlogsInPage from "@/components/blogs/blogsInPage";
-import Head from "next/head";
-import React from "react";
-import { getAllBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
-import { useSelector } from "react-redux";
-function Blog({ blogs }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  return (
-    <div className="  mx-auto  p-10">
-      <Head>
-        <title>{language?"المقالات":"Blogs"}</title>
-        <meta
-          name="description"
-          content="استكشف مقالاتنا في مجال العقارات لقراءة مقالات مفيدة ونصائح وأدلة. ابقى على اطلاع دائم بشأن اتجاهات السوق، ونصائح شراء المنازل، واستراتيجيات الاستثمار، والمزيد. اكتشف معلومات قيمة لمساعدتك في اتخاذ قرارات مستنيرة في عالم العقارات."
-        />
-        <link rel="canonical" href="https://lesoll.com/blog" />
-      </Head>
-      <div className="py-20">
-        <h1 className="text-7xl text-lightGreen  ">
-          {language ? "المقالات" : "Blogs"}
-        </h1>
-      </div>
-      <BlogsInPage blogData={blogs} />
-    </div>
-  );
-}
-export default Blog;
+import BlogFeed from "@/components/newBlogs/BlogFeed";
+import axios from "axios";
 
-export async function getStaticProps() {
-  const blogs = await getAllBlogs();
+const index = ({ keyword, data }) => {
+  return <BlogFeed blogs={data} keyword={keyword} />;
+};
+export default index;
+
+export async function getServerSideProps({ query }) {
+  const keyword = query;
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/allblogs?page=${
+        keyword.page || 1
+      }&limit=${"5"}&keyword=${keyword.search || ""}&category=${
+        keyword.category || ""
+      }`
+    );
+    const data = response.data;
+    return {
+      props: {
+        keyword: keyword,
+        data: data,
+      },
+    };
+  } catch (error) {
+    throw error.response.data;
+  }
+
   return {
-    props: { blogs: blogs },
-    revalidate: 1,
+    props: {
+      keyword,
+    },
   };
 }

@@ -15,7 +15,6 @@ Disallow: /privacypolicy
 Disallow: /Privacy
 Disallow: /forgetpassword
 Disallow: /resetpassword
-Disallow: /view-profile/
 Disallow: /termsofservice
 Disallow: /need
 Disallow: /google-log

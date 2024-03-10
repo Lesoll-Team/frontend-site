@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input, Button, Image } from "@nextui-org/react";
-// import { useRouter } from "next/router";
-import { format } from "date-fns";
 
+import { format } from "date-fns";
 import {
   fetchActiveProperty,
   deleteActiveProperty,
@@ -15,6 +13,9 @@ import {
   TableRow,
   TableCell,
   Pagination,
+  Input,
+  Button,
+  Image,
 } from "@nextui-org/react";
 import { SearchIcon } from "../icon/SearchIcon";
 import { useSelector } from "react-redux";
@@ -42,7 +43,7 @@ export default function ActiveProperty() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
@@ -80,15 +81,15 @@ export default function ActiveProperty() {
     }
   };
 
-    const handleSoldOutProperty = async (propertyId) => {
-      try {
-        await propertyIsSold({propertyId});
-        setRefreshProperty(!refreshProperty);
-        await fetchAllProperties(startDate, endDate);
-      } catch (error) {
-        console.error("Error deleting property:", error);
-      }
-    };
+  const handleSoldOutProperty = async (propertyId) => {
+    try {
+      await propertyIsSold({ propertyId });
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties(startDate, endDate);
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
@@ -132,6 +133,17 @@ export default function ActiveProperty() {
   // const router = useRouter();
 
   const renderCell = useCallback((blog, columnKey) => {
+    const dropIcon = (
+      <svg
+        className="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 4 15"
+      >
+        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+      </svg>
+    );
     switch (columnKey) {
       case "address":
         return (
@@ -175,7 +187,11 @@ export default function ActiveProperty() {
             <div className="text-bold flex gap-x-3 text-medium capitalize">
               <div className="">
                 <b>Status: </b>
-                {blog?.isSold ? <b className="text-red-500">Out Sold</b> : <b className="text-success-500"> available</b>}
+                {blog?.isSold ? (
+                  <b className="text-red-500">Out Sold</b>
+                ) : (
+                  <b className="text-success-500"> available</b>
+                )}
               </div>
             </div>
           </div>
@@ -204,8 +220,8 @@ export default function ActiveProperty() {
         );
       case "actions":
         return (
-          <div className="flex min-w-[250px] max-w-[300px]">
-            <div className="w-full  ">
+          <div className="   flex max-w-[300px] w-[300px] min-w-[300px] justify-around">
+            <div className="w-9/12">
               <p className="text-bold line-clamp-1   text-medium ">
                 <b>Name:</b>
                 {blog.user[0]?.fullname || "Empty"}
@@ -216,8 +232,8 @@ export default function ActiveProperty() {
                 <span>{blog.user[0]?.phone || "Empty"}</span>
               </div>
             </div>
-            <div className="mx-5">
-              <DropdownAction>
+            <div className=" ">
+              <DropdownAction iconIs={dropIcon}>
                 <ItemDropdown
                   label={"Visit"}
                   href={`/property-details/${blog.slug}`}
@@ -304,23 +320,35 @@ export default function ActiveProperty() {
             </form>
             <div className=" flex justify-center flex-wrap mt-3">
               <div className="flex  mx-2 items-center">
-                <label className="font-semibold  text-white mx-1">From:</label>
+                <label
+                  htmlFor="FromDatePicker"
+                  className="font-semibold  text-white mx-1"
+                >
+                  From:
+                </label>
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select start date"
                   className="w-full border-1 rounded-lg indent-2 h-9"
+                  id="FromDatePicker"
                 />
               </div>
               <div className="flex  mx-2 items-center">
-                <label className="font-semibold  text-white mx-1">End:</label>
+                <label
+                  htmlFor="EndDatePicker"
+                  className="font-semibold  text-white mx-1"
+                >
+                  End:
+                </label>
                 <DatePicker
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select end date"
                   className="w-full border-1 rounded-lg indent-2 h-9"
+                  id="EndDatePicker"
                 />
               </div>
             </div>
@@ -329,7 +357,7 @@ export default function ActiveProperty() {
         <div className="flex justify-center">
           <div className="flex w-full md:w-8/12 justify-between">
             <span className="text-default-400 text-small">
-              Total property Active:
+              Total property Active:{" "}
               <b className="text-lightOrange mx-2">{propertyLengthAPI}</b>
             </span>
             <label className="flex items-center text-default-400 text-small">

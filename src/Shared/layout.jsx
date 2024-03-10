@@ -1,13 +1,14 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
-import { fetchUserData } from "@/redux-store/features/globalState";
+import { setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
 import { useEffect } from "react";
 import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -23,27 +24,27 @@ export default function Layout({ children }) {
       localStorage.setItem("local_storage_device_id", userKey);
     }
   }
-  // if (!localStorage.getItem("local_storage_device_id")) {
-  //   JSON.stringify(localStorage.setItem("local_storage_device_id", userKey));
-  //   // JSON.stringify(localStorage.setItem(`prompt_visit_${Math.floor(Math.random() * 10001) }`, new Date()))
-  // }
+
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchUserData());
+    if (!userData) {
+      dispatch(getUserData());
+    }
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
-
+  useEffect(() => {
+    const isItemInLocalStorage = (key) => {
+      return localStorage.getItem(key) !== null;
+    };
+    if (isItemInLocalStorage("language")) {
+      const lang = JSON.parse(localStorage.getItem("language"));
+      dispatch(setLang(lang));
+    }
+  }, []);
   return (
-    <div
-      style={{
-        minHeight: "100dvh",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      className={`globalBody bg-gradient`}
-    >
+    <div>
       <Head>
         <title>
           {language
@@ -66,8 +67,8 @@ export default function Layout({ children }) {
         />
       </Head>
       <Navbar />
-      <main dir={`${language ? "rtl" : ""}`}>{children}</main>
-      <Footer dir={`${language ? "rtl" : ""}`} />
+      <main dir={`${language && "rtl"}`}>{children}</main>
+      <Footer dir={`${language && "rtl"}`} />
       <ScrollToTopButton />
     </div>
   );

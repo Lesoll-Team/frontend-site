@@ -1,15 +1,31 @@
-import DeletedProperty from "@/components/propertyDetails/DeletedProperty";
-import PropertyDetailsMain from "@/components/propertyDetails/PropertyDetailsMain";
+import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
+import DeletedProperty from "@/components/new-prop-details/DeletedProperty";
+import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
 import axios from "axios";
 import React from "react";
 
-export default function PropertyDetails({ singleProperty, RecommendedOther }) {
+export default function PropertyDetails({
+  query,
+  singleProperty,
+  slug,
+  RecommendedOther,
+}) {
   return (
     <>
       {RecommendedOther ? (
         <DeletedProperty RecommendedOther={RecommendedOther} />
       ) : (
-        <PropertyDetailsMain singleProperty={singleProperty} />
+        <main className="  min-h-[80dvh] relative">
+          <section className="px-5 md:px-0 md:container mx-auto">
+            <NewPropDetails
+              propertyData={singleProperty}
+              slug={slug}
+              query={query}
+            />
+          </section>
+
+          <ContactLinksMobile propertyData={singleProperty} />
+        </main>
       )}
     </>
   );
@@ -20,10 +36,15 @@ export async function getServerSideProps(context) {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/property/get/property/singlepage/${context.query.id}`
     );
-
+    const all = res.data;
     const data = res.data.find;
     return {
-      props: { singleProperty: data },
+      props: {
+        singleProperty: data,
+        all,
+        slug: context.query.id,
+        query: context.query,
+      },
       // revalidate: 10,
     };
   } catch (error) {

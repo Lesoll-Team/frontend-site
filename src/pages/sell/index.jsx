@@ -1,19 +1,15 @@
-import AddProperty from "@/components/addproperty/AddProperty";
+// import AddProperty from "@/components/addproperty/AddProperty";
 import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
-import { AiFillCheckCircle } from "react-icons/ai";
-import Link from "next/link";
-import { BiSolidLogIn, BiSolidLogInCircle } from "react-icons/bi";
-import UserTypeForm from "@/components/addproperty/userTypeForm/UserTypeForm";
-import NotSignedScreen from "@/components/addproperty/NotSignedScreen";
+
+import AddProperty from "@/components/newAddProperty/AddProperty";
 const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.GlobalState.userData);
 
   return (
     // <div className="  bg-gradient-to-r from-lightGreen to-lightOrange">
-    <div className=" ">
+    <>
       <Head>
         <title>
           {language
@@ -26,19 +22,10 @@ const index = () => {
         />
         <link rel="canonical" href={`https://lesoll.com/sell`} />
       </Head>
-      {/* // <div className=""> */}
-      {userInfo ? (
-        userInfo?.typeOfUser !== "normal" ? (
-          <AddProperty />
-        ) : (
-          <UserTypeForm />
-        )
-      ) : (
-        <NotSignedScreen />
-      )}
+      <AddProperty />
       {/* <AddProperty />
       ad */}
-    </div>
+    </>
   );
 };
 

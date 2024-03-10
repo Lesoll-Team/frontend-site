@@ -20,19 +20,22 @@ export async function createNewProperty(propertyDetils) {
   }
 }
 
-export async function propertyIsSold({propertyId}) {
+export async function propertyIsSold({ propertyId }) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
-
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
     );
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 }
-
 
 export async function editProperty(propertyDetils, propertyId) {
   try {
@@ -44,7 +47,7 @@ export async function editProperty(propertyDetils, propertyId) {
       {
         headers: {
           token: userToken,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       }
     );
@@ -76,7 +79,13 @@ export async function AddToFavorites(propertyid) {
 export async function WhatsAppBtn(propertyid) {
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`
+      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`,
+      {
+        headers: {
+          token: userToken,
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
   } catch (error) {
     throw error;
