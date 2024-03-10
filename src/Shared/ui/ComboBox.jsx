@@ -125,7 +125,7 @@ const ComboBox = ({
                     onClick={() => handleOptionClick(option)}
                     type="button"
                     className={cn(
-                      `text-lg w-full text-center font-semibold text-darkGray py-2 px-3 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
+                      `text-lg w-full text-start font-semibold text-darkGray py-2 px-5 md:px-6 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
                         focusedIndex === index ? "bg-gray-200" : ""
                       }`,
                       optionStyle

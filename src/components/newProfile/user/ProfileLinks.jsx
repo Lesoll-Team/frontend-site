@@ -83,18 +83,7 @@ const ProfileLinks = ({ main }) => {
           </div>
         </>
       )}
-      {isCompany && (
-        <div className="flex flex-col gap-5">
-          <Link
-            href={"/profile/add-subuser"}
-            className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
-          >
-            <IoPersonAddOutline className="md:text-3xl" />
-            {language ? " المستخدمين" : "Users"}
-          </Link>
-          <hr />
-        </div>
-      )}
+
       <div className="flex flex-col gap-5">
         <button
           onClick={handleLogout}

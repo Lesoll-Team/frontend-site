@@ -23,7 +23,7 @@ const Notifications = () => {
     setShowMenu((prev) => !prev);
   };
   useEffect(() => {
-    if (userNotifications) {
+    if (!userNotifications) {
       dispatch(getNotifications());
     }
   }, []);
@@ -57,7 +57,7 @@ const Notifications = () => {
     <div className="flex items-center relative" ref={menuRef}>
       <button
         onClick={toggleNotification}
-        className="text-darkGray text-3xl relative"
+        className="text-darkGray text-2xl 2xl:text-3xl relative"
       >
         <IoIosNotificationsOutline />
         {userNotifications && userNotifications.length > 0 && (

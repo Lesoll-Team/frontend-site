@@ -8,7 +8,7 @@ const AcceptWithSetPassword = () => {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
   return (
     <div className="flex w-full">

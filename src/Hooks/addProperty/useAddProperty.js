@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useFromatAddData from "./useFromatAddData";
 import { useDispatch } from "react-redux";
 import { submitProperty } from "@/redux-store/features/property/addPropertySlice";
+import { scrollToTop } from "@/utils/scrollToTop";
 // import { formatApiData } from "../editProperty/fromateApiData";
 const useAddProperty = () => {
   const dispatch = useDispatch();
@@ -28,12 +29,25 @@ const useAddProperty = () => {
     name: "installment",
     control,
   });
+
   const onSubmit = handleSubmit((data) => {
-    if (step < 4) {
-      setStep(step + 1);
+    const isInvestment = watch("offer") === "For Investment";
+    if (isInvestment) {
+      if (step < 3) {
+        setStep(step + 1);
+        scrollToTop();
+      } else {
+        const { formData } = useFromatAddData(data);
+        dispatch(submitProperty(formData));
+      }
     } else {
-      const { formData } = useFromatAddData(data);
-      dispatch(submitProperty(formData));
+      if (step < 4) {
+        scrollToTop();
+        setStep(step + 1);
+      } else {
+        const { formData } = useFromatAddData(data);
+        dispatch(submitProperty(formData));
+      }
     }
   });
 

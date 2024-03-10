@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Head from "next/head";
-import { fetchUserData, setLang } from "@/redux-store/features/globalState";
+import { setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import ScrollToTopButton from "./ScrollToTopButton";
@@ -29,7 +29,6 @@ export default function Layout({ children }) {
   const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchUserData());
     if (!userData) {
       dispatch(getUserData());
     }

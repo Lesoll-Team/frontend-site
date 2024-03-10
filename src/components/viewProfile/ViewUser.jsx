@@ -4,13 +4,12 @@ import { useSelector } from "react-redux";
 import UserProperties from "./UserProperties";
 
 const ViewUser = ({ user, properties, params }) => {
-  console.log(user);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const phoneNumber = user.getUser.code + user.getUser.phone;
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: phoneNumber,
   });
-  //   console.log(phoneNumber);
+
   return (
     <div className="container mx-auto py-5 md:py-20 space-y-6 md:space-y-20">
       <div className="flex justify-between items-center flex-wrap gap-5">
@@ -45,48 +44,40 @@ const ViewUser = ({ user, properties, params }) => {
         </div>
       </div>
       <div className="space-y-6 md:space-y-8">
-        {!user.getUser.Bio && (
+        {user.getUser.Bio && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
               {language ? "عن" : "About"} {user.getUser.fullname}
             </h4>
             <p className="text-sm md:text-xl text-baseGray">
               {/* {user.getUser.Bio}{" "} */}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Blanditiis fugit perspiciatis libero saepe corrupti eius quibusdam
-              soluta culpa praesentium exercitationem expedita, possimus quia
-              minima earum unde laboriosam, voluptatum, necessitatibus vitae
-              quasi inventore cum voluptates error non. Commodi ipsa
-              necessitatibus, quia, quidem, modi inventore neque mollitia rerum
-              deleniti excepturi quis veritatis?
+              {user.getUser.Bio}
             </p>
           </div>
         )}
-        {!user.getUser?.workingHours && (
+        {user.getUser?.workingHours && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
               {language ? "مواعيد العمل" : "Working Hours"}{" "}
             </h4>
             <p className="text-sm md:text-xl text-baseGray">
               {/* {user.getUser.Bio}{" "} */}
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste
-              similique est vero, a minima, corporis molestiae voluptas error
+              {user.getUser?.workingHours}
             </p>
           </div>
         )}
-        {!user.getUser?.companyAddress && (
+        {user.getUser?.companyAddress && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
               {language ? "عنوان الشركة" : "Company Address"}{" "}
             </h4>
             <p className="text-sm md:text-xl text-baseGray">
               {/* {user.getUser.Bio}{" "} */}
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste
-              similique est vero, a minima, corporis molestiae voluptas error
+              {user.getUser?.companyAddress}
             </p>
           </div>
         )}
-        {!user.getUser?.companyAddress && (
+        {/* {!user.getUser?.companyAddress && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
               {language ? " مواقع التواصل" : "Social media"}{" "}
@@ -141,7 +132,7 @@ const ViewUser = ({ user, properties, params }) => {
               )}
             </div>
           </div>
-        )}
+        )} */}
       </div>
       <UserProperties user={user} properties={properties} params={params} />
     </div>

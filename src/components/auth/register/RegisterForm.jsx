@@ -67,7 +67,7 @@ const RegisterForm = () => {
           {language ? " إنشاء حساب" : "Sign up"}
         </h1>
 
-        <h3 className="text-xl text-darkGray">
+        {/* <h3 className="text-xl text-darkGray">
           {language ? "تفعيل الحساب بإستخدام:" : "Activate the account via:"}
         </h3>
         <div className="flex rounded-lg overflow-hidden border">
@@ -97,7 +97,7 @@ const RegisterForm = () => {
           >
             {language ? "البريد" : "Email"}
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="space-y-2">
         {/* <label htmlFor="fullname">{language ? "الإسم" : "Full Name"}</label> */}

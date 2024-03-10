@@ -131,6 +131,7 @@ const Installment = ({
                   </h3>
                   <div className="relative">
                     <input
+                      inputMode="numeric"
                       type="text"
                       {...register(`installment.${index}.period`, {
                         required: {
@@ -183,6 +184,7 @@ const Installment = ({
                   </h3>
                   <div className="relative">
                     <input
+                      inputMode="numeric"
                       type="text"
                       {...register(`installment.${index}.downPayment`, {
                         required: {
@@ -244,6 +246,7 @@ const Installment = ({
                   <div className="relative">
                     <input
                       type="text"
+                      inputMode="numeric"
                       {...register(`installment.${index}.amount`, {
                         required: {
                           value: true,
@@ -283,7 +286,6 @@ const Installment = ({
                     >
                       {egpPer(watch(`installment.${index}.type.value`))}
                     </span>
-                    {/* {console.log(errors?.installment[index])} */}
                   </div>
                   {errors?.installment &&
                     errors?.installment[index]?.amount && (

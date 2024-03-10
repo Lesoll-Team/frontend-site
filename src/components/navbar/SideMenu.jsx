@@ -58,15 +58,17 @@ const SideMenu = () => {
         <IoMdMenu className="text-2xl" />
       </button>
       {showSideMenu && (
-        <div className="absolute w-screen h-screen top-0 left-0  lg:hidden bg-white px-8 pt-4 space-y-8 overflow-auto  pb-5">
+        <div className="absolute w-screen h-screen top-0 left-0  lg:hidden  bg-white px-8 pt-4 space-y-8 overflow-auto  pb-20">
           <div className="w-full flex justify-center items-center relative ">
-            <Image
-              src={"/logo.svg"}
-              width={114}
-              height={46}
-              alt="lesoll logo"
-              className="h-[28px] w-[70px] "
-            />
+            <Link href={"/"} onClick={closeSideMenu}>
+              <Image
+                src={"/logo.svg"}
+                width={114}
+                height={46}
+                alt="lesoll logo"
+                className="h-[28px] w-[70px] "
+              />
+            </Link>
             <button onClick={closeSideMenu} className="absolute left-0">
               <IoClose className="text-xl" />
             </button>
@@ -91,7 +93,9 @@ const SideMenu = () => {
                   {userData?.fullname}
                 </p>
               </Link>
-              <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
+              {/*
+
+         <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
                 <p>
                   {language ? "الطلبات" : "Needs"}{" "}
                   <span className="text-baseGray">2</span>
@@ -101,6 +105,7 @@ const SideMenu = () => {
                   <span className="text-baseGray">2</span>
                 </p>
               </div>
+         */}
             </div>
           )}
           <div className="flex flex-col justify-start gap-7 text-base text-darkGray">
@@ -136,7 +141,7 @@ const SideMenu = () => {
             </Link>
             <Link
               onClick={closeSideMenu}
-              href={isCompany ? "/needs" : "add-need"}
+              href={isCompany ? "/needs" : "/add-need"}
               className="flex items-center gap-4"
             >
               <AiOutlineEdit className="text-baseGray text-lg" />

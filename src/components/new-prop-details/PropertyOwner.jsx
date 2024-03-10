@@ -8,7 +8,7 @@ import Link from "next/link";
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = "";
-  console.log(propertyData);
+
   const conatactNumber = propertyData.connectPhoneNumber
     ? propertyData.connectPhoneNumber
     : propertyData?.user?.code + propertyData?.user?.phone;
@@ -35,7 +35,7 @@ const PropertyOwner = ({ propertyData, className }) => {
           {propertyData.user?.fullname}
         </p>
         <div className="font-medium flex gap-2 flex-wrap md:justify-center items-center">
-          <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p>
+          {/* <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p> */}
           <Link
             href={`/view-profile/${propertyData.user?.username}`}
             className="text-linkColor md:text-base text-sm underline"

@@ -24,7 +24,7 @@ const RecommendedProperties = ({ propertyData, slug }) => {
       <h3 className="text-sm sm:text-3xl ">
         {language ? "عقارات مشابه" : "Recommended Properties"}
       </h3>
-      <div className="flex flex-wrap  items-center gap-5">
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 items-center gap-5">
         {recommended &&
           recommended.slice(0, 3).map((item) => {
             return <RealtyCard propertyDetails={item} key={item._id} />;

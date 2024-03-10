@@ -1,22 +1,10 @@
-// import { fetchUserData } from "@/redux-store/features/globalState";
-// import { AddToFavorites } from "@/utils/propertyAPI";
-// import { Image } from "@nextui-org/react";
-// import Link from "next/link";
-// import { useEffect } from "react";
-// import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-// import Image from "next/image";
-// import PriceAndSocial from "./basic-body-card/PriceAndSocial";
-// import TitleCard from "./basic-body-card/TitleCard";
-// import LocationAndRooms from "./basic-body-card/LocationAndRooms";
-// import { SiWhatsapp } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
-// import { IoCallSharp } from "react-icons/io5";
 import { useMemo } from "react";
 import useContactLinks from "@/Hooks/useContactLinks";
 
-const SpecialCard = ({ cardDetails, key }) => {
+const SpecialCard = ({ cardDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const phone = useMemo(() => {
     if (cardDetails.connectPhoneNumber) {
@@ -38,8 +26,7 @@ const SpecialCard = ({ cardDetails, key }) => {
     message: message,
   });
   return (
-    <div //md:w-[380px] 2xl:w-[400px]  w-full
-      key={key}
+    <div
       className=" 
       md:min-w-[400px] 
       md:max-w-[400px] 
@@ -55,7 +42,7 @@ const SpecialCard = ({ cardDetails, key }) => {
       <Link
         title={`${cardDetails?.title}`}
         key={cardDetails?._id}
-        href={`/property-details/${cardDetails?.slug}`}
+        href={`/projects/${cardDetails?.slug}`}
         className="
          h-[296px] w-full pt-[20px] pl-[20px] pr-[20px]  flex"
       >
@@ -71,9 +58,12 @@ const SpecialCard = ({ cardDetails, key }) => {
         />
       </Link>
       <div className="w-full mt-[2px]  h-[83px]  flex flex-col justify-around">
-        <h3 className="line-clamp-1 w-full text-center  text-[20px] font-bold text-lightGreen ">
-          {cardDetails?.title}
-        </h3>
+        <Link
+          href={`/projects/${cardDetails?.slug}`}
+          className="line-clamp-1 w-full text-center  text-[20px] font-bold text-lightGreen "
+        >
+          <h3 className=" text-[20px] font-bold  ">{cardDetails?.title}</h3>
+        </Link>
         <h3 className="line-clamp-1 w-full text-center  text-[16px] font-bold text-[#656565] ">
           {language ? " يبدأ من " : " Started From "}
           {cardDetails?.price.toLocaleString()}

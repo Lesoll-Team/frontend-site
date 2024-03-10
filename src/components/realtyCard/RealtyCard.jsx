@@ -1,4 +1,3 @@
-import { fetchUserData } from "@/redux-store/features/globalState";
 import { AddToFavorites } from "@/utils/propertyAPI";
 // import { Image } from "@nextui-org/react";
 import Link from "next/link";
@@ -9,9 +8,11 @@ import Image from "next/image";
 import PriceAndSocial from "./basic-body-card/PriceAndSocial";
 import TitleCard from "./basic-body-card/TitleCard";
 import LocationAndRooms from "./basic-body-card/LocationAndRooms";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
+
   // const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ const RealtyCard = ({ propertyDetails }) => {
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
-      dispatch(fetchUserData());
+      dispatch(getUserData());
     } catch (error) {
       console.error("Error add to fav :", error);
     }

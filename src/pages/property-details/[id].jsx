@@ -1,10 +1,11 @@
 import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
+import DeletedProperty from "@/components/new-prop-details/DeletedProperty";
 import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
-import DeletedProperty from "@/components/propertyDetails/DeletedProperty";
 import axios from "axios";
 import React from "react";
 
 export default function PropertyDetails({
+  query,
   singleProperty,
   slug,
   RecommendedOther,
@@ -16,7 +17,11 @@ export default function PropertyDetails({
       ) : (
         <main className="  min-h-[80dvh] relative">
           <section className="px-5 md:px-0 md:container mx-auto">
-            <NewPropDetails propertyData={singleProperty} slug={slug} />
+            <NewPropDetails
+              propertyData={singleProperty}
+              slug={slug}
+              query={query}
+            />
           </section>
 
           <ContactLinksMobile propertyData={singleProperty} />
@@ -34,7 +39,12 @@ export async function getServerSideProps(context) {
     const all = res.data;
     const data = res.data.find;
     return {
-      props: { singleProperty: data, all, slug: context.query.id },
+      props: {
+        singleProperty: data,
+        all,
+        slug: context.query.id,
+        query: context.query,
+      },
       // revalidate: 10,
     };
   } catch (error) {

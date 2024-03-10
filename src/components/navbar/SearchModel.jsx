@@ -39,7 +39,7 @@ export default function SearchModel() {
     <>
       <button
         onClick={onOpen}
-        className="text-lightGreen text-2xl hidden md:block"
+        className="text-lightGreen text-xl 2xl:text-2xl hidden md:block"
       >
         <AiOutlineSearch />
       </button>

@@ -1,6 +1,6 @@
 // import { Image } from "@nextui-org/react";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   CommercialRent,
@@ -193,4 +193,4 @@ const PropertiesCategories = ({ isHome }) => {
   );
 };
 
-export default PropertiesCategories;
+export default memo(PropertiesCategories);

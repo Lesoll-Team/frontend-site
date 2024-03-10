@@ -3,9 +3,8 @@ import LocationCategories from "@/components/homePage/LocationCategories";
 import OtherCards from "@/components/homePage/OtherCards";
 import PropertiesCategories from "@/components/homePage/PropertiesCategories";
 import SearchModule from "@/components/homePage/SearchModule";
-import SpecialCard from "@/components/realtyCard/SpecialCard";
 import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
-import Link from "next/link";
+import SpecialCards from "@/components/homePage/SpecialCards";
 
 const Home = ({ specialCardData, bestSearch }) => {
   return (
@@ -14,30 +13,7 @@ const Home = ({ specialCardData, bestSearch }) => {
         <SearchModule />
       </div>
       <HeroSection />
-      {specialCardData?.result && (
-        <div className="md:container md:mx-auto mx-[20px] ">
-          <div className="w-full flex  items-center justify-between">
-            <h2>اي حاجة دلوقتي </h2>
-            <Link href={""}>اي حاجة دلوقتي </Link>
-          </div>
-
-          <div
-            className=" 
-        flex overflow-auto md:justify-between   
-        no-scrollbar gap-x-10  p-1"
-          >
-            {specialCardData?.result.map((cardDetails) => (
-              <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
-            ))}
-            {specialCardData?.result.map((cardDetails) => (
-              <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
-            ))}
-            {specialCardData?.result.map((cardDetails) => (
-              <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
-            ))}
-          </div>
-        </div>
-      )}
+      <SpecialCards specialCardData={specialCardData} isHome />
 
       <div className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2 flex-col md:flex-row justify-between">
         <OtherCards />

@@ -24,6 +24,7 @@ const ProfileCard = ({ data, type, onDelete }) => {
   };
 
   const typeActive = type === "active" || type === "نشطة";
+  const typeOnSold = type === "تم البيع" || type === "Sold";
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
@@ -75,29 +76,32 @@ const ProfileCard = ({ data, type, onDelete }) => {
             </div>
           </div>
           <div className="w-full space-y-3">
-            <button
-              onClick={() => {
-                router.push(`/editproperty/${data.slug}`);
-              }}
-              className="text-base text-lightGreen text-center w-full py-2 px-5 border-2 rounded-md"
-            >
-              تعديل
-            </button>
-            {typeActive && (
-              <ConfirmSold
-                propertyDetails={data}
-                openBtn={
-                  <button
-                    // onClick={() => {
-                    //   router.push("/profile/edit");
-                    // }}
-                    className="text-base bg-lightGreen text-center text-white w-full py-2 px-5 border border-lightGreen rounded-md"
-                  >
-                    تم البيع
-                  </button>
-                }
-              />
+            {!typeOnSold && (
+              <button
+                onClick={() => {
+                  router.push(`/editproperty/${data.slug}`);
+                }}
+                className="text-base text-lightGreen text-center w-full py-2 px-5 border-2 rounded-md"
+              >
+                تعديل
+              </button>
             )}
+            {typeActive ||
+              (typeOnSold && (
+                <ConfirmSold
+                  propertyDetails={data}
+                  openBtn={
+                    <button
+                      // onClick={() => {
+                      //   router.push("/profile/edit");
+                      // }}
+                      className="text-base bg-lightGreen text-center text-white w-full py-2 px-5 border border-lightGreen rounded-md"
+                    >
+                      تم البيع
+                    </button>
+                  }
+                />
+              ))}
           </div>
         </div>
       </div>

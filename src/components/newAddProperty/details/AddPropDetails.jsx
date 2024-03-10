@@ -2,7 +2,7 @@ import SelectFeatures from "./SelectFeatures";
 import DefaultDetails from "./DefaultDetails";
 import LandDetails from "./LandDetails";
 import BuildingDetails from "./BuildingDetails";
-import useContact from "@/Hooks/useContact";
+import PhoneNumber from "../PhoneNumber";
 const AddPropDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const renderDetails = () => {
     if (watch("propType.value") === "Land") {
@@ -40,6 +40,13 @@ const AddPropDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <section className="space-y-4">
       {renderDetails()}
+      <PhoneNumber
+        clearErrors={clearErrors}
+        errors={errors}
+        register={register}
+        watch={watch}
+        setValue={setValue}
+      />
       {watch("propType.value") !== "Land" && (
         <SelectFeatures setValue={setValue} watch={watch} />
       )}{" "}

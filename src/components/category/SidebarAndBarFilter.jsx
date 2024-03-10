@@ -74,7 +74,9 @@ const SidebarAndBarFilter = ({ result, page }) => {
       {/*bar filter */}
       <div
         className={` z-20 shadow-sm bg-white flex justify-center sticky ${
-          userInfo ? "top-[60px] md:top-[90px]" : "top-[97px] md:top-[122px]"
+          userInfo
+            ? "md:top-[57px] top-[62px] lg:top-[80px]"
+            : "md:top-[97px] top-[97px] lg:top-[122px]"
         } `}
       >
         <BarFilter

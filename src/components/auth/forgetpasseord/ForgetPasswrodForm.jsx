@@ -51,7 +51,7 @@ const ForgetPasswrodForm = () => {
       <h1 className="text-3xl text-start">
         {language ? "إعادة تعيين كلمة السر" : "Reset password"}
       </h1>
-      <div className="flex rounded-lg overflow-hidden border">
+      {/* <div className="flex rounded-lg overflow-hidden border">
         <button
           type="button"
           onClick={() => {
@@ -76,84 +76,43 @@ const ForgetPasswrodForm = () => {
         >
           {language ? "البريد" : "Email"}
         </button>
+      </div> */}
+      <div className="space-y-2">
+        {" "}
+        <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
+        <input
+          name="email"
+          id="email"
+          {...register("email", {
+            required: {
+              value: true,
+              message: language
+                ? "ادخل البريد الإلكترونى"
+                : " Please enter your email",
+            },
+            pattern: {
+              value:
+                /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
+              message: language
+                ? "يرجى إدخال بريد إلكتروني صحيح"
+                : "Please enter a valid email",
+            },
+          })}
+          type="text"
+          className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            (errors.email || emailNotFound) &&
+            "border-red-500 focus:border-red-500"
+          }`}
+        />
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        {emailNotFound && (
+          <p className="text-red-500">
+            {language
+              ? "بريد إلكترونى غير صحيح جرب مرة اخرى"
+              : "Email doesn't exist try again "}
+          </p>
+        )}
       </div>
-      {watch("resetMethod") === "phone" ? (
-        <div className="space-y-2">
-          {" "}
-          <label htmlFor="email">
-            {language ? "رقم الهاتف" : "Phone number"}
-          </label>
-          <input
-            name="phoneNumber"
-            id="phoneNumber"
-            {...register("phoneNumber", {
-              required: {
-                value: true,
-                message: language
-                  ? "ادخل  رقم الهاتف"
-                  : " Please enter your phone number",
-              },
-            })}
-            type="text"
-            className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.phoneNumber || emailNotFound) &&
-              "border-red-500 focus:border-red-500"
-            }`}
-          />
-          {errors.phoneNumber && (
-            <p className="text-red-500">{errors.phoneNumber.message}</p>
-          )}
-          {emailNotFound && (
-            <p className="text-red-500">
-              {language
-                ? "بريد إلكترونى غير صحيح جرب مرة اخرى"
-                : "Email doesn't exist try again "}
-            </p>
-          )}
-        </div>
-      ) : (
-        <div className="space-y-2">
-          {" "}
-          <label htmlFor="email">
-            {language ? "البريدالإلكترونى" : "Email"}
-          </label>
-          <input
-            name="email"
-            id="email"
-            {...register("email", {
-              required: {
-                value: true,
-                message: language
-                  ? "ادخل البريد الإلكترونى"
-                  : " Please enter your email",
-              },
-              pattern: {
-                value:
-                  /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
-                message: language
-                  ? "يرجى إدخال بريد إلكتروني صحيح"
-                  : "Please enter a valid email",
-              },
-            })}
-            type="text"
-            className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.email || emailNotFound) &&
-              "border-red-500 focus:border-red-500"
-            }`}
-          />
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
-          {emailNotFound && (
-            <p className="text-red-500">
-              {language
-                ? "بريد إلكترونى غير صحيح جرب مرة اخرى"
-                : "Email doesn't exist try again "}
-            </p>
-          )}
-        </div>
-      )}
-
       <button
         type="submit"
         className="w-full p-3 h-12  flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"

@@ -70,6 +70,7 @@ const CashAndInstallment = ({
           </h4>
           <div className="relative">
             <input
+              inputMode="numeric"
               placeholder={language ? "إختيارى" : "optional"}
               type="text"
               {...register(`installment.${0}.discount`)}
@@ -149,6 +150,7 @@ const CashAndInstallment = ({
                   </h3>
                   <div className="relative">
                     <input
+                      inputMode="numeric"
                       type="text"
                       {...register(`installment.${index}.period`, {
                         required: {
@@ -188,6 +190,7 @@ const CashAndInstallment = ({
                   </h3>
                   <div className="relative">
                     <input
+                      inputMode="numeric"
                       type="text"
                       {...register(`installment.${index}.downPayment`, {
                         required: {
@@ -225,6 +228,7 @@ const CashAndInstallment = ({
                   <div className="relative">
                     <input
                       type="text"
+                      inputMode="numeric"
                       {...register(`installment.${index}.amount`, {
                         required: {
                           value: true,

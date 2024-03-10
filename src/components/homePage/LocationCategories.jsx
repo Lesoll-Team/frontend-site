@@ -1,6 +1,6 @@
 // import { Image } from "@nextui-org/react";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const LocationCategories = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -24,7 +24,7 @@ const LocationCategories = () => {
     },
     {
       titleAr: "الاسكندرية",
-      titleEn: "alexandria",
+      titleEn: "Alexandria",
       totalAr: "( 526+ وحدة )",
       totalEn: "( +526 Uint )",
       url: "/properties/alexandria/sale/residential",
@@ -149,4 +149,4 @@ md:p-[0px] p-[30px]
   );
 };
 
-export default LocationCategories;
+export default memo(LocationCategories);

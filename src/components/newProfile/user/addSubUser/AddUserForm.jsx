@@ -12,9 +12,7 @@ const AddUserForm = () => {
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = (data) => {};
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
       <h3 className="text-xl font-bold text-lightGreen">

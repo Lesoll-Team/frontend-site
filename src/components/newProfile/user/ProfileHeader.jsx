@@ -7,7 +7,7 @@ import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
 const ProfileHeader = ({ hideHeader }) => {
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(userData);
+
   if (userData)
     return (
       <div>
@@ -35,7 +35,8 @@ const ProfileHeader = ({ hideHeader }) => {
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
               <h3 className="lg:text-2xl text-lg text-baseGray font-bold">
-                {userData?.fullname}
+                {userData?.fullname}{" "}
+                {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
               </h3>
               <div className="hidden lg:flex  items-center gap-14">
                 <div className=" flex items-center gap-2">
@@ -52,7 +53,7 @@ const ProfileHeader = ({ hideHeader }) => {
                 </div>
               </div>
             </div>
-            <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-lightNeutral h-fit rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap ">
+            {/* <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-lightNeutral h-fit rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap ">
               <p className="text-sm xl:text-base font-bold text-lightGreen">
                 {language ? "الطلبات" : "Needs"}{" "}
                 <span className="text-outLine">{5}</span>
@@ -61,7 +62,7 @@ const ProfileHeader = ({ hideHeader }) => {
                 {language ? "عدد العقارات" : "Properties"}{" "}
                 <span className="text-outLine">{5}</span>
               </p>
-            </div>
+            </div> */}
           </div>
         </header>
       </div>

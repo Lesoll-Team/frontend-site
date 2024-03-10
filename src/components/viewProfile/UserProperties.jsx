@@ -14,7 +14,6 @@ const UserProperties = ({ user, properties, params }) => {
   const menuRef = useRef(null);
   const router = useRouter();
   const query = router.query;
-  console.log(params);
   const filterName = useMemo(() => {
     switch (query.type) {
       case "000":
@@ -28,7 +27,6 @@ const UserProperties = ({ user, properties, params }) => {
     }
   }, [language, query]);
 
-  console.log("user", user);
   const type = useMemo(() => {
     if (router.query.type) {
       return router.query.type;

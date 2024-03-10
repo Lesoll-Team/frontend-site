@@ -31,7 +31,6 @@ const compoundSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getCompounds.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.data = action.payload;
         state.status = "succeeded";
       })

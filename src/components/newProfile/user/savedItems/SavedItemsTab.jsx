@@ -24,7 +24,7 @@ const SavedItemsTabs = ({ params, currentTab }) => {
       >
         {language ? "الإعلانات المفضلة" : "Favorite ads"}
       </button>
-      <button
+      {/* <button
         className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
           currentTab === "search"
             ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
@@ -35,7 +35,7 @@ const SavedItemsTabs = ({ params, currentTab }) => {
         }}
       >
         {language ? "البحوث المفضلة" : "Favorite Search"}
-      </button>
+      </button> */}
     </div>
   );
 };

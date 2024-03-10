@@ -65,7 +65,7 @@ const ProfileDropDown = () => {
         src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
         width={50}
         height={50}
-        className="rounded-full object-cover h-7 cursor-pointer w-7 sm:w-[30px] sm:h-[30px] lg:h-[50px] lg:w-[50px]"
+        className="rounded-full object-cover h-7 cursor-pointer w-7 sm:w-[30px] sm:h-[30px] lg:h-[40px] lg:w-[40px] 2xl:h-[50px] 2xl:w-[50px]"
         alt="Profile image"
       />
       {showMenu && (

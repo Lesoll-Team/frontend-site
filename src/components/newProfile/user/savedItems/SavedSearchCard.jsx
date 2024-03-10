@@ -8,11 +8,10 @@ import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import EditSearchModal from "./EditSearchModal";
-import { TbCheckbox } from "react-icons/tb";
-import { RiCheckboxBlankLine } from "react-icons/ri";
 import Skeleton from "@/Shared/ui/Skeleton";
 
 const SavedSearchCard = ({ data }) => {
+  // console.log(data);
   const [isChecked, setIsChecked] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [showMenu, setShowMenu] = useState(false);
@@ -83,8 +82,8 @@ const SavedSearchCard = ({ data }) => {
             {data?.title}
           </h4>
         </div>
-        <div className="flex items-center justify-between gap-5 flex-wrap">
-          <div
+        <div className="flex items-center justify-end gap-5 flex-wrap">
+          {/* <div
             role="button"
             onClick={() => setIsChecked((prev) => !prev)}
             className={`flex items-center gap-1 ${
@@ -97,7 +96,7 @@ const SavedSearchCard = ({ data }) => {
                 ? "تلقي رسائل عبر البريد الإلكتروني بالإعلانات الجديدة"
                 : "Receive emails with new announcements"}
             </p>
-          </div>
+          </div> */}
           <p className="text-xs md:text-xm text-baseGray">
             {language ? "تم الحفظ فى" : "Saved at"} {formattedDate}
           </p>
