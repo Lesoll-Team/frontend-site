@@ -49,7 +49,7 @@ export const editFormData = (data) => {
   // formData.append("installmentOption", JSON.stringify(data.installmentOption));
   formData.append("address", JSON.stringify(address));
   formData.append("negotiable", data?.negotiable);
-  formData.append("finishingType", data?.finishingType.value || "");
+  formData.append("finishingType", data?.finishingType?.value || "");
   formData.append("isFurnished", data?.isFurnished);
   formData.append("isRegisterd", data?.isRegisterd || false);
   formData.append("rentalPeriod", data?.rentalPeriod.value || "");
