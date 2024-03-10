@@ -1,14 +1,7 @@
 import React from "react";
-// import {
-//   Card,
-//   CardBody,
-//   CardFooter,
-//   CardHeader,
-//   // Image,
-// } from "@nextui-org/react";
+
 import { useSelector } from "react-redux";
 import styles from "../../styles/blogs.module.css";
-import Link from "next/link";
 import Image from "next/image";
 import SimilarBlogs from "./SimilarBlogs";
 
@@ -35,10 +28,7 @@ function BlogSinglePage({ BlogData }) {
           priority
         />
         <div className="absolute flex items-center justify-center top-0 w-full h-[381px] ">
-          <h1
-            className="overflow-hidden text-white sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl"
-            // className="overflow-hidden text-lightGreen sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl"
-          >
+          <h1 className="overflow-hidden text-white sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl">
             {language ? BlogData.getBlogs.title.ar : BlogData.getBlogs.title.en}
           </h1>
         </div>
@@ -64,9 +54,17 @@ function BlogSinglePage({ BlogData }) {
             </div>
           </div>
         </div>
-        <div className="w-full col-span-2 ">
-          <span className="text-[14px] md:hidden block  md:text-[18px]">
-            {formattedDate(BlogData?.getBlogs.createdAt, language)}
+        <div className="w-full col-span-2  ">
+          <span className="text-[14px] md:hidden block pb-2  text-gray1 md:text-[18px]">
+            {language
+              ? `بتاريخ : ${formattedDate(
+                  BlogData?.getBlogs.createdAt,
+                  language
+                )}`
+              : `Date : ${formattedDate(
+                  BlogData?.getBlogs.createdAt,
+                  language
+                )}`}
           </span>
           <div
             dir={language ? "rtl" : "ltr"}
@@ -84,39 +82,3 @@ function BlogSinglePage({ BlogData }) {
 }
 
 export default React.memo(BlogSinglePage);
-/**
- *             <div className=" w-11/12  ">
-              <p>
-                يمكنك التواصل مع فريقنا المتخصص من خلال كل وسائل التواصل المتاحة
-                عبر:
-              </p>
-
-              <div className="flex gap-x-4 mt-3">
-                <Link href="https://wa.me/+201032362898">
-                  <img
-                    src="https://img.icons8.com/?size=50&amp;id=16713&amp;format=png"
-                    width="35px"
-                    alt="whats app icon"
-                  />
-                </Link>
-                <Link href="mailto: Info@Lesoll.com">
-                  <img
-                    src="https://img.icons8.com/?size=50&amp;id=OumT4lIcOllS&amp;format=png"
-                    width="35px"
-                    alt="mail icon"
-                  />
-                </Link>
-
-                <Link
-                  href="https://facebook.com/LesollRealestate/"
-                  target="_blank"
-                >
-                  <img
-                    src="https://img.icons8.com/?size=50&amp;id=118497&amp;format=png"
-                    width="35px"
-                    alt="facebook icon"
-                  />
-                </Link>
-              </div>
-            </div>
- */
