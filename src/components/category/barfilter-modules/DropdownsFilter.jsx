@@ -34,7 +34,7 @@ const DropdownsFilter = () => {
 
       <Dropdown
         stateName={"unitTypes"}
-        defaultValue={language ? "نوع الوحدة" : "payment method"}
+        defaultValue={language ? "نوع الوحدة" : "Unit types"}
         data={unitTypesData()}
         value={unitTypes}
         dataOptions="text"
