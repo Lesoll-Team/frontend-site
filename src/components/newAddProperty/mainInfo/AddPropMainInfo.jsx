@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import DropDown from "@/Shared/ui/DropDown";
 import { propTypeList } from "./propTypeList";
@@ -18,6 +18,11 @@ const AddPropMainInfo = ({
   clearErrors,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
+  const projects = useSelector(
+    (state) => state.getProjects.projects.data.Property
+  );
+  const dispatch = useDispatch();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: mapLib,
@@ -45,6 +50,22 @@ const AddPropMainInfo = ({
         return unitTypeList.Residential;
     }
   }, [watch("propType.value")]);
+  useEffect(() => {
+    if (userData && userData.isAdmin) {
+      if (!projects) {
+        dispatch(getAllProjects());
+      }
+    }
+  }, [userData]);
+  const projectList =
+    projects &&
+    projects?.map((item) => {
+      return {
+        value: item._id,
+        name: { ar: item.titleAr, en: item.titleEn },
+      };
+    });
+  console.log(projectList);
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
@@ -85,6 +106,16 @@ const AddPropMainInfo = ({
           // className={"border-none"}
         />
         {errors.title && <Error className="">{errors.title.message}</Error>}
+      </div>
+      <div className="space-y-2 md:col-span-2">
+        <h2 className="text-xl">{language ? "المشروع" : "project"}</h2>
+        <DropDown
+          selected={watch("ProjectID")}
+          setValue={(value) => {
+            setValue("ProjectID", value);
+          }}
+          options={projectList}
+        />
       </div>
       <div className=" space-y-5">
         <h3 className="text-xl">{language ? "نوع الإعلان" : "Offer Type"}</h3>

@@ -50,6 +50,7 @@ const useFromatAddData = (data) => {
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
   formData.append("price", data.price);
+  data.ProjectID && formData.append("ProjectID", data?.ProjectID?.value);
   formData.append("area", data.area);
   formData.append("RealEstateFinance", data.realEstateFinance);
   formData.append("downPayment", data.downPayment || "");

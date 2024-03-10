@@ -28,6 +28,7 @@ import categoryReducer from "./features/category/categorySlice";
 import editPropertySlice from "@/components/edit-property/redux/editPropertSlice";
 import addProjectSlice from "@/components/dashboard/router/add-project/redux/addProjectSlice";
 import addNeedSlice from "@/components/needs/addNeed/redux/addNeedSlice";
+import allProjectsSlice from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -55,5 +56,6 @@ export default combineReducers({
   editProperty: editPropertySlice,
   addProject: addProjectSlice,
   addNeed: addNeedSlice,
+  getProjects: allProjectsSlice,
   // Compare:compareReducer,
 });

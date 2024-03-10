@@ -6,7 +6,7 @@ const ProjectTitlePrice = ({ projectData }) => {
   return (
     <section className="space-y-5 md:space-y-5 md:border-b-1 md:pb-10">
       <h1 className="text-lg md:text-4xl font-bold text-darkGray  md:text-black md:font-medium">
-        {projectData.title}{" "}
+        {language ? projectData.titleAr : projectData.titleEn}{" "}
       </h1>
       <div className="flex items-center flex-wrap gap-5  md:gap-10">
         <h2 className="text-lg md:text-4xl font-bold  flex items-center gap-2">

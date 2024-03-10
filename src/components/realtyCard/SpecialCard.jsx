@@ -40,7 +40,7 @@ const SpecialCard = ({ cardDetails }) => {
       {/* start icon favorite */}
       {/* start Image */}
       <Link
-        title={`${cardDetails?.title}`}
+        title={`${language ? cardDetails?.titleAr : cardDetails?.titleEn}`}
         key={cardDetails?._id}
         href={`/projects/${cardDetails?.slug}`}
         className="
@@ -62,7 +62,9 @@ const SpecialCard = ({ cardDetails }) => {
           href={`/projects/${cardDetails?.slug}`}
           className="line-clamp-1 w-full text-center  text-[20px] font-bold text-lightGreen "
         >
-          <h3 className=" text-[20px] font-bold  ">{cardDetails?.title}</h3>
+          <h3 className=" text-[20px] font-bold  ">
+            {language ? cardDetails?.titleAr : cardDetails?.titleEn}
+          </h3>
         </Link>
         <h3 className="line-clamp-1 w-full text-center  text-[16px] font-bold text-[#656565] ">
           {language ? " يبدأ من " : " Started From "}

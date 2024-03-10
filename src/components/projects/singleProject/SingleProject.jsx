@@ -7,17 +7,25 @@ import ProjectDescription from "./ProjectDescription";
 import PropertyLocation from "@/components/new-prop-details/propertyDetails/sections/PropertyLocation";
 import AboutCompany from "./AboutCompany";
 import ProjectUnits from "./ProjectUnits";
+import { useSelector } from "react-redux";
 
 const SingleProject = ({ propertyData, allData, query }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="min-h-[50dvh] mt-10 space-y-6 mb-10">
       <Head>
-        <title>{propertyData?.title}</title>
+        <title>
+          {language ? propertyData?.titleAr : propertyData?.titleEn}
+        </title>
         <meta
           name="description"
           content={propertyData?.description.slice(0, 160)}
         />
-        <meta property="og:title" content={propertyData?.title.slice(0, 50)} />
+        <meta
+          property="og:title"
+          content={propertyData?.titleAr.slice(0, 50)}
+        />
         <meta property="og:description" content={propertyData?.description} />
         <meta
           property="og:image"

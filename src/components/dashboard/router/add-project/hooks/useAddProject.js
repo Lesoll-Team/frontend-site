@@ -32,7 +32,8 @@ const useAddProject = () => {
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
-    formData.append("title", data.title);
+    formData.append("titleAr", data.titleAr);
+    formData.append("titleEn", data.titleEn);
     formData.append("area", data.area);
     formData.append("price", data.price);
     formData.append("address", JSON.stringify(address));

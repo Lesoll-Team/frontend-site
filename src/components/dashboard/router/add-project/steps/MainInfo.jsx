@@ -34,25 +34,53 @@ const MainInfo = ({
       </h1>
       <div className="bg-lightNeutral py-8 px-6 md:px-24 rounded-lg h-full flex flex-col  gap-y-6 md:gap-y-10 gap-x-16">
         {" "}
-        <div className="w-full space-y-2">
-          <label className="text-xl"> {language ? "العنوان" : "title"}</label>
-          <input
-            type="text"
-            {...register(`title`, {
-              required: {
-                value: true,
-                message: language
-                  ? "من فضلك ادخل العنوان"
-                  : "please enter title",
-              },
-            })}
-            className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-              errors?.title &&
-              errors?.title &&
-              "border-red-500 focus:border-red-500"
-            }`}
-          />
-          {errors?.title && <Error>{errors.title.message}</Error>}
+        <div className="flex md:flex-row flex-col items-center gap-5">
+          <div className="w-full space-y-2">
+            <label className="text-xl">
+              {" "}
+              {language ? " العنوان عربى" : "title Ar"}
+            </label>
+            <input
+              type="text"
+              {...register(`titleAr`, {
+                required: {
+                  value: true,
+                  message: language
+                    ? "من فضلك ادخل العنوان"
+                    : "please enter title",
+                },
+              })}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                errors?.titleAr &&
+                errors?.titleAr &&
+                "border-red-500 focus:border-red-500"
+              }`}
+            />
+            {errors?.titleAr && <Error>{errors.titleAr.message}</Error>}
+          </div>
+          <div className="w-full space-y-2">
+            <label className="text-xl">
+              {" "}
+              {language ? " العنوان english" : "title En"}
+            </label>
+            <input
+              type="text"
+              {...register(`titleEn`, {
+                required: {
+                  value: true,
+                  message: language
+                    ? "من فضلك ادخل العنوان"
+                    : "please enter title",
+                },
+              })}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                errors?.titleEn &&
+                errors?.titleEn &&
+                "border-red-500 focus:border-red-500"
+              }`}
+            />
+            {errors?.titleEn && <Error>{errors.titleEn.message}</Error>}
+          </div>
         </div>
         <div className="flex flex-col md:flex-row gap-5 md:gap-10">
           <div className="w-full space-y-2">
