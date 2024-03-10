@@ -11,6 +11,11 @@
   /* margin-top: 40px; */
 }
 
+.genericDiv p,
+.genericDiv ul {
+  text-align: justify;
+}
+
 .genericDiv h1,
 .genericDiv h2,
 .genericDiv h3,
@@ -21,7 +26,7 @@
 }
 
 .genericDiv h2 {
-  font-size: clamp(1.20rem, 2.5vw, 1.50rem);
+  font-size: clamp(1rem, 2vw, 1.20rem);
   line-height: 1.5;
   text-wrap: unset;
   font-weight: bold;
@@ -33,7 +38,7 @@
 
 .genericDiv h3 {
   /* font-size: clamp(2rem, 4vw, 3rem); */
-  font-size: clamp(1.10rem, 2.5vw, 1.30rem);
+  font-size: clamp(0.90rem, 2.5vw, 1rem);
   line-height: 1.5;
   text-wrap: unset;
   font-weight: bold;
@@ -114,7 +119,6 @@
 
 .genericDiv p {
   text-wrap: unset;
-  text-align: start;
 }
 
 @media (min-width: 768px) {

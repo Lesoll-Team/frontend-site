@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
-
 import Image from "next/image";
 import Link from "next/link";
-// import { IoCallSharp } from "react-icons/io5";
 import { useMemo } from "react";
 import useContactLinks from "@/Hooks/useContactLinks";
 
@@ -28,8 +26,7 @@ const SpecialCard = ({ cardDetails }) => {
     message: message,
   });
   return (
-    <div //md:w-[380px] 2xl:w-[400px]  w-full
-      // key={key}
+    <div
       className=" 
       md:min-w-[400px] 
       md:max-w-[400px] 
