@@ -94,7 +94,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3  md:gap-4">
           <div className="flex items-center gap-3 md:gap-4 md:flex-row flex-row-reverse">
             <div className="flex items-center  gap-4">
-              <SearchModel />
+              {/* <SearchModel /> */}
               {userData && <Notifications />}
             </div>
             <ChangeLang bigScreen={true} />

@@ -1,5 +1,3 @@
-import About from "@/components/about/About";
-import React from "react";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import Image from "next/image";

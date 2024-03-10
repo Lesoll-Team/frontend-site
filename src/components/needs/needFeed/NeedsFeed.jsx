@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import NeedsCard from "./needCard/NeedsCard";
-import { setPage } from "@/redux-store/features/needsFeedSlice";
 import ReactPaginate from "react-paginate";
 import styles from "../../../styles/paginations.module.css"; // Import the CSS module
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";

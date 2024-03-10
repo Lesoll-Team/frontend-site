@@ -11,7 +11,8 @@ import LocationAndRooms from "./basic-body-card/LocationAndRooms";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
+
   // const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
 
