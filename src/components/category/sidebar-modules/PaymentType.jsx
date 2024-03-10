@@ -43,7 +43,7 @@ const PaymentType = () => {
       <div className="flex gap-x-[1vw]">
         <button
           onClick={() => handlePaymentClick("cash")}
-          className={`bg-white md:px-3 md:p-2 h-[40px] px-3  md:h-[3.313rem] rounded-[6px] ${
+          className={`bg-white md:px-3 min-w-[80px] md:p-2 h-[40px] px-3  md:h-[3.313rem] rounded-[6px] ${
             paymentTypeIs === "cash"
               ? "border-1 border-lightGreen text-lightGreen"
               : "border-1 border-gray1"
@@ -53,7 +53,7 @@ const PaymentType = () => {
         </button>
         <button
           onClick={() => handlePaymentClick("installment")}
-          className={`bg-white md:px-3 md:p-2 h-[40px] px-3  md:h-[3.313rem] rounded-[6px] ${
+          className={`bg-white md:px-3 md:p-2 h-[40px] px-3 min-w-[80px]  md:h-[3.313rem] rounded-[6px] ${
             paymentTypeIs === "installment"
               ? "border-1 border-lightGreen text-lightGreen"
               : "border-1 border-gray1"
