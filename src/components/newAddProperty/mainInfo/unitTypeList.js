@@ -9,39 +9,26 @@ export const unitTypeList = {
       name: { ar: "شقة بحديقة", en: "Apartment with garden" },
     },
     {
-      value: "63cc935946d6193aa1f50fab",
-      name: { ar: "دوبلكس", en: "Duplex" },
+      value: "63cc938b46d6193aa1f50fcc",
+      name: { ar: "شقق فندقية", en: "Hotel Apartment" },
     },
     {
-      value: "63cc936946d6193aa1f50fb6",
-      name: { ar: "ستوديو", en: "Studio" },
+      value: "63cc935946d6193aa1f50fab",
+      name: { ar: "دوبلكس", en: "Duplex" },
     },
     {
       value: "63cc937b46d6193aa1f50fc1",
       name: { ar: "بينتهاوس", en: "Penthouse" },
     },
     {
-      value: "63cc938b46d6193aa1f50fcc",
-      name: { ar: "شقق فندقية", en: "Hotel Apartment" },
-    },
-    { value: "63cc939746d6193aa1f50fd7", name: { ar: "أرضى", en: "Floor" } },
-    {
-      value: "63cc93ab46d6193aa1f50fe2",
-      name: { ar: "شقق مفروشة", en: "Furnished Apartment" },
+      value: "63cc936946d6193aa1f50fb6",
+      name: { ar: "ستوديو", en: "Studio" },
     },
     {
       value: "642449f07502ee416a864e95",
       name: { ar: "عمارة", en: "Residential Building" },
     },
-    { value: "645376a84ef5131a0a061888", name: { ar: "بيت", en: "Home" } },
-    {
-      value: "63cc940a46d6193aa1f51014",
-      name: { ar: "شالية", en: "Chalete" },
-    },
-    {
-      value: "63cc941646d6193aa1f5101f",
-      name: { ar: "كابينة", en: "Cabin" },
-    },
+
     {
       value: "63cc93c546d6193aa1f50fed",
       name: { ar: "فيلا", en: "Village" },
@@ -53,6 +40,14 @@ export const unitTypeList = {
     {
       value: "63cc93f846d6193aa1f51009",
       name: { ar: "توين هاوس", en: "Twin house" },
+    },
+    {
+      value: "63cc940a46d6193aa1f51014",
+      name: { ar: "شالية", en: "Chalete" },
+    },
+    {
+      value: "63cc941646d6193aa1f5101f",
+      name: { ar: "كابينة", en: "Cabin" },
     },
   ],
   Commercial: [

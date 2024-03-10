@@ -73,7 +73,7 @@ const AddNeed = () => {
       <form
         noValidate
         onSubmit={onSubmit}
-        className={`min-h-[88dvh]  py-10 px-5  md:px-0 md:container md:mx-auto  ${
+        className={`min-h-[88dvh]  py-10 px-5  md:px-0   ${
           sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
         }`}
       >
@@ -81,9 +81,9 @@ const AddNeed = () => {
           <Accepted />
         ) : (
           <div className=" my-10">
-            <div className="container mx-auto ">
+            <div className=" ">
               {sended ? (
-                <div className="flex items-center justify-center h-[70dvh]">
+                <div className="flex items-center justify-center h-[70dvh] container mx-auto">
                   <Accepted />
                 </div>
               ) : (

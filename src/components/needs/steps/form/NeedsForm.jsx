@@ -32,7 +32,7 @@ const NeedsForm = ({
     }
   }, [watch("propType.value")]);
   return (
-    <div className="space-y-6 fade-in-right">
+    <div className="space-y-6 fade-in-right px-2 md:px-0 md:container mx-auto">
       <div className="flex items-center gap-2 ">
         <button
           onClick={() => {
