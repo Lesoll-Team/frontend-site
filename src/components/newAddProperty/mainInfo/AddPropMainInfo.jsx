@@ -107,7 +107,7 @@ const AddPropMainInfo = ({
         {errors.title && <Error className="">{errors.title.message}</Error>}
       </div>
       {userData?.isAdmin && (
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2 lg:col-span-2">
           <h2 className="text-xl">{language ? "المشروع" : "project"}</h2>
           {projects && (
             <DropDown
