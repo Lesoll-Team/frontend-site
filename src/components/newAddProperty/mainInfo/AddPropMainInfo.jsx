@@ -8,6 +8,7 @@ import GovRegion from "./location/GovRegion";
 import PlaceLatLng from "./location/PlaceLatLng";
 import { useLoadScript } from "@react-google-maps/api";
 import Error from "@/Shared/ui/Error";
+import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
 const AddPropMainInfo = ({
@@ -19,9 +20,7 @@ const AddPropMainInfo = ({
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
-  const projects = useSelector(
-    (state) => state.getProjects.projects.data.Property
-  );
+  const projects = useSelector((state) => state.getProjects.projects.data);
   const dispatch = useDispatch();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
@@ -59,7 +58,7 @@ const AddPropMainInfo = ({
   }, [userData]);
   const projectList =
     projects &&
-    projects?.map((item) => {
+    projects?.Property?.map((item) => {
       return {
         value: item._id,
         name: { ar: item.titleAr, en: item.titleEn },
@@ -107,16 +106,20 @@ const AddPropMainInfo = ({
         />
         {errors.title && <Error className="">{errors.title.message}</Error>}
       </div>
-      <div className="space-y-2 md:col-span-2">
-        <h2 className="text-xl">{language ? "المشروع" : "project"}</h2>
-        <DropDown
-          selected={watch("ProjectID")}
-          setValue={(value) => {
-            setValue("ProjectID", value);
-          }}
-          options={projectList}
-        />
-      </div>
+      {userData?.isAdmin && (
+        <div className="space-y-2 md:col-span-2">
+          <h2 className="text-xl">{language ? "المشروع" : "project"}</h2>
+          {projects && (
+            <DropDown
+              selected={watch("ProjectID")}
+              setValue={(value) => {
+                setValue("ProjectID", value);
+              }}
+              options={projectList}
+            />
+          )}
+        </div>
+      )}
       <div className=" space-y-5">
         <h3 className="text-xl">{language ? "نوع الإعلان" : "Offer Type"}</h3>
         <div className=" flex justify-start gap-10 flex-wrap">
