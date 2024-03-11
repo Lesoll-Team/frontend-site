@@ -101,11 +101,11 @@ const SidebarAndBarFilter = ({ result, page }) => {
       {/*title & save and filter button*/}
       <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
         {/*title filter page */}
-        <div className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[25px] text-[14px]">
+        <h1 className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[25px] text-[14px]">
           {language
             ? result?.supTitleCategory?.ar
             : result?.supTitleCategory?.en}
-        </div>
+        </h1>
         {/*sorted and save search filter page */}
         <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
           <div className="flex  whitespace-nowrap gap-x-3 items-center">

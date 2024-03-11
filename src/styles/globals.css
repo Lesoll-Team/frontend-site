@@ -57,8 +57,8 @@ html {
 
   p,
   ul {
-    /*md: text-[18px] lg:text-[20px]*/
-    @apply text-[14px] md:text-[16px] 2xl:text-[18px];
+    /*md: text-[18px] lg:text-[20px] md: text-[16px] 2xl:text-[18px]*/
+    @apply text-[17px];
   }
 }
 

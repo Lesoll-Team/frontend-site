@@ -12,8 +12,8 @@ const PropertiesTypes = () => {
 
   const unitTypesData = useUnitTypesData(categoryType?.value);
   return (
-    <div className="flex  justify-center md:hidden gap-x-[1vw] p-[1.5vw] bg-[#F8F8F8]">
-      <div className="  w-6/12">
+    <div className="flex  justify-center md:hidden md:gap-x-[1vw]  gap-x-[1.5vw] p-[1.5vw] bg-[#F8F8F8]">
+      <div className="flex flex-col  w-6/12 gap-y-[1.5vh]">
         <span className="flex font-bold text-gray2 ">
           {language ? "نوع العقار" : "Property type"}
         </span>
@@ -26,7 +26,7 @@ const PropertiesTypes = () => {
           classNames="bg-white"
         />
       </div>
-      <div className="  w-6/12">
+      <div className="  flex flex-col  w-6/12 gap-y-[1.5vh]">
         <span className="flex font-bold text-gray2 ">
           {language ? "نوع الوحدة" : "unit type"}
         </span>
