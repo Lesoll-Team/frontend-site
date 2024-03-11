@@ -75,12 +75,11 @@ const RealtyCard = ({ propertyDetails }) => {
          md:h-[174px] h-[145px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
       >
         <Image
-          alt="Card background"
+          alt={` image  ${propertyDetails?.title}`}
           radius="none"
           className=" flex object-cover  
           "
           priority
-          // className="flex  md:h-[174px] h-[135px]"
           width={400}
           height={174}
           src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}

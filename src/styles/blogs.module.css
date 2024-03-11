@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
 
 .genericDiv h1 {
-  font-size: clamp(1.30rem, 3vw, 1.70rem);
+  /* font-size: clamp(1.30rem, 3vw, 1.70rem); */
+  font-size: 22px;
   line-height: 1.5;
   text-wrap: unset;
   font-weight: bold;
@@ -11,9 +12,21 @@
   /* margin-top: 40px; */
 }
 
+/* .genericDiv p, */
+/* .genericDiv ul { */
+/* text-align: justify; */
+/* } */
 .genericDiv p,
 .genericDiv ul {
-  text-align: justify;
+  line-height: 1.8em;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  /* font-family: ; */
+  /* font-family: 'Cairo', sans-serif; */
+  /* text-align: justify; */
+}
+
+.genericDiv p {
+  margin-top: 20px;
 }
 
 .genericDiv h1,
@@ -26,7 +39,8 @@
 }
 
 .genericDiv h2 {
-  font-size: clamp(1rem, 2vw, 1.20rem);
+  /* font-size: clamp(1rem, 2vw, 1.20rem);*/
+  font-size: 20px;
   line-height: 1.5;
   text-wrap: unset;
   font-weight: bold;
@@ -34,11 +48,13 @@
 
   text-align: start;
   margin-top: 22px;
+  margin-bottom: 10px;
 }
 
 .genericDiv h3 {
   /* font-size: clamp(2rem, 4vw, 3rem); */
-  font-size: clamp(0.90rem, 2.5vw, 1rem);
+  /* font-size: clamp(0.90rem, 2.5vw, 1rem);*/
+  font-size: 18.5px;
   line-height: 1.5;
   text-wrap: unset;
   font-weight: bold;

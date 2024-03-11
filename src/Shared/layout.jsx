@@ -1,10 +1,15 @@
-import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
+import dynamic from "next/dynamic";
+const Footer = dynamic(() => import("../components/footer/Footer"));
+const Navbar = dynamic(() => import("../components/navbar/Navbar"));
+const ScrollToTopButton = dynamic(() => import("./ScrollToTopButton"));
+
+// import ScrollToTopButton from "./ScrollToTopButton";
+// import Navbar from "../components/navbar/Navbar";
+// import Footer from "../components/footer/Footer";
 import Head from "next/head";
 import { setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
-import ScrollToTopButton from "./ScrollToTopButton";
 import { useEffect } from "react";
 import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
@@ -19,7 +24,6 @@ export default function Layout({ children }) {
       .replace(".", "")
   );
   if (typeof window !== "undefined") {
-    // This code will only execute in a browser environment
     if (!localStorage.getItem("local_storage_device_id")) {
       localStorage.setItem("local_storage_device_id", userKey);
     }

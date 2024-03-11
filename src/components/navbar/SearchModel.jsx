@@ -1,26 +1,17 @@
-import React, { useState } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  useDisclosure,
-} from "@nextui-org/react";
-import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { AiOutlineSearch } from "react-icons/ai";
-import Button from "@/Shared/ui/Button";
-
-export default function SearchModel() {
-  let languageIs = useSelector((state) => state.GlobalState.languageIs);
-
+import { useRouter } from "next/router";
+import Button from "../../Shared/ui/Button";
+const SearchModel = ({ isOpen, setOpen }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const [searchKeyword, setSearchKeyword] = useState("");
+  const menuRef = useRef(null);
 
   const handelSearchButton = (e) => {
     e.preventDefault();
-
+    setOpen(false);
     router.push(
       `/properties/residential/search?page=1${
         searchKeyword && `&keyword=${searchKeyword}`
@@ -28,76 +19,55 @@ export default function SearchModel() {
     );
   };
 
-  return (
-    <>
-      <button
-        onClick={onOpen}
-        className="text-lightGreen text-xl 2xl:text-2xl hidden md:block"
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+
+    // Add event listener when component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  if (isOpen) {
+    return (
+      <div
+        ref={menuRef}
+        className="bg-white rounded-[6px] shadow-sm md:w-10/12 lg:w-8/12 2xl:w-6/12 w-11/12 p-3"
       >
-        <AiOutlineSearch />
-      </button>
-      <Modal
-        size="5xl"
-        backdrop="opaque"
-        placement="top"
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        motionProps={{
-          variants: {
-            enter: {
-              y: 20,
-              opacity: 1,
-              transition: {
-                duration: 0.3,
-                ease: "easeOut",
-              },
-            },
-            exit: {
-              y: -20,
-              opacity: 0,
-              transition: {
-                duration: 0.2,
-                ease: "easeIn",
-              },
-            },
-          },
-        }}
-      >
-        <ModalContent className="">
-          {() => (
-            <>
-              <ModalHeader className="flex flex-col  ">
-                {languageIs ? "بحث" : "Search"}
-              </ModalHeader>
-              <ModalBody className={``} dir={languageIs && "rtl"}>
-                <form
-                  onSubmit={handelSearchButton}
-                  className="flex   gap-x-10 items-center"
-                >
-                  <Button type="submit" className="max-w-[150px] ">
-                    {languageIs ? "بحث" : "Search"}
-                  </Button>
-                  <div className="flex h-[34] md:h-[3.313rem] w-full p-1 border-gray1 border-1 items-center rounded-[6px] bg-white ">
-                    <input
-                      name="keywords"
-                      className=" w-full h-full focus:outline-none indent-5"
-                      type="text"
-                      onChange={(e) =>
-                        setSearchKeyword(
-                          e.target.value.trim().split(" ").join("_")
-                        )
-                      }
-                      placeholder={
-                        languageIs ? "كلمات مميزة " : "spacial keywords"
-                      }
-                    />
-                  </div>
-                </form>
-              </ModalBody>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </>
-  );
-}
+        <div className={"flex justify-between"}>
+          <button onClick={() => setOpen(false)}>X</button>
+          <span>{language ? "بحث" : "search"}</span>
+        </div>
+        <div className={" p-1"}>
+          <form
+            onSubmit={handelSearchButton}
+            className="flex   gap-x-1 items-center"
+          >
+            <Button type="submit" className="max-w-[100px] ">
+              {language ? "بحث" : "Search"}
+            </Button>
+            <div className="flex w-full p-1  border-gray1 border-1 items-center rounded-[6px] bg-white ">
+              <input
+                name="keywords"
+                className=" w-full h-full focus:outline-none indent-5"
+                type="text"
+                onChange={(e) =>
+                  setSearchKeyword(e.target.value.trim().split(" ").join("_"))
+                }
+                placeholder={language ? "كلمات مميزة " : "spacial keywords"}
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+};
+
+export default SearchModel;

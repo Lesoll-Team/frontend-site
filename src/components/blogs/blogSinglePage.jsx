@@ -28,7 +28,7 @@ function BlogSinglePage({ BlogData }) {
           priority
         />
         <div className="absolute flex items-center justify-center top-0 w-full h-[381px] ">
-          <h1 className="overflow-hidden text-white sm:text-xl font-bold text-xl py-5 md:text-2xl lg:text-3xl w-full  text-center rounded-2xl">
+          <h1 className="overflow-hidden text-white sm:text-xl font-bold text-[22px] md:text-[30px] w-full  text-center rounded-2xl">
             {language ? BlogData.getBlogs.title.ar : BlogData.getBlogs.title.en}
           </h1>
         </div>
