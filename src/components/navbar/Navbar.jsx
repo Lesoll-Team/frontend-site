@@ -1,14 +1,21 @@
+import dynamic from "next/dynamic";
+
 import Link from "next/link";
 import Image from "next/image";
-import SearchModel from "./SearchModel";
+import React, { memo, useState } from "react";
+
 import { useSelector } from "react-redux";
 import SideMenu from "./SideMenu";
 import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
 import ProfileDropDown from "./ProfileDropDown";
-export default function Navbar() {
+const SearchModelButton = dynamic(() => import("./SearchModelButton"));
+const SearchModel = dynamic(() => import("./SearchModel"));
+function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
+  const [isOpen, setOpen] = useState(false);
+
   const isCompany = userData?.typeOfUser === "company";
   return (
     <nav
@@ -38,7 +45,7 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`container mx-auto flex justify-between h-16 ${
+        className={`container mx-auto  relative flex justify-between h-16 ${
           userData ? "lg:h-[80px]" : "lg:h-[85px]"
         } `}
       >
@@ -85,16 +92,17 @@ export default function Navbar() {
                     ? "الطلبات"
                     : " Needs"
                   : languageIs
-                  ? "إضافة طلب"
-                  : "Add Need"}
+                    ? "إضافة طلب"
+                    : "Add Need"}
               </Link>
             </li>
           </ul>
         </div>
+
         <div className="flex items-center gap-3  md:gap-4">
           <div className="flex items-center gap-3 md:gap-4 md:flex-row flex-row-reverse">
             <div className="flex items-center  gap-4">
-              <SearchModel />
+              <SearchModelButton isOpen={isOpen} setOpen={setOpen} />
               {userData && <Notifications />}
             </div>
             <ChangeLang bigScreen={true} />
@@ -103,7 +111,16 @@ export default function Navbar() {
 
           <SideMenu />
         </div>
+
+        <div
+          className={` absolute w-11/12 ${
+            userData ? "top-[65px] lg:top-[81px]" : "lg:top-[85px] top-[64px]"
+          }  justify-center flex items-center`}
+        >
+          {isOpen && <SearchModel isOpen={isOpen} setOpen={setOpen} />}
+        </div>
       </div>
     </nav>
   );
 }
+export default memo(Navbar);

@@ -16,7 +16,7 @@ export const initialStateCategory = {
   sort: null,
   propFinancing: "",
   searchKeyword: "",
-  openFilter: true,
+  openFilter: false,
   clickOnUnits: false,
   // sending: false,
   // filterResult: null,
