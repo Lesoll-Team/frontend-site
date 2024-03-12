@@ -35,7 +35,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
             src={"/add-steps/main-step-active.svg"}
           />
           {/* Conditional rendering of text based on language */}
-          <p className="text-center absolute font-bold mt-1 w-full text-lightGreen sm:text-base text-xs">
+          <p className="text-center absolute font-bold mt-1 w-full text-lightGreen sm-text">
             {language ? (
               <span className="flex gap-1 flex-wrap md:flex-nowrap justify-center">
                 <span>المعلومات </span>
@@ -79,7 +79,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
               />
               {/* Conditional rendering of text based on step */}
               <p
-                className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+                className={`text-center absolute mt-1 w-full sm-text ${
                   isStepAboveOne
                     ? "text-lightGreen font-bold"
                     : "font-semibold text-lightGray"
@@ -102,7 +102,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
           // type={detailsStepLogic()}
           // onClick={() => {
           //   if (isForInvestment) {
-       
+          //     console.log(step);
           //     step > 1 && setStep(2);
           //   }
           // }}
@@ -119,13 +119,13 @@ const Steps = ({ step = 1, setStep, watch }) => {
                   ? "/add-steps/details-step-active.svg"
                   : "/add-steps/details-step-inactive.svg"
                 : isStepAboveTwo
-                ? "/add-steps/details-step-active.svg"
-                : "/add-steps/details-step-inactive.svg"
+                  ? "/add-steps/details-step-active.svg"
+                  : "/add-steps/details-step-inactive.svg"
             }
           />
           {/* Conditional rendering of text based on step */}
           <p
-            className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+            className={`text-center absolute mt-1 w-full sm-text ${
               isStepAboveTwo
                 ? "text-lightGreen font-bold"
                 : "font-semibold text-lightGray"
@@ -142,8 +142,8 @@ const Steps = ({ step = 1, setStep, watch }) => {
                 ? "bg-lightGreen"
                 : "bg-[#ccc]"
               : isStepAboveThree
-              ? "bg-lightGreen"
-              : "bg-[#ccc]"
+                ? "bg-lightGreen"
+                : "bg-[#ccc]"
           }`}
         />
 
@@ -159,20 +159,20 @@ const Steps = ({ step = 1, setStep, watch }) => {
                   ? "/add-steps/imgs-step-active.svg"
                   : "/add-steps/imgs-step-inactive.svg"
                 : isStepAboveThree
-                ? "/add-steps/imgs-step-active.svg"
-                : "/add-steps/imgs-step-inactive.svg"
+                  ? "/add-steps/imgs-step-active.svg"
+                  : "/add-steps/imgs-step-inactive.svg"
             }
           />
           {/* Conditional rendering of text based on step */}
           <p
-            className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+            className={`text-center absolute mt-1 w-full sm-text ${
               isForInvestment
                 ? isStepAboveTwo
                   ? "text-lightGreen font-bold"
                   : "font-semibold text-lightGray"
                 : isStepAboveThree
-                ? "text-lightGreen font-bold"
-                : "font-semibold text-lightGray"
+                  ? "text-lightGreen font-bold"
+                  : "font-semibold text-lightGray"
             }`}
           >
             {language ? "الصور" : "Images"}

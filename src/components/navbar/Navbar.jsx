@@ -99,14 +99,14 @@ function Navbar() {
           </ul>
         </div>
 
-        <div className="flex items-center gap-3  md:gap-4">
+        <div className="flex items-center gap-5  md:gap-4">
           <div className="flex items-center gap-3 md:gap-4 md:flex-row flex-row-reverse">
-            <div className="flex items-center  gap-4">
+            <div className="flex items-center  gap-3">
               <SearchModelButton isOpen={isOpen} setOpen={setOpen} />
               {userData && <Notifications />}
             </div>
-            <ChangeLang bigScreen={true} />
             {userData && <ProfileDropDown />}
+            <ChangeLang bigScreen={true} />
           </div>
 
           <SideMenu />

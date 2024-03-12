@@ -13,9 +13,7 @@ const PropertyLocation = ({ propertyData }) => {
   return (
     <section className="md:space-y-[32px] space-y-[16px]">
       <div className=" space-y-4">
-        <h3 className="text-sm sm:text-3xl ">
-          {language ? "موقع العقار" : "Property Location"}
-        </h3>
+        <h2 className=" ">{language ? "موقع العقار" : "Property Location"}</h2>
         <p className="text-baseGray sm:text-xl">{address}</p>
       </div>
       <div

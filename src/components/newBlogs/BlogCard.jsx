@@ -33,7 +33,10 @@ const BlogCard = ({ blog }) => {
   });
 
   return (
-    <div className="flex md:flex-row flex-col rounded-md overflow-hidden md:rounded-none gap-y-[12px] md:gap-x-[32px] border-2 md:border-none">
+    <Link
+      href={`/blog/${blog.slug.ar}`}
+      className="flex md:flex-row flex-col rounded-md overflow-hidden md:rounded-none gap-y-[12px] md:gap-x-[32px] border-2 md:border-none"
+    >
       <Image
         src={blog.BlogImage}
         alt={blog.title.ar}
@@ -44,19 +47,21 @@ const BlogCard = ({ blog }) => {
       <div className="flex flex-col justify-between gap-[22px] p-[8px] px-[10px]">
         {" "}
         <div className="space-y-[12px]">
-          <div className="py-[5px] px-[14px] bg-lightNeutral w-fit">
-            {"العقارات السكنية"}
+          <div className="lg-text py-[5px] px-[14px] bg-lightNeutral w-fit">
+            <span> {"العقارات السكنية"}</span>
           </div>
           <Link
             href={`/blog/${blog.slug.ar}`}
-            className="text-sm md:text-xl font-bold line-clamp-1"
+            className="font-bold line-clamp-1"
           >
-            {language ? blog.title.ar : blog.title.en}
+            <h3 className="text-black ">
+              {language ? blog.title.ar : blog.title.en}
+            </h3>
           </Link>
-          <p className="text-lightGreen text-base font-semibold">
+          <p className="text-lightGreen sm-text font-semibold">
             {formattedDate}
           </p>
-          <p className="line-clamp-2 text-xl">
+          <p className="line-clamp-2 ">
             {language
               ? description(blog.description.ar)
               : description(blog.description.en)}{" "}
@@ -65,12 +70,12 @@ const BlogCard = ({ blog }) => {
         </div>
         <Link
           href={`/blog/${blog.slug.ar}`}
-          className="font-bold text-lightGreen underline"
+          className="font-bold lg-text text-lightGreen underline"
         >
           {language ? "قراءة المزيد" : "Read more"}
         </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 export default BlogCard;

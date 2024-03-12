@@ -32,16 +32,16 @@ const PriceTitle = ({ propertData }) => {
 
   return (
     <section className="space-y-1 md:space-y-4 md:border-b-1 md:pb-10">
-      <h1 className="text-lg md:text-4xl font-bold text-darkGray  md:text-black md:font-medium">
+      <h1 className="text-xl md:text-4xl leading-relaxed font-bold text-darkGray  md:text-black md:font-medium">
         {propertData.title}{" "}
       </h1>
       <div className="flex justify-between items-center flex-wrap gap-2">
         {propertData.offer === "For Investment" ? (
-          <h2 className="text-lg md:text-4xl font-bold text-lightGreen  ">
+          <h2 className=" text-[24px] md:text-[26px] font-bold text-lightGreen  ">
             {language ? "للإستثمار" : "For Investment "}
           </h2>
         ) : (
-          <h2 className="text-lg md:text-4xl font-bold text-lightGreen  ">
+          <h2 className=" text-[24px] md:text-3xl font-bold text-lightGreen  ">
             {price + " "} {language ? "ج.م " : "Egp "}
             {sideInfoToPrice && (
               <span className="text-sm md:text-2xl text-darkGray font-normal ">
@@ -65,7 +65,7 @@ const PriceTitle = ({ propertData }) => {
         {showAdminBtn && (
           <Link
             href={`/dashboard/property-details/${propertData.slug}`}
-            className="flex gap-1 md:text-base text-xs items-center"
+            className="flex gap-1 md:text-base text-xs items-center mx-2 mt-1"
           >
             <MdOutlineAnalytics className="text-base md:text-xl font-bold" />
             <span className="underline text-sm md:text-xl">

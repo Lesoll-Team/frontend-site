@@ -11,7 +11,6 @@ import { TbCalendarCheck, TbStairsUp } from "react-icons/tb";
 import { useSelector } from "react-redux";
 
 const PropertyInfo = ({ propertyData }) => {
-
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { year } = formatDate(propertyData.deliveryDate);
   const offer = useMemo(() => {
@@ -79,7 +78,7 @@ const PropertyInfo = ({ propertyData }) => {
 
   const isLand = propertyData.propType === "Land";
   return (
-    <section className="grid grid-cols-2 gap-y-5 md:mt-10 md:gap-y-10">
+    <section className="grid grid-cols-2 gap-y-5 gap-x-2 md:mt-10 md:gap-y-10">
       <InfoCard
         icon={<BsHouses />}
         title={language ? "نوع العقار" : "Property Type"}
@@ -157,8 +156,10 @@ const InfoCard = ({ icon, title, info }) => {
         {icon}
       </div>
       <div className="flex items-center gap-2 flex-wrap">
-        <p>{title} :</p>
-        <p className="text-lightGreen ">{info || ""}</p>
+        <p className="text-sm sm:tex-lg md:text-xl">{title} :</p>
+        <p className="text-lightGreen text-sm sm:tex-lg md:text-xl">
+          {info || ""}
+        </p>
       </div>
     </div>
   );

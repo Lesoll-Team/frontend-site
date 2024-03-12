@@ -13,9 +13,9 @@ const ShareBtn = ({ propertyData }) => {
     >
       <button
         type="button"
-        className="flex items-center justify-center h-10 w-10 bg-white rounded-full"
+        className="flex items-center justify-center  h-10 w-10 md:h-12 md:w-12 bg-white rounded-full"
       >
-        <IoShareSocialOutline className="text-xl" />
+        <IoShareSocialOutline className="text-xl md:text-2xl" />
       </button>
     </SocialMediaModal>
   );
