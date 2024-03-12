@@ -163,7 +163,7 @@ const Dropdown = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         disabled={isDisabled}
-        className={`  ${classNames}   text-gray1 text-md flex items-center justify-between
+        className={`  ${classNames}   text-gray1 sm-text flex items-center justify-between
          rounded-[1vh] md:px-3 ${
            isSort
              ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "

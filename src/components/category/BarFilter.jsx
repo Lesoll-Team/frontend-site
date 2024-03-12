@@ -41,7 +41,7 @@ const BarFilter = ({
         </div>
 
         <button
-          className=" md:gap-x-2 gap-x-0  h-[1.875rem] md:h-[3.313rem] text-gray1 text-md flex items-center justify-between
+          className=" md:gap-x-2 gap-x-0  h-[1.875rem] md:h-[3.313rem] text-gray1 sm-text flex items-center justify-between
          md:border-[1px] border-0 md:border-[#CCCCCC] rounded-[6px] md:px-3 md:p-2 p-1 px-1 cursor-pointer"
           onClick={openSideFilter}
         >

@@ -101,7 +101,7 @@ const SidebarAndBarFilter = ({ result, page }) => {
       {/*title & save and filter button*/}
       <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
         {/*title filter page */}
-        <h1 className=" w-full text-[#4E4E4E] md:w-6/12 md:text-[25px] text-[14px]">
+        <h1 className="text-[20px] md:text-[22] lg:text-[23px] xl:text-[24px] w-full text-[#4E4E4E] md:w-6/12 ">
           {language
             ? result?.supTitleCategory?.ar
             : result?.supTitleCategory?.en}
@@ -138,8 +138,8 @@ const SidebarAndBarFilter = ({ result, page }) => {
                   ? "تم حفظ البحث"
                   : " حفظ البحث"
                 : isSaveed
-                ? "has been saved"
-                : "Save search"}
+                  ? "has been saved"
+                  : "Save search"}
               <IoIosStar
                 className={`${
                   isSaveed

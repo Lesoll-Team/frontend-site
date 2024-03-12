@@ -24,11 +24,11 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between  border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
-          <h6 className=" font-bold text-[16px]">
+          <h3 className=" font-bold ">
             {language
               ? "الكلمات الأكثر استخداما"
               : "Most frequently used words"}
-          </h6>
+          </h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 1 && "-rotate-90"
@@ -45,7 +45,7 @@ function BestLinksInHome({
             //ustify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
-              <p className="text-gray2 text-[14px] line-clamp-1   ">
+              <p className="text-gray2 line-clamp-1   ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
@@ -60,9 +60,9 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
-          <h6 className=" font-bold ">
+          <h3 className=" font-bold ">
             {language ? "العقارات الأكثر بحثاً" : "Most searched properties"}
-          </h6>
+          </h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 2 && "-rotate-90"
@@ -78,7 +78,7 @@ function BestLinksInHome({
             //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
-              <p className="text-gray2 text-[14px] line-clamp-1 ">
+              <p className="text-gray2 line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
@@ -93,9 +93,9 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
-          <h6 className="font-bold">
+          <h3 className="font-bold">
             {language ? "عقارات تجارية اخري" : "Other commercial real estate"}
-          </h6>
+          </h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 3 && "-rotate-90"
@@ -111,7 +111,7 @@ function BestLinksInHome({
             // justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
-              <p className="text-gray2 text-[14px] line-clamp-1 ">
+              <p className="text-gray2 line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>
@@ -126,9 +126,9 @@ function BestLinksInHome({
           }
           className="flex  mb-6 items-center  justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
-          <h6 className="font-bold">
+          <h3 className="font-bold">
             {language ? "مناطق الأكثر بحثاً" : "Most searched areas"}
-          </h6>
+          </h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 4 && "-rotate-90"
@@ -144,7 +144,7 @@ function BestLinksInHome({
             //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1">
-              <p className="text-gray2 text-[14px] line-clamp-1 ">
+              <p className="text-gray2 line-clamp-1 ">
                 {language ? links.name.title.ar : links.name.title.en}
               </p>
             </Link>

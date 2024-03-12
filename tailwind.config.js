@@ -38,6 +38,9 @@ module.exports = {
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        almarai:["Almarai"],
+        tajawal:["Tajawal"],
+        noto:["Noto Kufi Arabic"]
       },
     },
     fontFamily: {},

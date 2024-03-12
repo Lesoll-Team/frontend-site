@@ -91,10 +91,10 @@ const LocationCategories = () => {
   return (
     <div>
       <div className="md:container  md:mb-[32px]  smb-[17px] md:mx-auto mx-[20px]">
-        <h6 className="font-bold md:text-[30px] text-[18px] flex  text-grayText2">
+        <h2 className="font-bold md:text-[30px] text-[18px] flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}
-        </h6>
-        <p className="text-gray2 md:text-[25px] text-[12px] ">
+        </h2>
+        <p className="text-gray2  lg-text">
           {language
             ? "اختر المحافظة لنساعدك في إيجاد افضل العقارات"
             : "Choose the governorate to help you find the best properties"}
@@ -134,10 +134,10 @@ md:p-[0px] p-[30px]
                "
               >
                 <div className=" grid grid-cols-1 text-center md:gap-y-[1.5vh] gap-y-[0.4vh]">
-                  <p className=" md:text-[20px] text-[12px] font-bold">
+                  <p className=" lg-text font-bold">
                     {language ? location.titleAr : location.titleEn}
                   </p>
-                  <p className="text-lightGreen md:text-[20px] text-[11px]">
+                  <p className="text-lightGreen sm-text">
                     {language ? location.totalAr : location.totalEn}
                   </p>
                 </div>

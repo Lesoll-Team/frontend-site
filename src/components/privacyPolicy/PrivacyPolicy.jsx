@@ -4,13 +4,13 @@ const PrivacyPolicy = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="container mx-auto py-10 mb-10 min-h-[100vh]">
-      <h1 className="text-4xl md:text-6xl font-semibold  text-lightGreen">
+    <div className="md:container md:mx-auto mx-[20px] py-10 mb-10 min-h-[100vh]">
+      <h1 className="    ">
         {language ? "سياسة الخصوصية لموقع ليسول" : "Lesoll privacy policy "}
       </h1>
-      <div className="text-lg space-y-10 mt-10 px-3">
+      <div className=" space-y-10 mt-10 ">
         <div className="space-y-5">
-          <p className="text-xl">
+          <p className="">
             {language
               ? "يتعهد ليسول بحماية خصوصية المستخدم والحفاظ عليها، ونشر سياسية الخصوصية وعرضها على المستخدم للعلم بها، كما يضمن ليسول حماية بيانات ومعلومات المستخدم ومشاركتها ومعالجتها واستخدامها على نحو يحافظ على سلامتها . "
               : "Lesoll website is committed to protecting users’ privacy. We share this privacy with users for their information. Lesoll ensures that users’ information is protected, shared, processed, and used in a way that preserves their safety. "}
@@ -18,16 +18,16 @@ const PrivacyPolicy = () => {
         </div>
         <div className="space-y-5">
           <div className="space-y-2">
-            <h3 className="text-2xl text-darkGray font-bold">
+            <h2 className="  ">
               {language
                 ? "البيانات والمعلومات التي نجمعها "
                 : "Shared data and information"}
-            </h3>
-            <p className="">
+            </h2>
+            <h3 className="">
               {language
                 ? "قد تتضمن البيانات والمعلومات التي نجمعها عندما تقوم بالتسجيل لاستخدام خدماتنا ما يلي:"
                 : "Users share some data with Lesoll while registering/signing in as follows: "}
-            </p>
+            </h3>
             <ul className="list-disc space-y-2">
               <li>
                 {language
@@ -57,11 +57,11 @@ const PrivacyPolicy = () => {
             </ul>
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl text-darkGray font-bold">
+            <h2 className="  ">
               {language
                 ? "كيف نعالج معلوماتك وبياناتك الشخصية "
                 : "Shared data and information"}
-            </h3>
+            </h2>
             <p>
               {" "}
               {language
@@ -70,11 +70,11 @@ const PrivacyPolicy = () => {
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl text-darkGray font-bold">
+            <h2 className="  ">
               {language
                 ? "كيف نستخدم معلوماتك وبياناتك الشخصية "
                 : "How do we use your personal information? "}
-            </h3>
+            </h2>
             <p className="">
               {language
                 ? "قد نستخدم المعلومات و البيانات الشخصية الخاصة بك وعنوان بروتكول الانترنت (IP) للأغراض التاليه:"
@@ -104,11 +104,11 @@ const PrivacyPolicy = () => {
             </ul>
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl text-darkGray font-bold">
+            <h2 className="  ">
               {language
                 ? "البيانات المالية وبيانات الدفع والائتمان: "
                 : "Financial Data and Payment Information:"}
-            </h3>
+            </h2>
             <p>
               {language
                 ? "قد نجمع بيانات الدفع التي يقوم المستخدم بإدخالها عند الاشتراك في الخدمات مدفوعة الاجر. وقد يحتوي ذلك على رقم وسيلة الدفع الخاصة بالمستخدم (على سبيل المثال: بطاقة الائتمان وبطاقة الخصم) واسمه وعنوان إرسال الفواتير ورمز الأمان لأداة الدفع الخاصة به (على سبيل المثال: رمز التحقق من البطاقة)، وقد نقوم بجمع المعلومات والبيانات المتعلقة بالدفع وسجل المعاملات ومعلومات وبيانات الفواتير."
@@ -116,11 +116,11 @@ const PrivacyPolicy = () => {
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl text-darkGray font-bold">
+            <h2 className="  ">
               {language
                 ? "أمن معلوماتك وبياناتك"
                 : "Security of your information "}
-            </h3>
+            </h2>
             <p>
               {language
                 ? "يقر ويتعهد ليسول بالحفاظ على أمن بياناتك ومعلوماتك المستخدمة ومنع الوصول اليها في غير الغرض المصرح به، وكذلك يتعهد باتخاذ كافة الاحتياطات والإجراءات اللازمة لحماية تلك المعلومات والبيانات وعدم افشاءها، أو تغييرها، أو اتلافها، أو استخدامها بأي شكل غير قانوني. وفي حالة قيامك بإنشاء كلمة مرور للحساب الخاص بك على موقع ليسول يتحمل وحده مسؤولية الحفاظ على سريته. وفي جميع الأحوال يتعهد ليسول ببذل أقصى جهد وعناية في حماية وتأمين معلوماتك وبياناتك بصفة دائمة."
@@ -128,9 +128,9 @@ const PrivacyPolicy = () => {
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl text-darkGray font-bold">
+            <h2 className="  ">
               {language ? "حقوق المستخدم " : "User rights "}
-            </h3>
+            </h2>
             <p>
               {language
                 ? "يحق للمستخدم للوصول الى معلوماته وبياناته والحصول على نسخة منها وتحديثها. كذلك يحق للمستخدم حذف معلوماته وبياناته الشخصية الموجدة لدى موقع ليسول حال أنها غير ضرورية. كما يحق للمستخدم ابداء اعتراضه أو شكواه إلى المسؤولين في موقع ليسول ويتعهد ليسول بفحصها والعمل على حلها بشكل جاد وكامل وذلك حفاظا على رضا المستخدم."

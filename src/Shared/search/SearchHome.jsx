@@ -74,7 +74,7 @@ export function SearchBarHome() {
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
           }  
-            w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[16px]`}
+            w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
         >
           {languageIs ? "للبيع" : "Buy"}
         </button>
@@ -85,7 +85,7 @@ export function SearchBarHome() {
             saleOptions == "rent"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[16px]`}
+          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
         >
           {languageIs ? "للإيجار" : "Rent"}
         </button>
@@ -98,7 +98,7 @@ export function SearchBarHome() {
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
           }
-             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] text-[12px] md:text-[16px]`}
+             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
         >
           {languageIs ? "للإستثمار" : "Investment"}
         </button>
@@ -119,15 +119,17 @@ export function SearchBarHome() {
       >
         {/*search box */}
         <div className="flex  flex-col md:w-6/12 w-full gap-y-[5px] md:gap-y-[8px]    ">
-          <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
+          <span className="text-gray2 font-bold sm-text">
             {languageIs ? "بحث بالكلمات المميزة" : "Search by keywords"}
-          </h6>
+          </span>
           <div className=" border-1 md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
             <input
               type="text"
               onChange={(e) => setKeywords(e.target.value)}
               autoComplete="off"
-              className=" rounded-[1vw] w-full font-inter h-full  text-black   active:outline-none indent-1 hover:outline-none focus:outline-none"
+              className=" rounded-[1vw] w-full font-inter h-full  text-black  
+              sm-text placeholder:sm-text
+               active:outline-none indent-1 hover:outline-none focus:outline-none"
             />
             <AiOutlineSearch
               className="text-[#656565] md:ml-[24px] ml-[8px] md:text-3xl text-xl"
@@ -138,7 +140,7 @@ export function SearchBarHome() {
         {/*search with location */}
 
         <div className=" flex flex-col md:w-4/12 w-full gap-y-[5px] md:gap-y-[8px]   ">
-          <h6 className="text-gray2 font-bold text-[12px] md:text-[16px]">
+          <h6 className="text-gray2 font-bold sm-text">
             {languageIs ? "بحث بالمنطقة" : "Search by area"}
           </h6>
           <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
@@ -156,7 +158,7 @@ export function SearchBarHome() {
           <button
             id="Click-Gtm"
             onClick={handleSubmitSearch}
-            className={`bg-lightGreen text-white text-[14px] md:text-[16px]  font-bold select-none 
+            className={`bg-lightGreen text-white lg-text  font-bold select-none 
             h-[40px] md:h-[50px]
           w-full rounded-[4px]
           

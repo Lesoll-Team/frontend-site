@@ -28,7 +28,7 @@ function BlogSinglePage({ BlogData }) {
           priority
         />
         <div className="absolute flex items-center justify-center top-0 w-full h-[381px] ">
-          <h1 className="overflow-hidden text-white sm:text-xl font-bold text-[22px] md:text-[30px] w-full  text-center rounded-2xl">
+          <h1 className="overflow-x-hidden text-white  font-bold  w-full  text-center ">
             {language ? BlogData.getBlogs.title.ar : BlogData.getBlogs.title.en}
           </h1>
         </div>
@@ -39,12 +39,12 @@ function BlogSinglePage({ BlogData }) {
           <div className="sticky top-24 ">
             <div className="flex flex-col gap-y-[20px] ">
               <div className="flex flex-col md:gap-y-[0.8vw] xl:gap-y-[0.5vw] gap-y-[0.5vw] ">
-                <span className="text-[14px] md:block hidden md:text-[18px]">
+                <span className=" md:block hidden lg-text">
                   {formattedDate(BlogData?.getBlogs.createdAt, language)}
                 </span>
-                <span className="text-[16px] md:text-[20px]">
+                <h3 className="">
                   {language ? "مقالات مشابهة" : "Similar Blogs"}
-                </span>
+                </h3>
                 <div className="relative w-full">
                   <hr className="border-t-2 w-full absolute  border-[#cccccc] " />
                   <hr className="border-t-2 w-5/12 absolute  border-lightGreen " />
@@ -55,7 +55,7 @@ function BlogSinglePage({ BlogData }) {
           </div>
         </div>
         <div className="w-full col-span-2  ">
-          <span className="text-[14px] md:hidden block pb-2  text-gray1 md:text-[18px]">
+          <span className=" md:hidden block pb-2  text-gray1 lg-text">
             {language
               ? `بتاريخ : ${formattedDate(
                   BlogData?.getBlogs.createdAt,
@@ -68,7 +68,7 @@ function BlogSinglePage({ BlogData }) {
           </span>
           <div
             dir={language ? "rtl" : "ltr"}
-            className={` text-md sm:text-lg text-darkGray font-inter  ${styles.genericDiv}`}
+            className={` text-md sm:text-lg text-darkGray font-noto  ${styles.genericDiv}`}
             dangerouslySetInnerHTML={
               language
                 ? { __html: BlogData.getBlogs.description.ar }
