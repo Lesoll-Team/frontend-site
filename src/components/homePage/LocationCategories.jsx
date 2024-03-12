@@ -90,8 +90,8 @@ const LocationCategories = () => {
   }, []);
   return (
     <div>
-      <div className="md:container  md:mb-[32px]  smb-[17px] md:mx-auto mx-[20px]">
-        <h2 className="font-bold md:text-[30px] text-[18px] flex  text-grayText2">
+      <div className="md:container  md:mb-[32px]  mb-[17px] md:mx-auto mx-[20px]">
+        <h2 className="font-bold  flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}
         </h2>
         <p className="text-gray2  lg-text">

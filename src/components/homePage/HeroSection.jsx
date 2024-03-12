@@ -3,10 +3,8 @@ import Image from "next/image";
 const HeroSection = () => {
   return (
     <div className="absolute top-0 w-full z-0">
-      {/* <div className="backdrop-grayscale-200  w-full select-none bg-black/40 absolute md:h-screen  h-[313px]" /> */}
-      {/*md:h-full h-[313px]  md:h-full  h-[313px]*/}
       <Image
-        src="/home/home-img-hero-section.jpg"
+        src="/home/home-img-hero-section.webp"
         alt="Hero Image"
         width={1440}
         height={681}
