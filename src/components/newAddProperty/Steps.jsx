@@ -102,7 +102,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
           // type={detailsStepLogic()}
           // onClick={() => {
           //   if (isForInvestment) {
-          //     console.log(step);
+       
           //     step > 1 && setStep(2);
           //   }
           // }}

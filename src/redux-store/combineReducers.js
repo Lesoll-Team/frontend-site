@@ -29,6 +29,7 @@ import editPropertySlice from "@/components/edit-property/redux/editPropertSlice
 import addProjectSlice from "@/components/dashboard/router/add-project/redux/addProjectSlice";
 import addNeedSlice from "@/components/needs/addNeed/redux/addNeedSlice";
 import allProjectsSlice from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
+import editProjectSlice from "@/components/dashboard/router/edit-project/redux/editProjectSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -57,5 +58,6 @@ export default combineReducers({
   addProject: addProjectSlice,
   addNeed: addNeedSlice,
   getProjects: allProjectsSlice,
+  editProject: editProjectSlice,
   // Compare:compareReducer,
 });

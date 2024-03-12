@@ -7,9 +7,7 @@ const AcceptWithSetPassword = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
-  const onSubmit = (data) => {
-    // console.log(data);
-  };
+  const onSubmit = (data) => {};
   return (
     <div className="flex w-full">
       <form

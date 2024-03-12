@@ -16,6 +16,9 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const mainImgContainerRef = useRef(null);
   const showMultiImages = multiImage || album?.length > 0;
   useEffect(() => {
+    setAlbum(watch("album"));
+  }, [watch("album")]);
+  useEffect(() => {
     setValue("mainImage", mainImage);
     if (mainImage) {
       clearErrors("mainImage");
@@ -287,7 +290,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("multiImage", {
             validate: {
               min: (value) => {
-                const totalPics = value.length + (album?.length || 0);
+                const totalPics = (value?.length || 0) + (album?.length || 0);
                 return (
                   totalPics > 2 ||
                   (language
@@ -297,7 +300,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               },
               max: (value) => {
                 return (
-                  value.length + (album?.length || 0) < 21 ||
+                  (value?.length || 0) + (album?.length || 0) < 21 ||
                   (language
                     ? "يجب الا يزيد عدد الصور عن 20"
                     : "only 20 images a re allowed")

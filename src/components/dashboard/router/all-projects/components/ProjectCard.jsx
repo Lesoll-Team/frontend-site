@@ -17,7 +17,7 @@ const ProjectCard = ({ data }) => {
             src={data?.thumbnail}
             width={300}
             height={300}
-            className="object-cover w-full md:max-w-[150px] max-h-[150px] border rounded-md"
+            className="object-cover w-full md:max-w-[150px] h-[150px] border rounded-md min-h-full"
           />
         </Link>
         <div className="flex flex-col justify-between w-full h-full gap-2">
@@ -29,8 +29,13 @@ const ProjectCard = ({ data }) => {
               {data.description}
             </p>
           </div>
-          <div className="flex w-full">
-            {/* <Link href={} */}
+          <div className="flex w-full gap-2">
+            <Link
+              className="w-full bg-gray-300 rounded-md text-center py-1"
+              href={`/dashboard/edit-project/${data?.titleAr}`}
+            >
+              {language ? "تعديل" : "Edit"}
+            </Link>
             <DeleteProject id={data._id} />
           </div>
         </div>
