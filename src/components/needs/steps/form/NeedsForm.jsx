@@ -47,11 +47,11 @@ const NeedsForm = ({
           />
           {/* {language ? "رجوع" : "Back"} */}
         </button>
-        <h2 className="text-xl md:te md:text-3xl font-bold ">
+        <h1 className=" font-bold ">
           {language
             ? "ادخل بيانات العقار المطلوب"
             : "Enter the required property information"}
-        </h2>
+        </h1>
       </div>
       <div
         onSubmit={onSubmit}
@@ -59,9 +59,9 @@ const NeedsForm = ({
       >
         <div className="flex md:flex-row flex-col gap-10 w-full">
           <div className="space-y-2 w-full">
-            <h3 className="text-xl">
+            <p className="text-gray-800">
               {language ? "نوع العقار" : "Property Type"}
-            </h3>
+            </p>
             <input
               type="text"
               hidden
@@ -91,7 +91,9 @@ const NeedsForm = ({
             )}
           </div>
           <div className="space-y-2 w-full">
-            <h3 className="text-xl">{language ? "نوع الوحده" : "Unit Type"}</h3>
+            <p className="text-gray-800">
+              {language ? "نوع الوحده" : "Unit Type"}
+            </p>
             <input
               type="text"
               hidden
@@ -119,7 +121,7 @@ const NeedsForm = ({
           </div>
         </div>
         <div className="space-y-6 w-full">
-          <h3 className="text-xl ">{language ? " السعر" : "Price"}</h3>
+          <p className="text-gray-800">{language ? " السعر" : "Price"}</p>
           <div className="flex md:flex-row flex-col items-center gap-8 w-full">
             <div className=" space-y-2 w-full">
               <div className="relative">
@@ -200,9 +202,7 @@ const NeedsForm = ({
           </div>
         </div>
         <div className="space-y-6 w-full">
-          <h3 className="text-xl text-lightGray font-bold">
-            {language ? " المساحة" : "Area"}
-          </h3>
+          <p className="text-gray-800">{language ? " المساحة" : "Area"}</p>
           <div className="flex  md:flex-row flex-col items-center gap-8">
             <div className=" space-y-2 w-full">
               <div className="relative">
@@ -286,9 +286,9 @@ const NeedsForm = ({
           watch("offer") === "For Sale" && (
             <div className=" flex md:flex-row flex-col gap-10">
               <div className="space-y-2 w-full  ">
-                <h3 className="text-xl">
+                <p className="text-gray-800">
                   {language ? "المقدم" : "Down payment"}
-                </h3>
+                </p>
                 <input
                   type="text"
                   {...register("installment.0.downPayment", {
@@ -323,9 +323,9 @@ const NeedsForm = ({
                 )}{" "}
               </div>
               <div className="space-y-2 w-full">
-                <h3 className="text-xl">
+                <p className="text-gray-800">
                   {language ? "مدة التقسيط" : "installment period"}
-                </h3>
+                </p>
                 <input
                   type="text"
                   {...register("installment.0.period", {
@@ -364,7 +364,7 @@ const NeedsForm = ({
           )}
         <div className=" flex items-center md:flex-row flex-col gap-10">
           <div className="space-y-2 w-full">
-            <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
+            <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
             <input
               type="text"
               {...register("rooms", {
@@ -395,9 +395,9 @@ const NeedsForm = ({
             )}{" "}
           </div>
           <div className="space-y-2  w-full">
-            <h3 className="text-xl">
+            <p className="text-gray-800">
               {language ? "عدد الحمامات" : "Bathrooms"}
-            </h3>
+            </p>
             <input
               type="text"
               {...register("bathRooms", {
@@ -439,9 +439,9 @@ const NeedsForm = ({
           />
         </div>
         <div className="lg:col-span-2 space-y-2">
-          <h3 className="text-xl">
+          <p className="text-gray-800">
             {language ? "هل تريد إضافة اي تفاصيل أخرى؟  " : "More information"}
-          </h3>
+          </p>
           <textarea
             {...register("description", {
               validate: {
@@ -484,8 +484,8 @@ const NeedsForm = ({
           {status === "loading"
             ? "loading ..."
             : language
-            ? "أضف طلبك"
-            : "Add your need"}
+              ? "أضف طلبك"
+              : "Add your need"}
         </Button>
       </div>
     </div>

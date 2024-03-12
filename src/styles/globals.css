@@ -71,7 +71,12 @@ html {
 .sm-text {
   @apply text-[12px] md:text-[14px];
 }
-
+.xs-text {
+  @apply text-[12px];
+}
+.display-text {
+@apply text-2xl md:text-4xl ;
+}
 * {
   margin: 0;
   padding: 0;

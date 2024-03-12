@@ -62,9 +62,9 @@ const CashAndInstallment = ({
                 {language ? `خطة رقم ${index + 1}` : ""}
               </h4> */}
         <div className="space-y-2 w-full mb-4">
-          <h3 className="text-xl font-bold">
+          <p className="text-gray-800">
             {language ? "  الدفع الكاش" : " Cash Payment"}
-          </h3>
+          </p>
           <h4 className="text-base text-darkGray">
             {language ? "الخصم" : "Discount"}
           </h4>
@@ -112,9 +112,9 @@ const CashAndInstallment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? " نظام التقسيط" : "Installment System"}
-                  </h3>
+                  </p>
                   <DropDown
                     options={installmentTypeOptions}
                     selected={watch(`installment.${index}.type`)}
@@ -145,9 +145,9 @@ const CashAndInstallment = ({
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? "مدة التقسيط" : "Installment Period"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -185,9 +185,9 @@ const CashAndInstallment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? " المقدم" : " Down payment"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -222,9 +222,9 @@ const CashAndInstallment = ({
                   </div>
                 </div>
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? "قيمة التقسيط" : "Installment amount"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       type="text"

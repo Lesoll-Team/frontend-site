@@ -10,7 +10,9 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <>
       <div className=" space-y-2">
-        <h3 className="text-xl">{language ? " سعر الوحدة" : " Unit price"}</h3>
+        <p className="text-gray-800">
+          {language ? " سعر الوحدة" : " Unit price"}
+        </p>
         <input
           autoComplete="off"
           type="text"
@@ -45,9 +47,9 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
         {errors.price && <Error>{errors.price.message}</Error>}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "  نوع الإيجار" : "Rental Type"}
-        </h3>
+        </p>
 
         <DropDown
           options={rentalTypes}
@@ -73,7 +75,9 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
         />
       </div>
       <div className=" space-y-2">
-        <h3 className="text-xl">{language ? "  التأمين" : "  insurance"}</h3>
+        <p className="text-gray-800">
+          {language ? "  التأمين" : "  insurance"}
+        </p>
         <input
           autoComplete="off"
           type="text"
@@ -102,9 +106,9 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
         {errors.insurance && <Error>{errors.insurance.message}</Error>}
       </div>
       <div className="flex gap-4 items-center lg:mt-8">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "هل السعر قابل للتفاوض؟" : "Is price negotiable?"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("negotiable")}

@@ -51,7 +51,9 @@ const Sale = ({
   return (
     <>
       <div className=" space-y-2">
-        <h3 className="text-xl">{language ? " سعر الوحدة" : " Unit price"}</h3>
+        <p className="text-gray-800">
+          {language ? " سعر الوحدة" : " Unit price"}
+        </p>
         <div className="relative">
           <input
             inputMode="numeric"
@@ -96,9 +98,9 @@ const Sale = ({
         {errors.price && <Error>{errors.price.message}</Error>}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "طريقة الدفع" : "Payment Method"}
-        </h3>
+        </p>
         <DropDown
           options={saleOptions}
           selected={watch("saleOption")}

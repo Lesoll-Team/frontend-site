@@ -68,9 +68,9 @@ const AddPropMainInfo = ({
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "عنوان الإعلان" : "Proprty Title"}
-        </h3>
+        </p>
         <input
           autoComplete="off"
           type="text"
@@ -108,7 +108,7 @@ const AddPropMainInfo = ({
       </div>
       {userData?.isAdmin && (
         <div className="space-y-2 lg:col-span-2">
-          <h2 className="text-xl">{language ? "المشروع" : "project"}</h2>
+          <p className="text-gray-800">{language ? "المشروع" : "project"}</p>
           {projects && (
             <DropDown
               selected={watch("ProjectID")}
@@ -121,7 +121,9 @@ const AddPropMainInfo = ({
         </div>
       )}
       <div className=" space-y-5">
-        <h3 className="text-xl">{language ? "نوع الإعلان" : "Offer Type"}</h3>
+        <p className="text-gray-800">
+          {language ? "نوع الإعلان" : "Offer Type"}
+        </p>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
             type="button"
@@ -165,9 +167,9 @@ const AddPropMainInfo = ({
         </div>
       </div>
       <div className=" space-y-5">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "العقار فى كومباوند " : "Property in compound"}
-        </h3>
+        </p>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
             type="button"
@@ -198,7 +200,9 @@ const AddPropMainInfo = ({
         </div>
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "نوع العقار" : "Property Type"}</h3>
+        <p className="text-gray-800">
+          {language ? "نوع العقار" : "Property Type"}
+        </p>
         <input
           type="text"
           hidden
@@ -228,7 +232,7 @@ const AddPropMainInfo = ({
         )}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "نوع الوحده" : "Unit Type"}</h3>
+        <p className="text-gray-800">{language ? "نوع الوحده" : "Unit Type"}</p>
         <input
           type="text"
           hidden
@@ -278,9 +282,9 @@ const AddPropMainInfo = ({
         clearErrors={clearErrors}
       /> */}
       <div className="lg:col-span-2 space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "وصف العقار" : "Property description"}
-        </h3>
+        </p>
         <textarea
           {...register("description", {
             required: {

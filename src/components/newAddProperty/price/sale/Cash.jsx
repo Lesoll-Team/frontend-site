@@ -7,9 +7,9 @@ const Cash = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <>
       <div className="flex gap-4">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "هل السعر قابل للتفاوض؟" : "Is price negotiable?"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("negotiable")}
@@ -28,9 +28,9 @@ const Cash = ({ errors, register, setValue, watch, clearErrors }) => {
         </div>
       </div>
       <div className="flex gap-4">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "هل متاح تمويل عقاري؟" : "Is mortgage available?"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("realEstateFinance")}

@@ -7,9 +7,9 @@ const RentType = ({ setValue, setStep, watch }) => {
 
   return (
     <div className="min-h-[70dvh] md:min-h-[82dvh] grid place-content-center space-y-8 md:space-y-16 fade-in-right ">
-      <h2 className="text-xl text-darkGray md:text-5xl text-center font-bold">
+      <h1 className="text-xl   display-text text-center font-bold">
         اختر نوع الإيجار
-      </h2>
+      </h1>
       <div className="flex flex-col justify-center">
         <div className="flex justify-center gap-5 md:gap-10">
           <SelectCard

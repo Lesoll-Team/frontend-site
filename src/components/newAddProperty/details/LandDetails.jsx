@@ -12,7 +12,7 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
-        <h3 className="text-xl">{language ? "المساحة " : "Space"}</h3>
+        <p className="text-gray-800">{language ? "المساحة " : "Space"}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -45,11 +45,11 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
 
       <div className="flex gap-4">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language
             ? "هل العقار مسجل"
             : "Notarized by the real estate certificate"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isRegisterd")}

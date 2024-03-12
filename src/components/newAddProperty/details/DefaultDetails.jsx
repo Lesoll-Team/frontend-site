@@ -24,7 +24,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <AddPropSectionContainer>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "المساحة " : "Space"}</h3>
+        <p className="text-gray-800">{language ? "المساحة " : "Space"}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -56,12 +56,12 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         )}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "الدور" : "level"}{" "}
           <span className="text-outLine">
             {language ? "(إختيارى)" : "(optional)"}
           </span>
-        </h3>
+        </p>
         <input
           inputMode="numeric"
           type="text"
@@ -94,7 +94,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         )}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
+        <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -124,7 +124,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         {errors.rooms && <p className="text-red-500">{errors.rooms.message}</p>}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "عدد الحمامات" : "Bathrooms"}</h3>
+        <p className="text-gray-800">
+          {language ? "عدد الحمامات" : "Bathrooms"}
+        </p>
         <input
           inputMode="numeric"
           type="text"
@@ -156,12 +158,12 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         )}{" "}
       </div>
       <div className="w-full space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? " سنة التسليم" : "Delivery Date"}{" "}
           <span className="text-outLine">
             {language ? "(إختيارى)" : "(optional)"}
           </span>
-        </h3>
+        </p>
 
         <div
           role="button"
@@ -193,7 +195,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         <input type="text" {...register("deliveryDate")} hidden />
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? " التشطيب" : "Finishing Type"}</h3>
+        <p className="text-gray-800">
+          {language ? " التشطيب" : "Finishing Type"}
+        </p>
         <DropDown
           selected={watch("finishingType")}
           options={finishingType}
@@ -218,11 +222,11 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         />
       </div>
       <div className="flex gap-4">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language
             ? "هل العقار مسجل"
             : "Notarized by the real estate certificate"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isRegisterd")}
@@ -241,9 +245,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         </div>
       </div>
       <div className="flex gap-4">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "هل العقار مفروش ؟" : "Is the property furnished?"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isFurnished")}
