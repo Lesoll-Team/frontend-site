@@ -8,7 +8,7 @@ const FinishingList = () => {
   const { finishedOption } = useSelector((state) => state.Category);
   return (
     <div className="flex bg-[#F8F8F8] flex-col p-[1.5vw] w-full gap-y-[1.5vh]">
-      <span className="font-bold text-gray2 ">
+      <span className="font-bold lg-text text-gray2 ">
         {language ? "تشطيب" : "Finishing"}
       </span>
       <Dropdown

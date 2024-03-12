@@ -14,7 +14,7 @@ const PropertiesTypes = () => {
   return (
     <div className="flex  justify-center md:hidden md:gap-x-[1vw]  gap-x-[1.5vw] p-[1.5vw] bg-[#F8F8F8]">
       <div className="flex flex-col  w-6/12 gap-y-[1.5vh]">
-        <span className="flex font-bold text-gray2 ">
+        <span className="flex lg-text font-bold text-gray2 ">
           {language ? "نوع العقار" : "Property type"}
         </span>
         <Dropdown
@@ -27,7 +27,7 @@ const PropertiesTypes = () => {
         />
       </div>
       <div className="  flex flex-col  w-6/12 gap-y-[1.5vh]">
-        <span className="flex font-bold text-gray2 ">
+        <span className="flex lg-text font-bold text-gray2 ">
           {language ? "نوع الوحدة" : "unit type"}
         </span>
         <Dropdown

@@ -33,9 +33,9 @@ const SidebarFilter = ({ languageIs }) => {
       >
         {/*search text and button close*/}
         <div className=" w-full flex justify-between items-center">
-          <span className="text-[25px]">
+          <h3 className="">
             {languageIs ? "خيارات أكثر" : "More Option"}
-          </span>
+          </h3>
           <IoClose
             onClick={openSideFilter}
             className="text-[20px] cursor-pointer"

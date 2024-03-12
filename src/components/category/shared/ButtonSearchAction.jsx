@@ -76,7 +76,9 @@ const ButtonSearchAction = ({ isBar }) => {
     return (
       <button
         onClick={handleClick}
-        className="w-[100px] md:w-[9.97vw] md:min-w-[165px] h-[1.875rem] md:h-[3.313rem] rounded-l-[6px]  md:rounded-[6px] font-bold text-[12px] md:text-[20px] text-white bg-lightGreen "
+        className="w-[100px] md:w-[9.97vw] md:min-w-[165px] h-[1.875rem] md:h-[3.313rem] rounded-l-[6px]  md:rounded-[6px] font-bold 
+        
+        lg-text text-white bg-lightGreen "
       >
         {language ? "بحث" : "Search"}
       </button>
@@ -86,7 +88,7 @@ const ButtonSearchAction = ({ isBar }) => {
       <div className="mb-5 flex justify-center">
         <button
           onClick={handleClick}
-          className="md:w-[24.2vw] w-full rounded-[6px] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"
+          className="md:w-[24.2vw] lg-text w-full rounded-[6px] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"
         >
           {language ? "عرض النتائج" : "Show results"}
         </button>

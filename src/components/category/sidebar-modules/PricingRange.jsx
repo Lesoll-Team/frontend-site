@@ -29,15 +29,15 @@ const PricingRange = () =>
     };
     return (
       <div className="bg-[#F8F8F8] flex flex-col gap-y-[1.5vh] p-[1.5vw]">
-        <div className="flex font-bold text-gray2 gap-x-2">
+        <div className="flex lg-text font-bold text-gray2 gap-x-2">
           <span>{language ? "السعر" : "Price"}</span>
 
           <span className="">{language ? "(جنيه)" : "(EGY)"}</span>
         </div>
-        <div className="flex justify-between gap-x-[1vw]">
+        <div className="flex sm-text justify-between md:gap-x-[1vw]  gap-x-[1.5vw]">
           <input
             type="number"
-            className="indent-2 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-gray1 md:px-3 md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
+            className="indent-3 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-[#CCCCCC]  md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
             onChange={handleChangePriceFrom}
             placeholder={language ? "اقل سعر" : "min price"}
             value={priceFrom || ""}
@@ -45,7 +45,7 @@ const PricingRange = () =>
 
           <input
             type="number"
-            className="indent-2 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-gray1 md:px-3 md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
+            className="indent-3 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-[#CCCCCC]  md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
             onChange={handleChangePriceTo}
             placeholder={language ? "اعلى سعر" : "max price"}
             value={priceTo || ""}

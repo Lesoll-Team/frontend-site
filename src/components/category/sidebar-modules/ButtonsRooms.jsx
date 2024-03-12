@@ -37,11 +37,11 @@ const ButtonsRooms = () =>
     return (
       <div className="flex bg-[#F8F8F8] gap-y-[2vh] flex-col p-[1.5vw] ">
         <div className="flex w-full flex-col gap-y-[1.5vh]">
-          <span className="font-bold text-gray2">
+          <span className="font-bold lg-text text-gray2">
             {language ? "عدد الغرف" : "Bedrooms"}
           </span>
 
-          <div className=" flex gap-x-[0.78vw] ">
+          <div className=" flex md:gap-x-[1vw]  gap-x-[1.5vw] sm-text">
             {Array.from(Array(7), (_, i) => (
               <button
                 className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]  
@@ -49,7 +49,7 @@ const ButtonsRooms = () =>
                              ${
                                numBedrooms == i + 1
                                  ? "border-1  border-lightGreen text-lightGreen "
-                                 : "border-1 border-gray-400 text-gray-400"
+                                 : "border-1 border-[#CCCCCC] text-gray2"
                              }`}
                 key={i}
                 onClick={() => handleButtonClick(i, "bed")}
@@ -60,11 +60,11 @@ const ButtonsRooms = () =>
           </div>
         </div>
         <div className="flex w-full flex-col gap-y-[1.5vh]">
-          <span className="font-bold text-gray2">
+          <span className="font-bold lg-text text-gray2">
             {language ? "عدد الحمامات" : "Bathrooms"}
           </span>
 
-          <div className=" flex gap-x-[0.78vw] ">
+          <div className=" flex md:gap-x-[1vw]  gap-x-[1.5vw] sm-text">
             {Array.from(Array(7), (_, i) => (
               <button
                 className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]  
@@ -72,7 +72,7 @@ const ButtonsRooms = () =>
                              ${
                                numBathrooms == i + 1
                                  ? "border-1  border-lightGreen text-lightGreen "
-                                 : "border-1 border-gray-400 text-gray-400"
+                                 : "border-1 border-[#CCCCCC] text-gray2"
                              }`}
                 key={i}
                 onClick={() => handleButtonClick(i, "bath")}

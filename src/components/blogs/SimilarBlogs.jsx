@@ -29,10 +29,10 @@ const SimilarBlogs = ({ blog }) => {
             className="md:h-[85px] md:w-[100px] h-[60px] w-[60px]"
           />
           <div className=" flex flex-col text-justify justify-around pr-[16px]">
-            <span className="md:text-[16px] text-[12px] text-gray2 line-clamp-2 font-semibold">
+            <span className="lg-text text-gray2 line-clamp-2 font-semibold">
               {language ? blog[i]?.slug?.title.ar : blog[i]?.slug?.title.en}
             </span>
-            <span className="md:text-[14px] text-[10px] text-[#309DA0]">
+            <span className="sm-text text-[#309DA0]">
               {formattedDate(blog[i]?.createdAt, language)}
             </span>
           </div>

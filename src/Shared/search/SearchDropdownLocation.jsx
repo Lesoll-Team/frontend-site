@@ -238,7 +238,7 @@ export function SearchDropdownLocation({
           >
             <span
               className=" 
-    text-[10px]  md-text-[13px] lg:text-[16px]
+    sm-text
     whitespace-nowrap text-white "
             >
               {selectedValues[selectedValues.length - 1]}
@@ -251,7 +251,7 @@ export function SearchDropdownLocation({
                   selectedValues[selectedValues.length - 1]
                 )
               }
-              className="text-gray2  items-center flex text-lg md:text-xl lg:text-2xl font-semibold"
+              className="text-gray2  items-center flex sm-text font-semibold"
             >
               &times;
             </button>
@@ -268,7 +268,7 @@ export function SearchDropdownLocation({
           >
             <span
               className=" 
-    text-[10px]  md-text-[13px] lg:text-[16px]
+    sm-text
     whitespace-nowrap text-white "
             >
               {defaultGovernorate}
@@ -278,7 +278,7 @@ export function SearchDropdownLocation({
             </span>
             <button
               onClick={() => setClearDefault(false)}
-              className="text-gray2  items-center flex text-lg md:text-xl lg:text-2xl font-semibold"
+              className="text-gray2  items-center flex sm-text font-semibold"
             >
               &times;
             </button>
@@ -293,7 +293,7 @@ export function SearchDropdownLocation({
             onChange={handleSearch}
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
-            className="w-full focus:outline-none text-gray-600  flex h-full"
+            className="w-full sm-text placeholder:sm-text focus:outline-none text-gray-600  flex h-full"
             aria-label="Search by region" // Add aria-label attribute
           />
         </div>
@@ -311,8 +311,9 @@ export function SearchDropdownLocation({
                 className={`${
                   index === highlightedIndex ? "bg-gray-200" : "bg-white"
                 }  px-4 py-2  hover:bg-gray-100 
-           text-[12px] md:text-[14px] gl-text-[17px] xl:text-[20px] w-full 
-           2xl:text-[24px]`}
+           w-full 
+           sm-text
+           `}
               >
                 {languageIs ? governorate.name_ar : governorate.name_en}
               </button>
