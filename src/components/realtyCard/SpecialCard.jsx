@@ -69,7 +69,7 @@ const SpecialCard = ({ cardDetails }) => {
         <h3 className="line-clamp-1 w-full text-center  text-[16px] font-bold text-[#656565] ">
           {language ? " يبدأ من " : " Started From "}
           {cardDetails?.price.toLocaleString()}
-          {" EGY "}
+          {" Egp "}
         </h3>
       </div>
       <div className=" flex bottom-0 w-full h-[51px] ">

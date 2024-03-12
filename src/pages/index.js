@@ -9,9 +9,9 @@ const PropertiesCategories = dynamic(
 const LocationCategories = dynamic(
   () => import("@/components/homePage/LocationCategories")
 );
-// const SpecialCards = dynamic(
-//   () => import("../components/homePage/SpecialCards")
-// );
+const SpecialCards = dynamic(
+  () => import("../components/homePage/SpecialCards")
+);
 const SearchModule = dynamic(
   () => import("../components/homePage/SearchModule")
 );
@@ -19,7 +19,7 @@ const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome")
 );
 
-const Home = ({ bestSearch }) => {
+const Home = ({ bestSearch, specialCardData }) => {
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <div className="md:container md:mx-auto  mx-[20px]">
@@ -49,9 +49,9 @@ export default Home;
 export async function getStaticProps() {
   let linkInHome = cache.get("linkInHome");
 
-  // const specialData = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/property/get-home-projects?limit=3&page=1`
-  // );
+  const specialData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/get-home-projects?limit=3&page=1`
+  );
   if (!linkInHome) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
@@ -59,12 +59,12 @@ export async function getStaticProps() {
     linkInHome = await response.json();
   }
   cache.put("linkInHome", linkInHome, 86400000);
-  // const specialCardData = await specialData.json();
+  const specialCardData = await specialData.json();
   // const linkInHome = await linkHome.json();
 
   return {
     props: {
-      // specialCardData,
+      specialCardData,
       bestSearch: linkInHome,
     },
     revalidate: 1440,
