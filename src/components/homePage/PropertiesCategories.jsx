@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+// import dynamic from "next/dynamic";
 import {
   CommercialRent,
   CommercialSale,
@@ -13,8 +14,8 @@ import {
   ResidentialRent,
   ResidentialSale,
 } from "./iconHomeSVG";
+
 import { IoIosArrowBack } from "react-icons/io";
-// import { SearchBarHome } from "@/Shared/search/SearchBarHome";
 const PropertiesCategories = ({ isHome }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const categories = [
@@ -204,3 +205,8 @@ const PropertiesCategories = ({ isHome }) => {
 };
 
 export default memo(PropertiesCategories);
+
+// const PropertiesCategories = dynamic(
+//   () => import("@/components/homePage/PropertiesCategories")
+// );
+// import { SearchBarHome } from "@/Shared/search/SearchBarHome";

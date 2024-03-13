@@ -8,6 +8,7 @@ export function SearchDropdownLocation({
   setLocationRegion,
   defaultGovernorate,
   defaultRegion,
+
 }) {
   const dispatch = useDispatch();
   const [governorates, setGovernorates] = useState([]);
@@ -27,7 +28,7 @@ export function SearchDropdownLocation({
         highlightedOption.scrollIntoView({
           behavior: "instant", //smooth instant auto
           block: "nearest", //start end center nearest
-          //   inline: "nearest", //start end center nearest
+          inline: "center", //start end center nearest
         });
       }
     }
@@ -218,13 +219,16 @@ export function SearchDropdownLocation({
 
   return (
     <div
+      // aria-label="Search by locations main"
+      aria-label={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
       dir={languageIs ? "rtl" : "ltr"}
       className="relative w-full focus:outline-none h-full
       "
-      aria-labelledby="result search"
+
+    // aria-labelledby="result search"
     >
       <div
-        aria-label="Search Results"
+        // aria-label="Search Results"
         className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 "
       >
         {selectedValues.length > 0 ? (
@@ -234,7 +238,7 @@ export function SearchDropdownLocation({
     px-1 md:px-3 md:py-1 
    bg-lightGreen rounded-sm md:rounded-md "
             key={selectedValues[selectedValues.length - 1]}
-            aria-labelledby="input selectedValues search"
+          // aria-labelledby="input selectedValues search"
           >
             <span
               className=" 
@@ -244,7 +248,7 @@ export function SearchDropdownLocation({
               {selectedValues[selectedValues.length - 1]}
             </span>
             <button
-              aria-label="delete selected"
+              // aria-label="delete selected"
               onClick={() =>
                 handleClearCared(
                   selectedValues.length - 1,
@@ -264,7 +268,7 @@ export function SearchDropdownLocation({
      gap-x-1 md:gap-x-3
     px-1 md:px-3 md:py-1 
    bg-lightGreen rounded-sm md:rounded-md "
-            aria-labelledby="out search"
+          // aria-labelledby="out search"
           >
             <span
               className=" 
@@ -294,23 +298,25 @@ export function SearchDropdownLocation({
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
             className="w-full sm-text placeholder:sm-text focus:outline-none text-gray-600  flex h-full"
-            aria-label="Search by region" // Add aria-label attribute
+
+          // aria-label="Search by region" // Add aria-label attribute
           />
         </div>
       </div>
       {searchTerm !== "" && (
         <div
-          aria-labelledby=" search"
+          // aria-labelledby=" search"
           className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
         >
-          <div aria-labelledby="result" ref={dropdownRef}>
+          <div
+            // aria-labelledby="result"
+            ref={dropdownRef}>
             {filteredOptions.map((governorate, index) => (
               <button
                 key={index}
                 onClick={() => handleSelectByLanguage(governorate)}
-                className={`${
-                  index === highlightedIndex ? "bg-gray-200" : "bg-white"
-                }  px-4 py-2  hover:bg-gray-100 
+                className={`${index === highlightedIndex ? "bg-gray-200" : "bg-white"
+                  }  px-4 py-2  hover:bg-gray-100 
            w-full 
            sm-text
            `}
