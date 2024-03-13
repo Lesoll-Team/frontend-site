@@ -7,7 +7,7 @@ export const ResidentialSale = ({ styles }) => {
       width={100}
       height={100}
       alt="properties for sell"
-      className={styles}
+      className={`${styles} w-auto h-auto`}
     />
   );
 };
@@ -437,7 +437,7 @@ export const LandsIcon = ({ styles }) => {
       width={100}
       height={100}
       alt="properties for sell"
-      className={styles}
+      className={`${styles} w-auto h-auto`}
     />
   )
 };
