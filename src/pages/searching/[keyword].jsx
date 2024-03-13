@@ -1,16 +1,24 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+// import { useEffect } from "react";
+// import { useRouter } from "next/router";
 const SearchPageRedirect = () => {
-  const router = useRouter();
-  useEffect(() => {
-    // Redirect to the new URL
-    // const keywords = router.asPath;
+  // const router = useRouter();
+  // useEffect(() => {
+  // Redirect to the new URL
+  // const keywords = router.asPath;
 
-    router.push(`/`);
-  }, [router]);
+  // router.push(`/`);
+  // }, [router]);
   return null;
 };
 export default SearchPageRedirect;
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/properties/sale/residential/search?page=1",
+      statusCode: 308,
+    },
+  };
+}
 // import React, { useEffect, useState } from "react";
 
 // import { useDispatch, useSelector } from "react-redux";

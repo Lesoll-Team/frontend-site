@@ -1,7 +1,6 @@
 // module.exports = nextConfig;
 module.exports = async () => {
   /**
-   *
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
@@ -18,7 +17,7 @@ module.exports = async () => {
         },
         {
           source: "/searching/searching/:slug",
-          destination: "/searching/:slug",
+          destination: "/properties/residential/sale/search?page=1",
           permanent: true,
         },
         {
@@ -28,7 +27,7 @@ module.exports = async () => {
         },
         {
           source: "/Governrate/:slug*",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
@@ -38,22 +37,22 @@ module.exports = async () => {
         },
         {
           source: "/Realties/:slug",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/SiteMap",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/SiteMap/:slug",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/Sitemap",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
@@ -93,12 +92,12 @@ module.exports = async () => {
         },
         {
           source: "/search",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/search/:slug",
-          destination: "/searching/offer=all",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
       ];

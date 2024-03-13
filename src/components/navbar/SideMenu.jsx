@@ -13,6 +13,7 @@ import { logoutUserToken } from "@/redux-store/features/authSlice";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
+import io from "socket.io-client";
 
 const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
@@ -52,6 +53,19 @@ const SideMenu = () => {
       setShowSideMenu(false);
     }
   }, [windowWidth]);
+  useEffect(() => {
+    const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
+      transports: ['websocket'],
+      withCredentials: true,
+    });
+    if (userData?._id) {
+      socket.emit("online", { userId: userData._id });
+    }
+    return () => {
+      socket.disconnect();
+    };
+  }, [userData?._id]);
+  console.log("userData?._id", userData?._id);
   return (
     <>
       <button onClick={openSideMenu} className="lg:hidden">

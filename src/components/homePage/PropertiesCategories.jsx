@@ -24,7 +24,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "Properties for sale",
       totalAr: "( 200+ وحدة )",
       totalEn: "( +200 Uint )",
-      url: "/properties/residential/sale",
+      url: "/properties/residential/sale/search?page=1",
       id: 1,
     },
     {
@@ -33,7 +33,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "Properties for rent",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
-      url: "/properties/residential/rent",
+      url: "/properties/residential/rent/search?page=1",
       id: 2,
     },
 
@@ -43,7 +43,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "commercial for sale",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/commercial/sale",
+      url: "/properties/commercial/sale/search?page=1",
       id: 5,
     },
     {
@@ -52,7 +52,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "commercial for rent",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/commercial/rent",
+      url: "/properties/commercial/rent/search?page=1",
       id: 4,
     },
     {
@@ -62,7 +62,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "real estate investment",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
-      url: "/properties/investment/lands",
+      url: "/properties/investment/lands/search?page=1",
       id: 3,
     },
     {
@@ -71,7 +71,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "lands",
       totalAr: "( 180+ وحدة )",
       totalEn: "( +180 Uint )",
-      url: "/properties/lands/sale",
+      url: "/properties/lands/sale/search?page=1",
       id: 6,
     },
     {
@@ -80,7 +80,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "compounds",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
-      url: "/properties/compounds",
+      url: "/properties/compounds/sale/search?page=1",
       id: 7,
     },
     {
@@ -90,7 +90,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "real estate finance",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
-      url: "/properties/finance/",
+      url: "/properties/finance/sale/search?page=1",
       id: 8,
     },
 
@@ -100,7 +100,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "graves",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/graves/sale",
+      url: "/properties/graves/sale/search?page=1",
       id: 9,
     },
   ];
@@ -149,32 +149,8 @@ const PropertiesCategories = ({ isHome }) => {
       >
         {categories && isHome
           ? categories
-              .filter((_, i) => i < seeMore)
-              .map((category) => (
-                <Link
-                  href={category.url}
-                  key={category.id}
-                  className="
-               cursor-pointer shadow-black  border-[#CCCCCC] border-[1px]
-               flex flex-col items-center justify-center 
-               md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
-               gap-y-[5px]
-              "
-                >
-                  <div className="  flex items-center justify-center overflow-hidden md:w-[125px] md:h-[130px] h-[75px] w-[75px]">
-                    {category.icon}
-                  </div>
-                  <div className="  text-center flex flex-col gap-y-3 ">
-                    <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
-                      {language ? category.titleAr : category.titleEn}
-                    </p>
-                    <p className="text-[11px] md:text-[16px] text-lightGreen">
-                      {language ? category.totalAr : category.totalEn}
-                    </p>
-                  </div>
-                </Link>
-              ))
-          : categories.map((category) => (
+            .filter((_, i) => i < seeMore)
+            .map((category) => (
               <Link
                 href={category.url}
                 key={category.id}
@@ -192,12 +168,36 @@ const PropertiesCategories = ({ isHome }) => {
                   <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
                     {language ? category.titleAr : category.titleEn}
                   </p>
-                  <p className="text-[11px] md:text-[20px] text-lightGreen">
+                  <p className="text-[11px] md:text-[16px] text-lightGreen">
                     {language ? category.totalAr : category.totalEn}
                   </p>
                 </div>
               </Link>
-            ))}
+            ))
+          : categories.map((category) => (
+            <Link
+              href={category.url}
+              key={category.id}
+              className="
+               cursor-pointer shadow-black  border-[#CCCCCC] border-[1px]
+               flex flex-col items-center justify-center 
+               md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
+               gap-y-[5px]
+              "
+            >
+              <div className="  flex items-center justify-center overflow-hidden md:w-[125px] md:h-[130px] h-[75px] w-[75px]">
+                {category.icon}
+              </div>
+              <div className="  text-center flex flex-col gap-y-3 ">
+                <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
+                  {language ? category.titleAr : category.titleEn}
+                </p>
+                <p className="text-[11px] md:text-[20px] text-lightGreen">
+                  {language ? category.totalAr : category.totalEn}
+                </p>
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );
