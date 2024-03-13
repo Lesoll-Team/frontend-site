@@ -17,18 +17,18 @@ const SocialMedia = () => {
       id: 1,
     },
     {
-      icon: <AiFillInstagram  className={stylesIcons} />,
+      icon: <RiWhatsappFill className={stylesIcons} />,
+      link: "https://wa.me/+201032362898",
+      title: "WhatsApp",
+      id: 3,
+    },
+    {
+      icon: <AiFillInstagram className={stylesIcons} />,
       link: "https://www.instagram.com/lesollrealestate",
       title: "Instagram",
       id: 2,
     },
     {
-      icon: <RiWhatsappFill  className={stylesIcons} />,
-      link: "https://wa.me/+201032362898",
-      title: "WhatsApp",
-      id: 3,
-    },
-        {
       icon: <FaLinkedinIn className={stylesIcons} />,
       link: "https://www.linkedin.com/company/lesollrealestate/mycompany/",
       title: "linkedin",
@@ -43,7 +43,7 @@ const SocialMedia = () => {
   ];
 
   return (
-    <div className=" flex md:gap-3 gap-1">
+    <div className=" flex justify-between md:gap-3 gap-1">
       {contactSocialMedia.map((social) => (
         <a
           target="_blank"

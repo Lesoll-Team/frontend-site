@@ -12,26 +12,26 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#F0F0F0]" dir={`${language && "rtl"}`}>
-      <div className="container  mx-auto flex flex-col space-y-[32px] py-[60px]">
-        <div className="flex items-center  justify-center">
+      <div className="md:container  md:mx-auto mx-[1.9vw] flex flex-col md:space-y-[32px] space-y-[24px] md:py-[60px] py-[33px]">
+        <div className="flex md:mx-auto mx-[8vw]  md:flex-row flex-col items-center gap-y-[16px] justify-center">
           <Image
             alt="Logo footer"
             width={200}
             height={100}
             className="  w-[121px] h-[40px]"
-            priority
+            priority={false}
             src={"/icons/logoNavbar.png"}
           />
-          <div className=" ml-[16px]   bg-gray2 w-[1px] h-[26px] "/>
-          <div className="">
+          <div className=" ml-[16px]  hidden md:block bg-gray2 w-[1px] h-[26px] " />
+          <div className=" w-full max-w-[200px] ">
             <SocialMedia />
           </div>
         </div>
-        <div>
-          <Links/>
+        <div className="">
+          <Links />
         </div>
         <div className="flex justify-center">
-          <CopyRight/>
+          <CopyRight />
         </div>
       </div>
     </footer>
@@ -39,15 +39,15 @@ const Footer = () => {
 };
 
 export default memo(Footer);
-        /* <div className="space-y-5 flex flex-col ">
-          <UsefulLinks />
-        </div>
-        <div className="space-y-5 flex flex-col">
-          <Help />
-        </div>
-        <div className="space-y-5 flex flex-col">
-          <Contact />
-        </div>
-        <div className="sm:hidden block  space-y-5 ">
-          <SocialMedia />
-        </div> */
+/* <div className="space-y-5 flex flex-col ">
+  <UsefulLinks />
+</div>
+<div className="space-y-5 flex flex-col">
+  <Help />
+</div>
+<div className="space-y-5 flex flex-col">
+  <Contact />
+</div>
+<div className="sm:hidden block  space-y-5 ">
+  <SocialMedia />
+</div> */
