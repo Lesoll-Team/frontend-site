@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import cache from "memory-cache";
+// import cache from "memory-cache";
 
 const HeroSection = dynamic(() => import("@/components/homePage/HeroSection"));
 const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
@@ -47,18 +47,18 @@ const Home = ({ bestSearch }) => {
 
 export default Home;
 export async function getStaticProps() {
-  let linkInHome = cache.get("linkInHome");
+  // let linkInHome = cache.get("linkInHome");
 
   // const specialData = await fetch(
   //   `${process.env.NEXT_PUBLIC_API_URL}/property/get-home-projects?limit=3&page=1`
   // );
-  if (!linkInHome) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
-    );
-    linkInHome = await response.json();
-  }
-  cache.put("linkInHome", linkInHome, 86400000);
+  // if (!linkInHome) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+  );
+  const linkInHome = await response.json();
+  // }
+  // cache.put("linkInHome", linkInHome, 86400000);
   // const specialCardData = await specialData.json();
   // const linkInHome = await linkHome.json();
 
@@ -67,7 +67,7 @@ export async function getStaticProps() {
       // specialCardData,
       bestSearch: linkInHome,
     },
-    revalidate: 1440,
+    revalidate: 1,
   };
 }
 
