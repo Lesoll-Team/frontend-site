@@ -30,6 +30,7 @@ import addProjectSlice from "@/components/dashboard/router/add-project/redux/add
 import addNeedSlice from "@/components/needs/addNeed/redux/addNeedSlice";
 import allProjectsSlice from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 import editProjectSlice from "@/components/dashboard/router/edit-project/redux/editProjectSlice";
+import pendingNeedsSlice from "@/components/dashboard/router/needs/redux/pendingNeedsSlice";
 export default combineReducers({
   GlobalState: globalState,
   Auth: authReducer,
@@ -59,5 +60,6 @@ export default combineReducers({
   addNeed: addNeedSlice,
   getProjects: allProjectsSlice,
   editProject: editProjectSlice,
+  PendingNeeds: pendingNeedsSlice,
   // Compare:compareReducer,
 });
