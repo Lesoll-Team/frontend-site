@@ -65,7 +65,6 @@ const SideMenu = () => {
       socket.disconnect();
     };
   }, [userData?._id]);
-  console.log("userData?._id", userData?._id);
   return (
     <>
       <button onClick={openSideMenu} className="lg:hidden">
