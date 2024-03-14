@@ -32,12 +32,12 @@ const FavBtn = ({ id = "adad" }) => {
         addToFAv();
       }}
       type="button"
-      className="flex items-center justify-center h-10 w-10 bg-white rounded-full"
+      className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 bg-white rounded-full"
     >
       {active ? (
-        <FaHeart className="text-lg text-red-500" />
+        <FaHeart className="text-lg md:text-xl animate-appearance-in text-red-500" />
       ) : (
-        <FaRegHeart className="text-lg" />
+        <FaRegHeart className="text-lg md:text-xl  animate-appearance-in" />
       )}
     </button>
   ) : null;

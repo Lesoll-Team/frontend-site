@@ -7,9 +7,7 @@ const PropertyInstallmentPlans = ({ propertyData }) => {
 
   return isInstallment ? (
     <section className="md:space-y-[30px] space-y-[16px]">
-      <h3 className="text-sm sm:text-3xl ">
-        {language ? "خطط السداد" : "Installment Plans"}
-      </h3>
+      <h3 className=" ">{language ? "خطط السداد" : "Installment Plans"}</h3>
       <div className="flex items-center flex-wrap gap-5">
         {propertyData.installment.map((item) => {
           const downPaymentPercentage = item.downPayment

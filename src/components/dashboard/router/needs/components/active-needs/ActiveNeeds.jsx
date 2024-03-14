@@ -1,35 +1,42 @@
-import { cn } from "@/utils/cn";
-import BlogCard from "./BlogCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getActiveNeeds } from "../../redux/pendingNeedsSlice";
+import { useEffect } from "react";
+import NeedsAdminCard from "../card/NeedsAdminCard";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-
-const BlogPosts = ({ blogs, className, keyword }) => {
+const ActiveNeeds = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
+  const page = router.query.page;
+  const activeNeeds = useSelector((state) => state.PendingNeeds.active.data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getActiveNeeds(page));
+  }, [page]);
   const handlePageChange = (page) => {
-    router.push(`?page=${page + 1}`);
+    router.push(`?tab=active&page=${page + 1}`);
   };
-
   return (
-    <div
-      className={cn(
-        "flex flex-col  gap-[24px] md:gap-[60px] mt-6 md:mt-0  md:mx-0 px-5",
-        className
+    <div className="flex flex-col gap-5 p-3 md:p-5 bg-neutral min-h-[60dvh] rounded-md">
+      {activeNeeds?.getAllData && activeNeeds.getAllData.length > 0 ? (
+        activeNeeds.getAllData.map((item) => {
+          return <NeedsAdminCard need={item} type={"active"} />;
+        })
+      ) : (
+        <div className="flex h-full w-full items-center justify-center min-h-[70dvh] text-xl">
+          {language ? "لا توجد طبات نشطه" : "no active needs"}
+        </div>
       )}
-    >
-      {blogs.getBlogs.map((blog) => {
-        return <BlogCard blog={blog} key={blog._id} />;
-      })}
-
-      {blogs?.totalPages > 1 && (
+      {activeNeeds?.totalPages > 1 && (
         <div dir="ltr" className={styles.pagination}>
           <ReactPaginate
             breakLabel={
               <span className="rounded px-2 border-2 h-fit"> ...</span>
             }
             breakClassName={"break-me"}
-            pageCount={blogs?.totalPages}
+            pageCount={activeNeeds?.totalPages}
             pageRangeDisplayed={3}
             marginPagesDisplayed={1}
             onPageChange={(data) => handlePageChange(data.selected)}
@@ -45,11 +52,12 @@ const BlogPosts = ({ blogs, className, keyword }) => {
             }
             nextClassName={styles.paginationNext}
             disabledClassName={styles.paginationDisabled}
-            initialPage={keyword?.page ? keyword.page - 1 : 0}
+            initialPage={page ? page - 1 : 0}
           />
         </div>
       )}
     </div>
   );
 };
-export default BlogPosts;
+
+export default ActiveNeeds;

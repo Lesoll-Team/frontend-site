@@ -4,9 +4,11 @@ import { Avatar, Image } from "@nextui-org/react";
 import { BiSolidBed } from "react-icons/bi";
 // import { BsWhatsapp } from "react-icons/bs";
 import { FaBath } from "react-icons/fa";
+import { RiMoreFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import ActionsMenu from "./ActionsMenu";
 
-const NeedsCard = ({ need }) => {
+const NeedsAdminCard = ({ need, type }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     need.userId[0]?.code + need?.userId[0]?.phone
@@ -15,10 +17,11 @@ const NeedsCard = ({ need }) => {
     phoneNumber: need.userId[0]?.code + need?.userId[0]?.phone,
   });
   return (
-    <div className=" bg-white rounded-lg flex md:flex-row flex-col   items-start p-5">
+    <div className=" bg-white rounded-lg flex md:flex-row flex-col relative  items-start p-5">
       <div className="space-y-4 w-full md:w-7/12">
         <h3 className="w-full text-2xl  font-bold">
-          {language ? need.unitType[0].title.ar : need.unitType[0].title.en}{" "}
+          {language ? need.unitType[0].title.ar : need.unitType[0].title.en}
+          {"  "}
           {need?.offer === "For Sale"
             ? language
               ? "للبيع"
@@ -33,7 +36,7 @@ const NeedsCard = ({ need }) => {
           {need?.governrate[0]?.name} {need?.region[0]?.city_name_ar}
         </h3>
 
-        <div className="flex gap-12 pb-2 border-b-2">
+        <div className="flex gap-3 md:gap-12 pb-2 border-b-2 flex-wrap">
           <div className="flex gap-2 items-center">
             <p className="text-lightGreen text-lg">
               {language ? "من :" : "from :"}
@@ -51,7 +54,7 @@ const NeedsCard = ({ need }) => {
           <p className="text-sm text-lightGray font-bold">
             {language ? "المساحة :" : "area :"}
           </p>
-          <div className="flex gap-5">
+          <div className="flex gap-5 flex-wrap">
             <p className="font-semibold text-lightGray text-lg">
               {need.area.from}{" "}
               {language ? (
@@ -76,7 +79,7 @@ const NeedsCard = ({ need }) => {
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 flex-wrap">
           <p className="flex items-center">
             {language ? " عدد الغرف :" : "Rooms number :"}{" "}
             <BiSolidBed className=" text-lightGreen text-sm" /> {need?.rooms}
@@ -88,7 +91,7 @@ const NeedsCard = ({ need }) => {
         </div>
         <p className="break-all">{need.description}</p>
 
-        <div className="flex justify-between items-center gap-2 w-full">
+        <div className="flex justify-between items-center gap-2 w-full flex-wrap">
           <div className="flex items-center gap-2">
             <Avatar src="" className="w-[30px] h-[30px]" />
             <p className="font-semibold">
@@ -131,7 +134,12 @@ const NeedsCard = ({ need }) => {
           />
         </a>
       </div>
+      <div
+        className={`absolute   md:bottom-3   p-0 ${language ? "left-3" : "right-3"}`}
+      >
+        <ActionsMenu needData={need} type={type} />
+      </div>
     </div>
   );
 };
-export default NeedsCard;
+export default NeedsAdminCard;

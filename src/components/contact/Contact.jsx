@@ -20,34 +20,34 @@ const Contact = () => {
           <div className="flex justify-start my-8 gap-3">
             <FaLocationDot className="text-lightGreen text-2xl" />
             <div className="flex flex-col gap-2">
-              <h4 className="text-xl font-bold">
+              <h3 className="text-gray-800 font-bold">
                 {" "}
                 {language ? "العنوان" : "Address"}
-              </h4>
+              </h3>
               <p>
                 {language
-                  ? "12 عمارات العبور, صلاح سالم، مدينة نصر، محافظة القاهرة‬ 11811"
-                  : "12 Al Obour Buildings, Salah Salem, Nasr City, Cairo, 11811"}
+                  ? "21 عمارات العبور, صلاح سالم، مدينة نصر، محافظة القاهرة"
+                  : "21 Al Obour Buildings, Salah Salem, Nasr City, Cairo, 11811"}
               </p>
             </div>
           </div>
           <div className="flex justify-start my-8 gap-3">
             <MdCall className="text-lightGreen text-xl" />
             <div className="flex flex-col gap-2">
-              <h4 className="text-xl font-bold">
+              <h3 className="text-gray-800 font-bold">
                 {" "}
                 {language ? "الإتصال" : "Call"}
-              </h4>
+              </h3>
               <p>01032362898</p>
             </div>
           </div>
           <div className="flex justify-start my-8 gap-3">
             <IoAlarm className="text-lightGreen text-xl" />
             <div className="flex flex-col gap-2">
-              <h4 className="text-xl font-bold">
+              <h3 className="text-gray-800 font-bold">
                 {" "}
                 {language ? "مواعيد العمل" : "Call"}
-              </h4>
+              </h3>
               <p>من الأحد الى الخميس 9 صباحاً : 5 مساءً</p>
             </div>
           </div>

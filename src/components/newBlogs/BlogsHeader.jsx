@@ -6,7 +6,7 @@ const BlogsHeader = () => {
 
   return (
     <header className="w-full flex relative justify-center items-center">
-      <h1 className="absolute text-lg md:text-5xl text-white z-[5]">
+      <h1 className="absolute display-text text-white z-[5]">
         {language ? "المقالات" : "Blogs"}
       </h1>
       <Image

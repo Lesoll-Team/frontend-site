@@ -80,6 +80,7 @@ const NeedsForm = ({
               selected={watch("propType")}
               setValue={(value) => {
                 setValue("propType", value);
+                clearErrors("propType");
                 if (value.value !== watch("propType")) {
                   setValue("unitType", { name: "", value: "" });
                 }
@@ -111,6 +112,7 @@ const NeedsForm = ({
               selected={watch("unitType")}
               setValue={(value) => {
                 setValue("unitType", value);
+                clearErrors("unitType");
               }}
               disabled={!watch("propType.value")}
               options={determineOptions}
@@ -122,7 +124,7 @@ const NeedsForm = ({
         </div>
         <div className="space-y-6 w-full">
           <p className="text-gray-800">{language ? " السعر" : "Price"}</p>
-          <div className="flex md:flex-row flex-col items-center gap-8 w-full">
+          <div className="flex md:flex-row flex-col  gap-8 w-full">
             <div className=" space-y-2 w-full">
               <div className="relative">
                 <input
@@ -203,7 +205,7 @@ const NeedsForm = ({
         </div>
         <div className="space-y-6 w-full">
           <p className="text-gray-800">{language ? " المساحة" : "Area"}</p>
-          <div className="flex  md:flex-row flex-col items-center gap-8">
+          <div className="flex  md:flex-row flex-col  gap-8">
             <div className=" space-y-2 w-full">
               <div className="relative">
                 <input
@@ -362,7 +364,7 @@ const NeedsForm = ({
               </div>
             </div>
           )}
-        <div className=" flex items-center md:flex-row flex-col gap-10">
+        <div className=" flex items- md:flex-row flex-col gap-10">
           <div className="space-y-2 w-full">
             <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
             <input

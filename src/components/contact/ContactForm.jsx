@@ -45,9 +45,9 @@ const ContactForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="p-7 bg-lightNeutral rounded-lg space-y-4    mx-auto lg:max-w-[550px] relative"
       >
-        <h1 className="text-2xl text-center ">
+        <h2 className="text-2xl text-center ">
           {language ? "تواصل معنا" : "Contact Us"}
-        </h1>
+        </h2>
 
         <div className="space-y-2">
           <label htmlFor="fullName">{language ? "الاسم" : "Name"}</label>
@@ -61,7 +61,7 @@ const ContactForm = () => {
               },
             })}
             type="text"
-            className={` w-full h-12 p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            className={` w-full h-10  p-2 border-2 focus:outline-none  focus:border-darkGreen rounded-md ${
               errors.fullName && "border-red-500 focus:border-red-500"
             }`}
           />
@@ -93,7 +93,7 @@ const ContactForm = () => {
               },
             })}
             type="text"
-            className={` w-full h-12 p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            className={` w-full h-10  p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
               errors.email && "border-red-500 focus:border-red-500"
             }`}
           />
@@ -115,7 +115,7 @@ const ContactForm = () => {
               },
             })}
             type="text"
-            className={` w-full h-12 p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            className={` w-full h-10  p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
               errors.phone && "border-red-500 focus:border-red-500"
             }`}
           />
@@ -137,7 +137,7 @@ const ContactForm = () => {
               },
             })}
             type="text"
-            className={` w-full h-12 p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
+            className={` w-full h-10  p-2 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
               errors.subject && "border-red-500 focus:border-red-500"
             }`}
           />

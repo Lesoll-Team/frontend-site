@@ -12,7 +12,7 @@ const BlogFeed = ({ blogs, keyword }) => {
       <BlogsHeader />
       <main className="md:container w-full mx-auto flex flex-col md:flex-row md:gap-20">
         <aside
-          className={` sticky   h-fit w-full md:w-1/2 md:space-y-[48px] ${
+          className={` sticky   h-fit w-full md:w-1/2 space-y-0 md:space-y-[48px] ${
             userData ? "top-[62px] md:top-28 " : "top-[95px] md:top-[140px]"
           }`}
         >
