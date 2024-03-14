@@ -86,7 +86,7 @@ const NeedsCard = ({ need }) => {
             <FaBath className=" text-lightGreen text-sm" /> {need?.rooms}
           </p>
         </div>
-        <p>{need.description}</p>
+        <p className="break-all">{need.description}</p>
 
         <div className="flex justify-between items-center gap-2 w-full">
           <div className="flex items-center gap-2">

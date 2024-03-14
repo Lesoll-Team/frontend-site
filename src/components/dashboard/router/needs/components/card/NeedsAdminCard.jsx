@@ -8,7 +8,7 @@ import { RiMoreFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import ActionsMenu from "./ActionsMenu";
 
-const NeedsAdminCard = ({ need }) => {
+const NeedsAdminCard = ({ need, type }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
     need.userId[0]?.code + need?.userId[0]?.phone
@@ -137,7 +137,7 @@ const NeedsAdminCard = ({ need }) => {
       <div
         className={`absolute   md:bottom-3   p-0 ${language ? "left-3" : "right-3"}`}
       >
-        <ActionsMenu needData={need} />
+        <ActionsMenu needData={need} type={type} />
       </div>
     </div>
   );
