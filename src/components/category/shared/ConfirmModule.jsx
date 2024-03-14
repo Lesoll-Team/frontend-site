@@ -1,31 +1,37 @@
 import React from "react";
 import { IoIosSquareOutline, IoMdCheckboxOutline } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveSearchFilter } from "./api";
 
 import { useRouter } from "next/router";
+import { setConfirmSendMessage, setSaveSearchFilter } from "@/redux-store/features/category/categorySlice";
 const ConfirmModule = ({
-  setConfirmSendMessage,
-  confirmSendMessage,
+  // setConfirmSendMessage,
+  // confirmSendMessage,
   setOpenSaveFilterInput,
-  setMessageConfirmed,
-  messageConfirmed,
-  setSaveed,
+  // openSaveFilterInput,
+  // setMessageConfirmed,
+  // messageConfirmed,
+  // setSaveed,
 }) => {
+  const dispatch = useDispatch()
+
+  const { messageData, confirmSendMessage } = useSelector((state) => state.Category);
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const handleCheckboxChange = () => {
-    setConfirmSendMessage(!confirmSendMessage);
+    dispatch(setConfirmSendMessage(!confirmSendMessage))
+
   };
   const sendConfirmData = async () => {
     await saveSearchFilter({
       confirmSendMessage,
-      messageConfirmed,
+      messageData,
       slug: router.asPath,
     }).then(() => {
       setOpenSaveFilterInput(false);
-      setSaveed(true);
+      dispatch(setSaveSearchFilter(true))
     });
   };
   return (
@@ -50,7 +56,7 @@ const ConfirmModule = ({
         <input
           id="save-search"
           type="text"
-          onChange={(e) => setMessageConfirmed(e.target.value)}
+          onChange={(e) => dispatch({ messageData: e.target.value })}
           className="w-full h-10 px-4 py-2 text-gray-700 placeholder:text-gray-500 focus:outline-none  font-medium focus:border-lightGreen  border-gray1  border-1 rounded-md "
         />
       </div>
@@ -58,15 +64,13 @@ const ConfirmModule = ({
         <button onClick={handleCheckboxChange}>
           {confirmSendMessage ? (
             <IoMdCheckboxOutline
-              className={`${
-                confirmSendMessage ? "text-lightGreen" : "text-gray2"
-              }  h-5 w-5 `}
+              className={`${confirmSendMessage ? "text-lightGreen" : "text-gray2"
+                }  h-5 w-5 `}
             />
           ) : (
             <IoIosSquareOutline
-              className={`${
-                confirmSendMessage ? "text-lightGreen" : "text-gray2"
-              }  h-5 w-5 `}
+              className={`${confirmSendMessage ? "text-lightGreen" : "text-gray2"
+                }  h-5 w-5 `}
             />
           )}
         </button>
@@ -85,12 +89,11 @@ const ConfirmModule = ({
         <div className=" md:w-6/12 w-full  flex gap-x-2 md:justify-end justify-center">
           <button
             onClick={sendConfirmData}
-            disabled={messageConfirmed == "" && !confirmSendMessage}
-            className={`${
-              messageConfirmed || confirmSendMessage
-                ? "bg-lightGreen"
-                : "bg-[#95dee1]"
-            }  text-white rounded-[1vw] font-extrabold h-[40px] md:h-[50px]  w-6/12`}
+            disabled={messageData == "" && !confirmSendMessage}
+            className={`${messageData || confirmSendMessage
+              ? "bg-lightGreen"
+              : "bg-[#95dee1]"
+              }  text-white rounded-[1vw] font-extrabold h-[40px] md:h-[50px]  w-6/12`}
           >
             {language ? "تم" : "Confirm"}
           </button>

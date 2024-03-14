@@ -7,11 +7,12 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export function SearchBarHome() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
+  const { locationGovernorate, locationRegion } = useSelector((state) => state.Category);
   const [saleOptions, setSaleOptions] = useState("sale");
   const router = useRouter();
   const [keywords, setKeywords] = useState("");
-  const [locationGovernorate, setLocationGovernorate] = useState("");
-  const [locationRegion, setLocationRegion] = useState("");
+  // const [locationGovernorate, setLocationGovernorate] = useState("");
+  // const [locationRegion, setLocationRegion] = useState("");
   // const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   /**contain search data from state
@@ -41,9 +42,8 @@ export function SearchBarHome() {
       .join("/")
       .toLowerCase();
 
-    const url = `${pagesInput}/residential/search?page=1${
-      keywords && "&keyword=" + keywords.split(" ").join("_")
-    }`;
+    const url = `${pagesInput}/residential/search?page=1${keywords && "&keyword=" + keywords.split(" ").join("_")
+      }`;
     router.push(`/properties/${url}`);
   };
 
@@ -69,11 +69,10 @@ export function SearchBarHome() {
         <button
           id="Click-Gtm"
           onClick={setForSaleButton}
-          className={` ${
-            saleOptions == "sale"
+          className={` ${saleOptions == "sale"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          }  
+            }  
             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
         >
           {languageIs ? "للبيع" : "Buy"}
@@ -81,11 +80,10 @@ export function SearchBarHome() {
         <button
           id="Click-Gtm"
           onClick={setForRentButton}
-          className={` ${
-            saleOptions == "rent"
+          className={` ${saleOptions == "rent"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
+            } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
         >
           {languageIs ? "للإيجار" : "Rent"}
         </button>
@@ -93,11 +91,10 @@ export function SearchBarHome() {
         <button
           id="Click-Gtm"
           onClick={setForInvestmentButton}
-          className={` ${
-            saleOptions == "investment"
+          className={` ${saleOptions == "investment"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          }
+            }
              w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] sm-text`}
         >
           {languageIs ? "للإستثمار" : "Investment"}
@@ -106,11 +103,10 @@ export function SearchBarHome() {
 
       {/*box search bar */}
       <div
-        className={` md:flex md:flex-row flex flex-col  items-center md:items-center ${
-          languageIs
+        className={` md:flex md:flex-row flex flex-col  items-center md:items-center ${languageIs
             ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
             : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
-        }  bg-white   drop-shadow-md  sm:drop-shadow-md  justify-between
+          }  bg-white   drop-shadow-md  sm:drop-shadow-md  justify-between
                 md:gap-x-[4.1vw] 
                 md:gap-y-[0px] gap-y-[28px]
                 md:py-[16px] py-[20px] md:px-[25px] px-[20px]
@@ -133,7 +129,7 @@ export function SearchBarHome() {
             />
             <AiOutlineSearch
               className="text-[#656565] md:ml-[24px] ml-[8px] md:text-3xl text-xl"
-              // md:w-[full] md:h-[2vw] w-[3vw] h-[3vw]
+            // md:w-[full] md:h-[2vw] w-[3vw] h-[3vw]
             />
           </div>
         </div>
@@ -145,8 +141,8 @@ export function SearchBarHome() {
           </h6>
           <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
             <SearchDropdownLocation
-              setLocationGovernorate={setLocationGovernorate}
-              setLocationRegion={setLocationRegion}
+            // setLocationGovernorate={setLocationGovernorate}
+            // setLocationRegion={setLocationRegion}
             />
             <IoIosArrowDown
               className={`text-[#656565]  md:text-3xl text-xl duration-150 `}

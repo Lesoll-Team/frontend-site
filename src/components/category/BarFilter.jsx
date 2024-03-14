@@ -8,8 +8,8 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 const BarFilter = ({
   // setOpenFilter,
-  setLocationGovernorate,
-  setLocationRegion,
+  // setLocationGovernorate,
+  // setLocationRegion,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -40,8 +40,8 @@ const BarFilter = ({
         > */}
 
         <SearchByLocations
-          setLocationRegion={setLocationRegion}
-          setLocationGovernorate={setLocationGovernorate}
+        // setLocationRegion={setLocationRegion}
+        // setLocationGovernorate={setLocationGovernorate}
         />
         {/* </div> */}
         {/* </div> */}

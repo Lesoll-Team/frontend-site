@@ -5,7 +5,7 @@ import React, { memo } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
 
-const SearchByLocations = ({ setLocationRegion, setLocationGovernorate }) => {
+const SearchByLocations = () => {
   const { locationGovernorate, locationRegion } = useSelector(
     (state) => state.Category
   );
@@ -18,8 +18,8 @@ const SearchByLocations = ({ setLocationRegion, setLocationGovernorate }) => {
       <SearchDropdownLocation
         defaultGovernorate={locationGovernorate}
         defaultRegion={locationRegion}
-        setLocationGovernorate={setLocationGovernorate}
-        setLocationRegion={setLocationRegion}
+      // setLocationGovernorate={setLocationGovernorate}
+      // setLocationRegion={setLocationRegion}
       />
     </div>
   );

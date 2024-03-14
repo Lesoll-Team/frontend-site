@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 export function SearchDropdownLocation({
-  setLocationGovernorate,
-  setLocationRegion,
   defaultGovernorate,
   defaultRegion,
 
@@ -18,8 +16,7 @@ export function SearchDropdownLocation({
   const [mapLocation, setMapLocation] = useState(new Map());
   const [govFromReg, setGovFromReg] = useState(0);
   const [govNum, setGovNum] = useState(0);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1); // To keep track of the currently highlighted option
-  // console.log(searchTerm);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1); // To keep track of the currently highlighted 
   const dropdownRef = useRef(null);
   const [clearDefault, setClearDefault] = useState(true);
   useEffect(() => {
@@ -34,6 +31,16 @@ export function SearchDropdownLocation({
       }
     }
   }, [highlightedIndex]);
+  useEffect(() => {
+    if (searchTerm) {
+      if (searchTerm) {
+        window.scrollTo({
+          top: 100,
+          behavior: "smooth", // or "instant" for instant scrolling
+        });
+      }
+    }
+  }, [searchTerm])
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
   const fetchGovernoratesData = useCallback(async () => {
     try {
@@ -67,7 +74,6 @@ export function SearchDropdownLocation({
 
   const handleSearch = useCallback(
     (e) => {
-      // fetchGovernoratesData();
       const term = e.target.value;
       setSearchTerm(term);
       setClearDefault(false);
@@ -76,7 +82,6 @@ export function SearchDropdownLocation({
   );
 
   useEffect(() => {
-    // if(selectedValues.length<=2)
     const filtered = governorates.filter(
       (governorate) =>
         governorate.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -133,12 +138,12 @@ export function SearchDropdownLocation({
     setGovFromReg(numberGovFromReg);
     setGovNum(numberGov);
 
-    setLocationGovernorate(
-      mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue
-    );
-    setLocationRegion(
-      mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue
-    );
+    // setLocationGovernorate(
+    //   mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue
+    // );
+    // setLocationRegion(
+    //   mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue
+    // );
 
     dispatch(
       updateAllStates({
@@ -158,8 +163,8 @@ export function SearchDropdownLocation({
         setSelectedValues(updatedValues);
         setGovFromReg(0);
         setGovNum(0);
-        setLocationGovernorate("");
-        setLocationRegion("");
+        // setLocationGovernorate("");
+        // setLocationRegion("");
         dispatch(
           updateAllStates({
             locationGovernorate: null,
@@ -168,7 +173,7 @@ export function SearchDropdownLocation({
         );
       } else if (index === 1 && selectedValues[index] === value) {
         setGovFromReg(0);
-        setLocationRegion("");
+        // setLocationRegion("");
         dispatch(
           updateAllStates({
             // locationGovernorate: null,
