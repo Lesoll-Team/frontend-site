@@ -230,7 +230,7 @@ export function SearchDropdownLocation({
       // aria-label="Search by locations main"
       aria-label={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
       dir={languageIs ? "rtl" : "ltr"}
-      className="relative w-full focus:outline-none h-full
+      className="relative w-full lg-text focus:outline-none h-full
       "
 
     // aria-labelledby="result search"
@@ -305,7 +305,7 @@ export function SearchDropdownLocation({
             onChange={handleSearch}
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
-            className="w-full sm-text placeholder:sm-text focus:outline-none text-gray-600  flex h-full"
+            className="w-full lg-text placeholder:lg-text focus:outline-none text-gray-600  flex h-full"
 
           // aria-label="Search by region" // Add aria-label attribute
           />

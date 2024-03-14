@@ -7,38 +7,38 @@ const Links = () => {
 
   const pageLinks = [
     {
-      link: "https://lesoll.com/about-us",
+      link: "/about-us",
       titleAr: "من نحن",
       titleEn: "About-us",
       id: 1,
     },
     {
-      link: "https://lesoll.com/contact-us",
+      link: "/contact-us",
       titleAr: "تواصل معنا",
       titleEn: "Connect us",
       id: 2,
     },
     {
-      link: "https://lesoll.com/blog?page=1",
+      link: "/blog?page=1",
       titleAr: "المقالات",
       titleEn: "Blogs",
 
       id: 3,
     },
     {
-      link: "https://lesoll.com/faq",
+      link: "/faq",
       titleAr: "الأسئلة الشائعة",
       titleEn: "Common Questions",
       id: 4,
     },
     {
-      link: "https://lesoll.com/termsofservice",
+      link: "/termsofservice",
       titleAr: "الشروط والاحكام",
       titleEn: "Terms and Conditions",
       id: 5,
     },
     {
-      link: "https://lesoll.com/privacypolicy",
+      link: "/privacypolicy",
       titleAr: "سياسة الخصوصية",
       titleEn: "Privacy Policy",
       id: 6,
@@ -49,14 +49,14 @@ const Links = () => {
     <>
       <div className=' flex-wrap hidden  md:flex gap-x-[20px] justify-center items-center font-cairo w-full'>
         {pageLinks.map((link) =>
-          <>
-            <div key={link.id} className='  flex mx-1  items-center  '>
+          <div key={link.id} className='max-w-[130px]   flex mx-1 justify-around items-center gap-x-[24px] '>
+            <div >
               <Link className='flex  lg-text' href={link.link} >
                 {language ? link.titleAr : link.titleEn}
               </Link>
             </div>
             {link.id !== 6 && <div className={` bg-gray2 w-[1px] h-[16px]`} />}
-          </>
+          </div>
         )}
 
       </div>

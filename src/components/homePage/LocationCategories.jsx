@@ -11,7 +11,7 @@ const LocationCategories = () => {
       titleEn: "Cairo",
       totalAr: "( 2961+ وحدة )",
       totalEn: "( +2961 Uint )",
-      url: "/properties/cairo/sale/residential/search?page=1",
+      url: "/properties/sale/residential/cairo/search?page=1",
       id: 8,
     },
     {
@@ -19,7 +19,7 @@ const LocationCategories = () => {
       titleEn: "Giza",
       totalAr: "( 2505+ وحدة )",
       totalEn: "( +2505 Uint )",
-      url: "/properties/giza/sale/residential/search?page=1",
+      url: "/properties/sale/residential/giza/search?page=1",
       id: 1,
     },
     {
@@ -27,7 +27,7 @@ const LocationCategories = () => {
       titleEn: "Alexandria",
       totalAr: "( 526+ وحدة )",
       totalEn: "( +526 Uint )",
-      url: "/properties/alexandria/sale/residential/search?page=1",
+      url: "/properties/sale/residential/alexandria/search?page=1",
       id: 2,
     },
 
@@ -36,7 +36,7 @@ const LocationCategories = () => {
       titleEn: "Qaliubiya",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/qaliubiya/sale/residential/search?page=1",
+      url: "/properties/sale/residential/qaliubiya/search?page=1",
       id: 4,
     },
     {
@@ -44,7 +44,7 @@ const LocationCategories = () => {
       titleEn: "Matrouh",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
-      url: "/properties/matrouh/sale/residential/search?page=1",
+      url: "/properties/sale/residential/matrouh/search?page=1",
       id: 3,
     },
     {
@@ -52,7 +52,7 @@ const LocationCategories = () => {
       titleEn: "Sharkia",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
-      url: "/properties/sharkia/sale/residential/search?page=1",
+      url: "/properties/sale/residential/sharkia/search?page=1",
       id: 6,
     },
     {
@@ -60,7 +60,7 @@ const LocationCategories = () => {
       titleEn: "Gharbiya",
       totalAr: "( 180+ وحدة )",
       totalEn: "( +180 Uint )",
-      url: "/properties/gharbiya/sale/residential/search?page=1",
+      url: "/properties/sale/residential/gharbiya/search?page=1",
       id: 5,
     },
 
@@ -69,7 +69,7 @@ const LocationCategories = () => {
       titleEn: "Dakahlia",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
-      url: "/properties/dakahlia/sale/residential/search?page=1",
+      url: "/properties/sale/residential/dakahlia/search?page=1",
       id: 7,
     },
   ];
