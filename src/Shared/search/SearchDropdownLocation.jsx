@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 export function SearchDropdownLocation({
-  setLocationGovernorate,
-  setLocationRegion,
   defaultGovernorate,
   defaultRegion,
+
 }) {
   const dispatch = useDispatch();
   const [governorates, setGovernorates] = useState([]);
@@ -17,7 +16,7 @@ export function SearchDropdownLocation({
   const [mapLocation, setMapLocation] = useState(new Map());
   const [govFromReg, setGovFromReg] = useState(0);
   const [govNum, setGovNum] = useState(0);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1); // To keep track of the currently highlighted option
+  const [highlightedIndex, setHighlightedIndex] = useState(-1); // To keep track of the currently highlighted 
   const dropdownRef = useRef(null);
   const [clearDefault, setClearDefault] = useState(true);
   useEffect(() => {
@@ -27,11 +26,21 @@ export function SearchDropdownLocation({
         highlightedOption.scrollIntoView({
           behavior: "instant", //smooth instant auto
           block: "nearest", //start end center nearest
-          //   inline: "nearest", //start end center nearest
+          inline: "center", //start end center nearest
         });
       }
     }
   }, [highlightedIndex]);
+  useEffect(() => {
+    if (searchTerm) {
+      if (searchTerm) {
+        window.scrollTo({
+          top: 100,
+          behavior: "smooth", // or "instant" for instant scrolling
+        });
+      }
+    }
+  }, [searchTerm])
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
   const fetchGovernoratesData = useCallback(async () => {
     try {
@@ -54,7 +63,9 @@ export function SearchDropdownLocation({
   }, []);
 
   useEffect(() => {
+
     fetchGovernoratesData();
+
   }, []);
 
   useEffect(() => {
@@ -63,7 +74,6 @@ export function SearchDropdownLocation({
 
   const handleSearch = useCallback(
     (e) => {
-      // fetchGovernoratesData();
       const term = e.target.value;
       setSearchTerm(term);
       setClearDefault(false);
@@ -72,7 +82,6 @@ export function SearchDropdownLocation({
   );
 
   useEffect(() => {
-    // if(selectedValues.length<=2)
     const filtered = governorates.filter(
       (governorate) =>
         governorate.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -129,12 +138,12 @@ export function SearchDropdownLocation({
     setGovFromReg(numberGovFromReg);
     setGovNum(numberGov);
 
-    setLocationGovernorate(
-      mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue
-    );
-    setLocationRegion(
-      mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue
-    );
+    // setLocationGovernorate(
+    //   mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue
+    // );
+    // setLocationRegion(
+    //   mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue
+    // );
 
     dispatch(
       updateAllStates({
@@ -154,8 +163,8 @@ export function SearchDropdownLocation({
         setSelectedValues(updatedValues);
         setGovFromReg(0);
         setGovNum(0);
-        setLocationGovernorate("");
-        setLocationRegion("");
+        // setLocationGovernorate("");
+        // setLocationRegion("");
         dispatch(
           updateAllStates({
             locationGovernorate: null,
@@ -164,7 +173,7 @@ export function SearchDropdownLocation({
         );
       } else if (index === 1 && selectedValues[index] === value) {
         setGovFromReg(0);
-        setLocationRegion("");
+        // setLocationRegion("");
         dispatch(
           updateAllStates({
             // locationGovernorate: null,
@@ -218,13 +227,16 @@ export function SearchDropdownLocation({
 
   return (
     <div
+      // aria-label="Search by locations main"
+      aria-label={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
       dir={languageIs ? "rtl" : "ltr"}
-      className="relative w-full focus:outline-none h-full
+      className="relative w-full lg-text focus:outline-none h-full
       "
-      aria-labelledby="result search"
+
+    // aria-labelledby="result search"
     >
       <div
-        aria-label="Search Results"
+        // aria-label="Search Results"
         className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 "
       >
         {selectedValues.length > 0 ? (
@@ -234,7 +246,7 @@ export function SearchDropdownLocation({
     px-1 md:px-3 md:py-1 
    bg-lightGreen rounded-sm md:rounded-md "
             key={selectedValues[selectedValues.length - 1]}
-            aria-labelledby="input selectedValues search"
+          // aria-labelledby="input selectedValues search"
           >
             <span
               className=" 
@@ -244,7 +256,7 @@ export function SearchDropdownLocation({
               {selectedValues[selectedValues.length - 1]}
             </span>
             <button
-              aria-label="delete selected"
+              // aria-label="delete selected"
               onClick={() =>
                 handleClearCared(
                   selectedValues.length - 1,
@@ -264,7 +276,7 @@ export function SearchDropdownLocation({
      gap-x-1 md:gap-x-3
     px-1 md:px-3 md:py-1 
    bg-lightGreen rounded-sm md:rounded-md "
-            aria-labelledby="out search"
+          // aria-labelledby="out search"
           >
             <span
               className=" 
@@ -293,24 +305,26 @@ export function SearchDropdownLocation({
             onChange={handleSearch}
             autoComplete="off"
             onKeyDown={handleKeyDown} // Listen for arrow key presses
-            className="w-full sm-text placeholder:sm-text focus:outline-none text-gray-600  flex h-full"
-            aria-label="Search by region" // Add aria-label attribute
+            className="w-full lg-text placeholder:lg-text focus:outline-none text-gray-600  flex h-full"
+
+          // aria-label="Search by region" // Add aria-label attribute
           />
         </div>
       </div>
       {searchTerm !== "" && (
         <div
-          aria-labelledby=" search"
+          // aria-labelledby=" search"
           className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
         >
-          <div aria-labelledby="result" ref={dropdownRef}>
+          <div
+            // aria-labelledby="result"
+            ref={dropdownRef}>
             {filteredOptions.map((governorate, index) => (
               <button
                 key={index}
                 onClick={() => handleSelectByLanguage(governorate)}
-                className={`${
-                  index === highlightedIndex ? "bg-gray-200" : "bg-white"
-                }  px-4 py-2  hover:bg-gray-100 
+                className={`${index === highlightedIndex ? "bg-gray-200" : "bg-white"
+                  }  px-4 py-2  hover:bg-gray-100 
            w-full 
            sm-text
            `}

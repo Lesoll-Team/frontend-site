@@ -1,20 +1,26 @@
 import React, { memo } from "react";
 import {
-  AiFillFacebook,
   AiFillInstagram,
-  AiOutlineWhatsApp,
 } from "react-icons/ai";
 import { BsTwitterX } from "react-icons/bs";
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import { RiWhatsappFill } from "react-icons/ri";
 
 const SocialMedia = () => {
-  const stylesIcons = "text-darkGreen text-3xl md:text-4xl";
-  const stylesIconsX = "text-darkGreen text-2xl md:text-3xl";
+  const stylesIcons = "text-[#656565]  text-[23px] ";
+  const stylesIconsX = "text-[#656565] text-[18px] ";
   const contactSocialMedia = [
     {
-      icon: <AiFillFacebook className={stylesIcons} />,
+      icon: <FaFacebookF className={stylesIcons} />,
       link: "https://www.facebook.com/LesollRealestate",
       title: "Facebook",
       id: 1,
+    },
+    {
+      icon: <RiWhatsappFill className={stylesIcons} />,
+      link: "https://wa.me/+201032362898",
+      title: "WhatsApp",
+      id: 3,
     },
     {
       icon: <AiFillInstagram className={stylesIcons} />,
@@ -23,23 +29,22 @@ const SocialMedia = () => {
       id: 2,
     },
     {
-      icon: <AiOutlineWhatsApp className={stylesIcons} />,
-      link: "https://wa.me/+201032362898",
-      title: "WhatsApp",
-      id: 3,
+      icon: <FaLinkedinIn className={stylesIcons} />,
+      link: "https://www.linkedin.com/company/lesollrealestate/mycompany/",
+      title: "linkedin",
+      id: 4,
     },
     {
       icon: <BsTwitterX className={stylesIconsX} />,
       link: "https://twitter.com/LesollRealstate",
       title: "twitter",
-      id: 4,
+      id: 5,
     },
   ];
 
   return (
-    <div className=" flex md:gap-3 gap-1">
+    <div className=" flex justify-between md:gap-3 gap-1">
       {contactSocialMedia.map((social) => (
-        // <div>
         <a
           target="_blank"
           href={social.link}
@@ -49,7 +54,6 @@ const SocialMedia = () => {
         >
           {social.icon}
         </a>
-        // </div>
       ))}
     </div>
   );

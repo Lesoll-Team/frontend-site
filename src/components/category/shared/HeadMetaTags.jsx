@@ -4,11 +4,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const HeadMetaTags = ({ result }) => {
+  const siteUrl = process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN;
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const siteUrl = process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN
   const router = useRouter();
-  const cleanPath = router.asPath.split('#')[0];
-  const canonicalUrl = `${siteUrl}` + (router.asPath === '/' ? '' : cleanPath);
+  const cleanPath = router.asPath.split("#")[0];
+  const canonicalUrl = `${siteUrl}` + (router.asPath === "/" ? "" : cleanPath);
 
   return (
     <Head>

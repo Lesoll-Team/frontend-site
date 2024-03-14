@@ -5,16 +5,14 @@ const SiteMapRedirect = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to the new URL
-
-    router.push(`/searching/offer=all`);
+    router.push(`/properties/residential/rent/search?page=1`);
   }, [router]);
   return null;
 };
 
 export default SiteMapRedirect;
 export async function getServerSideProps(context) {
-  context.res.writeHead(410);
+  context.res.writeHead(308);
   context.res.end();
   return {
     props: {},

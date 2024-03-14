@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+// import dynamic from "next/dynamic";
 import {
   CommercialRent,
   CommercialSale,
@@ -13,8 +14,8 @@ import {
   ResidentialRent,
   ResidentialSale,
 } from "./iconHomeSVG";
+
 import { IoIosArrowBack } from "react-icons/io";
-// import { SearchBarHome } from "@/Shared/search/SearchBarHome";
 const PropertiesCategories = ({ isHome }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const categories = [
@@ -24,7 +25,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "Properties for sale",
       totalAr: "( 200+ وحدة )",
       totalEn: "( +200 Uint )",
-      url: "/properties/residential/sale/search?page=1",
+      url: "/properties/sale/residential/search?page=1",
       id: 1,
     },
     {
@@ -33,7 +34,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "Properties for rent",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
-      url: "/properties/residential/rent/search?page=1",
+      url: "/properties/rent/residential/search?page=1",
       id: 2,
     },
 
@@ -43,7 +44,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "commercial for sale",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/commercial/sale/search?page=1",
+      url: "/properties/sale/commercial/search?page=1",
       id: 5,
     },
     {
@@ -52,7 +53,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "commercial for rent",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/commercial/rent/search?page=1",
+      url: "/properties/rent/commercial/search?page=1",
       id: 4,
     },
     {
@@ -71,7 +72,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "lands",
       totalAr: "( 180+ وحدة )",
       totalEn: "( +180 Uint )",
-      url: "/properties/lands/sale/search?page=1",
+      url: "/properties/sale/lands/search?page=1",
       id: 6,
     },
     {
@@ -80,7 +81,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "compounds",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
-      url: "/properties/compounds/sale/search?page=1",
+      url: "/properties/sale/compounds/search?page=1",
       id: 7,
     },
     {
@@ -90,7 +91,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "real estate finance",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
-      url: "/properties/finance/sale/search?page=1",
+      url: "/properties/finance/search?page=1",
       id: 8,
     },
 
@@ -100,7 +101,7 @@ const PropertiesCategories = ({ isHome }) => {
       titleEn: "graves",
       totalAr: "( 255+ وحدة )",
       totalEn: "( +255 Uint )",
-      url: "/properties/graves/sale/search?page=1",
+      url: "/properties/sale/graves/search?page=1",
       id: 9,
     },
   ];
@@ -165,10 +166,10 @@ const PropertiesCategories = ({ isHome }) => {
                     {category.icon}
                   </div>
                   <div className="  text-center flex flex-col gap-y-3 ">
-                    <p className="font-bold  text-grayText2">
+                    <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
                       {language ? category.titleAr : category.titleEn}
                     </p>
-                    <p className="text-[11px] md:text-[16px] text-lightGreen">
+                    <p className="text-[11px] md:text-[20px] text-lightGreen">
                       {language ? category.totalAr : category.totalEn}
                     </p>
                   </div>
@@ -189,10 +190,10 @@ const PropertiesCategories = ({ isHome }) => {
                   {category.icon}
                 </div>
                 <div className="  text-center flex flex-col gap-y-3 ">
-                  <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
+                  <p className="font-bold  text-grayText2">
                     {language ? category.titleAr : category.titleEn}
                   </p>
-                  <p className="text-[11px] md:text-[20px] text-lightGreen">
+                  <p className="text-[11px] lg-text text-lightGreen">
                     {language ? category.totalAr : category.totalEn}
                   </p>
                 </div>
@@ -204,3 +205,8 @@ const PropertiesCategories = ({ isHome }) => {
 };
 
 export default memo(PropertiesCategories);
+
+// const PropertiesCategories = dynamic(
+//   () => import("@/components/homePage/PropertiesCategories")
+// );
+// import { SearchBarHome } from "@/Shared/search/SearchBarHome";

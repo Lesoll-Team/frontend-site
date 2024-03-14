@@ -163,16 +163,14 @@ const Dropdown = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         disabled={isDisabled}
-        className={`  ${classNames}   text-gray1 sm-text flex items-center justify-between
-         rounded-[1vh] md:px-3 ${
-           isSort
-             ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
-             : "w-full h-[40px] md:h-[3.313rem]"
-         } px-1 cursor-pointer  ${
-           baseIcon
-             ? "shadow-md bg-[#F2F8F9]"
-             : "border-[1px] border-[#CCCCCC] "
-         }`}
+        className={`  ${classNames}   text-gray1 lg-text flex items-center justify-between
+         rounded-[1vh] md:px-3 ${isSort
+            ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
+            : "w-full h-[40px] md:h-[3.313rem]"
+          } px-1 cursor-pointer  ${baseIcon
+            ? "shadow-md bg-[#F2F8F9]"
+            : "border-[1px] border-[#CCCCCC] "
+          }`}
       >
         {(value && (
           <span className="text-[#4E4E4E]">
@@ -187,9 +185,8 @@ const Dropdown = ({
         ) : (
           baseIcon || (
             <IoIosArrowDown
-              className={`text-black duration-150 ${
-                menuIsOpen && "rotate-180"
-              }`}
+              className={`text-black duration-150 ${menuIsOpen && "rotate-180"
+                }`}
             />
           )
         )}

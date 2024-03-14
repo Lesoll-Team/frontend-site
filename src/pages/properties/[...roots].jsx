@@ -5,7 +5,7 @@ import {
 } from "@/Shared/search/dropdown/dataDropdown";
 import { governorateData } from "@/Shared/search/dropdown/governorateLocation";
 import { regionData } from "@/Shared/search/dropdown/regionLocation";
-import SidebarAndBarFilter from "@/components/category/SidebarAndBarFilter";
+import FilterLayout from "@/components/category/FilterLayout";
 import HeadMetaTags from "@/components/category/shared/HeadMetaTags";
 import { foundKeyword } from "@/components/category/shared/api";
 // import Head from "next/head";
@@ -14,7 +14,7 @@ const SearchPage = ({ page, result }) => {
   return (
     <>
       <HeadMetaTags result={result} />
-      <SidebarAndBarFilter page={page} result={result} />
+      <FilterLayout page={page} result={result} />
     </>
   );
 };

@@ -8,8 +8,8 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 const BarFilter = ({
   // setOpenFilter,
-  setLocationGovernorate,
-  setLocationRegion,
+  // setLocationGovernorate,
+  // setLocationRegion,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -22,20 +22,29 @@ const BarFilter = ({
     );
   };
   return (
-    <div className="relative md:py-8 py-4  w-full md:container md:mx-auto mx-[20px]">
+    <div className="relative md:py-8 py-4  w-full md:container md:mx-auto mx-[20px]"
+      aria-label="bar filter "
+    >
       <div
+        aria-label="search in category by locations"
         className="flex gap-x-[1vw] md:bg-inherit  border-1 md:border-0
        shadow-sm md:shadow-none  bg-white rounded-[6px]  justify-around"
       >
-        <div
+        {/* <div
+          // aria-label="search in category by locations"
           className="w-full flex items-center border-0 md:border-1
          border-[#CCCCCC] bg-white px-2 min-w-[200px] rounded-[6px]"
-        >
-          <SearchByLocations
-            setLocationRegion={setLocationRegion}
-            setLocationGovernorate={setLocationGovernorate}
-          />
-        </div>
+        > */}
+        {/* <div
+          aria-label="search in category by locations"
+        > */}
+
+        <SearchByLocations
+        // setLocationRegion={setLocationRegion}
+        // setLocationGovernorate={setLocationGovernorate}
+        />
+        {/* </div> */}
+        {/* </div> */}
         <div className="hidden md:flex gap-x-[1vw]">
           <DropdownsFilter />
         </div>
