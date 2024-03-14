@@ -44,7 +44,7 @@ const SubBarTitle = ({ result }) => {
     return (
         <>
             {openSaveFilterInput && (
-                <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-20">
+                <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-[198px]">
                     <ConfirmModule
 
                         setOpenSaveFilterInput={setOpenSaveFilterInput}
