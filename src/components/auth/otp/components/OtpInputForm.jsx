@@ -3,15 +3,49 @@ import Button from "@/Shared/ui/Button";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { useSelector } from "react-redux";
+import { getOtpCode, sendOtp } from "../api/otpApis";
+import { useRouter } from "next/router";
+import { Ring } from "@uiball/loaders";
 
-const OtpInputForm = () => {
+const OtpInputForm = ({ userData }) => {
+  const router = useRouter();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
   const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const handleSubmit = (e) => {
+  const token = router.query.token;
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await sendOtp({ setFormStatus, otp, setServerError, token });
   };
+  console.log(serverError);
+  console.log(userData);
+  useEffect(() => {
+    const getOtp = async () => {
+      await getOtpCode(userData.phone, token);
+    };
+    if (token) {
+      getOtp();
+    }
+  }, [router]);
+  useEffect(() => {
+    if (serverError?.code === 400) {
+      setError(true);
+      setServerError(null);
+      setTimeout(() => {
+        setError(false);
+      }, 3500);
+    }
+  }, [serverError]);
+  useEffect(() => {
+    if (formStatus === "success") {
+      localStorage.setItem("userToken", JSON.stringify(token));
+      router.push("/");
+    }
+  }, [formStatus]);
+  console.log(formStatus);
   return (
     <form
       onSubmit={handleSubmit}
@@ -47,7 +81,13 @@ const OtpInputForm = () => {
         // className={otp.length < 4 && "opacity-50"}
         disabled={otp.length < 4}
       >
-        {language ? "ارسال" : "Send"}
+        {formStatus === "loading" ? (
+          <Ring size={28} color="#fff" />
+        ) : language ? (
+          "ارسال"
+        ) : (
+          "Send"
+        )}
       </Button>
     </form>
   );

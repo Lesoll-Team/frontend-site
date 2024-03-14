@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
@@ -33,12 +33,22 @@ const SignUpForm = () => {
   const setUserType = (type) => {
     setValue("typeOfUser", type);
   };
+  const phoneWithoutCode = (phone, code) => {
+    return phone.startsWith(code) ? phone.substring(code.length) : phone;
+  };
   const onSubmit = async (data) => {
+    const dataTosend = {
+      fullname: data.fullname,
+      email: data.email,
+      code: data.code,
+      phone: phoneWithoutCode(data.phone, data.code),
+      password: data.password,
+    };
     userSignUp({
       setFormStatus,
       setToken,
       setServerError,
-      data,
+      data: dataTosend,
     });
   };
 
