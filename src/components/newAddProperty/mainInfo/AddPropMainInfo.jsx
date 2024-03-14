@@ -64,7 +64,7 @@ const AddPropMainInfo = ({
         name: { ar: item.titleAr, en: item.titleEn },
       };
     });
-  console.log(projectList);
+
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">

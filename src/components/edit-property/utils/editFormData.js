@@ -15,7 +15,7 @@ export const editFormData = (data) => {
       discount: plan?.discount || "",
     };
   });
-  // console.log(data.saleOption);
+
   const saleOption =
     data.saleOption &&
     data?.saleOption?.value?.map((item) => {

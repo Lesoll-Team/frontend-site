@@ -15,7 +15,6 @@ export default function DeleteProject({ id }) {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const deleteProjectFun = async () => {
-    // console.log("adada");
     await dispatch(deleteProject(id));
     dispatch(getAllProjects());
   };

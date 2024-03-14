@@ -10,7 +10,6 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
 
-  // console.log(isSliderOpen);
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {

@@ -151,7 +151,7 @@ const Sidebar = () => {
           </div>
         </div>
         <Link
-          href={"/dashboard/add-project"}
+          href={"/dashboard/projects"}
           className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
         >
           <MdOutlineAddHomeWork />{" "}
