@@ -14,9 +14,7 @@ const BestLinksInHome = dynamic(
 );
 
 const SpecialCards = dynamic(() => import("@/components/homePage/SpecialCards"));
-// const SearchModule = dynamic(
-//   () => import("../components/homePage/SearchModule")
-// );
+
 
 const Home = ({ bestSearch, specialCardData }) => {
   return (
@@ -59,7 +57,6 @@ export async function getStaticProps() {
   }
   cache.put("linkInHome", linkInHome, 86400000);
   const specialCardData = await specialData.json();
-  // const linkInHome = await linkHome.json();
 
   return {
     props: {
@@ -69,12 +66,3 @@ export async function getStaticProps() {
     revalidate: 1,
   };
 }
-
-// import HeroSection from "@/components/homePage/HeroSection";
-// import LocationCategories from "@/components/homePage/LocationCategories";
-// import OtherCards from "@/components/homePage/OtherCards";
-// import SpecialCards from "@/components/homePage/SpecialCards";
-// import PropertiesCategories from "@/components/homePage/PropertiesCategories";
-// import SearchModule from "@/components/homePage/SearchModule";
-// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
-//suspense or dynamic import nextjs
