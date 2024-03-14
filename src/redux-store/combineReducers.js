@@ -10,7 +10,6 @@ import searchingReducer from "./features/searchingSlice";
 import profileReducer from "./features/profileSlice";
 import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
-import registerReducer from "./features/auth/registerSlice";
 import userProfileReducer from "./features/auth/userProfileSlice";
 import loginReducer from "./features/auth/loginSlice";
 import forgetPasswordReducer from "@/redux-store/features/user/forgetPassSlice";
@@ -38,7 +37,7 @@ export default combineReducers({
   OverView: overViewReducer,
   Searching: searchingReducer,
   Profile: profileReducer,
-  register: registerReducer,
+  // register: registerReducer,
   login: loginReducer,
   userProfile: userProfileReducer,
   forgetPassword: forgetPasswordReducer,

@@ -1,7 +1,7 @@
-import {
-  resetRegister,
-  userRegister,
-} from "@/redux-store/features/auth/registerSlice";
+// import {
+//   resetRegister,
+//   userRegister,
+// } from "@/redux-store/features/auth/registerSlice";
 import { signupUserAsync } from "@/redux-store/features/authSlice";
 import { Waveform } from "@uiball/loaders";
 import Link from "next/link";
@@ -36,11 +36,11 @@ const RegisterForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (data) => {
-    dispatch(userRegister(data));
+    // dispatch(userRegister(data));
   };
   useEffect(() => {
     if (status === "succeeded") {
-      dispatch(resetRegister());
+      // dispatch(resetRegister());
       router.push("/");
     }
   }, [status]);
