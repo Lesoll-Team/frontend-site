@@ -11,7 +11,7 @@ const SpecialCards = ({ specialCardData, isHome }) => {
       {specialCardData?.result && (
         <div className="md:container md:mx-auto mx-[20px] ">
           <div className="w-full flex  items-center justify-between">
-            <h2 className="font-bold md:text-[30px] text-[18px] flex text-grayText2">
+            <h2 className="font-bold  flex text-grayText2">
               {language ? "مشاريع" : "projects"}
             </h2>
             {isHome && (
@@ -22,9 +22,10 @@ const SpecialCards = ({ specialCardData, isHome }) => {
           </div>
 
           <div
-            className=" 
+            className={`
+            ${specialCardData?.result.length > 2 && "justify-between"}
         flex overflow-auto    
-        no-scrollbar gap-x-10  p-1"
+        no-scrollbar gap-x-10  p-1`}
           >
             {specialCardData?.result.map((cardDetails) => (
               <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />

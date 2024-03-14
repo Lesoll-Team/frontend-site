@@ -13,14 +13,13 @@ const SpecialCard = ({ cardDetails }) => {
       return cardDetails?.user?.code + cardDetails?.user?.phone;
     }
   }, [cardDetails]);
-  const message = language
-    ? `مهتم بمعرفة المزيد عن هذا العقار
-        https://lesoll.com/property-details/${cardDetails?.slug}
-      `
-    : `
-      Interested in knowing more about this property
-       https://lesoll.com/property-details/${cardDetails?.slug}
-      `;
+
+  const message = useMemo(() => (
+    language
+      ? `مهتم بمعرفة المزيد عن هذا العقار https://lesoll.com/property-details/${cardDetails?.slug}`
+      : `Interested in knowing more about this property https://lesoll.com/property-details/${cardDetails?.slug}`
+  ), [language, cardDetails]);
+
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: phone,
     message: message,
@@ -54,15 +53,15 @@ const SpecialCard = ({ cardDetails }) => {
           width={400}
           height={174}
           src={cardDetails?.thumbnail}
-          // src="/delete/Rectangle.png"
+        // src="/delete/Rectangle.png"
         />
       </Link>
       <div className="w-full mt-[2px]  h-[83px]  flex flex-col justify-around">
         <Link
           href={`/projects/${cardDetails?.slug}`}
-          className="line-clamp-1 w-full text-center  text-[20px] font-bold text-lightGreen "
+          className="line-clamp-1 w-full text-center   font-bold "
         >
-          <h3 className=" text-[20px] font-bold  ">
+          <h3 className=" text-lightGreen  font-bold  ">
             {language ? cardDetails?.titleAr : cardDetails?.titleEn}
           </h3>
         </Link>

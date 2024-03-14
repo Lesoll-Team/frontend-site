@@ -19,6 +19,7 @@ export function SearchDropdownLocation({
   const [govFromReg, setGovFromReg] = useState(0);
   const [govNum, setGovNum] = useState(0);
   const [highlightedIndex, setHighlightedIndex] = useState(-1); // To keep track of the currently highlighted option
+  // console.log(searchTerm);
   const dropdownRef = useRef(null);
   const [clearDefault, setClearDefault] = useState(true);
   useEffect(() => {
@@ -55,7 +56,9 @@ export function SearchDropdownLocation({
   }, []);
 
   useEffect(() => {
+
     fetchGovernoratesData();
+
   }, []);
 
   useEffect(() => {
