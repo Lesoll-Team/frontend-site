@@ -114,7 +114,7 @@ const LocationCategories = () => {
         grid grid-cols-3 md:grid-cols-4
                       md:bg-inherit
                       bg-[#EFEFEF]
-md:p-[0px] p-[30px]
+md:p-[0px] p-[15px]
                       md:gap-x-[30px] md:gap-y-[17px]
                       md:gap-0 gap-[15px]"
         >

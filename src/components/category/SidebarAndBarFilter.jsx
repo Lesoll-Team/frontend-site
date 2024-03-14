@@ -71,11 +71,10 @@ const SidebarAndBarFilter = ({ result, page }) => {
       )}
       {/*bar filter */}
       <div
-        className={` z-20 shadow-sm bg-white flex justify-center sticky ${
-          userInfo
+        className={` z-20 shadow-sm bg-white flex justify-center sticky ${userInfo
             ? "md:top-[57px] top-[62px] lg:top-[80px]"
             : "md:top-[97px] top-[97px] lg:top-[122px]"
-        } `}
+          } `}
       >
         <BarFilter
           setLocationGovernorate={setLocationGovernorate}
@@ -101,11 +100,11 @@ const SidebarAndBarFilter = ({ result, page }) => {
       {/*title & save and filter button*/}
       <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
         {/*title filter page */}
-        <h1 className="text-[20px] md:text-[22] lg:text-[23px] xl:text-[24px] w-full text-[#4E4E4E] md:w-6/12 ">
+        <h3 className=" w-full text-[#4E4E4E] md:w-6/12 ">
           {language
             ? result?.supTitleCategory?.ar
             : result?.supTitleCategory?.en}
-        </h1>
+        </h3>
         {/*sorted and save search filter page */}
         <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
           <div className="flex  whitespace-nowrap gap-x-3 items-center">
@@ -131,7 +130,7 @@ const SidebarAndBarFilter = ({ result, page }) => {
              text-[12px] md:text-[20px]
              whitespace-nowrap
             "
-              // md:px-3 md:p-2 p-1 px-1
+            // md:px-3 md:p-2 p-1 px-1
             >
               {language
                 ? isSaveed
@@ -141,11 +140,10 @@ const SidebarAndBarFilter = ({ result, page }) => {
                   ? "has been saved"
                   : "Save search"}
               <IoIosStar
-                className={`${
-                  isSaveed
+                className={`${isSaveed
                     ? "fill-lightGreen"
                     : "fill-none stroke-[20px] stroke-black"
-                } `}
+                  } `}
               />
             </button>
           )}

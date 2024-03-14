@@ -34,15 +34,15 @@ html {
 
 @layer base {
   h1 {
-    @apply text-[24px] md:text-[26px] font-bold;
+    @apply text-[24px] md:text-[28px] font-bold;
   }
 
   h2 {
-    @apply text-[22px] md:text-[24px] font-bold;
+    @apply text-[20px] md:text-[23px] font-bold;
   }
 
   h3 {
-    @apply text-[18px] md:text-[20px] font-bold text-gray2;
+    @apply text-[17px] md:text-[19px] font-bold text-gray2;
   }
 
   /* h4 {
@@ -60,16 +60,16 @@ html {
   p,
   ul {
     /*md: text-[18px] lg:text-[20px] md: text-[16px] 2xl:text-[18px]*/
-    @apply text-[17px] md:text-[18px] font-noto text-gray2;
+    @apply text-[14px] md:text-[16px] font-noto text-gray2;
   }
 }
 
 .lg-text {
-  @apply text-[14px] md:text-[16px];
+  @apply text-[13px] md:text-[14px];
 }
 
 .sm-text {
-  @apply text-[12px] md:text-[14px];
+  @apply text-[12px] md:text-[13px];
 }
 
 * {
