@@ -3,9 +3,6 @@ const Footer = dynamic(() => import("../components/footer/Footer"));
 const Navbar = dynamic(() => import("../components/navbar/Navbar"));
 const ScrollToTopButton = dynamic(() => import("./ScrollToTopButton"));
 
-// import ScrollToTopButton from "./ScrollToTopButton";
-// import Navbar from "../components/navbar/Navbar";
-// import Footer from "../components/footer/Footer";
 import Head from "next/head";
 import { setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,8 +71,8 @@ export default function Layout({ children }) {
         />
       </Head>
       <Navbar />
-      <main dir={`${language && "rtl"}`}>{children}</main>
-      <Footer dir={`${language && "rtl"}`} />
+      <main dir={language && "rtl"}>{children}</main>
+      <Footer dir={language && "rtl"} />
       <ScrollToTopButton />
     </div>
   );

@@ -1,8 +1,9 @@
 import dynamic from "next/dynamic";
 import cache from "memory-cache";
 import HeroSection from "@/components/homePage/HeroSection";
-import SearchModule from "@/components/homePage/SearchModule";
+// import SearchModule from "@/components/homePage/SearchModule";
 const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
+const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories")
 );
@@ -44,7 +45,7 @@ const Home = ({ bestSearch, specialCardData }) => {
 
 export default Home;
 export async function getStaticProps() {
-  // let linkInHome = cache.get("linkInHome");
+  let linkInHome = cache.get("linkInHome");
 
   const specialData = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/property/get-home-projects?limit=3&page=1`
@@ -63,6 +64,6 @@ export async function getStaticProps() {
       specialCardData,
       bestSearch: linkInHome,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 }

@@ -4,7 +4,7 @@ const HeroSection = () => {
   return (
     <div className="absolute top-0 w-full z-0">
       <Image
-        src="/home/home-img-hero-section3.webp"
+        src="/home/home-img-hero-section.webp"
         alt="Hero Image"
         width={1440}
         height={681}
