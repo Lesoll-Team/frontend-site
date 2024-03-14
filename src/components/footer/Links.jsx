@@ -7,38 +7,38 @@ const Links = () => {
 
   const pageLinks = [
     {
-      link: "https://lesoll.com/about-us",
+      link: "/about-us",
       titleAr: "من نحن",
       titleEn: "About-us",
       id: 1,
     },
     {
-      link: "https://lesoll.com/contact-us",
+      link: "/contact-us",
       titleAr: "تواصل معنا",
       titleEn: "Connect us",
       id: 2,
     },
     {
-      link: "https://lesoll.com/blog?page=1",
+      link: "/blog?page=1",
       titleAr: "المقالات",
       titleEn: "Blogs",
 
       id: 3,
     },
     {
-      link: "https://lesoll.com/faq",
+      link: "/faq",
       titleAr: "الأسئلة الشائعة",
       titleEn: "Common Questions",
       id: 4,
     },
     {
-      link: "https://lesoll.com/termsofservice",
+      link: "/termsofservice",
       titleAr: "الشروط والاحكام",
       titleEn: "Terms and Conditions",
       id: 5,
     },
     {
-      link: "https://lesoll.com/privacypolicy",
+      link: "/privacypolicy",
       titleAr: "سياسة الخصوصية",
       titleEn: "Privacy Policy",
       id: 6,
