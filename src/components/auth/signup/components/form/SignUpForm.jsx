@@ -15,15 +15,21 @@ const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
   const [token, setToken] = useState(null);
-  const { register, handleSubmit, formState, reset, setValue, watch } = useForm(
-    {
-      defaultValues: {
-        code: "+20",
-        typeOfUser: "individual",
-        verificationMethod: "email",
-      },
-    }
-  );
+  const {
+    register,
+    handleSubmit,
+    formState,
+    reset,
+    setValue,
+    watch,
+    clearErrors,
+  } = useForm({
+    defaultValues: {
+      code: "+20",
+      typeOfUser: "individual",
+      verificationMethod: "email",
+    },
+  });
   const [emailUsedError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const router = useRouter();
@@ -32,6 +38,7 @@ const SignUpForm = () => {
 
   const setUserType = (type) => {
     setValue("typeOfUser", type);
+    clearErrors("typeOfUser");
   };
   const phoneWithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
@@ -43,6 +50,7 @@ const SignUpForm = () => {
       code: data.code,
       phone: phoneWithoutCode(data.phone, data.code),
       password: data.password,
+      typeOfUser: data.typeOfUser,
     };
     userSignUp({
       setFormStatus,
