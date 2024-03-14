@@ -20,7 +20,6 @@ const HeadMetaTags = ({ result }) => {
         content={`${result?.supTitleCategory?.ar} لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة  اراضي، محلات تجارية, شقة `}
       />
       <link rel="canonical" href={canonicalUrl} />
-
     </Head>
   );
 };

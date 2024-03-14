@@ -66,7 +66,7 @@ export async function getServerSideProps() {
     // Redirect to the homepage with a 410 status code
     return {
       redirect: {
-        destination: "/properties/sale/residential",
+        destination: "/properties/rent/residential/search?page=1",
         statusCode: 308,
       },
     };

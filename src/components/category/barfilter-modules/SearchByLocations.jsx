@@ -1,6 +1,4 @@
 import { SearchDropdownLocation } from "@/Shared/search/SearchDropdownLocation";
-// import { useSelect } from "@nextui-org/react";
-// useSelector
 import React, { memo } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -18,8 +16,6 @@ const SearchByLocations = () => {
       <SearchDropdownLocation
         defaultGovernorate={locationGovernorate}
         defaultRegion={locationRegion}
-      // setLocationGovernorate={setLocationGovernorate}
-      // setLocationRegion={setLocationRegion}
       />
     </div>
   );

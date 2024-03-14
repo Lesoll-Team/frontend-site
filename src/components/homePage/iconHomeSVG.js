@@ -3,11 +3,10 @@ import Image from "next/image";
 export const ResidentialSale = ({ styles }) => {
   return (
     <Image
-      src={"/home/properties-for-sell.svg"}
+      src="/home/home-sale.svg"
       width={100}
       height={100}
-      alt="properties for sell"
-      className={`${styles} w-auto h-auto`}
+      alt="residential sale"
     />
   );
 };
@@ -433,11 +432,10 @@ export const GraveIcon = ({ styles }) => {
 export const LandsIcon = ({ styles }) => {
   return (
     <Image
-      src={"/home/lands-icon.svg"}
+      src="/home/lands-icon.svg"
       width={100}
       height={100}
-      alt="properties for sell"
-      className={`${styles} w-auto h-auto`}
+      alt="residential sale"
     />
-  )
+  );
 };
