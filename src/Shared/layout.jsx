@@ -16,28 +16,31 @@ import { useRouter } from "next/router";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 export default function Layout({ children }) {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
+  const dispatch = useDispatch();
   const router = useRouter();
+
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
       .toString()
       .replace(".", "")
   );
+
   if (typeof window !== "undefined") {
     if (!localStorage.getItem("local_storage_device_id")) {
       localStorage.setItem("local_storage_device_id", userKey);
     }
   }
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
-  const dispatch = useDispatch();
   useEffect(() => {
     if (!userData) {
       dispatch(getUserData());
     }
     getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
+
   useEffect(() => {
     const isItemInLocalStorage = (key) => {
       return localStorage.getItem(key) !== null;

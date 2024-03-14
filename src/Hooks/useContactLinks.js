@@ -72,7 +72,7 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
         signup={true}
         description={
           language
-            ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجبل الدخول"
+            ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجيل الدخول"
             : "You can't contact with the seller with out signing in "
         }
       >
@@ -124,7 +124,7 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
         signup={true}
         description={
           language
-            ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجبل الدخول"
+            ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجيل الدخول"
             : "You can't contact with the seller with out signing in "
         }
       >
