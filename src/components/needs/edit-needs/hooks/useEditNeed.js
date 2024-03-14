@@ -39,7 +39,7 @@ const useEditNeed = (data) => {
         to: data?.areaTo,
       },
       rooms: data.rooms,
-      bathRooms: data.bathRooms,
+      bathrooms: data.bathRooms,
       saleOption: data.saleOption,
       installment: data.installment,
       description: data.description,

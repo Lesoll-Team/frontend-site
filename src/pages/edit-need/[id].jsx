@@ -3,9 +3,6 @@ import axios from "axios";
 import React from "react";
 
 const index = ({ data }) => {
-  // console.log(data.data);
-  console.log(data);
-
   return <EditNeed data={data} />;
 };
 

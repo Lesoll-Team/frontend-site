@@ -9,6 +9,7 @@ import SideMenu from "./SideMenu";
 import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
 import ProfileDropDown from "./ProfileDropDown";
+import NeedsLink from "./NeedsLink";
 const SearchModelButton = dynamic(() => import("./SearchModelButton"));
 const SearchModel = dynamic(() => import("./SearchModel"));
 function Navbar() {
@@ -76,25 +77,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link
-                href={isCompany ? "/needs" : "/add-need"}
-                className="relative text-base 2xl:text-xl"
-              >
-                <span
-                  className={`text-xs absolute text-white rounded-xl -top-5 bg-green-500 px-2 py-1 ${
-                    languageIs ? "-left-8" : " -right-8"
-                  }`}
-                >
-                  {languageIs ? "جديد" : "New"}
-                </span>
-                {isCompany
-                  ? languageIs
-                    ? "الطلبات"
-                    : " Needs"
-                  : languageIs
-                    ? "إضافة طلب"
-                    : "Add Need"}
-              </Link>
+              <NeedsLink />
             </li>
           </ul>
         </div>

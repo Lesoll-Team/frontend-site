@@ -19,7 +19,6 @@ const useAddProject = () => {
   } = form;
   const { errors } = formState;
   const onSubmit = handleSubmit(async (data) => {
-
     const address = {
       name: data.address.name,
       longitude: data.address.longitude,
@@ -37,7 +36,7 @@ const useAddProject = () => {
     formData.append("area", data.area);
     formData.append("price", data.price);
     formData.append("address", JSON.stringify(address));
-    formData.append("isCompound", data.isCompound);
+    formData.append("isCompound", data.isCompound ? true : false);
     formData.append("description", data.description);
     formData.append("about", data.about);
     data.isCompound && formData.append("compaounds", data.compaounds?._id);

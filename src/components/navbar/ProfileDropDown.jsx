@@ -93,22 +93,7 @@ const ProfileDropDown = () => {
             {language ? "المعلومات الشخصية" : "Personal Info"}
           </Link>
           <hr />
-          {showDashboard && (
-            <>
-              <Link
-                onClick={closeMenu}
-                href={"/dashboard"}
-                className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
-              >
-                <RiDashboardLine />
-                <span className=" whitespace-nowrap break-keep">
-                  {language ? "لوحة القيادة" : "Dashboard"}
-                </span>
-              </Link>
 
-              <hr />
-            </>
-          )}
           <Link
             onClick={closeMenu}
             href={"/profile/my-properties"}
@@ -146,6 +131,22 @@ const ProfileDropDown = () => {
                   {language ? " الطلبات" : " Needs"}
                 </span>
               </Link>
+              <hr />
+            </>
+          )}
+          {showDashboard && (
+            <>
+              <Link
+                onClick={closeMenu}
+                href={"/dashboard"}
+                className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
+              >
+                <RiDashboardLine />
+                <span className=" whitespace-nowrap break-keep">
+                  {language ? "لوحة القيادة" : "Dashboard"}
+                </span>
+              </Link>
+
               <hr />
             </>
           )}

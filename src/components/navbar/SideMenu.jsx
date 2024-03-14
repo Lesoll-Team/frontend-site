@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { GoHome } from "react-icons/go";
-import { IoMdMenu } from "react-icons/io";
+import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { LuFileText } from "react-icons/lu";
 import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
@@ -17,6 +17,7 @@ import io from "socket.io-client";
 
 const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
+  const [showNeedMenu, setShowNeedMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const SideMenu = () => {
   };
   const closeSideMenu = () => {
     setShowSideMenu(false);
+  };
+  const toggleNeedMenu = () => {
+    setShowNeedMenu((prev) => !prev);
   };
   const handleLogout = () => {
     dispatch(logoutUserToken());
@@ -55,7 +59,7 @@ const SideMenu = () => {
   }, [windowWidth]);
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
-      transports: ['websocket'],
+      transports: ["websocket"],
       withCredentials: true,
     });
     if (userData?._id) {
@@ -106,27 +110,9 @@ const SideMenu = () => {
                   {userData?.fullname}
                 </p>
               </Link>
-              {/*
-
-         <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
-                <p>
-                  {language ? "الطلبات" : "Needs"}{" "}
-                  <span className="text-baseGray">2</span>
-                </p>
-                <p>
-                  {language ? "عدد العقارات" : "Properties"}{" "}
-                  <span className="text-baseGray">2</span>
-                </p>
-              </div>
-         */}
             </div>
           )}
           <div className="flex flex-col justify-start gap-7 text-base text-darkGray">
-            <Link
-              onClick={closeSideMenu}
-              href={"/"}
-              className="flex items-center gap-4"
-            ></Link>
             <Link
               onClick={closeSideMenu}
               href={"/"}
@@ -135,14 +121,7 @@ const SideMenu = () => {
               <GoHome className="text-baseGray text-lg" />
               <span>{language ? "الرئيسية" : "Home"}</span>
             </Link>
-            {/* <Link
-              onClick={closeSideMenu}
-              href={"/"}
-              className="flex items-center gap-4"
-            >
-              <IoMdCard className="text-baseGray text-lg" />
-              <span>{language ? "الباقات" : "Packages"}</span>
-            </Link> */}
+
             <Link
               onClick={closeSideMenu}
               href={"/add-property"}
@@ -152,24 +131,40 @@ const SideMenu = () => {
 
               <span>{language ? "إضافة عقار" : "Add Property"}</span>
             </Link>
-            <Link
-              onClick={closeSideMenu}
-              href={isCompany ? "/needs" : "/add-need"}
-              className="flex items-center gap-4"
-            >
-              <AiOutlineEdit className="text-baseGray text-lg" />
+            <div className="space-y-2">
+              <button
+                onClick={toggleNeedMenu}
+                href={isCompany ? "/needs" : "/add-need"}
+                className="flex items-center gap-4 w-full"
+              >
+                <div className="flex items-center justify-between gap-4 ">
+                  <AiOutlineEdit className="text-baseGray text-lg" />
 
-              <span>
-                {" "}
-                {isCompany
-                  ? language
-                    ? "الطلبات"
-                    : " Needs"
-                  : language
-                    ? "إضافة طلب"
-                    : "Add Need"}
-              </span>
-            </Link>
+                  <span> {language ? "الطلبات" : " Needs"}</span>
+                </div>
+                <IoIosArrowDown
+                  className={`mt-1 duration-100 ${showNeedMenu && "rotate-180 duration-100"}`}
+                />
+              </button>
+              {showNeedMenu && (
+                <div className="mx-6 space-y-2">
+                  <Link
+                    onClick={closeSideMenu}
+                    href={"/add-need"}
+                    className="flex items-center gap-4"
+                  >
+                    <span>{language ? "إضافة طلب" : "Add Need"}</span>
+                  </Link>
+                  <Link
+                    onClick={closeSideMenu}
+                    href={"/needs"}
+                    className="flex items-center gap-4"
+                  >
+                    <span>{language ? " رؤية جميع الطلبات" : " Needs"}</span>
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               onClick={closeSideMenu}
               href={"/blog"}

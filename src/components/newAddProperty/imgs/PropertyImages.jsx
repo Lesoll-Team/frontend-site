@@ -107,11 +107,6 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           <>
             {" "}
             <Image
-              onClick={() => {
-                if (mainImgInputRef.current) {
-                  mainImgInputRef.current.click();
-                }
-              }}
               width={100}
               height={100}
               src={"/icons/add-img.svg"}
@@ -208,8 +203,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             {" "}
             <Image
               onClick={() => {
-                if (multiImgInputRef.current) {
-                  multiImgInputRef.current.click();
+                if (multiImage?.length > 0 || album?.length > 0) {
+                  if (multiImgInputRef.current) {
+                    multiImgInputRef.current.click();
+                  }
                 }
               }}
               width={100}

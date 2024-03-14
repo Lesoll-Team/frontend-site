@@ -39,7 +39,6 @@ const EditProject = () => {
   useEffect(() => {
     formateApiData(setValue, project);
   }, []);
-  console.log(watch("album"));
   return (
     <main className="mx-auto px-5 md:px-0 md:container py-10">
       {sended ? (

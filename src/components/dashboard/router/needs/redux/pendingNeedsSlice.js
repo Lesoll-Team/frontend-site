@@ -65,9 +65,7 @@ export const getActiveNeeds = createAsyncThunk(
 export const acceptNeed = createAsyncThunk(
   "pendingNeeds/acceptNeed",
   async (id, thunkAPI) => {
-    console.log(id);
     const userToken = JSON.parse(localStorage.getItem("userToken"));
-    console.log();
     try {
       const response = await axios.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/need/accept-need/${id}?token=${userToken}`,
@@ -86,9 +84,7 @@ export const acceptNeed = createAsyncThunk(
 export const deleteNeed = createAsyncThunk(
   "pendingNeeds/deleteNeed",
   async (id, thunkAPI) => {
-    console.log(id);
     const userToken = JSON.parse(localStorage.getItem("userToken"));
-    console.log();
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/need/delete-need/${id}?token=${userToken}`,

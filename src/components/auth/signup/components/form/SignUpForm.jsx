@@ -6,10 +6,11 @@ import "react-phone-input-2/lib/style.css";
 import { useSelector } from "react-redux";
 import GoogleSignInBtn from "@/components/auth/login/GoogleSignInBtn";
 import { userSignUp } from "../../api/signUpApi";
-import { Waveform } from "@uiball/loaders";
+import { Ring, Waveform } from "@uiball/loaders";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Button from "@/Shared/ui/Button";
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("idle");
@@ -294,23 +295,19 @@ const SignUpForm = () => {
           </Link>
         </label>
       </div>
-      <button
+      <Button
+        disabled={formStatus === "loading"}
         type="submit"
         className="w-full p-3 h-12 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
         {formStatus === "loading" ? (
           <>
-            <div className="md:hidden">
-              <Waveform size={20} color="#fff" />
-            </div>
-            <div className="md:block hidden">
-              <Waveform size={20} color="#fff" />
-            </div>
+            <Ring size={20} color="#fff" />
           </>
         ) : (
           <span>{language ? "إنشاء حساب" : "Sign up"}</span>
         )}
-      </button>
+      </Button>
       <div className="space-y-3">
         <div className="flex items-center gap-3">
           <div className="h-[1px] w-full bg-gray-500"></div>
