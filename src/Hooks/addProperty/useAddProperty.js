@@ -8,7 +8,7 @@ import { scrollToTop } from "@/utils/scrollToTop";
 // import { formatApiData } from "../editProperty/fromateApiData";
 const useAddProperty = () => {
   const dispatch = useDispatch();
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   const form = useForm({
     defaultValues: initialAddPropData,
   });
