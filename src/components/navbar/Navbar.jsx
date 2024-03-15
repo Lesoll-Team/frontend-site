@@ -17,7 +17,6 @@ function Navbar() {
   const userData = useSelector((state) => state.userProfile.userData);
   const [isOpen, setOpen] = useState(false);
 
-  const isCompany = userData?.typeOfUser === "company";
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
