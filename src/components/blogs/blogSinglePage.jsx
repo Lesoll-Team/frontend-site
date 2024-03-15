@@ -28,7 +28,7 @@ function BlogSinglePage({ BlogData }) {
           priority
         />
         <div className="absolute flex items-center justify-center top-0 w-full h-[381px] ">
-          <h1 className="overflow-x-hidden text-white  font-bold  w-full  text-center ">
+          <h1 className=" text-white  font-bold  w-full  text-center ">
             {language ? BlogData.getBlogs.title.ar : BlogData.getBlogs.title.en}
           </h1>
         </div>
@@ -58,13 +58,13 @@ function BlogSinglePage({ BlogData }) {
           <span className=" md:hidden block pb-2  text-gray1 lg-text">
             {language
               ? `بتاريخ : ${formattedDate(
-                  BlogData?.getBlogs.createdAt,
-                  language
-                )}`
+                BlogData?.getBlogs.createdAt,
+                language
+              )}`
               : `Date : ${formattedDate(
-                  BlogData?.getBlogs.createdAt,
-                  language
-                )}`}
+                BlogData?.getBlogs.createdAt,
+                language
+              )}`}
           </span>
           <div
             dir={language ? "rtl" : "ltr"}

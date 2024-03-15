@@ -27,7 +27,7 @@ module.exports = async () => {
         },
         {
           source: "/Governrate/:slug*",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
@@ -37,22 +37,22 @@ module.exports = async () => {
         },
         {
           source: "/Realties/:slug",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/SiteMap",
-          destination: "/properties/residential/rent/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/SiteMap/:slug",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/Sitemap",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
@@ -92,12 +92,12 @@ module.exports = async () => {
         },
         {
           source: "/search",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {
           source: "/search/:slug",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
       ];
