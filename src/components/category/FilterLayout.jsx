@@ -1,5 +1,5 @@
-import React, { memo, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SidebarFilter from "./SidebarFilter";
 import BarFilter from "./BarFilter";
 
@@ -7,12 +7,34 @@ import PaginationPage from "@/Shared/Pagination/PaginationSearch";
 import RealtyCard from "../realtyCard/RealtyCard";
 import ResultNotFound from "./shared/ResultNotFound";
 import SubBarTitle from "./barfilter-modules/SubBarTitle";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
-const FilterLayout = ({ result, page }) => {
+const FilterLayout = ({ result, page, dataObjectFromURL }) => {
+  const dispatch = useDispatch()
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { openFilter } = useSelector((state) => state.Category);
   const userInfo = useSelector((state) => state.userProfile.userData);
-
+  useEffect(() => {
+    dispatch(updateAllStates({
+      pageNumber: dataObjectFromURL.page,
+      categoryType: dataObjectFromURL.category,
+      saleOption: dataObjectFromURL.saleOptions,
+      unitTypes: dataObjectFromURL.unitType,
+      locationGovernorate: dataObjectFromURL.governorate,
+      locationRegion: dataObjectFromURL.region,
+      priceFrom: dataObjectFromURL.priceFrom,
+      priceTo: dataObjectFromURL.priceTo,
+      numBathrooms: dataObjectFromURL.numBathrooms,
+      numBedrooms: dataObjectFromURL.numBedrooms,
+      areaFrom: dataObjectFromURL.areaFrom,
+      areaTo: dataObjectFromURL.areaTo,
+      finishedOption: dataObjectFromURL.finishedOption,
+      paymentType: dataObjectFromURL.paymentType,
+      sort: dataObjectFromURL.sort,
+      propFinancing: dataObjectFromURL.mortgage,
+      searchKeyword: dataObjectFromURL.keyword,
+    }))
+  }, [])
   return (
     <>
       {/*Sidebar filter */}
@@ -36,8 +58,6 @@ const FilterLayout = ({ result, page }) => {
       {/*cards result  */}
       <div
         className="md:container mx-[20px] md:mx-auto md:flex flex-wrap  grid  gap-y-3 md:gap-y-16  lg:justify-between justify-center"
-      //   "  md:container mx-[10px] md:mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
-      //  gap-y-3 md:gap-y-16 bg-red-200 justify-between"
       >
         {result?.categoryResults?.map((property) => (
           <RealtyCard key={property._id} propertyDetails={property} />

@@ -22,7 +22,6 @@ const PropertiesTypes = () => {
           defaultValue={language ? "نوع الإعلان" : "property type"}
           data={propertyType}
           value={categoryType}
-          dataOptions="text"
           classNames="bg-white"
         />
       </div>
@@ -35,7 +34,6 @@ const PropertiesTypes = () => {
           defaultValue={language ? "نوع الوحدة" : "unit type"}
           data={unitTypesData()}
           value={unitTypes}
-          dataOptions="text"
           classNames="bg-white"
         />
       </div>

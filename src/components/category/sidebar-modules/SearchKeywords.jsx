@@ -4,6 +4,7 @@ import { updateAllStates } from "../../../redux-store/features/category/category
 import { useDispatch, useSelector } from "react-redux";
 const SearchKeywords = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const { searchKeyword } = useSelector((state) => state.Category);
   const dispatch = useDispatch();
 
   const handleStateChange = (e) => {
@@ -24,6 +25,7 @@ const SearchKeywords = () => {
           className="w-full h-full sm-text placeholder:sm-text focus:outline-none indent-3"
           type="text"
           placeholder={language ? "كلمات مميزة " : "spacial keywords"}
+          value={searchKeyword}
           onChange={handleStateChange}
         />
         <TbSearch className="mx-1 " />

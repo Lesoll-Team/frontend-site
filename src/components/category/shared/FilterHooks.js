@@ -2,6 +2,12 @@ import {
   unitTypeCommercial,
   unitTypeLand,
   unitTypeResidential,
+  // propertyType,
+  // saleOptionsType,
+  // finishingOptionsData,
+  // sortedData,
+
+
 } from "@/Shared/search/dropdown/dataDropdown";
 import { useCallback } from "react";
 
@@ -66,9 +72,43 @@ export const useSendFilterSearch = ({ queryInput, filterInput }) => {
     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
     .join("&");
 
-  const newUrl = `/properties/${
-    pagesInput3 ? pagesInput3 + "/" : ""
-  }search?${queryString}`;
+  const newUrl = `/properties/${pagesInput3 ? pagesInput3 + "/" : ""
+    }search?${queryString}`;
 
   return newUrl;
 };
+
+export const useSelectListByKey = ({ key, language, data }) => {
+  const isLanguage = language ? "ar" : "en";
+
+  let objectData = null;
+  if (data && data[isLanguage]) {
+    objectData = data[isLanguage].filter(item => item.value === key);
+  }
+
+  return objectData && objectData[0]
+
+
+}
+
+// let localized = data[isLanguage].map((item) => ({
+//   value: item.value,
+//   nameAr: item.name,
+//   nameEn: data["en"].find((enItem) => enItem.value === item.value).name,
+//   id: item.id,
+// }));
+/*
+    ar: [
+      { value: "apartment", name: "شقة", id: 1, key: "residential" }
+       ],
+
+    en:[
+      { value: "apartment", name: "apartment", id: 1, key: "residential" }
+       ]
+ */
+// if (categoryUnitType.includes(value)) {
+//   unitType = value;
+// }
+// if (saleOptionsType.ar.some((item) => item.value === value)) {
+//   saleOption = value;
+// }
