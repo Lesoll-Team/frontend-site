@@ -222,7 +222,7 @@ export default CompanyEditProfile;
 
 const UserInputContainer = ({ title, children }) => (
   <div className="flex flex-col gap-y-2">
-    <label className="text-base md:text-xl text-outLine">{title}</label>
+    <p className=" ">{title}</p>
     {children}
   </div>
 );

@@ -34,17 +34,17 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/edit"}
-          className="text-baseGray md:hidden flex items-center gap-4 font-semibold text-xl w-fit"
+          className="text-baseGray md:hidden flex items-center gap-4 font-semibold text-[17px] w-fit"
         >
-          <MdOutlineAccountCircle className="md:text-3xl" />
+          <MdOutlineAccountCircle className="md:text-2xl" />
           {language ? "المعلومات الشخصية" : "Personal Info"}
         </Link>
         <Link
           href={"/profile/edit"}
-          className="text-baseGray hidden md:flex items-center gap-4 font-semibold text-xl w-fit"
+          className="text-baseGray hidden md:flex items-center gap-4 font-semibold text-[17px] w-fit"
         >
           {" "}
-          <MdOutlineAccountCircle className="md:text-3xl" />
+          <MdOutlineAccountCircle className="md:text-2xl" />
           {language ? "المعلومات الشخصية" : "Personal Info"}
         </Link>
         <hr />
@@ -52,9 +52,9 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/my-properties"}
-          className="text-baseGray font-semibold flex items-center gap-4  text-xl w-fit"
+          className="text-baseGray font-semibold flex items-center gap-4  text-[17px] w-fit"
         >
-          <MdOutlineRealEstateAgent className="md:text-3xl" />
+          <MdOutlineRealEstateAgent className="md:text-2xl" />
           {language ? "الإعلانات" : "Properties"}
         </Link>
         <hr />
@@ -62,9 +62,9 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/saved-items"}
-          className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
+          className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
         >
-          <IoMdHeartEmpty className="md:text-3xl" />
+          <IoMdHeartEmpty className="md:text-2xl" />
           {language ? "العناصر المحفوظة" : "Saved Items"}
         </Link>
         <hr />
@@ -74,9 +74,9 @@ const ProfileLinks = ({ main }) => {
           <div className="flex flex-col gap-5">
             <Link
               href={"/profile/needs"}
-              className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
+              className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
             >
-              <BiEditAlt className="md:text-3xl" />
+              <BiEditAlt className="md:text-2xl" />
               {language ? " الطلبات" : " Needs"}
             </Link>
             <hr />
@@ -87,9 +87,9 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <button
           onClick={handleLogout}
-          className="text-baseGray font-semibold text-xl w-fit flex items-center gap-4 "
+          className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
         >
-          <RiLogoutBoxLine className="md:text-3xl" />
+          <RiLogoutBoxLine className="md:text-2xl" />
           {language ? "تسجيل الخروج" : "Log out"}
         </button>
       </div>

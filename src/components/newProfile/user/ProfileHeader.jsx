@@ -34,22 +34,22 @@ const ProfileHeader = ({ hideHeader }) => {
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
-              <h3 className="lg:text-2xl text-lg text-baseGray font-bold">
+              <h2 className=" text-baseGray font-bold">
                 {userData?.fullname}{" "}
                 {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
-              </h3>
+              </h2>
               <div className="hidden lg:flex  items-center gap-14">
                 <div className=" flex items-center gap-2">
                   <MdOutlineCall className="text-2xl text-lightGreen" />
-                  <p className="text-xl text-baseGray">
+                  <h3 className=" text-baseGray font-normal">
                     {userData?.code + userData?.phone}
-                  </p>
+                  </h3>
                 </div>
                 <div className=" flex items-center gap-2">
                   <HiOutlineMailOpen className="text-2xl text-lightGreen" />
-                  <p className="text-base xl:text-xl text-baseGray break-words break-allxl:max-w-fit">
+                  <h3 className=" text-baseGray break-words break-all font-normal xl:max-w-fit">
                     {userData?.email}
-                  </p>
+                  </h3>
                 </div>
               </div>
             </div>

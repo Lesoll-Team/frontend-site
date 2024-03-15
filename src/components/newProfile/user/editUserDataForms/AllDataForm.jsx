@@ -148,7 +148,7 @@ const AllDataForm = ({ main }) => {
             </UserInputContainer>
           </div>
           <div className="flex flex-col gap-y-8 md:gap-y-11">
-            <h3 className="text-base md:text-xl font-bold text-lightGreen">
+            <h3 className=" font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
             </h3>
             <UserSocialMediaContainer
@@ -161,7 +161,7 @@ const AllDataForm = ({ main }) => {
                 type="text"
                 defaultValue={userData.faceLink}
                 {...register("faceLink", {})}
-                className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
+                className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
                   errors.faceLink && "border-red-500 focus:border-red-500"
                 }`}
               />
@@ -221,7 +221,7 @@ export default AllDataForm;
 
 const UserInputContainer = ({ title, children }) => (
   <div className="flex flex-col gap-y-2">
-    <label className="text-base md:text-xl text-outLine">{title}</label>
+    <p className=" text-gray-800 ">{title}</p>
     {children}
   </div>
 );

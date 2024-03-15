@@ -21,7 +21,7 @@ const BlogCategories = ({ blogs }) => {
             <Link
               key={item._id}
               href={`?category=${item.categoryNameEn}`}
-              className="text-sm md:text-xl min-w-fit md:w-fit break-keep text-baseGray hover:text-lightGreen duration-150"
+              className="text-sm md:text-[19px] min-w-fit md:w-fit break-keep text-baseGray hover:text-lightGreen duration-150"
             >
               {language ? item.categoryNameAr : item.categoryNameEn}
             </Link>

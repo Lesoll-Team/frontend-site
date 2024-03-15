@@ -8,19 +8,19 @@ import { RiMoreFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import ActionsMenu from "./ActionsMenu";
 
-const NeedsAdminCard = ({ need, type }) => {
+const NeedsActive = ({ need, type }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${
-    need.userId?.code + need?.userId?.phone
+    need.userId[0]?.code + need?.userId[0]?.phone
   }`;
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
-    phoneNumber: need.userId?.code + need?.userId?.phone,
+    phoneNumber: need.userId[0]?.code + need?.userId[0]?.phone,
   });
   return (
     <div className=" bg-white rounded-lg flex md:flex-row flex-col relative  items-start p-5">
       <div className="space-y-4 w-full md:w-7/12">
         <h3 className="w-full text-2xl  font-bold">
-          {language ? need.unitType?.title.ar : need.unitType?.title.en}
+          {language ? need.unitType[0].title.ar : need.unitType[0].title.en}
           {"  "}
           {need?.offer === "For Sale"
             ? language
@@ -33,7 +33,7 @@ const NeedsAdminCard = ({ need, type }) => {
               : language
                 ? "للإستثمار"
                 : "For Investment"}{" "}
-          {need?.governrate?.name} {need?.region?.city_name_ar}
+          {need?.governrate[0]?.name} {need?.region[0]?.city_name_ar}
         </h3>
 
         <div className="flex gap-3 md:gap-12 pb-2 border-b-2 flex-wrap">
@@ -95,7 +95,7 @@ const NeedsAdminCard = ({ need, type }) => {
           <div className="flex items-center gap-2">
             <Avatar src="" className="w-[30px] h-[30px]" />
             <p className="font-semibold">
-              <span className="text-base">{need.userId?.fullname}</span>
+              <span className="text-base">{need.userId[0]?.fullname}</span>
             </p>
           </div>
           <div className="flex md:hidden gap-3 items-center justify-end">
@@ -121,7 +121,7 @@ const NeedsAdminCard = ({ need, type }) => {
       </div>
       <div className="w-5/12 hidden  gap-5 md:flex justify-end ">
         <a
-          href={`tel:${need.userId?.code + need.userId?.phone}`}
+          href={`tel:${need.userId[0]?.code + need.userId[0]?.phone}`}
           target="_blank"
         >
           <Image className="w-[50px]" width={50} src="/icons/call-icon.svg" />
@@ -142,4 +142,4 @@ const NeedsAdminCard = ({ need, type }) => {
     </div>
   );
 };
-export default NeedsAdminCard;
+export default NeedsActive;

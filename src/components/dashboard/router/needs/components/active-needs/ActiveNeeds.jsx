@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import NeedsActive from "../card/NeedsActive";
 const ActiveNeeds = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -22,7 +23,7 @@ const ActiveNeeds = () => {
     <div className="flex flex-col gap-5 p-3 md:p-5 bg-neutral min-h-[60dvh] rounded-md">
       {activeNeeds?.getAllData && activeNeeds.getAllData.length > 0 ? (
         activeNeeds.getAllData.map((item) => {
-          return <NeedsAdminCard need={item} type={"active"} />;
+          return <NeedsActive need={item} type={"active"} />;
         })
       ) : (
         <div className="flex h-full w-full items-center justify-center min-h-[70dvh] text-xl">

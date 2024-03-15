@@ -10,7 +10,7 @@ const ProjectCard = ({ data }) => {
     <div className="flex md:flex-row flex-col border drop-shadow p-2 bg-white">
       <div className="flex items-start gap-3 md:flex-row flex-col w-full ">
         <Link
-          href={"/"}
+          href={`/projects/${data?.slug}`}
           className="object-cover w-full md:max-w-[150px] max-h-[150px] border rounded-md"
         >
           <Image

@@ -113,12 +113,12 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               alt="add image icon"
               className="cursor-pointer"
             />
-            <h3 className="text-center text-base sm:text-lg md:text-2xl text-darkGray font-bold">
+            <h2 className="text-center  text-darkGray font-bold">
               {language
                 ? "اضف الصورة الرئيسية للعقار"
                 : "Add main image for the property"}
-            </h3>
-            <p className="text-center text-xs md:text-sm text-outLine">
+            </h2>
+            <p className="text-center  text-outLine">
               {language
                 ? "جودة الصور المرفقة للعقار تساعد في نشر إعلانك بشكل افضل"
                 : "The quality of the attached images of the property helps in spreading your ad better"}
@@ -215,10 +215,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               alt="add image icon"
               className="cursor-pointer"
             />
-            <h3 className="text-center text-lg md:text-2xl text-darkGray font-bold">
+            <h2 className="text-center  text-darkGray font-bold">
               {language ? "اضف الصور الأخرى" : "Add other photos"}
-            </h3>
-            <p className="text-center text-xs md:text-sm text-outLine">
+            </h2>
+            <p className="text-center  text-outLine">
               {language
                 ? "عدد الصور المسموح بها من 3 إلى 20"
                 : "Number of photos allowed from 3 to 20"}

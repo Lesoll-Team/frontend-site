@@ -33,7 +33,7 @@ const BlogCard = ({ blog }) => {
   });
 
   return (
-    <Link
+    <div
       href={`/blog/${blog.slug.ar}`}
       className="flex md:flex-row flex-col rounded-md overflow-hidden md:rounded-none gap-y-[12px] md:gap-x-[32px] border-2 md:border-none"
     >
@@ -75,7 +75,7 @@ const BlogCard = ({ blog }) => {
           {language ? "قراءة المزيد" : "Read more"}
         </Link>
       </div>
-    </Link>
+    </div>
   );
 };
 export default BlogCard;
