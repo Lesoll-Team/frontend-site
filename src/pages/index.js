@@ -1,8 +1,9 @@
 import dynamic from "next/dynamic";
 // import cache from "memory-cache";
-
-const HeroSection = dynamic(() => import("@/components/homePage/HeroSection"));
+import HeroSection from "@/components/homePage/HeroSection";
+// import SearchModule from "@/components/homePage/SearchModule";
 const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
+const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories")
 );
@@ -12,12 +13,15 @@ const LocationCategories = dynamic(
 // const SpecialCards = dynamic(
 //   () => import("../components/homePage/SpecialCards")
 // );
-const SearchModule = dynamic(
-  () => import("../components/homePage/SearchModule")
-);
+// const SearchModule = dynamic(
+//   () => import("../components/homePage/SearchModule")
+// );
 const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome")
 );
+
+// const SpecialCards = dynamic(() => import("@/components/homePage/SpecialCards"));
+
 
 const Home = ({ bestSearch }) => {
   return (
@@ -46,7 +50,7 @@ const Home = ({ bestSearch }) => {
 };
 
 export default Home;
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // let linkInHome = cache.get("linkInHome");
 
   // const specialData = await fetch(
@@ -60,22 +64,10 @@ export async function getStaticProps() {
   // }
   // cache.put("linkInHome", linkInHome, 86400000);
   // const specialCardData = await specialData.json();
-  // const linkInHome = await linkHome.json();
 
   return {
     props: {
-      // specialCardData,
       bestSearch: linkInHome,
-    },
-    revalidate: 1,
+    }
   };
 }
-
-// import HeroSection from "@/components/homePage/HeroSection";
-// import LocationCategories from "@/components/homePage/LocationCategories";
-// import OtherCards from "@/components/homePage/OtherCards";
-// import SpecialCards from "@/components/homePage/SpecialCards";
-// import PropertiesCategories from "@/components/homePage/PropertiesCategories";
-// import SearchModule from "@/components/homePage/SearchModule";
-// import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
-//suspense or dynamic import nextjs

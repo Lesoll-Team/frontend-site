@@ -28,6 +28,7 @@ const OtherCards = () => {
           width={100}
           height={100}
           radius="none"
+          priority={false}
           className=" md:w-[100px] lg:w-[130px] w-[50px]"
         />
       </Link>
@@ -52,6 +53,7 @@ const OtherCards = () => {
           width={100}
           height={100}
           radius="none"
+          priority={false}
           className=" md:w-[100px] lg:w-[130px] w-[50px]"
         />
       </Link>

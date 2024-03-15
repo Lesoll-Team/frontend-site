@@ -60,17 +60,17 @@ export default function PropertyBuy() {
 
 export async function getServerSideProps() {
   // Your logic to determine if the resource is gone
-  const isResourceGone = true; // Example condition
+  // const isResourceGone = true; // Example condition
 
-  if (isResourceGone) {
-    // Redirect to the homepage with a 410 status code
-    return {
-      redirect: {
-        destination: "/properties/sale/residential/search?page=1",
-        statusCode: 308,
-      },
-    };
-  }
+  // if (isResourceGone) {
+  // Redirect to the homepage with a 410 status code
+  return {
+    redirect: {
+      destination: "/properties/sale/residential/search?page=1",
+      statusCode: 308,
+    },
+  };
+  // }
 
   // Continue with your logic if the resource is not gone
   // return {
