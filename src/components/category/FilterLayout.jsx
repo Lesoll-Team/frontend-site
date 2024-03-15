@@ -8,12 +8,14 @@ import RealtyCard from "../realtyCard/RealtyCard";
 import ResultNotFound from "./shared/ResultNotFound";
 import SubBarTitle from "./barfilter-modules/SubBarTitle";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { useRouter } from "next/router";
 
 const FilterLayout = ({ result, page, dataObjectFromURL }) => {
   const dispatch = useDispatch()
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { openFilter } = useSelector((state) => state.Category);
   const userInfo = useSelector((state) => state.userProfile.userData);
+  const router = useRouter()
   useEffect(() => {
     dispatch(updateAllStates({
       pageNumber: dataObjectFromURL.page,
@@ -34,7 +36,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL }) => {
       propFinancing: dataObjectFromURL.mortgage,
       searchKeyword: dataObjectFromURL.keyword,
     }))
-  }, [])
+  }, [router])
   return (
     <>
       {/*Sidebar filter */}

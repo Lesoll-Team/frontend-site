@@ -44,7 +44,7 @@ const ButtonSearchAction = ({ isBar }) => {
     },
     queryInput: {
       priceFrom,
-      page: pageNumber || 1,
+      page: 1,
       priceTo,
       numBathrooms,
       numBedrooms,

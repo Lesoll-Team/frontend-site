@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Dropdown = ({
   defaultValue,
   data,
-  value,// change here
+  value,
   classNames,
   isDisabled,
   baseIcon,
@@ -23,6 +23,7 @@ const Dropdown = ({
   const [dropdownName, setDropdownName] = useState("");
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
+  const nameIs = useSelectListByKey({ key: value, language, data });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -94,8 +95,6 @@ const Dropdown = ({
 
 
   const handleSelectList = useCallback(() => {
-    const nameIs = useSelectListByKey({ key: value, language, data });
-    console.log(nameIs);
     if (nameIs) {
       setDropdownName(language ? nameIs.name : nameIs.value.split("_").join(" "))
     }
