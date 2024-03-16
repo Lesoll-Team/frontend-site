@@ -3,7 +3,9 @@ import dynamic from "next/dynamic";
 import HeroSection from "@/components/homePage/HeroSection";
 // import SearchModule from "@/components/homePage/SearchModule";
 const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
-const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
+const SearchModule = dynamic(
+  () => import("@/components/homePage/SearchModule")
+);
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories")
 );
@@ -21,9 +23,12 @@ const BestLinksInHome = dynamic(
 );
 
 // const SpecialCards = dynamic(() => import("@/components/homePage/SpecialCards"));
-
-
+import en from "javascript-time-ago/locale/en.json";
+import ar from "javascript-time-ago/locale/ar.json";
+import { useSelector } from "react-redux";
 const Home = ({ bestSearch }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  TimeAgo.addDefaultLocale(language ? ar : en);
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <div className="md:container md:mx-auto  mx-[20px]">
@@ -68,6 +73,6 @@ export async function getServerSideProps() {
   return {
     props: {
       bestSearch: linkInHome,
-    }
+    },
   };
 }
