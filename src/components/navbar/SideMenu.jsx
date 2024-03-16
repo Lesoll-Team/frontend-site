@@ -75,7 +75,9 @@ const SideMenu = () => {
         <IoMdMenu className="text-2xl" />
       </button>
       {showSideMenu && (
-        <div className="absolute w-screen h-screen top-0 left-0  lg:hidden  bg-white px-8 pt-4 space-y-8 overflow-auto  pb-20">
+        <div
+          className={`absolute w-screen sm:w-full h-screen top-0 left-0   lg:hidden  bg-white px-8 pt-4 space-y-8 overflow-auto  pb-20 ${language ? "sm:right-20" : "sm:left-12"}`}
+        >
           <div className="w-full flex justify-center items-center relative ">
             <Link href={"/"} onClick={closeSideMenu}>
               <Image
@@ -86,7 +88,10 @@ const SideMenu = () => {
                 className="h-[28px] w-[70px] "
               />
             </Link>
-            <button onClick={closeSideMenu} className="absolute left-0">
+            <button
+              onClick={closeSideMenu}
+              className={`absolute  left-0 ${language ? "sm:right-0" : "sm:left-0"}`}
+            >
               <IoClose className="text-xl" />
             </button>
           </div>

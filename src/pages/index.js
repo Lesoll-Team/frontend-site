@@ -23,12 +23,11 @@ const BestLinksInHome = dynamic(
 );
 
 // const SpecialCards = dynamic(() => import("@/components/homePage/SpecialCards"));
-import en from "javascript-time-ago/locale/en.json";
-import ar from "javascript-time-ago/locale/ar.json";
+
 import { useSelector } from "react-redux";
+
 const Home = ({ bestSearch }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  TimeAgo.addDefaultLocale(language ? ar : en);
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <div className="md:container md:mx-auto  mx-[20px]">
