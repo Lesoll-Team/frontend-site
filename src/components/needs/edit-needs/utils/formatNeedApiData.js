@@ -18,7 +18,7 @@ export const formatNeedApiData = (setValue, data) => {
   const propType = propTypeList.find((item) => item.value === data?.propType);
   const rentalPeriod =
     rentalTypes.find((item) => item?.value === data?.rentalPeriod) || "";
-  console.log(data);
+  // console.log(data);
   setValue("address", address);
   setValue("unitType", unitType);
   setValue("propType", propType);

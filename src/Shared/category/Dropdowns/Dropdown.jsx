@@ -1,5 +1,5 @@
 
-import { useSelectListByKey } from "@/components/category/shared/FilterHooks";
+import { useSelectListByKey, useSendFilterSearch } from "@/components/category/shared/FilterHooks";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
@@ -24,7 +24,47 @@ const Dropdown = ({
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const dropdownButtonRef = useRef(null);
   const nameIs = useSelectListByKey({ key: value, language, data });
-
+  const {
+    categoryType,
+    saleOption,
+    unitTypes,
+    locationGovernorate,
+    locationRegion,
+    priceFrom,
+    priceTo,
+    numBathrooms,
+    numBedrooms,
+    areaFrom,
+    areaTo,
+    finishedOption,
+    paymentType,
+    sort,
+    propFinancing,
+    searchKeyword,
+  } = useSelector((state) => state.Category);
+  const route = useSendFilterSearch({
+    filterInput: {
+      category: categoryType,
+      saleOptions: saleOption,
+      unitType: unitTypes,
+      governorate: locationGovernorate,
+      region: locationRegion,
+    },
+    queryInput: {
+      priceFrom,
+      page: 1,
+      priceTo,
+      numBathrooms,
+      numBedrooms,
+      areaFrom,
+      areaTo,
+      finishedOption: finishedOption,
+      paymentType,
+      sort: sort,
+      mortgage: propFinancing,
+      keyword: searchKeyword,
+    },
+  });
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -51,7 +91,9 @@ const Dropdown = ({
       const payload = {};
       payload[stateName] = e.value;
       dispatch(updateAllStates(payload));
+
     }
+
   };
 
   const renderOptionType = useCallback(
@@ -99,12 +141,18 @@ const Dropdown = ({
       setDropdownName(language ? nameIs.name : nameIs.value.split("_").join(" "))
     }
 
+
+
   }, [language, data, value]);
 
   useEffect(() => {
     handleSelectList();
   }, [handleSelectList]);
-
+  useEffect(() => {
+    if (isSort) {
+      router.push(route);
+    }
+  }, [sort]);
   return (
     <div className={`${classNames}  min-w-[9.97vw] relative`}>
       <button
@@ -115,11 +163,12 @@ const Dropdown = ({
          rounded-[1vh] md:px-3 ${isSort
             ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
             : "w-full h-[40px] md:h-[3.313rem]"
-          } px-1 cursor-pointer  ${baseIcon
+          } px-1 cursor-pointer border-[1px] border-[#CCCCCC] `}
+      >
+        {/**${isSort
             ? "shadow-md bg-[#F2F8F9]"
             : "border-[1px] border-[#CCCCCC] "
-          }`}
-      >
+          } */}
         {(value && (
           <span className="text-[#4E4E4E]">
             {/* {language ? value.name : value.value} */}

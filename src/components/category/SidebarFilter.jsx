@@ -12,8 +12,9 @@ import FinancingButtons from "./sidebar-modules/FinancingButtons";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
 import { useDispatch } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+// import UnitTypeIcons from "./shared/UnitTypeIcons";
 
-const SidebarFilter = ({ languageIs }) => {
+const SidebarFilter = ({ languageIs, result }) => {
   const dispatch = useDispatch();
   // const openFilter = useSelector((state) => state.Category.openFilter);
   const openSideFilter = () => {
@@ -43,17 +44,7 @@ const SidebarFilter = ({ languageIs }) => {
         </div>
         {/* <div className="md:container py-[48px] md:mx-auto mx-[20px] md:hidden block ">
           <UnitTypeIcons
-            category={categoryTypeKey}
             items={result?.aggregation_links}
-            setUnitTypesKey={setUnitTypesKey}
-            unitTypesKey={unitTypesKey}
-            setLocationGovernorate={setLocationGovernorate}
-            setLocationRegion={setLocationRegion}
-            setCategoryTypeKey={setCategoryTypeKey}
-            setClickOnTap={setClickOnTap}
-            clickOnTap={clickOnTap}
-            locationGovernorate={locationGovernorate}
-            locationRegion={locationRegion}
           />
         </div> */}
         {/*search by keywords  */}

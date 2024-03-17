@@ -36,7 +36,7 @@ export async function foundKeyword(keyword) {
     );
     return response;
   } catch (error) {
-    console.log("error", error.code);
+    console.log("error in foundKeyword");
   }
 }
 
@@ -71,15 +71,11 @@ export async function foundKeyword(keyword) {
 //     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
 //     .join("&");
 
-//   // console.log("filteredKeywords", filteredKeywords);
-//   // console.log("filterInputAfter", filterInputAfter);
-//   // console.log("pagesInput3", pagesInput3);
-//   // console.log("queryString", queryString);
+
 
 //   const newUrl = `/properties/${
 //     pagesInput3 ? pagesInput3 + "/" : ""
 //   }search?${queryString}`;
-//   console.log("newUrl", newUrl);
 
 //   history.pushState(null, null, newUrl);
 // };
