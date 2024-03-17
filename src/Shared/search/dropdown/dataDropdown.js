@@ -37,7 +37,7 @@ export const saleOptionsType = {
   ],
   ar: [
     { value: "sale", name: "للبيع", id: 1 },
-    { value: "rent", name: "للإيحار", id: 2 },
+    { value: "rent", name: "للإيجار", id: 2 },
     { value: "investment", name: "للإستثمار", id: 3 },
   ],
 };

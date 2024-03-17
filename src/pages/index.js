@@ -1,18 +1,20 @@
 import dynamic from "next/dynamic";
 // import cache from "memory-cache";
 import HeroSection from "@/components/homePage/HeroSection";
-// import SearchModule from "@/components/homePage/SearchModule";
-const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
-const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
+import SearchModule from "@/components/homePage/SearchModule";
+import OtherCards from "@/components/homePage/OtherCards";
+import HomeMetaTag from "@/components/homePage/HomeMetaTag";
+// const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
+// const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories")
 );
 const LocationCategories = dynamic(
   () => import("@/components/homePage/LocationCategories")
 );
-// const SpecialCards = dynamic(
-//   () => import("../components/homePage/SpecialCards")
-// );
+const SpecialCards = dynamic(
+  () => import("../components/homePage/SpecialCards")
+);
 // const SearchModule = dynamic(
 //   () => import("../components/homePage/SearchModule")
 // );
@@ -24,13 +26,15 @@ const BestLinksInHome = dynamic(
 
 
 const Home = ({ bestSearch }) => {
+  // console.log(getFeaturesCards());
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
+      <HomeMetaTag />
       <div className="md:container md:mx-auto  mx-[20px]">
         <SearchModule />
       </div>
       <HeroSection />
-      {/* <SpecialCards specialCardData={specialCardData} isHome /> */}
+      <SpecialCards isHome />
 
       <div className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2 flex-col md:flex-row justify-between">
         <OtherCards />

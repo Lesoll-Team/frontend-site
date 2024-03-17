@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import useContactLinks from "@/Hooks/useContactLinks";
 
 const SpecialCard = ({ cardDetails }) => {
@@ -83,4 +83,4 @@ const SpecialCard = ({ cardDetails }) => {
     </div>
   );
 };
-export default SpecialCard;
+export default memo(SpecialCard);

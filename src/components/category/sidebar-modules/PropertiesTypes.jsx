@@ -10,7 +10,7 @@ const PropertiesTypes = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { categoryType, unitTypes } = useSelector((state) => state.Category);
 
-  const unitTypesData = useUnitTypesData(categoryType?.value);
+  const unitTypesData = useUnitTypesData(categoryType);
   return (
     <div className="flex  justify-center md:hidden md:gap-x-[1vw]  gap-x-[1.5vw] p-[1.5vw] bg-[#F8F8F8]">
       <div className="flex flex-col  w-6/12 gap-y-[1.5vh]">
