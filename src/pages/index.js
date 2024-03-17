@@ -1,11 +1,10 @@
 import dynamic from "next/dynamic";
-// import cache from "memory-cache";
+import cache from "memory-cache";
 import HeroSection from "@/components/homePage/HeroSection";
 import SearchModule from "@/components/homePage/SearchModule";
 import OtherCards from "@/components/homePage/OtherCards";
 import HomeMetaTag from "@/components/homePage/HomeMetaTag";
-// const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
-// const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
+
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories")
 );
@@ -15,18 +14,15 @@ const LocationCategories = dynamic(
 const SpecialCards = dynamic(
   () => import("../components/homePage/SpecialCards")
 );
-// const SearchModule = dynamic(
-//   () => import("../components/homePage/SearchModule")
-// );
+
 const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome")
 );
 
-// const SpecialCards = dynamic(() => import("@/components/homePage/SpecialCards"));
 
 
 const Home = ({ bestSearch }) => {
-  // console.log(getFeaturesCards());
+
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <HomeMetaTag />
@@ -44,10 +40,10 @@ const Home = ({ bestSearch }) => {
       <LocationCategories />
 
       <BestLinksInHome
-        PopularSearches={bestSearch.POPULAR_SEARCHES}
-        MostArea={bestSearch.Most_Area}
-        MostGovernorate={bestSearch.Most_Governorate}
-        Others={bestSearch.Others}
+        PopularSearches={bestSearch?.POPULAR_SEARCHES}
+        MostArea={bestSearch?.Most_Area}
+        MostGovernorate={bestSearch?.Most_Governorate}
+        Others={bestSearch?.Others}
       />
     </main>
   );
@@ -55,19 +51,16 @@ const Home = ({ bestSearch }) => {
 
 export default Home;
 export async function getServerSideProps() {
-  // let linkInHome = cache.get("linkInHome");
+  let linkInHome = cache.get("linkInHome");
 
-  // const specialData = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/property/get-home-projects?limit=3&page=1`
-  // );
-  // if (!linkInHome) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
-  );
-  const linkInHome = await response.json();
-  // }
-  // cache.put("linkInHome", linkInHome, 86400000);
-  // const specialCardData = await specialData.json();
+
+  if (!linkInHome) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+    );
+    const linkInHome = await response.json();
+    cache.put("linkInHome", linkInHome, 86400000);
+  }
 
   return {
     props: {
@@ -75,3 +68,17 @@ export async function getServerSideProps() {
     }
   };
 }
+// const specialData = await fetch(
+//   `${process.env.NEXT_PUBLIC_API_URL}/property/get-home-projects?limit=3&page=1`
+// );
+// if (!bestSearch) {
+//   // Return a loading state, error message, or handle this case accordingly
+//   return <div>Loading...</div>;
+// }
+// const specialCardData = await specialData.json();
+// const SpecialCards = dynamic(() => import("@/components/homePage/SpecialCards"));
+// const SearchModule = dynamic(
+//   () => import("../components/homePage/SearchModule")
+// );
+// const OtherCards = dynamic(() => import("@/components/homePage/OtherCards"));
+// const SearchModule = dynamic(() => import("@/components/homePage/SearchModule"));
