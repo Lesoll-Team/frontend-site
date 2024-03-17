@@ -9,6 +9,7 @@ import ResultNotFound from "./shared/ResultNotFound";
 import SubBarTitle from "./barfilter-modules/SubBarTitle";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
+import UnitTypeIcons from "./shared/UnitTypeIcons";
 
 const FilterLayout = ({ result, page, dataObjectFromURL }) => {
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL }) => {
       {/*Sidebar filter */}
       {openFilter && (
         <div className="fixed z-[700] w-full top-0">
-          <SidebarFilter languageIs={language} />
+          <SidebarFilter languageIs={language} result={result} />
         </div>
       )}
       {/*bar filter */}
@@ -55,6 +56,13 @@ const FilterLayout = ({ result, page, dataObjectFromURL }) => {
         <BarFilter />
       </div>
       {/*unit types */}
+      {result?.aggregation_links.length > 0 &&
+        <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
+          <UnitTypeIcons
+            items={result?.aggregation_links}
+          />
+        </div>
+      }
       {/*title & save and filter button*/}
       <SubBarTitle result={result} />
       {/*cards result  */}

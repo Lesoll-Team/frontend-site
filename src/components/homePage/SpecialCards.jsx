@@ -1,16 +1,25 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import SpecialCard from "../realtyCard/SpecialCard";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { getFeaturesCards } from "./homeAPI";
 
-const SpecialCards = ({ specialCardData, isHome }) => {
+const SpecialCards = ({ isHome }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const [specialCardData, setSpecialCardData] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getFeaturesCards();
+      setSpecialCardData(data);
+    };
+    fetchData();
+  }, []);
   return (
     <div>
       {specialCardData?.result && (
         <div className="md:container md:mx-auto mx-[20px] ">
-          <div className="w-full flex  items-center justify-between">
+          <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
             <h2 className="font-bold  flex text-grayText2">
               {language ? "مشاريع" : "projects"}
             </h2>

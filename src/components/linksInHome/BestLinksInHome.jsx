@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import React, { memo, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -11,7 +11,7 @@ function BestLinksInHome({
   MostGovernorate,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const router = useRouter();
+  // const router = useRouter();
   const [toggleLinks, setToggleLinks] = useState(0);
 
   return (
@@ -30,19 +30,17 @@ function BestLinksInHome({
               : "Most frequently used words"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${
-              toggleLinks == 1 && "-rotate-90"
-            }`}
+            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 1 && "-rotate-90"
+              }`}
           />
         </div>
-        {PopularSearches.map((links, index) => (
+        {PopularSearches?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${
-              toggleLinks !== 1 && "hidden md:block"
-            }`}
+            className={` my-3 w-auto  flex ${toggleLinks !== 1 && "hidden md:block"
+              }`}
 
-            //ustify-center md:justify-normal
+          //ustify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1   ">
@@ -64,18 +62,16 @@ function BestLinksInHome({
             {language ? "العقارات الأكثر بحثاً" : "Most searched properties"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${
-              toggleLinks == 2 && "-rotate-90"
-            }`}
+            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 2 && "-rotate-90"
+              }`}
           />
         </div>
-        {MostGovernorate.map((links, index) => (
+        {MostGovernorate?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${
-              toggleLinks !== 2 && "hidden md:block"
-            }`}
-            //justify-center md:justify-normal
+            className={` my-3 w-auto  flex ${toggleLinks !== 2 && "hidden md:block"
+              }`}
+          //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1 ">
@@ -97,18 +93,16 @@ function BestLinksInHome({
             {language ? "عقارات تجارية اخري" : "Other commercial real estate"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${
-              toggleLinks == 3 && "-rotate-90"
-            }`}
+            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 3 && "-rotate-90"
+              }`}
           />
         </div>
-        {Others.map((links, index) => (
+        {Others?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${
-              toggleLinks !== 3 && "hidden md:block"
-            }`}
-            // justify-center md:justify-normal
+            className={` my-3 w-auto  flex ${toggleLinks !== 3 && "hidden md:block"
+              }`}
+          // justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1 ">
@@ -130,18 +124,16 @@ function BestLinksInHome({
             {language ? "مناطق الأكثر بحثاً" : "Most searched areas"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${
-              toggleLinks == 4 && "-rotate-90"
-            }`}
+            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 4 && "-rotate-90"
+              }`}
           />
         </div>
-        {MostArea.map((links, index) => (
+        {MostArea?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${
-              toggleLinks !== 4 && "hidden md:block"
-            }`}
-            //justify-center md:justify-normal
+            className={` my-3 w-auto  flex ${toggleLinks !== 4 && "hidden md:block"
+              }`}
+          //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1">
               <p className="text-gray2 line-clamp-1 ">

@@ -2,7 +2,7 @@ import Otp from "@/components/auth/otp/components/Otp";
 import axios from "axios";
 
 const OtpPage = ({ userData, token }) => {
-  console.log(token);
+  // console.log(token);
   return <Otp userData={userData} token={token} />;
 };
 

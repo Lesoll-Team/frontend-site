@@ -1,4 +1,3 @@
-// import { sendFilterToRootsPage } from "@/redux-store/features/category/categorySlice";
 import React, { memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSendFilterSearch } from "./FilterHooks";
@@ -27,12 +26,6 @@ const ButtonSearchAction = ({ isBar }) => {
     sort,
     propFinancing,
     searchKeyword,
-    // openFilter,
-    // clickOnUnits,
-    // sending,
-    // filterResult,
-    // errorResult,
-    clickOnUnits,
   } = useSelector((state) => state.Category);
   const route = useSendFilterSearch({
     filterInput: {
@@ -59,7 +52,7 @@ const ButtonSearchAction = ({ isBar }) => {
   });
   const handleFilterAction = useCallback(() => {
     router.push(route);
-  }, [router, route, clickOnUnits, pageNumber]);
+  }, [router, route, pageNumber]);
 
   // Subscribe to changes in sort, pageNumber, and clickOnUnits
 

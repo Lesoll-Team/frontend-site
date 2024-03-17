@@ -25,59 +25,57 @@ const SubBarTitle = ({ result }) => {
         dispatch(setConfirmSendMessage(false))
         dispatch(sendMessageData(""))
     }, [router]);
-    // const handleSendSearchFilter = async () => {
-    //     await saveSearchFilter({
-    //         confirmSendMessage,
-    //         messageData,
-    //         slug: router.asPath,
-    //     }).then(() => {
-    //         setOpenSaveFilterInput(false);
-    //     });
-    //     setOpenSaveFilterInput(!openSaveFilterInput);
-    // };
-    // const saveName = () => {
-    //     switch (language) {
-    //         case true:
-    //             return isSaved ? "تم حفظ البحث" : "حفظ البحث"
-    //         case false:
-    //             return isSaved ? "has been saved" : "Save search"
-    //     }
-    // }
-    return (
-        <>
-            {/* {openSaveFilterInput && (
-                <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-[198px]">
-                    <ConfirmModule
 
-                        setOpenSaveFilterInput={setOpenSaveFilterInput}
-                    />
-                    <div className="h-screen absolute -mt-[0px] w-full bg-[#323232] z-[0] opacity-30" />
-                </div>
-            )} */}
-            <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
-                {/*title filter page */}
-                <h3 className=" w-full text-[#4E4E4E] md:w-6/12 ">
-                    {language
-                        ? result?.supTitleCategory?.ar
-                        : result?.supTitleCategory?.en}
-                </h3>
-                {/*sorted and save search filter page */}
-                <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
-                    <div className="flex  whitespace-nowrap gap-x-3 items-center">
-                        {/* <span className="text-[12px] md:text-[20px]">
+    return (
+        <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
+            {/*title filter page */}
+            <h3 className=" w-full text-[#4E4E4E] md:w-6/12 ">
+                {language
+                    ? result?.supTitleCategory?.ar
+                    : result?.supTitleCategory?.en}
+            </h3>
+            {/*sorted and save search filter page */}
+            <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
+                <div className="flex  whitespace-nowrap gap-x-3 items-center">
+                    {/* <span className="text-[12px] md:text-[20px]">
                             {language ? "ترتيب :" : "Sort by"}
                         </span> */}
-                        <Dropdown
-                            stateName={"sort"}
-                            baseIcon={<LuArrowDownUp />}
-                            data={sortedData}
-                            defaultValue={language ? "الاحدث" : "recent"}
-                            value={sort}
-                            isSort
-                            dataOptions="text"
-                        />
-                    </div>
-                    {/* {userInfo && (
+                    <Dropdown
+                        stateName={"sort"}
+                        // baseIcon={<LuArrowDownUp />}
+                        data={sortedData}
+                        defaultValue={language ? "الاحدث" : "recent"}
+                        value={sort}
+                        isSort
+                        dataOptions="text"
+                    />
+                </div>
+
+            </div>
+        </div>
+    );
+}
+
+export default SubBarTitle;
+// const handleSendSearchFilter = async () => {
+//     await saveSearchFilter({
+//         confirmSendMessage,
+//         messageData,
+//         slug: router.asPath,
+//     }).then(() => {
+//         setOpenSaveFilterInput(false);
+//     });
+//     setOpenSaveFilterInput(!openSaveFilterInput);
+// };
+// const saveName = () => {
+//     switch (language) {
+//         case true:
+//             return isSaved ? "تم حفظ البحث" : "حفظ البحث"
+//         case false:
+//             return isSaved ? "has been saved" : "Save search"
+//     }
+// }
+/* {userInfo && (
                         <button
                             disabled={isSaved}
                             onClick={handleSendSearchFilter}
@@ -95,11 +93,14 @@ const SubBarTitle = ({ result }) => {
                                     } `}
                             />
                         </button>
-                    )} */}
-                </div>
-            </div>
-        </>
-    );
-}
+                    )} */
 
-export default SubBarTitle;
+/* {openSaveFilterInput && (
+                <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-[198px]">
+                    <ConfirmModule
+
+                        setOpenSaveFilterInput={setOpenSaveFilterInput}
+                    />
+                    <div className="h-screen absolute -mt-[0px] w-full bg-[#323232] z-[0] opacity-30" />
+                </div>
+            )} */
