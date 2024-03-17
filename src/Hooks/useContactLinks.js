@@ -1,4 +1,4 @@
-import ContactBtnsModal from "@/Shared/models/ContactBtnsModal";
+import ContactBtnsModal from "@/Shared/models/contactModal/ContactBtnsModal";
 import { cn } from "@/utils/cn";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
