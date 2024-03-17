@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
 import { getGovernorate } from "@/utils/searchAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { useGetCity, useGetRegion } from "@/Hooks/fetchCitiesAndRegions";
 
 export function SearchDropdownLocation() {
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
@@ -199,6 +200,14 @@ export function SearchDropdownLocation() {
         break;
     }
   };
+  const city = useGetCity(locationGovernorate)
+  const region = useGetRegion(locationRegion)
+  // useEffect(() => {
+
+  //   console.log("city", city);
+  //   console.log("region", region);
+  // }, [locationGovernorate, locationRegion]);
+
 
   return (
     <div
@@ -236,10 +245,10 @@ export function SearchDropdownLocation() {
           <div className="flex items-center gap-x-1 md:gap-x-3 px-1 md:px-3 md:py-1 bg-lightGreen rounded-sm md:rounded-md ">
             <span className=" sm-text whitespace-nowrap text-white "
             >
-              {locationGovernorate}
+              {languageIs ? city?.name_ar : city?.name_en}
               {locationRegion &&
                 locationRegion !== locationGovernorate &&
-                `-${locationRegion}`}
+                ` - ${languageIs ? region?.name_ar : region?.name_en}`}
             </span>
             <button
               onClick={() => {
@@ -305,19 +314,19 @@ export function SearchDropdownLocation() {
   defaultRegion,
 }
  */        /* {defaultGovernorate && clearDefault ? (
-         <div className="flex items-center gap-x-1 md:gap-x-3 px-1 md:px-3 md:py-1 bg-lightGreen rounded-sm md:rounded-md ">
-           <span className=" sm-text whitespace-nowrap text-white "
-           >
-             {defaultGovernorate}
-             {defaultRegion &&
-               defaultRegion !== defaultGovernorate &&
-               `-${defaultRegion}`}
-           </span>
-           <button
-             onClick={() => setClearDefault(false)}
-             className="text-gray2  items-center flex sm-text font-semibold"
-           >
-             &times;
-           </button>
-         </div>
-       ) : null} */
+  <div className="flex items-center gap-x-1 md:gap-x-3 px-1 md:px-3 md:py-1 bg-lightGreen rounded-sm md:rounded-md ">
+    <span className=" sm-text whitespace-nowrap text-white "
+    >
+      {defaultGovernorate}
+      {defaultRegion &&
+        defaultRegion !== defaultGovernorate &&
+        `-${defaultRegion}`}
+    </span>
+    <button
+      onClick={() => setClearDefault(false)}
+      className="text-gray2  items-center flex sm-text font-semibold"
+    >
+      &times;
+    </button>
+  </div>
+) : null} */
