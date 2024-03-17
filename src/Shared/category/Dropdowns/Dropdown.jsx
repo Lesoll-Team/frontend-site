@@ -115,11 +115,12 @@ const Dropdown = ({
          rounded-[1vh] md:px-3 ${isSort
             ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
             : "w-full h-[40px] md:h-[3.313rem]"
-          } px-1 cursor-pointer  ${baseIcon
+          } px-1 cursor-pointer border-[1px] border-[#CCCCCC] `}
+      >
+        {/**${isSort
             ? "shadow-md bg-[#F2F8F9]"
             : "border-[1px] border-[#CCCCCC] "
-          }`}
-      >
+          } */}
         {(value && (
           <span className="text-[#4E4E4E]">
             {/* {language ? value.name : value.value} */}

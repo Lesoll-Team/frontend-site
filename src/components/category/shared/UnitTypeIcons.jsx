@@ -1,64 +1,153 @@
-import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+// import {
+//   // handleClickChangeUnitType, 
+//   updateAllStates
+// } from "@/redux-store/features/category/categorySlice";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useSendFilterSearch } from "./FilterHooks";
+import { useRouter } from "next/router";
 
 const UnitTypeIcons = ({ items }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const router = useRouter();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const {
     categoryType,
+    saleOption,
     unitTypes,
     locationGovernorate,
     locationRegion,
-    clickOnUnits,
+    priceFrom,
+    priceTo,
+    numBathrooms,
+    numBedrooms,
+    areaFrom,
+    areaTo,
+    finishedOption,
+    paymentType,
+    sort,
+    propFinancing,
+    searchKeyword,
+    // clickOnUnits,
   } = useSelector((state) => state.Category);
-  const handleTapClicked = (item) => {
-    if (!categoryType?.value) {
-      // setClickOnTap(!clickOnTap);
-      dispatch(
-        updateAllStates({
-          categoryType: {
-            value: item.keyword,
-            name: language ? item.ar : item.en,
-          },
-          pageNumber: 1,
-          clickOnUnits: !clickOnUnits,
-        })
-      );
-    } else if (!unitTypes?.value) {
-      dispatch(
-        updateAllStates({
-          unitTypes: {
-            value: item.keyword,
-            name: language ? item.ar : item.en,
-          },
-          pageNumber: 1,
 
-          clickOnUnits: !clickOnUnits,
-        })
-      );
+  const handleTapClicked = (item) => {
+    if (!categoryType) {
+      const route = useSendFilterSearch({
+        filterInput: {
+          category: item.keyword,
+          saleOptions: saleOption,
+          unitType: unitTypes,
+          governorate: locationGovernorate,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      // console.log("1");
+      router.push(route);
+
+    } else if (!unitTypes) {
+      const route = useSendFilterSearch({
+        filterInput: {
+          category: categoryType,
+          saleOptions: saleOption,
+          unitType: item.keyword,
+          governorate: locationGovernorate,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
+
+
+      // console.log("2");
+
     } else if (!locationGovernorate) {
-      // setClickOnTap(!clickOnTap);
-      dispatch(
-        updateAllStates({
-          locationGovernorate: item.keyword,
-          clickOnUnits: !clickOnUnits,
-          pageNumber: 1,
-        })
-      );
-      // setLocationGovernorate(Key);
+      const route = useSendFilterSearch({
+        filterInput: {
+          category: categoryType,
+          saleOptions: saleOption,
+          unitType: unitTypes,
+          governorate: item.keyword,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
+
+      // console.log("3");
+
+
     } else if (!locationRegion) {
-      // setClickOnTap(!clickOnTap);
-      dispatch(
-        updateAllStates({
-          locationRegion: item.keyword,
-          clickOnUnits: !clickOnUnits,
-          pageNumber: 1,
-        })
-      );
-      // setLocationRegion(Key);
+      const route = useSendFilterSearch({
+        filterInput: {
+          category: categoryType,
+          saleOptions: saleOption,
+          unitType: unitTypes,
+          governorate: locationGovernorate,
+          region: item.keyword,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
+
+
+      // console.log("4");
+
     }
-    // console.log(item);
   };
   const [seeMore, setSeeMore] = useState(8);
   useEffect(() => {
