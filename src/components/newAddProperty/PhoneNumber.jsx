@@ -49,8 +49,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                 dropdownStyle={{
                   height: "150px",
                 }}
-                // disableCountryCode={true}
-                // countryCodeEditable={false}
+                disableCountryCode={true}
                 countryCodeEditable={false}
                 placeholder={language ? "رقم الهاتف" : "Phone Number"}
                 className=" z-30"
@@ -143,6 +142,19 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                     message: language
                       ? "من فضلك ادخل رقم الهاتف"
                       : "please enter phone number",
+                  },
+                  validate: {
+                    // mustBeNumber: (value) => {
+                    //   return !isNaN(value) || "must be a number";
+                    // },
+                    min: (value) => {
+                      return (
+                        value.length > 11 ||
+                        (language
+                          ? "من فضلك ادخل رقم صحيح"
+                          : "description must be at least 20 characters long")
+                      );
+                    },
                   },
                 })}
               />

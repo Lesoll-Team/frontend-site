@@ -5,9 +5,10 @@ import {
 } from "@/redux-store/features/user/notifiicationSlice";
 import { formatDate } from "@/utils/FormateData";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import ReactTimeAgo from "react-time-ago";
 
 const Notifications = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -18,7 +19,7 @@ const Notifications = () => {
   const userNotifications = useSelector(
     (state) => state.notifications.notifications.data
   );
-
+  // const date = useMemo(()=>new Date())
   const toggleNotification = () => {
     setShowMenu((prev) => !prev);
   };
@@ -86,7 +87,8 @@ const Notifications = () => {
           <div className="space-y-6">
             {userNotifications && userNotifications.length > 0 ? (
               userNotifications.map((item) => {
-                const { formattedDate } = formatDate(item.createdAt);
+                const date = new Date(item.createdAt);
+                // const { formattedDate } = formatDate(item.createdAt);
                 return (
                   <Link
                     href={item?.link || ""}
@@ -98,7 +100,11 @@ const Notifications = () => {
                       {language ? item.title.ar : item.title.en}
                     </span>
                     <span className="text-xs md:text-sm text-lightGreen">
-                      {formattedDate}
+                      {/* {formattedDate} */}
+                      <ReactTimeAgo
+                        date={date}
+                        locale={language ? "" : "en-US"}
+                      />
                     </span>
                   </Link>
                 );

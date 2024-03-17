@@ -31,8 +31,8 @@ const useFromatAddData = (data) => {
   data.service.map((service) => {
     formData.append("service", service);
   });
-  data.otherPhone &&
-    formData.append("connectPhoneNumber", data.connectPhoneNumber);
+
+  formData.append("connectPhoneNumber", data.connectPhoneNumber || "");
   data.deliveryDate && formData.append("deliveryDate", data.deliveryDate);
   formData.append("title", data.title);
   formData.append("isCompound", data.isCompound);

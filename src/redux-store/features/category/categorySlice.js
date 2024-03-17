@@ -31,8 +31,12 @@ const categorySlice = createSlice({
     changeNumberPage: (state, action) => {
       state.pageNumber = action.payload;
     },
+    handleClickChangeUnitType: (state, action) => {
+      state.clickOnUnits = action.payload.click;
+      state.unitTypes = action.payload.unitType;
+    },
   },
 });
-export const { setConfirmSendMessage, updateAllStates,
+export const { handleClickChangeUnitType, setConfirmSendMessage, updateAllStates,
   sendMessageData, setSaveSearchFilter, changeNumberPage } = categorySlice.actions;
 export default categorySlice.reducer;

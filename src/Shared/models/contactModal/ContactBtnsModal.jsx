@@ -24,6 +24,7 @@ export default function ContactBtnsModal({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   //   const [modalPlacement, setModalPlacement] = useState("bottom-center");
   const [token, setToken] = useState();
+
   return (
     <div className="flex flex-col w-full gap-2 ">
       <div onClick={onOpen} className=" w-full">
