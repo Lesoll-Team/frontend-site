@@ -104,12 +104,37 @@ const MainInfo = ({
             </label>
             <input
               type="text"
-              {...register(`areaTo`, {})}
+              {...register(`areaTo`)}
               className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
                 errors?.areaTo && "border-red-500 focus:border-red-500"
               }`}
             />
             {errors?.areaTo && <Error>{errors.areaTo.message}</Error>}
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row gap-5 md:gap-10">
+          <div className="w-full space-y-2">
+            <label className="text-xl">
+              {" "}
+              {language ? "السعر يبدأ من" : "price starts from"}
+            </label>
+            <input
+              type="text"
+              {...register(`priceFrom`, {
+                required: {
+                  value: true,
+                  message: language
+                    ? "من فضلك ادخل االسعر"
+                    : "please enter priceFrom",
+                },
+              })}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                errors?.priceFrom &&
+                errors?.priceFrom &&
+                "border-red-500 focus:border-red-500"
+              }`}
+            />
+            {errors?.priceFrom && <Error>{errors.priceFrom.message}</Error>}
           </div>
           <div className="w-full space-y-2">
             <label className="text-xl">
@@ -118,21 +143,21 @@ const MainInfo = ({
             </label>
             <input
               type="text"
-              {...register(`price`, {
+              {...register(`priceTo`, {
                 required: {
                   value: true,
                   message: language
                     ? "من فضلك ادخل االسعر"
-                    : "please enter price",
+                    : "please enter priceTo",
                 },
               })}
               className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                errors?.price &&
-                errors?.price &&
+                errors?.priceTo &&
+                errors?.priceTo &&
                 "border-red-500 focus:border-red-500"
               }`}
             />
-            {errors?.price && <Error>{errors.price.message}</Error>}
+            {errors?.priceTo && <Error>{errors.priceTo.message}</Error>}
           </div>
         </div>
         <hr className="w-full mx-auto" />

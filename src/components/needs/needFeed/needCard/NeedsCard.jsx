@@ -1,4 +1,5 @@
 import useContactLinks from "@/Hooks/useContactLinks";
+import { localizedNumber } from "@/utils/localizedNumber";
 // import { WhatsAppBtn } from "@/utils/propertyAPI";
 import { Avatar, Image } from "@nextui-org/react";
 import { BiSolidBed } from "react-icons/bi";
@@ -45,13 +46,17 @@ const NeedsCard = ({ need }) => {
             <p className="text-lightGreen text-lg">
               {language ? "من :" : "from :"}
             </p>
-            <p className="font-semibold text-lg">{need.price.from}</p>
+            <p className="font-semibold text-lg">
+              {localizedNumber(need.price.from)}
+            </p>
           </div>
           <div className="flex gap-2 items-center">
             <p className="text-lightGreen text-lg">
               {language ? " الى:" : "to :"}
             </p>
-            <p className="font-semibold text-lg">{need.price.to}</p>
+            <p className="font-semibold text-lg">
+              {localizedNumber(need.price.to)}
+            </p>
           </div>
         </div>
         <div className="flex border-b-2 pb-2 md:flex-row flex-col md:items-center  gap-2">
