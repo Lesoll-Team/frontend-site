@@ -5,6 +5,7 @@ import { memo, useMemo } from "react";
 import useContactLinks from "@/Hooks/useContactLinks";
 
 const SpecialCard = ({ cardDetails }) => {
+  console.log(cardDetails);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const phone = useMemo(() => {
     if (cardDetails.connectPhoneNumber) {
@@ -14,11 +15,13 @@ const SpecialCard = ({ cardDetails }) => {
     }
   }, [cardDetails]);
 
-  const message = useMemo(() => (
-    language
-      ? `مهتم بمعرفة المزيد عن هذا العقار https://lesoll.com/property-details/${cardDetails?.slug}`
-      : `Interested in knowing more about this property https://lesoll.com/property-details/${cardDetails?.slug}`
-  ), [language, cardDetails]);
+  const message = useMemo(
+    () =>
+      language
+        ? `مهتم بمعرفة المزيد عن هذا العقار https://lesoll.com/property-details/${cardDetails?.slug}`
+        : `Interested in knowing more about this property https://lesoll.com/property-details/${cardDetails?.slug}`,
+    [language, cardDetails]
+  );
 
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: phone,
@@ -53,7 +56,7 @@ const SpecialCard = ({ cardDetails }) => {
           width={400}
           height={174}
           src={cardDetails?.thumbnail}
-        // src="/delete/Rectangle.png"
+          // src="/delete/Rectangle.png"
         />
       </Link>
       <div className="w-full mt-[2px]  h-[83px]  flex flex-col justify-around">
@@ -67,7 +70,9 @@ const SpecialCard = ({ cardDetails }) => {
         </Link>
         <h3 className="line-clamp-1 w-full text-center  text-[16px] font-bold text-[#656565] ">
           {language ? " يبدأ من " : " Started From "}
-          {cardDetails?.price.toLocaleString()}
+          {cardDetails?.price
+            ? cardDetails?.price.toLocaleString()
+            : cardDetails?.priceFrom.toLocaleString()}
           {" Egp "}
         </h3>
       </div>

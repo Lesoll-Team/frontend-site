@@ -90,21 +90,26 @@ const MainInfo = ({
             </label>
             <input
               type="text"
-              {...register(`area`, {
-                required: {
-                  value: true,
-                  message: language
-                    ? "من فضلك ادخل المساحة"
-                    : "please enter Area",
-                },
-              })}
+              {...register(`areaFrom`)}
               className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                errors?.area &&
-                errors?.area &&
-                "border-red-500 focus:border-red-500"
+                errors?.areaFrom && "border-red-500 focus:border-red-500"
               }`}
             />
-            {errors?.area && <Error>{errors.area.message}</Error>}
+            {errors?.areaFrom && <Error>{errors.areaFrom.message}</Error>}
+          </div>
+          <div className="w-full space-y-2">
+            <label className="text-xl">
+              {" "}
+              {language ? "المساحة  الى" : "Area to"}
+            </label>
+            <input
+              type="text"
+              {...register(`areaTo`, {})}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                errors?.areaTo && "border-red-500 focus:border-red-500"
+              }`}
+            />
+            {errors?.areaTo && <Error>{errors.areaTo.message}</Error>}
           </div>
           <div className="w-full space-y-2">
             <label className="text-xl">
