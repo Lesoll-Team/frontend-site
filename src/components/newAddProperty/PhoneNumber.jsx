@@ -19,7 +19,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
 
   return (
     <AddPropSectionContainer className={"flex flex-cols"}>
-      {!userWithNoPhone ? (
+      {userWithNoPhone ? (
         <div className="p-5 bg-white w-full rounded space-y-4 relative">
           <h3 className="text-sm md:text-xl font-cairo">
             {language
