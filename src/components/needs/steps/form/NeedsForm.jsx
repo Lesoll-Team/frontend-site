@@ -403,12 +403,12 @@ const NeedsForm = ({
             <input
               type="text"
               {...register("bathRooms", {
-                required: {
-                  value: true,
-                  message: language
-                    ? "من فضلك ادخل الحمامات"
-                    : "please enter the number of bathrooms",
-                },
+                // required: {
+                //   value: true,
+                //   message: language
+                //     ? "من فضلك ادخل الحمامات"
+                //     : "please enter the number of bathrooms",
+                // },
                 validate: {
                   mustBeNumber: (value) => {
                     return (

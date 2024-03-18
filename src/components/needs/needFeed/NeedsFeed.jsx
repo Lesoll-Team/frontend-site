@@ -18,8 +18,8 @@ const NeedsFeed = ({ data, keyword }) => {
 
       <div className="p-4 md:p-16 bg-lightNeutral mb-20 rounded-lg space-y-4 min-h-[60dvh]">
         {data && data.getAllData.length > 0 ? (
-          data?.getAllData?.map((need, index) => (
-            <NeedsCard need={need} key={index} />
+          data?.getAllData?.map((need) => (
+            <NeedsCard need={need} key={need?._id} />
           ))
         ) : (
           <div className="w-full min-h-[50dvh] flex flex-col justify-center items-center  gap-10">

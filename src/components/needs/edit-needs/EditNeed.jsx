@@ -9,6 +9,7 @@ import Link from "next/link";
 import useEditNeed from "./hooks/useEditNeed";
 
 const EditNeed = ({ data }) => {
+  console.log(data);
   const [sended, setSended] = useState();
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);

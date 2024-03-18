@@ -13,25 +13,32 @@ const NeedsCard = ({ need }) => {
   }`;
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: need.userId[0]?.code + need?.userId[0]?.phone,
+    message: "",
   });
   return (
     <div className=" bg-white rounded-lg flex md:flex-row flex-col   items-start p-5">
       <div className="space-y-4 w-full md:w-7/12">
-        <h3 className="w-full text-2xl  font-bold">
-          {language ? need.unitType[0].title.ar : need.unitType[0].title.en}{" "}
-          {need?.offer === "For Sale"
-            ? language
-              ? "للبيع"
-              : "For Sale"
-            : need?.offer === "For Rent"
+        {need?.title ? (
+          <h3 className="w-full text-2xl  font-bold">
+            {language ? need.title.ar : need.title.en}
+          </h3>
+        ) : (
+          <h3 className="w-full text-2xl  font-bold">
+            {language ? need.unitType[0].title.ar : need.unitType[0].title.en}{" "}
+            {need?.offer === "For Sale"
               ? language
-                ? "للإيجار"
-                : "For Rent"
-              : language
-                ? "للإستثمار"
-                : "For Investment"}{" "}
-          {need?.governrate[0]?.name} {need?.region[0]?.city_name_ar}
-        </h3>
+                ? "للبيع"
+                : "For Sale"
+              : need?.offer === "For Rent"
+                ? language
+                  ? "للإيجار"
+                  : "For Rent"
+                : language
+                  ? "للإستثمار"
+                  : "For Investment"}{" "}
+            {need?.governrate[0]?.name} {need?.region[0]?.city_name_ar}
+          </h3>
+        )}
 
         <div className="flex gap-12 pb-2 border-b-2">
           <div className="flex gap-2 items-center">
@@ -81,10 +88,12 @@ const NeedsCard = ({ need }) => {
             {language ? " عدد الغرف :" : "Rooms number :"}{" "}
             <BiSolidBed className=" text-lightGreen text-sm" /> {need?.rooms}
           </p>
-          <p className="flex items-center gap-1">
-            {language ? "عدد الحمامات :" : "Bathrooms number :"}
-            <FaBath className=" text-lightGreen text-sm" /> {need?.rooms}
-          </p>
+          {need?.bathrooms && (
+            <p className="flex items-center gap-1">
+              {language ? "عدد الحمامات :" : "Bathrooms number :"}
+              <FaBath className=" text-lightGreen text-sm" /> {need?.bathrooms}
+            </p>
+          )}
         </div>
         <p className="break-all">{need.description}</p>
 
@@ -104,15 +113,13 @@ const NeedsCard = ({ need }) => {
               />
             </CallLinkBtn>
 
-            <a href={whatsappUrl} target="_blank">
-              <WhatappLinkBtn>
-                <Image
-                  className="w-[30px]"
-                  width={50}
-                  src="/icons/whatsapp-icon.svg"
-                />
-              </WhatappLinkBtn>
-            </a>
+            <WhatappLinkBtn>
+              <Image
+                className="w-[30px]"
+                width={50}
+                src="/icons/whatsapp-icon.svg"
+              />
+            </WhatappLinkBtn>
           </div>
         </div>
       </div>

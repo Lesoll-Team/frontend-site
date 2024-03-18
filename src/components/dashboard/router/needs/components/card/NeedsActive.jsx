@@ -19,22 +19,27 @@ const NeedsActive = ({ need, type }) => {
   return (
     <div className=" bg-white rounded-lg flex md:flex-row flex-col relative  items-start p-5">
       <div className="space-y-4 w-full md:w-7/12">
-        <h3 className="w-full text-2xl  font-bold">
-          {language ? need.unitType[0].title.ar : need.unitType[0].title.en}
-          {"  "}
-          {need?.offer === "For Sale"
-            ? language
-              ? "للبيع"
-              : "For Sale"
-            : need?.offer === "For Rent"
+        {need?.title ? (
+          <h3 className="w-full text-2xl  font-bold">
+            {language ? need.title.ar : need.title.en}
+          </h3>
+        ) : (
+          <h3 className="w-full text-2xl  font-bold">
+            {language ? need.unitType[0].title.ar : need.unitType[0].title.en}{" "}
+            {need?.offer === "For Sale"
               ? language
-                ? "للإيجار"
-                : "For Rent"
-              : language
-                ? "للإستثمار"
-                : "For Investment"}{" "}
-          {need?.governrate[0]?.name} {need?.region[0]?.city_name_ar}
-        </h3>
+                ? "للبيع"
+                : "For Sale"
+              : need?.offer === "For Rent"
+                ? language
+                  ? "للإيجار"
+                  : "For Rent"
+                : language
+                  ? "للإستثمار"
+                  : "For Investment"}{" "}
+            {need?.governrate[0]?.name} {need?.region[0]?.city_name_ar}
+          </h3>
+        )}
 
         <div className="flex gap-3 md:gap-12 pb-2 border-b-2 flex-wrap">
           <div className="flex gap-2 items-center">
@@ -86,7 +91,7 @@ const NeedsActive = ({ need, type }) => {
           </p>
           <p className="flex items-center gap-1">
             {language ? "عدد الحمامات :" : "Bathrooms number :"}
-            <FaBath className=" text-lightGreen text-sm" /> {need?.rooms}
+            <FaBath className=" text-lightGreen text-sm" /> {need?.bathrooms}
           </p>
         </div>
         <p className="break-all">{need.description}</p>
