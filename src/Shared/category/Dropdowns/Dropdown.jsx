@@ -38,33 +38,11 @@ const Dropdown = ({
     areaTo,
     finishedOption,
     paymentType,
-    sort,
+    // sort,
     propFinancing,
     searchKeyword,
   } = useSelector((state) => state.Category);
-  const route = useSendFilterSearch({
-    filterInput: {
-      category: categoryType,
-      saleOptions: saleOption,
-      unitType: unitTypes,
-      governorate: locationGovernorate,
-      region: locationRegion,
-    },
-    queryInput: {
-      priceFrom,
-      page: 1,
-      priceTo,
-      numBathrooms,
-      numBedrooms,
-      areaFrom,
-      areaTo,
-      finishedOption: finishedOption,
-      paymentType,
-      sort: sort,
-      mortgage: propFinancing,
-      keyword: searchKeyword,
-    },
-  });
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -91,6 +69,32 @@ const Dropdown = ({
       const payload = {};
       payload[stateName] = e.value;
       dispatch(updateAllStates(payload));
+      if (isSort) {
+        const route = useSendFilterSearch({
+          filterInput: {
+            category: categoryType,
+            saleOptions: saleOption,
+            unitType: unitTypes,
+            governorate: locationGovernorate,
+            region: locationRegion,
+          },
+          queryInput: {
+            priceFrom,
+            page: 1,
+            priceTo,
+            numBathrooms,
+            numBedrooms,
+            areaFrom,
+            areaTo,
+            finishedOption: finishedOption,
+            paymentType,
+            sort: e.value,
+            mortgage: propFinancing,
+            keyword: searchKeyword,
+          },
+        });
+        router.push(route);
+      }
 
     }
 
@@ -132,6 +136,32 @@ const Dropdown = ({
       const payload = {};
       payload[stateName] = null;
       dispatch(updateAllStates(payload));
+      if (isSort) {
+        const route = useSendFilterSearch({
+          filterInput: {
+            category: categoryType,
+            saleOptions: saleOption,
+            unitType: unitTypes,
+            governorate: locationGovernorate,
+            region: locationRegion,
+          },
+          queryInput: {
+            priceFrom,
+            page: 1,
+            priceTo,
+            numBathrooms,
+            numBedrooms,
+            areaFrom,
+            areaTo,
+            finishedOption: finishedOption,
+            paymentType,
+            sort: null,
+            mortgage: propFinancing,
+            keyword: searchKeyword,
+          },
+        });
+        router.push(route);
+      }
     }
   };
 
@@ -148,11 +178,11 @@ const Dropdown = ({
   useEffect(() => {
     handleSelectList();
   }, [handleSelectList]);
-  useEffect(() => {
-    if (isSort) {
-      router.push(route);
-    }
-  }, [sort]);
+  // useEffect(() => {
+  //   if (isSort) {
+  //     router.push(route);
+  //   }
+  // }, [sort]);
   return (
     <div className={`${classNames}  min-w-[9.97vw] relative`}>
       <button
