@@ -19,7 +19,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
 
   return (
     <AddPropSectionContainer className={"flex flex-cols"}>
-      {userWithNoPhone ? (
+      {!userWithNoPhone ? (
         <div className="p-5 bg-white w-full rounded space-y-4 relative">
           <h3 className="text-sm md:text-xl font-cairo">
             {language
@@ -49,7 +49,8 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                 dropdownStyle={{
                   height: "150px",
                 }}
-                disableCountryCode={true}
+                // disableCountryCode={true}
+                // countryCodeEditable={false}
                 countryCodeEditable={false}
                 placeholder={language ? "رقم الهاتف" : "Phone Number"}
                 className=" z-30"
@@ -72,6 +73,19 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                     message: language
                       ? "من فضلك ادخل رقم الهاتف"
                       : "please enter phone number",
+                  },
+                  validate: {
+                    // mustBeNumber: (value) => {
+                    //   return !isNaN(value) || "must be a number";
+                    // },
+                    min: (value) => {
+                      return (
+                        value.length > 11 ||
+                        (language
+                          ? "من فضلك ادخل رقم صحيح"
+                          : "description must be at least 20 characters long")
+                      );
+                    },
                   },
                 })}
               />
