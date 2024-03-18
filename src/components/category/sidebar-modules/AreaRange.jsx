@@ -25,7 +25,7 @@ const AreaRange = () => {
   return (
     <div className="bg-[#F8F8F8] gap-y-[10px] flex flex-col p-[1.5vw]">
       <div className="flex gap-x-2 text-gray2 lg-text font-bold">
-        <span>{language ? "المساحة" : "area"}</span>
+        <span>{language ? "المساحة" : "Area"}</span>
 
         <span className="">{language ? "(متر مربع)" : "(Square meters)"}</span>
       </div>

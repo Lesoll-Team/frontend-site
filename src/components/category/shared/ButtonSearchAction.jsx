@@ -29,8 +29,8 @@ const ButtonSearchAction = ({ isBar }) => {
   } = useSelector((state) => state.Category);
   const route = useSendFilterSearch({
     filterInput: {
-      category: categoryType,
       saleOptions: saleOption,
+      category: categoryType,
       unitType: unitTypes,
       governorate: locationGovernorate,
       region: locationRegion,
@@ -78,7 +78,7 @@ const ButtonSearchAction = ({ isBar }) => {
     );
   } else {
     return (
-      <div className="mb-5 flex justify-center">
+      <div className="mb-[9vh] flex justify-center">
         <button
           onClick={handleClick}
           className="md:w-[24.2vw] lg-text w-full rounded-[6px] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"

@@ -8,7 +8,6 @@ import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
 
 const UnitTypeIcons = ({ items }) => {
-  // const dispatch = useDispatch();
   const router = useRouter();
 
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -29,15 +28,14 @@ const UnitTypeIcons = ({ items }) => {
     sort,
     propFinancing,
     searchKeyword,
-    // clickOnUnits,
   } = useSelector((state) => state.Category);
 
   const handleTapClicked = (item) => {
     if (!categoryType) {
       const route = useSendFilterSearch({
         filterInput: {
-          category: item.keyword,
           saleOptions: saleOption,
+          category: item.keyword,
           unitType: unitTypes,
           governorate: locationGovernorate,
           region: locationRegion,
@@ -57,14 +55,13 @@ const UnitTypeIcons = ({ items }) => {
           keyword: searchKeyword,
         },
       });
-      // console.log("1");
       router.push(route);
 
     } else if (!unitTypes) {
       const route = useSendFilterSearch({
         filterInput: {
-          category: categoryType,
           saleOptions: saleOption,
+          category: categoryType,
           unitType: item.keyword,
           governorate: locationGovernorate,
           region: locationRegion,
@@ -85,15 +82,11 @@ const UnitTypeIcons = ({ items }) => {
         },
       });
       router.push(route);
-
-
-      // console.log("2");
-
     } else if (!locationGovernorate) {
       const route = useSendFilterSearch({
         filterInput: {
-          category: categoryType,
           saleOptions: saleOption,
+          category: categoryType,
           unitType: unitTypes,
           governorate: item.keyword,
           region: locationRegion,
@@ -114,15 +107,11 @@ const UnitTypeIcons = ({ items }) => {
         },
       });
       router.push(route);
-
-      // console.log("3");
-
-
     } else if (!locationRegion) {
       const route = useSendFilterSearch({
         filterInput: {
-          category: categoryType,
           saleOptions: saleOption,
+          category: categoryType,
           unitType: unitTypes,
           governorate: locationGovernorate,
           region: item.keyword,
@@ -143,10 +132,6 @@ const UnitTypeIcons = ({ items }) => {
         },
       });
       router.push(route);
-
-
-      // console.log("4");
-
     }
   };
   const [seeMore, setSeeMore] = useState(8);

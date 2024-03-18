@@ -17,7 +17,7 @@ module.exports = async () => {
         },
         {
           source: "/searching/searching/:slug",
-          destination: "/properties/residential/sale/search?page=1",
+          destination: "/properties/sale/residential/search?page=1",
           permanent: true,
         },
         {

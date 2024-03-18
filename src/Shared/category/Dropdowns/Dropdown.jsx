@@ -38,33 +38,11 @@ const Dropdown = ({
     areaTo,
     finishedOption,
     paymentType,
-    sort,
+    // sort,
     propFinancing,
     searchKeyword,
   } = useSelector((state) => state.Category);
-  const route = useSendFilterSearch({
-    filterInput: {
-      category: categoryType,
-      saleOptions: saleOption,
-      unitType: unitTypes,
-      governorate: locationGovernorate,
-      region: locationRegion,
-    },
-    queryInput: {
-      priceFrom,
-      page: 1,
-      priceTo,
-      numBathrooms,
-      numBedrooms,
-      areaFrom,
-      areaTo,
-      finishedOption: finishedOption,
-      paymentType,
-      sort: sort,
-      mortgage: propFinancing,
-      keyword: searchKeyword,
-    },
-  });
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -91,6 +69,32 @@ const Dropdown = ({
       const payload = {};
       payload[stateName] = e.value;
       dispatch(updateAllStates(payload));
+      if (isSort) {
+        const route = useSendFilterSearch({
+          filterInput: {
+            saleOptions: saleOption,
+            category: categoryType,
+            unitType: unitTypes,
+            governorate: locationGovernorate,
+            region: locationRegion,
+          },
+          queryInput: {
+            priceFrom,
+            page: 1,
+            priceTo,
+            numBathrooms,
+            numBedrooms,
+            areaFrom,
+            areaTo,
+            finishedOption: finishedOption,
+            paymentType,
+            sort: e.value,
+            mortgage: propFinancing,
+            keyword: searchKeyword,
+          },
+        });
+        router.push(route);
+      }
 
     }
 
@@ -132,6 +136,32 @@ const Dropdown = ({
       const payload = {};
       payload[stateName] = null;
       dispatch(updateAllStates(payload));
+      if (isSort) {
+        const route = useSendFilterSearch({
+          filterInput: {
+            saleOptions: saleOption,
+            category: categoryType,
+            unitType: unitTypes,
+            governorate: locationGovernorate,
+            region: locationRegion,
+          },
+          queryInput: {
+            priceFrom,
+            page: 1,
+            priceTo,
+            numBathrooms,
+            numBedrooms,
+            areaFrom,
+            areaTo,
+            finishedOption: finishedOption,
+            paymentType,
+            sort: null,
+            mortgage: propFinancing,
+            keyword: searchKeyword,
+          },
+        });
+        router.push(route);
+      }
     }
   };
 
@@ -148,11 +178,11 @@ const Dropdown = ({
   useEffect(() => {
     handleSelectList();
   }, [handleSelectList]);
-  useEffect(() => {
-    if (isSort) {
-      router.push(route);
-    }
-  }, [sort]);
+  // useEffect(() => {
+  //   if (isSort) {
+  //     router.push(route);
+  //   }
+  // }, [sort]);
   return (
     <div className={`${classNames}  min-w-[9.97vw] relative`}>
       <button
@@ -161,9 +191,9 @@ const Dropdown = ({
         disabled={isDisabled}
         className={`  ${classNames}   text-gray1 lg-text flex items-center justify-between
          rounded-[1vh] md:px-3 ${isSort
-            ? " md:w-[150px] w-[80px]  h-[24px] md:h-[40px] "
+            ? " md:min-w-[110px] min-w-[90px]  h-[34px] md:h-[40px] "
             : "w-full h-[40px] md:h-[3.313rem]"
-          } px-1 cursor-pointer border-[1px] border-[#CCCCCC] `}
+          } px-[9px] cursor-pointer border-[1px] border-[#CCCCCC] `}
       >
         {/**${isSort
             ? "shadow-md bg-[#F2F8F9]"
@@ -178,7 +208,7 @@ const Dropdown = ({
           (defaultValue && <span className="text-gray1">{defaultValue}</span>)}
         {value ? (
           <div onClick={handleDeleteOption}>
-            <GoXCircleFill className="text-2xl" />
+            <GoXCircleFill className="md:text-2xl text-xl" />
           </div>
         ) : (
           baseIcon || (
