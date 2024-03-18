@@ -1,8 +1,9 @@
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import Rent from "./Rent";
 import Sale from "./sale/Sale";
 import CashAndInstallment from "./sale/CashAndInstallment";
+import AdminCashAndInstallment from "./sale/AdminCashAndInstallment";
 // import PhoneNumber from "../PhoneNumber";
 
 const AddPropertyPrice = ({
@@ -16,9 +17,7 @@ const AddPropertyPrice = ({
   append,
   remove,
 }) => {
-  // const language = useSelector((state) => state.GlobalState.languageIs);
-  // const userInfo = useSelector((state) => state.userProfile.userData);
-
+  const userData = useSelector((state) => state.userProfile.userData);
   const renderPrice = () => {
     switch (watch("offer")) {
       case "For Rent":
@@ -49,14 +48,24 @@ const AddPropertyPrice = ({
         break;
       default:
         return <Sale />;
-        break;
     }
   };
-
-  return (
-    <>
-      <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
-      {watch("saleOption.value")?.length > 1 && (
+  const renderCashAndInstallment = () => {
+    if (userData.email === "info@lesoll.com" && userData.isAdmin) {
+      return (
+        <AddPropSectionContainer>
+          <AdminCashAndInstallment
+            errors={errors}
+            clearErrors={clearErrors}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+            control={control}
+          />
+        </AddPropSectionContainer>
+      );
+    } else {
+      return (
         <AddPropSectionContainer>
           <CashAndInstallment
             errors={errors}
@@ -67,7 +76,14 @@ const AddPropertyPrice = ({
             control={control}
           />
         </AddPropSectionContainer>
-      )}
+      );
+    }
+  };
+
+  return (
+    <>
+      <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
+      {watch("saleOption.value")?.length > 1 && renderCashAndInstallment()}
 
       {/* <PhoneNumber
         clearErrors={clearErrors}
