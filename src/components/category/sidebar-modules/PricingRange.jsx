@@ -29,7 +29,7 @@ const PricingRange = () => {
       <div className="flex lg-text font-bold text-gray2 gap-x-2">
         <span>{language ? "السعر" : "Price"}</span>
 
-        <span className="">{language ? "(جنيه)" : "(EGY)"}</span>
+        <span className="">{language ? "(جنيه)" : "(EGP)"}</span>
       </div>
       <div className="flex sm-text justify-between md:gap-x-[1vw]  gap-x-[1.5vw]">
         <input
