@@ -28,7 +28,7 @@ const OtherCards = () => {
           width={100}
           height={100}
           radius="none"
-          priority={false}
+          loading="lazy"
           className=" md:w-[100px] lg:w-[130px] w-[50px]"
         />
       </Link>
@@ -53,13 +53,12 @@ const OtherCards = () => {
           width={100}
           height={100}
           radius="none"
-          priority={false}
+          loading="lazy"
           className=" md:w-[100px] lg:w-[130px] w-[50px]"
         />
       </Link>
     </Fragment>
   );
 };
-//background: linear-gradient(180deg, rgba(154, 204, 229, 0.16) 0%, rgba(110, 207, 255, 0.03) 100%);
 
 export default memo(OtherCards);
