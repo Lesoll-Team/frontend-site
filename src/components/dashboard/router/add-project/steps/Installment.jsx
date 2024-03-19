@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
 
 import { FaSquareMinus } from "react-icons/fa6";
-
+import usePeriodType from "@/Hooks/usePeriodType";
 import { useCallback } from "react";
-import Error from "@/Shared/ui/Error";
 const INSTALLMENT = {
   type: {
     value: "",
@@ -19,9 +18,10 @@ const INSTALLMENT = {
   amount: "",
   downPayment: "",
   ProjectPercentage: "",
+
   discount: "",
 };
-const Installment = ({
+const AdminCashAndInstallment = ({
   control,
   errors,
   register,
@@ -35,51 +35,52 @@ const Installment = ({
     control,
   });
 
-  // const lll = (number) => {
-  //   let arr = [];
-  //   for (let i = 0; i < watch("installment").length; i++) {
-  //     const { egpPer } = usePeriodType(watch(`installment.${i}.type.value`));
-  //     arr.push(egpPer);
-  //   }
-  //   return arr[number];
-  // };
-
-  const egpPer = useCallback(
-    (period) => {
-      switch (period) {
-        case "Monthly":
-          return language ? "جنية/شهر" : "Egp/Month";
-        case "Yearly":
-          return language ? "جنية/سنة" : "Egp/Year";
-        case "6 Monthly":
-          return language ? "جنية/6 شهور" : "Egp/6 Month";
-        case "3 Monthly":
-          return language ? " جنية/3 شهور" : "Egp/3 Month";
-        default:
-          return language ? "جنية" : "Egp";
-      }
-    },
-    [watch("installment")]
-  );
-
   return (
     <>
       <div className="lg:col-span-2 ">
-        <h3 className="text-xl lg:col-span-2 font-bold">
+        {/* <h3 className="text-xl lg:col-span-2 font-bold">
           {language ? "خطة التقسيط" : "Installment Plan"}
-        </h3>
+        </h3> */}
+
+        {/* <h4 className="text-lg font-semibold">
+                {language ? `خطة رقم ${index + 1}` : ""}
+              </h4> */}
+        <div className="space-y-2 w-full mb-4">
+          <p className="text-gray-800">
+            {language ? "  الدفع الكاش" : " Cash Payment"}
+          </p>
+          <h4 className="text-base text-darkGray">
+            {language ? "الخصم" : "Discount"}
+          </h4>
+          <div className="relative">
+            <input
+              inputMode="numeric"
+              placeholder={language ? "إختيارى" : "optional"}
+              type="text"
+              {...register(`installment.${0}.discount`)}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 `}
+            />
+            <span
+              className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
+                language ? "left-14" : "right-14"
+              } `}
+            >
+              %
+            </span>
+          </div>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold">
+            {language ? " خطة التقسيط" : " Installment Plan"}
+          </h3>
+        </div>
         {fields.map((plan, index) => {
           return (
             <div
               className="fade-in lg:col-span-2 flex flex-col gap-y-5 mb-6 "
               key={plan.id}
             >
-              {/* gap-y-10 gap-x-16  */}
-
               <div className="flex justify-end items-center">
-                {/* <h4 className="text-lg font-semibold">
-                {language ? `خطة رقم ${index + 1}` : ""}
-              </h4> */}
                 {index > 0 && (
                   <button
                     type="button"
@@ -90,8 +91,11 @@ const Installment = ({
                   </button>
                 )}
               </div>
+
+              {/* gap-y-10 gap-x-16  */}
+
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
-                <div className="space-y-2 w-full">
+                {/* <div className="space-y-2 w-full">
                   <p className="text-gray-800">
                     {language ? " نظام التقسيط" : "Installment System"}
                   </p>
@@ -118,13 +122,11 @@ const Installment = ({
                     {...register(`installment.${index}.type.value`, {
                       required: {
                         value: true,
-                        message: language
-                          ? "من فضلك اختر نوع التقسيط"
-                          : "please choose installment type",
+                        message: "please choose installment type",
                       },
                     })}
                   />
-                </div>
+                </div> */}
 
                 <div className="space-y-2 w-full">
                   <p className="text-gray-800">
@@ -137,18 +139,11 @@ const Installment = ({
                       {...register(`installment.${index}.period`, {
                         required: {
                           value: true,
-                          message: language
-                            ? "من فضلك ادخل مدة التقسيط"
-                            : "please enter installment period",
+                          message: "please enter period",
                         },
                         validate: {
                           mustBeNumber: (value) => {
-                            return (
-                              !isNaN(value) ||
-                              (language
-                                ? "يجب ان تكون مدة التقسيط رقم"
-                                : "installment period must be a number")
-                            );
+                            return !isNaN(value) || "must be a number";
                           },
                           // max: (value) => {
                           //   return parseInt(value) > 100 || "min is 100";
@@ -169,12 +164,6 @@ const Installment = ({
                       {language ? "سنين" : "years"}
                     </span>
                   </div>
-                  {errors?.installment &&
-                    errors?.installment[index]?.period && (
-                      <Error>
-                        {errors?.installment[index]?.period?.message}
-                      </Error>
-                    )}
                 </div>
               </div>
 
@@ -187,35 +176,20 @@ const Installment = ({
                     <input
                       inputMode="numeric"
                       type="text"
-                      {...register(`installment.${index}.downPayment`, {
+                      {...register(`installment.${index}.ProjectPercentage`, {
                         required: {
                           value: true,
-                          message: language
-                            ? "من فضلك ادخل المقدم"
-                            : "please enter Down Payment",
+                          message: "please enter downPayment",
                         },
                         validate: {
                           mustBeNumber: (value) => {
-                            return (
-                              !isNaN(value) ||
-                              (language
-                                ? "يجب ان يكون المقدم رقم"
-                                : "Down Payment must be a number")
-                            );
-                          },
-                          max: (value) => {
-                            return (
-                              parseInt(value) >= 1000 ||
-                              (language
-                                ? "يجب ان لا يقل المقدم عن 1000 جنية "
-                                : "Down Payment must be at least 1000 Egp")
-                            );
+                            return !isNaN(value) || "must be a number";
                           },
                         },
                       })}
                       className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
                         errors?.installment &&
-                        errors?.installment[index]?.downPayment &&
+                        errors?.installment[index]?.ProjectPercentage &&
                         "border-red-500 focus:border-red-500"
                       }`}
                     />
@@ -224,23 +198,11 @@ const Installment = ({
                         language ? "left-14" : "right-14"
                       } `}
                     >
-                      {language ? "جنية" : "Egp"}
+                      %
                     </span>
                   </div>
-                  {/* {errors?.installment[index]?.downPayment && (
-                    <Error>
-                      {errors?.installment[index]?.downPayment.message}
-                    </Error>
-                  )} */}
-                  {errors?.installment &&
-                    errors?.installment[index]?.downPayment && (
-                      <Error>
-                        {errors?.installment[index]?.downPayment?.message}
-                      </Error>
-                    )}
                 </div>
-
-                <div className="space-y-2 w-full">
+                {/* <div className="space-y-2 w-full">
                   <p className="text-gray-800">
                     {language ? "قيمة التقسيط" : "Installment amount"}
                   </p>
@@ -251,26 +213,14 @@ const Installment = ({
                       {...register(`installment.${index}.amount`, {
                         required: {
                           value: true,
-                          message: language
-                            ? "من فضلك ادخل قيمة التقسيط"
-                            : "please enter installment amount",
+                          message: "please enter amount",
                         },
                         validate: {
                           mustBeNumber: (value) => {
-                            return (
-                              !isNaN(value) ||
-                              (language
-                                ? "يجب ان تكون قيمة التقسيط رقم"
-                                : "Installment amount must be a number")
-                            );
+                            return !isNaN(value) || "must be a number";
                           },
                           max: (value) => {
-                            return (
-                              parseInt(value) >= 1000 ||
-                              (language
-                                ? " يجب ان لا تقل قيمة التقسيط عن 1000 جنية"
-                                : "Installment amount must be at least 1000 Egp")
-                            );
+                            return parseInt(value) > 100 || "min is 100";
                           },
                         },
                       })}
@@ -288,13 +238,7 @@ const Installment = ({
                       {egpPer(watch(`installment.${index}.type.value`))}
                     </span>
                   </div>
-                  {errors?.installment &&
-                    errors?.installment[index]?.amount && (
-                      <Error>
-                        {errors?.installment[index]?.amount.message}
-                      </Error>
-                    )}
-                </div>
+                </div> */}
               </div>
               {fields.length === index + 1 && index < 3 && (
                 <div className="flex justify-end">
@@ -320,4 +264,4 @@ const Installment = ({
     </>
   );
 };
-export default Installment;
+export default AdminCashAndInstallment;

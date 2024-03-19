@@ -19,9 +19,7 @@ const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome")
 );
 
-
 const Home = ({ bestSearch }) => {
-
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <HomeMetaTag />
@@ -49,7 +47,6 @@ const Home = ({ bestSearch }) => {
 export default Home;
 export async function getServerSideProps() {
   let linkInHome = cache.get("linkInHome");
-
 
   if (!linkInHome) {
     const response = await fetch(

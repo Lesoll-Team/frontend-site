@@ -39,7 +39,7 @@ const OtherCards = () => {
       >
         <label className="min-w-[70%] cursor-pointer">
           <h2 className="text-[#0F3963]  font-bold">
-            {language ? "حدد طلبك" : "Select your order"}
+            {language ? "أطلب عقارك الأن" : "Request your property now"}
           </h2>
           <p className="font-semibold text-gray2  md:text-[18px] lg-text">
             {language

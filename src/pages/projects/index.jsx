@@ -1,4 +1,5 @@
 import SpecialCards from "@/components/homePage/SpecialCards";
+import HeadPage from "@/components/projects/all-projects/HeadPage";
 const ProjectsPage = ({ specialCardData }) => {
   return (
     <div className="min-h-[90vh] md:container md:mx-auto mx-[20px] py-20">

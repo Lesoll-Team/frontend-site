@@ -28,7 +28,7 @@ export const formatNeedApiData = (setValue, data) => {
   setValue("areaTo", data?.area.to);
   setValue("area", data?.area);
   setValue("rooms", data?.rooms);
-  setValue("bathRooms", data?.bathRooms);
+  setValue("bathRooms", data?.bathrooms);
 
   setValue("saleOption", data?.saleOption);
 

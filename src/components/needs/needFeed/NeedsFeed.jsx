@@ -5,6 +5,7 @@ import styles from "../../../styles/paginations.module.css"; // Import the CSS m
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { IoMdAdd } from "react-icons/io";
 
 const NeedsFeed = ({ data, keyword }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -14,12 +15,21 @@ const NeedsFeed = ({ data, keyword }) => {
   };
   return (
     <div className="mx-3 md:container md:mx-auto mt-16 pb-10 space-y-6 md:space-y-12  ">
-      <h3 className="text-3xl font-bold">{language ? "الطلبات" : "Needs"}</h3>
+      <div className="flex items-center justify-between ">
+        <h3 className="text-3xl font-bold">{language ? "الطلبات" : "Needs"}</h3>
+        <Link
+          href={"/add-need"}
+          className="w-fit px-4 py-2 flex items-center gap-1 bg-neutral rounded-lg"
+        >
+          <IoMdAdd />
+          {language ? "إضافة طلب" : "Add need"}
+        </Link>
+      </div>
 
       <div className="p-4 md:p-16 bg-lightNeutral mb-20 rounded-lg space-y-4 min-h-[60dvh]">
         {data && data.getAllData.length > 0 ? (
-          data?.getAllData?.map((need, index) => (
-            <NeedsCard need={need} key={index} />
+          data?.getAllData?.map((need) => (
+            <NeedsCard need={need} key={need?._id} />
           ))
         ) : (
           <div className="w-full min-h-[50dvh] flex flex-col justify-center items-center  gap-10">

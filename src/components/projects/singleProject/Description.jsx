@@ -1,26 +1,21 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const ProjectDescription = ({ projectData }) => {
+const Description = ({ description, title }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const descriptionLinesNumbers = language
-    ? projectData.descriptionAr.split("\n").length
-    : projectData.descriptionEn.split("\n").length;
-  const lol =
-    "#heading-1\n ##heading-2\n ###heading-3 \n*list \n **nested list";
+  const descriptionLinesNumbers = description.split("\n").length;
+
   return (
-    <section className="md:space-y-[30px] space-y-[16px]">
-      <h3 className="text-sm sm:text-3xl ">
-        {language ? "الوصف" : "Description"}
-      </h3>
+    <section className="space-y-[16px]">
+      {title && <h2 className=" ">{title}</h2>}
       <div>
         {" "}
         <div
-          className="text-xs sm:text-base md:text-[25px] font-inter text-baseGray  break-words"
+          className="text-xs sm:text-base md:text-[25px] font-noto text-baseGray  break-words"
           style={{ lineHeight: "1.7" }}
         >
-          {lol
+          {description
             .trim()
             .split("\n")
             .slice(0, showFullDescription ? descriptionLinesNumbers : 3)
@@ -30,7 +25,7 @@ const ProjectDescription = ({ projectData }) => {
               if (line.trim().startsWith("###")) {
                 const newLine = line.substring(3);
                 return (
-                  <h3 className="" key={index}>
+                  <h3 className="font-cairo" key={index}>
                     {newLine.trim()}
                     <br />
                   </h3>
@@ -38,7 +33,7 @@ const ProjectDescription = ({ projectData }) => {
               } else if (line.startsWith("##")) {
                 const newLine = line.substring(2);
                 return (
-                  <h2 key={index}>
+                  <h2 className="text-black font-cairo" key={index}>
                     {newLine.trim()}
                     <br />
                   </h2>
@@ -46,7 +41,7 @@ const ProjectDescription = ({ projectData }) => {
               } else if (line.startsWith("#")) {
                 const newLine = line.substring(1);
                 return (
-                  <h1 key={index}>
+                  <h1 className="font-cairo" key={index}>
                     {newLine.trim()}
                     <br />
                   </h1>
@@ -95,4 +90,4 @@ const ProjectDescription = ({ projectData }) => {
     </section>
   );
 };
-export default ProjectDescription;
+export default Description;

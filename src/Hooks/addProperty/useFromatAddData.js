@@ -13,6 +13,7 @@ const useFromatAddData = (data) => {
       amount: plan.amount || "",
       downPayment: plan.downPayment || "",
       discount: plan.discount || "",
+      ProjectPercentage: plan.ProjectPercentage || "",
     };
   });
   const saleOption = data.saleOption.value.map((item) => {
@@ -31,8 +32,8 @@ const useFromatAddData = (data) => {
   data.service.map((service) => {
     formData.append("service", service);
   });
-  data.otherPhone &&
-    formData.append("connectPhoneNumber", data.connectPhoneNumber);
+
+  formData.append("connectPhoneNumber", data.connectPhoneNumber || "");
   data.deliveryDate && formData.append("deliveryDate", data.deliveryDate);
   formData.append("title", data.title);
   formData.append("isCompound", data.isCompound);

@@ -74,6 +74,19 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                       ? "من فضلك ادخل رقم الهاتف"
                       : "please enter phone number",
                   },
+                  validate: {
+                    // mustBeNumber: (value) => {
+                    //   return !isNaN(value) || "must be a number";
+                    // },
+                    min: (value) => {
+                      return (
+                        value.length > 11 ||
+                        (language
+                          ? "من فضلك ادخل رقم صحيح"
+                          : "description must be at least 20 characters long")
+                      );
+                    },
+                  },
                 })}
               />
             </div>
@@ -143,6 +156,19 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                     message: language
                       ? "من فضلك ادخل رقم الهاتف"
                       : "please enter phone number",
+                  },
+                  validate: {
+                    // mustBeNumber: (value) => {
+                    //   return !isNaN(value) || "must be a number";
+                    // },
+                    min: (value) => {
+                      return (
+                        value.length > 11 ||
+                        (language
+                          ? "من فضلك ادخل رقم صحيح"
+                          : "description must be at least 20 characters long")
+                      );
+                    },
                   },
                 })}
               />
