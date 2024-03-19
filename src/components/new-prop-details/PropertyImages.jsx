@@ -67,7 +67,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[0]?.image}
-          className="rounded-md object-cover max-h-[150px]"
+          className="rounded-md object-cover "
         />
       </div>
       <div
