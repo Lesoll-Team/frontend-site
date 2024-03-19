@@ -6,7 +6,12 @@ import {
   installmentTypeOptions,
 } from "@/utils/addAndEditOptions";
 
-export const formatApiData = ({ setValue, data }) => {
+export const formatApiData = ({ setValue, data, projectList }) => {
+  const crruntProject = projectList.find(
+    (item) => item.value === data.ProjectID
+  );
+  console.log(crruntProject);
+  console.log(data);
   const Installment = data?.installment?.map((installment) => {
     return {
       ...installment,
@@ -45,6 +50,7 @@ export const formatApiData = ({ setValue, data }) => {
   };
   // console.log(saleOption);
   setValue("title", data?.title);
+  setValue("ProjectID", crruntProject);
   setValue("description", data?.description);
   setValue("offer", data?.offer);
   setValue("propType", propType);
