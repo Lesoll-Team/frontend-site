@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const AboutCompany = ({ projectData }) => {
+const AboutCompany = ({ projectData, wow }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const descriptionLinesNumbers = language
