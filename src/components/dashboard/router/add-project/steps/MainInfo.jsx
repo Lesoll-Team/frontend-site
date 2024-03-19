@@ -7,6 +7,8 @@ import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";
 import PlaceLatLng from "@/components/newAddProperty/mainInfo/location/PlaceLatLng";
 import { useLoadScript } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
+import AdminCashAndInstallment from "./Installment";
+import { useRef } from "react";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 
 const mapLib = ["places"];
@@ -24,6 +26,7 @@ const MainInfo = ({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: mapLib,
   });
+  const logoRef = useRef();
   return (
     <>
       <h1>
@@ -112,6 +115,14 @@ const MainInfo = ({
             {errors?.areaTo && <Error>{errors.areaTo.message}</Error>}
           </div>
         </div>
+        <AdminCashAndInstallment
+          clearErrors={clearErrors}
+          register={register}
+          errors={errors}
+          control={control}
+          setValue={setValue}
+          watch={watch}
+        />
         <div className="flex flex-col md:flex-row gap-5 md:gap-10">
           <div className="w-full space-y-2">
             <label className="text-xl">
@@ -195,6 +206,26 @@ const MainInfo = ({
           />
         )}
         <hr className="w-full mx-auto" />
+        <div className="space-y-2">
+          <p>company logo</p>
+          <input
+            ref={logoRef}
+            // value={watch("projectLogo")}
+            type="file"
+            onChange={(e) => {
+              setValue("projectLogo", e.target.files[0]);
+            }}
+          />
+          <button
+            onClick={() => {
+              logoRef.current.value = null;
+              setValue("projectLogo", "");
+            }}
+            type="button"
+          >
+            delete
+          </button>
+        </div>
         <PropertyImages
           errors={errors}
           register={register}
@@ -214,33 +245,7 @@ const MainInfo = ({
             {language ? " arوصف المشروع" : "Project description ar"}
           </h3>
           <textarea
-            {...register("descriptionAr", {
-              required: {
-                value: true,
-                message: "please enter descriptionAr",
-              },
-              validate: {
-                // mustBeNumber: (value) => {
-                //   return !isNaN(value) || "must be a number";
-                // },
-                min: (value) => {
-                  return (
-                    value.length > 20 ||
-                    (language
-                      ? "يجب الا يقل الوصف عن 20 حرف"
-                      : "descriptionAr must be at least 20 characters long")
-                  );
-                },
-                containPhone: (value) => {
-                  return (
-                    !value.match(phoneRegex) ||
-                    (language
-                      ? "رقم الهاتف فى الوصف غير  مسموح"
-                      : "Phone number in descriptionAr are not allowed")
-                  );
-                },
-              },
-            })}
+            {...register("descriptionAr", {})}
             id=""
             cols="30"
             rows="8"
@@ -248,42 +253,13 @@ const MainInfo = ({
               errors.descriptionAr && "border-red-500 focus:border-red-500"
             }`}
           />
-          {errors.description && (
-            <Error className="">{errors.description.message}</Error>
-          )}
         </div>
         <div className="space-y-2">
           <h3 className="text-xl">
             {language ? "enوصف المشروع" : "Project description endw"}
           </h3>
           <textarea
-            {...register("descriptionEn", {
-              required: {
-                value: true,
-                message: "please enter descriptionEn",
-              },
-              validate: {
-                // mustBeNumber: (value) => {
-                //   return !isNaN(value) || "must be a number";
-                // },
-                min: (value) => {
-                  return (
-                    value.length > 20 ||
-                    (language
-                      ? "يجب الا يقل الوصف عن 20 حرف"
-                      : "descriptionEn must be at least 20 characters long")
-                  );
-                },
-                containPhone: (value) => {
-                  return (
-                    !value.match(phoneRegex) ||
-                    (language
-                      ? "رقم الهاتف فى الوصف غير  مسموح"
-                      : "Phone number in descriptionEn are not allowed")
-                  );
-                },
-              },
-            })}
+            {...register("descriptionEn", {})}
             id=""
             cols="30"
             rows="8"
@@ -291,42 +267,13 @@ const MainInfo = ({
               errors.descriptionEn && "border-red-500 focus:border-red-500"
             }`}
           />
-          {errors.descriptionEn && (
-            <Error className="">{errors.description.message}</Error>
-          )}
         </div>
         <div className="space-y-2">
           <h3 className="text-xl">
             {language ? "ar عن الشركة " : "about company ar"}
           </h3>
           <textarea
-            {...register("aboutAr", {
-              required: {
-                value: true,
-                message: "please enter aboutAr",
-              },
-              validate: {
-                // mustBeNumber: (value) => {
-                //   return !isNaN(value) || "must be a number";
-                // },
-                min: (value) => {
-                  return (
-                    value.length > 20 ||
-                    (language
-                      ? "يجب الا يقل الوصف عن 20 حرف"
-                      : "aboutAr must be at least 20 characters long")
-                  );
-                },
-                containPhone: (value) => {
-                  return (
-                    !value.match(phoneRegex) ||
-                    (language
-                      ? "رقم الهاتف فى الوصف غير  مسموح"
-                      : "Phone number in aboutAr are not allowed")
-                  );
-                },
-              },
-            })}
+            {...register("aboutAr", {})}
             id=""
             cols="30"
             rows="8"
@@ -334,42 +281,13 @@ const MainInfo = ({
               errors.aboutAr && "border-red-500 focus:border-red-500"
             }`}
           />
-          {errors.aboutAr && (
-            <Error className="">{errors.aboutAr.message}</Error>
-          )}
         </div>
         <div className="space-y-2">
           <h3 className="text-xl">
             {language ? " enعن الشركة " : "about company en"}
           </h3>
           <textarea
-            {...register("aboutEn", {
-              required: {
-                value: true,
-                message: "please enter aboutEn",
-              },
-              validate: {
-                // mustBeNumber: (value) => {
-                //   return !isNaN(value) || "must be a number";
-                // },
-                min: (value) => {
-                  return (
-                    value.length > 20 ||
-                    (language
-                      ? "يجب الا يقل الوصف عن 20 حرف"
-                      : "aboutEn must be at least 20 characters long")
-                  );
-                },
-                containPhone: (value) => {
-                  return (
-                    !value.match(phoneRegex) ||
-                    (language
-                      ? "رقم الهاتف فى الوصف غير  مسموح"
-                      : "Phone number in aboutEn are not allowed")
-                  );
-                },
-              },
-            })}
+            {...register("aboutEn", {})}
             id=""
             cols="30"
             rows="8"
@@ -377,9 +295,6 @@ const MainInfo = ({
               errors.aboutEn && "border-red-500 focus:border-red-500"
             }`}
           />
-          {errors.aboutEn && (
-            <Error className="">{errors.aboutEn.message}</Error>
-          )}
         </div>
       </div>
     </>

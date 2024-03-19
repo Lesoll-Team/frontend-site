@@ -13,6 +13,8 @@ export const editFormData = (data) => {
       amount: plan?.amount || "",
       downPayment: plan?.downPayment || "",
       discount: plan?.discount || "",
+      discount: plan?.discount || "",
+      ProjectPercentage: plan.ProjectPercentage || "",
     };
   });
 

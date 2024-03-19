@@ -26,5 +26,6 @@ export const formateApiData = (setValue, data) => {
   setValue("areaTo", data?.areaTo);
   setValue("priceFrom", data?.priceFrom);
   setValue("priceTo", data?.priceTo);
+  setValue("installment", data?.installment);
   setValue("id", data?._id);
 };

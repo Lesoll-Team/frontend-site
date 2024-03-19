@@ -1,9 +1,19 @@
 import SingleProject from "@/components/projects/singleProject/SingleProject";
+import ProjectMobileContact from "@/components/projects/singleProject/mobileContact/ProjectMobileContact";
 import axios from "axios";
 
 const SingleProjectPage = ({ data, query }) => {
   return (
-    <SingleProject propertyData={data.result} allData={data} query={query} />
+    <main className="  min-h-[80dvh] relative">
+      <section className="   mx-auto">
+        <SingleProject
+          propertyData={data.result}
+          allData={data}
+          query={query}
+        />
+      </section>
+      <ProjectMobileContact projectData={data.result} />
+    </main>
   );
 };
 export default SingleProjectPage;

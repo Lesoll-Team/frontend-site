@@ -20,7 +20,7 @@ const PendingNeeds = () => {
     <div className="flex flex-col gap-5 p-3 md:p-5 bg-neutral min-h-[60dvh] rounded-md">
       {pendingNeeds?.getData && pendingNeeds.getData.length > 0 ? (
         pendingNeeds.getData.map((item) => {
-          console.log(item);
+          // console.log(item);
           return <NeedsAdminCard need={item} />;
         })
       ) : (

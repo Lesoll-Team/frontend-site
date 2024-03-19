@@ -9,6 +9,9 @@ import AboutCompany from "./AboutCompany";
 import ProjectUnits from "./ProjectUnits";
 import { useSelector } from "react-redux";
 import ProjectContactForm from "./contactForm/ProjectContactForm";
+import Description from "./Description";
+import ProjectInfo from "./project-info/ProjectInfo";
+import InstallmentPlans from "./installment-plans/InstallmentPlans";
 
 const SingleProject = ({ propertyData, allData, query }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -41,7 +44,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         /> */}
       </Head>
-      <div className="container mx-auto space-y-[30px] md:space-y-10">
+      <div className="px-4 sm:container mx-auto space-y-[30px] md:space-y-10 ">
         <PropertyImages
           fav={false}
           propertyData={propertyData}
@@ -49,9 +52,8 @@ const SingleProject = ({ propertyData, allData, query }) => {
           slug={query.slug}
         />
         <ProjectTitlePrice projectData={propertyData} />
-
         {/* <PriceTitle propertData={propertyData} /> */}
-        <div className="relative grid  md:grid-cols-3 gap-2">
+        <div className="relative grid  md:grid-cols-3 gap-5 md:gap-2">
           <div className=" md:col-start-3 md:sticky top-24 h-fit flex justify-end ">
             <ProjectContactForm
               className={"w-full   md:max-w-[90%]"}
@@ -63,13 +65,56 @@ const SingleProject = ({ propertyData, allData, query }) => {
               "md:col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-5 md:gap-10"
             }
           >
-            <ProjectDescription projectData={propertyData} />
-            <PropertyLocation propertyData={propertyData} />
-            <AboutCompany projectData={propertyData} />
+            <ProjectInfo projectData={propertyData} />
+            {propertyData?.installment?.length > 0 && (
+              <div className="md:hidden ">
+                <InstallmentPlans projectData={propertyData} />
+              </div>
+            )}
+            {allData?.getProperties?.length > 0 && (
+              <div className="md:hidden">
+                <ProjectUnits
+                  projectData={allData}
+                  title={language ? propertyData.titleAr : propertyData.titleEn}
+                />
+              </div>
+            )}
+            <Description
+              title={
+                language ? (
+                  <span>عن {propertyData.titleAr}</span>
+                ) : (
+                  <span>About {propertyData.titleEn}</span>
+                )
+              }
+              description={
+                language
+                  ? propertyData.descriptionAr
+                  : propertyData.descriptionEn
+              }
+            />
+            {/* <PropertyLocation propertyData={propertyData} /> */}
+            <Description
+              description={
+                language ? propertyData.aboutAr : propertyData.aboutEn
+              }
+            />
+            {propertyData?.installment?.length > 0 && (
+              <div className="md:block hidden">
+                <InstallmentPlans projectData={propertyData} />
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <ProjectUnits projectData={allData} />
+      {allData?.getProperties?.length > 0 && (
+        <div className="hidden md:block">
+          <ProjectUnits
+            projectData={allData}
+            title={language ? propertyData.titleAr : propertyData.titleEn}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -12,19 +12,24 @@ const ProjectTitlePrice = ({ projectData }) => {
   });
   // console.log(projectData);
   return (
-    <section className="flex justify-between items-end md:pb-16 border-b-2 flex-wrap gap-y-5">
+    <section className="flex justify-between items-end md:pb-16 md:border-b-2 flex-wrap gap-y-5">
       <div className="flex items-start gap-8">
-        <div>
-          <Image
-            src={projectData.projectLogo}
-            width={68}
-            height={68}
-            className="rounded-full object-cover"
-            alt="company logo"
-          />
-        </div>
-        <div className="flex flex-col gap-y-4">
-          <h1>{language ? projectData.titleAr : projectData.titleEn}</h1>
+        {projectData?.projectLogo && (
+          <div className="hidden md:block">
+            <Image
+              src={projectData?.projectLogo}
+              width={68}
+              height={68}
+              className="rounded-full object-cover"
+              alt="company logo"
+            />
+          </div>
+        )}
+
+        <div className="flex flex-col gap-2 md:gap-y-4">
+          <h1 className="">
+            {language ? projectData.titleAr : projectData.titleEn}
+          </h1>
           <div className="flex gap-6 items-center">
             <div className="flex gap-4 items-center">
               <p>{language ? "السعر يبدأ من :" : "Price start from"}</p>
@@ -33,11 +38,11 @@ const ProjectTitlePrice = ({ projectData }) => {
                 {language ? "ج.م " : "Egp "}
               </h2>
             </div>
-            {projectData.priceFrom && (
-              <div className="flex gap-4 items-center">
+            {!!projectData.priceTo && (
+              <div className="hidden md:flex gap-4  items-center">
                 <p>{language ? " إلى:" : "To:"}</p>
                 <h2>
-                  {localizedNumber(projectData.priceFrom)}{" "}
+                  {localizedNumber(projectData.priceTo)}{" "}
                   {language ? "ج.م " : "Egp "}
                 </h2>
               </div>

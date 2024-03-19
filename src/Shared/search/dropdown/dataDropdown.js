@@ -16,8 +16,6 @@ export const propertyType = {
     { value: "graves", name: "مدافن", id: 3 },
     { value: "lands", name: "اراضي", id: 6 },
     { value: "finance", name: "تمويل عقاري", id: 2 },
-
-    // { value: "investment", name: "إستثمار", id: 1 },
   ],
   en: [
     { value: "residential", name: "Residential", id: 1 },
@@ -26,7 +24,6 @@ export const propertyType = {
     { value: "graves", name: "Graves", id: 3 },
     { value: "lands", name: "Lands", id: 6 },
     { value: "finance", name: "Finance", id: 2 },
-    // { value: "investment", name: "Investment", id: 1 },
   ],
 };
 export const saleOptionsType = {
