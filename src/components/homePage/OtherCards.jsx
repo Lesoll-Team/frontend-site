@@ -19,7 +19,7 @@ const OtherCards = () => {
           <p className="font-semibold text-gray2 md:text-[18px] lg-text">
             {language
               ? "يمكنك الان عرض عقارك للبيع او الإيجار على ليسول بخطوات بسيطة"
-              : "You can now list your property for sale or rent on Lysol in simple steps"}
+              : "You can now list your property for sale or rent on Lesoll in simple steps"}
           </p>
         </label>
         <Image
