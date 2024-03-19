@@ -59,17 +59,17 @@ const SpecialCards = ({ isHome }) => {
       {isHome && (
         <div className="flex xl:hidden absolute top-[240px] w-full    justify-between ">
           <div className="bg-[#f8f8f8] w-10 h-10 flex items-center shadow-md justify-center cursor-pointer rounded-full">
-            <button onClick={scrollLeft}>
+            <span onClick={scrollLeft}>
 
               <MdKeyboardArrowRight />
-            </button>
+            </span>
           </div>
           <div className="bg-[#f8f8f8] w-10 h-10 flex items-center shadow-md justify-center cursor-pointer rounded-full">
 
-            <button onClick={scrollRight}>
+            <span onClick={scrollRight}>
               <MdKeyboardArrowLeft />
 
-            </button>
+            </span>
           </div>
 
         </div>

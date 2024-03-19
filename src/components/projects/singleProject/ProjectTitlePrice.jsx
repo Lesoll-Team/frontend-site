@@ -38,7 +38,7 @@ const ProjectTitlePrice = ({ projectData }) => {
                 {language ? "ج.م " : "Egp "}
               </h2>
             </div>
-            {projectData.priceTo && (
+            {!!projectData.priceTo && (
               <div className="hidden md:flex gap-4  items-center">
                 <p>{language ? " إلى:" : "To:"}</p>
                 <h2>

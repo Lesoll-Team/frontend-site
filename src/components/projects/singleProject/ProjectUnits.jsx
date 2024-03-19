@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 const ProjectUnits = ({ projectData, title }) => {
   // console.log(projectData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="w-full  md:container mx-auto space-y-[16px]">
       <h2>{language ? `وحدات ${title}` : `${title} Units`}</h2>
