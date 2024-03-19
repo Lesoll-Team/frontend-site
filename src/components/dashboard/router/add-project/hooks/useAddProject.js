@@ -6,7 +6,27 @@ import { addProject } from "../redux/addProjectSlice";
 const useAddProject = () => {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      installment: [
+        {
+          type: {
+            value: "",
+            name: {
+              ar: "",
+              en: "",
+            },
+          },
+          period: "",
+          amount: "",
+          downPayment: "",
+          ProjectPercentage: "",
+
+          discount: "",
+        },
+      ],
+    },
+  });
   const {
     handleSubmit,
     control,
@@ -19,6 +39,16 @@ const useAddProject = () => {
   } = form;
   const { errors } = formState;
   const onSubmit = handleSubmit(async (data) => {
+    const installment = data?.installment?.map((plan) => {
+      return {
+        type: plan?.type?.value || "",
+        period: plan?.period || "",
+        amount: plan?.amount || "",
+        downPayment: plan?.downPayment || "",
+        discount: plan?.discount || "",
+        ProjectPercentage: plan.ProjectPercentage || "",
+      };
+    });
     const address = {
       name: data.address.name,
       longitude: data.address.longitude,
@@ -31,6 +61,9 @@ const useAddProject = () => {
     formData.append("projectLogo", data.mainImage);
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
+    }
+    for (let i = 0; i < installment?.length; i++) {
+      formData.append("installment", JSON.stringify(installment[i]));
     }
     formData.append("titleAr", data.titleAr);
     formData.append("titleEn", data.titleEn);

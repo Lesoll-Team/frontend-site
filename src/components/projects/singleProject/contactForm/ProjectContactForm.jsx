@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { postProjectContact } from "./api/projectContactFormApi";
 
 const ProjectContactForm = ({ className, projectData }) => {
-  console.log(projectData);
   const [formStatus, setFormStatus] = useState("idle");
   const [formError, setFormError] = useState("idle");
   const language = useSelector((state) => state.GlobalState.languageIs);
