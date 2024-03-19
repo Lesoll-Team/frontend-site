@@ -14,7 +14,7 @@ import ProjectInfo from "./project-info/ProjectInfo";
 import InstallmentPlans from "./installment-plans/InstallmentPlans";
 
 const SingleProject = ({ propertyData, allData, query }) => {
-  console.log(propertyData);
+  // console.log(propertyData);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (

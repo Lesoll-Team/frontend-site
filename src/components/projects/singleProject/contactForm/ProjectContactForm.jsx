@@ -37,7 +37,7 @@ const ProjectContactForm = ({ className, projectData }) => {
       setFormStatus: setFormStatus,
       data: dataToSend,
     });
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import SpecialCards from "@/components/homePage/SpecialCards";
-// import SpecialCard from "@/components/realtyCard/SpecialCard";
-
+import HeadPage from "@/components/projects/all-projects/HeadPage";
 const ProjectsPage = ({ specialCardData }) => {
   return (
-    <div className="min-h-[90vh] md:container md:mx-auto mx-[20px] pt-20">
+    <div className="min-h-[90vh] md:container md:mx-auto mx-[20px] py-20">
+      <HeadPage />
       <SpecialCards specialCardData={specialCardData} />
     </div>
   );

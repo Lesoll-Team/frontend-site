@@ -1,13 +1,22 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import SpecialCard from "../realtyCard/SpecialCard";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { getFeaturesCards } from "./homeAPI";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const SpecialCards = ({ isHome }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [specialCardData, setSpecialCardData] = useState(null);
+  const scrollContainerRef = useRef(null);
 
+  const scrollLeft = () => {
+    scrollContainerRef.current.scrollLeft -= 200; // Adjust the scroll amount as needed
+  };
+
+  const scrollRight = () => {
+    scrollContainerRef.current.scrollLeft += 200; // Adjust the scroll amount as needed
+  };
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFeaturesCards();
@@ -16,9 +25,10 @@ const SpecialCards = ({ isHome }) => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="relative   xl:container xl:mx-auto mx-[15px]">
       {specialCardData?.result && (
-        <div className="md:container md:mx-auto mx-[20px] ">
+        <div className="md:container md:mx-auto lg:px-0 px-[2.8vw] mx-[20px] ">
+
           <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
             <h2 className="font-bold  flex text-grayText2">
               {language ? "مشاريع" : "projects"}
@@ -31,15 +41,37 @@ const SpecialCards = ({ isHome }) => {
           </div>
 
           <div
+            ref={scrollContainerRef}
             className={`
+             flex 
             ${specialCardData?.result.length > 2 && "justify-between"}
-        flex overflow-auto    
-        no-scrollbar gap-x-10  p-1`}
+      ${isHome ? ` overflow-auto no-scrollbar gap-x-6  md:px-0 px-2 py-1 `
+                : " md:flex flex-wrap  grid gap-x-6  gap-y-8 md:gap-y-16 "}    
+        `}
           >
             {specialCardData?.result.map((cardDetails) => (
-              <SpecialCard key={cardDetails._id} cardDetails={cardDetails} />
+              <SpecialCard isHome={isHome} key={cardDetails._id} cardDetails={cardDetails} />
             ))}
           </div>
+        </div>
+
+      )}
+      {isHome && (
+        <div className="flex xl:hidden absolute top-[240px] w-full    justify-between ">
+          <div className="bg-[#f8f8f8] w-10 h-10 flex items-center shadow-md justify-center cursor-pointer rounded-full">
+            <span onClick={scrollLeft}>
+
+              <MdKeyboardArrowRight />
+            </span>
+          </div>
+          <div className="bg-[#f8f8f8] w-10 h-10 flex items-center shadow-md justify-center cursor-pointer rounded-full">
+
+            <span onClick={scrollRight}>
+              <MdKeyboardArrowLeft />
+
+            </span>
+          </div>
+
         </div>
       )}
     </div>

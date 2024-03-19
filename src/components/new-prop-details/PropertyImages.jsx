@@ -31,7 +31,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   // used to contro conditional redering and layout of images and text on images
   const showMoreImages = propertyData.album.length > 4;
   const imagesLessThanFour = propertyData.album.length < 4;
-  console.log(imagesLessThanFour);
+  // console.log(imagesLessThanFour);
 
   return (
     <section className="grid grid-cols-3 md:grid-cols-4 grid-rows-2 gap-3 justify-center items-center max-h-[550px]">
@@ -89,9 +89,8 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       <div
         role="button"
         onClick={() => openLightbox(3)}
-        className={`flex relative drop-shadow-md max-h-[100px] md:max-h-full rounded-md justify-center  w-full h-full overflow-hidden bg-gray-300 items-stretch ${
-          imagesLessThanFour && "md:col-span-2"
-        }`}
+        className={`flex relative drop-shadow-md max-h-[100px] md:max-h-full rounded-md justify-center  w-full h-full overflow-hidden bg-gray-300 items-stretch ${imagesLessThanFour && "md:col-span-2"
+          }`}
       >
         {showMoreImages && (
           <span className="md:hidden absolute z-[2] text-white underline">

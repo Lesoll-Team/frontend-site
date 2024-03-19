@@ -79,7 +79,7 @@ const RealtyCard = ({ propertyDetails }) => {
           radius="none"
           className=" flex object-cover  
           "
-          priority
+          loading="lazy"
           width={400}
           height={174}
           src={propertyDetails?.thumbnail || propertyDetails?.album[0]?.image}

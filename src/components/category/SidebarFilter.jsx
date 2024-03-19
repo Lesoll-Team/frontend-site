@@ -12,6 +12,7 @@ import FinancingButtons from "./sidebar-modules/FinancingButtons";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
 import { useDispatch } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import UnitTypesSmallScreen from "./sidebar-modules/UnitTypesSmallScreen ";
 // import UnitTypeIcons from "./shared/UnitTypeIcons";
 
 const SidebarFilter = ({ languageIs, result }) => {
@@ -42,9 +43,11 @@ const SidebarFilter = ({ languageIs, result }) => {
             className="text-[20px] cursor-pointer"
           />
         </div>
-        {/* <div className="md:container py-[48px] md:mx-auto mx-[20px] md:hidden block ">
-          <UnitTypeIcons
-            items={result?.aggregation_links}
+        {/* <div className="  py-[10px]  flex flex-col gap-y-5 md:hidden  ">
+          <span className="flex lg-text font-bold text-gray2 ">          {languageIs ? "نوع الوحدة" : "unit type"}
+          </span>
+          <UnitTypesSmallScreen
+          // unitTypesItems={result?.UnitTypes}
           />
         </div> */}
         {/*search by keywords  */}
