@@ -44,7 +44,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         <div
           role="button"
           onClick={() => openLightbox(0)}
-          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden"
+          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-900 items-center"
         >
           <Image
             priority
@@ -59,7 +59,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       <div
         role="button"
         onClick={() => openLightbox(1)}
-        className="flex w-full rounded-md drop-shadow-md h-full overflow-hidden"
+        className="flex w-full rounded-md bg-gray-900 drop-shadow-md h-full overflow-hidden items-center"
       >
         <Image
           priority
@@ -67,7 +67,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[0]?.image}
-          className="rounded-md object-cover"
+          className="rounded-md object-cover max-h-[150px]"
         />
       </div>
       <div
@@ -88,7 +88,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       <div
         role="button"
         onClick={() => openLightbox(3)}
-        className={`flex relative drop-shadow-md rounded-md justify-center items-center w-full h-full overflow-hidden ${
+        className={`flex relative drop-shadow-md rounded-md justify-center items-center w-full h-full overflow-hidden bg-gray-900 items-center${
           imagesLessThanFour && "md:col-span-2"
         }`}
       >
@@ -112,7 +112,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       {!imagesLessThanFour && (
         <div
           onClick={() => openLightbox(4)}
-          className=" drop-shadow-md md:flex hidden relative items-center justify-center overflow-hidden rounded-md w-full h-full"
+          className=" drop-shadow-md md:flex hidden relative justify-center overflow-hidden rounded-md w-full h-full bg-gray-900 items-center"
         >
           {showMoreImages && (
             <span className="underline absolute lg:text-xl font-medium text-white text-center z-[2]">
