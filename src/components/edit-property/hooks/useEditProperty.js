@@ -36,6 +36,12 @@ const useEditProperty = (data) => {
   useEffect(() => {
     dispatch(getAllProjects());
   }, []);
+  useEffect(() => {
+    const crruntProject = projectList?.find(
+      (item) => item.value === data.ProjectID
+    );
+    setValue("ProjectID", crruntProject);
+  }, [projects]);
   const { errors, isSubmitting, isSubmitSuccessful } = formState;
   // const { fields, append, remove } = useFieldArray({
   //   name: "installment",

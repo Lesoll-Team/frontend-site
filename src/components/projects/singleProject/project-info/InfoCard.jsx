@@ -7,8 +7,9 @@ const InfoCard = ({ src, title }) => {
         src={src}
         width={40}
         height={40}
-        className="md:w-[25px] h-[25px]"
+        className="md:w-[40px] md:h-[40px] h-[25px] w-[25px]"
       />
+      <p></p>
     </div>
   );
 };
