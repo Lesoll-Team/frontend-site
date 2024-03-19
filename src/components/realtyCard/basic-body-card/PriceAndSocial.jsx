@@ -39,14 +39,14 @@ const PriceAndSocial = ({ propertyDetails }) => {
       )}
       <div className="flex   gap-x-[14px]  ">
         <CallLinkBtn>
-          <button className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center">
+          <span className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
             <IoCall className="text-[16px] md:text-[23px] text-blue-600" />
-          </button>
+          </span>
         </CallLinkBtn>
         <WhatappLinkBtn>
-          <button className="bg-green-600 cursor-pointer active:animate-appearance-in w-[25px] h-[25px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center">
+          <span className="bg-green-600 cursor-pointer active:animate-appearance-in w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
             <FaWhatsapp className="text-[16px]  md:text-[23px] text-white" />
-          </button>
+          </span>
         </WhatappLinkBtn>
       </div>
     </div>

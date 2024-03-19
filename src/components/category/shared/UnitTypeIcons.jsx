@@ -185,7 +185,6 @@ const UnitTypeIcons = ({ items, main }) => {
     handleRenderingUnits()
   }, [categoryType, language]);
   if (!main) {
-    // console.log("handleRenderingUnits", unitTypeTap[language ? "ar" : "en"]);
     return (
       <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
         {unitTypeTap[language ? "ar" : "en"]?.map((item) => (

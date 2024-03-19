@@ -3,7 +3,7 @@ import SpecialCards from "@/components/homePage/SpecialCards";
 
 const ProjectsPage = ({ specialCardData }) => {
   return (
-    <div className="min-h-[90vh] md:container md:mx-auto mx-[20px] pt-20">
+    <div className="min-h-[90vh] md:container md:mx-auto mx-[20px] py-20">
       <SpecialCards specialCardData={specialCardData} />
     </div>
   );

@@ -38,7 +38,6 @@ const FilterLayout = ({ result, page, dataObjectFromURL }) => {
       searchKeyword: dataObjectFromURL.keyword,
     }))
   }, [router])
-  console.log(result);
   return (
     <>
       {/*Sidebar filter */}
