@@ -35,8 +35,8 @@ const SubBarTitle = ({ result }) => {
                     : result?.supTitleCategory?.en}
             </h3>
             {/*sorted and save search filter page */}
-            <div className="flex z-10 gap-[2rem]  md:justify-end justify-between w-full md:w-6/12">
-                <div className="flex  whitespace-nowrap gap-x-3 items-center">
+            <div className=" z-10  p-1  grid md:justify-items-end justify-items-start  w-full md:w-6/12">
+                <div className="   w-fit p-1">
                     {/* <span className="text-[12px] md:text-[20px]">
                             {language ? "ترتيب :" : "Sort by"}
                         </span> */}

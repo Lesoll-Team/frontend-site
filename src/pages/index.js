@@ -35,9 +35,7 @@ const Home = ({ bestSearch }) => {
         <OtherCards />
       </div>
       <PropertiesCategories isHome />
-
       <LocationCategories />
-
       <BestLinksInHome
         PopularSearches={bestSearch?.POPULAR_SEARCHES}
         MostArea={bestSearch?.Most_Area}

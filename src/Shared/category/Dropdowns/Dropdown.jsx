@@ -104,7 +104,7 @@ const Dropdown = ({
     () => {
       return (
         <div
-          className={`animate-appearance-in  md:w-full min-w-[130px] absolute  duration-200 border max-h-[22vh] overflow-y-auto shadow-sm px-2 bg-white`}
+          className={`animate-appearance-in  md:w-full min-w-[160px] absolute  duration-200 border max-h-[22vh] overflow-y-auto shadow-sm px-2 bg-white`}
         >
           {data ? data[language && 'ar' || 'en'].map((option) => (
             <div
@@ -184,7 +184,7 @@ const Dropdown = ({
   //   }
   // }, [sort]);
   return (
-    <div className={`${classNames}  min-w-[9.97vw] relative`}>
+    <div className={`${classNames} ${isSort ?? "min-w-[9.97vw]"}  relative`}>
       <button
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
@@ -195,13 +195,9 @@ const Dropdown = ({
             : "w-full h-[40px] md:h-[3.313rem]"
           } px-[9px] cursor-pointer border-[1px] border-[#CCCCCC] `}
       >
-        {/**${isSort
-            ? "shadow-md bg-[#F2F8F9]"
-            : "border-[1px] border-[#CCCCCC] "
-          } */}
+
         {(value && (
           <span className="text-[#4E4E4E]">
-            {/* {language ? value.name : value.value} */}
             {dropdownName}
           </span>
         )) ||
