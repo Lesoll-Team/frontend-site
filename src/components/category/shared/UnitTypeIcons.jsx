@@ -1,15 +1,12 @@
-// import {
-//   // handleClickChangeUnitType, 
-//   updateAllStates
-// } from "@/redux-store/features/category/categorySlice";
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
-
-const UnitTypeIcons = ({ items }) => {
+import { unitTypeResidential, unitTypeCommercial, unitTypeLand } from "@/Shared/search/dropdown/dataDropdown";
+const UnitTypeIcons = ({ items, main }) => {
   const router = useRouter();
-
+  const [unitTypeTap, setUnitTypeTap] = useState({})
   const language = useSelector((state) => state.GlobalState.languageIs);
   const {
     categoryType,
@@ -149,22 +146,61 @@ const UnitTypeIcons = ({ items }) => {
       window.removeEventListener("resize", handleResize); // Clean up event listener
     };
   }, []);
-  return (
-    <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
-      {items
-        ?.filter((_, i) => i < seeMore)
-        .map((item) => (
+  if (items && main) {
+
+    return (
+      <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
+        {items
+          ?.filter((_, i) => i < seeMore)
+          .map((item) => (
+            <button
+              key={item.keyword}
+              onClick={() => handleTapClicked(item)}
+              className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
+            >
+              <span className="text-gray2"> {language ? item.ar : item.en}</span>
+              <span className="text-lightGreen">({item.getDataNumber})</span>
+            </button>
+          ))}
+      </div>
+    );
+  }
+
+  const handleRenderingUnits = () => {
+    switch (categoryType) {
+      case "residential":
+      case "compounds":
+      case "finance":
+        setUnitTypeTap(unitTypeResidential)
+      case "commercial":
+        setUnitTypeTap(unitTypeCommercial)
+      case "lands":
+        setUnitTypeTap(unitTypeLand)
+      default:
+        setUnitTypeTap(unitTypeResidential)
+
+    }
+  }
+  useEffect(() => {
+    handleRenderingUnits()
+  }, [categoryType, language]);
+  if (!main) {
+    // console.log("handleRenderingUnits", unitTypeTap[language ? "ar" : "en"]);
+    return (
+      <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
+        {unitTypeTap[language ? "ar" : "en"]?.map((item) => (
           <button
-            key={item.keyword}
-            onClick={() => handleTapClicked(item)}
+            key={item.id}
+            // onClick={() => handleTapClicked(item)}
             className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
           >
-            <span className="text-gray2"> {language ? item.ar : item.en}</span>
-            <span className="text-lightGreen">({item.getDataNumber})</span>
+            <span className="text-gray2"> {item.name}</span>
           </button>
         ))}
-    </div>
-  );
+
+      </div>)
+  }
+
 };
 
 export default UnitTypeIcons;

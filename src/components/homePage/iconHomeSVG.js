@@ -4,8 +4,8 @@ export const ResidentialSale = ({ styles }) => {
   return (
     <Image
       src="/home/home-sale.svg"
-      width={100}
-      height={100}
+      width={500}
+      height={500}
       alt="residential sale"
       className="w-auto h-auto"
     />

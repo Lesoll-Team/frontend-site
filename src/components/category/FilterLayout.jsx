@@ -38,6 +38,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL }) => {
       searchKeyword: dataObjectFromURL.keyword,
     }))
   }, [router])
+  console.log(result);
   return (
     <>
       {/*Sidebar filter */}
@@ -60,6 +61,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL }) => {
         <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
           <UnitTypeIcons
             items={result?.aggregation_links}
+            main
           />
         </div>
       }
