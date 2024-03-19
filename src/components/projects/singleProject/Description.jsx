@@ -18,7 +18,7 @@ const Description = ({ description, title }) => {
           {description
             .trim()
             .split("\n")
-            .slice(0, showFullDescription ? descriptionLinesNumbers : 3)
+            .slice(0, showFullDescription ? descriptionLinesNumbers : 5)
             .filter((line) => line.trim() !== "") // Filter out empty lines
             .map((theline, index) => {
               const line = theline.trim();
@@ -72,7 +72,7 @@ const Description = ({ description, title }) => {
               }
             })}
         </div>
-        {descriptionLinesNumbers > 3 && (
+        {descriptionLinesNumbers > 5 && (
           <button
             className="underline text-linkColor "
             onClick={() => setShowFullDescription((prev) => !prev)}

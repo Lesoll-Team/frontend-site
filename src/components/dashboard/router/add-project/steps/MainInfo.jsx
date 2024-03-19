@@ -8,6 +8,7 @@ import PlaceLatLng from "@/components/newAddProperty/mainInfo/location/PlaceLatL
 import { useLoadScript } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
 import AdminCashAndInstallment from "./Installment";
+import { useRef } from "react";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 
 const mapLib = ["places"];
@@ -25,6 +26,7 @@ const MainInfo = ({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: mapLib,
   });
+  const logoRef = useRef();
   return (
     <>
       <h1>
@@ -204,6 +206,26 @@ const MainInfo = ({
           />
         )}
         <hr className="w-full mx-auto" />
+        <div className="space-y-2">
+          <p>company logo</p>
+          <input
+            ref={logoRef}
+            // value={watch("projectLogo")}
+            type="file"
+            onChange={(e) => {
+              setValue("projectLogo", e.target.files[0]);
+            }}
+          />
+          <button
+            onClick={() => {
+              logoRef.current.value = null;
+              setValue("projectLogo", "");
+            }}
+            type="button"
+          >
+            delete
+          </button>
+        </div>
         <PropertyImages
           errors={errors}
           register={register}
