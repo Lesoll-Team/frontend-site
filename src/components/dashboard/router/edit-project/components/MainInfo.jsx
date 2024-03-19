@@ -90,21 +90,51 @@ const MainInfo = ({
             </label>
             <input
               type="text"
-              {...register(`area`, {
+              {...register(`areaFrom`)}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                errors?.areaFrom && "border-red-500 focus:border-red-500"
+              }`}
+            />
+            {errors?.areaFrom && <Error>{errors.areaFrom.message}</Error>}
+          </div>
+          <div className="w-full space-y-2">
+            <label className="text-xl">
+              {" "}
+              {language ? "المساحة  الى" : "Area to"}
+            </label>
+            <input
+              type="text"
+              {...register(`areaTo`)}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                errors?.areaTo && "border-red-500 focus:border-red-500"
+              }`}
+            />
+            {errors?.areaTo && <Error>{errors.areaTo.message}</Error>}
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row gap-5 md:gap-10">
+          <div className="w-full space-y-2">
+            <label className="text-xl">
+              {" "}
+              {language ? "السعر يبدأ من" : "price starts from"}
+            </label>
+            <input
+              type="text"
+              {...register(`priceFrom`, {
                 required: {
                   value: true,
                   message: language
-                    ? "من فضلك ادخل المساحة"
-                    : "please enter Area",
+                    ? "من فضلك ادخل االسعر"
+                    : "please enter priceFrom",
                 },
               })}
               className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                errors?.area &&
-                errors?.area &&
+                errors?.priceFrom &&
+                errors?.priceFrom &&
                 "border-red-500 focus:border-red-500"
               }`}
             />
-            {errors?.area && <Error>{errors.area.message}</Error>}
+            {errors?.priceFrom && <Error>{errors.priceFrom.message}</Error>}
           </div>
           <div className="w-full space-y-2">
             <label className="text-xl">
@@ -113,21 +143,14 @@ const MainInfo = ({
             </label>
             <input
               type="text"
-              {...register(`price`, {
-                required: {
-                  value: true,
-                  message: language
-                    ? "من فضلك ادخل االسعر"
-                    : "please enter price",
-                },
-              })}
+              {...register(`priceTo`, {})}
               className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                errors?.price &&
-                errors?.price &&
+                errors?.priceTo &&
+                errors?.priceTo &&
                 "border-red-500 focus:border-red-500"
               }`}
             />
-            {errors?.price && <Error>{errors.price.message}</Error>}
+            {errors?.priceTo && <Error>{errors.priceTo.message}</Error>}
           </div>
         </div>
         <hr className="w-full mx-auto" />
@@ -188,13 +211,13 @@ const MainInfo = ({
         <hr className="w-full mx-auto" />
         <div className="space-y-2">
           <h3 className="text-xl">
-            {language ? "وصف المشروع" : "Project description"}
+            {language ? " arوصف المشروع" : "Project description ar"}
           </h3>
           <textarea
-            {...register("description", {
+            {...register("descriptionAr", {
               required: {
                 value: true,
-                message: "please enter description",
+                message: "please enter descriptionAr",
               },
               validate: {
                 // mustBeNumber: (value) => {
@@ -205,7 +228,7 @@ const MainInfo = ({
                     value.length > 20 ||
                     (language
                       ? "يجب الا يقل الوصف عن 20 حرف"
-                      : "description must be at least 20 characters long")
+                      : "descriptionAr must be at least 20 characters long")
                   );
                 },
                 containPhone: (value) => {
@@ -213,7 +236,7 @@ const MainInfo = ({
                     !value.match(phoneRegex) ||
                     (language
                       ? "رقم الهاتف فى الوصف غير  مسموح"
-                      : "Phone number in description are not allowed")
+                      : "Phone number in descriptionAr are not allowed")
                   );
                 },
               },
@@ -222,7 +245,7 @@ const MainInfo = ({
             cols="30"
             rows="8"
             className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen resize-none placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-              errors.description && "border-red-500 focus:border-red-500"
+              errors.descriptionAr && "border-red-500 focus:border-red-500"
             }`}
           />
           {errors.description && (
@@ -231,13 +254,13 @@ const MainInfo = ({
         </div>
         <div className="space-y-2">
           <h3 className="text-xl">
-            {language ? "عن الشركة " : "about company"}
+            {language ? "enوصف المشروع" : "Project description endw"}
           </h3>
           <textarea
-            {...register("about", {
+            {...register("descriptionEn", {
               required: {
                 value: true,
-                message: "please enter about",
+                message: "please enter descriptionEn",
               },
               validate: {
                 // mustBeNumber: (value) => {
@@ -248,7 +271,7 @@ const MainInfo = ({
                     value.length > 20 ||
                     (language
                       ? "يجب الا يقل الوصف عن 20 حرف"
-                      : "about must be at least 20 characters long")
+                      : "descriptionEn must be at least 20 characters long")
                   );
                 },
                 containPhone: (value) => {
@@ -256,7 +279,7 @@ const MainInfo = ({
                     !value.match(phoneRegex) ||
                     (language
                       ? "رقم الهاتف فى الوصف غير  مسموح"
-                      : "Phone number in about are not allowed")
+                      : "Phone number in descriptionEn are not allowed")
                   );
                 },
               },
@@ -265,10 +288,98 @@ const MainInfo = ({
             cols="30"
             rows="8"
             className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen resize-none placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-              errors.about && "border-red-500 focus:border-red-500"
+              errors.descriptionEn && "border-red-500 focus:border-red-500"
             }`}
           />
-          {errors.about && <Error className="">{errors.about.message}</Error>}
+          {errors.descriptionEn && (
+            <Error className="">{errors.description.message}</Error>
+          )}
+        </div>
+        <div className="space-y-2">
+          <h3 className="text-xl">
+            {language ? "ar عن الشركة " : "about company ar"}
+          </h3>
+          <textarea
+            {...register("aboutAr", {
+              required: {
+                value: true,
+                message: "please enter aboutAr",
+              },
+              validate: {
+                // mustBeNumber: (value) => {
+                //   return !isNaN(value) || "must be a number";
+                // },
+                min: (value) => {
+                  return (
+                    value.length > 20 ||
+                    (language
+                      ? "يجب الا يقل الوصف عن 20 حرف"
+                      : "aboutAr must be at least 20 characters long")
+                  );
+                },
+                containPhone: (value) => {
+                  return (
+                    !value.match(phoneRegex) ||
+                    (language
+                      ? "رقم الهاتف فى الوصف غير  مسموح"
+                      : "Phone number in aboutAr are not allowed")
+                  );
+                },
+              },
+            })}
+            id=""
+            cols="30"
+            rows="8"
+            className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen resize-none placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+              errors.aboutAr && "border-red-500 focus:border-red-500"
+            }`}
+          />
+          {errors.aboutAr && (
+            <Error className="">{errors.aboutAr.message}</Error>
+          )}
+        </div>
+        <div className="space-y-2">
+          <h3 className="text-xl">
+            {language ? " enعن الشركة " : "about company en"}
+          </h3>
+          <textarea
+            {...register("aboutEn", {
+              required: {
+                value: true,
+                message: "please enter aboutEn",
+              },
+              validate: {
+                // mustBeNumber: (value) => {
+                //   return !isNaN(value) || "must be a number";
+                // },
+                min: (value) => {
+                  return (
+                    value.length > 20 ||
+                    (language
+                      ? "يجب الا يقل الوصف عن 20 حرف"
+                      : "aboutEn must be at least 20 characters long")
+                  );
+                },
+                containPhone: (value) => {
+                  return (
+                    !value.match(phoneRegex) ||
+                    (language
+                      ? "رقم الهاتف فى الوصف غير  مسموح"
+                      : "Phone number in aboutEn are not allowed")
+                  );
+                },
+              },
+            })}
+            id=""
+            cols="30"
+            rows="8"
+            className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen resize-none placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+              errors.aboutEn && "border-red-500 focus:border-red-500"
+            }`}
+          />
+          {errors.aboutEn && (
+            <Error className="">{errors.aboutEn.message}</Error>
+          )}
         </div>
       </div>
     </>

@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 const ProjectDescription = ({ projectData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const descriptionLinesNumbers = projectData.description.split("\n").length;
+  const descriptionLinesNumbers = language
+    ? projectData.descriptionAr.split("\n").length
+    : projectData.descriptionEn.split("\n").length;
   const lol =
     "#heading-1\n ##heading-2\n ###heading-3 \n*list \n **nested list";
   return (

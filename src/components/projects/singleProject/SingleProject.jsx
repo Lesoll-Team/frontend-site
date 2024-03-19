@@ -8,6 +8,7 @@ import PropertyLocation from "@/components/new-prop-details/propertyDetails/sect
 import AboutCompany from "./AboutCompany";
 import ProjectUnits from "./ProjectUnits";
 import { useSelector } from "react-redux";
+import ProjectContactForm from "./contactForm/ProjectContactForm";
 
 const SingleProject = ({ propertyData, allData, query }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -20,7 +21,11 @@ const SingleProject = ({ propertyData, allData, query }) => {
         </title>
         <meta
           name="description"
-          content={propertyData?.description.slice(0, 160)}
+          content={
+            language
+              ? propertyData?.descriptionAr.slice(0, 160)
+              : propertyData?.descriptionEn.slice(0, 160)
+          }
         />
         <meta
           property="og:title"
@@ -46,16 +51,16 @@ const SingleProject = ({ propertyData, allData, query }) => {
         <ProjectTitlePrice projectData={propertyData} />
 
         {/* <PriceTitle propertData={propertyData} /> */}
-        <div className="relative md:grid  grid-cols-3 gap-2">
-          <div className=" col-start-3 md:sticky top-24 h-fit flex justify-end py-2">
-            <PropertyOwner
-              className={"w-full -mt-2 md:-mt-0 md:max-w-[382px]"}
-              propertyData={{ user: propertyData.owner }}
+        <div className="relative grid  md:grid-cols-3 gap-2">
+          <div className=" md:col-start-3 md:sticky top-24 h-fit flex justify-end ">
+            <ProjectContactForm
+              className={"w-full   md:max-w-[90%]"}
+              projectData={propertyData}
             />
           </div>
           <div
             className={
-              "col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-5 md:gap-10"
+              "md:col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-5 md:gap-10"
             }
           >
             <ProjectDescription projectData={propertyData} />

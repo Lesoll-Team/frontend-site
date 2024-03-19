@@ -31,6 +31,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   // used to contro conditional redering and layout of images and text on images
   const showMoreImages = propertyData.album.length > 4;
   const imagesLessThanFour = propertyData.album.length < 4;
+  console.log(imagesLessThanFour);
 
   return (
     <section className="grid grid-cols-3 md:grid-cols-4 grid-rows-2 gap-3 justify-center items-center max-h-[550px]">
@@ -44,7 +45,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         <div
           role="button"
           onClick={() => openLightbox(0)}
-          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-900 items-center"
+          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-black items-center"
         >
           <Image
             priority
@@ -52,14 +53,14 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             height={1000}
             alt={propertyData.title}
             src={propertyData?.thumbnail}
-            className="rounded-md  object-cover"
+            className=" object-cover"
           />
         </div>
       </div>
       <div
         role="button"
         onClick={() => openLightbox(1)}
-        className="flex w-full rounded-md bg-gray-900 drop-shadow-md h-full overflow-hidden items-center"
+        className="flex w-full rounded-md bg-black drop-shadow-md h-full overflow-hidden items-center"
       >
         <Image
           priority
@@ -67,13 +68,13 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[0]?.image}
-          className="rounded-md object-cover "
+          className="object-cover "
         />
       </div>
       <div
         role="button"
         onClick={() => openLightbox(2)}
-        className="flex w-full h-full drop-shadow-md overflow-hidden"
+        className="flex w-full h-full drop-shadow-md overflow-hidden bg-black rounded-md"
       >
         <Image
           priority
@@ -81,14 +82,14 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[1]?.image}
-          className="rounded-md object-cover"
+          className=" object-cover"
         />
       </div>
 
       <div
         role="button"
         onClick={() => openLightbox(3)}
-        className={`flex relative drop-shadow-md rounded-md justify-center items-center w-full h-full overflow-hidden bg-gray-900 items-center${
+        className={`flex relative drop-shadow-md rounded-md justify-center  w-full h-full overflow-hidden bg-black items-center ${
           imagesLessThanFour && "md:col-span-2"
         }`}
       >
@@ -105,14 +106,14 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[2]?.image}
-          className="rounded-md brightness-75 object-cover md:brightness-100 "
+          className="rounded-md brightness-75 object-cover bg-black md:brightness-100 "
         />
       </div>
 
       {!imagesLessThanFour && (
         <div
           onClick={() => openLightbox(4)}
-          className=" drop-shadow-md md:flex hidden relative justify-center overflow-hidden rounded-md w-full h-full bg-gray-900 items-center"
+          className=" drop-shadow-md md:flex hidden relative justify-center overflow-hidden rounded-md w-full h-full bg-black items-center"
         >
           {showMoreImages && (
             <span className="underline absolute lg:text-xl font-medium text-white text-center z-[2]">

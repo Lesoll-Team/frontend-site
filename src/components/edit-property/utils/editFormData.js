@@ -69,5 +69,6 @@ export const editFormData = (data) => {
   for (let i = 0; i < data?.album.length; i++) {
     formData.append("album", data?.album[i]._id);
   }
+  data.ProjectID && formData.append("ProjectID", data?.ProjectID?.value);
   return { formData };
 };
