@@ -16,15 +16,18 @@ const ImageAndLogo = ({ cardDetails, isHome }) => {
             className={cardHomeStyle}
         >
 
-            <div className={`flex z-10  absolute  mt-[115px] left-[20px]`}>
+            {cardDetails.projectLogo && <div className={`flex z-10  absolute  mt-[115px] left-[20px]`}>
 
                 <div
-                    className="  drop-shadow-md flex justify-center  w-[38px] h-[38px] items-center 
+                    className="  drop-shadow-md flex justify-center 
+                     w-[38px] h-[38px]
+                      items-center 
             rounded-full  text-center overflow-hidden cursor-pointer">
                     <Image src={cardDetails.projectLogo} width={100}
                         loading="lazy" className="object-cover w-[38px] h-[38px] " height={50} alt={cardDetails.titleAr} />
                 </div>
             </div>
+            }
             <Image
                 alt={`${language ? cardDetails?.titleAr : cardDetails?.titleEn}`}
                 radius="none"

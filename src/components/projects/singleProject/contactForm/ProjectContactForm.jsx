@@ -37,7 +37,6 @@ const ProjectContactForm = ({ className, projectData }) => {
       setFormStatus: setFormStatus,
       data: dataToSend,
     });
-    // console.log(data);
   };
 
   useEffect(() => {
@@ -90,15 +89,17 @@ const ProjectContactForm = ({ className, projectData }) => {
           })}
           className={`w-full py-2 px-5 border  rounded-md focus:outline-none focus:border-lightGreen ${errors.fullName && "border-red-500  focus:border-red-500 "}`}
         />
-        {projectList && (
-          <DropDown
-            selected={watch("subject")}
-            options={projectList}
-            setValue={(e) => {
-              setValue("subject", e);
-            }}
-          />
-        )}
+        <div className="">
+          {projectList && (
+            <DropDown
+              selected={watch("subject")}
+              options={projectList}
+              setValue={(e) => {
+                setValue("subject", e);
+              }}
+            />
+          )}
+        </div>
         <div>
           <input
             type="text"

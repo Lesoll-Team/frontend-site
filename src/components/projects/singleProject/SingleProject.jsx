@@ -14,7 +14,6 @@ import ProjectInfo from "./project-info/ProjectInfo";
 import InstallmentPlans from "./installment-plans/InstallmentPlans";
 
 const SingleProject = ({ propertyData, allData, query }) => {
-  // console.log(propertyData);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -45,7 +44,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         /> */}
       </Head>
-      <div className="px-4 sm:container mx-auto space-y-[30px] md:space-y-10">
+      <div className="px-4 sm:container mx-auto space-y-[30px] md:space-y-10 ">
         <PropertyImages
           fav={false}
           propertyData={propertyData}
@@ -67,11 +66,11 @@ const SingleProject = ({ propertyData, allData, query }) => {
             }
           >
             <ProjectInfo projectData={propertyData} />
-            <div className="md:hidden ">
-              {propertyData?.installment?.length > 0 && (
+            {propertyData?.installment?.length > 0 && (
+              <div className="md:hidden ">
                 <InstallmentPlans projectData={propertyData} />
-              )}
-            </div>
+              </div>
+            )}
             {allData?.getProperties?.length > 0 && (
               <div className="md:hidden">
                 <ProjectUnits
@@ -100,20 +99,22 @@ const SingleProject = ({ propertyData, allData, query }) => {
                 language ? propertyData.aboutAr : propertyData.aboutEn
               }
             />
-            <div className="md:block hidden">
-              {propertyData?.installment?.length > 0 && (
+            {propertyData?.installment?.length > 0 && (
+              <div className="md:block hidden">
                 <InstallmentPlans projectData={propertyData} />
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <div className="hidden md:block">
-        <ProjectUnits
-          projectData={allData}
-          title={language ? propertyData.titleAr : propertyData.titleEn}
-        />
-      </div>
+      {allData?.getProperties?.length > 0 && (
+        <div className="hidden md:block">
+          <ProjectUnits
+            projectData={allData}
+            title={language ? propertyData.titleAr : propertyData.titleEn}
+          />
+        </div>
+      )}
     </div>
   );
 };

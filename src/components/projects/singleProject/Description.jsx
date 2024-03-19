@@ -7,13 +7,13 @@ const Description = ({ description, title }) => {
   const descriptionLinesNumbers = description.split("\n").length;
 
   return (
-    <section className="space-y-[16px]">
-      {title && <h2 className=" ">{title}</h2>}
+    <section className="space-y-[16px] ">
+      {title && <h2 className="break-words">{title}</h2>}
       <div>
         {" "}
         <div
-          className="text-xs sm:text-base md:text-[25px] font-noto text-baseGray  break-words"
-          style={{ lineHeight: "1.7" }}
+          className="text-xs sm:text-base md:text-[25px] font-noto  text-baseGray break-words"
+          style={{ lineHeight: "1.7", wordWrap: "break-word" }} // Added word-wrap property
         >
           {description
             .trim()
@@ -25,7 +25,7 @@ const Description = ({ description, title }) => {
               if (line.trim().startsWith("###")) {
                 const newLine = line.substring(3);
                 return (
-                  <h3 className="font-cairo" key={index}>
+                  <h3 className="font-cairo flex flex-wrap" key={index}>
                     {newLine.trim()}
                     <br />
                   </h3>
@@ -64,7 +64,10 @@ const Description = ({ description, title }) => {
                 );
               } else {
                 return (
-                  <p className="py-1 text-xl" key={index}>
+                  <p
+                    className="py-1 max-w- md:max-w-full break-words flex flex-wrap"
+                    key={index}
+                  >
                     {line.trim()}
                     <br />
                   </p>
@@ -74,7 +77,7 @@ const Description = ({ description, title }) => {
         </div>
         {descriptionLinesNumbers > 5 && (
           <button
-            className="underline text-linkColor "
+            className="underline text-linkColor"
             onClick={() => setShowFullDescription((prev) => !prev)}
           >
             {showFullDescription

@@ -31,7 +31,6 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   // used to contro conditional redering and layout of images and text on images
   const showMoreImages = propertyData.album.length > 4;
   const imagesLessThanFour = propertyData.album.length < 4;
-  // console.log(imagesLessThanFour);
 
   return (
     <section className="grid grid-cols-3 md:grid-cols-4 grid-rows-2 gap-3 justify-center items-center max-h-[550px]">
@@ -126,7 +125,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             height={1000}
             alt={propertyData.title}
             src={propertyData.album[3]?.image || "/image-placeholder.svg"}
-            className="rounded-md brightness-50"
+            className="rounded-md brightness-50 object-cover"
           />
         </div>
       )}
