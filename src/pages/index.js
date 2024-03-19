@@ -27,7 +27,7 @@ const Home = ({ bestSearch }) => {
         <SearchModule />
       </div>
       <HeroSection />
-      <SpecialCards isHome />
+      {/* <SpecialCards isHome /> */}
 
       <div className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2 flex-col md:flex-row justify-between">
         <OtherCards />
