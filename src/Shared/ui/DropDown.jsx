@@ -79,7 +79,7 @@ const DropDown = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         onKeyDown={handleKeyDown}
-        className={`w-full font-semibold outline-none  h-12  flex items-center justify-between gap-6 focus:border-lightGreen bg-white border-2 rounded-md px-4 py-3 whitespace-nowrap ${
+        className={`w-full font-semibold outline-none overflow-hidden  h-12  flex items-center justify-between gap-6 focus:border-lightGreen bg-white border-2 rounded-md px-4 py-3 whitespace-nowrap ${
           disabled && "bg-slate-200"
         } ${error && "border-red-500 focus:border-red-500"}`}
       >
@@ -109,7 +109,7 @@ const DropDown = ({
                     handleOptionClick(option);
                   }
                 }}
-                className={`dropdown-option text-lg w-full text-start  font-semibold text-darkGray py-2 px-5 md:px-8 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
+                className={`dropdown-option line-clamp-1  text-lg w-full text-start  font-semibold text-darkGray py-2 px-5 md:px-8 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
                   focusedOptionIndex === i && "bg-gray-200"
                 }`}
               >

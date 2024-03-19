@@ -45,7 +45,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         /> */}
       </Head>
-      <div className="px-3 sm:container mx-auto space-y-[30px] md:space-y-10">
+      <div className="px-4 sm:container mx-auto space-y-[30px] md:space-y-10">
         <PropertyImages
           fav={false}
           propertyData={propertyData}
@@ -72,12 +72,14 @@ const SingleProject = ({ propertyData, allData, query }) => {
                 <InstallmentPlans projectData={propertyData} />
               )}
             </div>
-            <div className="md:hidden">
-              <ProjectUnits
-                projectData={allData}
-                title={language ? propertyData.titleAr : propertyData.titleEn}
-              />
-            </div>
+            {allData?.getProperties?.length > 0 && (
+              <div className="md:hidden">
+                <ProjectUnits
+                  projectData={allData}
+                  title={language ? propertyData.titleAr : propertyData.titleEn}
+                />
+              </div>
+            )}
             <Description
               title={
                 language ? (
