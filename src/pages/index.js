@@ -20,7 +20,6 @@ const BestLinksInHome = dynamic(
 );
 
 
-
 const Home = ({ bestSearch }) => {
 
   return (
@@ -65,7 +64,7 @@ export async function getServerSideProps() {
   return {
     props: {
       bestSearch: linkInHome,
-    }
+    },
   };
 }
 // const specialData = await fetch(

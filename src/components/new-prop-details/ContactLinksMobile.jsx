@@ -1,7 +1,9 @@
 import useContactLinks from "@/Hooks/useContactLinks";
 
 const ContactLinksMobile = ({ propertyData }) => {
-  const message = "";
+  const message = `
+  مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
+   ${"https://lesoll.com/property-details/" + propertyData?.slug} `;
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: propertyData.user?.code + propertyData.user?.phone,
     message: message,

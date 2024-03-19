@@ -50,7 +50,7 @@ const NeedsLink = () => {
         </span>
       </button>
       {showMenu && (
-        <div className="absolute right-0-0 top-9 bg-white py-3 drop-shadow-lg rounded min-w-[160px] flex flex-col gap-2">
+        <div className="absolute right-0-0 top-9 bg-white py-3 drop-shadow-lg rounded min-w-[180px] flex flex-col gap-2">
           <Link
             onClick={closeMenu}
             className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150"

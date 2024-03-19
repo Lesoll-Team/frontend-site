@@ -47,8 +47,8 @@ const BlogCard = ({ blog }) => {
       <div className="flex flex-col justify-between gap-[22px] p-[8px] px-[10px]">
         {" "}
         <div className="space-y-[12px]">
-          <div className="lg-text py-[5px] px-[14px] bg-lightNeutral w-fit">
-            <span> {"العقارات السكنية"}</span>
+          <div className="lg-text py-[5px] px-[14px] bg-lightNeutral w-fit break-keep">
+            <span className="break-keep"> {"العقارات السكنية"}</span>
           </div>
           <Link
             href={`/blog/${blog.slug.ar}`}

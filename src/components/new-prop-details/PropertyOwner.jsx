@@ -7,7 +7,9 @@ import Link from "next/link";
 
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const message = "";
+  const message = `
+  مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
+   ${"https://lesoll.com/property-details/" + propertyData?.slug} `;
 
   const conatactNumber = propertyData.connectPhoneNumber
     ? propertyData.connectPhoneNumber

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,7 +14,6 @@ pre {
 html {
   scroll-behavior: smooth;
 }
-
 
 .rdrInputRanges {
   display: none;
@@ -75,7 +74,7 @@ html {
   @apply text-[12px];
 }
 .display-text {
-@apply text-2xl md:text-4xl ;
+  @apply text-2xl md:text-4xl;
 }
 * {
   margin: 0;
@@ -159,7 +158,7 @@ input[type="radio"] {
   width: 33%;
 }
 
-.usersinput:checked+.userslabel {
+.usersinput:checked + .userslabel {
   background-color: #309da0;
   color: #fff;
 }
@@ -262,12 +261,12 @@ input[type="search"]::-webkit-search-cancel-button {
   color: #fff;
 }
 
-#lang-1:checked~label {
+#lang-1:checked ~ label {
   background-color: #309da0;
   color: #fff;
 }
 
-#lang-2:checked~label {
+#lang-2:checked ~ label {
   background-color: #309da0;
   color: #fff;
 }
@@ -314,19 +313,30 @@ input[type="search"]::-webkit-search-cancel-button {
   /* Adjust the width as needed */
 }
 
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item {
   padding: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item:hover {
   background-color: #309da0 !important;
 }
 
@@ -360,151 +370,10 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-bottom: 0px !important;
 }
 
-.gm-style-iw+button {
+.gm-style-iw + button {
   display: none !important;
 }
 
 .gm-ui-hover-effect {
   display: none !important;
-}
-
-.embla {
-  --slide-spacing: 1rem;
-  --slide-size: 100%;
-  --slide-height: 100%;
-  /* border-radius:10px !important ; */
-}
-
-.embla__viewport {
-  overflow: hidden;
-  /* border-radius:px !important ; */
-  border-radius: 8px !important;
-}
-
-.embla__container {
-  backface-visibility: hidden;
-  display: flex;
-  touch-action: pan-y;
-  margin-left: calc(var(--slide-spacing) * -1);
-
-  border-radius: 8px !important;
-}
-
-.embla__slide {
-  flex: 0 0 var(--slide-size);
-
-  padding-left: var(--slide-spacing);
-  position: relative;
-  max-height: 650px;
-}
-
-.embla__slide__img {
-  display: hidden;
-
-  height: var(--slide-height);
-  width: 100%;
-  object-fit: cover;
-}
-
-.embla-thumbs {
-  --thumbs-slide-spacing: 0.8rem;
-  --thumbs-slide-height: ;
-  border-radius: 10px;
-  margin-top: var(--thumbs-slide-spacing);
-}
-
-.embla-thumbs__viewport {
-  overflow: hidden;
-  border-radius: 10px;
-}
-
-.embla-thumbs__container {
-  display: flex;
-  flex-direction: row;
-
-  justify-content: flex-start;
-  margin-left: calc(var(--thumbs-slide-spacing) * -1);
-  border-radius: 18px !important;
-  max-height: 150px;
-}
-
-.embla-thumbs__slide {
-  flex: 0 0 28%;
-  min-width: 0;
-  padding-left: var(--thumbs-slide-spacing);
-  position: relative;
-  /* border-radius: none !important; */
-}
-
-@media (min-width: 576px) {
-  .embla-thumbs__slide {
-    flex: 0 0 18%;
-  }
-}
-
-.embla-thumbs__slide__button {
-  -webkit-appearance: none;
-  background-color: transparent;
-  touch-action: manipulation;
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  opacity: 0.65;
-  transition: opacity 0.5s;
-  /* border: transparent solid 2px; */
-  border-radius: 10px;
-  max-height: 120px;
-  overflow: hidden;
-}
-
-.embla-thumbs__slide--selected .embla-thumbs__slide__button {
-  opacity: 1;
-  border: #309da0 solid 3px;
-  border-radius: px;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.embla-thumbs__slide__img {
-  display: block;
-  height: var(--thumbs-slide-height);
-  width: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.embla-thumbs__slide__number {
-  width: 3rem;
-  height: 3rem;
-  z-index: 1;
-  position: absolute;
-  top: 0.3rem;
-  right: 0.3rem;
-  border-radius: 50%;
-  background-color: rgba(var(--background-site-rgb-value), 0.85);
-  line-height: 3rem;
-  font-weight: 900;
-  text-align: center;
-  pointer-events: none;
-}
-
-.embla-thumbs__slide__number>span {
-  color: var(--brand-primary);
-  background-image: linear-gradient(45deg,
-      var(--brand-primary),
-      var(--brand-secondary));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 1.4rem;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
