@@ -26,19 +26,20 @@ const SpecialCards = ({ isHome }) => {
   }, []);
   return (
     <div className={`relative  xl:container xl:mx-auto ${isHome && "mx-[15px]"}`}>
+      <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
+        <h2 className="font-bold  flex text-grayText2">
+          {language ? "مشاريع" : "projects"}
+        </h2>
+        {isHome && (
+          <Link className="  text-[12px] md:text-[20px]" href={"/projects"}>
+            {language ? "رؤية المزيد" : "see more"}
+          </Link>
+        )}
+      </div>
       {specialCardData?.result && (
         <div className={`${isHome && "md:container md:mx-auto lg:px-0 px-[2.8vw] mx-[20px] 36"} `}>
 
-          <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
-            <h2 className="font-bold  flex text-grayText2">
-              {language ? "مشاريع" : "projects"}
-            </h2>
-            {isHome && (
-              <Link className="  text-[12px] md:text-[20px]" href={"/projects"}>
-                {language ? "رؤية المزيد" : "see more"}
-              </Link>
-            )}
-          </div>
+
 
           <div
             ref={scrollContainerRef}
