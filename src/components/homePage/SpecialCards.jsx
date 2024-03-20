@@ -45,6 +45,7 @@ const SpecialCards = ({ isHome }) => {
             className={`
              flex 
             ${specialCardData?.result.length > 2 && isHome && "justify-between"}
+            ${!isHome && "justify-center md:justify-normal"}
             ${specialCardData?.result.length > 2 && !isHome && "justify-center md:justify-between"}
       ${isHome ? ` overflow-auto no-scrollbar gap-x-6  md:px-0 px-2 py-1 `
                 : " md:flex flex-wrap  grid gap-x-6  gap-y-8 md:gap-y-16 "}    
