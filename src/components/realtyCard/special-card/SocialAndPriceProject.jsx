@@ -30,7 +30,7 @@ const SocialAndPriceProject = ({ cardDetails }) => {
     <div className="flex flex-row  items-center justify-between">
       <div className=" flex  flex-col font-bold font-inter   text-[12px] md:text-[17px]">
         <span className="font-light xs-text font-cairo text-gray2">
-          {language ? "يبدأ من" : "Starting From"}
+          {language ? " الأسعار تبدأ من" : "Starting From"}
         </span>
 
         <span className="">
