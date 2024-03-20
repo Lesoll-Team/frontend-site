@@ -58,7 +58,7 @@ const useAddProject = () => {
     };
     const formData = new FormData();
     formData.append("mainImage", data.mainImage);
-    formData.append("projectLogo", data.projectLogo);
+    data.projectLogo && formData.append("projectLogo", data.projectLogo);
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
