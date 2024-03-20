@@ -5,7 +5,7 @@ import UnitsTypeProject from "./special-card/UnitsTypeProject";
 import SocialAndPriceProject from "./special-card/SocialAndPriceProject";
 
 const SpecialCard = ({ cardDetails, isHome }) => {
-  const cardHomeStyle = "max-w-[400px] md:min-w-[380px] min-w-[300px] h-[355px]  bg-white flex flex-col md:block overflow-hidden  rounded-md  drop-shadow-md  relative"
+  const cardHomeStyle = "max-w-[400px] md:min-w-[380px] min-w-[300px]   bg-white flex flex-col md:block overflow-hidden  rounded-md  drop-shadow-md  relative"
   // const cardStyleCategory = "md:max-w-[400px] md:h-[355px] h-[145px]  flex   md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative"
 
   return (
@@ -14,7 +14,7 @@ const SpecialCard = ({ cardDetails, isHome }) => {
     >
       <ImageAndLogo isHome={isHome} cardDetails={cardDetails} />
 
-      <div className="md:p-[20px] p-3 w-full h-full flex flex-col gap-y-[12px]"
+      <div className="p-[20px] w-full h-full flex flex-col md:gap-y-[12px] gap-y-[8px]"
       >
         <TitleCard cardDetails={cardDetails} />
 

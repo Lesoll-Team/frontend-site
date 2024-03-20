@@ -5,13 +5,18 @@ const UnitsTypeProject = ({ cardDetails }) => {
     const language = useSelector((state) => state.GlobalState.languageIs);
     const countUnits = cardDetails.units?.length;
     return (
-        <div className="flex text-[#666666] items-center lg-text font-bold min-w-max gap-1 font-cairo ">
-            {cardDetails.units[0] && (
+        <div className="flex text-[#666666]  items-center lg-text font-bold min-w-max gap-1 font-cairo ">
+
+            {cardDetails.units[0] ? (
                 <span>
                     {` ${cardDetails.units[0]?.count} `}
                     {language
                         ? cardDetails.units[0]?.title.ar
                         : cardDetails.units[0]?.title.en}
+                </span>
+            ) : (
+                <span className="p-[10px]">
+
                 </span>
             )}
 
