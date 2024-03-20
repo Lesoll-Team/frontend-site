@@ -11,13 +11,6 @@ const useEditProject = () => {
     defaultValues: {
       installment: [
         {
-          type: {
-            value: "",
-            name: {
-              ar: "",
-              en: "",
-            },
-          },
           period: "",
           amount: "",
           downPayment: "",
@@ -39,11 +32,11 @@ const useEditProject = () => {
     watch,
   } = form;
   const { errors } = formState;
-
+  console.log(watch("installment"));
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     const installment = data?.installment?.map((plan) => {
       return {
-        type: plan?.type?.value || "",
         period: plan?.period || "",
         amount: plan?.amount || "",
         downPayment: plan?.downPayment || "",
