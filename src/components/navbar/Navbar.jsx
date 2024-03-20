@@ -76,6 +76,11 @@ function Navbar() {
               </Link>
             </li>
             <li>
+              <Link href="/projects">
+                {languageIs ? "المشاريع الجديدة" : "New Projects"}
+              </Link>
+            </li>
+            <li>
               <NeedsLink />
             </li>
           </ul>
