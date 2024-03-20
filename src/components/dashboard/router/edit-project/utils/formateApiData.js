@@ -27,6 +27,7 @@ export const formateApiData = (setValue, data) => {
   }
   setValue("titleAr", data?.titleAr);
   setValue("projectLogo", data?.projectLogo);
+  setValue("watermark", data?.watermark);
   setValue("titleEn", data?.titleEn);
   setValue("descriptionAr", data?.descriptionAr);
   setValue("descriptionEn", data?.descriptionEn);

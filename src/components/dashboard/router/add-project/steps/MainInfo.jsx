@@ -27,6 +27,8 @@ const MainInfo = ({
     libraries: mapLib,
   });
   const logoRef = useRef();
+  const waterMarkRef = useRef(null);
+
   return (
     <>
       <h1>
@@ -220,6 +222,26 @@ const MainInfo = ({
             onClick={() => {
               logoRef.current.value = null;
               setValue("projectLogo", "");
+            }}
+            type="button"
+          >
+            delete
+          </button>
+        </div>
+        <div className="space-y-2">
+          <p>water mark</p>
+          <input
+            ref={waterMarkRef}
+            // value={watch("projectLogo")}
+            type="file"
+            onChange={(e) => {
+              setValue("watermark", e.target.files[0]);
+            }}
+          />
+          <button
+            onClick={() => {
+              logoRef.current.value = null;
+              setValue("watermark", "");
             }}
             type="button"
           >
