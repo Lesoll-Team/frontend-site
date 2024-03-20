@@ -58,25 +58,25 @@ const useAddProject = () => {
     };
     const formData = new FormData();
     formData.append("mainImage", data.mainImage);
-    formData.append("projectLogo", data.projectLogo);
+    data.projectLogo && formData.append("projectLogo", data.projectLogo);
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
     for (let i = 0; i < installment?.length; i++) {
       formData.append("installment", JSON.stringify(installment[i]));
     }
-    formData.append("titleAr", data.titleAr);
-    formData.append("titleEn", data.titleEn);
-    formData.append("areaFrom", data.areaFrom);
-    formData.append("areaTo", data.areaTo);
-    formData.append("priceFrom", data.priceFrom);
-    formData.append("priceTo", data.priceTo);
+    formData.append("titleAr", data.titleAr || "");
+    formData.append("titleEn", data.titleEn || "");
+    formData.append("areaFrom", data.areaFrom || "");
+    formData.append("areaTo", data.areaTo || "");
+    formData.append("priceFrom", data.priceFrom || "");
+    formData.append("priceTo", data.priceTo || "");
     formData.append("address", JSON.stringify(address));
     formData.append("isCompound", data.isCompound ? true : false);
-    formData.append("descriptionAr", data.descriptionAr);
-    formData.append("descriptionEn", data.descriptionEn);
-    formData.append("aboutAr", data.aboutAr);
-    formData.append("aboutEn", data.aboutEn);
+    formData.append("descriptionAr", data.descriptionAr || "");
+    formData.append("descriptionEn", data.descriptionEn || "");
+    formData.append("aboutAr", data.aboutAr || "");
+    formData.append("aboutEn", data.aboutEn || "");
     data.isCompound && formData.append("compaounds", data.compaounds?._id);
     await dispatch(addProject(formData));
   });

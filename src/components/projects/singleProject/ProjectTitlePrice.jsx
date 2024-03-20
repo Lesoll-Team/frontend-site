@@ -25,7 +25,6 @@ const ProjectTitlePrice = ({ projectData }) => {
             />
           </div>
         )}
-
         <div className="flex flex-col gap-2 md:gap-y-4">
           <h1 className="">
             {language ? projectData.titleAr : projectData.titleEn}

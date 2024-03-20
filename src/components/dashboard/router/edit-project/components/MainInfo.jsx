@@ -26,7 +26,7 @@ const MainInfo = ({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
     libraries: mapLib,
   });
-  const logoRef = useRef();
+  const logoRef = useRef(null);
   return (
     <>
       <h1>
