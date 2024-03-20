@@ -11,9 +11,9 @@ const PropertiesCategories = dynamic(
 const LocationCategories = dynamic(
   () => import("@/components/homePage/LocationCategories")
 );
-// const SpecialCards = dynamic(
-//   () => import("../components/homePage/SpecialCards")
-// );
+const SpecialCards = dynamic(
+  () => import("../components/homePage/SpecialCards")
+);
 
 const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome")
@@ -33,9 +33,7 @@ const Home = ({ bestSearch }) => {
         <OtherCards />
       </div>
       <PropertiesCategories isHome />
-
       <LocationCategories />
-
       <BestLinksInHome
         PopularSearches={bestSearch?.POPULAR_SEARCHES}
         MostArea={bestSearch?.Most_Area}

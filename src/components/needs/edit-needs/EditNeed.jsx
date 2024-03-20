@@ -71,9 +71,8 @@ const EditNeed = ({ data }) => {
       <form
         noValidate
         onSubmit={onSubmit}
-        className={`min-h-[88dvh]  py-10 px-5  md:px-0   ${
-          sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
-        }`}
+        className={`min-h-[88dvh]  py-10 px-5  md:px-0   ${sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
+          }`}
       >
         {formStatus === "success" ? (
           <div className="container mx-auto">

@@ -19,7 +19,7 @@ const OtherCards = () => {
           <p className="font-semibold text-gray2 md:text-[18px] lg-text">
             {language
               ? "يمكنك الان عرض عقارك للبيع او الإيجار على ليسول بخطوات بسيطة"
-              : "You can now list your property for sale or rent on Lysol in simple steps"}
+              : "You can now list your property for sale or rent on Lesoll in simple steps"}
           </p>
         </label>
         <Image
@@ -28,7 +28,7 @@ const OtherCards = () => {
           width={100}
           height={100}
           radius="none"
-          priority={false}
+          loading="lazy"
           className=" md:w-[100px] lg:w-[130px] w-[50px]"
         />
       </Link>
@@ -39,7 +39,7 @@ const OtherCards = () => {
       >
         <label className="min-w-[70%] cursor-pointer">
           <h2 className="text-[#0F3963]  font-bold">
-            {language ? "حدد طلبك" : "Select your order"}
+            {language ? "أطلب عقارك الأن" : "Request your property now"}
           </h2>
           <p className="font-semibold text-gray2  md:text-[18px] lg-text">
             {language
@@ -53,13 +53,12 @@ const OtherCards = () => {
           width={100}
           height={100}
           radius="none"
-          priority={false}
+          loading="lazy"
           className=" md:w-[100px] lg:w-[130px] w-[50px]"
         />
       </Link>
     </Fragment>
   );
 };
-//background: linear-gradient(180deg, rgba(154, 204, 229, 0.16) 0%, rgba(110, 207, 255, 0.03) 100%);
 
 export default memo(OtherCards);

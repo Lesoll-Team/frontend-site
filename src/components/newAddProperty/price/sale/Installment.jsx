@@ -18,6 +18,7 @@ const INSTALLMENT = {
   period: "",
   amount: "",
   downPayment: "",
+  ProjectPercentage: "",
   discount: "",
 };
 const Installment = ({

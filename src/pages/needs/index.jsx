@@ -1,9 +1,16 @@
 import NeedsFeed from "@/components/needs/needFeed/NeedsFeed";
 import axios from "axios";
+import Head from "next/head";
+import { useSelector } from "react-redux";
 
 const NeedsPage = ({ data, keyword }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="min-h-[85dvh]">
+      <Head>
+        <title>{language ? "الطلبات" : "Needs"}</title>
+      </Head>
       <NeedsFeed data={data} keyword={keyword} />
     </div>
   );

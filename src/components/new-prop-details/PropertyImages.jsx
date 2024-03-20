@@ -45,7 +45,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         <div
           role="button"
           onClick={() => openLightbox(0)}
-          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden"
+          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-300 "
         >
           <Image
             priority
@@ -53,14 +53,14 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             height={1000}
             alt={propertyData.title}
             src={propertyData?.thumbnail}
-            className="rounded-md  object-cover"
+            className=" object-cover"
           />
         </div>
       </div>
       <div
         role="button"
         onClick={() => openLightbox(1)}
-        className="flex w-full rounded-md drop-shadow-md h-full overflow-hidden"
+        className="flex w-full rounded-md max-h-[100px] md:max-h-full bg-gray-300 drop-shadow-md h-full overflow-hidden items-stretch"
       >
         <Image
           priority
@@ -68,13 +68,13 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[0]?.image}
-          className="rounded-md object-cover"
+          className="object-cover "
         />
       </div>
       <div
         role="button"
         onClick={() => openLightbox(2)}
-        className="flex w-full h-full drop-shadow-md overflow-hidden"
+        className="flex w-full h-full drop-shadow-md max-h-[100px] md:max-h-full overflow-hidden bg-gray-300 rounded-md items-stretch"
       >
         <Image
           priority
@@ -82,16 +82,15 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[1]?.image}
-          className="rounded-md object-cover"
+          className=" object-cover"
         />
       </div>
 
       <div
         role="button"
         onClick={() => openLightbox(3)}
-        className={`flex relative drop-shadow-md rounded-md justify-center items-center w-full h-full overflow-hidden ${
-          imagesLessThanFour && "md:col-span-2"
-        }`}
+        className={`flex relative drop-shadow-md max-h-[100px] md:max-h-full rounded-md justify-center  w-full h-full overflow-hidden bg-gray-300 items-stretch ${imagesLessThanFour && "md:col-span-2"
+          }`}
       >
         {showMoreImages && (
           <span className="md:hidden absolute z-[2] text-white underline">
@@ -106,17 +105,17 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           height={1000}
           alt={propertyData.title}
           src={propertyData?.album[2]?.image}
-          className="rounded-md brightness-75 object-cover md:brightness-100 "
+          className="rounded-md brightness-75 object-cover bg-gray-300 md:brightness-100 "
         />
       </div>
 
       {!imagesLessThanFour && (
         <div
           onClick={() => openLightbox(4)}
-          className=" drop-shadow-md md:flex hidden relative items-center justify-center overflow-hidden rounded-md w-full h-full"
+          className=" drop-shadow-md md:flex hidden relative justify-center overflow-hidden rounded-md w-full h-full bg-gray-300 items-stretch"
         >
           {showMoreImages && (
-            <span className="underline absolute lg:text-xl font-medium text-white text-center z-[2]">
+            <span className="underline cursor-pointer absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:text-xl font-medium text-white text-center z-[2]">
               {language ? "مشاهدة جميع الصور" : "Show all images"}{" "}
             </span>
           )}
@@ -127,7 +126,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             height={1000}
             alt={propertyData.title}
             src={propertyData.album[3]?.image || "/image-placeholder.svg"}
-            className="rounded-md brightness-50"
+            className="rounded-md brightness-50 object-cover"
           />
         </div>
       )}

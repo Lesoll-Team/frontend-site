@@ -5,6 +5,7 @@ import Installment from "./Installment";
 import { useCallback } from "react";
 import Cash from "./Cash";
 import Error from "@/Shared/ui/Error";
+import AdminInsatllment from "./AdminInstallment";
 
 const Sale = ({
   errors,
@@ -18,6 +19,8 @@ const Sale = ({
   remove,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const userData = useSelector((state) => state.userProfile.userData);
+
   const selectedSaleOption = useCallback(() => {
     const selectedOption = watch("saleOption.value");
     if (selectedOption.length > 0) {
@@ -32,19 +35,35 @@ const Sale = ({
           />
         );
       } else if (selectedOption[0] === "Installment") {
-        return (
-          <Installment
-            fields={fields}
-            append={append}
-            remove={remove}
-            control={control}
-            errors={errors}
-            clearErrors={clearErrors}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        );
+        if (userData.email === "info@lesoll.com" && userData.isAdmin) {
+          return (
+            <AdminInsatllment
+              fields={fields}
+              append={append}
+              remove={remove}
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        } else {
+          return (
+            <Installment
+              fields={fields}
+              append={append}
+              remove={remove}
+              control={control}
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          );
+        }
       }
     }
   }, [watch("saleOption.value")]);

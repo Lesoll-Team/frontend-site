@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import useFromatAddData from "@/Hooks/addProperty/useFromatAddData";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatApiData } from "../utils/fromateApiData";
 import { editProperty } from "../redux/editPropertSlice";
 import { editFormData } from "../utils/editFormData";
 import { scrollToTop } from "@/utils/scrollToTop";
+import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 const useEditProperty = (data) => {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const form = useForm();
+  const projects = useSelector((state) => state.getProjects.projects.data);
+  const projectList =
+    projects &&
+    projects?.Property?.map((item) => {
+      return {
+        value: item._id,
+        name: { ar: item.titleAr, en: item.titleEn },
+      };
+    });
   const {
     handleSubmit,
     control,
@@ -21,8 +31,17 @@ const useEditProperty = (data) => {
     watch,
   } = form;
   useEffect(() => {
-    formatApiData({ setValue: setValue, data: data });
+    formatApiData({ setValue: setValue, data: data, projectList: projectList });
   }, []);
+  useEffect(() => {
+    dispatch(getAllProjects());
+  }, []);
+  useEffect(() => {
+    const crruntProject = projectList?.find(
+      (item) => item.value === data.ProjectID
+    );
+    setValue("ProjectID", crruntProject);
+  }, [projects]);
   const { errors, isSubmitting, isSubmitSuccessful } = formState;
   // const { fields, append, remove } = useFieldArray({
   //   name: "installment",

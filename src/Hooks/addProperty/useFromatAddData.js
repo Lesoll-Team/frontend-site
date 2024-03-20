@@ -13,6 +13,7 @@ const useFromatAddData = (data) => {
       amount: plan.amount || "",
       downPayment: plan.downPayment || "",
       discount: plan.discount || "",
+      ProjectPercentage: plan.ProjectPercentage || "",
     };
   });
   const saleOption = data.saleOption.value.map((item) => {

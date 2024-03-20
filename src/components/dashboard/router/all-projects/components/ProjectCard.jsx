@@ -26,13 +26,13 @@ const ProjectCard = ({ data }) => {
               {language ? data?.titleAr : data?.titleEn}
             </h3>
             <p className="line-clamp-2 text-outLine break-all">
-              {data.description}
+              {language ? data.descriptionAr : data.descriptionEn}
             </p>
           </div>
           <div className="flex w-full gap-2">
             <Link
               className="w-full bg-gray-300 rounded-md text-center py-1"
-              href={`/dashboard/edit-project/${data?.titleAr}`}
+              href={`/dashboard/edit-project/${data?.slug}`}
             >
               {language ? "تعديل" : "Edit"}
             </Link>

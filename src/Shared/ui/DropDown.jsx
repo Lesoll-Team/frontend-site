@@ -79,11 +79,11 @@ const DropDown = ({
         ref={dropdownButtonRef}
         onClick={handleMenuOpen}
         onKeyDown={handleKeyDown}
-        className={`w-full font-semibold outline-none  h-12  flex items-center justify-between gap-6 focus:border-lightGreen bg-white border-2 rounded-md px-4 py-3 whitespace-nowrap ${
+        className={`w-full font-semibold outline-none overflow-hidden  h-12  flex items-center justify-between  focus:border-lightGreen bg-white border-2 rounded-md px-4 py-3  ${
           disabled && "bg-slate-200"
         } ${error && "border-red-500 focus:border-red-500"}`}
       >
-        <p className="text-sm">
+        <p className="text-sm line-clamp-1 overflow-hidden">
           {selected ? (language ? selected?.name?.ar : selected?.name?.en) : ""}
         </p>
 

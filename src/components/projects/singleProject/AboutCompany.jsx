@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const AboutCompany = ({ projectData }) => {
+const AboutCompany = ({ projectData, wow }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const descriptionLinesNumbers = projectData.about.split("\n").length;
+  const descriptionLinesNumbers = language
+    ? projectData.aboutAr.split("\n").length
+    : projectData.aboutEn.split("\n").length;
 
   return (
     <section className="md:space-y-[30px] space-y-[16px]">
@@ -17,7 +19,7 @@ const AboutCompany = ({ projectData }) => {
           className="text-xs sm:text-base md:text-[25px] font-inter text-baseGray break-all"
           style={{ lineHeight: "1.7" }}
         >
-          {projectData.about
+          {projectData.aboutAr
             .trim()
             .split("\n")
             .slice(0, showFullDescription ? descriptionLinesNumbers : 3)
@@ -39,8 +41,8 @@ const AboutCompany = ({ projectData }) => {
                 ? " رؤية الاقل"
                 : "See less"
               : language
-              ? "رؤية المزيد"
-              : "show more"}
+                ? "رؤية المزيد"
+                : "show more"}
           </button>
         )}
       </div>
