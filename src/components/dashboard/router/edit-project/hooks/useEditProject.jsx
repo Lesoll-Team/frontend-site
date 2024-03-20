@@ -60,6 +60,7 @@ const useEditProject = () => {
     };
     const formData = new FormData();
     data?.mainImage && formData.append("mainImage", data.mainImage);
+    data?.projectLogo && formData.append("projectLogo", data.projectLogo || "");
     for (let i = 0; i < data?.multiImage?.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
@@ -73,15 +74,15 @@ const useEditProject = () => {
     }
     formData.append("titleAr", data.titleAr);
     formData.append("titleEn", data.titleEn);
-    formData.append("areaFrom", data.areaFrom);
-    formData.append("areaTo", data.areaTo);
-    formData.append("priceFrom", data.priceFrom);
-    formData.append("priceTo", data.priceTo);
+    formData.append("areaFrom", data.areaFrom || "");
+    formData.append("areaTo", data.areaTo || "");
+    formData.append("priceFrom", data.priceFrom || "");
+    formData.append("priceTo", data.priceTo || "");
     formData.append("address", JSON.stringify(address));
-    formData.append("descriptionAr", data.descriptionAr);
-    formData.append("descriptionEn", data.descriptionEn);
-    formData.append("aboutAr", data.aboutAr);
-    formData.append("aboutEn", data.aboutEn);
+    formData.append("descriptionAr", data.descriptionAr || "");
+    formData.append("descriptionEn", data.descriptionEn) || "";
+    formData.append("aboutAr", data.aboutAr || "");
+    formData.append("aboutEn", data.aboutEn || "");
     formData.append("isCompound", data.isCompound);
     data.isCompound && formData.append("compaounds", data.compaounds?._id);
     await dispatch(editProject({ data: formData, id: data.id }));

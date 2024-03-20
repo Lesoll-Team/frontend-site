@@ -25,7 +25,6 @@ const ProjectTitlePrice = ({ projectData }) => {
             />
           </div>
         )}
-
         <div className="flex flex-col gap-2 md:gap-y-4">
           <h1 className="">
             {language ? projectData.titleAr : projectData.titleEn}
@@ -38,7 +37,7 @@ const ProjectTitlePrice = ({ projectData }) => {
                 {language ? "ج.م " : "Egp "}
               </h2>
             </div>
-            {!!projectData.priceTo && (
+            {projectData.priceTo && (
               <div className="hidden md:flex gap-4  items-center">
                 <p>{language ? " إلى:" : "To:"}</p>
                 <h2>
