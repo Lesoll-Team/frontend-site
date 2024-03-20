@@ -228,7 +228,7 @@ const MainInfo = ({
             delete
           </button>
         </div>
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <p>water mark</p>
           <input
             ref={waterMarkRef}
@@ -247,7 +247,7 @@ const MainInfo = ({
           >
             delete
           </button>
-        </div>
+        </div> */}
         <PropertyImages
           errors={errors}
           register={register}
