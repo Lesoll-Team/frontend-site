@@ -25,9 +25,9 @@ const SpecialCards = ({ isHome }) => {
     fetchData();
   }, []);
   return (
-    <div className="relative   xl:container xl:mx-auto mx-[15px]">
+    <div className={`relative  xl:container xl:mx-auto ${isHome && "mx-[15px]"}`}>
       {specialCardData?.result && (
-        <div className="md:container md:mx-auto lg:px-0 px-[2.8vw] mx-[20px] ">
+        <div className={`${isHome && "md:container md:mx-auto lg:px-0 px-[2.8vw] mx-[20px] 36"} `}>
 
           <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
             <h2 className="font-bold  flex text-grayText2">
@@ -44,7 +44,8 @@ const SpecialCards = ({ isHome }) => {
             ref={scrollContainerRef}
             className={`
              flex 
-            ${specialCardData?.result.length > 2 && "justify-between"}
+            ${specialCardData?.result.length > 2 && isHome && "justify-between"}
+            ${specialCardData?.result.length > 2 && !isHome && "justify-center md:justify-between"}
       ${isHome ? ` overflow-auto no-scrollbar gap-x-6  md:px-0 px-2 py-1 `
                 : " md:flex flex-wrap  grid gap-x-6  gap-y-8 md:gap-y-16 "}    
         `}

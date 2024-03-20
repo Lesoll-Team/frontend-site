@@ -6,18 +6,18 @@ import { useSelector } from 'react-redux';
 
 const SocialAndPriceProject = ({ cardDetails }) => {
     const language = useSelector((state) => state.GlobalState.languageIs);
-
+    console.log(cardDetails)
     const phone = useMemo(() => {
         if (cardDetails.connectPhoneNumber) {
             return cardDetails.connectPhoneNumber;
         } else {
-            return cardDetails?.user?.code + cardDetails?.user?.phone;
+            return cardDetails?.owner?.code + cardDetails?.owner?.phone;
         }
     }, [cardDetails]);
     const message = useMemo(() => (
         language
-            ? `مهتم بمعرفة المزيد عن هذا العقار https://lesoll.com/property-details/${cardDetails?.slug}`
-            : `Interested in knowing more about this property https://lesoll.com/property-details/${cardDetails?.slug}`
+            ? `مهتم بمعرفة المزيد عن هذا العقار https://lesoll.com/projects/${cardDetails?.slug}`
+            : `Interested in knowing more about this property https://lesoll.com/projects/${cardDetails?.slug}`
     ), [language, cardDetails]);
     const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
         phoneNumber: phone,
