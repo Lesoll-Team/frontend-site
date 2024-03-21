@@ -11,7 +11,23 @@ export const formateApiData = (setValue, data) => {
     longitude: data?.longitude || "",
     latitude: data?.latitude || "",
   };
+  // console.log(data?.installment?.length);
+  if (data?.installment?.length > 0) {
+    setValue("installment", data?.installment);
+  } else {
+    setValue("installment", [
+      {
+        period: "",
+        amount: "",
+        downPayment: "",
+        discount: "",
+        ProjectPercentage: "",
+      },
+    ]);
+  }
   setValue("titleAr", data?.titleAr);
+  setValue("projectLogo", data?.projectLogo);
+  // setValue("watermark", data?.watermark);
   setValue("titleEn", data?.titleEn);
   setValue("descriptionAr", data?.descriptionAr);
   setValue("descriptionEn", data?.descriptionEn);
@@ -21,11 +37,11 @@ export const formateApiData = (setValue, data) => {
   setValue("compaounds", compaounds);
   setValue("isCompound", data?.isCompound);
   setValue("thumbnail", data?.thumbnail);
+  setValue("cashPercentage", data?.cashPercentage);
   setValue("album", data?.album);
   setValue("areaFrom", data?.areaFrom);
   setValue("areaTo", data?.areaTo);
   setValue("priceFrom", data?.priceFrom);
   setValue("priceTo", data?.priceTo);
-  setValue("installment", data?.installment);
   setValue("id", data?._id);
 };
