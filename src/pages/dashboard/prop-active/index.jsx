@@ -18,7 +18,7 @@ function PropActive() {
         <title>Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
+      <div className="  sticky top-0">
         <Sidebar />
       </div>
       <div className="overflow-x-auto w-full overflow-y-hidden">

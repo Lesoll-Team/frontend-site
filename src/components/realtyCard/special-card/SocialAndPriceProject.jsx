@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const SocialAndPriceProject = ({ cardDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(cardDetails);
+  // console.log(cardDetails);
   const phone = useMemo(() => {
     if (cardDetails.connectPhoneNumber) {
       return cardDetails.connectPhoneNumber;

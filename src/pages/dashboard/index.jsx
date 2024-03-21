@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
@@ -13,7 +13,7 @@ import {
   BarElement,
   ArcElement,
 } from "chart.js";
-import { Line, Bar, Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -254,7 +254,7 @@ function Dashboard() {
       </Head>
 
       <div className="relative">
-        <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
+        <div className="  sticky top-0">
           <Sidebar />
         </div>
       </div>

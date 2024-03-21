@@ -13,12 +13,13 @@ import {
   TableCell,
   Pagination,
   Input,
-  Image,
+  // Image,
 } from "@nextui-org/react";
 
 import { SearchIcon } from "../icon/SearchIcon";
 import { useSelector } from "react-redux";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
+import Image from "next/image";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -164,9 +165,9 @@ export default function PropertyDashboard() {
           <div className="w-[200px]">
             <Image
               width={200}
-              // height={2000}
+              height={200}
               src={blog.thumbnail}
-              fallbackSrc="https://via.placeholder.com/2  00x200"
+              className=" min-w-[100px] w-[100px] h-[100px]"
               alt="NextUI Image with fallback"
             />
           </div>

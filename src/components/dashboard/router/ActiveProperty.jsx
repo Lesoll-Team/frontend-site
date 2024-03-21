@@ -13,17 +13,14 @@ import {
   TableRow,
   TableCell,
   Pagination,
-  Input,
-  Button,
-  Image,
 } from "@nextui-org/react";
-import { SearchIcon } from "../icon/SearchIcon";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import { propertyIsSold } from "@/utils/propertyAPI";
+import Image from "next/image";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -201,10 +198,11 @@ export default function ActiveProperty() {
           <div className=" flex min-w-[150px] max-w-[200px]">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <Image
-                width={200}
-                // height={2000}
+                width={100}
+                height={100}
+                style={{ objectFit: "cover" }}
+                className="min-w-[100px] w-[100px] h-[100px]"
                 src={blog.thumbnail}
-                fallbackSrc="https://via.placeholder.com/2  00x200"
                 alt="NextUI Image with fallback"
               />
             </Link>
@@ -301,22 +299,18 @@ export default function ActiveProperty() {
                 fetchAllProperties(startDate, endDate); // Call your search function
               }}
             >
-              <Input
-                isClearable
-                className="w-full bg-white rounded-lg"
-                name="search"
+              <input
+                className="w-full bg-white rounded-lg p-2 indent-3"
                 placeholder="phone, email ,full name,type Of User..."
-                label="Search For All Users"
-                size="sm"
-                startContent={<SearchIcon className="text-default-300" />}
                 value={filterValue}
-                variant="bordered"
-                onClear={() => setFilterValue("")}
                 onChange={(e) => onSearchChange(e.target.value)}
               />
-              <Button color="primary" type="submit">
+              <button
+                className="bg-blue-600 text-white p-2 rounded-md"
+                type="submit"
+              >
                 Search
-              </Button>
+              </button>
             </form>
             <div className=" flex justify-center flex-wrap mt-3">
               <div className="flex  mx-2 items-center">
