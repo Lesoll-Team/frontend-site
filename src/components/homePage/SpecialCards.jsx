@@ -48,7 +48,7 @@ const SpecialCards = ({ isHome }) => {
       </div>
       {specialCardData?.result && (
         <div
-          className={`${isHome && "md:container md:mx-auto lg:px-0 px-[2.8vw] mx-[20px] 36"} `}
+          className={`${isHome && "md:container md:mx-auto lg:px-0 px-[2.8vw] mx-[20px]"} `}
         >
           <div
             ref={scrollContainerRef}

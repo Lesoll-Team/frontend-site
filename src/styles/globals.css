@@ -44,17 +44,6 @@ html {
     @apply text-[17px] md:text-[19px] font-bold text-gray2;
   }
 
-  /* h4 {
-    @apply text-[19px] md:text-[30px] lg:text-[39px] xl:text-[43px] 2xl:text-[46px];
-  }
-
-  h5 {
-    @apply text-[19px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[31px];
-  }
-
-  h6 {
-    @apply text-[14px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[25px];
-  } */
 
   p,
   ul {
@@ -70,12 +59,15 @@ html {
 .sm-text {
   @apply text-[12px] md:text-[13px];
 }
+
 .xs-text {
   @apply text-[12px];
 }
+
 .display-text {
   @apply text-2xl md:text-4xl;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -108,11 +100,6 @@ html {
   background-size: 1em;
 }
 
-.line-break {
-  width: 90px;
-  height: 2px;
-  background-color: rgb(200, 200, 200);
-}
 
 .shadow:hover {
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -124,7 +111,6 @@ body {
 }
 
 input[type="radio"] {
-  /* display: none; */
   background-color: #000;
   border-radius: 10%;
 }
@@ -155,10 +141,9 @@ input[type="radio"] {
   color: #309da0;
   font-weight: 500;
   font-size: 18px;
-  width: 33%;
 }
 
-.usersinput:checked + .userslabel {
+.usersinput:checked+.userslabel {
   background-color: #309da0;
   color: #fff;
 }
@@ -170,18 +155,9 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
 
-footer {
-  background-color: #fff;
-  z-index: 0;
-  -webkit-box-shadow: 0px -6px 16px -4px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px -6px 16px -4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px -6px 16px -4px rgba(0, 0, 0, 0.2);
-}
+
+
 
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
@@ -240,10 +216,6 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-.radio {
-  display: none;
-}
-
 .label {
   cursor: pointer;
   background-color: #fff;
@@ -261,36 +233,30 @@ input[type="search"]::-webkit-search-cancel-button {
   color: #fff;
 }
 
-#lang-1:checked ~ label {
+#lang-1:checked~label {
   background-color: #309da0;
   color: #fff;
 }
 
-#lang-2:checked ~ label {
+#lang-2:checked~label {
   background-color: #309da0;
   color: #fff;
 }
 
 .form-control {
   width: 100% !important;
-  /* height: 50px !important; */
   border: #ebeaea solid 3px !important;
   border-radius: 10px;
   color: rgb(104, 7, 60);
 }
 
-.form-control::placeholder {
-  font-size: 18px;
-  color: #309da0;
-}
+
 
 .react-tel-input {
   background-color: transparent;
 }
 
-.react-tel-input:focus {
-  /* margin-top: 5px !important; */
-}
+
 
 .form-control:focus {
   border: #309da0 solid 1px !important;
@@ -302,48 +268,31 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .map {
-  /* width: 50%; */
   height: 100%;
   border-radius: 15px;
 }
 
-/* date picker hours dropdown */
 .react-datepicker__time-container {
   width: 100% !important;
-  /* Adjust the width as needed */
 }
 
-.react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list {
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list
-  li.react-datepicker__time-list-item {
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
   padding: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list
-  li.react-datepicker__time-list-item:hover {
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
   background-color: #309da0 !important;
 }
 
-.react-datepicker__time-container {
-  width: 150px;
-  /* Adjust the width as needed */
-}
 
 @media (max-width: 500px) {
   .splide {
@@ -361,16 +310,12 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .gm-style .gm-style-iw-c {
   border-radius: 30px !important;
-  padding-right: 0 !important;
   padding: 0 !important;
-  /* padding: 5px !important; */
 }
 
-.gm-style-iw-d {
-  padding-bottom: 0px !important;
-}
 
-.gm-style-iw + button {
+
+.gm-style-iw+button {
   display: none !important;
 }
 

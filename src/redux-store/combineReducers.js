@@ -6,7 +6,7 @@ import contactReducer from "./features/contactSlice";
 // import compareReducer from './features/compareSlice';
 // import overViewReducer from "./features/dashboard/overViewSlice";
 // overViewSlice
-import searchingReducer from "./features/searchingSlice";
+// import searchingReducer from "./features/searchingSlice";
 import profileReducer from "./features/profileSlice";
 import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
@@ -37,7 +37,7 @@ export default combineReducers({
   Contact: contactReducer,
   BlogDashboard: blogDashboardReducer,
   OverView: overViewReducer,
-  Searching: searchingReducer,
+  // Searching: searchingReducer,
   Profile: profileReducer,
   // register: registerReducer,
   login: loginReducer,
