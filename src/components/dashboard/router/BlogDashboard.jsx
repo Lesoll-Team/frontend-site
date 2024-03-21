@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Input, Button } from "@nextui-org/react";
-import AddBlogModule from "../model/blogs/AddBlogModule";
 import {
   deleteOneBlog,
   getAllBlogs,
@@ -13,29 +11,20 @@ import {
   TableRow,
   TableCell,
   Pagination,
-  Image,
 } from "@nextui-org/react";
-import {
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
-import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import EditBlogModule from "../model/blogs/EditBlogModule";
+import Image from "next/image";
 import { PlusIcon } from "../icon/PlusIcon";
-
+import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 const columns = [
   { name: "Image", uid: "BlogImage" },
-  { name: "ID", uid: "_id" }, //, sortable: true
+  // { name: "ID", uid: "_id" }, //, sortable: true
   { name: "Title", uid: "title" }, //, sortable: true
   { name: "ACTIONS", uid: "actions" },
 ];
 export default function BlogDashboard() {
-  // const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const router = useRouter();
@@ -108,86 +97,49 @@ export default function BlogDashboard() {
     switch (columnKey) {
       case "title":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-tiny capitalize text-default-500">
+          <div className="hidden md:flex flex-col min-w-[200px]">
+            <p className="text-bold text-tiny line-clamp-1 md:line-clamp-2 capitalize text-default-500">
               {blog.title.ar}
-            </p>
-            <p className="text-bold text-tiny capitalize text-default-500">
-              {blog.title.en}
             </p>
           </div>
         );
       case "BlogImage":
         return (
           <Image
-            width={200}
-            height={200}
-            src={blog.BlogImage || ""}
-            fallbackSrc="https://via.placeholder.com/300x200"
+            width={100}
+            height={100}
+            src={blog.BlogImage}
+            style={{ objectFit: "cover" }}
+            className="min-w-[100px] w-[100px] h-[100px]"
             alt="NextUI Image with fallback"
           />
         );
       case "actions":
         return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown
-              aria-label="Options Menu Blog"
-              // aria-label="Options Menu Blog"
-              // aria-labelledbyl="Options Menu Blog"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
-                aria-label="Open Options Menu"
-                // aria-label="Options Menu Blog"
-                // aria-labelledby="Options Menu Blog"
-              >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Blog Options Menu"
-                // aria-label="Options Menu Blog"
-                // aria-labelledby="Options Menu Blog"
-              >
-                <DropdownItem
-                  textValue="Delete Blog"
-                  onClick={() => handleDeleteBlog(blog._id)}
-                >
-                  Delete
-                </DropdownItem>
-                <DropdownItem
-                  textValue="View Blog"
-                  onClick={() =>
-                    router.push(
-                      `/blog/${language ? blog.slug.ar : blog.slug.en}`
-                    )
-                  }
-                >
-                  View
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-            {/* <EditBlogModule blogData={blog} blogID={blog._id}/> */}
-            <Button
-              className=" text-white font-semibold"
-              color="warning"
-              onClick={() =>
-                router.push(
-                  `/dashboard/blog/edit-blog/${
-                    language ? blog.slug.ar : blog.slug.en
-                  }`
-                )
-              }
-            >
-              Edit Blog
-            </Button>
-          </div>
-        );
-      case "_id":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold  capitalize">{blog._id}</p>
+          <div className=" flex justify-end fixed">
+            <DropdownAction iconIs={<VerticalDotsIcon />}>
+              <ItemDropdown
+                label={"View"}
+                href={`/blog/${language ? blog.slug?.ar : blog.slug?.en}`}
+                action={null}
+                id={blog._id}
+              />
+              <ItemDropdown
+                label={"Edit"}
+                href={`/dashboard/blog/edit-blog/${
+                  language ? blog.slug.ar : blog.slug.en
+                }`}
+                action={null}
+                id={blog._id}
+              />
+              <ItemDropdown
+                label={"Delete"}
+                href={null}
+                action={() => handleDeleteBlog(blog._id)}
+                title="تأكيد مسح العقار "
+                description="  تأكيد مسح العقار  الى الارشيف "
+              />
+            </DropdownAction>
           </div>
         );
     }
@@ -210,32 +162,24 @@ export default function BlogDashboard() {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
-          <Input
-            isClearable
+        <div className="flex md:flex-row flex-col justify-between gap-3 items-end">
+          <input
+            type="search"
             name="search"
-            classNames={{
-              base: "w-full sm:max-w-[44%]",
-              inputWrapper: "border-1",
-            }}
+            className=" w-full sm:max-w-[44%] border-1 p-1 rounded-md"
             placeholder="Search by name..."
             size="sm"
-            startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
-            variant="bordered"
-            onClear={() => setFilterValue("")}
-            onValueChange={onSearchChange}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
           <div className="flex gap-3">
-            {/* <AddBlogModule /> */}
-            <Button
-              className="bg-foreground text-background"
-              endContent={<PlusIcon />}
-              size="sm"
-              onPress={() => router.push("/dashboard/blog/add-blog")}
+            <button
+              className=" flex items-center border-1 border-black p-2  rounded-md "
+              onClick={() => router.push("/dashboard/blog/add-blog")}
             >
+              <PlusIcon />
               Add New Blog
-            </Button>
+            </button>
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -243,7 +187,7 @@ export default function BlogDashboard() {
             Total {blogs.length} blogs
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            Rows per page:{" "}
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -328,9 +272,9 @@ export default function BlogDashboard() {
       </TableHeader>
       <TableBody emptyContent={"No blogs found"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item._id}>
+          <TableRow className="" key={item._id}>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell className="">{renderCell(item, columnKey)}</TableCell>
             )}
           </TableRow>
         )}

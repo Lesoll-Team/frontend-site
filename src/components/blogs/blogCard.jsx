@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { BsBoxArrowInDownRight } from "react-icons/bs";
 import { LiaEdit } from "react-icons/lia";
+import Image from "next/image";
 
 function BlogCard({ blogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -63,7 +63,7 @@ function BlogCard({ blogData }) {
                 </div>
                 {language ? "قراءة المزيد" : "read more"}
               </Link>
-              {isAdmin ? (
+              {isAdmin && (
                 <Link
                   title={language ? item.title.ar : item.title.en}
                   href={`/dashboard/blog/edit-blog/${
@@ -73,7 +73,7 @@ function BlogCard({ blogData }) {
                 >
                   <LiaEdit className="text-2xl" />
                 </Link>
-              ) : null}
+              )}
             </div>
           </div>
         </div>
