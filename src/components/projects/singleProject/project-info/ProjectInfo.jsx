@@ -24,11 +24,13 @@ const ProjectInfo = ({ projectData }) => {
           onClick={openLightbox}
           src={"/projects-icons/images.svg"}
           title={language ? "الصور" : "Images"}
+          alt={"Images Icon"}
         />
         <InfoCard
           onClick={openDirectionsInGoogleMaps}
           src={"/projects-icons/map.svg"}
           title={language ? " على الخريطة" : "Show on map"}
+          alt={"Map Icon"}
         />
       </div>
     </div>

@@ -50,7 +50,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             priority
             width={1400}
             height={1000}
-            alt={propertyData.title}
+            alt={propertyData?.title || propertyData?.titleAr}
             src={propertyData?.thumbnail}
             className=" object-cover"
           />
@@ -65,7 +65,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           priority
           width={1400}
           height={1000}
-          alt={propertyData.title}
+          alt={propertyData?.title || propertyData?.titleAr}
           src={propertyData?.album[0]?.image}
           className="object-cover "
         />
@@ -79,7 +79,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           priority
           width={1400}
           height={1000}
-          alt={propertyData.title}
+          alt={propertyData?.title || propertyData?.titleAr}
           src={propertyData?.album[1]?.image}
           className=" object-cover"
         />
@@ -88,8 +88,9 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       <div
         role="button"
         onClick={() => openLightbox(3)}
-        className={`flex relative drop-shadow-md max-h-[100px] md:max-h-full rounded-md justify-center  w-full h-full overflow-hidden bg-gray-300 items-stretch ${imagesLessThanFour && "md:col-span-2"
-          }`}
+        className={`flex relative drop-shadow-md max-h-[100px] md:max-h-full rounded-md justify-center  w-full h-full overflow-hidden bg-gray-300 items-stretch ${
+          imagesLessThanFour && "md:col-span-2"
+        }`}
       >
         {showMoreImages && (
           <span className="md:hidden absolute z-[2] text-white underline">
@@ -102,7 +103,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           priority
           width={1400}
           height={1000}
-          alt={propertyData.title}
+          alt={propertyData?.title || propertyData?.titleAr}
           src={propertyData?.album[2]?.image}
           className="rounded-md brightness-75 object-cover bg-gray-300 md:brightness-100 "
         />
@@ -123,7 +124,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             priority
             width={1400}
             height={1000}
-            alt={propertyData.title}
+            alt={propertyData?.title || propertyData?.titleAr}
             src={propertyData.album[3]?.image || "/image-placeholder.svg"}
             className="rounded-md brightness-50 object-cover"
           />

@@ -16,7 +16,7 @@ const ProjectContactForm = ({ className, projectData }) => {
   const dispatch = useDispatch();
   const projectList =
     projects &&
-    projects?.Property?.map((item) => {
+    projects?.result?.map((item) => {
       return {
         value: item._id,
         name: { ar: item.titleAr, en: item.titleEn },

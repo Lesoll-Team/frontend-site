@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const InfoCard = ({ src, title, onClick }) => {
+const InfoCard = ({ src, title, onClick, alt }) => {
   return (
     <div
       role="button"
@@ -12,6 +12,7 @@ const InfoCard = ({ src, title, onClick }) => {
         width={40}
         height={40}
         className="md:w-[40px] md:h-[40px] h-[25px] w-[25px]"
+        alt={alt}
       />
       <p className="text-black">{title}</p>
     </div>

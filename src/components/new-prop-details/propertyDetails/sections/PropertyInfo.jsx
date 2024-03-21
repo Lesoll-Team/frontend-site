@@ -88,7 +88,7 @@ const PropertyInfo = ({ propertyData }) => {
             : propertyData?.unitType?.title?.en
         }
       />
-      {!isLand && (
+      {!isLand && !!propertyData?.rooms && (
         <InfoCard
           icon={<LiaBedSolid />}
           title={language ? " الغرف" : "Rooms"}
@@ -100,7 +100,7 @@ const PropertyInfo = ({ propertyData }) => {
         title={language ? "العرض" : "Offer"}
         info={offer}
       />
-      {!isLand && (
+      {!isLand && !!propertyData?.bathRooms && (
         <InfoCard
           icon={<PiBathtub />}
           title={language ? "الحمامات" : "Bathrooms"}
@@ -115,11 +115,13 @@ const PropertyInfo = ({ propertyData }) => {
       {!isLand && (
         <>
           {" "}
-          <InfoCard
-            icon={<PiPaintBrushBroad />}
-            title={language ? "التشطيب" : "Finishing"}
-            info={finishingType}
-          />
+          {finishingType && (
+            <InfoCard
+              icon={<PiPaintBrushBroad />}
+              title={language ? "التشطيب" : "Finishing"}
+              info={finishingType}
+            />
+          )}
           {year && (
             <InfoCard
               icon={<TbCalendarCheck />}
@@ -127,11 +129,13 @@ const PropertyInfo = ({ propertyData }) => {
               info={year}
             />
           )}
-          <InfoCard
-            icon={<TbStairsUp />}
-            title={language ? "الدور" : "floor"}
-            info={propertyData.level}
-          />
+          {!!propertyData.level && (
+            <InfoCard
+              icon={<TbStairsUp />}
+              title={language ? "الدور" : "floor"}
+              info={propertyData.level}
+            />
+          )}
           <InfoCard
             icon={<PiArmchair />}
             title={language ? "مفروش" : "Furnished"}
@@ -139,11 +143,11 @@ const PropertyInfo = ({ propertyData }) => {
           />
         </>
       )}
-      <InfoCard
+      {/* <InfoCard
         icon={<LiaFileSignatureSolid />}
         title={language ? "مسجل" : "Registerd"}
         info={isRegisterd}
-      />
+      /> */}
     </section>
   );
 };
