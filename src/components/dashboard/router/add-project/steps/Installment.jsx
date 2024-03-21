@@ -1,11 +1,7 @@
-import DropDown from "@/Shared/ui/DropDown";
-import { installmentTypeOptions } from "@/utils/addAndEditOptions";
 import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
-
 import { FaSquareMinus } from "react-icons/fa6";
-import usePeriodType from "@/Hooks/usePeriodType";
-import { useCallback } from "react";
+
 const INSTALLMENT = {
   period: "",
   amount: "",
@@ -30,6 +26,26 @@ const AdminCashAndInstallment = ({
   return (
     <>
       <div className="lg:col-span-2 ">
+        <div className="space-y-2 w-full mb-4 md:col-span-2">
+          <h4 className="text-base text-darkGray">
+            {language ? "نسبة الكاش" : "cash percentage"}
+          </h4>
+          <div className="relative">
+            <input
+              inputMode="numeric"
+              type="text"
+              {...register(`cashPercentage`)}
+              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 `}
+            />
+            <span
+              className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
+                language ? "left-14" : "right-14"
+              } `}
+            >
+              %
+            </span>
+          </div>
+        </div>
         <div>
           <h3 className="text-xl font-bold">
             {language ? " خطة التقسيط" : " Installment Plan"}

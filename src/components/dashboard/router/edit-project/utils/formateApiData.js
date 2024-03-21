@@ -37,6 +37,7 @@ export const formateApiData = (setValue, data) => {
   setValue("compaounds", compaounds);
   setValue("isCompound", data?.isCompound);
   setValue("thumbnail", data?.thumbnail);
+  setValue("cashPercentage", data?.cashPercentage);
   setValue("album", data?.album);
   setValue("areaFrom", data?.areaFrom);
   setValue("areaTo", data?.areaTo);

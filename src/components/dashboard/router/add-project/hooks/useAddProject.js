@@ -68,6 +68,7 @@ const useAddProject = () => {
     }
     formData.append("titleAr", data.titleAr || "");
     formData.append("titleEn", data.titleEn || "");
+    formData.append("cashPercentage", data.cashPercentage || "");
     formData.append("areaFrom", data.areaFrom || "");
     formData.append("areaTo", data.areaTo || "");
     formData.append("priceFrom", data.priceFrom || "");

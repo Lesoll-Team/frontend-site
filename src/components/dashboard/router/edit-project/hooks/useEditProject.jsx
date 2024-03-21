@@ -54,6 +54,7 @@ const useEditProject = () => {
     const formData = new FormData();
     data?.mainImage && formData.append("mainImage", data.mainImage);
     data?.projectLogo && formData.append("projectLogo", data.projectLogo || "");
+
     // data?.watermark && formData.append("watermark", data.watermark || "");
     for (let i = 0; i < data?.multiImage?.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
@@ -67,6 +68,7 @@ const useEditProject = () => {
       formData.append("installment", JSON.stringify(installment[i]));
     }
     formData.append("titleAr", data.titleAr);
+    formData.append("cashPercentage", data.cashPercentage);
     formData.append("titleEn", data.titleEn);
     formData.append("areaFrom", data.areaFrom || "");
     formData.append("areaTo", data.areaTo || "");
