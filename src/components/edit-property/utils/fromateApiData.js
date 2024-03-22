@@ -40,8 +40,8 @@ export const formatApiData = ({ setValue, data }) => {
     name: data?.address?.name,
     governrate: data?.governrate,
     region: data?.region,
-    longitude: data?.longitude || "",
-    latitude: data?.latitude || "",
+    longitude: data?.address?.longitude || "",
+    latitude: data?.address?.latitude || "",
   };
   // console.log(saleOption);
   setValue("title", data?.title);

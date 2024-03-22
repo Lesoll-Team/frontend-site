@@ -8,8 +8,8 @@ export const formateApiData = (setValue, data) => {
     name: data?.address?.name,
     governrate: data?.governrate,
     region: data?.region,
-    longitude: data?.longitude || "",
-    latitude: data?.latitude || "",
+    longitude: data?.address?.longitude || "",
+    latitude: data?.address?.latitude || "",
   };
   // console.log(data?.installment?.length);
   if (data?.installment?.length > 0) {

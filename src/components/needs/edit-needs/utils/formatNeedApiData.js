@@ -12,8 +12,8 @@ export const formatNeedApiData = (setValue, data) => {
     name: data?.address?.name,
     governrate: data?.governrate,
     region: data?.region,
-    longitude: data?.longitude || "",
-    latitude: data?.latitude || "",
+    longitude: data?.address?.longitude || "",
+    latitude: data?.address?.latitude || "",
   };
   const propType = propTypeList.find((item) => item.value === data?.propType);
   const rentalPeriod =
