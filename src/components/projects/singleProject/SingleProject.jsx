@@ -44,7 +44,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         /> */}
       </Head>
-      <div className="px-4 sm:container mx-auto space-y-[30px] md:space-y-10 ">
+      <div className="px-4 sm:container mx-auto space-y-[32px] md:space-y-10 ">
         <PropertyImages
           fav={false}
           propertyData={propertyData}
@@ -62,7 +62,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
           </div>
           <div
             className={
-              "md:col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-5 md:gap-10"
+              "md:col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-8 md:gap-10"
             }
           >
             <ProjectInfo projectData={propertyData} />

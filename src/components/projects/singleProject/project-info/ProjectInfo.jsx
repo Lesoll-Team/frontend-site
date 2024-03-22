@@ -29,7 +29,7 @@ const ProjectInfo = ({ projectData }) => {
         <InfoCard
           onClick={openDirectionsInGoogleMaps}
           src={"/projects-icons/map.svg"}
-          title={language ? " على الخريطة" : "Show on map"}
+          title={language ? " عرض على الخريطة" : "Show on map"}
           alt={"Map Icon"}
         />
       </div>

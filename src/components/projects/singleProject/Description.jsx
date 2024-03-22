@@ -12,7 +12,7 @@ const Description = ({ description, title }) => {
       <div>
         {" "}
         <div
-          className="text-xs sm:text-base md:text-[25px] font-noto  text-baseGray break-words"
+          className="text-xs sm:text-base md:text-[25px] font-noto bg-[#F8F8F8] sm:bg-transparent p-2  text-baseGray break-words"
           style={{ lineHeight: "1.7", wordWrap: "break-word" }} // Added word-wrap property
         >
           {description
@@ -74,21 +74,21 @@ const Description = ({ description, title }) => {
                 );
               }
             })}
+          {descriptionLinesNumbers > 5 && (
+            <button
+              className="underline text-linkColor lg-text"
+              onClick={() => setShowFullDescription((prev) => !prev)}
+            >
+              {showFullDescription
+                ? language
+                  ? " رؤية الاقل"
+                  : "See less"
+                : language
+                  ? "رؤية المزيد"
+                  : "show more"}
+            </button>
+          )}
         </div>
-        {descriptionLinesNumbers > 5 && (
-          <button
-            className="underline text-linkColor"
-            onClick={() => setShowFullDescription((prev) => !prev)}
-          >
-            {showFullDescription
-              ? language
-                ? " رؤية الاقل"
-                : "See less"
-              : language
-                ? "رؤية المزيد"
-                : "show more"}
-          </button>
-        )}
       </div>
     </section>
   );

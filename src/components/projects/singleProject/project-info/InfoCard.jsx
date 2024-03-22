@@ -5,7 +5,7 @@ const InfoCard = ({ src, title, onClick, alt }) => {
     <div
       role="button"
       onClick={onClick}
-      className="flex md:flex-col items-center justify-center gap-2 w-full md:w-[142px] py-2 px-3 border rounded-md "
+      className="flex   flex-col items-center justify-center gap-2 w-full md:w-[160px] py-2 px-3 border rounded-md "
     >
       <Image
         src={src}
@@ -14,7 +14,7 @@ const InfoCard = ({ src, title, onClick, alt }) => {
         className="md:w-[40px] md:h-[40px] h-[25px] w-[25px]"
         alt={alt}
       />
-      <p className="text-black">{title}</p>
+      <p className="text-black lg-text">{title}</p>
     </div>
   );
 };

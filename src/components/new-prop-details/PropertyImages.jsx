@@ -93,7 +93,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         }`}
       >
         {showMoreImages && (
-          <span className="md:hidden absolute z-[2] text-white underline">
+          <span className="md:hidden absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-center z-[2] text-white underline">
             {language
               ? `+${images.length - 4} صورة`
               : `+${images.length - 4} Images`}
