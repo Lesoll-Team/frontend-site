@@ -76,7 +76,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
               </div>
             )}
             <div className="block md:hidden">
-              <RecommendedProjects />
+              <RecommendedProjects projectTitle={propertyData.titleAr} />
             </div>
             <Description
               title={
@@ -115,7 +115,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
         )}
       </div>
       <div className="hidden md:block">
-        <RecommendedProjects />
+        <RecommendedProjects projectTitle={propertyData.titleAr} />
       </div>
     </div>
   );

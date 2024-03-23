@@ -16,7 +16,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
     return propertyData.album.map((image, index) => {
       return { link: image.image, id: index + 1 };
     });
-  }, []);
+  }, [propertyData]);
   //   const images = [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
   const images = useMemo(() => {
     if (windowWidth < 768) {
@@ -24,7 +24,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
     } else {
       return [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
     }
-  }, [windowWidth]);
+  }, [windowWidth, propertyData]);
   // lightbox logic
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const openLightbox = (index) => {
