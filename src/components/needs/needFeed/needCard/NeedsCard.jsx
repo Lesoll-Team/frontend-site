@@ -129,19 +129,16 @@ const NeedsCard = ({ need }) => {
         </div>
       </div>
       <div className="w-5/12 hidden  gap-5 md:flex justify-end ">
-        <a
-          href={`tel:${need.userId[0]?.code + need.userId[0]?.phone}`}
-          target="_blank"
-        >
+        <CallLinkBtn>
           <Image className="w-[50px]" width={50} src="/icons/call-icon.svg" />
-        </a>
-        <a href={whatsappUrl} target="_blank">
+        </CallLinkBtn>
+        <WhatappLinkBtn>
           <Image
             className="w-[50px]"
             width={50}
             src="/icons/whatsapp-icon.svg"
           />
-        </a>
+        </WhatappLinkBtn>
       </div>
     </div>
   );
