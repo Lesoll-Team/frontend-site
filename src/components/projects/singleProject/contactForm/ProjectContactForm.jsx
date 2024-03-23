@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { postProjectContact } from "./api/projectContactFormApi";
+import Image from "next/image";
+import { Ring } from "@uiball/loaders";
 
 const ProjectContactForm = ({ className, projectData }) => {
   const [formStatus, setFormStatus] = useState("idle");
@@ -54,7 +56,12 @@ const ProjectContactForm = ({ className, projectData }) => {
   }, [projects]);
   useEffect(() => {
     if (formStatus === "success") {
-      reset();
+      setValue("fullName", "");
+      setValue("message", "");
+      setValue("phone", "");
+      setTimeout(() => {
+        setFormStatus("idle");
+      }, 3500);
     }
   }, [formStatus]);
 
@@ -141,12 +148,21 @@ const ProjectContactForm = ({ className, projectData }) => {
           {errors.message && <Error>{errors.message.message}</Error>}
         </div>
 
-        <Button type={"submit"}>{language ? "ارسال" : "Send"}</Button>
+        <Button type={"submit"}>
+          {formStatus === "loading" ? (
+            <Ring size={28} color="#fff" />
+          ) : language ? (
+            "ارسال"
+          ) : (
+            "Send"
+          )}
+        </Button>
       </form>
       {formStatus === "success" && (
-        <p className="text-green-500">
-          {language ? "تم الارسال بنجاح" : "Sended successfully"}
-        </p>
+        <div className="text-green-500 w-full bg-white py-2 flex justify-center items-center gap-2 fade-in">
+          <Image width={24} height={24} src={"/done-icon.png"} />
+          <p>{language ? "تم الارسال بنجاح" : "Sended successfully"}</p>
+        </div>
       )}
     </div>
   );
