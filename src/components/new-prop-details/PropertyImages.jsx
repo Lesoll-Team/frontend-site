@@ -25,7 +25,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
     setLightboxIndex(index);
   };
   const closeLightbox = () => {
-    router.push(`${slug}?images=`);
+    if (query?.images) router.back();
   };
 
   // used to contro conditional redering and layout of images and text on images
