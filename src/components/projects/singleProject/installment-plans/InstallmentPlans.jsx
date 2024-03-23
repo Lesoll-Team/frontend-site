@@ -3,7 +3,6 @@ import InstallmentCard from "./InstallmentCard";
 
 const InstallmentPlans = ({ projectData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(projectData);
   return (
     <div className="space-y-[16px]">
       <h2>{language ? "خطط السداد" : "Installment Plans"}</h2>
