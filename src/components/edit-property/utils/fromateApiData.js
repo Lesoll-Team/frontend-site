@@ -45,6 +45,18 @@ export const formatApiData = ({ setValue, data }) => {
   };
   // console.log(saleOption);
   setValue("title", data?.title);
+  setValue(
+    "currencies",
+    data?.currencies || {
+      Country: "Egypt",
+      Currency_symbol: "£E",
+      ISO_code: "EGP",
+      title: {
+        ar: "الجنيه المصري",
+        en: "Egyptian pound",
+      },
+    }
+  );
   setValue("description", data?.description);
   setValue("offer", data?.offer);
   setValue("propType", propType);

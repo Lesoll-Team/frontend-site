@@ -35,24 +35,6 @@ const AdminCashAndInstallment = ({
     control,
   });
 
-  const egpPer = useCallback(
-    (period) => {
-      switch (period) {
-        case "Monthly":
-          return language ? "جنية/شهر" : "Egp/Month";
-        case "Yearly":
-          return language ? "جنية/سنة" : "Egp/Year";
-        case "6 Monthly":
-          return language ? "جنية/6 شهور" : "Egp/6 Month";
-        case "3 Monthly":
-          return language ? " جنية/3 شهور" : "Egp/3 Month";
-        default:
-          return language ? "جنية" : "Egp";
-      }
-    },
-    [watch("installment")]
-  );
-
   return (
     <>
       <div className="lg:col-span-2 ">
