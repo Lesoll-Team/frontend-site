@@ -1,24 +1,43 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Description = ({ description, title }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const descriptionLinesNumbers = description.split("\n").length;
+  const [descriptionTitle, setDesciptionTitle] = useState("");
+  const splitedDescription = useMemo(() => {
+    const descriptionArray = description.trim().split("\n");
+    const containTitle = descriptionArray[0].startsWith("title:");
+    if (containTitle) {
+      const title = descriptionArray[0].substring(6);
+      setDesciptionTitle(title);
+      return descriptionArray
+        .slice(1)
+        .filter((line) => line.trim() !== "")
+        .slice(0, showFullDescription ? descriptionLinesNumbers : 6);
+    } else {
+      return descriptionArray
+        .slice(0, showFullDescription ? descriptionLinesNumbers : 6)
+        .filter((line) => line.trim() !== "");
+    }
+  }, [showFullDescription, description, language]);
 
   return (
     <section className="space-y-[16px] ">
-      {title && <h2 className="break-words">{title}</h2>}
+      {title ? (
+        <h2 className="break-words">{title}</h2>
+      ) : (
+        descriptionTitle && <h2 className="break-words">{descriptionTitle}</h2>
+      )}
+
       <div>
         {" "}
         <div
-          className="text-xs sm:text-base md:text-[25px] font-noto  text-baseGray break-words"
+          className="text-xs sm:text-base md:text-[25px] font-noto bg-[#F8F8F8] sm:bg-transparent p-2  text-baseGray break-words"
           style={{ lineHeight: "1.7", wordWrap: "break-word" }} // Added word-wrap property
         >
-          {description
-            .trim()
-            .split("\n")
-            .slice(0, showFullDescription ? descriptionLinesNumbers : 5)
+          {splitedDescription
             .filter((line) => line.trim() !== "") // Filter out empty lines
             .map((theline, index) => {
               const line = theline.trim();
@@ -74,21 +93,21 @@ const Description = ({ description, title }) => {
                 );
               }
             })}
+          {descriptionLinesNumbers > 6 && (
+            <button
+              className="underline text-linkColor lg-text"
+              onClick={() => setShowFullDescription((prev) => !prev)}
+            >
+              {showFullDescription
+                ? language
+                  ? " رؤية الاقل"
+                  : "See less"
+                : language
+                  ? "رؤية المزيد"
+                  : "show more"}
+            </button>
+          )}
         </div>
-        {descriptionLinesNumbers > 5 && (
-          <button
-            className="underline text-linkColor"
-            onClick={() => setShowFullDescription((prev) => !prev)}
-          >
-            {showFullDescription
-              ? language
-                ? " رؤية الاقل"
-                : "See less"
-              : language
-                ? "رؤية المزيد"
-                : "show more"}
-          </button>
-        )}
       </div>
     </section>
   );

@@ -70,43 +70,46 @@ const Notifications = () => {
 
       {showMenu && (
         <div
-          className={`absolute py-4 space-y-4 px-3 w-[240px] top-8 min-h-[227px] max-h-[363px] -left-5 bg-white rounded-md drop-shadow fade-in md:w-[470px] md:h-[500px] overflow-auto`}
+          className={`absolute py-4 space-y-4 px-3 w-[240px] top-8 min-h-[227px] max-h-[363px]  bg-white rounded-md drop-shadow fade-in md:w-[470px] md:h-[500px] overflow-auto ${language ? "-left-5" : "-right-5"}`}
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 text-sm md:text-base text-darkGray font-bold">
               <IoIosNotificationsOutline className="text-lg md:text-xl" />
-              <p>{language ? "الإشعارات" : "Nofifications"}</p>
+              <h3>{language ? "الإشعارات" : "Nofifications"}</h3>
             </div>
-            <button
-              onClick={handleSeeAll}
-              className="text-xs md:text-base text-outLine"
-            >
-              {language ? "قراءة الكل" : "Read All"}
-            </button>
+            {userNotifications.length > 0 && (
+              <button
+                onClick={handleSeeAll}
+                className="text-xs md:text-base text-outLine"
+              >
+                {language ? "قراءة الكل" : "Read All"}
+              </button>
+            )}
           </div>
-          <div className="space-y-6">
+          <div className="space-y-2">
             {userNotifications && userNotifications.length > 0 ? (
-              userNotifications.map((item) => {
-                const date = new Date(item.createdAt);
-                // const { formattedDate } = formatDate(item.createdAt);
+              userNotifications.map((item, i) => {
+                const notificationDate = new Date(item.createdAt);
                 return (
-                  <Link
-                    href={item?.link || ""}
-                    key={item._id}
-                    onClick={() => handleNotificationClick(item._id)}
-                    className={`flex items-center justify-between gap-1 flex-wrap `}
-                  >
-                    <span className="text-xs md:text-lg">
-                      {language ? item.title.ar : item.title.en}
-                    </span>
-                    <span className="text-xs md:text-sm text-lightGreen">
-                      {/* {formattedDate} */}
-                      <ReactTimeAgo
-                        date={date}
-                        locale={language ? "" : "en-US"}
-                      />
-                    </span>
-                  </Link>
+                  <>
+                    <Link
+                      href={item?.link || ""}
+                      key={item._id}
+                      onClick={() => handleNotificationClick(item._id)}
+                      className={`flex items-start justify-between gap-1 rounded-md flex-col  py-2 font-noto px-2 flex-wrap `}
+                    >
+                      <span className="text-xs md:text-lg">
+                        {language ? item.title.ar : item.title.en}
+                      </span>
+                      <span className="text-xs md:text-sm text-lightGreen">
+                        <ReactTimeAgo
+                          date={notificationDate}
+                          locale={language ? "" : "en-US"}
+                        />
+                      </span>
+                    </Link>
+                    {userNotifications.length != i + 1 && <hr />}
+                  </>
                 );
               })
             ) : (

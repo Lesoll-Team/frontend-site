@@ -1,24 +1,30 @@
 import Image from "next/image";
-import FavBtn from "./FavBtn";
-import ShareBtn from "./ShareBtn";
+import FavBtn from "@/components/new-prop-details/FavBtn";
+import ShareBtn from "@/components/new-prop-details/ShareBtn";
 import { useMemo, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import ReactTimeAgo from "react-time-ago";
-const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
+import { useWindowWidth } from "@/Hooks/useWindowWidth";
+const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
-  const createdAt = new Date(propertyData?.createdAt);
+  const { windowWidth } = useWindowWidth();
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
       return { link: image.image, id: index + 1 };
     });
-  }, []);
-  const images = [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
-
+  }, [propertyData]);
+  //   const images = [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
+  const images = useMemo(() => {
+    if (windowWidth < 768) {
+      return subImages;
+    } else {
+      return [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
+    }
+  }, [windowWidth, propertyData]);
   // lightbox logic
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const openLightbox = (index) => {
@@ -45,14 +51,40 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         <div
           role="button"
           onClick={() => openLightbox(0)}
-          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-300 "
+          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden relative min-h-[155px] bg-gray-300 md:brightness-100 "
         >
+          <div className="md:hidden absolute w-full h-full bg-black bg-opacity-50 gap-1 px-4 flex flex-col  justify-center">
+            <h3 className="text-white text-[19px] font-semibold">
+              {language ? propertyData.titleAr : propertyData.titleEn}
+            </h3>
+            <div className="space-y-2">
+              <p className="text-xs text-white font-light">
+                {language ? "أسعار تبدأ من:" : "Starrting from:"}
+              </p>
+              <p className=" text-white font-bold">
+                {propertyData.priceFrom} {language ? "ج.م" : "Egp"}
+              </p>
+            </div>
+            <div
+              className={`absolute md:hidden block bottom-3 ${language ? "left-3" : "right-3"}`}
+            >
+              {propertyData.projectLogo && (
+                <Image
+                  src={propertyData.projectLogo}
+                  width={40}
+                  height={40}
+                  className="w-[40px] h-[40px] object-cover rounded-full"
+                  alt="company logo"
+                />
+              )}
+            </div>
+          </div>
           <Image
             priority
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
-            src={propertyData?.thumbnail}
+            src={images[0].link}
             className=" object-cover"
           />
         </div>
@@ -67,7 +99,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={propertyData?.album[0]?.image}
+          src={images[1].link}
           className="object-cover "
         />
       </div>
@@ -81,7 +113,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={propertyData?.album[1]?.image}
+          src={images[2].link}
           className=" object-cover"
         />
       </div>
@@ -105,7 +137,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={propertyData?.album[2]?.image}
+          src={images[3].link}
           className="rounded-md brightness-75 object-cover bg-gray-300 md:brightness-100 "
         />
       </div>
@@ -126,7 +158,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
-            src={propertyData.album[3]?.image || "/image-placeholder.svg"}
+            src={images[4].link}
             className="rounded-md brightness-50 object-cover"
           />
         </div>
@@ -150,10 +182,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           }
         />
       )}
-      {/* <div className="flex items-center justify-end col-span-3 md:col-span-4">
-        <ReactTimeAgo date={createdAt} locale={language ? "" : "en-US"} />
-      </div> */}
     </section>
   );
 };
-export default PropertyImages;
+export default ProjectImages;

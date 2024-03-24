@@ -16,13 +16,15 @@ const NeedsFeed = ({ data, keyword }) => {
   return (
     <div className="mx-3 md:container md:mx-auto mt-16 pb-10 space-y-6 md:space-y-12  ">
       <div className="flex items-center justify-between ">
-        <h3 className="text-3xl font-bold">{language ? "الطلبات" : "Needs"}</h3>
+        <h1 className="">{language ? "الطلبات" : "Needs"}</h1>
         <Link
           href={"/add-need"}
-          className="w-fit px-4 py-2 flex items-center gap-1 bg-neutral rounded-lg"
+          className="w-fit px-4 py-2 flex items-center gap-2 text-[17px] md:text-[19px] font-bold rounded-lg"
         >
-          <IoMdAdd />
-          {language ? "إضافة طلب" : "Add need"}
+          <span className="underline">
+            {language ? " اطلب عقارك الان" : "Add need"}
+          </span>
+          <IoMdAdd className="text-black" />
         </Link>
       </div>
 

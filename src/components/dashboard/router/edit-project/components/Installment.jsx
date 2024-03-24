@@ -1,11 +1,7 @@
-import DropDown from "@/Shared/ui/DropDown";
-import { installmentTypeOptions } from "@/utils/addAndEditOptions";
 import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
-
 import { FaSquareMinus } from "react-icons/fa6";
-import usePeriodType from "@/Hooks/usePeriodType";
-import { useCallback } from "react";
+
 const INSTALLMENT = {
   period: "",
   amount: "",
@@ -30,19 +26,15 @@ const AdminCashAndInstallment = ({
   return (
     <>
       <div className="lg:col-span-2 ">
-        <div className="space-y-2 w-full mb-4">
-          <p className="text-gray-800">
-            {language ? "  الدفع الكاش" : " Cash Payment"}
-          </p>
+        <div className="space-y-2 w-full mb-4 md:col-span-2">
           <h4 className="text-base text-darkGray">
-            {language ? "الخصم" : "Discount"}
+            {language ? "نسبة الكاش" : "cash percentage"}
           </h4>
           <div className="relative">
             <input
               inputMode="numeric"
-              placeholder={language ? "إختيارى" : "optional"}
               type="text"
-              {...register(`installment.${0}.discount`)}
+              {...register(`cashPercentage`)}
               className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 `}
             />
             <span
@@ -78,6 +70,27 @@ const AdminCashAndInstallment = ({
               </div>
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
+                <div className="space-y-2 w-full mb-4">
+                  <h4 className="text-base text-darkGray">
+                    {language ? "الخصم" : "Discount"}
+                  </h4>
+                  <div className="relative">
+                    <input
+                      inputMode="numeric"
+                      placeholder={language ? "إختيارى" : "optional"}
+                      type="text"
+                      {...register(`installment.${index}.discount`)}
+                      className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 `}
+                    />
+                    <span
+                      className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
+                        language ? "left-14" : "right-14"
+                      } `}
+                    >
+                      %
+                    </span>
+                  </div>
+                </div>
                 <div className="space-y-2 w-full">
                   <p className="text-gray-800">
                     {language ? "مدة التقسيط" : "Installment Period"}
@@ -86,7 +99,20 @@ const AdminCashAndInstallment = ({
                     <input
                       inputMode="numeric"
                       type="text"
-                      {...register(`installment.${index}.period`, {})}
+                      {...register(`installment.${index}.period`, {
+                        required: {
+                          value: true,
+                          message: "please enter period",
+                        },
+                        validate: {
+                          mustBeNumber: (value) => {
+                            return !isNaN(value) || "must be a number";
+                          },
+                          // max: (value) => {
+                          //   return parseInt(value) > 100 || "min is 100";
+                          // },
+                        },
+                      })}
                       className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
                         errors?.installment &&
                         errors?.installment[index]?.period &&
@@ -113,10 +139,17 @@ const AdminCashAndInstallment = ({
                     <input
                       inputMode="numeric"
                       type="text"
-                      {...register(
-                        `installment.${index}.ProjectPercentage`,
-                        {}
-                      )}
+                      {...register(`installment.${index}.ProjectPercentage`, {
+                        required: {
+                          value: true,
+                          message: "please enter downPayment",
+                        },
+                        validate: {
+                          mustBeNumber: (value) => {
+                            return !isNaN(value) || "must be a number";
+                          },
+                        },
+                      })}
                       className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
                         errors?.installment &&
                         errors?.installment[index]?.ProjectPercentage &&
@@ -133,18 +166,16 @@ const AdminCashAndInstallment = ({
                   </div>
                 </div>
               </div>
-              {fields.length === index + 1 && index < 3 && (
-                <div className="flex justify-end">
-                  {" "}
-                  <button
-                    type="button"
-                    className=" w-fit text-blue-500 underline font-bold"
-                    onClick={() => append(INSTALLMENT)}
-                  >
-                    {language ? "إضافة خطة تقسيط اخرى" : "add new installment"}
-                  </button>
-                </div>
-              )}
+              <div className="flex justify-end">
+                {" "}
+                <button
+                  type="button"
+                  className=" w-fit text-blue-500 underline font-bold"
+                  onClick={() => append(INSTALLMENT)}
+                >
+                  {language ? "إضافة خطة تقسيط اخرى" : "add new installment"}
+                </button>
+              </div>
               {/* {index > 0 && (
               <button className="mx-3" onClick={() => remove(index)}>
                 remove

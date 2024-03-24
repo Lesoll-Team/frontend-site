@@ -8,8 +8,8 @@ export const formateApiData = (setValue, data) => {
     name: data?.address?.name,
     governrate: data?.governrate,
     region: data?.region,
-    longitude: data?.longitude || "",
-    latitude: data?.latitude || "",
+    longitude: data?.address?.longitude || "",
+    latitude: data?.address?.latitude || "",
   };
   // console.log(data?.installment?.length);
   if (data?.installment?.length > 0) {
@@ -27,6 +27,7 @@ export const formateApiData = (setValue, data) => {
   }
   setValue("titleAr", data?.titleAr);
   setValue("projectLogo", data?.projectLogo);
+  // setValue("watermark", data?.watermark);
   setValue("titleEn", data?.titleEn);
   setValue("descriptionAr", data?.descriptionAr);
   setValue("descriptionEn", data?.descriptionEn);
@@ -36,6 +37,7 @@ export const formateApiData = (setValue, data) => {
   setValue("compaounds", compaounds);
   setValue("isCompound", data?.isCompound);
   setValue("thumbnail", data?.thumbnail);
+  setValue("cashPercentage", data?.cashPercentage);
   setValue("album", data?.album);
   setValue("areaFrom", data?.areaFrom);
   setValue("areaTo", data?.areaTo);

@@ -12,15 +12,15 @@ const ProjectTitlePrice = ({ projectData }) => {
   });
   // console.log(projectData);
   return (
-    <section className="flex justify-between items-end md:pb-16 md:border-b-2 flex-wrap gap-y-5">
+    <section className="hidden md:flex justify-between items-end md:pb-16 md:border-b-2 flex-wrap gap-y-5 ">
       <div className="flex items-start gap-8">
         {projectData?.projectLogo && (
-          <div className="hidden md:block">
+          <div className=" rounded-full hidden md:block">
             <Image
               src={projectData?.projectLogo}
               width={68}
               height={68}
-              className="rounded-full object-cover"
+              className="rounded-full w-[68px] h-[68px] object-cover "
               alt="company logo"
             />
           </div>

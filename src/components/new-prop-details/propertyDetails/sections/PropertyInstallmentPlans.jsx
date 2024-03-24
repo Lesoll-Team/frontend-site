@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 const PropertyInstallmentPlans = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const isInstallment = propertyData.saleOption.includes("Installment");
-
   return isInstallment ? (
     <section className="md:space-y-[30px] space-y-[16px]">
       <h3 className=" ">{language ? "خطط السداد" : "Installment Plans"}</h3>
@@ -54,10 +53,15 @@ const InstallmentCard = ({ data, downPaymentPercentage }) => {
         </p>
       )} */}
       <div className="flex gap-2 items-center">
-        <p className="text-sm md:text-2xl">
-          {data.amount} {period}
-        </p>{" "}
-        |{" "}
+        {!!data.amount && (
+          <>
+            <p className="text-sm md:text-2xl">
+              {data.amount} {period}
+            </p>{" "}
+            |{" "}
+          </>
+        )}
+
         <p className="text-sm md:text-2xl">
           {data.period} {language ? "سنة" : "years"}
         </p>

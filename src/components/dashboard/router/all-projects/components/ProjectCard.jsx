@@ -18,6 +18,7 @@ const ProjectCard = ({ data }) => {
             width={300}
             height={300}
             className="object-cover w-full md:max-w-[150px] h-[150px] border rounded-md min-h-full"
+            alt={data.titleAr}
           />
         </Link>
         <div className="flex flex-col justify-between w-full h-full gap-2">

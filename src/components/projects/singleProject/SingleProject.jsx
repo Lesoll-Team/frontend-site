@@ -1,17 +1,13 @@
-import PriceTitle from "@/components/new-prop-details/PriceTitle";
-import PropertyImages from "@/components/new-prop-details/PropertyImages";
-import PropertyOwner from "@/components/new-prop-details/PropertyOwner";
 import Head from "next/head";
 import ProjectTitlePrice from "./ProjectTitlePrice";
-import ProjectDescription from "./ProjectDescription";
-import PropertyLocation from "@/components/new-prop-details/propertyDetails/sections/PropertyLocation";
-import AboutCompany from "./AboutCompany";
 import ProjectUnits from "./ProjectUnits";
 import { useSelector } from "react-redux";
 import ProjectContactForm from "./contactForm/ProjectContactForm";
 import Description from "./Description";
 import ProjectInfo from "./project-info/ProjectInfo";
 import InstallmentPlans from "./installment-plans/InstallmentPlans";
+import ProjectImages from "./ProjectImages";
+import RecommendedProjects from "./RecommendedProjects";
 
 const SingleProject = ({ propertyData, allData, query }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -44,8 +40,8 @@ const SingleProject = ({ propertyData, allData, query }) => {
           href={`https://lesoll.com/property-details/${slug}`}
         /> */}
       </Head>
-      <div className="px-4 sm:container mx-auto space-y-[30px] md:space-y-10 ">
-        <PropertyImages
+      <div className="px-4 sm:container mx-auto space-y-px] md:space-y-10 ">
+        <ProjectImages
           fav={false}
           propertyData={propertyData}
           query={query}
@@ -62,7 +58,7 @@ const SingleProject = ({ propertyData, allData, query }) => {
           </div>
           <div
             className={
-              "md:col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-5 md:gap-10"
+              "md:col-span-2 col-start-1 row-start-1 md:mt-0 mt-4 flex flex-col gap-8 md:gap-10"
             }
           >
             <ProjectInfo projectData={propertyData} />
@@ -79,6 +75,9 @@ const SingleProject = ({ propertyData, allData, query }) => {
                 />
               </div>
             )}
+            <div className="block md:hidden">
+              <RecommendedProjects projectTitle={propertyData.titleAr} />
+            </div>
             <Description
               title={
                 language ? (
@@ -107,14 +106,17 @@ const SingleProject = ({ propertyData, allData, query }) => {
           </div>
         </div>
       </div>
-      {allData?.getProperties?.length > 0 && (
-        <div className="hidden md:block">
+      <div className=" md:block hidden ">
+        {allData?.getProperties?.length > 0 && (
           <ProjectUnits
             projectData={allData}
             title={language ? propertyData.titleAr : propertyData.titleEn}
           />
-        </div>
-      )}
+        )}
+      </div>
+      <div className="hidden md:block">
+        <RecommendedProjects projectTitle={propertyData.titleAr} />
+      </div>
     </div>
   );
 };

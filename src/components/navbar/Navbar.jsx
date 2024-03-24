@@ -65,6 +65,11 @@ function Navbar() {
             <li>
               <Link href="/">{languageIs ? "الرئيسية" : "Home"}</Link>
             </li>
+            <li>
+              <Link href="/projects">
+                {languageIs ? "المشروعات الجديدة" : "New Projects"}
+              </Link>
+            </li>
             {/* <li>
               <Link href="/Packages">
                 {languageIs ? "الباقات" : "Packages"}
@@ -75,6 +80,7 @@ function Navbar() {
                 {languageIs ? "إضافة عقار" : "Add Property"}
               </Link>
             </li>
+
             <li>
               <NeedsLink />
             </li>

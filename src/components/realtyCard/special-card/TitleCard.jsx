@@ -13,10 +13,10 @@ const TitleCard = ({ cardDetails }) => {
             <h3 className=" font-bold  md:mt-0 mt-1 text-black line-clamp-1 ">
                 {language ? cardDetails?.titleAr : cardDetails?.titleEn}
             </h3>
-            <p className="flex items-center lg-text font-noto min-w-max gap-1  ">
+            {/* <p className="flex items-center lg-text font-noto min-w-max gap-1  ">
                 {cardDetails?.address?.region
                     && ` ${cardDetails?.address?.governrate}, ${cardDetails?.address?.region}`}
-            </p>
+            </p> */}
         </Link>
     );
 }

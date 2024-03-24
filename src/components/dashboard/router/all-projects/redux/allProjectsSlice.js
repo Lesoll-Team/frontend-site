@@ -19,7 +19,7 @@ export const getAllProjects = createAsyncThunk(
     const token = JSON.parse(localStorage.getItem("userToken"));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/property/admin-all-project?limit=9&page=1`,
+        `${process.env.NEXT_PUBLIC_API_URL}/property/all-project`,
 
         {
           headers: {

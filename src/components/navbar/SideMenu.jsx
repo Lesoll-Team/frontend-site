@@ -126,6 +126,14 @@ const SideMenu = () => {
               <GoHome className="text-baseGray text-lg" />
               <span>{language ? "الرئيسية" : "Home"}</span>
             </Link>
+            <Link
+              onClick={closeSideMenu}
+              href={"/projects"}
+              className="flex items-center gap-4"
+            >
+              <Image width={18} height={18} src={"/icons/projects-icon.svg"} />
+              <span>{language ? "المشاريع الجديدة" : "New Projects"}</span>
+            </Link>
 
             <Link
               onClick={closeSideMenu}

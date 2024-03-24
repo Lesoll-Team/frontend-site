@@ -58,7 +58,8 @@ const useAddProject = () => {
     };
     const formData = new FormData();
     formData.append("mainImage", data.mainImage);
-    data.projectLogo && formData.append("projectLogo", data.projectLogo);
+    data?.projectLogo && formData.append("projectLogo", data.projectLogo);
+    // data?.watermark && formData.append("watermark", data.watermark);
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
@@ -67,6 +68,7 @@ const useAddProject = () => {
     }
     formData.append("titleAr", data.titleAr || "");
     formData.append("titleEn", data.titleEn || "");
+    formData.append("cashPercentage", data.cashPercentage || "");
     formData.append("areaFrom", data.areaFrom || "");
     formData.append("areaTo", data.areaTo || "");
     formData.append("priceFrom", data.priceFrom || "");

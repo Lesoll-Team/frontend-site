@@ -39,8 +39,6 @@ export default function UserDashboard() {
   // const [filterValue, setFilterValue] = useState("");
   const [filterUser, setFilterUser] = useState("");
 
-
-
   const searchUsers = async () => {
     try {
       const getUser = await searchUsersApi(rowsPerPage, page, filterUser);
@@ -71,33 +69,23 @@ export default function UserDashboard() {
 
   const [sortDescriptor, setSortDescriptor] = useState({});
   const pages = Math.ceil(usersLength / rowsPerPage);
-  // const hasSearchFilter = Boolean(filterValue);
   const hasSearchAllUser = Boolean(pages <= 1);
   const headerColumns = useMemo(() => {
     return columns.filter((column) => column.uid);
   });
   const filteredItems = useMemo(() => {
     let filteredUsers = [...users];
-    // if (hasSearchFilter) {
-    //   filteredUsers = filteredUsers.filter(
-    //     (user) =>
-    //       user.fullname.toLowerCase().includes(filterValue.toLowerCase()) ||
-    //       user.email.toLowerCase().includes(filterValue.toLowerCase()) ||
-    //       user.phone.toLowerCase().includes(filterValue.toLowerCase())
-    //   );
-    // }
+
     if (hasSearchAllUser) {
       filteredUsers = filteredUsers.filter(
         (user) =>
           user.fullname.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.email.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.phone.toLowerCase().includes(filterUser.toLowerCase())
-        // user.typeOfUser.toLowerCase().includes(filterUser.toLowerCase())
       );
     }
     return filteredUsers;
   }, [users, filterUser]);
-
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
