@@ -46,6 +46,7 @@ const CurrenciesDropDown = ({ className, setValue, watch }) => {
             currencies.getCurrencies.map((item, i) => {
               return (
                 <button
+                  key={item.ISO_code}
                   onClick={() => {
                     setShowMenu(false);
                     setValue("currencies", item);

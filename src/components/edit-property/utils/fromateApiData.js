@@ -47,15 +47,17 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("title", data?.title);
   setValue(
     "currencies",
-    data?.currencies || {
-      Country: "Egypt",
-      Currency_symbol: "£E",
-      ISO_code: "EGP",
-      title: {
-        ar: "الجنيه المصري",
-        en: "Egyptian pound",
-      },
-    }
+    data?.currencies
+      ? { ISO_code: data?.currencies }
+      : {
+          Country: "Egypt",
+          Currency_symbol: "£E",
+          ISO_code: "EGP",
+          title: {
+            ar: "الجنيه المصري",
+            en: "Egyptian pound",
+          },
+        }
   );
   setValue("description", data?.description);
   setValue("offer", data?.offer);
