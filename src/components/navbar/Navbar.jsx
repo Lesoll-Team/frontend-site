@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
-      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md !font-noto"
+      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md font-noto"
     >
       {!userData && (
         <>
@@ -60,12 +60,6 @@ function Navbar() {
                 {languageIs ? "الرئيسية" : "Home"}
               </Link>
             </li>
-
-            {/* <li>
-              <Link href="/Packages">
-                {languageIs ? "الباقات" : "Packages"}
-              </Link>
-            </li> */}
             <li>
               <Link href="/add-property" className="font-noto">
                 {languageIs ? "إضافة عقار" : "Add Property"}

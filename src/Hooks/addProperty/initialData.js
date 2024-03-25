@@ -93,4 +93,14 @@ export const initialAddPropData = {
     CompoundsEN: "",
   },
   album: [],
+
+  currencies: {
+    Country: "Egypt",
+    Currency_symbol: "£E",
+    ISO_code: "EGP",
+    title: {
+      ar: "الجنيه المصري",
+      en: "Egyptian pound",
+    },
+  },
 };

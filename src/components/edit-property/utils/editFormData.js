@@ -72,5 +72,7 @@ export const editFormData = (data) => {
     formData.append("album", data?.album[i]._id);
   }
   data.ProjectID && formData.append("ProjectID", data?.ProjectID?.value);
+  formData.append("currencies", data.currencies.ISO_code);
+
   return { formData };
 };
