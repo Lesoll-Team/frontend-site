@@ -59,6 +59,7 @@ const useFromatAddData = (data) => {
   formData.append("bathRooms", data.bathRooms);
   formData.append("description", data.description);
   formData.append("level", data.level);
+  formData.append("currencies", data.currencies.ISO_code);
   return { formData };
 };
 export default useFromatAddData;
