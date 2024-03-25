@@ -32,10 +32,10 @@ const NeedsLink = () => {
     <div ref={menuRef} className="relative">
       <button
         type="button"
-        className="relative text-base 2xl:text-xl"
+        className="relative text-base 2xl:text-xl font-noto"
         onClick={toggleMenu}
       >
-        <span className="flex items-center">
+        <span className="flex items-center ">
           {language ? "الطلبات" : " Needs"}{" "}
           <IoIosArrowDown
             className={`mt-1 duration-100 ${showMenu && "rotate-180 duration-100"}`}
@@ -46,7 +46,7 @@ const NeedsLink = () => {
         <div className="absolute right-0-0 top-9 bg-white py-3 drop-shadow-lg rounded min-w-[180px] flex flex-col gap-2">
           <Link
             onClick={closeMenu}
-            className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150"
+            className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150 font-noto"
             href={"/add-need"}
           >
             {language ? "إضافة طلب" : "Add Need"}
@@ -54,7 +54,7 @@ const NeedsLink = () => {
           <hr />
           <Link
             onClick={closeMenu}
-            className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150"
+            className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150 font-noto"
             href={"/needs"}
           >
             {language ? " رؤية جميع الطلبات" : " Needs"}
