@@ -60,12 +60,6 @@ function Navbar() {
                 {languageIs ? "الرئيسية" : "Home"}
               </Link>
             </li>
-
-            {/* <li>
-              <Link href="/Packages">
-                {languageIs ? "الباقات" : "Packages"}
-              </Link>
-            </li> */}
             <li>
               <Link href="/add-property" className="font-noto">
                 {languageIs ? "إضافة عقار" : "Add Property"}
