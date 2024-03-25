@@ -7,6 +7,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Link from "next/link";
+import NoItems from "../newProfile/user/userProperties/NoItems";
 
 const UserProperties = ({ user, properties, params }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -64,63 +65,68 @@ const UserProperties = ({ user, properties, params }) => {
             <span>{user.getUser.fullname} Properties</span>
           )}
         </h3>
-        <div ref={menuRef} className="relative">
-          <button
-            onClick={toggleFilterMeu}
-            className=" flex items-center gap-1 relative border-2 rounded border-outLine py-1 px-4 md:py-2 md:px-8"
-          >
-            {filterName} <MdKeyboardArrowDown />
-          </button>
-          {ShowFilterMenu && (
-            <ul className="absolute w-full space-y-1 p-2 text-center bg-white drop-shadow z-10 rounded border">
-              <li>
-                <Link
-                  onClick={() => setShowFilterMenu(false)}
-                  href={`/view-profile/${user.getUser.username}?page=1&type=000`}
-                  className="text-center"
-                >
-                  {language ? "الكل" : "All"}
-                </Link>
-              </li>
-              {user.RealtySaleNumber > 0 && (
-                <>
-                  <hr />
-                  <li>
-                    <Link
-                      onClick={() => setShowFilterMenu(false)}
-                      href={`/view-profile/${user.getUser.username}?page=1&type=111`}
-                      className="text-center"
-                    >
-                      {language ? "للبيع" : "For Sale"}
-                    </Link>
-                  </li>
-                </>
-              )}
-              {user.RealtyRentNumber > 0 && (
-                <>
-                  <hr />
-                  <li>
-                    <Link
-                      onClick={() => setShowFilterMenu(false)}
-                      href={`/view-profile/${user.getUser.username}?page=1&type=222`}
-                      className="text-center"
-                    >
-                      {language ? "للإيحار" : "For Rent"}
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          )}
-        </div>
-      </div>
-      <div className="flex gap-5 items-center justify-center flex-wrap">
         {properties?.getConfirmedRealty &&
-        properties.getConfirmedRealty.length > 0
-          ? properties.getConfirmedRealty.map((item) => {
-              return <RealtyCard key={item._id} propertyDetails={item} />;
-            })
-          : ""}
+          properties.getConfirmedRealty.length > 0 && (
+            <div ref={menuRef} className="relative">
+              <button
+                onClick={toggleFilterMeu}
+                className=" flex items-center gap-1 relative border-2 rounded border-outLine py-1 px-4 md:py-2 md:px-8"
+              >
+                {filterName} <MdKeyboardArrowDown />
+              </button>
+              {ShowFilterMenu && (
+                <ul className="absolute w-full space-y-1 p-2 text-center bg-white drop-shadow z-10 rounded border">
+                  <li>
+                    <Link
+                      onClick={() => setShowFilterMenu(false)}
+                      href={`/view-profile/${user.getUser.username}?page=1&type=000`}
+                      className="text-center"
+                    >
+                      {language ? "الكل" : "All"}
+                    </Link>
+                  </li>
+                  {user.RealtySaleNumber > 0 && (
+                    <>
+                      <hr />
+                      <li>
+                        <Link
+                          onClick={() => setShowFilterMenu(false)}
+                          href={`/view-profile/${user.getUser.username}?page=1&type=111`}
+                          className="text-center"
+                        >
+                          {language ? "للبيع" : "For Sale"}
+                        </Link>
+                      </li>
+                    </>
+                  )}
+                  {user.RealtyRentNumber > 0 && (
+                    <>
+                      <hr />
+                      <li>
+                        <Link
+                          onClick={() => setShowFilterMenu(false)}
+                          href={`/view-profile/${user.getUser.username}?page=1&type=222`}
+                          className="text-center"
+                        >
+                          {language ? "للإيحار" : "For Rent"}
+                        </Link>
+                      </li>
+                    </>
+                  )}
+                </ul>
+              )}
+            </div>
+          )}
+      </div>
+      <div className="flex gap-4 md:gap-x-1 items-center justify-evenly flex-wrap">
+        {properties?.getConfirmedRealty &&
+        properties.getConfirmedRealty.length > 0 ? (
+          properties.getConfirmedRealty.map((item) => {
+            return <RealtyCard key={item._id} propertyDetails={item} />;
+          })
+        ) : (
+          <NoItems title={language ? "لا توجد عقارات" : "No Properties"} />
+        )}
       </div>
       {properties?.totalPages > 1 && (
         <div dir="ltr" className={styles.pagination}>

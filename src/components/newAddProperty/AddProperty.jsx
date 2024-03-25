@@ -16,6 +16,7 @@ import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
 import { DotPulse, Ring, Wobble } from "@uiball/loaders";
 import { scrollToTop } from "@/utils/scrollToTop";
+import { getCurrencies } from "./redux/currenciesSlice";
 // import AdminAddProperty from "../admin-add-property/AdminAddProperty";
 const AddProperty = () => {
   const {
@@ -37,6 +38,7 @@ const AddProperty = () => {
   const formStatus = useSelector((state) => state.addProperty.status);
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
+  const currencies = useSelector((state) => state.getCurrencies.data);
 
   const [sended, setSended] = useState(false);
 
@@ -45,7 +47,11 @@ const AddProperty = () => {
     if (!features) {
       dispatch(getFeatures());
     }
+    if (!currencies) {
+      dispatch(getCurrencies());
+    }
   }, []);
+  // console.log(currencies);
   useEffect(() => {
     if (formStatus === "succeeded") {
       setSended(true);
