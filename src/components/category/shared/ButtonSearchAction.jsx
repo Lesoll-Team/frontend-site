@@ -69,7 +69,7 @@ const ButtonSearchAction = ({ isBar }) => {
     return (
       <button
         onClick={handleClick}
-        className="w-[100px] md:w-[9.97vw] md:min-w-[165px] h-[1.875rem] md:h-[3.313rem] rounded-l-[6px]  md:rounded-[6px] font-bold 
+        className="w-[100px] md:w-[9.97vw] md:min-w-[165px]  rounded-l-[6px]  md:rounded-[6px] font-bold 
         
         lg-text text-white bg-lightGreen "
       >
@@ -78,10 +78,10 @@ const ButtonSearchAction = ({ isBar }) => {
     );
   } else {
     return (
-      <div className="mb-[9vh] flex justify-center">
+      <div className="md:w-[37.7vw] w-full bottom-0 left-0  justify-center flex  fixed ">
         <button
           onClick={handleClick}
-          className="md:w-[24.2vw] lg-text w-full rounded-[6px] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"
+          className="bg-lightGreen rounded-[6px] md:w-[24.2vw] lg-text  w-8/12 h-[40px] md:h-[3.813rem] text-white font-bold"
         >
           {language ? "عرض النتائج" : "Show results"}
         </button>
