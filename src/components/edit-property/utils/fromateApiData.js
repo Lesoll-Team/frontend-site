@@ -7,7 +7,6 @@ import {
 } from "@/utils/addAndEditOptions";
 
 export const formatApiData = ({ setValue, data }) => {
-  console.log(data);
   const Installment = data?.installment?.map((installment) => {
     return {
       ...installment,

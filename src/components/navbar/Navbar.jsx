@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
-      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md !font-noto"
+      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md font-noto"
     >
       {!userData && (
         <>
