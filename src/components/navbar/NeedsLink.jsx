@@ -35,13 +35,6 @@ const NeedsLink = () => {
         className="relative text-base 2xl:text-xl"
         onClick={toggleMenu}
       >
-        <span
-          className={`text-xs absolute text-white rounded-xl -top-4 bg-green-500 px-2 py-1 ${
-            language ? "-left-7" : " -right-7"
-          }`}
-        >
-          {language ? "جديد" : "New"}
-        </span>
         <span className="flex items-center">
           {language ? "الطلبات" : " Needs"}{" "}
           <IoIosArrowDown

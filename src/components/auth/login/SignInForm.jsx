@@ -168,7 +168,7 @@ const SignInForm = () => {
             </div>
           </>
         ) : (
-          <span>{language ? "سجل الدخول" : "Sign In"}</span>
+          <span>{language ? "تسجيل الدخول" : "Sign In"}</span>
         )}
 
         {/* text */}
