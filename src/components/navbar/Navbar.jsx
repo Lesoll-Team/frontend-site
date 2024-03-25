@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
-      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md"
+      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md !font-noto"
     >
       {!userData && (
         <>
@@ -36,13 +36,6 @@ function Navbar() {
           <div className="w-full h-[1px] bg-outLine" />
         </>
       )}
-
-      <div className="container mx-auto">
-        {/* Jump to Main Content Button */}
-        <button href="#main-content" className="sr-only focus:not-sr-only">
-          Skip to main content
-        </button>
-      </div>
 
       <div
         className={`container mx-auto  relative flex justify-between h-16 ${
@@ -63,26 +56,39 @@ function Navbar() {
 
           <ul className="font-inter hidden text-base gap-5 2xl:text-xl text-baseGray lg:flex items-center">
             <li>
-              <Link href="/">{languageIs ? "الرئيسية" : "Home"}</Link>
-            </li>
-            <li>
-              <Link href="/projects">
-                {languageIs ? "المشروعات الجديدة" : "New Projects"}
+              <Link href="/" className="font-noto">
+                {languageIs ? "الرئيسية" : "Home"}
               </Link>
             </li>
+
             {/* <li>
               <Link href="/Packages">
                 {languageIs ? "الباقات" : "Packages"}
               </Link>
             </li> */}
             <li>
-              <Link href="/add-property">
+              <Link href="/add-property" className="font-noto">
                 {languageIs ? "إضافة عقار" : "Add Property"}
               </Link>
             </li>
 
             <li>
               <NeedsLink />
+            </li>
+            <li>
+              <Link className="relative font-noto" href="/projects">
+                <span
+                  className={`text-xs absolute text-white rounded-xl -top-4 bg-green-500 px-2 py-1 ${
+                    languageIs ? "-left-7" : " -right-7"
+                  }`}
+                >
+                  {languageIs ? "جديد" : "New"}
+                </span>
+                <span>
+                  {" "}
+                  {languageIs ? "المشروعات الجديدة" : "New Projects"}
+                </span>
+              </Link>
             </li>
           </ul>
         </div>

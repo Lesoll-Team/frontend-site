@@ -393,7 +393,7 @@ const NeedsForm = ({
               // className={"border-none"}
             />
             {errors.rooms && (
-              <p className="text-red-500">{errors.rooms.message}</p>
+              <Error className="text-red-500">{errors.rooms.message}</Error>
             )}{" "}
           </div>
           <div className="space-y-2  w-full">
@@ -426,7 +426,7 @@ const NeedsForm = ({
               // className={"border-none"}
             />
             {errors.bathRooms && (
-              <p className="text-red-500">{errors.bathRooms.message}</p>
+              <Error className="text-red-500">{errors.bathRooms.message}</Error>
             )}{" "}
           </div>
         </div>
