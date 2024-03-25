@@ -7,6 +7,7 @@ import {
 } from "@/utils/addAndEditOptions";
 
 export const formatApiData = ({ setValue, data }) => {
+  console.log(data);
   const Installment = data?.installment?.map((installment) => {
     return {
       ...installment,
@@ -73,6 +74,7 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("price", data?.price);
   setValue("service", services);
   setValue("area", data?.area);
+  setValue("realEstateFinance", data?.RealEstateFinance);
   setValue("rooms", data?.rooms);
   setValue("bathRooms", data?.bathRooms);
   setValue("compaounds", compaounds);

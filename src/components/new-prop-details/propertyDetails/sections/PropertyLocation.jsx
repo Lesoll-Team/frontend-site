@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const PropertyLocation = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const openDirectionsInGoogleMaps = () => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${propertyData?.address.latitude},${propertyData?.address.longitude}`;
+    const url = `https://www.google.com/maps/search/?api=1&query=${propertyData?.address.name}`;
     window.open(url, "_blank");
   };
   const address =
