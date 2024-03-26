@@ -7,18 +7,6 @@ import { useSelector } from "react-redux";
 const BlogCard = ({ blog }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate } = formatDate(blog.createdAt);
-  // function extractFirst200Characters(text) {
-  //   // Remove HTML tags using a regular expression
-  //   var cleanText = text.replace(/<[^>]*>/g, "");
-
-  //   // Trim any extra whitespace
-  //   cleanText = cleanText.trim();
-
-  //   // Extract the first 200 characters
-  //   var first200Characters = cleanText.substring(0, 200);
-
-  //   return first200Characters;
-  // }
   const description = useCallback((text) => {
     // Remove HTML tags using a regular expression
     var cleanText = text.replace(/<[^>]*>/g, "");

@@ -6,7 +6,7 @@ const PropertyInstallmentPlans = ({ propertyData }) => {
   const isInstallment = propertyData.saleOption.includes("Installment");
   return isInstallment ? (
     <section className="md:space-y-[30px] space-y-[16px]">
-      <h3 className=" ">{language ? "خطط السداد" : "Installment Plans"}</h3>
+      <h2 className=" ">{language ? "خطط السداد" : "Installment Plans"}</h2>
       <div className="flex items-center flex-wrap gap-5">
         {propertyData.installment.map((item) => {
           const downPaymentPercentage = item.downPayment
@@ -55,14 +55,14 @@ const InstallmentCard = ({ data, downPaymentPercentage }) => {
       <div className="flex gap-2 items-center">
         {!!data.amount && (
           <>
-            <p className="text-sm md:text-2xl">
+            <p>
               {data.amount} {period}
             </p>{" "}
             |{" "}
           </>
         )}
 
-        <p className="text-sm md:text-2xl">
+        <p>
           {data.period} {language ? "سنة" : "years"}
         </p>
       </div>
