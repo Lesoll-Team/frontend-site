@@ -35,7 +35,7 @@ const NeedsLink = () => {
         className="relative text-base 2xl:text-xl font-noto"
         onClick={toggleMenu}
       >
-        <span className="flex items-center ">
+        <span className="flex items-start gap-2 ">
           {language ? "الطلبات" : " Needs"}{" "}
           <IoIosArrowDown
             className={`mt-1 duration-100 ${showMenu && "rotate-180 duration-100"}`}
