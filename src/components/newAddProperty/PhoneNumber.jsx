@@ -5,7 +5,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Error from "@/Shared/ui/Error";
 import { useMemo } from "react";
-const PhoneNumber = ({ errors, register, setValue, watch }) => {
+const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userInfo = useSelector((state) => state.userProfile.userData);
   const showPhoneInput = watch("otherPhone");
@@ -23,8 +23,8 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
         <div className="p-5 bg-white w-full rounded space-y-4 relative">
           <h3 className="text-sm md:text-xl font-cairo">
             {language
-              ? " سيتم استخدام رقم الهاتف  للتواصل عبر واتساب او التليفون لهذا الاعلان فقط"
-              : "The phone number you will enter will be used to communicate via WhatsApp or phone for this add only"}
+              ? ` سيتم استخدام رقم الهاتف  للتواصل عبر واتساب او التليفون لهذا ${isNeed ? "الطلب" : "الإعلان"} فقط`
+              : `The phone number you will enter will be used to communicate via WhatsApp or phone for this ${isNeed ? "Need" : "Add"} only`}
           </h3>
           <div className="space-y-2">
             <div dir="ltr">
@@ -106,8 +106,8 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
           </button>
           <h3 className="text-sm md:text-xl font-cairo">
             {language
-              ? " سيتم استخدام رقم الهاتف الجديد للتواصل عبر واتساب او التليفون لهذا الاعلان فقط"
-              : "The phone number you will enter will be used to communicate via WhatsApp or phone for this add only"}
+              ? ` سيتم استخدام رقم الهاتف  للتواصل عبر واتساب او التليفون لهذا ${isNeed ? "الطلب" : "الإعلان"} فقط`
+              : `The phone number you will enter will be used to communicate via WhatsApp or phone for this ${isNeed ? "Need" : "Add"} only`}
           </h3>
           <div className="space-y-2">
             <div dir="ltr">

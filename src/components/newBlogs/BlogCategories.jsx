@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 const BlogCategories = ({ blogs }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const router = useRouter();
+  const query = router.query;
 
   return (
     <div className="md:space-y-[32px]   ">
@@ -17,11 +20,12 @@ const BlogCategories = ({ blogs }) => {
       </div>
       <div className="flex gap-4 overflow-auto no-scroll-bars md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:flex-col md:space-y-4 w-full ">
         {blogs.categories.map((item) => {
+          const isActive = query?.category === item.categoryNameEn;
           return (
             <Link
               key={item._id}
-              href={`?category=${item.categoryNameEn}`}
-              className="text-sm md:text-[19px] min-w-fit md:w-fit break-keep text-baseGray hover:text-lightGreen duration-150"
+              href={`?category=${item.categoryNameEn}&page=1`}
+              className={`text-sm md:text-[19px] min-w-fit md:w-fit break-keep  md:hover:text-lightGreen duration-150 ${isActive ? "text-lightGreen" : "text-baseGray"}`}
             >
               {language ? item.categoryNameAr : item.categoryNameEn}
             </Link>

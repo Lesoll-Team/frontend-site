@@ -17,7 +17,7 @@ const BlogFeed = ({ blogs, keyword }) => {
           }`}
         >
           <BlogSearch />
-          <BlogCategories blogs={blogs} />
+          <BlogCategories blogs={blogs} keyword={keyword} />
         </aside>
         <BlogPosts keyword={keyword} blogs={blogs} className={" w-full"} />
       </main>
