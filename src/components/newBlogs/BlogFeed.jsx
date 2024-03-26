@@ -3,6 +3,7 @@ import BlogCategories from "./BlogCategories";
 import BlogPosts from "./BlogPosts";
 import BlogSearch from "./BlogSearch";
 import BlogsHeader from "./BlogsHeader";
+import Head from "next/head";
 
 const BlogFeed = ({ blogs, keyword }) => {
   const userData = useSelector((state) => state.userProfile.userData);
