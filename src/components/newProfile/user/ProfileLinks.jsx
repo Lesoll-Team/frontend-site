@@ -27,7 +27,6 @@ const ProfileLinks = ({ main }) => {
     localStorage.removeItem("userIsLogin");
     router.push("/signin");
   };
-  console.log(router.asPath);
   const route = router.asPath;
   const isProfile = route === "/profile/edit" || route === "/profile";
   const isAds = route.includes("/profile/my-properties");
