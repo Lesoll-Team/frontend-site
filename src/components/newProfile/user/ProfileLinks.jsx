@@ -27,6 +27,12 @@ const ProfileLinks = ({ main }) => {
     localStorage.removeItem("userIsLogin");
     router.push("/signin");
   };
+  console.log(router.asPath);
+  const route = router.asPath;
+  const isProfile = route === "/profile/edit" || route === "/profile";
+  const isAds = route.includes("/profile/my-properties");
+  const isSaved = route.includes("/profile/saved-items");
+  const isNeeds = route.includes("/profile/needs");
   return (
     <div
       className={`md:px-10 flex flex-col gap-5 mt-2 ${main && "md:hidden"} `}
@@ -34,14 +40,14 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/edit"}
-          className="text-baseGray md:hidden flex items-center gap-4 font-semibold text-[17px] w-fit"
+          className={`text-baseGray md:hidden flex items-center gap-4 font-semibold text-[17px] w-fit `}
         >
           <MdOutlineAccountCircle className="md:text-2xl" />
           {language ? "المعلومات الشخصية" : "Personal Info"}
         </Link>
         <Link
-          href={"/profile/edit"}
-          className="text-baseGray hidden md:flex items-center gap-4 font-semibold text-[17px] w-fit"
+          href={"/profile"}
+          className={`text-baseGray hidden md:flex items-center gap-4 font-semibold text-[17px] w-fit ${isProfile && "md:text-lightGreen"} `}
         >
           {" "}
           <MdOutlineAccountCircle className="md:text-2xl" />
@@ -52,7 +58,7 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/my-properties"}
-          className="text-baseGray font-semibold flex items-center gap-4  text-[17px] w-fit"
+          className={`text-baseGray font-semibold flex items-center gap-4  text-[17px] w-fit ${isAds && "md:text-lightGreen"}`}
         >
           <MdOutlineRealEstateAgent className="md:text-2xl" />
           {language ? "الإعلانات" : "Properties"}
@@ -62,7 +68,7 @@ const ProfileLinks = ({ main }) => {
       <div className="flex flex-col gap-5">
         <Link
           href={"/profile/saved-items"}
-          className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
+          className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isSaved && "md:text-lightGreen"}`}
         >
           <IoMdHeartEmpty className="md:text-2xl" />
           {language ? "العناصر المحفوظة" : "Saved Items"}
@@ -74,7 +80,7 @@ const ProfileLinks = ({ main }) => {
           <div className="flex flex-col gap-5">
             <Link
               href={"/profile/needs"}
-              className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
+              className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isNeeds && "md:text-lightGreen"} `}
             >
               <BiEditAlt className="md:text-2xl" />
               {language ? " الطلبات" : " Needs"}

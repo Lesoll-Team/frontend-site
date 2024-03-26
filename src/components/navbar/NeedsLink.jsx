@@ -49,7 +49,7 @@ const NeedsLink = () => {
             className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150 font-noto"
             href={"/add-need"}
           >
-            {language ? "إضافة طلب" : "Add Need"}
+            {language ? " أطلب عقارك" : "Add Need"}
           </Link>
           <hr />
           <Link
