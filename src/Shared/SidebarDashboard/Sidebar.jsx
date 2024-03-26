@@ -169,6 +169,12 @@ const Sidebar = () => {
             <span className="text-lg font-bold hidden md:block">Needs</span>
           )}
         </Link>
+        <Link
+          href={"/dashboard/compoundes"}
+          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+        >
+          C
+        </Link>
       </nav>
     </div>
   );
