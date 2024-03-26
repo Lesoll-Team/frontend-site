@@ -2,9 +2,7 @@ import DropDown from "@/Shared/ui/DropDown";
 import { installmentTypeOptions } from "@/utils/addAndEditOptions";
 import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
-
 import { FaSquareMinus } from "react-icons/fa6";
-import usePeriodType from "@/Hooks/usePeriodType";
 import { useCallback } from "react";
 const INSTALLMENT = {
   type: {
@@ -37,20 +35,29 @@ const CashAndInstallment = ({
     (period) => {
       switch (period) {
         case "Monthly":
-          return language ? "جنية/شهر" : "Egp/Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/شهر`
+            : `${watch("currencies.ISO_code")}/Month`;
         case "Yearly":
-          return language ? "جنية/سنة" : "Egp/Year";
+          return language
+            ? `${watch("currencies.ISO_code")}/سنة`
+            : `${watch("currencies.ISO_code")}/Year`;
         case "6 Monthly":
-          return language ? "جنية/6 شهور" : "Egp/6 Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/ شهور 6`
+            : `${watch("currencies.ISO_code")} /6 Month`;
         case "3 Monthly":
-          return language ? " جنية/3 شهور" : "Egp/3 Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/ شهور 3`
+            : `${watch("currencies.ISO_code")} /3 Month`;
         default:
-          return language ? "جنية" : "Egp";
+          return language
+            ? `${watch("currencies.ISO_code")}`
+            : `${watch("currencies.ISO_code")}`;
       }
     },
-    [watch("installment")]
+    [watch("installment"), watch("currencies")]
   );
-
   return (
     <>
       <div className="lg:col-span-2 ">
@@ -217,7 +224,7 @@ const CashAndInstallment = ({
                         language ? "left-14" : "right-14"
                       } `}
                     >
-                      {language ? "جنية" : "Egp"}
+                      {watch("currencies.ISO_code")}
                     </span>
                   </div>
                 </div>

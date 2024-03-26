@@ -45,6 +45,20 @@ export const formatApiData = ({ setValue, data }) => {
   };
   // console.log(saleOption);
   setValue("title", data?.title);
+  setValue(
+    "currencies",
+    data?.currencies
+      ? { ISO_code: data?.currencies }
+      : {
+          Country: "Egypt",
+          Currency_symbol: "£E",
+          ISO_code: "EGP",
+          title: {
+            ar: "الجنيه المصري",
+            en: "Egyptian pound",
+          },
+        }
+  );
   setValue("description", data?.description);
   setValue("offer", data?.offer);
   setValue("propType", propType);
@@ -59,6 +73,7 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("price", data?.price);
   setValue("service", services);
   setValue("area", data?.area);
+  setValue("realEstateFinance", data?.RealEstateFinance);
   setValue("rooms", data?.rooms);
   setValue("bathRooms", data?.bathRooms);
   setValue("compaounds", compaounds);

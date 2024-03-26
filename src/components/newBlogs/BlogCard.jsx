@@ -7,18 +7,18 @@ import { useSelector } from "react-redux";
 const BlogCard = ({ blog }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate } = formatDate(blog.createdAt);
-  function extractFirst200Characters(text) {
-    // Remove HTML tags using a regular expression
-    var cleanText = text.replace(/<[^>]*>/g, "");
+  // function extractFirst200Characters(text) {
+  //   // Remove HTML tags using a regular expression
+  //   var cleanText = text.replace(/<[^>]*>/g, "");
 
-    // Trim any extra whitespace
-    cleanText = cleanText.trim();
+  //   // Trim any extra whitespace
+  //   cleanText = cleanText.trim();
 
-    // Extract the first 200 characters
-    var first200Characters = cleanText.substring(0, 200);
+  //   // Extract the first 200 characters
+  //   var first200Characters = cleanText.substring(0, 200);
 
-    return first200Characters;
-  }
+  //   return first200Characters;
+  // }
   const description = useCallback((text) => {
     // Remove HTML tags using a regular expression
     var cleanText = text.replace(/<[^>]*>/g, "");
@@ -47,9 +47,17 @@ const BlogCard = ({ blog }) => {
       <div className="flex flex-col justify-between gap-[22px] p-[8px] px-[10px]">
         {" "}
         <div className="space-y-[12px]">
-          <div className="lg-text py-[5px] px-[14px] bg-lightNeutral w-fit break-keep">
-            <span className="break-keep"> {"العقارات السكنية"}</span>
-          </div>
+          {blog?.category[0] && (
+            <div className="lg-text py-[5px] px-[14px] bg-lightNeutral w-fit break-keep whitespace-nowrap">
+              <span className="break-keep">
+                {" "}
+                {language
+                  ? blog?.category[0]?.categoryNameAr
+                  : blog?.category[0]?.categoryNameEn}
+              </span>
+            </div>
+          )}
+
           <Link
             href={`/blog/${blog.slug.ar}`}
             className="font-bold line-clamp-1"

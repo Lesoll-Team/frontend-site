@@ -30,17 +30,19 @@ function BestLinksInHome({
               : "Most frequently used words"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 1 && "-rotate-90"
-              }`}
+            className={`md:hidden block rotate-40 duration-150 ${
+              toggleLinks == 1 && "-rotate-90"
+            }`}
           />
         </div>
         {PopularSearches?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${toggleLinks !== 1 && "hidden md:block"
-              }`}
+            className={` my-3 w-auto  flex ${
+              toggleLinks !== 1 && "hidden md:block"
+            }`}
 
-          //ustify-center md:justify-normal
+            //ustify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1   ">
@@ -62,16 +64,18 @@ function BestLinksInHome({
             {language ? "العقارات الأكثر بحثاً" : "Most searched properties"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 2 && "-rotate-90"
-              }`}
+            className={`md:hidden block rotate-40 duration-150 ${
+              toggleLinks == 2 && "-rotate-90"
+            }`}
           />
         </div>
         {MostGovernorate?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${toggleLinks !== 2 && "hidden md:block"
-              }`}
-          //justify-center md:justify-normal
+            className={` my-3 w-auto  flex ${
+              toggleLinks !== 2 && "hidden md:block"
+            }`}
+            //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1 ">
@@ -90,19 +94,21 @@ function BestLinksInHome({
           className="flex mb-6 items-center justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
           <h3 className="font-bold">
-            {language ? "عقارات تجارية اخري" : "Other commercial real estate"}
+            {language ? "عقارات تجارية أخري" : "Other commercial properties"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 3 && "-rotate-90"
-              }`}
+            className={`md:hidden block rotate-40 duration-150 ${
+              toggleLinks == 3 && "-rotate-90"
+            }`}
           />
         </div>
         {Others?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${toggleLinks !== 3 && "hidden md:block"
-              }`}
-          // justify-center md:justify-normal
+            className={` my-3 w-auto  flex ${
+              toggleLinks !== 3 && "hidden md:block"
+            }`}
+            // justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1 ">
               <p className="text-gray2 line-clamp-1 ">
@@ -124,16 +130,18 @@ function BestLinksInHome({
             {language ? "مناطق الأكثر بحثاً" : "Most searched areas"}
           </h3>
           <IoIosArrowBack
-            className={`md:hidden block rotate-40 duration-150 ${toggleLinks == 4 && "-rotate-90"
-              }`}
+            className={`md:hidden block rotate-40 duration-150 ${
+              toggleLinks == 4 && "-rotate-90"
+            }`}
           />
         </div>
         {MostArea?.map((links, index) => (
           <div
             key={index}
-            className={` my-3 w-auto  flex ${toggleLinks !== 4 && "hidden md:block"
-              }`}
-          //justify-center md:justify-normal
+            className={` my-3 w-auto  flex ${
+              toggleLinks !== 4 && "hidden md:block"
+            }`}
+            //justify-center md:justify-normal
           >
             <Link href={links.name.keywords.ar} className="w-max line-clamp-1">
               <p className="text-gray2 line-clamp-1 ">

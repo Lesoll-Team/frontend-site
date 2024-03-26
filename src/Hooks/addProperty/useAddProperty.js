@@ -19,12 +19,11 @@ const useAddProperty = () => {
     clearErrors,
     formState,
     register,
-    reset,
     setValue,
     watch,
   } = form;
 
-  const { errors, isSubmitting, isSubmitSuccessful } = formState;
+  const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "installment",
     control,

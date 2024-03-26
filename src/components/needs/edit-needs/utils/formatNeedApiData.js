@@ -1,6 +1,7 @@
 import { propTypeList, rentalTypes } from "@/utils/addAndEditOptions";
 
 export const formatNeedApiData = (setValue, data) => {
+  console.log(data);
   const unitType = {
     value: data?.unitType?._id,
     name: {
@@ -37,4 +38,6 @@ export const formatNeedApiData = (setValue, data) => {
   setValue("rentalPeriod", data?.rentalPeriod);
   setValue("offer", data?.offer);
   setValue("id", data?._id);
+  setValue("connectPhoneNumber", data?.connectPhoneNumber);
+  setValue("otherPhone", data?.connectPhoneNumber ? true : false);
 };

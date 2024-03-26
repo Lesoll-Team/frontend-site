@@ -28,7 +28,9 @@ const SimilarBlogs = ({ blog }) => {
             alt="similar image"
             className="md:h-[85px] md:w-[100px] h-[60px] w-[60px]"
           />
-          <div className=" flex flex-col text-justify justify-around pr-[16px]">
+          <div
+            className={` flex flex-col text-justify justify-around ${language ? "pr-[16px]" : "pl-[16px]"} `}
+          >
             <span className="lg-text text-gray2 line-clamp-2 font-semibold">
               {language ? blog[i]?.slug?.title.ar : blog[i]?.slug?.title.en}
             </span>

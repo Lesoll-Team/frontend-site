@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { unitTypeList } from "@/components/newAddProperty/mainInfo/unitTypeList";
 import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";
 import Button from "@/Shared/ui/Button";
+import PhoneNumber from "@/components/newAddProperty/PhoneNumber";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const NeedsForm = ({
   register,
@@ -393,7 +394,7 @@ const NeedsForm = ({
               // className={"border-none"}
             />
             {errors.rooms && (
-              <p className="text-red-500">{errors.rooms.message}</p>
+              <Error className="text-red-500">{errors.rooms.message}</Error>
             )}{" "}
           </div>
           <div className="space-y-2  w-full">
@@ -426,7 +427,7 @@ const NeedsForm = ({
               // className={"border-none"}
             />
             {errors.bathRooms && (
-              <p className="text-red-500">{errors.bathRooms.message}</p>
+              <Error className="text-red-500">{errors.bathRooms.message}</Error>
             )}{" "}
           </div>
         </div>
@@ -481,6 +482,13 @@ const NeedsForm = ({
         </div>
         {/* <NeedsDescription /> */}
       </div>
+      <PhoneNumber
+        isNeed={true}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        watch={watch}
+      />
       <div className="flex flex-start">
         <Button type="submit" className={"md:max-w-[300px]"}>
           {status === "loading"

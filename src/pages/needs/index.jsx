@@ -33,7 +33,7 @@ export async function getServerSideProps({ query }) {
     };
   } catch (error) {
     // console.log();
-    if (error.response.status == 400) {
+    if (error?.response?.status == 400) {
       return {
         props: {
           keyword: keyword,

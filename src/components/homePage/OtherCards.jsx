@@ -12,7 +12,7 @@ const OtherCards = () => {
         href="/add-property"
         className="flex lg:h-[205px] h-[120px] p-5  gap-x-3 cursor-pointer justify-around items-center md:w-[49%] w-full bg-gradient-to-b border border-gray-100 from-[#e2f5ff] to-[#8ed9ff00] rounded-lg shadow"
       >
-        <label className="min-w-[70%] max-w-[71%]   cursor-pointer">
+        <label className="min-w-[70%] max-w-[71%] flex flex-col gap-1  cursor-pointer">
           <h2 className="text-[#0F3963]  font-bold">
             {language ? "اضف عقارك" : "Add Property"}
           </h2>
@@ -37,14 +37,14 @@ const OtherCards = () => {
         href="/add-need"
         className="flex p-5 lg:h-[205px] h-[120px]  cursor-pointer justify-around items-center md:w-[49%] w-full  bg-gradient-to-b border border-gray-100 from-[#e2f5ff] to-[#8ed9ff00] rounded-lg shadow"
       >
-        <label className="min-w-[70%] cursor-pointer">
+        <label className="min-w-[70%] flex flex-col gap-1 cursor-pointer">
           <h2 className="text-[#0F3963]  font-bold">
             {language ? "أطلب عقارك الأن" : "Request your property now"}
           </h2>
           <p className="font-semibold text-gray2  md:text-[18px] lg-text">
             {language
-              ? "اضافة مواصفات عقارك لنساعدك في إيجاده"
-              : "Add your property specifications to help you find it"}
+              ? "حدد مواصفات العقار الذي تبحث عنه، حتى نتمكن من مساعدتك في العثور عليه"
+              : "Specify the specifications of the property you are looking for, so we can help you find it"}
           </p>
         </label>
         <Image

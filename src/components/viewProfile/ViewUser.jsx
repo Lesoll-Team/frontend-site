@@ -17,6 +17,7 @@ const ViewUser = ({ user, properties, params }) => {
           <Image
             width={140}
             height={140}
+            alt={user.getUser?.fullname}
             src={user.getUser?.avatarUrl || "/user-avatar-placeholder.png"}
             className="rounded-full object-cover w-[50px] h-[50px] md:w-[140px] md:h-[140px]"
           />

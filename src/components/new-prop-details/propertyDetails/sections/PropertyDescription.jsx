@@ -11,7 +11,7 @@ const PropertyDescription = ({ propertyData }) => {
       <h2>{language ? "الوصف" : "Description"}</h2>
       <div>
         {" "}
-        <p className=" font-inter text-baseGray" style={{ lineHeight: "1.7" }}>
+        <p className=" font-noto text-baseGray" style={{ lineHeight: "1.7" }}>
           {propertyData.description
             .trim()
             .split("\n")

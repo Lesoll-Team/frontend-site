@@ -1,12 +1,14 @@
-import { use, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getGovernorate } from "@/utils/searchAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useGetCity, useGetRegion } from "@/Hooks/fetchCitiesAndRegions";
 
-export function SearchDropdownLocation() {
+export function SearchDropdownLocation({ isToggle, isHome }) {
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
-  let { locationGovernorate, locationRegion } = useSelector((state) => state.Category);
+  let { locationGovernorate, locationRegion } = useSelector(
+    (state) => state.Category
+  );
   const dispatch = useDispatch();
   const [governorates, setGovernorates] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
@@ -46,7 +48,9 @@ export function SearchDropdownLocation() {
       setGovernorates(fetchedGovernorates.result);
       setMapLocation(mapLocation);
     } catch (error) {
-      console.error("Error in fetching  governorates file: ( SearchDropdownLocation ) ");
+      console.error(
+        "Error in fetching  governorates file: ( SearchDropdownLocation ) "
+      );
     }
   }, []);
 
@@ -200,32 +204,21 @@ export function SearchDropdownLocation() {
         break;
     }
   };
-  const city = useGetCity(locationGovernorate)
-  const region = useGetRegion(locationRegion)
-  // useEffect(() => {
-
-  //   console.log("city", city);
-  //   console.log("region", region);
-  // }, [locationGovernorate, locationRegion]);
-
-
+  const city = useGetCity(locationGovernorate);
+  const region = useGetRegion(locationRegion);
   return (
     <div
       aria-label={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
       dir={languageIs ? "rtl" : "ltr"}
       className="relative w-full lg-text focus:outline-none h-full"
     >
-      <div
-        className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 "
-      >
+      <div className="flex items-center h-full rounded-[1vw] bg-white px-2 gap-x-1 md:gap-x-3 ">
         {selectedValues.length > 0 ? (
           <div
             className="flex items-center gap-x-1 md:gap-x-3 px-1 md:px-3 md:py-1 bg-lightGreen rounded-sm md:rounded-md "
             key={selectedValues[selectedValues.length - 1]}
           >
-            <span
-              className=" sm-text whitespace-nowrap text-white "
-            >
+            <span className=" sm-text whitespace-nowrap text-white ">
               {selectedValues[selectedValues.length - 1]}
             </span>
             <button
@@ -243,8 +236,7 @@ export function SearchDropdownLocation() {
         ) : null}
         {locationGovernorate && selectedValues.length <= 0 ? (
           <div className="flex items-center gap-x-1 md:gap-x-3 px-1 md:px-3 md:py-1 bg-lightGreen rounded-sm md:rounded-md ">
-            <span className=" sm-text whitespace-nowrap text-white "
-            >
+            <span className=" sm-text whitespace-nowrap text-white ">
               {languageIs ? city?.name_ar : city?.name_en}
               {locationRegion &&
                 locationRegion !== locationGovernorate &&
@@ -252,8 +244,12 @@ export function SearchDropdownLocation() {
             </span>
             <button
               onClick={() => {
-                // setClearDefault(false)
-                dispatch(updateAllStates({ locationGovernorate: null, locationRegion: null }))
+                dispatch(
+                  updateAllStates({
+                    locationGovernorate: null,
+                    locationRegion: null,
+                  })
+                );
               }}
               className="text-gray2  items-center flex sm-text font-semibold"
             >
@@ -261,7 +257,6 @@ export function SearchDropdownLocation() {
             </button>
           </div>
         ) : null}
-
 
         <div className="w-full   h-full" aria-labelledby="input search">
           <input
@@ -276,12 +271,11 @@ export function SearchDropdownLocation() {
           />
         </div>
       </div>
-      {searchTerm !== "" && (
+      {searchTerm !== "" || isToggle ? (
         <div
           className={`absolute z-10 left-0 right-0 max-h-[250px] overflow-y-auto text-black bg-white border rounded-md shadow-md`}
         >
-          <div
-            ref={dropdownRef}>
+          <div ref={dropdownRef}>
             {filteredOptions.map((governorate, index) => (
               <button
                 key={index}
@@ -294,39 +288,7 @@ export function SearchDropdownLocation() {
             ))}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
-// useEffect(() => {
-//   if (searchTerm) {
-//     if (searchTerm) {
-//       window.scrollTo({
-//         top: 100,
-//         behavior: "smooth", // or "instant" for instant scrolling
-//       });
-//     }
-//   }
-// }, [searchTerm])
-/**
- *   {
-  defaultGovernorate,
-  defaultRegion,
-}
- */        /* {defaultGovernorate && clearDefault ? (
-  <div className="flex items-center gap-x-1 md:gap-x-3 px-1 md:px-3 md:py-1 bg-lightGreen rounded-sm md:rounded-md ">
-    <span className=" sm-text whitespace-nowrap text-white "
-    >
-      {defaultGovernorate}
-      {defaultRegion &&
-        defaultRegion !== defaultGovernorate &&
-        `-${defaultRegion}`}
-    </span>
-    <button
-      onClick={() => setClearDefault(false)}
-      className="text-gray2  items-center flex sm-text font-semibold"
-    >
-      &times;
-    </button>
-  </div>
-) : null} */

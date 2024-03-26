@@ -34,12 +34,13 @@ const useAddNeed = () => {
         to: data?.areaTo,
       },
       rooms: data.rooms,
-      bathRooms: data.bathRooms,
+      bathRooms: data.bathrooms,
       saleOption: data.saleOption,
       installment: data.installment,
       description: data.description,
       rentalPeriod: data.rentalPeriod,
       offer: data.offer,
+      connectPhoneNumber: data.connectPhoneNumber || "",
     };
 
     await dispatch(addNeed(dataToSend));

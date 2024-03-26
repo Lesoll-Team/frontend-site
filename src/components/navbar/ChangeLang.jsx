@@ -14,7 +14,7 @@ const ChangeLang = ({ bigScreen }) => {
   return (
     <button
       onClick={changeLang}
-      className={` text-darkGray lg:text-base lg:font-semibold font-inter w-fit ${
+      className={` text-darkGray lg:text-base lg:font-semibold font-noto w-fit ${
         bigScreen && "hidden lg:block "
       } `}
     >

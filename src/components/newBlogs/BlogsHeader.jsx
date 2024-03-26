@@ -9,19 +9,11 @@ const BlogsHeader = () => {
       <h1 className="absolute display-text text-white z-[5]">
         {language ? "المقالات" : "Blogs"}
       </h1>
-      <Image
+      <img
         src={"/blog-header.png"}
-        width={1440}
-        height={273}
-        className="w-full "
+        className="w-full object-cover min-h-[100px] md:min-h-[290px]"
         alt="man with a pen writing some blogs..."
       />
-      {/* <Image
-        src={"/blog-header-mobile.png"}
-        width={360}
-        height={95}
-        className="w-full block md:hidden"
-      /> */}
     </header>
   );
 };
