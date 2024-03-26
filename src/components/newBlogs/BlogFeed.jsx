@@ -9,6 +9,9 @@ const BlogFeed = ({ blogs, keyword }) => {
 
   return (
     <div className="flex flex-col md:gap-y-[80px] mb-10">
+      <Head>
+        <title>المقالات</title>
+      </Head>
       <BlogsHeader />
       <main className="md:container w-full mx-auto flex flex-col md:flex-row md:gap-20">
         <aside
