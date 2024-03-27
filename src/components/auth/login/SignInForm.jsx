@@ -1,57 +1,55 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { loginUserAsync } from "@/redux-store/features/authSlice";
 import { useRouter } from "next/router";
-import { Waveform } from "@uiball/loaders";
-import { FcGoogle } from "react-icons/fc";
-import { signWithGoogle } from "@/utils/userAPI";
+import { Ring } from "@uiball/loaders";
 import GoogleSignInBtn from "./GoogleSignInBtn";
-import { resetLogin, userLogin } from "@/redux-store/features/auth/loginSlice";
 import Button from "@/Shared/ui/Button";
+import { userLogin } from "./api/loginApi";
 const SignInForm = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  // redux states
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const status = useSelector((state) => state.login.status);
-  const error = useSelector((state) => state.login.error);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const [token, setToken] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [WrongPassword, setWrongPasswird] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
   // functions
   const onSubmit = async (data) => {
-    dispatch(userLogin(data));
+    await userLogin({ data, setFormStatus, setServerError, setToken });
   };
-  useEffect(() => {
-    if (status === "succeeded") {
-      router.push("/");
-      dispatch(resetLogin());
-    }
-  }, [status]);
 
   useEffect(() => {
-    if (error?.message.toLowerCase().includes("password")) {
+    if (formStatus === "success") {
+      localStorage.setItem("userToken", JSON.stringify(token));
+      router.replace("/");
+    }
+  }, [formStatus]);
+
+  useEffect(() => {
+    if (serverError?.message.toLowerCase().includes("password")) {
       setWrongPasswird(true);
-      dispatch(resetLogin());
+      setServerError(null);
       setTimeout(function () {
         setWrongPasswird(false);
       }, 3500);
     }
-    if (error?.message.toLowerCase().includes("email")) {
+    if (serverError?.message.toLowerCase().includes("email")) {
       setEmailNotFound(true);
-      dispatch(resetLogin());
+      setServerError(null);
       setTimeout(function () {
         setEmailNotFound(false);
       }, 3500);
     }
-  }, [error]);
+  }, [serverError]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -153,18 +151,15 @@ const SignInForm = () => {
       </div>
 
       {/* ---------------------- submit btn ------------------------- */}
-      <Button
-        type="submit"
-        // className="w-full p-3 h-12 md:h-14 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
-      >
-        {status === "loading" ? (
+      <Button type="submit">
+        {formStatus === "loading" ? (
           <>
             {" "}
             <div className="md:hidden">
-              <Waveform size={20} color="#fff" />
+              <Ring size={20} color="#fff" />
             </div>
             <div className="md:block hidden">
-              <Waveform size={20} color="#fff" />
+              <Ring size={20} color="#fff" />
             </div>
           </>
         ) : (
