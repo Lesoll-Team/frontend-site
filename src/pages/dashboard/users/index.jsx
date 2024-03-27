@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import UserDashboard from "@/components/dashboard/router/UserDashboardt";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import Head from "next/head";
-// import { Button } from "@nextui-org/react";
-// import axios from "axios";
 function Users() {
   const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
@@ -24,7 +22,6 @@ function Users() {
         <Sidebar />
       </div>
       <div className="w-full">
-        {/* <Button className="font-semibold text-white " color="success" onClick={downloadUserData}>Download users Data</Button> */}
         <UserDashboard />
       </div>
     </div>

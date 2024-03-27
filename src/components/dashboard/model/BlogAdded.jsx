@@ -1,9 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 // import Link from "next/link";
+import Link from "next/link";
+import { MdOutlineArrowForward } from "react-icons/md";
 import { useSelector } from "react-redux";
 
-const BlogAdded = ({ setBlogCreated }) => {
+const BlogAdded = ({ setBlogCreated, slug, message, isAdd }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -17,18 +18,25 @@ const BlogAdded = ({ setBlogCreated }) => {
           className="mx-auto"
         />
         <div className="">
-          <h3 className="font-bold text-lg md:text-3xl">
-            {language ? "تم إضافة  المقال بنجاح" : "The blog has been add"}
-          </h3>
+          <h3 className="font-bold text-lg md:text-3xl">{message}</h3>
         </div>
       </div>
-      <button
-        // href={"/"}
-        onClick={() => setBlogCreated(false)}
-        className="w-8/12 lg:max-w-[300px] py-2 bg-lightGreen rounded-md text-white mx-auto"
-      >
-        {language ? "اضف مقال اخر" : "Add Other blog"}{" "}
-      </button>
+      {isAdd ? (
+        <button
+          onClick={() => setBlogCreated(false)}
+          className="w-8/12 lg:max-w-[300px] py-2 bg-lightGreen rounded-md text-white mx-auto"
+        >
+          {language ? "اضف مقال اخر" : "Add Other blog"}{" "}
+        </button>
+      ) : (
+        <Link
+          className="font-bold justify-center underline text-lightGreen text-xl flex items-center"
+          href={`/blog/${slug}`}
+        >
+          <MdOutlineArrowForward />
+          مشاهدة المقال
+        </Link>
+      )}
     </div>
   );
 };

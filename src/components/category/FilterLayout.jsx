@@ -41,11 +41,19 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       })
     );
   }, [router]);
+  // useEffect(() => {
+  //   // Add or remove the class 'sidebar-open' to the body element based on 'openFilter' state
+  //   if (openFilter) {
+  //     document.body.classList.add("sidebar-open");
+  //   } else {
+  //     document.body.classList.remove("sidebar-open");
+  //   }
+  // }, [openFilter]);
   return (
     <>
       {/*Sidebar filter */}
       {openFilter && (
-        <div className="fixed z-[700]  w-full top-0">
+        <div className={`fixed z-[700]  w-full top-0`}>
           <SidebarFilter languageIs={language} result={result} />
         </div>
       )}
@@ -71,7 +79,9 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       {/*title & save and filter button*/}
       <SubBarTitle result={result} />
       {/*cards result  */}
-      <div className="md:container mx-[20px] md:mx-auto md:flex flex-wrap  grid  gap-y-3 md:gap-y-16  lg:justify-between justify-center">
+      <div
+        className={` md:container mx-[20px] md:mx-auto md:flex flex-wrap  grid  gap-y-3 md:gap-y-16  lg:justify-between justify-center `}
+      >
         {result?.categoryResults?.map((property) => (
           <RealtyCard key={property._id} propertyDetails={property} />
         ))}

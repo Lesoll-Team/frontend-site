@@ -295,8 +295,8 @@ export default function ActiveProperty() {
             <form
               className="flex items-center  gap-x-2"
               onSubmit={(e) => {
-                e.preventDefault(); // Prevents the default form submission behavior
-                fetchAllProperties(startDate, endDate); // Call your search function
+                e.preventDefault();
+                fetchAllProperties(startDate, endDate);
               }}
             >
               <input

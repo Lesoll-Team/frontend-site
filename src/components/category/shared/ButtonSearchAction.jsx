@@ -78,7 +78,7 @@ const ButtonSearchAction = ({ isBar }) => {
     );
   } else {
     return (
-      <div className="md:w-[37.7vw] w-full bottom-0 left-0  justify-center flex  fixed ">
+      <div className="md:w-[37.7vw] w-full bottom-0 left-0  justify-center flex bg-white fixed ">
         <button
           onClick={handleClick}
           className="bg-lightGreen rounded-[6px] md:w-[24.2vw] lg-text  w-8/12 h-[40px] md:h-[3.813rem] text-white font-bold"

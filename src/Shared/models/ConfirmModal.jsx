@@ -32,14 +32,16 @@ export default function ConfirmModal({
         placement={"bottom-center"}
         onOpenChange={onOpenChange}
       >
-        <ModalContent>
+        <ModalContent dir="rtl">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 pt-8">
+                {title}
+              </ModalHeader>
               <ModalBody>{description || ""}</ModalBody>
               <div className="flex p-3 gap-5">
                 <button
-                  className="bg-red-500 py-2 px-4 rounded-lg text-white"
+                  className="border-red-500 border-1 py-2 px-4 rounded-lg text-red-500"
                   onClick={() => {
                     onClose();
                   }}
