@@ -1,0 +1,173 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { AiOutlineSearch } from "react-icons/ai";
+import { useRouter } from "next/router";
+import { SearchDropdownLocation } from "./SearchDropdownLocation";
+import { IoIosArrowDown } from "react-icons/io";
+
+export function SearchBarHome() {
+  const languageIs = useSelector((state) => state.GlobalState.languageIs);
+  const { locationGovernorate, locationRegion } = useSelector(
+    (state) => state.Category
+  );
+  const [saleOptions, setSaleOptions] = useState("sale");
+  const router = useRouter();
+  const [keywords, setKeywords] = useState("");
+  const [searchOptions, setSearchOptions] = useState(false);
+
+  /**
+   * @function handleSubmitSearch got to searching page with input search
+   * @param filteredKeywords make filter "InputKeywords" just get value is equal data
+   * @param queryString make "filteredKeywords" to query text
+   */
+  const handleSubmitSearch = (e) => {
+    e?.preventDefault();
+    const InputKeywords = {
+      offer: saleOptions,
+      governorate: locationGovernorate,
+      region: locationRegion,
+      // keyword: keywords,
+    };
+    const filteredKeywords = Object.fromEntries(
+      Object.entries(InputKeywords).filter(
+        ([_, value]) => value != null && value !== "" && value !== 0
+      )
+    );
+
+    const pagesInput = Object.keys(filteredKeywords)
+      .map((key) => `${filteredKeywords[key]}`)
+      .join("/")
+      .toLowerCase();
+
+    const url = `${pagesInput}/residential/search?page=1${
+      keywords && "&keyword=" + keywords.split(" ").join("_")
+    }`;
+    router.push(`/properties/${url}`);
+  };
+
+  // start code 3 button in search bar
+  const setForSaleButton = (e) => {
+    e.preventDefault();
+    setSaleOptions("sale");
+  };
+  const setForRentButton = (e) => {
+    e.preventDefault();
+    setSaleOptions("rent");
+  };
+  const setForInvestmentButton = (e) => {
+    e.preventDefault();
+    setSaleOptions("investment");
+  };
+  // end code 3 button in search bar
+
+  return (
+    <div className=" md:w-full md:max-w-none max-w-[444px] min-w-[280px] w-full flex flex-col justify-end  p-1">
+      {/* 3 button in search bar */}
+      <div className=" flex gap-x-1 font-inter md:w-4/12 w-full justify-between md:items-end">
+        <button
+          id="Click-Gtm"
+          onClick={setForSaleButton}
+          className={` ${
+            saleOptions == "sale"
+              ? "text-lightGreen bg-white"
+              : "text-white  bg-lightGreen"
+          }  
+            w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] lg-text`}
+        >
+          {languageIs ? "للبيع" : "Buy"}
+        </button>
+        <button
+          id="Click-Gtm"
+          onClick={setForRentButton}
+          className={` ${
+            saleOptions == "rent"
+              ? "text-lightGreen bg-white"
+              : "text-white  bg-lightGreen"
+          } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] lg-text`}
+        >
+          {languageIs ? "للإيجار" : "Rent"}
+        </button>
+
+        <button
+          id="Click-Gtm"
+          onClick={setForInvestmentButton}
+          className={` ${
+            saleOptions == "investment"
+              ? "text-lightGreen bg-white"
+              : "text-white  bg-lightGreen"
+          }
+             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] lg-text`}
+        >
+          {languageIs ? "للإستثمار" : "Investment"}
+        </button>
+      </div>
+
+      {/*box search bar */}
+      <div
+        className={` md:flex md:flex-row flex flex-col  items-center md:items-center ${
+          languageIs
+            ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
+            : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
+        }  bg-white   drop-shadow-md  sm:drop-shadow-md  justify-between
+                md:gap-x-[4.1vw] 
+                md:gap-y-[0px] gap-y-[28px]
+                md:py-[16px] py-[20px] md:px-[25px] px-[20px]
+                md:h-[112px]
+           `}
+      >
+        {/*search box */}
+        <div className="flex  flex-col md:w-6/12 w-full gap-y-[5px] md:gap-y-[8px]    ">
+          <span className="text-gray2 font-bold lg-text">
+            {languageIs ? "بحث بالكلمات المميزة" : "Search by keywords"}
+          </span>
+          <div className=" border-1 md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
+            <input
+              type="text"
+              onChange={(e) => setKeywords(e.target.value)}
+              autoComplete="off"
+              className=" rounded-[1vw] w-full font-inter h-full  text-black  
+              lg-text placeholder:lg-text
+               active:outline-none indent-1 hover:outline-none focus:outline-none"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmitSearch(e);
+                }
+              }}
+            />
+            <AiOutlineSearch className="text-[#656565] md:ml-[24px] ml-[8px] md:text-3xl text-xl" />
+          </div>
+        </div>
+        {/*search with location */}
+
+        <div className=" flex flex-col md:w-4/12 w-full gap-y-[5px] md:gap-y-[8px]   ">
+          <h6 className="text-gray2 font-bold lg-text">
+            {languageIs ? "بحث بالمنطقة" : "Search by city"}
+          </h6>
+          <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
+            <SearchDropdownLocation isHome isToggle={searchOptions} />
+            <button onClick={() => setSearchOptions(!searchOptions)}>
+              <IoIosArrowDown
+                className={`text-[#656565] md:text-3xl lg-text ${searchOptions ? " rotate-180 " : "  rotate-0"} `}
+              />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex items-end h-full md:w-2/12 w-8/12  ">
+          <button
+            id="Click-Gtm"
+            // type="submit"
+            onClick={handleSubmitSearch}
+            className={`bg-lightGreen text-white lg-text  font-bold select-none 
+            h-[40px] md:h-[50px]
+          w-full rounded-[4px]
+          
+          `}
+          >
+            {languageIs ? "بـحـث" : "Search"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

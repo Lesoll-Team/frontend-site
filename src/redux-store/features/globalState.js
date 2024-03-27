@@ -7,12 +7,11 @@ import { getUserData, updateUserDataInfo } from "../../utils/userAPI";
 //   }
 //   return false; // Default to English if localStorage is not available
 // };
-// console.log("function,",getLanguageFromLocalStorage());
 const initialState = {
   userData: null,
   userLod: false,
   userErr: null,
-  languageIs:true , // getLanguageFromLocalStorage() (false = ENG) ?& (true= ARB)
+  languageIs: true, // getLanguageFromLocalStorage() (false = ENG) ?& (true= ARB)
   isUpdated: false,
   updateError: null,
 };
@@ -31,7 +30,6 @@ export const updateUserData = createAsyncThunk(
   "GlobalState/updateUserData",
   async (data) => {
     try {
-      // console.log("createAsyncThunk",data);
       const response = await updateUserDataInfo(
         data.userID,
         // data.userToken,
@@ -47,10 +45,9 @@ export const globalState = createSlice({
   name: "GlobalState",
   initialState,
   reducers: {
-    handleLanguage: (state) => {
-      state.languageIs = !state.languageIs;
-      // localStorage.setItem("language", state.languageIs ? "ARB" : "ENG");
-
+    setLang: (state, action) => {
+      localStorage.setItem("language", action.payload);
+      state.languageIs = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -63,7 +60,6 @@ export const globalState = createSlice({
         state.userData = action.payload;
         state.userLod = false;
         // localStorage.setItem("userID", JSON.stringify(state.userData?._id))
-
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.userErr = action.error.message;
@@ -84,5 +80,5 @@ export const globalState = createSlice({
     // .addCase()
   },
 });
-export const { handleLanguage } = globalState.actions; //logoutUser
+export const { setLang } = globalState.actions; //logoutUser
 export default globalState.reducer;

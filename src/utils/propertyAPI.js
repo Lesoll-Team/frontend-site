@@ -19,6 +19,24 @@ export async function createNewProperty(propertyDetils) {
     throw error.response.data;
   }
 }
+
+export async function propertyIsSold({ propertyId }) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
 export async function editProperty(propertyDetils, propertyId) {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
@@ -29,7 +47,7 @@ export async function editProperty(propertyDetils, propertyId) {
       {
         headers: {
           token: userToken,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       }
     );
@@ -61,7 +79,13 @@ export async function AddToFavorites(propertyid) {
 export async function WhatsAppBtn(propertyid) {
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`
+      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`,
+      {
+        headers: {
+          token: userToken,
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
   } catch (error) {
     throw error;
@@ -136,7 +160,6 @@ export async function deleteProperty(propertyid, message) {
     return response.data;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -156,7 +179,6 @@ export async function getRecommendRealty(propertyid) {
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -176,7 +198,6 @@ export async function GetActiveProp(page) {
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 export async function GetEditAds(slug) {
@@ -195,7 +216,6 @@ export async function GetEditAds(slug) {
     return response.data.find;
   } catch (error) {
     throw error.response.data;
-    // console.log();
   }
 }
 
@@ -216,6 +236,19 @@ export async function getRegion() {
       `${process.env.NEXT_PUBLIC_API_URL}/admin/region/getall`
     );
     return response.data.Region;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+// property details dashboard admin
+
+export async function getPropertyDashboard(slug) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/property-details-dashboard/${slug}?token=${userToken}`
+    );
+    return response.data;
   } catch (error) {
     throw error.response.data;
   }

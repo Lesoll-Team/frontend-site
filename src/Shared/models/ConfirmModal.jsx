@@ -3,19 +3,20 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
+  // ModalFooter,
+  // Button,
   useDisclosure,
-  RadioGroup,
-  Radio,
+  // RadioGroup,
+  // Radio,
 } from "@nextui-org/react";
-import { useState } from "react";
+// import { useState } from "react";
 import { useSelector } from "react-redux";
 export default function ConfirmModal({
   actinFunction,
   title,
   description,
   children,
+  id,
 }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -31,14 +32,16 @@ export default function ConfirmModal({
         placement={"bottom-center"}
         onOpenChange={onOpenChange}
       >
-        <ModalContent>
+        <ModalContent dir="rtl">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 pt-8">
+                {title}
+              </ModalHeader>
               <ModalBody>{description || ""}</ModalBody>
               <div className="flex p-3 gap-5">
                 <button
-                  className="bg-red-500 py-2 px-4 rounded-lg text-white"
+                  className="border-red-500 border-1 py-2 px-4 rounded-lg text-red-500"
                   onClick={() => {
                     onClose();
                   }}
@@ -50,7 +53,7 @@ export default function ConfirmModal({
                   color="primary"
                   onClick={() => {
                     onClose();
-                    actinFunction();
+                    actinFunction(id || "");
                   }}
                 >
                   {language ? "تأكيد" : "Confirm"}

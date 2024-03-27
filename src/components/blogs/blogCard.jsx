@@ -1,12 +1,22 @@
-import React from "react";
-import {  Image } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { BsBoxArrowInDownRight } from "react-icons/bs";
+import { LiaEdit } from "react-icons/lia";
+import Image from "next/image";
 
 function BlogCard({ blogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (
+      (userInfo && userInfo?.isAdmin === true) ||
+      userInfo?.supAdmin === true
+    ) {
+      setIsAdmin(true);
+    }
+  }, [userInfo]);
   return (
     <div className="gap-10 flex flex-wrap justify-center  ">
       {blogData.map((item) => (
@@ -14,7 +24,8 @@ function BlogCard({ blogData }) {
           <div className=" w-[350px]   mx-auto">
             <Link
               title={language ? item.title.ar : item.title.en}
-              href={`/blog/${language ? item.slug.ar : item.slug.en}`}>
+              href={`/blog/${language ? item.slug.ar : item.slug.en}`}
+            >
               <Image
                 width="100%"
                 height="100%"
@@ -33,7 +44,6 @@ function BlogCard({ blogData }) {
               >
                 <h2 className="text-lightGreen sm:text-lg line-clamp-1 flex-wrap text-sm text-md md:text-xl lg:text-2xl ">
                   {language ? item.title.ar : item.title.en}
-                  {language ? item.title.ar : item.title.en}
                 </h2>
               </Link>
             </div>
@@ -42,20 +52,33 @@ function BlogCard({ blogData }) {
                 {language ? item.metaDescription.ar : item.metaDescription.en}
               </p>
             </div>
-            <div className=" flex justify-center ">
+            <div className=" flex justify-center items-center ">
               <Link
                 title={language ? item.title.ar : item.title.en}
                 href={`/blog/${language ? item.slug.ar : item.slug.en}`}
-                className="text-blue-600 underline  flex items-center">
+                className="text-blue-600 underline  flex items-center"
+              >
                 <div className="mx-2">
                   <BsBoxArrowInDownRight />
                 </div>
                 {language ? "قراءة المزيد" : "read more"}
               </Link>
+              {isAdmin && (
+                <Link
+                  title={language ? item.title.ar : item.title.en}
+                  href={`/dashboard/blog/edit-blog/${
+                    language ? item.slug.ar : item.slug.en
+                  }`}
+                  className="mx-5"
+                >
+                  <LiaEdit className="text-2xl" />
+                </Link>
+              )}
             </div>
           </div>
         </div>
       ))}
     </div>
-  );}
+  );
+}
 export default React.memo(BlogCard);

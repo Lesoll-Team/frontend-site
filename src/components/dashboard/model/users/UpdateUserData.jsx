@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
-import {updateUsers} from "../../utils/userAPI";
+import { useMemo, useState } from "react";
+import { updateUsers } from "../../utils/userAPI";
 import {
   Modal,
   ModalContent,
@@ -17,7 +17,7 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 
-function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
+function UserUpdateModule({ userID, typeUser, userIsAdmin }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isAdmin, setAdmin] = useState(userIsAdmin);
   const [selectedKeys, setSelectedKeys] = useState(new Set([typeUser]));
@@ -27,12 +27,8 @@ function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
   );
   const handleUpdateData = async (e) => {
     e.preventDefault();
-    // try {
-      const newUserData = { typeOfUser, isAdmin };
-      await updateUsers(userID, newUserData);
-    // } catch (error) {
-    //   console.error("Error Update User Data:", error);
-    // }
+    const newUserData = { typeOfUser, isAdmin };
+    await updateUsers(userID, newUserData);
   };
 
   return (
@@ -61,7 +57,6 @@ function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
               </ModalHeader>
               <form onSubmit={handleUpdateData}>
                 <ModalBody>
-
                   <Dropdown>
                     <DropdownTrigger>
                       <Button variant="bordered" className="capitalize">
@@ -86,10 +81,10 @@ function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
                     aria-label="set Admin"
                     size="lg"
                     onClick={() => setAdmin(!isAdmin)}
-                    isSelected={userIsAdmin}>
+                    isSelected={userIsAdmin}
+                  >
                     set Admin
                   </Checkbox>
-
                 </ModalBody>
                 <ModalFooter>
                   <Button color="foreground" variant="light" onClick={onClose}>
@@ -98,7 +93,8 @@ function UserUpdateModule({ userID,typeUser,userIsAdmin }) {
                   <Button
                     className="bg-[#6f4ef2] "
                     type="submit"
-                    onPress={onClose}>
+                    onPress={onClose}
+                  >
                     Done
                   </Button>
                 </ModalFooter>

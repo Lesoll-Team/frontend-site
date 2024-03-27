@@ -1,19 +1,16 @@
-// pages/Realties/[slug].js
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 
 const RealtiesSlugPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Redirect logic
-    router.push("/searching/offer=all");
-    // router.push("/searching/offer=all", undefined, {
-    //   shallow: true,
-    // });
-  }, [router]);
-
-  return <div className="h-[95dvh]"></div>;
+  return null
 };
 
 export default RealtiesSlugPage;
+export async function getServerSideProps() {
+
+  return {
+    redirect: {
+      destination: "/properties/sale/residential/search?page=1",
+      statusCode: 308,
+    },
+  };
+
+}

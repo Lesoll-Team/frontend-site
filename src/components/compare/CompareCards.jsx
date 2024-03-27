@@ -14,7 +14,6 @@
 // useEffect(() => {
 //   dispatch(GetCompareCard())
 // }, [dispatch,GetCompareCard])
-// // console.log(propertyData);
 //   return (
 //     <>
 //     <div className="container mx-auto gap-3 px-5 flex   bg-gray-200 rounded-lg "> {/**justify-center */}

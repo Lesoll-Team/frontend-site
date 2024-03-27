@@ -3,16 +3,12 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  MarkerF,
   InfoWindow,
 } from "@react-google-maps/api";
 import RealtyCard from "@/components/realtyCard/RealtyCard";
-import { HiMiniXMark, HiOutlineXMark } from "react-icons/hi2";
-import locationIcon from "../../../public/icons/location-icon.png";
+import { HiMiniXMark } from "react-icons/hi2";
 // const center = { lat: 30.0444, lng: 31.2357 };
-// console.log(window.screen.width);
 
-// console.log()
 export default function ShowMapSearch({ searchResult }) {
   // const center = () => {
   //   if (window.screen.width > 1025) {
@@ -30,11 +26,9 @@ export default function ShowMapSearch({ searchResult }) {
       setCenter({ lat: 30.0444, lng: 31.2357 });
     }
   }, [window?.screen?.width]);
-  // console.log(center());
-  //   console.log(searchResult);
+
 
   useEffect(() => {
-    // console.log(searchResult[0].address.latitude);
   }, [searchResult]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
@@ -67,7 +61,6 @@ function Map({ searchResult, center }) {
   return (
     <GoogleMap
       onZoomChanged={() => {
-        // console.log("zoom");
       }}
       options={{
         zoomControlOptions: true,
@@ -85,7 +78,6 @@ function Map({ searchResult, center }) {
       {renderMarker &&
         searchResult &&
         searchResult.map((location, index) => {
-          //   console.log(location.address.latitude, location.address.longitude);
           const lat = parseFloat(location.address.latitude);
           const lng = parseFloat(location.address.longitude);
           return (
@@ -106,7 +98,6 @@ function Map({ searchResult, center }) {
                 // setSeletedPlace({lat:location.address.latitude,lng:})
                 setSeletedPlace({ lat: lat, lng: lng });
                 setProperty(location);
-                // console.log(seletedPlace);
               }}
             />
           );

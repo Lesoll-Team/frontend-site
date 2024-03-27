@@ -1,12 +1,28 @@
-import React from "react";
+import { cn } from "@/utils/cn";
 
-const Button = (props) => {
+const Button = ({
+  type,
+  onClick,
+  children,
+  disabled,
+  className,
+  variant = "",
+}) => {
   return (
     <button
-      type={props.type}
-      className="rounded-3xl bg-lightOrange text-white mt-5  py-2  font-semibold  duration-300 hover:bg-lightOrangeHover md:active:scale-95"
+      disabled={disabled}
+      onClick={onClick}
+      type={type}
+      className={cn(
+        `w-full p-3 h-12  flex items-center justify-center rounded-md border-lightGreen border-2   text-xl ${
+          variant === "bordered"
+            ? "bg-transparent text-lightGreen  "
+            : "bg-lightGreen text-white "
+        } ${disabled && "opacity-50"}`,
+        className
+      )}
     >
-      {props.text}
+      {children}
     </button>
   );
 };

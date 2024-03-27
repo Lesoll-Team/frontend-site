@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import PropertyDashboard from "@/components/dashboard/router/PropertyDashboard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
+import Head from "next/head";
 function PropPending() {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
   useEffect(() => {
     if (userInfo && userInfo.isAdmin === false && userInfo.supAdmin === false) {
@@ -13,7 +14,11 @@ function PropPending() {
   }, [userInfo]);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh] flex" dir="ltr">
-      <div className=" bg-lightGreenHover sticky top-0 ">
+      <Head>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className=" sticky top-0">
         <Sidebar />
       </div>
       <div className="col-span-5 overflow-x-auto">

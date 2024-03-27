@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input, Button, Image } from "@nextui-org/react";
-import { useRouter } from "next/router";
-import { format } from "date-fns";
 
+import { format } from "date-fns";
 import {
   fetchActiveProperty,
   deleteActiveProperty,
@@ -16,17 +14,13 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-import {
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
-import { SearchIcon } from "../icon/SearchIcon";
-import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Link from "next/link";
+import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
+import { propertyIsSold } from "@/utils/propertyAPI";
+import Image from "next/image";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -36,8 +30,8 @@ const columns = [
 ];
 export default function ActiveProperty() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
-const [startDate, setStartDate] = useState(null);
-const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
@@ -46,18 +40,17 @@ const [endDate, setEndDate] = useState(null);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
-  const userInfo = useSelector((state) => state.GlobalState.userData);
-
+  const userInfo = useSelector((state) => state.userProfile.userData);
 
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
   }, [page, rowsPerPage, refreshProperty]);
   const fetchAllProperties = async (startDate, endDate) => {
     try {
-    const formattedStartDate = startDate
-      ? format(startDate, "yyyy-MM-dd")
-      : null;
-    const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null;
+      const formattedStartDate = startDate
+        ? format(startDate, "yyyy-MM-dd")
+        : null;
+      const formattedEndDate = endDate ? format(endDate, "yyyy-MM-dd") : null;
 
       const getProperties = await fetchActiveProperty(
         rowsPerPage,
@@ -85,6 +78,15 @@ const [endDate, setEndDate] = useState(null);
     }
   };
 
+  const handleSoldOutProperty = async (propertyId) => {
+    try {
+      await propertyIsSold({ propertyId });
+      setRefreshProperty(!refreshProperty);
+      await fetchAllProperties(startDate, endDate);
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
   const [sortDescriptor, setSortDescriptor] = useState({});
 
   const pages = Math.ceil(propertyLength / rowsPerPage);
@@ -125,28 +127,36 @@ const [endDate, setEndDate] = useState(null);
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-  const router = useRouter();
+  // const router = useRouter();
+
   const renderCell = useCallback((blog, columnKey) => {
+    const dropIcon = (
+      <svg
+        className="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 4 15"
+      >
+        <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+      </svg>
+    );
     switch (columnKey) {
       case "address":
         return (
-          <div className="flex flex-col w-[300px]  ">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Address:</b>
-              {blog.address.name}
-            </p>
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Governorate</b>
+          <div className="  min-w-[200px] max-w-[250px] flex flex-col ">
+            <p className="text-bold text-medium flex justify-between">
+              <b>Governorate :</b>
               {blog.address.governrate}
             </p>
             <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Region</b>
+
+            <p className="text-bold text-medium flex justify-between">
+              <b>Region :</b>
               {blog.address.region}
             </p>
           </div>
         );
-
       case "details":
         const formattedUpdatedAtDate = new Date(
           blog.updatedAt
@@ -155,132 +165,109 @@ const [endDate, setEndDate] = useState(null);
           blog.createdAt
         ).toLocaleString();
         return (
-          <div className="flex flex-col w-[350px]">
-            <p className="text-bold grid grid-cols-2 text-medium capitalize">
-              <b>Offer:</b>
-              {blog.offer}
-            </p>
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Price</b>
-              {blog.price}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>BathRooms</b>
-              {blog.bathRooms}
-            </p>
-            <hr />
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Bedrooms:</b>
-              {blog.rooms}
-            </p>
+          <div className=" flex flex-col  min-w-[250px] max-w-[300px]">
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Created : </b>
+                {formattedCreatedAtDate}
+              </div>
+            </div>
             <hr />
 
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Area:</b>
-              {blog.area}
-            </p>
-            <hr />
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Updated :</b>
+                {formattedUpdatedAtDate}
+              </div>
+            </div>
 
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Created</b>
-              {formattedCreatedAtDate}
-            </p>
-            <hr />
-
-            <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-              <b>Updated</b>
-              {formattedUpdatedAtDate}
-            </p>
+            <div className="text-bold flex gap-x-3 text-medium capitalize">
+              <div className="">
+                <b>Status: </b>
+                {blog?.isSold ? (
+                  <b className="text-red-500">Out Sold</b>
+                ) : (
+                  <b className="text-success-500"> available</b>
+                )}
+              </div>
+            </div>
           </div>
         );
-
       case "thumbnail":
         return (
-          <div className="flex flex-col w-[200px]">
-            <Image
-              width={200}
-              // height={2000}
-              src={blog.thumbnail}
-              fallbackSrc="https://via.placeholder.com/2  00x200"
-              alt="NextUI Image with fallback"
-            />
+          <div className=" flex min-w-[150px] max-w-[200px]">
+            <Link href={`/dashboard/property-details/${blog.slug}`}>
+              <Image
+                width={100}
+                height={100}
+                style={{ objectFit: "cover" }}
+                className="min-w-[100px] w-[100px] h-[100px]"
+                src={blog.thumbnail}
+                alt="NextUI Image with fallback"
+              />
+            </Link>
           </div>
         );
       case "title":
         return (
-          <div className="flex flex-col w-[250px]">
-            <p className="font-bold text-medium text-center">{blog.title}</p>
+          <div className="min-w-[250px]">
+            <Link href={`/dashboard/property-details/${blog.slug}`}>
+              <p className="font-bold text-medium text-center">{blog.title}</p>
+            </Link>
           </div>
         );
       case "actions":
         return (
-          <div className="relative  flex justify-start items-center w-[350px] gap-2">
-            <div className="">
-              <p className="text-bold grid grid-cols-2 text-medium capitalize">
-                <b>ID:</b>
-                {blog?._id}
+          <div className="   flex max-w-[300px] w-[300px] min-w-[300px] justify-around">
+            <div className="w-9/12">
+              <p className="text-bold line-clamp-1   text-medium ">
+                <b>Name:</b>
+                {blog.user[0]?.fullname || "Empty"}
               </p>
               <hr />
-
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>Name</b>
-                {blog.user[0]?.fullname}
-              </p>
-              <hr />
-              <p className="text-bold  capitalize grid grid-cols-2 text-medium">
-                <b>User name</b>
-                {blog.user[0]?.username}
-              </p>
+              <div className="text-bold text-medium">
+                <b>Phone: </b>
+                <span>{blog.user[0]?.phone || "Empty"}</span>
+              </div>
             </div>
-            <Dropdown
-              aria-label="Options Menu Accept Property"
-              // aria-labelledbyl="Options Menu Property"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
-                aria-label="Open Options Menu"
-                // aria-labelledbyl="Options Menu Property"
-              >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Accept Property Options Menu"
-                // aria-labelledbyl="Options Menu Property"
-              >
-                {userInfo && userInfo.supAdmin ? (
-                  ""
+            <div className=" ">
+              <DropdownAction iconIs={dropIcon}>
+                <ItemDropdown
+                  label={"Visit"}
+                  href={`/property-details/${blog.slug}`}
+                  action={null}
+                />
+                <ItemDropdown
+                  label={"Edit"}
+                  href={`/editproperty/${blog.slug}`}
+                  action={null}
+                  id={blog._id}
+                />
+                {userInfo && !userInfo.isAdmin ? (
+                  <ul></ul>
                 ) : (
-                  <DropdownItem
-                    textValue="Delete Property"
-                    onClick={() => handleDeleteProperty(blog._id)}
-                  >
-                    Delete
-                  </DropdownItem>
+                  <ItemDropdown
+                    label={"Delete"}
+                    href={null}
+                    action={() => handleDeleteProperty(blog._id)}
+                    title="تأكيد مسح العقار "
+                    description="  تأكيد مسح العقار  الى الارشيف "
+                  />
                 )}
-                <DropdownItem
-                  textValue="Accept Property"
-                  onClick={() => {
-                    router.push(`/property-details/${blog.slug}`);
-                  }}
-                >
-                  Visit
-                </DropdownItem>
-                <DropdownItem
-                  textValue="edit Property"
-                  // onClick={async () => await acceptProperties(blog._id)}
-                  onClick={() => {
-                    router.push(`/editproperty/${blog.slug}`);
-                  }}
-                >
-                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> */}
-                  edit
-                  {/* </Link> */}
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+
+                {userInfo && !userInfo.isAdmin ? (
+                  <ul></ul>
+                ) : (
+                  <ItemDropdown
+                    label={blog?.isSold ? "Sold In ?" : "Sold Out ?"}
+                    href={null}
+                    action={() => handleSoldOutProperty(blog._id)}
+                    title="تأكيد ان هذا العقار قد تم بيعة "
+                    description="  تأكيد بيع العقار  الى الارشيف "
+                  />
+                )}
+              </DropdownAction>
+            </div>
           </div>
         );
     }
@@ -304,74 +291,83 @@ const [endDate, setEndDate] = useState(null);
     return (
       <div className="flex flex-col gap-4">
         <div className="flex  gap-3 items-center justify-center">
-          <div className=" w-8/12 mt-5 p-5 bg-lightGreen rounded-xl">
+          <div className=" w-full md:w-8/12  mt-5 p-5 bg-lightGreen rounded-xl">
             <form
               className="flex items-center  gap-x-2"
               onSubmit={(e) => {
-                e.preventDefault(); // Prevents the default form submission behavior
-                fetchAllProperties(startDate, endDate); // Call your search function
+                e.preventDefault();
+                fetchAllProperties(startDate, endDate);
               }}
             >
-              <Input
-                isClearable
-                className="w-full bg-white rounded-lg"
-                name="search"
+              <input
+                className="w-full bg-white rounded-lg p-2 indent-3"
                 placeholder="phone, email ,full name,type Of User..."
-                label="Search For All Users"
-                size="sm"
-                startContent={<SearchIcon className="text-default-300" />}
                 value={filterValue}
-                variant="bordered"
-                onClear={() => setFilterValue("")}
                 onChange={(e) => onSearchChange(e.target.value)}
               />
-              <Button color="primary" type="submit">
+              <button
+                className="bg-blue-600 text-white p-2 rounded-md"
+                type="submit"
+              >
                 Search
-              </Button>
+              </button>
             </form>
-            <div className=" flex flex-wrap mt-3">
+            <div className=" flex justify-center flex-wrap mt-3">
               <div className="flex  mx-2 items-center">
-                <label className="font-semibold  text-white mx-1">From:</label>
+                <label
+                  htmlFor="FromDatePicker"
+                  className="font-semibold  text-white mx-1"
+                >
+                  From:
+                </label>
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select start date"
                   className="w-full border-1 rounded-lg indent-2 h-9"
+                  id="FromDatePicker"
                 />
               </div>
               <div className="flex  mx-2 items-center">
-                <label className="font-semibold  text-white mx-1">End:</label>
+                <label
+                  htmlFor="EndDatePicker"
+                  className="font-semibold  text-white mx-1"
+                >
+                  End:
+                </label>
                 <DatePicker
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select end date"
                   className="w-full border-1 rounded-lg indent-2 h-9"
+                  id="EndDatePicker"
                 />
               </div>
             </div>
           </div>
         </div>
-
-        <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">
-            Total property Active:
-            <b className="text-lightOrange">{propertyLengthAPI}</b>
-          </span>
-          <label className="flex items-center text-default-400 text-small">
-            Rows per page:
-            <select
-              className="bg-transparent outline-none text-default-400 text-small"
-              onChange={onRowsPerPageChange}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="60">60</option>
-            </select>
-          </label>
+        <div className="flex justify-center">
+          <div className="flex w-full md:w-8/12 justify-between">
+            <span className="text-default-400 text-small">
+              Total property Active:{" "}
+              <b className="text-lightOrange mx-2">{propertyLengthAPI}</b>
+            </span>
+            <label className="flex items-center text-default-400 text-small">
+              Rows per page:
+              <select
+                className="bg-transparent outline-none text-default-400 text-small"
+                onChange={onRowsPerPageChange}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+              </select>
+            </label>
+          </div>
         </div>
       </div>
     );
@@ -383,6 +379,7 @@ const [endDate, setEndDate] = useState(null);
     startDate,
     endDate,
     hasSearchFilter,
+    handleDeleteProperty,
   ]);
 
   const bottomContent = useMemo(() => {
@@ -400,11 +397,6 @@ const [endDate, setEndDate] = useState(null);
           variant="light"
           onChange={setPage}
         />
-        <span className="text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${items.length} selected`}
-        </span>
       </div>
     );
   }, [items.length, page, pages, hasSearchFilter, selectedKeys]);
@@ -423,7 +415,6 @@ const [endDate, setEndDate] = useState(null);
     }),
     []
   );
-  // console.log(property);
   return (
     <Table
       isCompact

@@ -1,8 +1,10 @@
 import Faq from "@/components/faq/Faq";
+import axios from "axios";
+// import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 
-const index = () => {
+const index = ({ faqData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div>
@@ -14,8 +16,25 @@ const index = () => {
         />
         <link rel="canonical" href={`https://lesoll.com/faq`} />
       </Head>
-      <Faq />
+      <Faq faqData={faqData} />
     </div>
   );
 };
 export default index;
+export async function getServerSideProps(context) {
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/QandA/getall`
+    );
+    const data = res.data;
+
+    return {
+      props: { faqData: data },
+      // revalidate: 10,
+    };
+  } catch (error) {
+    context.res.setHeader("Location", "/");
+    context.res.statusCode = 301;
+    context.res.end();
+  }
+}
