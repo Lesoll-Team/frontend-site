@@ -8,11 +8,25 @@ export default function Document() {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-SSDSCSEGXD"
         ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-SSDSCSEGXD');
+            `,
+          }}
+        />
+        {/* <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SSDSCSEGXD"
+        ></script>
         <script>
           window.dataLayer = window.dataLayer || []; function gtag()
           {dataLayer.push(arguments)}
           gtag('js', new Date()); gtag('config', 'G-SSDSCSEGXD');
-        </script>
+        </script> */}
         {/* <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -35,6 +49,13 @@ export default function Document() {
           style={{ display: "none", visibility: "hidden" }}
           title="GTM"
         />
+        {/* <iframe
+          src="https://www.googletagmanager.com/ns.html?id=G-SSDSCSEGXD"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+          title="GTM"
+        /> */}
       </body>
     </Html>
   );
