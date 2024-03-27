@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input, Button, User } from "@nextui-org/react";
 import { deleteUsers, searchUsersApi } from "../utils/userAPI";
 import {
   Table,
@@ -10,19 +9,16 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-import {
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
-import { SearchIcon } from "../icon/SearchIcon";
+
+// import { SearchIcon } from "../icon/SearchIcon";
 import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
 import UserUpdateModule from "../model/users/UpdateUserData";
 import Link from "next/link";
+import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
+import Image from "next/image";
 const columns = [
   { name: "User", uid: "fullname" },
-  { name: "Phone", uid: "phone" },
+  // { name: "Phone", uid: "phone" },
   { name: "Type & Email", uid: "typeOfUser" },
   { name: "Created", uid: "createdAt" },
   { name: "ACTIONS & ID", uid: "actions" },
@@ -108,28 +104,28 @@ export default function UserDashboard() {
     switch (columnKey) {
       case "fullname":
         return (
-          <Link href={`/dashboard/user-details/${user?.username}`}>
-            <User
-              avatarProps={{ radius: "full", size: "sm", src: user.avatarUrl }}
-              classNames={{
-                description: "text-default-500",
-              }}
-              description={user.username}
-              name={user.fullname}
-            ></User>
+          <Link
+            href={`/dashboard/user-details/${user?.username}`}
+            className="flex items-center gap-x-3"
+          >
+            <Image
+              width={60}
+              height={60}
+              src={user?.avatarUrl || "/user-avatar-placeholder.png"}
+              className="min-w-[50px] min-h-[50px] "
+              loading="lazy"
+            />
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-500">{user.fullname}</span>
+              <span className="text-sm text-gray-500">{user.username}</span>
+            </div>
           </Link>
         );
-      case "phone":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-tiny capitalize text-default-500">
-              {user.phone}
-            </p>
-          </div>
-        );
+
       case "typeOfUser":
         return (
           <div className="flex flex-col">
+            <span className="text-sm text-gray-500">phone : {user.phone}</span>
             <p className="text-bold text-tiny capitalize text-default-500">
               {user.email}
             </p>
@@ -151,36 +147,17 @@ export default function UserDashboard() {
       case "actions":
         return (
           <div className="relative flex justify-start items-center gap-2">
-            {user._id}
-            <Dropdown
-              aria-label="Options Menu User"
-              // aria-labelledbyl="Options Menu User"
-              className="bg-background border-1 border-default-200"
-            >
-              <DropdownTrigger
-                aria-label="Open Options Menu"
-                // aria-labelledbyl="Options Menu User"
-              >
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-400" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="User Options Menu">
-                <DropdownItem
-                  textValue="Delete"
-                  // aria-labelledbyl="Options Menu User"
-                  onClick={() => handleDeleteUser(user._id)}
-                >
-                  Delete
-                </DropdownItem>
-                {/* <DropdownItem
-                  textValue="Ban"
-                  onClick={async () => await banUser(user._id)}
-                >
-                  Ban
-                </DropdownItem> */}
-              </DropdownMenu>
-            </Dropdown>
+            <DropdownAction iconIs={<VerticalDotsIcon />}>
+              <ItemDropdown
+                label={"Delete"}
+                href={null}
+                action={() => handleDeleteUser(user._id)}
+                title="تأكيد مسح المستخدم "
+                description="تأكيد مسح حساب المستخدم نهائياً"
+              />
+            </DropdownAction>
+            {/* {user._id} */}
+
             <UserUpdateModule
               typeUser={user.typeOfUser}
               userID={user._id}
@@ -208,7 +185,7 @@ export default function UserDashboard() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex  gap-3 items-center justify-center ">
-          <div className=" w-8/12  ">
+          <div className=" w-8/12 mt-5 ">
             <form
               className="flex items-center gap-x-2"
               onSubmit={(e) => {
@@ -216,26 +193,19 @@ export default function UserDashboard() {
                 searchUsers(); // Call your search function
               }}
             >
-              <Input
-                isClearable
-                className="w-full"
-                name="search"
-                // classNames={{
-                //   base: "w-full sm:max-w-[44%]",
-                //   inputWrapper: "border-1",
-                // }}
+              <input
+                className="w-full border-1 border-gray1 bg-white rounded-lg p-2 indent-3"
                 placeholder="phone, email ,full name,type Of User..."
-                label="Search For All Users"
-                size="sm"
-                startContent={<SearchIcon className="text-default-300" />}
                 value={filterUser}
-                variant="bordered"
-                onClear={() => setFilterUser("")}
                 onChange={(e) => onSearch(e.target.value)}
               />
-              <Button color="primary" type="submit">
+
+              <button
+                className="bg-blue-600 text-white p-2 rounded-md"
+                type="submit"
+              >
                 Search
-              </Button>
+              </button>
             </form>
           </div>
         </div>
