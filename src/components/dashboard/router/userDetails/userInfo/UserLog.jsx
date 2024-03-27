@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TbFilterSearch } from "react-icons/tb";
 import { downloadUserLog } from "@/utils/userAPI";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { MdDownload } from "react-icons/md";
 const formatDate = (date) => {
   const options = {
@@ -35,8 +35,8 @@ const UserLog = ({ visitedPages, userData }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [reverseOrder, setReverseOrder] = useState(false);
-  const router = useRouter();
-  const slug = router.query.id;
+  // const router = useRouter();
+  // const slug = router.query.id;
   const filterByDate = (page) => {
     if (!startDate || !endDate) {
       return true; // No date range specified, show all pages
