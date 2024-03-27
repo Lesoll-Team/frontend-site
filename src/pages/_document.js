@@ -5,29 +5,6 @@ export default function Document() {
     <Html lang="ar">
       <Head>
         <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-SSDSCSEGXD"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-SSDSCSEGXD');
-            `,
-          }}
-        />
-        {/* <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-SSDSCSEGXD"
-        ></script>
-        <script>
-          window.dataLayer = window.dataLayer || []; function gtag()
-          {dataLayer.push(arguments)}
-          gtag('js', new Date()); gtag('config', 'G-SSDSCSEGXD');
-        </script> */}
-        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -37,25 +14,18 @@ export default function Document() {
             })(window,document,'script','dataLayer','GTM-T876WFM');
           `,
           }}
-        /> */}
+        />
       </Head>
       <body className="font-cairo">
         <Main />
         <NextScript />
         <iframe
-          src="https://www.googletagmanager.com/ns.html?id=G-SSDSCSEGXD"
+          src="https://www.googletagmanager.com/ns.html?id=GTM-T876WFM"
           height="0"
           width="0"
           style={{ display: "none", visibility: "hidden" }}
           title="GTM"
         />
-        {/* <iframe
-          src="https://www.googletagmanager.com/ns.html?id=G-SSDSCSEGXD"
-          height="0"
-          width="0"
-          style={{ display: "none", visibility: "hidden" }}
-          title="GTM"
-        /> */}
       </body>
     </Html>
   );
