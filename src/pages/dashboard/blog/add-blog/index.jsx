@@ -13,6 +13,8 @@ const AddBlog = () => {
   const { errorBlog, messageEventBlog } = useSelector(
     (state) => state.BlogDashboard
   );
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const dispatch = useDispatch();
   const [titleAR, setTitleAR] = useState("");
   const [metDescriptionAR, setMetDescriptionAR] = useState("");
@@ -20,18 +22,11 @@ const AddBlog = () => {
   const [descriptionAR, setDescriptionAR] = useState(``);
   const [slugAR, setSlugAR] = useState("");
 
-  // const [slugEN, setSlugEN] = useState("");
-  // const [metaTitleEN, setMetaTitleEN] = useState("");
-  // const [titleEN, setTitleEN] = useState("");
-  // const [descriptionEN, setDescriptionEN] = useState(``);
-  // const [metDescriptionEN, setMetDescriptionEN] = useState("");
-
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
   const [blogCreated, setBlogCreated] = useState(false);
 
   const handleImgChange = (e) => {
-    // const newImage = e.target.files[0];
     setImage(e.target.files[0]);
 
     if (e.target.files[0]) {
@@ -104,7 +99,13 @@ const AddBlog = () => {
     setBlogCreated(false);
   }, [router]);
   if (blogCreated) {
-    return <BlogAdded setBlogCreated={setBlogCreated} />;
+    return (
+      <BlogAdded
+        isAdd
+        message={language ? "تم إضافة  المقال بنجاح" : "The blog has been add"}
+        setBlogCreated={setBlogCreated}
+      />
+    );
   }
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
@@ -187,7 +188,7 @@ const AddBlog = () => {
 
         <div dir="rtl" className="flex flex-col  p-3 md:flex-row gap-10 ">
           <div className="w-full md:w-6/12">
-            <b>meta title </b>
+            <b>meta title {metaTitleAR.length}</b>
             <input
               value={metaTitleAR}
               onChange={(e) => setMetaTitleAR(e.target.value)}
@@ -197,7 +198,7 @@ const AddBlog = () => {
           </div>
           {/* <div className="bg-gray-400 w-[1px] h-full mx-4" /> */}
           <div className="w-full md:w-6/12">
-            <b>URL </b>
+            <b>URL {slugAR.length}</b>
             <input
               onChange={(e) => setSlugAR(e.target.value)}
               value={slugAR}
@@ -206,11 +207,12 @@ const AddBlog = () => {
             />
           </div>
         </div>
+
         <div
           dir="rtl"
           className="border-1.5 border-gray-200 p-3 flex flex-col gap-3"
         >
-          <b>عنوان المقال </b>
+          <b>meta description {metDescriptionAR.length}</b>
           <textarea
             value={metDescriptionAR}
             onChange={(e) => setMetDescriptionAR(e.target.value)}
@@ -226,17 +228,11 @@ const AddBlog = () => {
           >
             {messageEventBlog ? "add blog..." : "add blog"}
           </button>
-          {/* {blogCreated && (
-            <div className="text-green-500 font-semibold text-lg pt-5 text-center">
-              Blog added successfully!
-            </div>
-          )} */}
           {errorBlog && (
             <div className="text-red-500 font-semibold text-lg pt-5 text-center">
               Error adding blog: {errorBlog.message}
             </div>
           )}
-          {/* <div className="text-red-500 font-semibold text-lg pt-5 text-center"></div> */}
         </div>
       </div>
     </div>

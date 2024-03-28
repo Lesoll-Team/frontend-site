@@ -1,4 +1,4 @@
-import useGovRegion from "@/Hooks/addProperty/useGovRegion";
+import useGovRegion from "@/components/newAddProperty/hooks/useGovRegion";
 import { useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 import { useSelector } from "react-redux";

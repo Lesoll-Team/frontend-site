@@ -1,4 +1,4 @@
-import useGooglePlaces from "@/Hooks/addProperty/useGooglePlaces";
+import useGooglePlaces from "@/components/newAddProperty/hooks/useGooglePlaces";
 import ComboBox from "@/Shared/ui/ComboBox";
 import { getCooardinates } from "@/utils/getCooardinates";
 import { useState } from "react"; // Import useRef

@@ -9,7 +9,7 @@ const TitleCard = ({ propertyDetails }) => {
       href={`/property-details/${propertyDetails?.slug}`}
       className="md:w-full"
     >
-      <h3 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[11px] md:text-[17px] md:line-clamp-1 line-clamp-2  ">
+      <h3 className="font-bold text-[#4E4E4E] md:mt-0 mt-1 text-[13px] md:text-[17px] md:line-clamp-1 line-clamp-2  ">
         {propertyDetails?.title}
       </h3>
     </Link>

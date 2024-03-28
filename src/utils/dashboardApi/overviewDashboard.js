@@ -183,3 +183,102 @@ export const downloadSearchKeyword = async (dates) => {
   link.click();
   document.body.removeChild(link);
 };
+export const downloadUpdateProperties = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-update-property-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "update-property.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+export const downloadTrackUsers = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-track-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "track-user.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+export const downloadCampaign = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-campaign-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "campaign.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+export const downloadPropertyTrack = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-property-track-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "property-track.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+//online-users
+export const downloadOnlineUsers = async (dates) => {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-online-users-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    { responseType: "arraybuffer" }
+  );
+  const blob = new Blob([res.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Create a download link and trigger the download
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "online-users.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};

@@ -1,6 +1,5 @@
-import useAddProperty from "@/Hooks/addProperty/useAddProperty";
+import useAddProperty from "@/components/newAddProperty/hooks/useAddProperty";
 import Button from "@/Shared/ui/Button";
-import { DevTool } from "@hookform/devtools";
 import AddPropMainInfo from "./mainInfo/AddPropMainInfo";
 import Steps from "./Steps";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +8,9 @@ import AddPropDetails from "./details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "./price/AddPropertyPrice";
 import PropertyImages from "./imgs/PropertyImages";
-import { getCompounds } from "@/redux-store/features/property/compoundSlice";
-import { resetAddProp } from "@/redux-store/features/property/addPropertySlice";
-import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
-import { DotPulse, Ring, Wobble } from "@uiball/loaders";
+import { DotPulse, Ring } from "@uiball/loaders";
 import { scrollToTop } from "@/utils/scrollToTop";
 import { getCurrencies } from "./redux/currenciesSlice";
 // import AdminAddProperty from "../admin-add-property/AdminAddProperty";
@@ -29,13 +25,12 @@ const AddProperty = () => {
     step,
     setStep,
     clearErrors,
-    fields,
-    append,
-    remove,
+    formStatus,
+    serverError,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
-  const formStatus = useSelector((state) => state.addProperty.status);
+  // const formStatus = useSelector((state) => state.addProperty.status);
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
   const currencies = useSelector((state) => state.getCurrencies.data);
@@ -53,9 +48,8 @@ const AddProperty = () => {
   }, []);
   // console.log(currencies);
   useEffect(() => {
-    if (formStatus === "succeeded") {
+    if (formStatus === "success") {
       setSended(true);
-      dispatch(resetAddProp());
       setStep(1);
       scrollToTop();
     }
@@ -142,9 +136,6 @@ const AddProperty = () => {
         case 2:
           return (
             <AddPropertyPrice
-              fields={fields}
-              append={append}
-              remove={remove}
               control={control}
               errors={errors}
               clearErrors={clearErrors}

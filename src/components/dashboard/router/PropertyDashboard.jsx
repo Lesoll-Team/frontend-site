@@ -12,11 +12,9 @@ import {
   TableRow,
   TableCell,
   Pagination,
-  Input,
-  // Image,
 } from "@nextui-org/react";
 
-import { SearchIcon } from "../icon/SearchIcon";
+// import { SearchIcon } from "../icon/SearchIcon";
 import { useSelector } from "react-redux";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import Image from "next/image";
@@ -31,12 +29,12 @@ export default function PropertyDashboard() {
   const [property, setProperty] = useState([]);
 
   const [refreshProperty, setRefreshProperty] = useState(false);
-  const [filterValue, setFilterValue] = useState("");
+  // const [filterValue, setFilterValue] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortDescriptor] = useState({});
+  // const [{}] = useState({});
   const [page, setPage] = useState(1);
   const pages = Math.ceil(property.length / rowsPerPage);
-  const hasSearchFilter = Boolean(filterValue);
+  // const hasSearchFilter = Boolean(filterValue);
   useEffect(() => {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
@@ -78,19 +76,19 @@ export default function PropertyDashboard() {
   const filteredItems = useMemo(() => {
     let filteredUsers = [...property];
 
-    if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter(
-        (blog) =>
-          blog.title.toLowerCase().includes(filterValue.toLowerCase()) ||
-          // blog.area.toLowerCase().includes(filterValue.toLowerCase()) ||
-          // blog.bathRooms.toLowerCase().includes(filterValue.toLowerCase()) ||
-          // blog.price.toLowerCase().includes(filterValue.toLowerCase()) ||
-          // blog.rooms.toLowerCase().includes(filterValue.toLowerCase()) ||
-          blog.offer.toLowerCase().includes(filterValue.toLowerCase())
-      );
-    }
+    // if (hasSearchFilter) {
+    //   filteredUsers = filteredUsers.filter(
+    //     (blog) =>
+    //       blog.title.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       // blog.area.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       // blog.bathRooms.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       // blog.price.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       // blog.rooms.toLowerCase().includes(filterValue.toLowerCase()) ||
+    //       blog.offer.toLowerCase().includes(filterValue.toLowerCase())
+    //   );
+    // }
     return filteredUsers;
-  }, [property, filterValue]);
+  }, [property]);
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -101,13 +99,13 @@ export default function PropertyDashboard() {
 
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
+      const first = a[{}.column];
+      const second = b[{}.column];
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+      return {}.direction === "descending" ? -cmp : cmp;
     });
-  }, [sortDescriptor, items]);
+  }, [{}, items]);
 
   const renderCell = useCallback((blog, columnKey) => {
     const formattedUpdatedAtDate = new Date(blog.updatedAt).toLocaleString();
@@ -167,6 +165,7 @@ export default function PropertyDashboard() {
               width={200}
               height={200}
               src={blog.thumbnail}
+              loading="lazy"
               className=" min-w-[100px] w-[100px] h-[100px]"
               alt="NextUI Image with fallback"
             />
@@ -236,36 +235,18 @@ export default function PropertyDashboard() {
     setPage(1);
   }, []);
 
-  const onSearchChange = useCallback((value) => {
-    if (value) {
-      setFilterValue(value);
-      setPage(1);
-    } else {
-      setFilterValue("");
-    }
-  }, []);
+  // const onSearchChange = useCallback((value) => {
+  //   if (value) {
+  //     setFilterValue(value);
+  //     setPage(1);
+  //   } else {
+  //     setFilterValue("");
+  //   }
+  // }, []);
 
   const topContent = useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
-          <Input
-            isClearable
-            name="search"
-            classNames={{
-              base: "w-full sm:max-w-[44%]",
-              inputWrapper: "border-1",
-            }}
-            placeholder="Search by name..."
-            size="sm"
-            startContent={<SearchIcon className="text-default-300" />}
-            value={filterValue}
-            variant="bordered"
-            onClear={() => setFilterValue("")}
-            onValueChange={onSearchChange}
-          />
-          <div className="flex gap-3">{/* <AddBlogModule /> */}</div>
-        </div>
+      <div className="flex flex-col gap-4 mt-5">
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
             Total property pending:{" "}
@@ -286,11 +267,11 @@ export default function PropertyDashboard() {
       </div>
     );
   }, [
-    filterValue,
-    onSearchChange,
+    // filterValue,
+    // onSearchChange,
     onRowsPerPageChange,
     property.length,
-    hasSearchFilter,
+    // hasSearchFilter,
   ]);
 
   const bottomContent = useMemo(() => {
@@ -302,7 +283,7 @@ export default function PropertyDashboard() {
             cursor: "bg-foreground text-background",
           }}
           color="default"
-          isDisabled={hasSearchFilter}
+          // isDisabled={hasSearchFilter}
           page={page}
           total={pages}
           variant="light"
@@ -310,7 +291,7 @@ export default function PropertyDashboard() {
         />
       </div>
     );
-  }, [items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages]);
 
   const classNames = useMemo(
     () => ({
@@ -340,7 +321,7 @@ export default function PropertyDashboard() {
         },
       }}
       classNames={classNames}
-      sortDescriptor={sortDescriptor}
+      sortDescriptor={null}
       topContent={topContent}
       topContentPlacement="outside"
     >

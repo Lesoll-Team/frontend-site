@@ -1,82 +1,58 @@
-import {
-  forgetPassEmail,
-  resetForgetPassState,
-} from "@/redux-store/features/user/forgetPassSlice";
-import { Waveform } from "@uiball/loaders";
+import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { forgetPass } from "./api/forgetPassApi";
+import Image from "next/image";
 
 const ForgetPasswrodForm = () => {
-  const form = useForm({
-    defaultValues: {
-      resetMethod: "email",
-    },
-  });
+  const form = useForm();
   const { register, reset, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
 
-  const dispatch = useDispatch();
-  const status = useSelector((state) => state.forgetPassword.status);
-  const error = useSelector((state) => state.forgetPassword.error);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [emailNotFound, setEmailNotFound] = useState(false);
 
-  const onSubmit = (data) => {
-    dispatch(forgetPassEmail(data.email));
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const [emailNotFound, setEmailNotFound] = useState(false);
+  const onSubmit = async (data) => {
+    await forgetPass({
+      data,
+      lang: language ? "AR" : "EN",
+      setFormStatus,
+      setServerError,
+    });
   };
   const handleEmailNotFound = () => {
     setEmailNotFound(true);
-    dispatch(resetForgetPassState());
+    setServerError(null);
     setTimeout(() => {
       setEmailNotFound(false);
     }, 3500);
   };
+  const handleSended = () => {
+    setTimeout(() => {
+      setFormStatus("idle");
+    }, 3500);
+  };
   useEffect(() => {
-    if (error?.code == 401) {
+    if (serverError?.code == 401) {
       handleEmailNotFound();
     }
-  }, [error]);
+  }, [serverError]);
   useEffect(() => {
-    if (status === "succeeded") {
+    if (formStatus === "success") {
       reset();
+      handleSended();
     }
-  }, [status]);
+  }, [formStatus]);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
     >
-      <h1 className="text-3xl text-start">
-        {language ? "إعادة تعيين كلمة السر" : "Reset password"}
-      </h1>
-      {/* <div className="flex rounded-lg overflow-hidden border">
-        <button
-          type="button"
-          onClick={() => {
-            setValue("resetMethod", "phone");
-            // setresetMethod("phone");
-          }}
-          className={`w-full text-darkGray text-center py-2 ${
-            watch("resetMethod") === "phone" && "bg-lightGreen text-white"
-          }`}
-        >
-          {language ? "الهاتف" : "Phone"}
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setValue("resetMethod", "email");
-            // setresetMethod("email");
-          }}
-          className={`w-full text-darkGray text-center py-2 ${
-            watch("resetMethod") === "email" && "bg-lightGreen text-white"
-          }`}
-        >
-          {language ? "البريد" : "Email"}
-        </button>
-      </div> */}
+      <h1>{language ? "إعادة تعيين كلمة السر" : "Reset password"}</h1>
       <div className="space-y-2">
         {" "}
         <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
@@ -108,23 +84,38 @@ const ForgetPasswrodForm = () => {
         {emailNotFound && (
           <p className="text-red-500">
             {language
-              ? "بريد إلكترونى غير صحيح جرب مرة اخرى"
+              ? "بريد إلكترونى غير موجود جرب مرة اخرى"
               : "Email doesn't exist try again "}
           </p>
+        )}
+        {formStatus === "success" && (
+          <div className="text-green-500 w-full bg-white py-2 flex justify-center items-center gap-2 fade-in">
+            <Image
+              width={24}
+              height={24}
+              src={"/done-icon.png"}
+              alt="done check icon"
+            />
+            <p>
+              {language
+                ? " تم الارسال بنجاح تحقق من بريدك"
+                : "Sended successfully check your email"}
+            </p>
+          </div>
         )}
       </div>
       <button
         type="submit"
         className="w-full p-3 h-12  flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
-        {status === "loading" ? (
+        {formStatus === "loading" ? (
           <>
             {" "}
             <div className="md:hidden">
-              <Waveform size={20} color="#fff" />
+              <Ring size={20} color="#fff" />
             </div>
             <div className="md:block hidden">
-              <Waveform size={20} color="#fff" />
+              <Ring size={20} color="#fff" />
             </div>
           </>
         ) : (
@@ -135,7 +126,7 @@ const ForgetPasswrodForm = () => {
       </button>
       <div className="text-center flex items-center justify-center gap-1 font-inter">
         <p>{language ? "رجوع الى" : "Back to"}</p>
-        <Link href={"/signin"} className="text-darkGreen">
+        <Link href={"/signin"} className="text-darkGreen underline">
           {language ? "تسجيل الدخول" : "Sign In"}
         </Link>
       </div>

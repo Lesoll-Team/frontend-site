@@ -34,7 +34,7 @@ const Description = ({ description, title }) => {
       <div>
         {" "}
         <div
-          className="text-xs sm:text-base md:text-[25px] font-noto bg-[#F8F8F8] sm:bg-transparent p-2  text-baseGray break-words"
+          className="text-xs sm:text-base md:text-[25px] font-noto bg-[#F8F8F8] sm:bg-transparent p-2 md:py-0  text-baseGray break-words"
           style={{ lineHeight: "1.7", wordWrap: "break-word" }} // Added word-wrap property
         >
           {splitedDescription

@@ -29,10 +29,11 @@ export async function foundKeyword(keyword) {
     //   )
     // );
     const queryString = Object.keys(keyword)
-      .map((key) => `${key}=${encodeURIComponent(keyword[key])}`).join("&");
+      .map((key) => `${key}=${encodeURIComponent(keyword[key])}`)
+      .join("&");
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/category/get-data?${queryString}&limit=30`
+      `${process.env.NEXT_PUBLIC_API_URL}/category/get-data?${queryString}&limit=18`
     );
     return response;
   } catch (error) {
@@ -70,8 +71,6 @@ export async function foundKeyword(keyword) {
 //   const queryString = Object.keys(filteredKeywords)
 //     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
 //     .join("&");
-
-
 
 //   const newUrl = `/properties/${
 //     pagesInput3 ? pagesInput3 + "/" : ""

@@ -73,7 +73,7 @@ function Navbar() {
               <Link className="relative font-noto" href="/projects">
                 <span
                   className={`text-xs absolute text-white rounded-xl -top-4 bg-green-500 px-2 py-1 ${
-                    languageIs ? "-left-7" : " -right-7"
+                    languageIs ? "-left-8" : " -right-8"
                   }`}
                 >
                   {languageIs ? "جديد" : "New"}
