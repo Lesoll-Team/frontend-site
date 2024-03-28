@@ -23,7 +23,6 @@ const EditNeed = ({ data }) => {
     setStep,
     formStatus,
   } = useEditNeed(data);
-
   const renderStep = useMemo(() => {
     switch (step) {
       case 1:
@@ -79,8 +78,6 @@ const EditNeed = ({ data }) => {
             )}
           </div>
         </div>
-
-        {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>
     );
   } else if (userDataStatus === "failed") {
