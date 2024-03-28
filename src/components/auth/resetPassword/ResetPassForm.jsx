@@ -12,7 +12,6 @@ const ResetPassForm = () => {
   const { errors } = formState;
   const router = useRouter();
   const token = router.query?.token;
-  console.log(token);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
