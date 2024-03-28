@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import OfferType from "../steps/OfferType";
 import NeedsForm from "../steps/form/NeedsForm";
 import SecondStep from "../steps/SecondStep";
@@ -9,23 +9,18 @@ import Link from "next/link";
 import useEditNeed from "./hooks/useEditNeed";
 
 const EditNeed = ({ data }) => {
-  const [sended, setSended] = useState();
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const {
     errors,
     onSubmit,
-    control,
     clearErrors,
-    // formState,
     register,
-    reset,
     setValue,
     watch,
     step,
     setStep,
-    formState,
     formStatus,
   } = useEditNeed(data);
 
@@ -55,11 +50,7 @@ const EditNeed = ({ data }) => {
         return <OfferType />;
     }
   });
-  useEffect(() => {
-    if (formStatus === "succeeded") {
-      setSended(true);
-    }
-  }, [formStatus]);
+
   if (userDataStatus === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
@@ -71,26 +62,23 @@ const EditNeed = ({ data }) => {
       <form
         noValidate
         onSubmit={onSubmit}
-        className={`min-h-[88dvh]  py-10 px-5  md:px-0   ${sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
-          }`}
+        className={`min-h-[88dvh]  py-10 px-5  md:px-0   ${
+          formStatus === "success"
+            ? "flex flex-col gap-8  justify-center"
+            : "space-y-8"
+        }`}
       >
-        {formStatus === "success" ? (
-          <div className="container mx-auto">
-            <Accepted />
+        <div className=" my-10">
+          <div className=" ">
+            {formStatus === "success" ? (
+              <div className="flex items-center justify-center h-[70dvh] container mx-auto">
+                <Accepted />
+              </div>
+            ) : (
+              renderStep
+            )}
           </div>
-        ) : (
-          <div className=" my-10">
-            <div className=" ">
-              {sended ? (
-                <div className="flex items-center justify-center h-[70dvh] container mx-auto">
-                  <Accepted />
-                </div>
-              ) : (
-                renderStep
-              )}
-            </div>
-          </div>
-        )}
+        </div>
 
         {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>

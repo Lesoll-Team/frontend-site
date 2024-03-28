@@ -8,6 +8,7 @@ import { unitTypeList } from "@/components/newAddProperty/mainInfo/unitTypeList"
 import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";
 import Button from "@/Shared/ui/Button";
 import PhoneNumber from "@/components/newAddProperty/PhoneNumber";
+import { Ring } from "@uiball/loaders";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const NeedsForm = ({
   register,
@@ -17,6 +18,7 @@ const NeedsForm = ({
   errors,
   clearErrors,
   onSubmit,
+  formStatus,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const determineOptions = useMemo(() => {
@@ -490,12 +492,18 @@ const NeedsForm = ({
         watch={watch}
       />
       <div className="flex flex-start">
-        <Button type="submit" className={"md:max-w-[300px]"}>
-          {status === "loading"
-            ? "loading ..."
-            : language
-              ? "أضف طلبك"
-              : "Add your need"}
+        <Button
+          disabled={formStatus === "loading"}
+          type="submit"
+          className={"md:max-w-[300px]"}
+        >
+          {formStatus === "loading" ? (
+            <Ring size={20} color="#fff" />
+          ) : language ? (
+            "أضف طلبك"
+          ) : (
+            "Add your need"
+          )}
         </Button>
       </div>
     </div>
