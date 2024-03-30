@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import globalState from "./features/globalState";
-import authReducer from "./features/authSlice";
 import contactReducer from "./features/contactSlice";
 import profileReducer from "./features/profileSlice";
 import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
@@ -23,7 +22,6 @@ import pendingNeedsSlice from "@/components/dashboard/router/needs/redux/pending
 import currenciesSlice from "@/components/newAddProperty/redux/currenciesSlice";
 export default combineReducers({
   GlobalState: globalState,
-  Auth: authReducer,
   Property: overViewReducer,
   Contact: contactReducer,
   BlogDashboard: blogDashboardReducer,

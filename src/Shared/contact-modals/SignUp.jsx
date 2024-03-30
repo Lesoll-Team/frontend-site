@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Button from "@/Shared/ui/Button";
-import DropDown from "../../ui/DropDown";
+import DropDown from "@/Shared/ui/DropDown";
 const USER_TYPES = [
   {
     value: "individual",
@@ -82,13 +82,15 @@ const SignUp = () => {
       data: dataTosend,
     });
   };
-
-  //   useEffect(() => {
-  //     if (formStatus === "success") {
-  //       reset();
-  //       router.push(`/verify-otp/${token}`);
-  //     }
-  //   }, [formStatus, reset, router, token]);
+  // console.log();
+  // router.asPath
+  useEffect(() => {
+    if (formStatus === "success") {
+      const redirectBackTo = router.asPath;
+      // reset();
+      router.push(`/verify-otp/${token}?redirectBackTo=${redirectBackTo}`);
+    }
+  }, [formStatus, reset, router, token]);
 
   useEffect(() => {
     if (serverError?.code === 401) {
@@ -105,33 +107,10 @@ const SignUp = () => {
       dir={language ? "rtl" : "ltr"}
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="px-2 md:px-0 w-full   space-y-6 py-10  md:my-0 max-h-[80dvh] md:max-w-full overflow-auto "
+      className="px-3 md:px-0  w-full  mx-auto space-y-6 pb-4   md:my-0 overflow-auto "
     >
-      <div className="space-y-4">
-        <h1 className="text-xl md:text-3xl text-baseGray">
-          {language ? "إنشاء حساب" : "Sign up"}
-        </h1>
-        {/* <div className="flex rounded-lg overflow-hidden border">
-          <button
-            type="button"
-            onClick={() => setUserType("individual")}
-            className={`w-full text-darkGray text-center py-2 ${watch("typeOfUser") === "individual" && "bg-lightGreen text-white"}`}
-          >
-            {language ? "سجل كفرد" : "As an individual"}
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("typeOfUser", "")}
-            className={`w-full text-darkGray text-center py-2 ${watch("typeOfUser") !== "individual" && "bg-lightGreen text-white"}`}
-          >
-            {language ? "سجل كشركة" : "As a company"}
-          </button>
-        </div> */}
-      </div>
       <div className="space-y-2">
         <input
-          name="fullname"
-          id="fullname"
           {...register("fullname", {
             required: language ? "ادخل اسمك" : "Please enter your name",
           })}
@@ -145,8 +124,6 @@ const SignUp = () => {
       </div>
       <div className="space-y-2">
         <input
-          name="email"
-          id="email"
           {...register("email", {
             required: language
               ? "ادخل البريد الإلكترونى"
@@ -213,8 +190,6 @@ const SignUp = () => {
             </p>
           )}
           <input
-            id="phone"
-            name="phone"
             {...register("phone", {
               required: language
                 ? "ادخل رقم الهاتف"
@@ -228,8 +203,6 @@ const SignUp = () => {
       <div className="space-y-2">
         <div className="flex items-center">
           <input
-            name="password"
-            id="password"
             {...register("password", {
               required: language
                 ? "يرجى إدخال كلمة السر"
@@ -255,7 +228,7 @@ const SignUp = () => {
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
       </div>
-      {console.log(watch("typeOfUser"))}
+      {/* {console.log(watch("typeOfUser"))} */}
       <DropDown
         selected={watch("typeOfUser")}
         options={USER_TYPES}
@@ -310,8 +283,6 @@ const SignUp = () => {
           })}
           type="checkbox"
           className={`mt-2 ${errors.terms && "outline-red-500"}`}
-          id="terms"
-          name="terms"
         />
         <label
           htmlFor="terms"

@@ -1,5 +1,9 @@
-import ContactBtnsModal from "@/Shared/models/contactModal/ContactBtnsModal";
+import AddPhoneModal from "@/Shared/contact-modals/AddPhoneModal";
+import LoginModal from "@/Shared/contact-modals/LoginModal";
+import NotSignUpModal from "@/Shared/contact-modals/NotSignedModal";
+import RegisterModal from "@/Shared/contact-modals/RegisterModal";
 import { cn } from "@/utils/cn";
+import { useRef, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
@@ -7,6 +11,12 @@ import { useSelector } from "react-redux";
 const useContactLinks = ({ phoneNumber, message = "" }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
+  const [notLogedOpen, setNotLogedOpen] = useState(false);
+  const [noPhoneOpen, setNoPhoneOpen] = useState(false);
+  const [registerIsOpen, setRegisterIsOpen] = useState(false);
+  const [loginIsOpen, setLoginIsOpen] = useState(false);
+  const whatsLinkRef = useRef(null);
+  const callLinkRef = useRef(null);
 
   const removePlus = (phoneNumber) => {
     // Check if phoneNumber exists and is a string
@@ -34,110 +44,95 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
   const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumberWithoutPlus}&text=${encodeURIComponent(
     message
   )}`;
-  const haveNoPhoneNiumber = Boolean(userData && !userData.phone);
-  const WhatappLinkBtn = ({ className, children }) =>
-    userData ? (
-      haveNoPhoneNiumber ? (
-        <ContactBtnsModal
-          phone={true}
-          description={
-            language
-              ? "لا يمكن التواصل مع المعلن في حالة عدم تسجيل رقم هاتفك لدينا"
-              : "You can't contact with the seller with out completeing your account phone number "
-          }
-        >
-          {children ? (
-            children
-          ) : (
-            <p className={cn("cursor-pointer", className)}>
-              {language ? "واتساب" : "Whatsapp"}
-              <FaWhatsapp />
-            </p>
-          )}
-        </ContactBtnsModal>
-      ) : (
-        <a target="_blank" href={whatsAppLink} className={cn("", className)}>
-          {children ? (
-            children
-          ) : (
-            <>
-              {language ? "واتساب" : "Whatsapp"}
-              <FaWhatsapp />
-            </>
-          )}
-        </a>
-      )
-    ) : (
-      <ContactBtnsModal
-        signup={true}
-        description={
-          language
-            ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجيل الدخول"
-            : "You can't contact with the seller with out signing in "
+
+  const handleActionClick = (type) => {
+    if (userData) {
+      if (userData?.phone) {
+        if (type === "whatsapp") {
+          whatsLinkRef.current.click();
+        } else if (type === "call") {
+          callLinkRef.current.click();
         }
+      } else {
+        setNoPhoneOpen(true);
+      }
+    } else {
+      setNotLogedOpen(true);
+    }
+  };
+  // console.log(notLogedOpen);
+
+  const ContactModals = () => {
+    return (
+      <>
+        <NotSignUpModal
+          isOpen={notLogedOpen}
+          setIsOpen={setNotLogedOpen}
+          setLoginIsOpen={setLoginIsOpen}
+          setRegisterIsOpen={setRegisterIsOpen}
+        />
+        <RegisterModal isOpen={registerIsOpen} setIsOpen={setRegisterIsOpen} />
+        <LoginModal isOpen={loginIsOpen} setIsOpen={setLoginIsOpen} />
+        <AddPhoneModal isOpen={noPhoneOpen} setIsOpen={setNoPhoneOpen} />
+      </>
+    );
+  };
+  const WhatappLinkBtn = ({ className, children }) => (
+    <>
+      {userData && userData.phone && (
+        <a
+          ref={whatsLinkRef}
+          className="hidden"
+          target="_blank"
+          href={whatsAppLink}
+        ></a>
+      )}
+      <button
+        onClick={() => {
+          handleActionClick("whatsapp");
+        }}
+        className={cn("", className)}
       >
         {children ? (
           children
         ) : (
-          <p className={cn("cursor-pointer", className)}>
+          <>
             {language ? "واتساب" : "Whatsapp"}
             <FaWhatsapp />
-          </p>
+          </>
         )}
-      </ContactBtnsModal>
-    );
-  const CallLinkBtn = ({ className, children }) =>
-    userData ? (
-      haveNoPhoneNiumber ? (
-        <ContactBtnsModal
-          phone={true}
-          description={
-            language
-              ? "لا يمكن التواصل مع المعلن في حالة عدم تسجيل رقم هاتفك لدينا"
-              : "You can't contact with the seller with out completeing your account phone number "
-          }
-        >
-          {" "}
-          {children ? (
-            children
-          ) : (
-            <p className={cn("cursor-pointer", className)}>
-              {language ? "اتصال" : "Call"}
-              <IoCallSharp className="" />
-            </p>
-          )}
-        </ContactBtnsModal>
-      ) : (
-        <a target="_blank" href={callLink} className={cn("", className)}>
-          {children ? (
-            children
-          ) : (
-            <>
-              {language ? "اتصال" : "Call"}
-              <IoCallSharp className="" />
-            </>
-          )}
-        </a>
-      )
-    ) : (
-      <ContactBtnsModal
-        signup={true}
-        description={
-          language
-            ? "لا يمكن التواصل مع المعلن فى حالة عدم تسجيل الدخول"
-            : "You can't contact with the seller with out signing in "
-        }
+      </button>
+      <ContactModals />
+    </>
+  );
+  const CallLinkBtn = ({ className, children }) => (
+    <>
+      {userData && userData.phone && (
+        <a
+          ref={callLinkRef}
+          className="hidden"
+          target="_blank"
+          href={callLink}
+        ></a>
+      )}
+      <button
+        onClick={() => {
+          handleActionClick("call");
+        }}
+        className={cn("", className)}
       >
         {children ? (
           children
         ) : (
-          <p className={cn("cursor-pointer", className)}>
+          <>
             {language ? "اتصال" : "Call"}
             <IoCallSharp className="" />
-          </p>
+          </>
         )}
-      </ContactBtnsModal>
-    );
+      </button>
+      <ContactModals />
+    </>
+  );
   return { WhatappLinkBtn, CallLinkBtn };
 };
 export default useContactLinks;

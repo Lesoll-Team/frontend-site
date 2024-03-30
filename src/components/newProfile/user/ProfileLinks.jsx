@@ -1,14 +1,10 @@
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { logoutUserToken } from "@/redux-store/features/authSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BiEditAlt } from "react-icons/bi";
 import { IoMdHeartEmpty } from "react-icons/io";
-import { IoPersonAddOutline } from "react-icons/io5";
 import {
   MdOutlineAccountCircle,
-  MdOutlinePersonAddAlt,
-  MdOutlinePersonAddAlt1,
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
@@ -21,7 +17,6 @@ const ProfileLinks = ({ main }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logoutUserToken());
     dispatch(clearUserData());
     localStorage.removeItem("userToken");
     localStorage.removeItem("userIsLogin");

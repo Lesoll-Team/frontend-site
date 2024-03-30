@@ -9,7 +9,6 @@ import { LuFileText } from "react-icons/lu";
 import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChangeLang from "./ChangeLang";
-import { logoutUserToken } from "@/redux-store/features/authSlice";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
@@ -34,7 +33,6 @@ const SideMenu = () => {
     setShowNeedMenu((prev) => !prev);
   };
   const handleLogout = () => {
-    dispatch(logoutUserToken());
     dispatch(clearUserData());
     localStorage.removeItem("userToken");
     localStorage.removeItem("userIsLogin");
