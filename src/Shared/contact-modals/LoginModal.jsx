@@ -12,7 +12,7 @@ const LoginModal = ({ isOpen, setIsOpen }) => {
         setModalIsOpen={setIsOpen}
         closeBtn={false}
       >
-        <div className="w-screen h-[95vh] px-3 sm:h-fit py-2 relative overflow-auto  sm:w-[80vw] md:w-[500px] space-y-4">
+        <div className="w-screen h-[95dvh] px-3 sm:h-fit py-2 pt-5 md:pt-2 relative overflow-auto  sm:w-[80vw] md:w-[500px] space-y-4">
           <div className="flex justify-between items-center px-1">
             <h1>{language ? "تسجيل الدخول" : "Sign In"}</h1>
             <button onClick={() => setIsOpen(false)}>

@@ -107,8 +107,6 @@ const SignUpForm = () => {
       </div>
       <div className="space-y-2">
         <input
-          name="fullname"
-          id="fullname"
           {...register("fullname", {
             required: language ? "ادخل اسمك" : "Please enter your name",
           })}
@@ -122,8 +120,6 @@ const SignUpForm = () => {
       </div>
       <div className="space-y-2">
         <input
-          name="email"
-          id="email"
           {...register("email", {
             required: language
               ? "ادخل البريد الإلكترونى"
@@ -190,8 +186,6 @@ const SignUpForm = () => {
             </p>
           )}
           <input
-            id="phone"
-            name="phone"
             {...register("phone", {
               required: language
                 ? "ادخل رقم الهاتف"
@@ -205,8 +199,6 @@ const SignUpForm = () => {
       <div className="space-y-2">
         <div className="flex items-center">
           <input
-            name="password"
-            id="password"
             {...register("password", {
               required: language
                 ? "يرجى إدخال كلمة السر"
@@ -252,7 +244,12 @@ const SignUpForm = () => {
                 className={`bg-lightNeutral py-2 flex items-center justify-center rounded-md  gap-4 px-2 md:text-base text-sm w-full  ${watch("typeOfUser") === "company" && "border border-lightGreen "}`}
                 type="button"
               >
-                <Image src={"/icons/company-icon.svg"} width={30} height={30} />
+                <Image
+                  src={"/icons/company-icon.svg"}
+                  width={30}
+                  height={30}
+                  alt="مطور عقارى"
+                />
                 <span>{language ? "مطور عقارى" : "Developer"}</span>
               </button>
               <button
@@ -260,7 +257,12 @@ const SignUpForm = () => {
                 className={`bg-lightNeutral py-2 flex items-center justify-center rounded-md  gap-4 px-2 md:text-base text-sm w-full ${watch("typeOfUser") === "broker" && "border border-lightGreen "}`}
                 type="button"
               >
-                <Image src={"/icons/broker-icon.svg"} width={30} height={30} />
+                <Image
+                  src={"/icons/broker-icon.svg"}
+                  width={30}
+                  height={30}
+                  alt="سمسار"
+                />
                 <span>{language ? "سمسار" : "Broker"}</span>
               </button>
             </div>

@@ -33,13 +33,16 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
     });
   };
 
+  // console.log(userData);
   useEffect(() => {
     if (formStatus === "success") {
       const redirectBackTo = router.asPath;
       setIsOpen(false);
-      //   router.push(
-      //     `/verify-otp/${JSON.parse(localStorage.getItem("userToken"))}?refirectBackTo=${redirectBackTo}`
-      //   );
+      if (!userData?.verifiedPhone) {
+        router.push(
+          `/verify-otp/${JSON.parse(localStorage.getItem("userToken"))}?refirectBackTo=${redirectBackTo}`
+        );
+      }
       dispatch(getUserData());
     }
   }, [formStatus]);
