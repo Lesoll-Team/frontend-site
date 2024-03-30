@@ -70,9 +70,9 @@ const OtpInputForm = ({ userData }) => {
       const redirectBackTo = router?.query?.redirectBackTo;
       localStorage.setItem("userToken", JSON.stringify(token));
       if (redirectBackTo) {
-        router.push(`${redirectBackTo}`);
+        router.replace(`${redirectBackTo}`);
       } else {
-        router.push("/");
+        router.replace("/");
       }
     }
   }, [formStatus]);

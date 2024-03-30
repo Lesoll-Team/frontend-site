@@ -21,7 +21,6 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
   const phoneNumberwithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
-  //   console.log(user);
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("code", data.code);
@@ -38,9 +37,9 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
     if (formStatus === "success") {
       const redirectBackTo = router.asPath;
       setIsOpen(false);
-      router.push(
-        `/verify-otp/${JSON.parse(localStorage.getItem("userToken"))}?refirectBackTo=${redirectBackTo}`
-      );
+      //   router.push(
+      //     `/verify-otp/${JSON.parse(localStorage.getItem("userToken"))}?refirectBackTo=${redirectBackTo}`
+      //   );
       dispatch(getUserData());
     }
   }, [formStatus]);
