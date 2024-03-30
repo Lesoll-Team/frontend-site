@@ -18,12 +18,7 @@ const NotSignUpModal = ({
   }
   return (
     <>
-      {/* <button onClick={() => setModalIsOpen(true)}>Open modal</button> */}
-      <ReactModal
-        modalIsOpen={isOpen}
-        setModalIsOpen={setIsOpen}
-        // closeBtn={false}
-      >
+      <ReactModal modalIsOpen={isOpen} setModalIsOpen={setIsOpen}>
         <div className="w-screen  px-3 sm:h-fit py-5 relative overflow-auto max-w-[90vw] md:max-w-[600px]   gap-6 md:gap-10 flex flex-col justify-center items-center">
           <h1 className="text-center">
             {language
