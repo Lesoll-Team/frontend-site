@@ -7,6 +7,8 @@ const ContactLinksMobile = ({ propertyData }) => {
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: propertyData.user?.code + propertyData.user?.phone,
     message: message,
+    type: "property",
+    id: propertyData?._id,
   });
   return (
     <div className="md:hidden  sticky -bottom-[1px] flex w-full ">

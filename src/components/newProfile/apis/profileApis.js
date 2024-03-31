@@ -1,27 +1,27 @@
 import axios from "axios";
 
-export const editProperty = async ({
+export const editUserData = async ({
   data,
-  id,
-  setFormStatus,
   setServerError,
+  setFormStatus,
+  userId,
 }) => {
+  console.log(userId);
+  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userId}`,
       data,
       {
         headers: {
-          token: userToken,
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "multipart/form-data",
+          token: token,
         },
       }
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
-      setServerError(null);
     }
     return response.data;
   } catch (error) {

@@ -6,10 +6,11 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import ReactTimeAgo from "react-time-ago";
 const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
-
+  const createdAt = new Date(propertyData?.createdAt);
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
@@ -149,6 +150,9 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           }
         />
       )}
+      {/* <div className="flex items-center justify-end col-span-3 md:col-span-4">
+        <ReactTimeAgo date={createdAt} locale={language ? "" : "en-US"} />
+      </div> */}
     </section>
   );
 };

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Register from "@/components/auth/register/Register";
 import SignUp from "@/components/auth/signup/components/SignUp";
 const SignUpPage = () => {
   const router = useRouter();

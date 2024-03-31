@@ -1,5 +1,4 @@
 import Button from "@/Shared/ui/Button";
-import { DevTool } from "@hookform/devtools";
 import AddPropMainInfo from "@/components/newAddProperty/mainInfo/AddPropMainInfo";
 import Steps from "@/components/newAddProperty/Steps";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,12 +7,10 @@ import AddPropDetails from "@/components/newAddProperty/details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "@/components/newAddProperty/price/AddPropertyPrice";
 import PropertyImages from "@/components/newAddProperty/imgs/PropertyImages";
-import { resetAddProp } from "@/redux-store/features/property/addPropertySlice";
 import Link from "next/link";
 import AceeptedCard from "@/components/newAddProperty/AceeptedCard";
 import { DotPulse, Ring } from "@uiball/loaders";
 import useEditProperty from "./hooks/useEditProperty";
-import { resetEditPropertySlice } from "./redux/editPropertSlice";
 import { scrollToTop } from "@/utils/scrollToTop";
 const EditProperty = ({ data }) => {
   const {
@@ -26,13 +23,12 @@ const EditProperty = ({ data }) => {
     step,
     setStep,
     clearErrors,
-    fields,
-    append,
-    remove,
+    formStatus,
+    serverError,
   } = useEditProperty(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
-  const formStatus = useSelector((state) => state.editProperty.status);
+  // const formStatus = useSelector((state) => state.editProperty.status);
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
 
@@ -45,9 +41,9 @@ const EditProperty = ({ data }) => {
     }
   }, []);
   useEffect(() => {
-    if (formStatus === "succeeded") {
+    if (formStatus === "success") {
       setSended(true);
-      dispatch(resetEditPropertySlice());
+      // dispatch(resetEditPropertySlice());
       setStep(1);
       scrollToTop();
     }
@@ -130,9 +126,6 @@ const EditProperty = ({ data }) => {
         case 2:
           return (
             <AddPropertyPrice
-              fields={fields}
-              append={append}
-              remove={remove}
               control={control}
               errors={errors}
               clearErrors={clearErrors}

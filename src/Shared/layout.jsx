@@ -54,8 +54,8 @@ export default function Layout({ children }) {
         <meta property="og:image" content="../../public/socialApperance.svg" />
       </Head>
       <Navbar />
-      <main dir={language && "rtl"}>{children}</main>
-      <Footer dir={language && "rtl"} />
+      <main dir={language ? "rtl" : "ltr"}>{children}</main>
+      <Footer dir={language ? "rtl" : "ltr"} />
       <ScrollToTopButton />
     </div>
   );

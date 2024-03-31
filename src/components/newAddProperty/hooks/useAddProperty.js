@@ -1,18 +1,16 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { initialAddPropData } from "./initialData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useFromatAddData from "./useFromatAddData";
-import { useDispatch } from "react-redux";
-import { submitProperty } from "@/redux-store/features/property/addPropertySlice";
 import { scrollToTop } from "@/utils/scrollToTop";
-// import { formatApiData } from "../editProperty/fromateApiData";
+import { postProperty } from "@/components/newAddProperty/apis/addEditPropertyApis";
 const useAddProperty = () => {
-  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
   const form = useForm({
     defaultValues: initialAddPropData,
   });
-
   const {
     handleSubmit,
     control,
@@ -24,11 +22,6 @@ const useAddProperty = () => {
   } = form;
 
   const { errors } = formState;
-  const { fields, append, remove } = useFieldArray({
-    name: "installment",
-    control,
-  });
-
   const onSubmit = handleSubmit((data) => {
     const isInvestment = watch("offer") === "For Investment";
     if (isInvestment) {
@@ -37,7 +30,7 @@ const useAddProperty = () => {
         scrollToTop();
       } else {
         const { formData } = useFromatAddData(data);
-        dispatch(submitProperty(formData));
+        postProperty({ data: formData, setFormStatus, setServerError });
       }
     } else {
       if (step < 4) {
@@ -45,7 +38,7 @@ const useAddProperty = () => {
         setStep(step + 1);
       } else {
         const { formData } = useFromatAddData(data);
-        dispatch(submitProperty(formData));
+        postProperty({ data: formData, setFormStatus, setServerError });
       }
     }
   });
@@ -60,9 +53,8 @@ const useAddProperty = () => {
     setStep,
     step,
     clearErrors,
-    fields,
-    append,
-    remove,
+    formStatus,
+    serverError,
   };
 };
 export default useAddProperty;

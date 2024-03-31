@@ -13,9 +13,6 @@ const AddPropertyPrice = ({
   watch,
   clearErrors,
   control,
-  fields,
-  append,
-  remove,
 }) => {
   const userData = useSelector((state) => state.userProfile.userData);
   const renderPrice = () => {
@@ -34,9 +31,6 @@ const AddPropertyPrice = ({
       case "For Sale":
         return (
           <Sale
-            fields={fields}
-            append={append}
-            remove={remove}
             control={control}
             errors={errors}
             clearErrors={clearErrors}
