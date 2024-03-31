@@ -78,7 +78,7 @@ const PropertyInfo = ({ propertyData }) => {
 
   const isLand = propertyData.propType === "Land";
   return (
-    <section className="grid grid-cols-2 gap-y-5 gap-x-2 md:mt-10 md:gap-y-10">
+    <section className="grid sm:grid-cols-2 gap-y-5 gap-x-2 md:mt-10 md:gap-y-10 ">
       <InfoCard
         icon={<BsHouses />}
         title={language ? "نوع العقار" : "Property Type"}

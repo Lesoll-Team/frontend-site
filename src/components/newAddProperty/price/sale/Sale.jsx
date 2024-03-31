@@ -8,17 +8,7 @@ import Error from "@/Shared/ui/Error";
 import AdminInsatllment from "./AdminInstallment";
 import MainPrice from "./mainPriceInput/MainPrice";
 
-const Sale = ({
-  errors,
-  register,
-  setValue,
-  watch,
-  clearErrors,
-  control,
-  fields,
-  append,
-  remove,
-}) => {
+const Sale = ({ errors, register, setValue, watch, clearErrors, control }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
 
@@ -39,9 +29,6 @@ const Sale = ({
         if (userData.email === "info@lesoll.com" && userData.isAdmin) {
           return (
             <AdminInsatllment
-              fields={fields}
-              append={append}
-              remove={remove}
               control={control}
               errors={errors}
               clearErrors={clearErrors}
@@ -53,9 +40,6 @@ const Sale = ({
         } else {
           return (
             <Installment
-              fields={fields}
-              append={append}
-              remove={remove}
               control={control}
               errors={errors}
               clearErrors={clearErrors}

@@ -5,7 +5,7 @@ import {
 } from "@/redux-store/features/user/notifiicationSlice";
 import { formatDate } from "@/utils/FormateData";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import ReactTimeAgo from "react-time-ago";
@@ -19,7 +19,7 @@ const Notifications = () => {
   const userNotifications = useSelector(
     (state) => state.notifications.notifications.data
   );
-
+  // const date = useMemo(()=>new Date())
   const toggleNotification = () => {
     setShowMenu((prev) => !prev);
   };
@@ -75,7 +75,7 @@ const Notifications = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 text-sm md:text-base text-darkGray font-bold">
               <IoIosNotificationsOutline className="text-lg md:text-xl" />
-              <p>{language ? "الإشعارات" : "Nofifications"}</p>
+              <h3>{language ? "الإشعارات" : "Nofifications"}</h3>
             </div>
             {userNotifications.length > 0 && (
               <button
@@ -86,28 +86,30 @@ const Notifications = () => {
               </button>
             )}
           </div>
-          <div className="space-y-6">
+          <div className="space-y-2">
             {userNotifications && userNotifications.length > 0 ? (
-              userNotifications.map((item) => {
-                const { formattedDate } = formatDate(item.createdAt);
+              userNotifications.map((item, i) => {
                 const notificationDate = new Date(item.createdAt);
                 return (
-                  <Link
-                    href={item?.link || ""}
-                    key={item._id}
-                    onClick={() => handleNotificationClick(item._id)}
-                    className={`flex items-center justify-between gap-1 flex-wrap `}
-                  >
-                    <span className="text-xs md:text-lg">
-                      {language ? item.title.ar : item.title.en}
-                    </span>
-                    <span className="text-xs md:text-sm text-lightGreen">
-                      <ReactTimeAgo
-                        date={notificationDate}
-                        locale={language ? "" : "en-US"}
-                      />
-                    </span>
-                  </Link>
+                  <>
+                    <Link
+                      href={item?.link || ""}
+                      key={item._id}
+                      onClick={() => handleNotificationClick(item._id)}
+                      className={`flex items-start justify-between gap-1 rounded-md flex-col  py-2 font-noto px-2 flex-wrap `}
+                    >
+                      <span className="text-xs md:text-lg">
+                        {language ? item.title.ar : item.title.en}
+                      </span>
+                      <span className="text-xs md:text-sm text-lightGreen">
+                        <ReactTimeAgo
+                          date={notificationDate}
+                          locale={language ? "" : "en-US"}
+                        />
+                      </span>
+                    </Link>
+                    {userNotifications.length != i + 1 && <hr />}
+                  </>
                 );
               })
             ) : (

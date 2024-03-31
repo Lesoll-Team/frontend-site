@@ -1,18 +1,40 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useSelector } from "react-redux";
-import GoogleSignInBtn from "@/components/auth/login/GoogleSignInBtn";
-import { userSignUp } from "../../api/signUpApi";
-import { Ring, Waveform } from "@uiball/loaders";
+import { userSignUp } from "@/components/auth/signup/api/signUpApi";
+import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import Button from "@/Shared/ui/Button";
 
-const SignUpForm = () => {
+import Button from "@/Shared/ui/Button";
+import DropDown from "@/Shared/ui/DropDown";
+const USER_TYPES = [
+  {
+    value: "individual",
+    name: {
+      ar: "فرد",
+      en: "individual",
+    },
+  },
+  {
+    value: "broker",
+    name: {
+      ar: "سمسار",
+      en: "Broker",
+    },
+  },
+  {
+    value: "company",
+    name: {
+      ar: "شركة",
+      en: "Company",
+    },
+  },
+];
+const SignUp = () => {
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
   const [token, setToken] = useState(null);
@@ -51,7 +73,7 @@ const SignUpForm = () => {
       code: data.code,
       phone: phoneWithoutCode(data.phone, data.code),
       password: data.password,
-      typeOfUser: data.typeOfUser,
+      typeOfUser: data.typeOfUser.value,
     };
     userSignUp({
       setFormStatus,
@@ -60,11 +82,13 @@ const SignUpForm = () => {
       data: dataTosend,
     });
   };
-
+  // console.log();
+  // router.asPath
   useEffect(() => {
     if (formStatus === "success") {
-      reset();
-      router.push(`/verify-otp/${token}`);
+      const redirectBackTo = router.asPath;
+      // reset();
+      router.push(`/verify-otp/${token}?redirectBackTo=${redirectBackTo}`);
     }
   }, [formStatus, reset, router, token]);
 
@@ -80,31 +104,11 @@ const SignUpForm = () => {
 
   return (
     <form
+      dir={language ? "rtl" : "ltr"}
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6 py-5 pb-14 md:my-0"
+      className="px-3 md:px-0  w-full  mx-auto space-y-6 pb-4   md:my-0 overflow-auto "
     >
-      <div className="space-y-4">
-        <h1 className="text-2xl md:text-4xl">
-          {language ? "إنشاء حساب" : "Sign up"}
-        </h1>
-        <div className="flex rounded-lg overflow-hidden border">
-          <button
-            type="button"
-            onClick={() => setUserType("individual")}
-            className={`w-full text-darkGray text-center py-2 ${watch("typeOfUser") === "individual" && "bg-lightGreen text-white"}`}
-          >
-            {language ? "سجل كفرد" : "As an individual"}
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("typeOfUser", "")}
-            className={`w-full text-darkGray text-center py-2 ${watch("typeOfUser") !== "individual" && "bg-lightGreen text-white"}`}
-          >
-            {language ? "سجل كشركة" : "As a company"}
-          </button>
-        </div>
-      </div>
       <div className="space-y-2">
         <input
           {...register("fullname", {
@@ -224,7 +228,15 @@ const SignUpForm = () => {
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
       </div>
-      {watch("typeOfUser") !== "individual" && (
+      {/* {console.log(watch("typeOfUser"))} */}
+      <DropDown
+        selected={watch("typeOfUser")}
+        options={USER_TYPES}
+        setValue={(e) => {
+          setValue("typeOfUser", e);
+        }}
+      />
+      {/* {watch("typeOfUser") !== "individual" && (
         <div className="space-y-2">
           <label htmlFor="">
             {language ? " عرفنا بيك" : "choose your type"}
@@ -244,12 +256,7 @@ const SignUpForm = () => {
                 className={`bg-lightNeutral py-2 flex items-center justify-center rounded-md  gap-4 px-2 md:text-base text-sm w-full  ${watch("typeOfUser") === "company" && "border border-lightGreen "}`}
                 type="button"
               >
-                <Image
-                  src={"/icons/company-icon.svg"}
-                  width={30}
-                  height={30}
-                  alt="مطور عقارى"
-                />
+                <Image src={"/icons/company-icon.svg"} width={30} height={30} />
                 <span>{language ? "مطور عقارى" : "Developer"}</span>
               </button>
               <button
@@ -257,12 +264,7 @@ const SignUpForm = () => {
                 className={`bg-lightNeutral py-2 flex items-center justify-center rounded-md  gap-4 px-2 md:text-base text-sm w-full ${watch("typeOfUser") === "broker" && "border border-lightGreen "}`}
                 type="button"
               >
-                <Image
-                  src={"/icons/broker-icon.svg"}
-                  width={30}
-                  height={30}
-                  alt="سمسار"
-                />
+                <Image src={"/icons/broker-icon.svg"} width={30} height={30} />
                 <span>{language ? "سمسار" : "Broker"}</span>
               </button>
             </div>
@@ -271,7 +273,7 @@ const SignUpForm = () => {
             <p className="text-red-500 text-sm">{errors.typeOfUser.message}</p>
           )}
         </div>
-      )}
+      )} */}
       <div className="space-y-2 flex items-center gap-1">
         <input
           {...register("terms", {
@@ -281,8 +283,6 @@ const SignUpForm = () => {
           })}
           type="checkbox"
           className={`mt-2 ${errors.terms && "outline-red-500"}`}
-          id="terms"
-          name="terms"
         />
         <label
           htmlFor="terms"
@@ -310,14 +310,7 @@ const SignUpForm = () => {
           <span>{language ? "إنشاء حساب" : "Sign up"}</span>
         )}
       </Button>
-      <div className="space-y-3">
-        <div className="flex items-center gap-3">
-          <div className="h-[1px] w-full bg-gray-500"></div>
-          <p className="text-gray-700">{language ? "او" : "or"}</p>
-          <div className="h-[1px] w-full bg-gray-500"></div>
-        </div>
-        <GoogleSignInBtn />
-      </div>
+
       <div className="flex items-center justify-center gap-1">
         <p className="text-lightGray">
           {language ? "لديك حساب بالفعل؟" : "Already have an account?"}
@@ -330,4 +323,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUp;

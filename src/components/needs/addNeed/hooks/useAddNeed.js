@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { addNeed } from "../redux/addNeedSlice";
 import { useState } from "react";
+import { postNeed } from "../api/needsApi";
 
 const useAddNeed = () => {
   const [step, setStep] = useState(1);
-  const dispatch = useDispatch();
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
   const form = useForm();
   const {
     handleSubmit,
@@ -24,7 +24,6 @@ const useAddNeed = () => {
       region: data.address.region._id,
       unitType: data.unitType.value,
       propType: data.propType.value,
-
       price: {
         from: data.priceTo,
         to: data.priceTo,
@@ -43,7 +42,7 @@ const useAddNeed = () => {
       connectPhoneNumber: data.connectPhoneNumber || "",
     };
 
-    await dispatch(addNeed(dataToSend));
+    await postNeed({ data: dataToSend, setFormStatus, setServerError });
   });
   return {
     onSubmit,
@@ -57,6 +56,8 @@ const useAddNeed = () => {
     step,
     setStep,
     errors,
+    formStatus,
+    serverError,
   };
 };
 export default useAddNeed;

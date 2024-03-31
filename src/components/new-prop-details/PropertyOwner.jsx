@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 
 import useContactLinks from "@/Hooks/useContactLinks";
 import Link from "next/link";
+import ReactTimeAgo from "react-time-ago";
 
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const date = propertyData.createdAt;
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${"https://lesoll.com/property-details/" + propertyData?.slug} `;
@@ -17,6 +19,8 @@ const PropertyOwner = ({ propertyData, className }) => {
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: conatactNumber,
     message: message,
+    type: "property",
+    id: propertyData?._id,
   });
   return (
     <div
@@ -46,6 +50,7 @@ const PropertyOwner = ({ propertyData, className }) => {
           </Link>
         </div>
       </div>
+
       <div className=" hidden  md:flex flex-col gap-3 w-full">
         <CallLinkBtn className="py-2 text-lg rounded flex items-center justify-center w-full gap-2 bg-lightNeutral text-[#5F98D1]" />
         <WhatappLinkBtn className="py-2 text-lg rounded flex items-center justify-center w-full gap-2 bg-[#39AE41] text-white" />

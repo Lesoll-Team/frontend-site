@@ -1,5 +1,4 @@
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { logoutUserToken } from "@/redux-store/features/authSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -27,7 +26,6 @@ const ProfileDropDown = () => {
     setShowMenu(false);
   };
   const handleLogout = () => {
-    dispatch(logoutUserToken());
     dispatch(clearUserData());
     localStorage.removeItem("userToken");
     localStorage.removeItem("userIsLogin");
@@ -70,7 +68,7 @@ const ProfileDropDown = () => {
       />
       {showMenu && (
         <div
-          className={`bg-white drop-shadow rounded-lg flex fade-in flex-col gap-4 absolute top-8 p-4 lg:p-8 lg:top-14 w-[230px] lg:w-[320px] ${
+          className={`bg-white drop- rounded-lg flex fade-in flex-col border gap-4 absolute top-8 p-4 lg:p-8 lg:top-12 w-[230px] lg:w-[320px] ${
             language ? "-left-10 sm:-left-4 " : "-right-10 sm:-right-4"
           } `}
         >

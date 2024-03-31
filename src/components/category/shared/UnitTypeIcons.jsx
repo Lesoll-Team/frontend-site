@@ -1,12 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
-import { unitTypeResidential, unitTypeCommercial, unitTypeLand } from "@/Shared/search/dropdown/dataDropdown";
+import { useUnitsIcons } from "./iconsSVG";
 const UnitTypeIcons = ({ items, main }) => {
   const router = useRouter();
-  const [unitTypeTap, setUnitTypeTap] = useState({})
   const language = useSelector((state) => state.GlobalState.languageIs);
   const {
     categoryType,
@@ -53,7 +51,6 @@ const UnitTypeIcons = ({ items, main }) => {
         },
       });
       router.push(route);
-
     } else if (!unitTypes) {
       const route = useSendFilterSearch({
         filterInput: {
@@ -134,9 +131,9 @@ const UnitTypeIcons = ({ items, main }) => {
   const [seeMore, setSeeMore] = useState(8);
   useEffect(() => {
     const handleResize = () => {
-      window.innerWidth <= 1280 ? setSeeMore(6) : setSeeMore(8);
-      window.innerWidth <= 970 && setSeeMore(4);
-      window.innerWidth >= 1280 && setSeeMore(9);
+      window.innerWidth >= 1280 && setSeeMore(items.length);
+      window.innerWidth <= 1280 ? setSeeMore(8) : setSeeMore(9);
+      window.innerWidth <= 970 && setSeeMore(7);
     };
 
     handleResize(); // Call the function to set the initial value
@@ -146,60 +143,107 @@ const UnitTypeIcons = ({ items, main }) => {
       window.removeEventListener("resize", handleResize); // Clean up event listener
     };
   }, []);
-  if (items && main) {
 
+  if (items && main) {
     return (
-      <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
+      <div className="flex overflow-x-auto  no-scrollbar gap-x-[2.4vw] ">
         {items
           ?.filter((_, i) => i < seeMore)
-          .map((item) => (
-            <button
-              key={item.keyword}
-              onClick={() => handleTapClicked(item)}
-              className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
-            >
-              <span className="text-gray2"> {language ? item.ar : item.en}</span>
-              <span className="text-lightGreen">({item.getDataNumber})</span>
-            </button>
-          ))}
+          .map((item) => {
+            const icon = useUnitsIcons(item.keyword);
+            return (
+              <button
+                key={item.keyword}
+                onClick={() => handleTapClicked(item)}
+                className=" text-[12px] md:text-[16px]  whitespace-nowrap hover:text-lightGreen text-gray2 flex gap-x-1 flex-col justify-center group items-center"
+              >
+                <span>{icon}</span>
+                <span className="">{language ? item.ar : item.en}</span>
+                <span className="">({item.getDataNumber})</span>
+              </button>
+            );
+          })}
       </div>
     );
   }
-
-  const handleRenderingUnits = () => {
-    switch (categoryType) {
-      case "residential":
-      case "compounds":
-      case "finance":
-        setUnitTypeTap(unitTypeResidential)
-      case "commercial":
-        setUnitTypeTap(unitTypeCommercial)
-      case "lands":
-        setUnitTypeTap(unitTypeLand)
-      default:
-        setUnitTypeTap(unitTypeResidential)
-
-    }
-  }
-  useEffect(() => {
-    handleRenderingUnits()
-  }, [categoryType, language]);
-  if (!main) {
-    return (
-      <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
-        {unitTypeTap[language ? "ar" : "en"]?.map((item) => (
-          <button
-            key={item.id}
-            // onClick={() => handleTapClicked(item)}
-            className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
-          >
-            <span className="text-gray2"> {item.name}</span>
-          </button>
-        ))}
-
-      </div>)
-  }
-
 };
 
 export default UnitTypeIcons;
+// if (!main) {
+//   return (
+//     <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
+//       {unitTypeTap[language ? "ar" : "en"]?.map((item) => (
+//         <button
+//           key={item.id}
+//           // onClick={() => handleTapClicked(item)}
+//           className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
+//         >
+//           <span className="text-gray2"> {item.name}</span>
+//         </button>
+//       ))}
+//     </div>
+//   );
+// }
+// useEffect(() => {
+//   // const handleRenderingUnits = () => {
+//   switch (categoryType) {
+//     case "residential":
+//     case "compounds":
+//     case "finance":
+//       setUnitTypeTap(unitTypeResidential);
+//       break;
+//     case "commercial":
+//       setUnitTypeTap(unitTypeCommercial);
+//       break;
+
+//     case "lands":
+//       setUnitTypeTap(unitTypeLand);
+//       break;
+
+//     default:
+//       setUnitTypeTap(unitTypeResidential);
+//   }
+//   // };
+//   // handleRenderingUnits();
+// const [unitTypeTap, setUnitTypeTap] = useState({});
+// }, [categoryType, language]);
+// useEffect(() => {
+//   //   switch (categoryType) {
+//   //     case "residential":
+//   //     case "compounds":
+//   //     case "finance":
+//   //       setUnitTypeTap(unitTypeResidential);
+//   //       break;
+//   //     case "commercial":
+//   //       setUnitTypeTap(unitTypeCommercial);
+//   //       break;
+//   //     case "lands":
+//   //       setUnitTypeTap(unitTypeLand);
+//   //       break;
+//   //     default:
+//   //       setUnitTypeTap(unitTypeResidential);
+//   //   }
+// }, [categoryType, unitTypes]);
+// import {
+//   RestaurantIcon,
+//   FactoryIcon,
+//   OfficeIcon,
+//   TownhouseIcon,
+//   ApartmentIcon,
+//   FurnishedApartmentIcon,
+//   ShopIcon,
+//   DuplexIcon,
+//   HotelApartmentIcon,
+//   StudioIcon,
+//   TwinHouseIcon,
+//   CabinIcon,
+//   WarehouseIcon,
+//   ArchitectureIcon,
+//   PenthouseIcon,
+//   CoffeeIcon,
+//   ApartmentWithGardenIcon,
+//   VillaIcon,
+//   GarageIcon,
+//   HouseIcon,
+//   ClinicIcon,
+// } from "./iconsSVG";

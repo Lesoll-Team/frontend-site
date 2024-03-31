@@ -1,19 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
-import GoogleSignInBtn from "./GoogleSignInBtn";
 import Button from "@/Shared/ui/Button";
-import { userLogin } from "./api/loginApi";
-const SignInForm = () => {
+import { userLogin } from "@/components/auth/login/api/loginApi";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+const LoginModalForm = ({ setIsOpen }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, handleSubmit, formState, reset } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
-  const router = useRouter();
-
+  const dispatch = useDispatch();
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
@@ -29,7 +27,8 @@ const SignInForm = () => {
   useEffect(() => {
     if (formStatus === "success") {
       localStorage.setItem("userToken", JSON.stringify(token));
-      router.replace("/");
+      dispatch(getUserData());
+      setIsOpen(false);
     }
   }, [formStatus]);
 
@@ -53,20 +52,13 @@ const SignInForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
+      className="px-3 md:px-0  w-full  mx-auto space-y-6 pb-4   md:my-0 overflow-auto"
     >
-      <h1 className="text-2xl md:text-4xl">
-        {" "}
-        {language ? "تسجيل الدخول" : "Sign In"}
-      </h1>
-
       {/* ---------------------- email ------------------------- */}
       <div className="space-y-2">
         {" "}
         <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
         <input
-          name="email"
-          id="email"
           {...register("email", {
             required: {
               value: true,
@@ -106,8 +98,6 @@ const SignInForm = () => {
         <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
         <div className="flex items-center mt-1">
           <input
-            name="password"
-            id="password"
             {...register("password", {
               required: {
                 value: true,
@@ -168,22 +158,7 @@ const SignInForm = () => {
 
         {/* text */}
       </Button>
-      <div className="flex items-center gap-3">
-        <div className="h-[1px] w-full bg-gray-500"></div>
-        <p className="text-gray-700">{language ? "او" : "or"}</p>
-        <div className="h-[1px] w-full bg-gray-500"></div>
-      </div>
-      {/* --------------- google sign in */}
-      <GoogleSignInBtn />
-      <div className="flex items-center justify-center gap-1">
-        <p className="text-lightGray">
-          {language ? "لا تمتلك حساب؟" : "Don't have an account?"}
-        </p>
-        <Link className="text-lightGreen" href={"/signup"}>
-          {language ? "سجل الأن" : "Register Now"}
-        </Link>
-      </div>
     </form>
   );
 };
-export default SignInForm;
+export default LoginModalForm;
