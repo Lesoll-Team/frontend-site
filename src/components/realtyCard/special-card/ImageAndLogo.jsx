@@ -24,6 +24,8 @@ const ImageAndLogo = ({ cardDetails, isHome }) => {
         radius="none"
         className={`
      w-full
+     md:h-[300px]
+     h-[240px]
      object-cover
      `}
         loading="lazy"
