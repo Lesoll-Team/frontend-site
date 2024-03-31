@@ -19,6 +19,8 @@ const PropertyOwner = ({ propertyData, className }) => {
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: conatactNumber,
     message: message,
+    type: "property",
+    id: propertyData?._id,
   });
   return (
     <div

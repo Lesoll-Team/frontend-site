@@ -1,4 +1,3 @@
-import useContactLinks from "@/Hooks/useContactLinks";
 import { localizedNumber } from "@/utils/localizedNumber";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -9,9 +8,7 @@ import { useSelector } from "react-redux";
 const PriceTitle = ({ propertData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
-  // const { WhatappLinkBtn } = useContactLinks({
-  //   phoneNumber: propertData.user.code + propertData.user.phone,
-  // });
+
   const price = localizedNumber(propertData.price);
   const showEditBtn =
     userData && (userData._id === propertData.user._id || userData.supAdmin);

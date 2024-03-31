@@ -18,6 +18,8 @@ const NeedsCard = ({ need }) => {
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: need.userId[0]?.code + need?.userId[0]?.phone,
     message: "",
+    type: "need",
+    id: need?._id,
   });
 
   return (

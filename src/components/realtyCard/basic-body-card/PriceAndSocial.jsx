@@ -26,6 +26,8 @@ const PriceAndSocial = ({ propertyDetails }) => {
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: phone,
     message: message,
+    type: "property",
+    id: propertyDetails?._id,
   });
 
   return (

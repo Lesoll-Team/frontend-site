@@ -2,13 +2,19 @@ import AddPhoneModal from "@/Shared/contact-modals/AddPhoneModal";
 import LoginModal from "@/Shared/contact-modals/LoginModal";
 import NotSignUpModal from "@/Shared/contact-modals/NotSignedModal";
 import RegisterModal from "@/Shared/contact-modals/RegisterModal";
+import {
+  needsCallClick,
+  needsWhatsClick,
+  propertyCallClick,
+  propertyWhatsClick,
+} from "@/utils/clicksApis";
 import { cn } from "@/utils/cn";
 import { useRef, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
-const useContactLinks = ({ phoneNumber, message = "" }) => {
+const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
   const [notLogedOpen, setNotLogedOpen] = useState(false);
@@ -45,12 +51,22 @@ const useContactLinks = ({ phoneNumber, message = "" }) => {
     message
   )}`;
 
-  const handleActionClick = (type) => {
+  const handleActionClick = (clickType) => {
     if (userData) {
       if (userData?.phone) {
-        if (type === "whatsapp") {
+        if (clickType === "whatsapp") {
+          if (type === "property") {
+            propertyWhatsClick({ id });
+          } else if (type === "need") {
+            needsWhatsClick({ id });
+          }
           whatsLinkRef.current.click();
-        } else if (type === "call") {
+        } else if (clickType === "call") {
+          if (type === "property") {
+            propertyCallClick({ id });
+          } else if (type === "need") {
+            needsCallClick({ id });
+          }
           callLinkRef.current.click();
         }
       } else {
