@@ -1,13 +1,16 @@
 import axios from "axios";
+import { formatDate } from "./FormateData";
 
 export async function getUserOffline({ url }) {
+  const data = new Date();
+  const { formattedTime } = formatDate(data);
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${
         userToken ? userToken : undefined
-      }&urlString=${url}`
+      }&urlString=${url}?time=${formattedTime}`
     );
     return response.data;
   } catch (error) {

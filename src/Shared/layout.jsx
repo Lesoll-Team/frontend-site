@@ -35,9 +35,10 @@ export default function Layout({ children }) {
     if (!userData) {
       dispatch(getUserData());
     }
-    getUserOffline({ url: `${router.asPath}` });
   }, [dispatch, language, children]);
-
+  useEffect(() => {
+    getUserOffline({ url: `${router.asPath}` });
+  }, [children]);
   useEffect(() => {
     const isItemInLocalStorage = (key) => {
       return localStorage.getItem(key) !== null;
