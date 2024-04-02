@@ -56,6 +56,7 @@ html {
   @apply text-[13px] md:text-[14px];
 }
 
+
 .sm-text {
   @apply text-[12px] md:text-[13px];
 }

@@ -5,12 +5,29 @@ export async function createPlanPrice(pricePlanData) {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.post(
-      `http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/payment/create-payment`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/create-payment`,
       pricePlanData,
       {
         headers: {
           token: userToken,
-          //   "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function updatePlanPrice({ pricePlanData, id }) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/update-payment/${id}`,
+      pricePlanData,
+      {
+        headers: {
+          token: userToken,
         },
       }
     );
@@ -25,7 +42,7 @@ export async function getPlanPrice() {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
 
     const response = await axios.get(
-      `http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/payment/get-admin-payment`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/get-admin-payment`,
       {
         headers: {
           token: userToken,
@@ -37,21 +54,47 @@ export async function getPlanPrice() {
     throw error.response.data;
   }
 }
+export async function getSinglePlanPrice({ id }) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/get-payment-single/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+  }
+}
 
 export async function getServicePricePlan() {
   try {
     const userToken = JSON.parse(localStorage.getItem("userToken"));
     const response = await axios.get(
-      `http://ec2-3-87-159-22.compute-1.amazonaws.com:8000/api/admin/payment/get-service`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/get-service`,
       {
         headers: {
           token: userToken,
         },
       }
     );
-    // console.log("service", response.data);
     return response.data;
   } catch (error) {
     throw error.response.data;
+  }
+}
+export async function deleteSinglePlanPrice({ id }) {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/delete-package/${id}`,
+      {
+        headers: {
+          token: userToken,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
   }
 }
