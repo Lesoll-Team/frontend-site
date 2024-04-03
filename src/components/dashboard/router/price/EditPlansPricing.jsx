@@ -10,9 +10,9 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import PlanAdded from "../../model/pricing/PlanAdded";
 
 const EditPlansPricing = ({ paymentPlan }) => {
-  console.log("paymentPlan:::>>>", paymentPlan);
+  // console.log("paymentPlan:::>>>", paymentPlan);
   const dispatch = useDispatch();
-  const [moreOption, setMoreOption] = useState(false);
+  // const [moreOption, setMoreOption] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const servicePrice = useSelector((state) => state.Pricing.priceService);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
@@ -21,8 +21,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [categoryNameEn, setCategoryNameEn] = useState("");
   const [descriptionCardAr, setDescriptionCardAr] = useState("");
   const [descriptionCardEn, setDescriptionCardEn] = useState("");
-  const [singlePageContentEn, setSinglePageContentEn] = useState("");
-  const [singlePageContentAr, setSinglePageContentAr] = useState("");
+  // const [singlePageContentEn, setSinglePageContentEn] = useState("");
+  // const [singlePageContentAr, setSinglePageContentAr] = useState("");
 
   const [targetUser, setTargetUser] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -30,23 +30,30 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [isOffer, setOffer] = useState(false);
   const [basicPrice, setBasicPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(0);
+  const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
+  const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
+
+  const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
   const [featuresList, setFeaturesList] = useState(new Set([]));
   const [featuresId, setFeaturesId] = useState([]);
   useEffect(() => {
     dispatch(getServicePrice());
   }, []);
-
-  const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
-  const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
-
+  const resetValues = () => {
+    setPropNumber(0);
+    setDurationPlan(0);
+    setDurationPlanHome(0);
+    setPropNumberInHome(0);
+  };
   useEffect(() => {
     setCategoryNameAr(paymentPlan.PaymentAr);
     setCategoryNameEn(paymentPlan.PaymentEn);
     setDescriptionCardAr(paymentPlan.descriptionAr);
     setDescriptionCardEn(paymentPlan.descriptionEn);
-    setSinglePageContentEn(paymentPlan.singlePageContentAr);
-    setSinglePageContentAr(paymentPlan.singlePageContentEn);
+    setDurationPlanHome(paymentPlan.pinDayInHome);
+    setPropNumberInHome(paymentPlan.propNumberInHome);
     setTargetUser(paymentPlan.targetUsers);
     setExpiryDate(paymentPlan.expireDate);
     setPopular(paymentPlan.Popular);
@@ -55,6 +62,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setOldPrice(paymentPlan.offerPrice);
     setFeaturesList(paymentPlan.service);
     setFeaturesId([paymentPlan.service]);
+    setDurationPlan(paymentPlan.repostDayCategory);
+    setPropNumber(paymentPlan.propNumberCategory);
   }, []);
   const data2 = {
     PaymentAr: categoryNameAr,
@@ -68,10 +77,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
     service: [...featuresList],
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    singlePageContentAr,
-    singlePageContentEn,
+    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : propNumberInHome,
+    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : durationPlanHome,
+    propNumberCategory: !featuresId.includes("656cc095485cfd01499d1362")
+      ? 0
+      : propNumber,
+    repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
+      ? 0
+      : durationPlan,
   };
-
   const data = {
     PaymentAr: categoryNameAr,
     PaymentEn: categoryNameEn,
@@ -84,8 +102,18 @@ const EditPlansPricing = ({ paymentPlan }) => {
     service: featuresId,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    singlePageContentAr,
-    singlePageContentEn,
+    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : propNumberInHome,
+    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : durationPlanHome,
+    propNumberCategory: !featuresId.includes("656cc095485cfd01499d1362")
+      ? 0
+      : propNumber,
+    repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
+      ? 0
+      : durationPlan,
   };
   useEffect(() => {
     setFeaturesId(paymentPlan.service.map((feature) => feature._id));
@@ -340,15 +368,17 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   </b>
                   <div className="flex gap-x-2">
                     <input
-                      type="text"
+                      type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setPropNumber(e.target.value)}
                       placeholder={language ? "عدد الاعلانات " : "Number ads"}
+                      value={propNumber}
                     />
                     <input
-                      type="text"
+                      type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setDurationPlan(e.target.value)}
+                      value={durationPlan}
                       placeholder={
                         language
                           ? "عدد ايام ظهور الاعلان"
@@ -370,6 +400,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setPropNumberInHome(e.target.value)}
+                      value={propNumberInHome}
                       placeholder={
                         language
                           ? " عدد الاعلانات على الصفحة الرئيسية"
@@ -380,6 +411,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setDurationPlanHome(e.target.value)}
+                      value={durationPlanHome}
                       placeholder={
                         language
                           ? " عدد ايام ظهور على الصفحة الرئيسية"
@@ -390,8 +422,30 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 </>
               )}
             </div>
-            {/*more option */}
-            {/* <div className="mt-4 grid col-span-2">
+
+            <div className="flex justify-center items-center">
+              <button
+                onClick={handleEditFeatures}
+                className="bg-lightGreen py-5 lg-text px-10 rounded-xl font-bold text-white"
+              >
+                {language ? "تاكيد إضافة الباقة" : "Confirm adding the package"}
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-center items-center">
+            <PlanPricingCard data={data2} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default EditPlansPricing;
+
+/*more option */
+
+/* <div className="mt-4 grid col-span-2">
               <button
                 onClick={() => setMoreOption(!moreOption)}
                 className="text-blue-700 underline cursor-pointer w-max "
@@ -421,24 +475,6 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
                 ></textarea>
               </div>
-            </div> */}
-            {/* Button  */}
-            <div className="flex justify-center items-center">
-              <button
-                onClick={handleEditFeatures}
-                className="bg-lightGreen py-5 lg-text px-10 rounded-xl font-bold text-white"
-              >
-                {language ? "تاكيد إضافة الباقة" : "Confirm adding the package"}
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-center items-center">
-            <PlanPricingCard data={data2} />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+            </div> */
 
-export default EditPlansPricing;
+/* Button  */

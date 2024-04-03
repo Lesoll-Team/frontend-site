@@ -52,6 +52,10 @@ const CreatePlansPricing = () => {
     service: [...featuresList],
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
+    propNumberInHome,
+    pinDayInHome: durationPlanHome,
+    propNumberCategory: propNumber,
+    repostDayCategory: durationPlan,
     // singlePageContentAr,
     // singlePageContentEn,
   };
@@ -68,6 +72,10 @@ const CreatePlansPricing = () => {
     service: featuresId,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
+    propNumberInHome,
+    pinDayInHome: durationPlanHome,
+    propNumberCategory: propNumber,
+    repostDayCategory: durationPlan,
     // singlePageContentAr,
     // singlePageContentEn,
   };

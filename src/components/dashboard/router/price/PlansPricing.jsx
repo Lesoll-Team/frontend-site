@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
-// import { Button } from "@nextui-org/react";
 import { PlusIcon } from "../../icon/PlusIcon";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,14 +11,13 @@ import {
 const PlansPricing = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   const dispatch = useDispatch();
   const pricesPlans = useSelector((state) => state.Pricing.pricesPlans);
+  const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   useEffect(() => {
     dispatch(getServicePrice());
     dispatch(getPricesPlans());
-  }, []);
-  // console.log("prices Plans", pricesPlans);
+  }, [isUpdated]);
   return (
     <div
       dir={language ? "rtl" : "ltr"}

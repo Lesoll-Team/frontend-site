@@ -23,6 +23,7 @@ const PlanAdded = ({ message, isAdd }) => {
       {isAdd ? (
         <Link
           href={`/dashboard/pricing`}
+          replace
           onClick={() => dispatch(resetStats())}
           className="w-8/12 lg:max-w-[300px] py-2 bg-lightGreen rounded-md text-white mx-auto"
         >
@@ -30,6 +31,7 @@ const PlanAdded = ({ message, isAdd }) => {
         </Link>
       ) : (
         <Link
+          replace
           className="font-bold justify-center underline text-lightGreen text-xl flex items-center"
           href={`/dashboard/pricing`}
           onClick={() => dispatch(resetStats())}
