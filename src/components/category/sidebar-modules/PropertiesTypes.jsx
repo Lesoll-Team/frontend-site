@@ -19,7 +19,7 @@ const PropertiesTypes = () => {
         </span>
         <Dropdown
           stateName="categoryType"
-          defaultValue={language ? "نوع الإعلان" : "property type"}
+          defaultValue={language ? "نوع الإعلان" : "Property type"}
           data={propertyType}
           value={categoryType}
           classNames="bg-white"
@@ -27,11 +27,11 @@ const PropertiesTypes = () => {
       </div>
       <div className="  flex flex-col  w-6/12 gap-y-[1.5vh]">
         <span className="flex lg-text font-bold text-gray2 ">
-          {language ? "نوع الوحدة" : "unit type"}
+          {language ? "نوع الوحدة" : "Unit type"}
         </span>
         <Dropdown
           stateName="unitTypes"
-          defaultValue={language ? "نوع الوحدة" : "unit type"}
+          defaultValue={language ? "نوع الوحدة" : "Unit type"}
           data={unitTypesData()}
           value={unitTypes}
           classNames="bg-white"

@@ -38,7 +38,7 @@ const Breadcrumb = ({ dataObjectFromURL, queries }) => {
     <div className="items-center flex gap-x-1">
       {crumbs.map((crumb, index) => (
         <React.Fragment key={index}>
-          <Link href={crumb.path}>
+          <Link scroll={false} href={crumb.path}>
             <div
               className={` ${crumb.path == "/" ? "text-lightGreen text-xl" : "text-gray1 sm-text hover:underline hover:text-gray2"}  `}
             >

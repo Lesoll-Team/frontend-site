@@ -23,8 +23,8 @@ const BarFilter = () => {
     >
       <div
         aria-label="search in category by locations"
-        className="flex gap-x-[1vw] md:bg-inherit  border-1 md:border-0
-       shadow-sm md:shadow-none  bg-white rounded-[6px]  justify-around"
+        className="flex md:gap-x-[1vw] gap-x-[1.5vw] md:bg-inherit  
+         bg-white rounded-[6px]  justify-around"
       >
         <SearchByLocations />
         <div className="hidden md:flex gap-x-[1vw]">
@@ -32,14 +32,14 @@ const BarFilter = () => {
         </div>
 
         <button
-          className=" md:gap-x-2 gap-x-0  h-[2.6rem] md:h-[3.313rem] text-gray1 sm-text flex items-center justify-between
-         md:border-[1px] border-0 md:border-[#CCCCCC] rounded-[6px] md:px-3 md:p-2 p-1 px-1 cursor-pointer"
+          className=" md:gap-x-2 gap-x-0 md:bg-white bg-lightGreen md:w-auto w-[40px] h-[40px] md:h-[3.313rem] text-gray1 sm-text flex items-center md:justify-between justify-center
+         md:border-[1px] border-0 md:border-[#CCCCCC] rounded-[6px] md:px-3 md:p-2  "
           onClick={openSideFilter}
         >
           <span className="whitespace-nowrap hidden md:block text-gray1">
             {language ? "خيارات اكثر" : "More filter"}
           </span>
-          <CgOptions className=" text-gray2" />
+          <CgOptions className=" md:text-gray2 text-white md:font-normal font-bold md:sm-text text-xl md:rotate-0 rotate-90" />
         </button>
 
         <ButtonSearchAction isBar />

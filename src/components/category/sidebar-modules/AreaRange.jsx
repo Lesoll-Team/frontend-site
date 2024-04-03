@@ -33,7 +33,7 @@ const AreaRange = () => {
         <input
           type="number"
           className="indent-2 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-[#CCCCCC] md:px-3 md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
-          placeholder={language ? "اقل مساحة" : "min area"}
+          placeholder={language ? "اقل مساحة" : "Min area"}
           onChange={handleChangeAreaFrom}
           value={areaFrom || ""}
         />
@@ -41,7 +41,7 @@ const AreaRange = () => {
         <input
           type="number"
           className="indent-2 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-[#CCCCCC] md:px-3 md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
-          placeholder={language ? "اكبر مساحة" : "max area"}
+          placeholder={language ? "اكبر مساحة" : "Max area"}
           onChange={handleChangeAreaTo}
           value={areaTo || ""}
         />

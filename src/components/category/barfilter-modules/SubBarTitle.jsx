@@ -32,22 +32,23 @@ const SubBarTitle = ({ result }) => {
   }, [router]);
 
   return (
-    <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center py-[30px]  gap-y-[10px]">
+    <div className="md:container md:mx-auto mx-[20px] flex flex-wrap justify-between items-center  pb-[20px] md:py-[25px]  gap-y-[7px]">
       {/*title filter page */}
-      <h3 className=" w-full text-[#4E4E4E] md:w-6/12 ">
-        {language ? result?.supTitleCategory?.ar : result?.supTitleCategory?.en}
-      </h3>
+      <h1 className=" w-full text-[#4E4E4E] md:w-6/12 text-[17px] md:text-[19px] font-bold">
+        {language
+          ? result?.supTitleCategory?.ar ||
+            "عقارات للبيع و للايجار في مصر (8377)"
+          : result?.supTitleCategory?.en ||
+            "Properties for sale or rent in Egypt (8377)"}
+      </h1>
       {/*sorted and save search filter page */}
-      <div className=" z-10  p-1  grid md:justify-items-end justify-items-start  w-full md:w-6/12">
-        <div className="   w-fit p-1">
-          {/* <span className="text-[12px] md:text-[20px]">
-                            {language ? "ترتيب :" : "Sort by"}
-                        </span> */}
+      <div className=" z-10    grid md:justify-items-end justify-items-start  w-full md:w-6/12">
+        <div className="   w-fit ">
           <Dropdown
             stateName={"sort"}
             // baseIcon={<LuArrowDownUp />}
             data={sortedData}
-            defaultValue={language ? "الاحدث" : "recent"}
+            defaultValue={language ? "الاحدث" : "Recent"}
             value={sort}
             isSort
             dataOptions="text"
@@ -59,50 +60,3 @@ const SubBarTitle = ({ result }) => {
 };
 
 export default SubBarTitle;
-// const handleSendSearchFilter = async () => {
-//     await saveSearchFilter({
-//         confirmSendMessage,
-//         messageData,
-//         slug: router.asPath,
-//     }).then(() => {
-//         setOpenSaveFilterInput(false);
-//     });
-//     setOpenSaveFilterInput(!openSaveFilterInput);
-// };
-// const saveName = () => {
-//     switch (language) {
-//         case true:
-//             return isSaved ? "تم حفظ البحث" : "حفظ البحث"
-//         case false:
-//             return isSaved ? "has been saved" : "Save search"
-//     }
-// }
-/* {userInfo && (
-                        <button
-                            disabled={isSaved}
-                            onClick={handleSendSearchFilter}
-                            className="indent-2 h-[24px] md:h-[40px] md:min-w-[8.438rem] min-w-[6rem]  rounded-[1vh] flex items-center gap-x-1 md:justify-between 
-                    md:px-3 
-                    text-[12px] md:text-[20px]
-                    whitespace-nowrap
-                    "
-                        >
-                            {saveName()}
-                            <IoIosStar
-                                className={`${isSaved
-                                    ? "fill-lightGreen"
-                                    : "fill-none stroke-[20px] stroke-black"
-                                    } `}
-                            />
-                        </button>
-                    )} */
-
-/* {openSaveFilterInput && (
-                <div className="z-[800] h-screen fixed  justify-center w-full flex items-center -mt-[198px]">
-                    <ConfirmModule
-
-                        setOpenSaveFilterInput={setOpenSaveFilterInput}
-                    />
-                    <div className="h-screen absolute -mt-[0px] w-full bg-[#323232] z-[0] opacity-30" />
-                </div>
-            )} */

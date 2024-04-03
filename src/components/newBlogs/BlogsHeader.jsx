@@ -7,7 +7,9 @@ const BlogsHeader = () => {
   return (
     <header className="w-full flex relative justify-center items-center">
       <h1 className="absolute display-text text-white z-[5]">
-        {language ? "المقالات" : "Blogs"}
+        {language
+          ? "مقالات ومواضيع هامة عن العقارات في مصر"
+          : "Important blogs and topics about real estate in Egypt"}
       </h1>
       <img
         src={"/blog-header.png"}

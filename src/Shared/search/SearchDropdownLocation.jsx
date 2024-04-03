@@ -208,7 +208,7 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
   const region = useGetRegion(locationRegion);
   return (
     <div
-      aria-label={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
+      aria-label={languageIs ? "بحث بالمنطقة..." : "Search by Region..."}
       dir={languageIs ? "rtl" : "ltr"}
       className="relative w-full lg-text focus:outline-none h-full"
     >
@@ -261,7 +261,7 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
         <div className="w-full   h-full" aria-labelledby="input search">
           <input
             type="text"
-            placeholder={languageIs ? "بحث بالمنطقة..." : "Search by region..."}
+            placeholder={languageIs ? "بحث بالمنطقة..." : "Search by Region..."}
             value={searchTerm}
             disabled={selectedValues.length >= 2}
             onChange={handleSearch}

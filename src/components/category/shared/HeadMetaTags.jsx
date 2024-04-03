@@ -1,14 +1,19 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const HeadMetaTags = ({ result }) => {
+const HeadMetaTags = ({ result, dataObjectFromURL, queries }) => {
+  const { category, saleOptions, unitType, region, governorate } =
+    dataObjectFromURL;
+
   const siteUrl = process.env.NEXT_PUBLIC_API_LOCAL_DOMAIN;
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const router = useRouter();
-  const cleanPath = router.asPath.split("#")[0];
-  const canonicalUrl = `${siteUrl}` + (router.asPath === "/" ? "" : cleanPath);
+
+  const queryString = Object.keys(queries)
+    .map((key) => `${key}=${encodeURIComponent(queries[key])}`)
+    .join("&");
+
+  const canonicalUrl = `${siteUrl}/properties/${saleOptions ? saleOptions + "/" : ""}${category ? category + "/" : ""}${unitType ? unitType + "/" : ""}${governorate ? governorate + "/" : ""}${region ? region + "/" : ""}search?${queryString ? queryString : "page=1"}`;
 
   return (
     <Head>
@@ -25,38 +30,3 @@ const HeadMetaTags = ({ result }) => {
 };
 
 export default HeadMetaTags;
-
-/* <meta
-           name="description"
-           content={
-             language
-               ? ` ${
-                   reversedFilteredKeywords.unitType == "شقة"
-                     ? " شقق "
-                     : reversedFilteredKeywords.unitType || " عقارات "
-                 }  ${
-                   reversedFilteredKeywords.offer == "all" ||
-                   reversedFilteredKeywords.offer == "كل"
-                     ? " للبيع والإيجار "
-                     : reversedFilteredKeywords.offer || " للبيع والإيجار "
-                 } فى ${
-                   reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
-                 } ` +
-                 " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
-               : ` ${
-                   reversedFilteredKeywords.unitType == "شقة"
-                     ? " شقق "
-                     : reversedFilteredKeywords.unitType || " عقارات "
-                 }  ${
-                   reversedFilteredKeywords.offer == "all" ||
-                   reversedFilteredKeywords.offer == "كل"
-                     ? " للبيع والإيجار "
-                     : reversedFilteredKeywords.offer || " للبيع والإيجار "
-                 } فى ${
-                   reversedFilteredKeywords?.cdb?.split("_").join(" ") || " مصر "
-                 } ` +
-                 " من ليسول. لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة "
-           }
-         /> */
-
-/* <link rel="canonical" href={`https://lesoll.com/searching/${query}`} /> */

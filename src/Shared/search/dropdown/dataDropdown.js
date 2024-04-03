@@ -98,7 +98,7 @@ export const percentageProperty = {
 
 export const sortedData = {
   en: [
-    { value: "", name: "recently", id: 6 },
+    { value: "", name: "Recently", id: 6 },
     { value: "min_price", name: "Low Price", id: 1 },
     { value: "max_price", name: "High Price", id: 2 },
     { value: "max_view", name: "Most viewed", id: 3 },
