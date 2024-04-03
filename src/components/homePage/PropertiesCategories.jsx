@@ -132,13 +132,13 @@ const PropertiesCategories = ({ isHome }) => {
           </h1>
         )}
         {isHome ? (
-          <Link href={"/categories"} className="  lg-text">
+          <Link href={"/categories"} className=" underline lg-text">
             {language ? "رؤية المزيد" : "see more"}
           </Link>
         ) : (
           <Link
             href={"/"}
-            className="  text-[12px] md:text-[20px] font-semibold flex items-center"
+            className=" underline text-[12px] md:text-[20px] font-semibold flex items-center"
           >
             {language ? "رجوع" : "back"}
 

@@ -94,7 +94,7 @@ function BestLinksInHome({
           className="flex mb-6 items-center justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default"
         >
           <h3 className="font-bold">
-            {language ? "عقارات تجارية أخري" : "Other commercial properties"}
+            {language ? "عقارات تجارية أخرى" : "Other commercial properties"}
           </h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
