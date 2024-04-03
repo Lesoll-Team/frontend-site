@@ -22,6 +22,7 @@ export async function saveSearchFilter({
   }
 }
 export async function foundKeyword(keyword) {
+  // console.log("looking printing");
   try {
     const queryString = Object.keys(keyword)
       .map((key) => `${key}=${encodeURIComponent(keyword[key])}`)
