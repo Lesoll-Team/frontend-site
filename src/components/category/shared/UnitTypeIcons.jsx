@@ -101,6 +101,7 @@ const UnitTypeIcons = ({ items, main }) => {
         },
       });
       router.push(route);
+      //, undefined, { scroll: false }
     } else if (!locationRegion) {
       const route = useSendFilterSearch({
         filterInput: {

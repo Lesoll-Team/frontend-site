@@ -23,11 +23,6 @@ export async function saveSearchFilter({
 }
 export async function foundKeyword(keyword) {
   try {
-    // const filteredKeywords = Object.fromEntries(
-    //   Object.entries(keyword).filter(
-    //     ([_, value]) => value != null && value !== "" && value !== 0
-    //   )
-    // );
     const queryString = Object.keys(keyword)
       .map((key) => `${key}=${encodeURIComponent(keyword[key])}`)
       .join("&");
@@ -40,41 +35,3 @@ export async function foundKeyword(keyword) {
     console.log("error in foundKeyword");
   }
 }
-
-// const filteredKeywords = Object.fromEntries(
-//   Object.entries(keyword).filter(
-//     ([_, value]) =>
-//       value != null && value !== "" && value !== " " && value !== 0
-//   )
-// );
-// const queryString = Object.keys(filteredKeywords)
-//   .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-//   .join("&");
-// export const sendFilterSearch = ({ queryInput, filterInput }) => {
-//   const filteredKeywords = Object.fromEntries(
-//     Object.entries(queryInput).filter(
-//       ([_, value]) => value != null && value !== "" && value !== 0
-//     )
-//   );
-
-//   const filterInputAfter = Object.fromEntries(
-//     Object.entries(filterInput).filter(
-//       ([_, value]) => value != null && value !== "" && value !== 0
-//     )
-//   );
-
-//   const pagesInput3 = Object.keys(filterInputAfter)
-//     .map((key) => `${filterInputAfter[key]}`)
-//     .join("/")
-//     .toLowerCase();
-
-//   const queryString = Object.keys(filteredKeywords)
-//     .map((key) => `${key}=${encodeURIComponent(filteredKeywords[key])}`)
-//     .join("&");
-
-//   const newUrl = `/properties/${
-//     pagesInput3 ? pagesInput3 + "/" : ""
-//   }search?${queryString}`;
-
-//   history.pushState(null, null, newUrl);
-// };

@@ -24,8 +24,8 @@ const SearchKeywords = () => {
           name="keywords"
           className="w-full h-full sm-text placeholder:sm-text focus:outline-none indent-3"
           type="text"
-          placeholder={language ? "كلمات مميزة " : "spacial keywords"}
-          value={searchKeyword}
+          placeholder={language ? "كلمات مميزة " : "Spacial keywords"}
+          value={searchKeyword || ""}
           onChange={handleStateChange}
         />
         <TbSearch className="mx-1 " />

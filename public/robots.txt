@@ -11,12 +11,13 @@ Disallow: /dashboard/blog/add-blog
 Disallow: /signin
 Disallow: /signup
 Disallow: /feed/
+Disallow: /faq
 Disallow: /privacypolicy
 Disallow: /Privacy
 Disallow: /forgetpassword
 Disallow: /resetpassword
 Disallow: /termsofservice
-Disallow: /need
 Disallow: /google-log
-
+Disallow: /add-need
+Disallow: /add-property
 Sitemap: https://lesoll.com/sitemap.xml

@@ -26,10 +26,4 @@ export async function getServerSideProps({ query }) {
   } catch (error) {
     throw error.response.data;
   }
-
-  return {
-    props: {
-      keyword,
-    },
-  };
 }

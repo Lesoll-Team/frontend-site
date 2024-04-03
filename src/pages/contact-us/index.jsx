@@ -8,9 +8,7 @@ export default function contact() {
   return (
     <div className="">
       <Head>
-        <title>
-          {language ? " اتصل بنا | ليسول " : "Contact us | Lesoll "}{" "}
-        </title>
+        <title>{language ? "اتصل بنا | ليسول" : "Contact us | Lesoll"}</title>
         <meta
           name="description"
           content={

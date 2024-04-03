@@ -31,7 +31,7 @@ const SidebarFilter = ({ languageIs }) => {
          p-[2vw] pb-[100px]  flex flex-col md:gap-y-[3vh] gap-y-[20px]relative `}
       >
         {/*search text and button close*/}
-        <div className=" w-full flex justify-between items-center">
+        <div className=" w-full flex justify-between pb-5 items-center">
           <h3 className="">{languageIs ? "خيارات أكثر" : "More Option"}</h3>
           <IoClose
             onClick={openSideFilter}
