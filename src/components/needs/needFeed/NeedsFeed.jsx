@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import NeedsCard from "./needCard/NeedsCard";
 import ReactPaginate from "react-paginate";
-import styles from "../../../styles/pagination.module.css"; // Import the CSS module
+import styles from "../../../styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Link from "next/link";

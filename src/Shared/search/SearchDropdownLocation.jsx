@@ -3,12 +3,31 @@ import { getGovernorate } from "@/utils/searchAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useGetCity, useGetRegion } from "@/Hooks/fetchCitiesAndRegions";
+import { useRouter } from "next/router";
+import { useSendFilterSearch } from "@/components/category/shared/FilterHooks";
 
 export function SearchDropdownLocation({ isToggle, isHome }) {
+  const router = useRouter();
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
-  let { locationGovernorate, locationRegion } = useSelector(
-    (state) => state.Category
-  );
+  const {
+    categoryType,
+    saleOption,
+    unitTypes,
+    locationGovernorate,
+    locationRegion,
+    priceFrom,
+    priceTo,
+    numBathrooms,
+    numBedrooms,
+    areaFrom,
+    areaTo,
+    finishedOption,
+    paymentType,
+    sort,
+    propFinancing,
+    searchKeyword,
+  } = useSelector((state) => state.Category);
+
   const dispatch = useDispatch();
   const [governorates, setGovernorates] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
@@ -19,6 +38,7 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
   const [govNum, setGovNum] = useState(0);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const dropdownRef = useRef(null);
+
   useEffect(() => {
     if (highlightedIndex !== -1 && dropdownRef.current) {
       const highlightedOption = dropdownRef.current.children[highlightedIndex];
@@ -103,7 +123,34 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
       numberGov: govNum === 0 ? governorate.numberGov || 0 : govNum,
     });
   };
-
+  const callAfterSelectCity = ({ locationGovernorate, locationRegion }) => {
+    if (!isHome) {
+      const route = useSendFilterSearch({
+        filterInput: {
+          saleOptions: saleOption,
+          category: categoryType,
+          unitType: unitTypes,
+          governorate: locationGovernorate,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
+    }
+  };
   const handleSelect = ({
     selectedOption,
     selectedEnValue,
@@ -136,6 +183,12 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
           mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue,
       })
     );
+    callAfterSelectCity({
+      locationGovernorate:
+        mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue,
+      locationRegion:
+        mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue,
+    });
   };
 
   const handleClearCared = useCallback(
@@ -153,6 +206,10 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
             locationRegion: null,
           })
         );
+        callAfterSelectCity({
+          locationGovernorate: null,
+          locationRegion: null,
+        });
       } else if (index === 1 && selectedValues[index] === value) {
         setGovFromReg(0);
         dispatch(
@@ -160,8 +217,12 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
             locationRegion: null,
           })
         );
+        // callAfterSelectCity({
+        //   locationRegion: null,
+        //   locationGovernorate: null,
+        // });
       }
-      updatedValues.splice(index, 1);
+      updatedValues.splice(0, 1);
       setSelectedValues(updatedValues);
     },
     [selectedValues]
@@ -204,6 +265,34 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
         break;
     }
   };
+  // useEffect(() => {
+  //   if (!isHome) {
+  //     const route = useSendFilterSearch({
+  //       filterInput: {
+  //         saleOptions: saleOption,
+  //         category: categoryType,
+  //         unitType: unitTypes,
+  //         governorate: locationGovernorate,
+  //         region: locationRegion,
+  //       },
+  //       queryInput: {
+  //         priceFrom,
+  //         page: 1,
+  //         priceTo,
+  //         numBathrooms,
+  //         numBedrooms,
+  //         areaFrom,
+  //         areaTo,
+  //         finishedOption: finishedOption,
+  //         paymentType,
+  //         sort: sort,
+  //         mortgage: propFinancing,
+  //         keyword: searchKeyword,
+  //       },
+  //     });
+  //     router.push(route);
+  //   }
+  // }, [locationGovernorate, locationRegion]);
   const city = useGetCity(locationGovernorate);
   const region = useGetRegion(locationRegion);
   return (
