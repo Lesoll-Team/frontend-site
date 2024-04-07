@@ -9,7 +9,9 @@ const PlanPricingCard = ({ stylesCss, data }) => {
 
   return (
     <div
-      className={`bg-white overflow-hidden flex flex-col gap-y-[3vh] w-full max-w-[390px] sm:min-w-[350px]  md:w-[25.390625vw] shadow-md rounded-[6px] h-[73.96870554765292vh] max-h-[520px]
+      className={`bg-white overflow-hidden flex flex-col gap-y-[3vh] 
+      w-full max-w-[390px] min-w-[390px]   md:w-[25.390625vw]
+      shadow-md rounded-[6px] ${data?.Popular ? "md:h-[93.96870554765292vh] md:max-h-[590px] h-[73.96870554765292vh] max-h-[520px]" : "h-[73.96870554765292vh] max-h-[520px]"} 
      ${stylesCss?.bodyCss}
      relative
      `}

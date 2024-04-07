@@ -8,7 +8,7 @@ const OtherOptionPrice = () => {
   return (
     <div
       className="md:container md:mx-auto sm:mx-[20px] mx-[10px] 
-       w-full"
+       w-full mb-10"
     >
       <div className="bg-[#F2F8F9] md:px-0 px-[2vh]  sm:h-[18vh] w-full flex sm:flex-nowrap flex-wrap  items-center md:justify-around sm:justify-between justify-center gap-x-4">
         <div className="sm:py-[4vh] py-[0.9vh] flex flex-col sm:items-start items-center">

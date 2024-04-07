@@ -9,15 +9,17 @@ const PlanTitle = ({ stylesCss, data }) => {
       dir={language ? "rtl" : "ltr"}
       className=" flex gap-y-[2.111960170697013vh]  flex-col w-full  p-3"
     >
-      <h2 className={`text-[#666666] font-bold ${stylesCss?.titleCss}`}>
+      <h3 className={`text-[#666666] font-bold ${stylesCss?.titleCss}`}>
         {data?.PaymentAr && data?.PaymentEn && language
           ? data?.PaymentAr
           : data?.PaymentEn}
-      </h2>
+      </h3>
       <div className="flex flex-wrap gap-x-2 items-end ">
         <div className="font-semibold text-lightGreen items-center flex gap-x-1 space-x-1">
-          <h2> {parseInt(data?.price).toLocaleString()} </h2>
-          <h2> {language ? " جنية " : " EGP "} </h2>
+          <h3 className="text-lightGreen">
+            {parseInt(data?.price).toLocaleString()}{" "}
+          </h3>
+          <h3 className="text-lightGreen"> {language ? " جنية " : " EGP "} </h3>
         </div>
         {data?.offer && (
           <div className=" items-center space-x-1 overflow-hidden flex gap-x-1 text-[#CCCCCC]">
@@ -26,10 +28,7 @@ const PlanTitle = ({ stylesCss, data }) => {
           </div>
         )}
       </div>
-      <p
-        // dir={language ? "rtl" : "ltr"}
-        className={`text-sm font-medium line-clamp-2  text-[#CCCCCC] lg-text`}
-      >
+      <p className={`text-sm font-medium line-clamp-2  text-[#CCCCCC] lg-text`}>
         {language ? data?.descriptionAr : data?.descriptionEn}
       </p>
     </div>

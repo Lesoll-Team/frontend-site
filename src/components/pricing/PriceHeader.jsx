@@ -14,9 +14,15 @@ const PriceHeader = () => {
         height={100}
         className="w-full object-cover min-h-[170px]"
       />
-      <h1 className="text-white absolute ">
-        {language ? "الباقات" : "payment"}
+      {/* H1 title is hidden but we use it because of SEO */}
+      <h1 className="text-white seo-hidden ">
+        {language
+          ? "باقات متنوعة للعقارات على ليسول: ابدأ رحلتك العقارية هنا"
+          : "Diverse Property Packages on Lesool: Begin Your Real Estate Journey Here"}
       </h1>
+      <h2 className="text-white absolute text-[24px] md:text-[28px] font-bold">
+        {language ? "الباقات" : "payment"}
+      </h2>
     </div>
   );
 };
