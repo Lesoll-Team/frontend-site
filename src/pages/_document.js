@@ -4,10 +4,6 @@ export default function Document() {
   return (
     <Html lang="ar">
       <Head>
-        <meta
-          name="seobility"
-          content="150a4a8f65a90c0165b2e90869cdc7f5"
-        ></meta>
         <script
           dangerouslySetInnerHTML={{
             __html: `
