@@ -9,7 +9,11 @@ import {
 const SearchPage = ({ page, result, dataObjectFromURL, queries }) => {
   return (
     <>
-      <HeadMetaTags result={result} />
+      <HeadMetaTags
+        result={result}
+        queries={queries}
+        dataObjectFromURL={dataObjectFromURL}
+      />
       <FilterLayout
         queries={queries}
         page={page}

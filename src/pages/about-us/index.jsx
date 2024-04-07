@@ -9,14 +9,14 @@ export default function about() {
     <>
       <Head>
         <title>
-          {language ? "اعرف عن ليسول | ليسول  " : "About Lesoll | lesoll "}
+          {language ? "اعرف عن ليسول | ليسول" : "About Lesoll | lesoll"}
         </title>
         <meta
           name="description"
           content={
             language
               ? "ليسول تقدم خدمة البحث الرقمي بتجربة مختلفة لتسهيل شراء، بيع وتأجير العقارات في مصر، مع خدمة شاملة تسهل عليك تحقيق الصفقة في أي مكان في مصر سواء مالك أو مشتري "
-              : "Lesoll offers customers an online search to buy, sell, or rent properties in Egypt, helping owners and buyers discover upcoming real estate deals across Egypt "
+              : "Lesoll offers customers an online search to buy, sell, or rent properties in Egypt, helping owners and buyers discover upcoming real estate deals across Egypt"
           }
         />
         <link rel="canonical" href="https://lesoll.com/about-us" />
@@ -24,13 +24,17 @@ export default function about() {
       <main className="container mx-auto py-10 space-y-6 md:space-y-14 md:mb-20">
         <header className="flex items-center justify-center relative">
           <Image
-            width={1240}
-            height={401}
+            width={400}
+            height={100}
             src={"/about.png"}
+            priority={true}
+            alt="About Lesoll"
             className="w-full "
           />
-          <h1 className="text-base md:text-5xl font-bold absolute text-white">
-            {language ? "عن ليسول" : "About Lesoll"}
+          <h1 className="  absolute text-white">
+            {language
+              ? "من نحن : مهمتنا ورؤيتنا في ليسول"
+              : "About us: Our Mission and Vision at Lesoll"}
           </h1>
         </header>
         <section className="space-y-2 md:space-y-6">

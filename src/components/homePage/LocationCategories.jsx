@@ -9,8 +9,8 @@ const LocationCategories = () => {
     {
       titleAr: "القاهرة",
       titleEn: "Cairo",
-      totalAr: "( 2961+ وحدة )",
-      totalEn: "( +2961 Uint )",
+      totalAr: "( 2487+ وحدة )",
+      totalEn: "( +2487 Unit )",
       url: "/properties/sale/residential/cairo/search?page=1",
       id: 8,
     },
@@ -18,7 +18,7 @@ const LocationCategories = () => {
       titleAr: "الجيزة",
       titleEn: "Giza",
       totalAr: "( 2505+ وحدة )",
-      totalEn: "( +2505 Uint )",
+      totalEn: "( +2505 Unit )",
       url: "/properties/sale/residential/giza/search?page=1",
       id: 1,
     },
@@ -26,7 +26,7 @@ const LocationCategories = () => {
       titleAr: "الاسكندرية",
       titleEn: "Alexandria",
       totalAr: "( 526+ وحدة )",
-      totalEn: "( +526 Uint )",
+      totalEn: "( +526 Unit )",
       url: "/properties/sale/residential/alexandria/search?page=1",
       id: 2,
     },
@@ -35,7 +35,7 @@ const LocationCategories = () => {
       titleAr: "القليوبية",
       titleEn: "Qaliubiya",
       totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
+      totalEn: "( +255 Unit )",
       url: "/properties/sale/residential/qaliubiya/search?page=1",
       id: 4,
     },
@@ -43,7 +43,7 @@ const LocationCategories = () => {
       titleAr: "مطروح",
       titleEn: "Matrouh",
       totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
+      totalEn: "( +300 Unit )",
       url: "/properties/sale/residential/matrouh/search?page=1",
       id: 3,
     },
@@ -51,7 +51,7 @@ const LocationCategories = () => {
       titleAr: "الشرقية",
       titleEn: "Sharkia",
       totalAr: "( 290+ وحدة )",
-      totalEn: "( +290 Uint )",
+      totalEn: "( +290 Unit )",
       url: "/properties/sale/residential/sharkia/search?page=1",
       id: 6,
     },
@@ -59,7 +59,7 @@ const LocationCategories = () => {
       titleAr: "الغربية",
       titleEn: "Gharbiya",
       totalAr: "( 180+ وحدة )",
-      totalEn: "( +180 Uint )",
+      totalEn: "( +180 Unit )",
       url: "/properties/sale/residential/gharbiya/search?page=1",
       id: 5,
     },
@@ -68,7 +68,7 @@ const LocationCategories = () => {
       titleAr: "الدقهلية",
       titleEn: "Dakahlia",
       totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
+      totalEn: "( +300 Unit )",
       url: "/properties/sale/residential/dakahlia/search?page=1",
       id: 7,
     },
@@ -90,7 +90,7 @@ const LocationCategories = () => {
   }, []);
   return (
     <div>
-      <div className="md:container  md:mb-[32px]  mb-[17px] md:mx-auto mx-[20px]">
+      <div className="md:container  md:mb-[32px]  md:mx-auto mx-[20px]">
         <h2 className="font-bold  flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}
         </h2>
@@ -134,12 +134,12 @@ md:p-[0px] p-[15px]
                "
               >
                 <div className=" grid grid-cols-1 text-center md:gap-y-[1.5vh] gap-y-[0.4vh]">
-                  <p className=" lg-text font-bold">
+                  <span className=" lg-text font-bold">
                     {language ? location.titleAr : location.titleEn}
-                  </p>
-                  <p className="text-lightGreen sm-text">
+                  </span>
+                  <span className="text-lightGreen sm-text">
                     {language ? location.totalAr : location.totalEn}
-                  </p>
+                  </span>
                 </div>
               </Link>
             ))}

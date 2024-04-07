@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getUserPropertiesDashboard } from "@/utils/userAPI";
 import CArdSkeleton from "./cards/CArdSkeleton";
 import ReactPaginate from "react-paginate";
-import styles from "../../../../styles/paginations.module.css";
+import styles from "../../../../styles/Pagination.module.css";
 const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
   const [propertyData, setPropertyData] = useState();
   const [page, setPage] = useState();

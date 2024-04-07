@@ -36,7 +36,7 @@ const PricingRange = () => {
           type="number"
           className="indent-3 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-[#CCCCCC]  md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
           onChange={handleChangePriceFrom}
-          placeholder={language ? "اقل سعر" : "min price"}
+          placeholder={language ? "اقل سعر" : "Min price"}
           value={priceFrom || ""}
         />
 
@@ -44,7 +44,7 @@ const PricingRange = () => {
           type="number"
           className="indent-3 h-[40px] md:h-[3.313rem] w-6/12  border-1 border-[#CCCCCC]  md:p-2 p-1 px-1 focus:outline-none rounded-[1vh]"
           onChange={handleChangePriceTo}
-          placeholder={language ? "اعلى سعر" : "max price"}
+          placeholder={language ? "اعلى سعر" : "Max price"}
           value={priceTo || ""}
         />
       </div>

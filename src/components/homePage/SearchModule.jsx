@@ -13,9 +13,14 @@ const SearchModule = () => {
         "
       >
         <div className="md:flex md:flex-col  gap-y-[3.27vh]   text-white ">
-          <h1 className="w-full text-[24px] md:pb-0 pb-[32px] md:text-[48px] py-10 md:py-0 font-bold">
-            {language ? "ليسول طريقك لبيتك" : "Lesoll The Way You Home"}
+          <h1 className=" seo-hidden">
+            {language
+              ? "ليسول طريقك إلى بيتك المثالي في مصر"
+              : "Lesoll Your Pathway to Your Ideal Home in Egypt"}
           </h1>
+          <h2 className="w-full text-[24px] md:pb-0 pb-[32px] md:text-[48px] py-10 md:py-0 font-bold">
+            {language ? "ليسول طريقك لبيتك" : "Lesoll The Way You Home"}
+          </h2>
           <p
             className="hidden md:flex 
               text-[16px] md:text-[20px] text-justify 

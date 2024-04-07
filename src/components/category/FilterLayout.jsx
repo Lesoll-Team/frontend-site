@@ -71,11 +71,11 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
         <Breadcrumb queries={queries} dataObjectFromURL={dataObjectFromURL} />
       </div>
       {/*unit types */}
-      {result?.aggregation_links.length > 0 && (
+      {/* {result?.aggregation_links.length > 0 && (
         <div className="md:container pb-[48px] pt-[28px] md:mx-auto mx-[20px] md:block hidden">
           <UnitTypeIcons items={result?.aggregation_links} main />
         </div>
-      )}
+      )} */}
       {/*title & save and filter button*/}
       <SubBarTitle result={result} />
       {/*cards result  */}
@@ -103,19 +103,3 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
 };
 
 export default memo(FilterLayout);
-
-/* <div className="md:container py-[48px] md:mx-auto mx-[20px] md:block hidden">
-  <UnitTypeIcons
-    category={categoryTypeKey}
-    items={result?.aggregation_links}
-    setUnitTypesKey={setUnitTypesKey}
-    unitTypesKey={unitTypesKey}
-    setLocationGovernorate={setLocationGovernorate}
-    setLocationRegion={setLocationRegion}
-    setCategoryTypeKey={setCategoryTypeKey}
-    // setClickOnTap={setClickOnTap}
-    // clickOnTap={clickOnTap}
-    locationGovernorate={locationGovernorate}
-    locationRegion={locationRegion}
-  />
-</div> */

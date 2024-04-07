@@ -21,8 +21,8 @@ const PropertiesCategories = ({ isHome }) => {
       icon: <ResidentialSale />,
       titleAr: "سكني للبيع",
       titleEn: "Properties for sale",
-      totalAr: "( 200+ وحدة )",
-      totalEn: "( +200 Uint )",
+      totalAr: "( 5437+ وحدة )",
+      totalEn: "( +5437 Uint )",
       url: "/properties/sale/residential/search?page=1",
       id: 1,
     },
@@ -30,8 +30,8 @@ const PropertiesCategories = ({ isHome }) => {
       icon: <ResidentialRent />,
       titleAr: "سكني للإيجار",
       titleEn: "Properties for rent",
-      totalAr: "( 290+ وحدة )",
-      totalEn: "( +290 Uint )",
+      totalAr: "( 1825+ وحدة )",
+      totalEn: "( +1825 Uint )",
       url: "/properties/rent/residential/search?page=1",
       id: 2,
     },
@@ -39,18 +39,18 @@ const PropertiesCategories = ({ isHome }) => {
     {
       icon: <CommercialSale />,
       titleAr: "تجاري للبيع",
-      titleEn: "commercial for sale",
-      totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
+      titleEn: "Commercial for sale",
+      totalAr: "( 917+ وحدة )",
+      totalEn: "( +917 Uint )",
       url: "/properties/sale/commercial/search?page=1",
       id: 5,
     },
     {
       icon: <CommercialRent />,
       titleAr: "تجاري للإيجار",
-      titleEn: "commercial for rent",
-      totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
+      titleEn: "Commercial for rent",
+      totalAr: "( 398+ وحدة )",
+      totalEn: "( +398 Uint )",
       url: "/properties/rent/commercial/search?page=1",
       id: 4,
     },
@@ -58,7 +58,7 @@ const PropertiesCategories = ({ isHome }) => {
       icon: <FinanceIcon />,
 
       titleAr: "استثمار عقاري",
-      titleEn: "real estate investment",
+      titleEn: "Real estate investment",
       totalAr: "( 300+ وحدة )",
       totalEn: "( +300 Uint )",
       url: "/properties/investment/lands/search?page=1",
@@ -67,16 +67,16 @@ const PropertiesCategories = ({ isHome }) => {
     {
       icon: <LandsIcon />,
       titleAr: "أراضي",
-      titleEn: "lands",
-      totalAr: "( 180+ وحدة )",
-      totalEn: "( +180 Uint )",
+      titleEn: "Lands",
+      totalAr: "( 398+ وحدة )",
+      totalEn: "( +398 Uint )",
       url: "/properties/sale/lands/search?page=1",
       id: 6,
     },
     {
       icon: <ComponentsIcon />,
       titleAr: "الكمبوندات",
-      titleEn: "compounds",
+      titleEn: "Compounds",
       totalAr: "( 290+ وحدة )",
       totalEn: "( +290 Uint )",
       url: "/properties/sale/compounds/search?page=1",
@@ -86,9 +86,9 @@ const PropertiesCategories = ({ isHome }) => {
       icon: <InvestmentIcon />,
 
       titleAr: "تمويل عقاري",
-      titleEn: "real estate finance",
-      totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
+      titleEn: "Real estate finance",
+      totalAr: "( 289+ وحدة )",
+      totalEn: "( +289 Uint )",
       url: "/properties/finance/search?page=1",
       id: 8,
     },
@@ -96,9 +96,9 @@ const PropertiesCategories = ({ isHome }) => {
     {
       icon: <GraveIcon />,
       titleAr: "مدافن",
-      titleEn: "graves",
-      totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
+      titleEn: "Graves",
+      totalAr: "( 154+ وحدة )",
+      totalEn: "( +154 Uint )",
       url: "/properties/sale/graves/search?page=1",
       id: 9,
     },
@@ -120,17 +120,25 @@ const PropertiesCategories = ({ isHome }) => {
   return (
     <div>
       <div className="md:w-full flex items-center justify-between  md:container md:mb-[32px] mb-[16px] md:mx-auto mx-[16px] ">
-        <h2 className="font-bold  flex text-grayText2">
-          {language ? "نوع العقار" : "Property type"}
-        </h2>
         {isHome ? (
-          <Link href={"/categories"} className="  lg-text">
+          <h2 className="font-bold  flex text-grayText2">
+            {language ? "نوع العقار" : "Property type"}
+          </h2>
+        ) : (
+          <h1 className="font-bold  flex ">
+            {language
+              ? "أنواع مختلفة من العقارات والفئات"
+              : "Different types of properties and categories"}
+          </h1>
+        )}
+        {isHome ? (
+          <Link href={"/categories"} className=" underline lg-text">
             {language ? "رؤية المزيد" : "see more"}
           </Link>
         ) : (
           <Link
             href={"/"}
-            className="  text-[12px] md:text-[20px] font-semibold flex items-center"
+            className=" underline text-[12px] md:text-[20px] font-semibold flex items-center"
           >
             {language ? "رجوع" : "back"}
 
@@ -167,10 +175,16 @@ const PropertiesCategories = ({ isHome }) => {
                     {category.icon}
                   </div>
                   <div className="  text-center flex flex-col gap-y-3 ">
-                    <p className="font-bold md:text-[20px] text-[11px] text-grayText2">
+                    <p
+                      //md:text-[20px] text-[11px]
+                      className="font-bold lg-text text-grayText2"
+                    >
                       {language ? category.titleAr : category.titleEn}
                     </p>
-                    <p className="text-[11px] md:text-[20px] text-lightGreen">
+                    <p
+                      //text-[11px] md:text-[20px]
+                      className="sm-text text-lightGreen"
+                    >
                       {language ? category.totalAr : category.totalEn}
                     </p>
                   </div>
@@ -191,12 +205,12 @@ const PropertiesCategories = ({ isHome }) => {
                   {category.icon}
                 </div>
                 <div className="  text-center flex flex-col gap-y-3 ">
-                  <p className="font-bold  text-grayText2">
+                  <span className="font-bold lg-text  text-grayText2">
                     {language ? category.titleAr : category.titleEn}
-                  </p>
-                  <p className="text-[11px] lg-text text-lightGreen">
+                  </span>
+                  <span className=" sm-text  text-lightGreen">
                     {language ? category.totalAr : category.totalEn}
-                  </p>
+                  </span>
                 </div>
               </Link>
             ))}

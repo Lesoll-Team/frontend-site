@@ -55,7 +55,7 @@ const NeedsLink = () => {
           <Link
             onClick={closeMenu}
             className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150 font-noto"
-            href={"/needs"}
+            href={"/needs?page=1"}
           >
             {language ? " رؤية جميع الطلبات" : " Needs"}
           </Link>

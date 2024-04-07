@@ -3,17 +3,28 @@ import ContactForm from "./ContactForm";
 import { useSelector } from "react-redux";
 import { MdCall } from "react-icons/md";
 import { IoAlarm } from "react-icons/io5";
+import Image from "next/image";
 
 const Contact = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
     <div className="min-h-[90dvh] w-full md:container mx-auto ">
-      <img
+      <Image
         src="/contact-us.png"
-        className="w-full hidden lg:block lg:max-h-[450px] col-span-2  row-start-1 row-span-3 col-start-1 "
+        width={400}
+        height={100}
+        alt="contact us"
+        priority={true}
+        className="w-full  lg:max-h-[450px]  col-span-2  row-start-1 row-span-3 col-start-1 "
       />
-      <img src="/contact-phone.png" className="w-full  lg:hidden  " />
+      {/* <Image
+        width={200}
+        height={100}
+        src="/contact-phone.png"
+        className="w-full  lg:hidden  "
+        alt="contact us phone"
+      /> */}
 
       <div className="w-full flex-col-reverse lg:flex-row flex max-w-[90%] md:w-full mx-auto">
         <div className="w-full mb-3">

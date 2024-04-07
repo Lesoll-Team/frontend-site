@@ -15,6 +15,7 @@ const index = ({ faqData }) => {
           content="استكشف صفحتنا للأسئلة الشائعة للعثور على إجابات على أسئلة العقارات الشائعة. احصل على معلومات حول شراء وبيع واستئجار واستثمار العقارات. احصل على الإجابات التي تحتاجها لرحلة عقارية ناجحة."
         />
         <link rel="canonical" href={`https://lesoll.com/faq`} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <Faq faqData={faqData} />
     </div>
