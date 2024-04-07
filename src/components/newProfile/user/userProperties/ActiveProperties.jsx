@@ -1,37 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfileCard from "../../profile-cards/ProfileCard";
-import { useDispatch, useSelector } from "react-redux";
-import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
+import { useSelector } from "react-redux";
 import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
-import Image from "next/image";
 import NoItems from "./NoItems";
+import { getActiveProperties } from "../../apis/profileApis";
 const ActiveProperties = () => {
-  const dispatch = useDispatch();
+  const [activeProperties, setActiveProperties] = useState(null);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const [page, setPage] = useState(1);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const activeProp = useSelector((state) => state.userProperties.active.data);
-  const activePropStatus = useSelector(
-    (state) => state.userProperties.active.status
-  );
-  const activePropError = useSelector(
-    (state) => state.userProperties.active.error
-  );
+  // make as a function like that so i can pass as a prop to the card so when the user delete or change the state of a peoperty it call it again
+  const getProperties = () => {
+    getActiveProperties({
+      setFormStatus,
+      setActiveProperties,
+      setServerError,
+      page,
+    });
+  };
   useEffect(() => {
-    dispatch(getActiveProp());
-  }, []);
+    getProperties();
+  }, [page]);
+
   const handlePageChange = (selectedPage) => {
-    dispatch(getActiveProp(selectedPage + 1));
+    setPage(selectedPage + 1);
   };
   const type = language ? "نشطة" : "active";
 
   return (
     <div>
       <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
-        {activeProp?.confirmedRealty ? (
-          activeProp.confirmedRealty.length > 0 ? (
-            activeProp.confirmedRealty.map((item) => {
-              return <ProfileCard data={item} key={item?._id} type={type} />;
+        {formStatus === "success" ? (
+          activeProperties.confirmedRealty.length > 0 ? (
+            activeProperties.confirmedRealty.map((item) => {
+              return (
+                <ProfileCard
+                  getProperties={getProperties}
+                  data={item}
+                  key={item?._id}
+                  type={type}
+                />
+              );
             })
           ) : (
             <NoItems
@@ -47,14 +59,14 @@ const ActiveProperties = () => {
           </>
         )}
       </div>
-      {activeProp?.totalPages > 1 && (
+      {activeProperties?.totalPages > 1 && (
         <div dir="ltr" className={styles.pagination}>
           <ReactPaginate
             breakLabel={
               <span className="rounded px-2 border-2 h-fit"> ...</span>
             }
             breakClassName={"break-me"}
-            pageCount={activeProp?.totalPages}
+            pageCount={activeProperties?.totalPages}
             pageRangeDisplayed={3}
             marginPagesDisplayed={1}
             onPageChange={(data) => handlePageChange(data.selected)}

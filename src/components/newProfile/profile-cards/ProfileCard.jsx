@@ -10,8 +10,13 @@ import ProfileCardSkeleton from "./ProfileCardSkeleton";
 import { propertyIsSold } from "@/utils/propertyAPI";
 import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
 import ConfirmSold from "./ConfirmSold";
+import { useSelector } from "react-redux";
+import ActionsMenu from "./ActionsMenu";
+import { useMemo } from "react";
 
-const ProfileCard = ({ data, type, onDelete }) => {
+const ProfileCard = ({ data, type, onDelete, getProperties }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const price = localizedNumber(data?.price);
   const router = useRouter();
   const propertyOnSold = async () => {
@@ -23,15 +28,20 @@ const ProfileCard = ({ data, type, onDelete }) => {
     }
   };
 
-  const typeActive = type === "active" || type === "نشطة";
-  const typeOnSold = type === "تم البيع" || type === "Sold";
+  const typePending = useMemo(() => {
+    return type === "تحت المراجعة" || type === "Pending";
+  }, [type]);
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
         <div className="w-full relative">
           <div className="flex w-full absolute items-center justify-between  top-4">
             <PropType type={type} />
-            <DeleteBtn propId={data._id} />
+            <ActionsMenu
+              isPending={typePending}
+              propId={data._id}
+              getProperties={getProperties}
+            />
           </div>
           <Image
             src={data?.thumbnail}
@@ -44,7 +54,7 @@ const ProfileCard = ({ data, type, onDelete }) => {
         <div className="px-2 mb-4 md:mb-7 md:px-5 flex-col space-y-3 md:space-y-6 ">
           <p className="text-sm text-baseGray md:text-xl font-bold font-inter ">
             {" "}
-            {price} ج.م
+            {price} {language ? "ج.م" : "Egp"}
           </p>
 
           <div className="space-y-5">
@@ -52,7 +62,7 @@ const ProfileCard = ({ data, type, onDelete }) => {
               {data.title}
             </p>
 
-            <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex flex-col justify-between flex-wrap gap-2">
               <p className="text-baseGray text-sm md:text-base">
                 {data.address.governrate}
                 {data.address.region && ", " + data.address.region}{" "}
@@ -70,38 +80,19 @@ const ProfileCard = ({ data, type, onDelete }) => {
                 |
                 <div className="flex gap-2">
                   <LiaVectorSquareSolid className="text-2xl" />
-                  {data?.area} {}
+                  {data?.area}{" "}
+                  {language ? (
+                    <span>
+                      م <sup>2</sup>
+                    </span>
+                  ) : (
+                    <span>
+                      m <sup>2</sup>
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
-          </div>
-          <div className="w-full space-y-3">
-            {!typeOnSold && (
-              <button
-                onClick={() => {
-                  router.push(`/editproperty/${data.slug}`);
-                }}
-                className="text-base text-lightGreen text-center w-full py-2 px-5 border-2 rounded-md"
-              >
-                تعديل
-              </button>
-            )}
-            {typeActive ||
-              (typeOnSold && (
-                <ConfirmSold
-                  propertyDetails={data}
-                  openBtn={
-                    <button
-                      // onClick={() => {
-                      //   router.push("/profile/edit");
-                      // }}
-                      className="text-base bg-lightGreen text-center text-white w-full py-2 px-5 border border-lightGreen rounded-md"
-                    >
-                      تم البيع
-                    </button>
-                  }
-                />
-              ))}
           </div>
         </div>
       </div>

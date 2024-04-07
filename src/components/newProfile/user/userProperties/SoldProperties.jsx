@@ -1,31 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfileCard from "../../profile-cards/ProfileCard";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getPendingProp,
-  getSoldProp,
-} from "@/redux-store/features/user/userPropertiesSlice";
-import NoItems from "./NoItems";
-const SoldProperties = () => {
-  const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const soldProp = useSelector((state) => state.userProperties.sold.data);
-  const soldPropStatus = useSelector(
-    (state) => state.userProperties.sold.status
-  );
+import { useSelector } from "react-redux";
 
-  const soldPropError = useSelector((state) => state.userProperties.sold.error);
+import NoItems from "./NoItems";
+import { getSoldProperties } from "../../apis/profileApis";
+const SoldProperties = () => {
+  const [soldProperties, setSoldProperties] = useState(null);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const getProperties = () => {
+    getSoldProperties({ setFormStatus, setSoldProperties, setServerError });
+  };
   useEffect(() => {
-    dispatch(getSoldProp());
+    getProperties();
   }, []);
   const type = language ? "تم البيع" : "Sold";
 
   return (
     <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
-      {soldProp ? (
-        soldProp.propertySoldProfile.length > 0 ? (
-          soldProp.propertySoldProfile.map((item) => {
-            return <ProfileCard data={item} key={item?._id} type={type} />;
+      {formStatus === "success" ? (
+        soldProperties.propertySoldProfile.length > 0 ? (
+          soldProperties.propertySoldProfile.map((item) => {
+            return (
+              <ProfileCard
+                getProperties={getProperties}
+                data={item}
+                key={item?._id}
+                type={type}
+              />
+            );
           })
         ) : (
           <NoItems title={language ? "لا توجد اعلانات مباعة" : "No sold Ads"} />

@@ -1,30 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfileCard from "../../profile-cards/ProfileCard";
-import { useDispatch, useSelector } from "react-redux";
-import { getPendingProp } from "@/redux-store/features/user/userPropertiesSlice";
+import { useSelector } from "react-redux";
 import NoItems from "./NoItems";
+import { getPendingProperties } from "../../apis/profileApis";
 
 const PendingProperties = () => {
-  const dispatch = useDispatch();
+  const [pendingProperties, setPendingProperties] = useState(null);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const pendingProp = useSelector((state) => state.userProperties.pending.data);
-  const pendingPropStatus = useSelector(
-    (state) => state.userProperties.pending.status
-  );
-  const pendingPropError = useSelector(
-    (state) => state.userProperties.pending.error
-  );
+  const getProperties = () => {
+    getPendingProperties({
+      setFormStatus,
+      setPendingProperties,
+      setServerError,
+    });
+  };
   useEffect(() => {
-    dispatch(getPendingProp());
+    getProperties();
   }, []);
   const type = language ? "تحت المراجعة" : "Pending";
 
   return (
     <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
-      {pendingProp?.pendingRealty ? (
-        pendingProp.pendingRealty.length > 0 ? (
-          pendingProp.pendingRealty.map((item) => {
-            return <ProfileCard data={item} key={item?._id} type={type} />;
+      {formStatus === "success" ? (
+        pendingProperties.pendingRealty.length > 0 ? (
+          pendingProperties.pendingRealty.map((item) => {
+            return (
+              <ProfileCard
+                getProperties={getProperties}
+                data={item}
+                key={item?._id}
+                type={type}
+              />
+            );
           })
         ) : (
           <NoItems
