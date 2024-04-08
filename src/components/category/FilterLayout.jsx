@@ -9,14 +9,14 @@ import ResultNotFound from "./shared/ResultNotFound";
 import SubBarTitle from "./barfilter-modules/SubBarTitle";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
-import UnitTypeIcons from "./shared/UnitTypeIcons";
+// import UnitTypeIcons from "./shared/UnitTypeIcons";
 import Breadcrumb from "./barfilter-modules/Breadcrumb";
 
 const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { openFilter } = useSelector((state) => state.Category);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  // const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
   useEffect(() => {
     dispatch(
@@ -59,11 +59,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       )}
       {/*bar filter */}
       <div
-        className={` z-20 shadow-sm bg-white flex justify-center sticky ${
-          userInfo
-            ? "md:top-[57px] top-[62px] lg:top-[80px]"
-            : "md:top-[97px] top-[97px] lg:top-[122px]"
-        } `}
+        className={` z-20 shadow-sm bg-white flex justify-center sticky  md:top-[57px] top-[62px] lg:top-[80px]`}
       >
         <BarFilter />
       </div>

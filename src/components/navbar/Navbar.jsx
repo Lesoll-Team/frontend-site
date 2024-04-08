@@ -15,28 +15,13 @@ const SearchModel = dynamic(() => import("./SearchModel"));
 function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
       className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md font-noto"
     >
-      {!userData && (
-        <>
-          <div className="py-2 container mx-auto flex justify-end gap-2 items-center text-lightGreen text-xs md:text-sm ">
-            <Link href={"/signin"} title="signin">
-              {languageIs ? "تسجيل الدخول" : "Sign in"}
-            </Link>
-            |
-            <Link href={"/signup"} title="signin">
-              {languageIs ? "التسجيل" : "Sign up"}
-            </Link>
-          </div>
-          <div className="w-full h-[1px] bg-outLine" />
-        </>
-      )}
-
       <div
         className={`container mx-auto  relative flex justify-between h-16 ${
           userData ? "lg:h-[80px]" : "lg:h-[85px]"
@@ -88,11 +73,23 @@ function Navbar() {
         </div>
 
         <div className="flex items-center gap-5  md:gap-4">
-          <div className="flex items-center gap-3 md:gap-4 md:flex-row flex-row-reverse">
+          <div className={`flex items-center gap-3 md:gap-4`}>
+            {!userData && (
+              <div className="py-2   flex  gap-x-2 items-center text-lightGreen text-xs md:text-sm ">
+                <Link href={"/signin"} title="signin">
+                  {languageIs ? "تسجيل الدخول" : "Sign in"}
+                </Link>
+                |
+                <Link href={"/signup"} title="signin">
+                  {languageIs ? "التسجيل" : "Sign up"}
+                </Link>
+              </div>
+            )}
             <div className="flex items-center  gap-3">
-              <SearchModelButton isOpen={isOpen} setOpen={setOpen} />
+              <SearchModelButton isOpen={isOpen} setOpen={setIsOpen} />
               {userData && <Notifications />}
             </div>
+
             {userData && <ProfileDropDown />}
             <ChangeLang bigScreen={true} />
           </div>
@@ -105,7 +102,7 @@ function Navbar() {
             userData ? "top-[65px] lg:top-[81px]" : "lg:top-[85px] top-[64px]"
           }  justify-center flex items-center`}
         >
-          {isOpen && <SearchModel isOpen={isOpen} setOpen={setOpen} />}
+          {isOpen && <SearchModel isOpen={isOpen} setOpen={setIsOpen} />}
         </div>
       </div>
     </nav>

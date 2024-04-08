@@ -6,7 +6,7 @@ const BlogsHeader = () => {
 
   return (
     <header className="w-full flex relative justify-center items-center">
-      <h1 className="absolute display-text text-white z-[5]">
+      <h1 className="absolute display-text text-white z-[5] text-center">
         {language
           ? "مقالات ومواضيع هامة عن العقارات في مصر"
           : "Important blogs and topics about real estate in Egypt"}
