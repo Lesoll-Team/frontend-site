@@ -18,7 +18,7 @@ const BlogCategories = ({ blogs }) => {
           <div className="h-[2px] bg-outLine w-8/12"></div>
         </div>
       </div>
-      <div className="flex gap-4 overflow-auto no-scroll-bars md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:flex-col md:space-y-4 w-full ">
+      <div className="flex gap-4 overflow-auto no-scrollbar md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:flex-col md:space-y-4 w-full ">
         {blogs.categories.map((item) => {
           const isActive = query?.category === item.categoryNameEn;
           return (

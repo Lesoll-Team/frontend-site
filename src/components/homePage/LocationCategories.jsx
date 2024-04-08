@@ -1,4 +1,3 @@
-// import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -101,36 +100,17 @@ const LocationCategories = () => {
         </p>
       </div>
       <div
-        className="
-  md:bg-[#EFEFEF]
-  lg:py-[83px]
-  lg:px-[100px]
-   py-[20px]
-  px-[20px]
+        className="md:bg-[#EFEFEF] lg:py-[83px] lg:px-[100px] py-[20px] px-[20px]
       "
       >
-        <div
-          className="md:container md:mx-auto  
-        grid grid-cols-3 md:grid-cols-4
-                      md:bg-inherit
-                      bg-[#EFEFEF]
-md:p-[0px] p-[15px]
-                      md:gap-x-[30px] md:gap-y-[17px]
-                      md:gap-0 gap-[15px]"
-        >
+        <div className="md:container md:mx-auto   grid grid-cols-3 md:grid-cols-4 md:bg-inheritbg-[#EFEFEF] md:p-[0px] p-[15px] md:gap-x-[30px] md:gap-y-[17px] md:gap-0 gap-[15px]">
           {locations
             .filter((_, i) => i < seeMore)
             .map((location) => (
               <Link
                 href={location.url}
                 key={location.id}
-                className="
-                  
-               cursor-pointer shadow-black 
-               flex flex-col items-center justify-center 
-               md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
-               gap-y-[5px]
-               bg-white
+                className=" cursor-pointer shadow-black  flex flex-col items-center justify-center  md:rounded-[8px]  rounded-[4px]  md:py-10 py-5 gap-y-[5px] bg-white
                "
               >
                 <div className=" grid grid-cols-1 text-center md:gap-y-[1.5vh] gap-y-[0.4vh]">
