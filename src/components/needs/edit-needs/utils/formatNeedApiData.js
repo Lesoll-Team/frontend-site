@@ -1,7 +1,6 @@
 import { propTypeList, rentalTypes } from "@/utils/addAndEditOptions";
 
 export const formatNeedApiData = (setValue, data) => {
-  console.log(data);
   const unitType = {
     value: data?.unitType?._id,
     name: {
@@ -19,7 +18,6 @@ export const formatNeedApiData = (setValue, data) => {
   const propType = propTypeList.find((item) => item.value === data?.propType);
   const rentalPeriod =
     rentalTypes.find((item) => item?.value === data?.rentalPeriod) || "";
-  // console.log(data);
   setValue("address", address);
   setValue("unitType", unitType);
   setValue("propType", propType);

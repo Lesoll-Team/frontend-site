@@ -58,13 +58,13 @@ function BlogSinglePage({ BlogData }) {
           <span className=" md:hidden block pb-2  text-gray1 lg-text">
             {language
               ? `بتاريخ : ${formattedDate(
-                BlogData?.getBlogs.createdAt,
-                language
-              )}`
+                  BlogData?.getBlogs.createdAt,
+                  language
+                )}`
               : `Date : ${formattedDate(
-                BlogData?.getBlogs.createdAt,
-                language
-              )}`}
+                  BlogData?.getBlogs.createdAt,
+                  language
+                )}`}
           </span>
           <div
             dir={language ? "rtl" : "ltr"}

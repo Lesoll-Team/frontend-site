@@ -13,8 +13,7 @@ export async function addBlogs(blogData) {
           "Content-Type": "multipart/form-data",
         },
       }
-    ); // register
-    // const response = await axios.post(`http://api0.lesoll-demo.site/api/auth/register`,userData);// register
+    );
     return response.data.blog;
   } catch (error) {
     throw error.response.data;
@@ -22,7 +21,6 @@ export async function addBlogs(blogData) {
 }
 export async function updateBlog(blogData, blogID) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-
   try {
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/update/blog/${blogID}`,
@@ -48,6 +46,16 @@ export async function getAllBlogs() {
     );
     // const data = await res.data
     return response.data.getBlogs;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function getAllCategoryBlogs() {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/get-category`
+    );
+    return response.data;
   } catch (error) {
     throw error.response.data;
   }
