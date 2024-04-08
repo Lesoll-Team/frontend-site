@@ -1,19 +1,22 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import { editBlog } from "@/redux-store/features/dashboard/blogDashboardSlice";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-// import { useRouter } from "next/router";
 import Head from "next/head";
 import BlogAdded from "@/components/dashboard/model/BlogAdded";
+import { getAllCategoryBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
 const EditBlog = ({ singleBlog }) => {
-  // const router = useRouter();
   const [blogCreated, setBlogCreated] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
   const messageEventBlog = useSelector(
     (state) => state.BlogDashboard.messageEventBlog
   );
+  const [blogCategoryID, setBlogCategoryID] = useState(
+    singleBlog?.getBlogs.category || ""
+  );
+  const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const [titleAR, setTitleAR] = useState(singleBlog?.getBlogs.title.ar || "");
 
@@ -30,6 +33,19 @@ const EditBlog = ({ singleBlog }) => {
   const [metDescriptionAR, setMetDescriptionAR] = useState(
     singleBlog?.getBlogs.metaDescription.ar || ""
   );
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const data = await getAllCategoryBlogs(); // Call your API function
+        setCategories(data.getAll);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
 
   const [selectedImage, setImage] = useState(
     singleBlog?.getBlogs.BlogImage || null
@@ -85,7 +101,7 @@ const EditBlog = ({ singleBlog }) => {
     formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
-    // const data =
+    formData.append("category", blogCategoryID);
     dispatch(
       editBlog({ blogData: formData, blogID: singleBlog.getBlogs._id }) //, blogData: formData
     ).then((action) => {
@@ -93,9 +109,6 @@ const EditBlog = ({ singleBlog }) => {
         setBlogCreated(true);
       }
     });
-    // router.push(`/blog/${slug.ar}`);
-
-    //  setMessageAddBlog(data);
   };
   if (blogCreated) {
     return (
@@ -151,18 +164,34 @@ const EditBlog = ({ singleBlog }) => {
 
         <div
           dir="rtl"
-          className="w-full border-1.5 border-gray-200 p-3 gap-5 flex  flex-col"
+          className="w-full border-1.5 border-gray-200 p-3 gap-5 flex md:flex-row flex-col"
         >
-          <b>عنوان المقال </b>
+          <div className="flex  flex-col gap-5 md:w-6/12 w-full">
+            <b>عنوان المقال </b>
 
-          <input
-            name="title-ar"
-            className="indent-3 w-full h-full flex  focus:outline-none"
-            value={titleAR}
-            type="text"
-            placeholder="إدخال عنوان المقال..."
-            onChange={(e) => setTitleAR(e.target.value)}
-          />
+            <input
+              name="title-ar"
+              className="indent-3 w-full h-full flex  focus:outline-none"
+              value={titleAR}
+              type="text"
+              placeholder="إدخال عنوان المقال..."
+              onChange={(e) => setTitleAR(e.target.value)}
+            />
+          </div>
+          <div className="flex  flex-col gap-5 md:w-4/12 w-full">
+            <b>فئة المقال </b>
+            <select
+              value={blogCategoryID}
+              onChange={(e) => setBlogCategoryID(e.target.value)}
+            >
+              <option value="">اختر تصنيف</option>
+              {categories?.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.categoryNameAr}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div
@@ -171,7 +200,6 @@ const EditBlog = ({ singleBlog }) => {
         >
           <b>وصف المقال </b>
           <textarea
-            // dir="rtl"
             value={descriptionAR}
             onChange={(e) => setDescriptionAR(e.target.value)}
             placeholder="حقل إدخال الوصف "
@@ -189,7 +217,6 @@ const EditBlog = ({ singleBlog }) => {
               className="w-full border-b-1.5 p-2 focus:outline-none"
             />
           </div>
-          {/* <div className="bg-gray-400 w-[1px] h-full mx-4" /> */}
           <div className="w-full md:w-6/12">
             <b>URL {slugAR.length}</b>
             <input
@@ -242,16 +269,3 @@ export async function getServerSideProps(context) {
     props: { singleBlog: data },
   };
 }
-
-// const [messageAddBlog, setMessageAddBlog] = useState("");
-// const [titleEN, setTitleEN] = useState(singleBlog?.getBlogs.title.en || "");
-// const [metaTitleEN, setMetaTitleEN] = useState(
-//   singleBlog?.getBlogs.metaTitle.en || ""
-// );
-// const [slugEN, setSlugEN] = useState(singleBlog?.getBlogs.slug.en || "");
-// const [descriptionEN, setDescriptionEN] = useState(
-//   singleBlog?.getBlogs.description.en || ""
-// );
-// const [metDescriptionEN, setMetDescriptionEN] = useState(
-//   singleBlog?.getBlogs.metaDescription.en || ""
-// );

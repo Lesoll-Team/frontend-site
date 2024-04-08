@@ -15,7 +15,7 @@ const SpecialCards = ({ isHome }) => {
   }, []);
   return (
     <div
-      className={` flex flex-wrap gap-[20px] md:container md:mx-auto mx-[20px]  ${specialCardData?.result.length > 2 ? "md:justify-between justify-center " : "md:justify-normal justify-center"}`}
+      className={` flex flex-wrap gap-[20px] md:container md:mx-auto mx-[20px] min-h-[542px] ${specialCardData?.result.length > 2 ? "md:justify-between justify-center " : "md:justify-normal justify-center"}`}
     >
       {isHome ? (
         <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">

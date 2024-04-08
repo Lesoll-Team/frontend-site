@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import BlogAdded from "@/components/dashboard/model/BlogAdded";
+import { getAllCategoryBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
 const AddBlog = () => {
   const router = useRouter();
   const { errorBlog, messageEventBlog } = useSelector(
@@ -19,6 +20,8 @@ const AddBlog = () => {
   const [titleAR, setTitleAR] = useState("");
   const [metDescriptionAR, setMetDescriptionAR] = useState("");
   const [metaTitleAR, setMetaTitleAR] = useState("");
+  const [blogCategoryID, setBlogCategoryID] = useState("");
+  const [categories, setCategories] = useState([]);
   const [descriptionAR, setDescriptionAR] = useState(``);
   const [slugAR, setSlugAR] = useState("");
 
@@ -26,6 +29,18 @@ const AddBlog = () => {
   const [selectedImagePrev, setImagePrev] = useState(null);
   const [blogCreated, setBlogCreated] = useState(false);
 
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const data = await getAllCategoryBlogs(); // Call your API function
+        setCategories(data.getAll);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
   const handleImgChange = (e) => {
     setImage(e.target.files[0]);
 
@@ -72,6 +87,7 @@ const AddBlog = () => {
     formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
+    formData.append("category", blogCategoryID);
     dispatch(createBlogs({ blogData: formData })).then((action) => {
       if (createBlogs.fulfilled.match(action)) {
         setBlogCreated(true);
@@ -83,7 +99,7 @@ const AddBlog = () => {
         setMetDescriptionAR("");
         setImage(null);
         setImagePrev(null);
-        // setBlogCreated(false);
+        setBlogCategoryID("");
       }
     });
   };
@@ -97,6 +113,7 @@ const AddBlog = () => {
     setImage(null);
     setImagePrev(null);
     setBlogCreated(false);
+    setBlogCategoryID("");
   }, [router]);
   if (blogCreated) {
     return (
@@ -148,28 +165,35 @@ const AddBlog = () => {
 
         <div
           dir="rtl"
-          className="w-full border-1.5 border-gray-200 p-3 gap-5 flex  flex-col"
+          className="w-full border-1.5 border-gray-200 p-3 gap-5 flex md:flex-row flex-col"
         >
-          <b>عنوان المقال </b>
+          <div className="flex  flex-col gap-5 md:w-6/12 w-full">
+            <b>عنوان المقال </b>
 
-          <input
-            name="title-ar"
-            className="indent-3 w-full h-full flex  focus:outline-none"
-            value={titleAR}
-            type="text"
-            placeholder="إدخال عنوان المقال..."
-            onChange={(e) => setTitleAR(e.target.value)}
-          />
-          {/* <Input
-            color="default"
-            type="text"
-            value={titleEN}
-            name="title-en"
-            placeholder="set Title English here"
-            labelPlacement="outside"
-            label=<b>Title English</b>
-            onChange={(e) => setTitleEN(e.target.value)}
-          /> */}
+            <input
+              name="title-ar"
+              className="indent-3 w-full h-full flex  focus:outline-none"
+              value={titleAR}
+              type="text"
+              placeholder="إدخال عنوان المقال..."
+              onChange={(e) => setTitleAR(e.target.value)}
+            />
+          </div>
+
+          <div className="flex  flex-col gap-5 md:w-4/12 w-full">
+            <b>فئة المقال </b>
+            <select
+              value={blogCategoryID}
+              onChange={(e) => setBlogCategoryID(e.target.value)}
+            >
+              <option value="">اختر تصنيف</option>
+              {categories?.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.categoryNameAr}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div

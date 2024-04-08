@@ -12,7 +12,7 @@ function BestLinksInHome({
   const [toggleLinks, setToggleLinks] = useState(0);
 
   return (
-    <section className="flex flex-wrap container mx-auto  gap-5  justify-center md:justify-between gap-y-5   py-5 pb-14">
+    <section className="flex flex-wrap container mx-auto md:min-h-[488px] gap-5  justify-center md:justify-between gap-y-5   py-5 pb-14">
       <div className="   max:w-[310px] w-full md:w-auto  ">
         <button
           onClick={() =>

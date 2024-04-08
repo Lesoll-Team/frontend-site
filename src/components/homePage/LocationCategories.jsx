@@ -103,7 +103,7 @@ const LocationCategories = () => {
         className="md:bg-[#EFEFEF] lg:py-[83px] lg:px-[100px] py-[20px] px-[20px]
       "
       >
-        <div className="md:container md:mx-auto   grid grid-cols-3 md:grid-cols-4 md:bg-inheritbg-[#EFEFEF] md:p-[0px] p-[15px] md:gap-x-[30px] md:gap-y-[17px] md:gap-0 gap-[15px]">
+        <div className="md:container md:mx-auto  md:min-h-[289px] min-h-[208px]  grid grid-cols-3 md:grid-cols-4 md:bg-inherit bg-[#EFEFEF] md:p-[0px] p-[15px] md:gap-x-[30px] md:gap-y-[17px] md:gap-0 gap-[15px]">
           {locations
             .filter((_, i) => i < seeMore)
             .map((location) => (

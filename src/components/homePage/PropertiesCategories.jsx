@@ -147,7 +147,7 @@ const PropertiesCategories = ({ isHome }) => {
         )}
       </div>
 
-      <div className="md:container md:mx-auto mx-[20px] grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-x-[30px] md:gap-y-[17px] md:gap-0 gap-[15px]">
+      <div className="md:container md:mx-auto mx-[20px] grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-x-[30px] md:gap-y-[17px] md:gap-0 gap-[15px] md:min-h-[556.67px] min-h-[358.67px]">
         {categories && isHome
           ? categories
               .filter((_, i) => i < seeMore)
@@ -157,10 +157,7 @@ const PropertiesCategories = ({ isHome }) => {
                   key={category.id}
                   className=" cursor-pointer shadow-black  border-[#CCCCCC] border-[1px] flex flex-col items-center justify-center  md:rounded-[8px]  rounded-[4px]  md:py-10 py-5 gap-y-[5px] "
                 >
-                  <div
-                    className=" 
-                flex items-center justify-center overflow-hidden md:w-[125px] md:h-[130px] h-[75px] w-[75px]"
-                  >
+                  <div className=" flex items-center justify-center overflow-hidden md:w-[125px] md:h-[130px] h-[75px] w-[75px]">
                     {category.icon}
                   </div>
                   <div className="  text-center flex flex-col gap-y-3 ">
