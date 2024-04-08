@@ -1,32 +1,18 @@
 import { localizedNumber } from "@/utils/localizedNumber";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
 import { PiBathtub } from "react-icons/pi";
-import DeleteBtn from "./DeleteBtn";
 import PropType from "./PropType";
-
 import ProfileCardSkeleton from "./ProfileCardSkeleton";
-import { propertyIsSold } from "@/utils/propertyAPI";
-import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
-import ConfirmSold from "./ConfirmSold";
 import { useSelector } from "react-redux";
 import ActionsMenu from "./ActionsMenu";
 import { useMemo } from "react";
+import PaymentActions from "./PaymentActions";
 
-const ProfileCard = ({ data, type, onDelete, getProperties }) => {
+const ProfileCard = ({ data, type, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const price = localizedNumber(data?.price);
-  const router = useRouter();
-  const propertyOnSold = async () => {
-    try {
-      await propertyIsSold({ propertyId: propertyDetails?._id });
-      dispatch(getActiveProp());
-    } catch (error) {
-      console.error("Error del prop:", error);
-    }
-  };
 
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
@@ -94,6 +80,7 @@ const ProfileCard = ({ data, type, onDelete, getProperties }) => {
               </div>
             </div>
           </div>
+          <PaymentActions />
         </div>
       </div>
     );

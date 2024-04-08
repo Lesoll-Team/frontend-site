@@ -7,19 +7,17 @@ import {
   deleteNeed,
   getUserNeeds,
 } from "@/redux-store/features/user/userNeedsSlice";
+import need from "@/pages/add-need";
 
 const NeedsCard = ({ data }) => {
   const dispatch = useDispatch();
-
+  console.log(data);
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu((prev) => !prev);
   const menuRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const priceFrom = localizedNumber(data?.price?.from);
   const priceTo = localizedNumber(data?.price?.to);
-  // const proptype = useMemo(() => {}, [data, language]);
-  // const unitType = useMemo(() => {}, [data, language]);
-  // const saleOptian = useMemo(() => {}, [data, language]);
   const roomNumbersTitle = language ? "عدد الغرف: " : "Rooms: ";
   const BathNumbersTitle = language ? "عدد الحمامات: " : "Bathrooms: ";
   const currancy = language ? "جنية" : "Egp";
@@ -51,13 +49,15 @@ const NeedsCard = ({ data }) => {
     await dispatch(deleteNeed(data._id));
     dispatch(getUserNeeds());
   };
+  const title = useMemo(() => {
+    return language ? data?.title?.ar : data?.title.en;
+  }, [data, language]);
   if (data) {
     return (
       <div className="p-4 border bg-white drop-shadow rounded space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className=" text-darkGray font-semibold">
-            مطلوب شقة للبيع الجيزة الشيخ زايد
-          </h3>
+          <h3 className=" text-darkGray font-semibold">{title}</h3>
+          {/* {language ? data.title.ar : data?.title.en} */}
           <div className="relative" ref={menuRef}>
             <button onClick={toggleMenu}>
               <HiDotsVertical />
