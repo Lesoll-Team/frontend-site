@@ -56,7 +56,7 @@ const InstallmentCard = ({ data, downPaymentPercentage }) => {
         {!!data.amount && (
           <>
             <p>
-              {data.amount} {period}
+              {parseInt(data.amount).toLocaleString()} {period}
             </p>{" "}
             |{" "}
           </>
