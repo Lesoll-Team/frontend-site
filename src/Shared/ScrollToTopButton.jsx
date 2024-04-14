@@ -3,16 +3,12 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 
 function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
-
-  // Function to scroll to the top of the page
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
-
-  // Add a scroll event listener to toggle the button's visibility
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {

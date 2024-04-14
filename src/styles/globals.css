@@ -1,34 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-pre {
-  font-family: "roboto", sans-serif;
-}
-
 html {
   scroll-behavior: smooth;
-}
-
-.rdrInputRanges {
-  display: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 .seo-hidden {
@@ -79,33 +66,6 @@ html {
   box-sizing: border-box;
 }
 
-.select-ar {
-  display: block;
-  width: 100%;
-
-  font-family: inherit;
-  /** for the dropdown indicator */
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: left 22px center;
-  background-size: 1em;
-}
-
-.select-en {
-  display: block;
-  width: 100%;
-
-  font-family: inherit;
-  /** for the dropdown indicator */
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 22px center;
-  background-size: 1em;
-}
-
-
 .shadow:hover {
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
@@ -120,66 +80,8 @@ input[type="radio"] {
   border-radius: 10%;
 }
 
-.no-scroll-bars::-webkit-scrollbar {
-  width: 0;
-  /* For Chrome, Safari, and Opera */
-}
-
-.no-scroll-bars {
-  scrollbar-width: none;
-  /* For Firefox */
-}
-
-.usersinput {
-  display: none;
-}
-
-.sansssss {
-  font-family: sans-serif !important;
-}
-
-.userslabel {
-  width: 120px;
-  border: #309da0 2px solid;
-  text-align: center;
-  padding: 10px 5px;
-  color: #309da0;
-  font-weight: 500;
-  font-size: 18px;
-}
-
-.usersinput:checked+.userslabel {
-  background-color: #309da0;
-  color: #fff;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-
-
-
-
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
-}
-
-.open-animation {
-  animation: openAccordion 0.3s;
-}
-
-@keyframes openAccordion {
-  from {
-    height: 0px;
-  }
-
-  to {
-    height: 100%;
-  }
 }
 
 .fade-in {
@@ -197,13 +99,6 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-.signin-bg {
-  background: url("../../public/signin.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 .fade-in-right {
   animation: fadeInRight 0.5s;
   opacity: 1;
@@ -219,111 +114,4 @@ input[type="search"]::-webkit-search-cancel-button {
     opacity: 1;
     transform: translateX(0);
   }
-}
-
-.label {
-  cursor: pointer;
-  background-color: #fff;
-  padding: 10px;
-  border: #309da0 solid 2px;
-  border-radius: 7px;
-  transition: all 0.1s;
-  font-weight: 500;
-  color: #d2512d;
-  display: block;
-}
-
-.label:hover {
-  background-color: #309da0;
-  color: #fff;
-}
-
-#lang-1:checked~label {
-  background-color: #309da0;
-  color: #fff;
-}
-
-#lang-2:checked~label {
-  background-color: #309da0;
-  color: #fff;
-}
-
-.form-control {
-  width: 100% !important;
-  border: #ebeaea solid 3px !important;
-  border-radius: 10px;
-  color: rgb(104, 7, 60);
-}
-
-
-
-.react-tel-input {
-  background-color: transparent;
-}
-
-
-
-.form-control:focus {
-  border: #309da0 solid 1px !important;
-}
-
-.form-control::placeholder {
-  font-size: 16px;
-  color: #808080;
-}
-
-.map {
-  height: 100%;
-  border-radius: 15px;
-}
-
-.react-datepicker__time-container {
-  width: 100% !important;
-}
-
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
-  padding: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
-  background-color: #309da0 !important;
-}
-
-
-@media (max-width: 500px) {
-  .splide {
-    padding: 5px !important;
-  }
-}
-
-/* gm-style-iw-d */
-.gm-style-iw-d {
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  padding-bottom: 10px !important;
-}
-
-.gm-style .gm-style-iw-c {
-  border-radius: 30px !important;
-  padding: 0 !important;
-}
-
-
-
-.gm-style-iw+button {
-  display: none !important;
-}
-
-.gm-ui-hover-effect {
-  display: none !important;
 }
