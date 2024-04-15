@@ -1,7 +1,16 @@
-.genericDiv p,
-.genericDiv ul {
-  margin-top: 20px;
-  line-height: 170%;
+.genericDiv p {
+  margin-top: 8px
+}
+
+.genericDiv ul,
+.genericDiv ol {
+  margin-top: 16px;
+  line-height: 1;
+  margin-inline: 10px;
+}
+
+.genericDiv li {
+  line-height: 1.7;
 }
 
 .genericDiv h1,
@@ -14,13 +23,12 @@
 }
 
 .genericDiv h2 {
-
   margin-top: 22px;
   margin-bottom: 10px;
 }
 
 .genericDiv h3 {
-  margin-top: 11px;
+  margin-top: 1px;
 }
 
 .genericDiv h4 {
@@ -50,7 +58,6 @@
 .genericDiv li {
   list-style-type: disc;
   text-wrap: unset;
-  margin: 0px 6px 0px 0px;
 
 }
 
@@ -66,7 +73,6 @@
 .genericDiv ul li {
   margin: 10px 6px 10px 0px;
 }
-
 
 @media (min-width: 768px) {
   .genericDiv img {
@@ -92,7 +98,7 @@
 
   .genericDiv h3 {
 
-    margin-top: 15px;
+    margin-top: 10px;
 
 
   }
