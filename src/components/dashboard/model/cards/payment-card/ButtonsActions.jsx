@@ -1,21 +1,28 @@
 import { deletePricePlan } from "@/redux-store/features/PricingSlice";
+import { buyPackageAction } from "@/utils/PricingAPI";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 // import { FaEye } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 const ButtonsActions = ({ stylesCss, data }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
+  //buyPackageAction
+  const handleBuyCategory = () => {
+    buyPackageAction({ id: data._id }).then((data) => router.push(data.link));
+  };
   return (
     <>
       {data?.isAdmin ? (
         <div className="justify-center flex flex-col absolute bottom-7 items-center gap-y-1 w-full ">
-          {/* <Link href={"prices/category/slug"} title="single view plan">
-            <FaEye className="text-2xl" />
-          </Link> */}
-          <button className="lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white">
+          <button
+            onClick={handleBuyCategory}
+            className="lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white"
+          >
             {language ? "اشترك الان" : "Subscribe now"}
           </button>
           <div className="w-full flex justify-center items-center gap-x-5 ">
@@ -32,7 +39,10 @@ const ButtonsActions = ({ stylesCss, data }) => {
         </div>
       ) : (
         <div className="justify-center absolute bottom-7 items-center gap-y-2 space-x-2 w-full flex-col flex">
-          <button className="lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white">
+          <button
+            onClick={handleBuyCategory}
+            className="lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white"
+          >
             {language ? "اشترك الان" : "Subscribe now"}
           </button>
         </div>

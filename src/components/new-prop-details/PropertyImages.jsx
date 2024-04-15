@@ -7,16 +7,19 @@ import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ReactTimeAgo from "react-time-ago";
+import { BiTime } from "react-icons/bi";
 const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
-  const createdAt = new Date(propertyData?.createdAt);
+  const createdAt = useMemo(() => {
+    return new Date(propertyData?.createdAt);
+  }, [propertyData]);
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
       return { link: image.image, id: index + 1 };
     });
-  }, []);
+  }, [propertyData]);
   const images = [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
 
   // lightbox logic
@@ -42,12 +45,9 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             <ShareBtn propertyData={propertyData} />
           </div>
         )}
-        <div
-          role="button"
-          onClick={() => openLightbox(0)}
-          className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-300 "
-        >
+        <div className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-300 relative ">
           <Image
+            onClick={() => openLightbox(0)}
             priority
             width={1400}
             height={1000}
@@ -55,14 +55,22 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             src={propertyData?.thumbnail}
             className=" object-cover"
           />
+          <div
+            className={`bg-white p-2 absolute z-10 bottom-2 left-2 md:bottom-5 rounded w-fit flex items-center gap-1 lg-text  text-lightGreen font-bold ${language ? "md:right-2  " : "md:left-2 "}`}
+          >
+            {" "}
+            <BiTime className="text-xl" />
+            <ReactTimeAgo
+              date={createdAt}
+              locale={language ? "" : "en-US"}
+              timeStyle=""
+            />
+          </div>
         </div>
       </div>
-      <div
-        role="button"
-        onClick={() => openLightbox(1)}
-        className="flex w-full rounded-md max-h-[100px] md:max-h-full bg-gray-300 drop-shadow-md h-full overflow-hidden items-stretch"
-      >
+      <div className="flex w-full rounded-md max-h-[100px] md:max-h-full bg-gray-300 drop-shadow-md h-full overflow-hidden items-stretch">
         <Image
+          onClick={() => openLightbox(1)}
           priority
           width={1400}
           height={1000}
@@ -71,12 +79,9 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           className="object-cover "
         />
       </div>
-      <div
-        role="button"
-        onClick={() => openLightbox(2)}
-        className="flex w-full h-full drop-shadow-md max-h-[100px] md:max-h-full overflow-hidden bg-gray-300 rounded-md items-stretch"
-      >
+      <div className="flex w-full h-full drop-shadow-md max-h-[100px] md:max-h-full overflow-hidden bg-gray-300 rounded-md items-stretch">
         <Image
+          onClick={() => openLightbox(2)}
           priority
           width={1400}
           height={1000}
@@ -87,20 +92,22 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       </div>
 
       <div
-        role="button"
-        onClick={() => openLightbox(3)}
         className={`flex relative drop-shadow-md max-h-[100px] md:max-h-full rounded-md justify-center  w-full h-full overflow-hidden bg-gray-300 items-stretch ${
           imagesLessThanFour && "md:col-span-2"
         }`}
       >
         {showMoreImages && (
-          <span className="md:hidden absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-center z-[2] text-white underline">
+          <button
+            onClick={() => openLightbox(3)}
+            className="md:hidden absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-center z-[2] text-white underline"
+          >
             {language
               ? `+${images.length - 4} صورة`
               : `+${images.length - 4} Images`}
-          </span>
+          </button>
         )}
         <Image
+          onClick={() => openLightbox(3)}
           priority
           width={1400}
           height={1000}
@@ -111,17 +118,17 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
       </div>
 
       {!imagesLessThanFour && (
-        <div
-          onClick={() => openLightbox(4)}
-          className=" drop-shadow-md md:flex hidden relative justify-center overflow-hidden rounded-md w-full h-full bg-gray-300 items-stretch"
-        >
+        <div className=" drop-shadow-md md:flex hidden relative justify-center overflow-hidden rounded-md w-full h-full bg-gray-300 items-stretch">
           {showMoreImages && (
-            <span className="underline cursor-pointer absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:text-xl font-medium text-white text-center z-[2]">
+            <button
+              onClick={() => openLightbox(4)}
+              className="underline cursor-pointer absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:text-xl font-medium text-white text-center z-[2]"
+            >
               {language ? "مشاهدة جميع الصور" : "Show all images"}{" "}
-            </span>
+            </button>
           )}
           <Image
-            role="button"
+            onClick={() => openLightbox(4)}
             priority
             width={1400}
             height={1000}

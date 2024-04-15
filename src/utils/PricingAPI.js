@@ -98,3 +98,18 @@ export async function deleteSinglePlanPrice({ id }) {
     console.log(error.response);
   }
 }
+export async function buyPackageAction({ id }) {
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/payment-user/payment-card/${id}`,
+    { headers: { token: userToken } }
+  );
+  // const authUrl = response.data;
+  // console.log(authUrl);
+  console.log(response);
+  return response.data;
+}
+/**
+   *  const authUrl = response.data.Link;
+    window.location.href = authUrl;
+   */
