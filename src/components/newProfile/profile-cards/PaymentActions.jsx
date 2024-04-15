@@ -3,7 +3,7 @@ import ReactModal from "@/Shared/ui/ReactModal";
 import { useState } from "react";
 import { BsArrowRepeat, BsFillPinAngleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
-
+import { TiPinOutline } from "react-icons/ti";
 const PaymentActions = ({ propId, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
@@ -22,7 +22,7 @@ const PaymentActions = ({ propId, getProperties }) => {
       <div className="flex gap-2 items-center ">
         <button className="w-full text-center border-2 py-2 rounded-md bg-lightGreen text-white border-lightGreen flex justify-center items-center gap-2">
           {language ? "تثبيت" : "Pin"}
-          <BsFillPinAngleFill />
+          <TiPinOutline />
         </button>
 
         <button

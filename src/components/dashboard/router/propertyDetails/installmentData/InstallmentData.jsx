@@ -4,7 +4,6 @@ import InstallmentCard from "./InstallmentCard";
 import { useCallback } from "react";
 
 const InstallmentData = ({ propertyDetails }) => {
-  console.log(propertyDetails);
   const period = useCallback((period) => {
     switch (period) {
       case "Monthly":
@@ -16,7 +15,7 @@ const InstallmentData = ({ propertyDetails }) => {
       case "3 Monthly":
         return "ربع سنويا";
       default:
-        return language ? "جنية" : "Egp";
+        return "جنية";
     }
   }, []);
   return (
