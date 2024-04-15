@@ -61,6 +61,7 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
             color: "#1b6e6d",
             borderRadius: "8px",
             border: "1px",
+            width: "100%",
           }}
           buttonStyle={{ height: "40px", backgroundColor: "white" }}
           dropdownStyle={{ height: "150px" }}

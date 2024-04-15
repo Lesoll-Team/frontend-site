@@ -116,7 +116,11 @@ const NeedsCard = ({ need }) => {
       <p
         className={`absolute md:block hidden bottom-6 ${language ? "left-5" : "right-5"}`}
       >
-        <ReactTimeAgo date={date} locale={language ? "ar" : "en-Us"} />
+        <ReactTimeAgo
+          date={date}
+          locale={language ? "ar" : "en-Us"}
+          timeStyle="twitter"
+        />
       </p>
     </div>
   );

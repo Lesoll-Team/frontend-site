@@ -157,6 +157,7 @@ const SignUpForm = () => {
               fontSize: "16px",
               color: "#1b6e6d",
               borderRadius: "8px",
+              width: "100%",
             }}
             buttonStyle={{
               height: "47px",

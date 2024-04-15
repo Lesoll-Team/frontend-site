@@ -63,7 +63,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             <ReactTimeAgo
               date={createdAt}
               locale={language ? "" : "en-US"}
-              timeStyle=""
+              timeStyle="twitter"
             />
           </div>
         </div>
