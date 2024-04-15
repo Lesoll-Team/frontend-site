@@ -55,15 +55,24 @@ const InstallmentCard = ({ data, downPaymentPercentage }) => {
       <div className="flex gap-2 items-center">
         {!!data.amount && (
           <>
-            <p>
-              {parseInt(data.amount).toLocaleString()} {period}
-            </p>{" "}
+            {!!data.amount && (
+              <p>
+                {parseInt(data.amount).toLocaleString()} {period}
+              </p>
+            )}{" "}
             |{" "}
           </>
         )}
-
+        {!!data.ProjectPercentage && (
+          <>
+            <p>
+              {data.ProjectPercentage}% {language ? "مقدم" : "Down payment"}
+            </p>{" "}
+            |
+          </>
+        )}
         <p>
-          {data.period} {language ? "سنة" : "years"}
+          {data.period} {language ? "سنوات" : "years"}
         </p>
       </div>
     </div>
