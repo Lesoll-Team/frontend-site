@@ -37,12 +37,13 @@ const ActiveProperties = () => {
           activeProperties.confirmedRealty.length > 0 ? (
             activeProperties.confirmedRealty.map((item) => {
               return (
-                <ProfileCard
-                  getProperties={getProperties}
-                  data={item}
-                  key={item?._id}
-                  type={type}
-                />
+                // <ProfileCard
+                //   getProperties={getProperties}
+                //   data={item}
+                //   key={item?._id}
+                //   type={type}
+                // />
+                <></>
               );
             })
           ) : (
