@@ -111,10 +111,18 @@ const AllDataForm = ({ main }) => {
                     fontSize: "16px",
                     color: "#1b6e6d",
                     borderRadius: "8px",
-                    border: "1px",
+                    width: "100%",
                   }}
-                  buttonStyle={{ height: "40px", backgroundColor: "white" }}
-                  dropdownStyle={{ height: "150px" }}
+                  buttonStyle={{
+                    height: "39px",
+                    backgroundColor: "white",
+                  }}
+                  containerStyle={{
+                    borderColor: errors.phone && "red",
+                  }}
+                  dropdownStyle={{
+                    height: "150px",
+                  }}
                   autocompleteSearch={true}
                   countryCodeEditable={false}
                   enableSearch={true}

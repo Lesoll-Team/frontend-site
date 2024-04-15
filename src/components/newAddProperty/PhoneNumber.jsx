@@ -37,6 +37,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
                   fontSize: "18px",
                   color: "#1b6e6d",
                   borderRadius: "4px",
+                  width: "100%",
                 }}
                 buttonStyle={{
                   height: "40px",
@@ -120,6 +121,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
                   fontSize: "18px",
                   color: "#1b6e6d",
                   borderRadius: "4px",
+                  width: "100%",
                 }}
                 buttonStyle={{
                   height: "40px",

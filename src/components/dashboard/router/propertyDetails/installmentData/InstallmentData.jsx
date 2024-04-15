@@ -38,8 +38,18 @@ const InstallmentData = ({ propertyDetails }) => {
                 )}
                 <div className="gap-1 flex flex-col justify-center items-center">
                   <p className="flex items-center gap-1">
-                    <span>{parseInt(item.amount).toLocaleString()}</span>{" "}
-                    <span>{type}</span>
+                    {item.amount && (
+                      <>
+                        {" "}
+                        <span>
+                          {parseInt(item.amount).toLocaleString()}
+                        </span>{" "}
+                        <span>{type}</span>
+                      </>
+                    )}
+                    {item.ProjectPercentage && (
+                      <span>{item.ProjectPercentage} % مقدم</span>
+                    )}
                   </p>{" "}
                   <div className="flex gap-1">
                     <span>{item.period}</span> <span>سنين</span>
