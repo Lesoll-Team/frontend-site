@@ -1,13 +1,15 @@
+import { usePeriodDate } from "@/Hooks/usePeriodType";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-const SuccessPay = () => {
+// usePeriodDate;
+const SuccessPay = ({ info }) => {
    const language = useSelector((state) => state.GlobalState.languageIs);
    return (
       <div className=" h-screen flex md:items-center ">
          <div className="bg-gray-100  p-6 md:w-6/12 w-full   md:mx-auto">
             <svg
                viewBox="0 0 24 24"
-               className="text-green-600 w-16 h-16 mx-auto my-6"
+               className="text-green-600 w-16 h-16 mx-auto my-3"
             >
                <path
                   fill="currentColor"
@@ -15,37 +17,39 @@ const SuccessPay = () => {
                ></path>
             </svg>
             <div className="text-center flex flex-col items-center">
-               <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
-                  {language ? "تم الدفع!" : " Payment Done!"}
-               </h3>
-               <p className="text-gray-600 my-2">
+               <h2 className="mb-3 text-center">
+                  {language ? "تم الدفع ! " : " Payment Done !"}
+               </h2>
+               <p className="text-gray-600 my-2 lg-text">
                   {language
                      ? "نشكرك على إكمال عملية الدفع الآمنة عبر الإنترنت مع ليسول ."
                      : "Thank you for completing your secure online payment with Lesoll."}
                </p>
-               <p>
+               <p className="lg-text">
                   {language ? "أتمنى لك يوماً عظيماً!" : " Have a great day!"}
                </p>
                <div className="sm:w-6/12 text-gray-600 text-start w-full  ">
-                  <p className="font-bold">
+                  <p className="font-bold  mt-5 mb-3 text-black lg-text">
                      {language ? "بيانات الدفع" : "Payment details"}
                   </p>
                   <div className="  w-full">
-                     <table className="w-full ">
+                     <table className="w-full sm-text">
                         <tbody className="flex flex-col gap-2">
                            <tr className="flex justify-between w-full border-b-1 border-slate-200">
                               <th>
                                  {language ? "اسم الباقة" : "Package name"}
                               </th>
-                              <td>مميزة</td>
+                              <td>
+                                 {language ? info.PaymentAr : info.PaymentEn}
+                              </td>
                            </tr>
                            <tr className="flex justify-between w-full border-b-1 border-slate-200">
                               <th>{language ? "السعر" : "Price"}</th>
-                              <td>100</td>
+                              <td>{info.price} EGP</td>
                            </tr>
                            <tr className="flex justify-between w-full border-b-1 border-slate-200">
                               <th>{language ? "المده" : "Duration"}</th>
-                              <td>month</td>
+                              <td>{usePeriodDate(info.expireDate)}</td>
                            </tr>
                         </tbody>
                      </table>
