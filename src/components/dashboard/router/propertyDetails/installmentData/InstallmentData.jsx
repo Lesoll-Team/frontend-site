@@ -4,7 +4,6 @@ import InstallmentCard from "./InstallmentCard";
 import { useCallback } from "react";
 
 const InstallmentData = ({ propertyDetails }) => {
-  console.log(propertyDetails);
   const period = useCallback((period) => {
     switch (period) {
       case "Monthly":
@@ -16,7 +15,7 @@ const InstallmentData = ({ propertyDetails }) => {
       case "3 Monthly":
         return "ربع سنويا";
       default:
-        return language ? "جنية" : "Egp";
+        return "جنية";
     }
   }, []);
   return (
@@ -39,8 +38,18 @@ const InstallmentData = ({ propertyDetails }) => {
                 )}
                 <div className="gap-1 flex flex-col justify-center items-center">
                   <p className="flex items-center gap-1">
-                    <span>{parseInt(item.amount).toLocaleString()}</span>{" "}
-                    <span>{type}</span>
+                    {item.amount && (
+                      <>
+                        {" "}
+                        <span>
+                          {parseInt(item.amount).toLocaleString()}
+                        </span>{" "}
+                        <span>{type}</span>
+                      </>
+                    )}
+                    {item.ProjectPercentage && (
+                      <span>{item.ProjectPercentage} % مقدم</span>
+                    )}
                   </p>{" "}
                   <div className="flex gap-1">
                     <span>{item.period}</span> <span>سنين</span>
