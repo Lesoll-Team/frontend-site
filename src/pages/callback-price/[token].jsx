@@ -5,7 +5,7 @@ const CallBackPrice = ({ token }) => {
    return (
       <>
          <MetaTags />
-         <SuccessPay info={token.Package} />;
+         <SuccessPay info={token.Package} />
       </>
    );
 };
