@@ -4,7 +4,8 @@ export const propertyCallClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${id}?token=${token}`,
+      {},
       {
         headers: {
           token: token,
@@ -21,7 +22,8 @@ export const propertyWhatsClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${id}?token=${token}`,
+      {},
       {
         headers: {
           token: token,
@@ -37,7 +39,8 @@ export const needsWhatsClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/whatsappbtn/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/need/whatsappbtn/${id}?token=${token}`,
+      {},
       {
         headers: {
           token: token,
@@ -53,7 +56,8 @@ export const needsCallClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/calls/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/need/calls/${id}?token=${token}`,
+      {},
       {
         headers: {
           token: token,
