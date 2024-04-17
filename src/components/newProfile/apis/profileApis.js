@@ -165,3 +165,59 @@ export const toggleSold = async ({
     throw error.response.data;
   }
 };
+
+// payment apis
+export const repostProperty = async ({
+  setFormStatus,
+  setServerError,
+  propId,
+}) => {
+  try {
+    setFormStatus("loading");
+
+    const token = JSON.parse(localStorage.getItem("userToken"));
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/repost-property/${propId}?token=${token}`,
+      {
+        headers: {
+          token,
+        },
+      }
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+    }
+    return response.data;
+  } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};
+
+export const pinProperty = async ({
+  setFormStatus,
+  setServerError,
+  propId,
+}) => {
+  try {
+    setFormStatus("loading");
+    const token = JSON.parse(localStorage.getItem("userToken"));
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/pin-property/${propId}?token=${token}`,
+      {
+        headers: {
+          token,
+        },
+      }
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+    }
+    return response.data;
+  } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};

@@ -2,7 +2,7 @@ import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BiEditAlt } from "react-icons/bi";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdCard, IoMdHeartEmpty } from "react-icons/io";
 import {
   MdOutlineAccountCircle,
   MdOutlineRealEstateAgent,
@@ -27,6 +27,7 @@ const ProfileLinks = ({ main }) => {
   const isAds = route.includes("/profile/my-properties");
   const isSaved = route.includes("/profile/saved-items");
   const isNeeds = route.includes("/profile/needs");
+  const isPackage = route.includes("/profile/my-subscriptions");
   return (
     <div
       className={`md:px-10 flex flex-col gap-5 mt-2 ${main && "md:hidden"} `}
@@ -83,6 +84,16 @@ const ProfileLinks = ({ main }) => {
           </div>
         </>
       )}
+      <div className="flex flex-col gap-5">
+        <Link
+          href={"/profile/my-subscriptions"}
+          className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isPackage && "md:text-lightGreen"}`}
+        >
+          <IoMdCard className="md:text-2xl" />
+          {language ? " الباقات" : "Package"}
+        </Link>
+        <hr />
+      </div>
 
       <div className="flex flex-col gap-5">
         <button

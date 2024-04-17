@@ -24,6 +24,7 @@ const SoldProperties = () => {
           soldProperties.propertySoldProfile.map((item) => {
             return (
               <ProfileCard
+                paymentDisabled={true}
                 getProperties={getProperties}
                 data={item}
                 key={item?._id}

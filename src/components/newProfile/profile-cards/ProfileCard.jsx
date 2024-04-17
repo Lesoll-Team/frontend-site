@@ -8,21 +8,31 @@ import { useSelector } from "react-redux";
 import ActionsMenu from "./ActionsMenu";
 import { useMemo } from "react";
 import PaymentActions from "./PaymentActions";
+import { MdOutlineStarPurple500 } from "react-icons/md";
 
-const ProfileCard = ({ data, type, getProperties }) => {
+const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  console.log(data);
   const price = localizedNumber(data?.price);
 
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
   }, [type]);
+  console.log(typePending);
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
         <div className="w-full relative">
           <div className="flex w-full absolute items-center justify-between  top-4">
-            <PropType type={type} />
+            {data?.makePin || data?.makeRepost ? (
+              <div
+                className={`bg-white h-8 w-8 rounded-full lg-text text-baseGray  grid place-content-center mx-4 `}
+              >
+                <MdOutlineStarPurple500 className="text-lightOrange text-xl" />
+              </div>
+            ) : (
+              <PropType type={type} />
+            )}
             <ActionsMenu
               isPending={typePending}
               propId={data._id}
@@ -80,7 +90,11 @@ const ProfileCard = ({ data, type, getProperties }) => {
               </div>
             </div>
           </div>
-          <PaymentActions />
+          <PaymentActions
+            getProperties={getProperties}
+            propId={data._id}
+            disabled={paymentDisabled || data?.makePin || data?.makeRepost}
+          />
         </div>
       </div>
     );
