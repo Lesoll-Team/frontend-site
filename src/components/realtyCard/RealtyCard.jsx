@@ -10,8 +10,6 @@ import LocationAndRooms from "./basic-body-card/LocationAndRooms";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
-
   const userInfo = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
 
@@ -57,7 +55,6 @@ const RealtyCard = ({ propertyDetails }) => {
           </div>
         )}
       </div>
-      {/* start Image */}
       <Link
         title={`${propertyDetails?.title}`}
         key={propertyDetails?._id}
@@ -67,10 +64,10 @@ const RealtyCard = ({ propertyDetails }) => {
         <Image
           alt={` image  ${propertyDetails?.title}`}
           radius="none"
-          className="flex object-cover"
+          className="flex object-cover w-[135px] h-[145px] md:w-[400px] md:h-[174px] "
           loading="lazy"
-          width={isMobile ? 135 : 400}
-          height={isMobile ? 145 : 174}
+          width={400}
+          height={174}
           placeholder="blur"
           blurDataURL="data:image/webp;base64,UklGRpwCAABXRUJQVlA4WAoAAAAgAAAAgQAASAAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggrgAAADAIAJ0BKoIASQA/OYy6Vj6ppaSu9JtT0CcJZwaIBSMK+wc3w9wolt0xI9Ih0LbkiT5jFlmthhD+F8hxABGWhxQgTBu00Rr2dekAAP7Buijbt3iTb3XRM+9ZH9VKf8BqKtCj/mCiaQXAzSZ67W/VLmHoF+JP2oYlAqrBmBbdrd0HIPeIbXwNBsJCv1zBilNhIfBfl2b4M3EoHpYin5k3gbvrzvFbLfhkozLlghBgAA=="
           quality={70}
