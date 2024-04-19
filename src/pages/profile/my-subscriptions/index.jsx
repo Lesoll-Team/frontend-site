@@ -1,17 +1,17 @@
 import { useRouter } from "next/router";
 import ProfileLayout from "../ProfileLayout";
 import useIsAuth from "@/Hooks/useIsAuth";
-import MySubscriptions from "@/components/newProfile/user/my-/MySubscriptions";
+import MySubscriptions from "@/components/newProfile/user/MySubscriptions/MySubscriptions";
 // import UserProperties from "@/components//UserProperties";
 
 const index = () => {
-   const IsAuth = useIsAuth();
-   const router = useRouter();
+  const IsAuth = useIsAuth();
+  const router = useRouter();
 
-   return (
-      <ProfileLayout>
-         <MySubscriptions />
-      </ProfileLayout>
-   );
+  return (
+    <ProfileLayout>
+      <MySubscriptions />
+    </ProfileLayout>
+  );
 };
 export default index;
