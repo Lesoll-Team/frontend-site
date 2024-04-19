@@ -14,7 +14,7 @@ export async function saveSearchFilter({
         title: messageConfirmed,
         slug,
         sendEmail: confirmSendMessage,
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -29,7 +29,7 @@ export async function foundKeyword(keyword) {
       .join("&");
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/category/get-data?${queryString}&limit=18`
+      `${process.env.NEXT_PUBLIC_API_URL}/category/get-data?${queryString}&limit=18`,
     );
     return response;
   } catch (error) {
