@@ -56,8 +56,10 @@ export async function getPlanPrice() {
 }
 export async function getPlanPayments() {
    try {
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
+
       const response = await axios.get(
-         `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/get-payment?token=${undefined}`,
+         `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/get-payment?token=${userToken || undefined}`,
       );
       return response.data;
    } catch (error) {
@@ -123,3 +125,16 @@ export async function buyPackageAction({ id }) {
    *  const authUrl = response.data.Link;
     window.location.href = authUrl;
    */
+export async function updateIndexPlan(setIndex, id) {
+   try {
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+      const response = await axios.patch(
+         `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/change-index/${id}?token=${userToken}`,
+         { indexNumber: setIndex },
+      );
+      return response.data;
+   } catch (error) {
+      throw error.response.data;
+   }
+}
