@@ -2,7 +2,7 @@ import ReactModal from "@/Shared/ui/ReactModal";
 // import Link from "next/link";
 import { useSelector } from "react-redux";
 
-const ConfirmRepost = ({ open, setIsOpen, type }) => {
+const ConfirmRepost = ({ open, setIsOpen }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (

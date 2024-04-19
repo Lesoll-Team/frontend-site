@@ -1,22 +1,17 @@
 import { useRouter } from "next/router";
 import ProfileLayout from "../ProfileLayout";
 import useIsAuth from "@/Hooks/useIsAuth";
-import UserProperties from "@/components/newProfile/user/userProperties/UserProperties";
+import MySubscriptions from "@/components/newProfile/user/my-subscriptions/MySubscriptions";
 // import UserProperties from "@/components//UserProperties";
 
-const index = ({ params }) => {
+const index = ({}) => {
   const IsAuth = useIsAuth();
   const router = useRouter();
 
-  return <ProfileLayout></ProfileLayout>;
+  return (
+    <ProfileLayout>
+      <MySubscriptions />
+    </ProfileLayout>
+  );
 };
 export default index;
-
-export async function getServerSideProps({ query }) {
-  const params = query;
-  return {
-    props: {
-      params,
-    },
-  };
-}

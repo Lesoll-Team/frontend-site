@@ -39,13 +39,6 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
               getProperties={getProperties}
             />
           </div>
-          <Image
-            src={data?.thumbnail}
-            width={400}
-            height={150}
-            alt="property image"
-            className="w-full max-h-[150px] object-cover"
-          />
         </div>
         <div className="px-2 mb-4 md:mb-7 md:px-5 flex-col space-y-3 md:space-y-6 ">
           <p className="text-sm text-baseGray md:text-xl font-bold font-inter ">
