@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import MobilePageTitle from "../MobilePageTitle";
 import PlanCard from "./PlanCard";
-import SubscriptionsTabs from "./subscriptionsTabs";
-
+import SubscriptionsTabs from "@/components/newProfile/user/MySubscriptions/SubscriptionsTabs";
 const MySubscriptions = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
