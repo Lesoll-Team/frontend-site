@@ -148,7 +148,6 @@ export async function deleteProperty(propertyid, message) {
 
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propertyid}?token=${userToken}`,
-
       {
         headers: {
           token: userToken,

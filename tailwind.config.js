@@ -37,7 +37,7 @@ module.exports = {
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],
         inter: ["Inter", "sans-serif"],
-        noto:["Noto Kufi Arabic"]
+        noto: ["Noto Kufi Arabic"],
       },
     },
     fontFamily: {},
