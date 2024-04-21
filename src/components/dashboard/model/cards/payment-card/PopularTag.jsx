@@ -5,14 +5,14 @@ const PopularTag = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div
-      className={`font-bold  text-white relative 
+      className={`font-bold  text-white relative
        w-[50px] h-[130px] lg-text `}
     >
       <div
-        className={`bg-lightGreen text-white 
+        className={`bg-lightGreen text-white
         -mt-[35px]
-        ${language ? "-rotate-[48deg] -ml-[90px] pl-5" : " pr-6 -mr-[90px] rotate-[48deg] "} absolute  
-       w-[200px] h-[130px] flex items-end pb-3  justify-center`}
+        ${language ? "-rotate-[48deg] -ml-[90px] pl-5" : " pr-6 -mr-[90px] rotate-[48deg] "} absolute
+       w-[200px] h-[130px] flex items-end pb-5  justify-center`}
       >
         {language ? "اكثر شعبية" : "popular"}
       </div>

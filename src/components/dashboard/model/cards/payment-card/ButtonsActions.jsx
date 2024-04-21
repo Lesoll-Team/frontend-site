@@ -3,7 +3,6 @@ import { buyPackageAction } from "@/utils/PricingAPI";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-// import { FaEye } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,7 +10,6 @@ const ButtonsActions = ({ stylesCss, data }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  //buyPackageAction
   const handleBuyCategory = () => {
     buyPackageAction({ id: data._id }).then((data) => router.push(data.link));
   };
@@ -20,8 +18,9 @@ const ButtonsActions = ({ stylesCss, data }) => {
       {data?.isAdmin ? (
         <div className="justify-center flex flex-col absolute bottom-7 items-center gap-y-1 w-full ">
           <button
+            disabled={data.Subscribed}
             onClick={handleBuyCategory}
-            className="lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white"
+            className={`lg-text font-bold ${data.Subscribed ? "bg-[#66bfc2]" : "bg-lightGreen"}  w-10/12 h-[35px] rounded-[6px] text-white`}
           >
             {language ? "اشترك الان" : "Subscribe now"}
           </button>
@@ -40,10 +39,17 @@ const ButtonsActions = ({ stylesCss, data }) => {
       ) : (
         <div className="justify-center absolute bottom-7 items-center gap-y-2 space-x-2 w-full flex-col flex">
           <button
+            disabled={data.Subscribed}
             onClick={handleBuyCategory}
-            className="lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white"
+            className={`lg-text font-bold ${data.Subscribed ? "bg-[#66bfc2]" : "bg-lightGreen"}  w-10/12 h-[35px] rounded-[6px] text-white`}
           >
-            {language ? "اشترك الان" : "Subscribe now"}
+            {language
+              ? data.Subscribed
+                ? "بالفعل انت مشترك"
+                : "اشترك الان"
+              : data.Subscribed
+                ? "Already subscribed"
+                : "Subscribe now"}
           </button>
         </div>
       )}
@@ -52,12 +58,3 @@ const ButtonsActions = ({ stylesCss, data }) => {
 };
 
 export default ButtonsActions;
-// import { BsBoxArrowInDownRight } from "react-icons/bs";
-
-/* <Link
-            href={"/dashboard/pricing"}
-            className={`py-1 px-3 items-center sm-text flex`}
-          >
-            {language ? "عرض المزيد من التفاصيل" : "show more details"}
-            <BsBoxArrowInDownRight className="mx-2" />
-          </Link> */
