@@ -10,7 +10,7 @@ export async function getUserOffline({ url }) {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/s?local_storage_device_id=${
         userToken ? userToken : undefined
-      }&urlString=${url}?time=${formattedTime}`
+      }&urlString=${url}?time=${formattedTime}`,
     );
     return response.data;
   } catch (error) {
@@ -22,7 +22,7 @@ export async function registerUser(userData) {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
-      userData
+      userData,
     ); // register
     return response.data;
   } catch (error) {
@@ -33,7 +33,7 @@ export async function loginUser(userData) {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-      userData
+      userData,
     ); //login
     return response.data;
   } catch (error) {
@@ -46,7 +46,7 @@ export async function getUserData() {
   if (userToken) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/profile?token=${userToken}`
+        `${process.env.NEXT_PUBLIC_API_URL}/user/profile?token=${userToken}`,
       );
       return response.data.userData;
     } catch (error) {
@@ -58,9 +58,7 @@ export async function getUserData() {
 }
 
 export async function updateUserDataInfo(userID, userUpdate) {
-  // if (userToken != null || userID != null || userUpdate != null) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-
   try {
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userID}`,
@@ -70,15 +68,13 @@ export async function updateUserDataInfo(userID, userUpdate) {
           "Content-Type": "multipart/form-data",
           token: userToken,
         },
-      }
+      },
     );
     return response.data.userData;
   } catch (error) {
     console.error(error);
     return null;
   }
-  // }
-  // return null;
 }
 
 export async function changePassword(userNewPassword) {
@@ -92,7 +88,7 @@ export async function changePassword(userNewPassword) {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -109,7 +105,7 @@ export async function verifyEmail() {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -127,7 +123,7 @@ export async function sendCodeVerifyEmail(codenumber) {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -140,7 +136,7 @@ export async function sendEmailResetPassword(email) {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/user/reset-password?token=${userToken}&lang=AR`,
-      email
+      email,
     );
     return response.data;
   } catch (error) {
@@ -149,11 +145,10 @@ export async function sendEmailResetPassword(email) {
 }
 
 export async function sendResetNewPassword(userNewPassword) {
-  // const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/user/changepassword?chps=${userNewPassword.token}`,
-      { password: userNewPassword.password }
+      { password: userNewPassword.password },
     );
     return response.data;
   } catch (error) {
@@ -164,7 +159,7 @@ export async function sendResetNewPassword(userNewPassword) {
 export async function signWithGoogle() {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
     );
     const authUrl = response.data.Link;
     window.location.href = authUrl;
@@ -180,7 +175,7 @@ export async function GetActiveProp(page) {
         headers: {
           token: JSON.parse(localStorage.getItem("userToken")),
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -193,7 +188,7 @@ export async function updateGoogleData({ data, token }) {
     // const response =
     await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/update-users-google?token=${token}`,
-      data
+      data,
     );
   } catch (error) {
     console.log(error);
@@ -202,7 +197,7 @@ export async function updateGoogleData({ data, token }) {
 export async function ViewUser(username) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${username}`,
     );
 
     return response.data;
@@ -213,7 +208,7 @@ export async function ViewUser(username) {
 export async function ViewUserProperties(username, page, type) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${username}?limit=12&page=${page}&of=${type}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${username}?limit=12&page=${page}&of=${type}`,
     );
 
     return response.data;
@@ -233,13 +228,7 @@ export async function getUserDataDashboard(username) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-data/${username}?token=${userToken}`
-
-      // {
-      //   headers: {
-      //     token: userToken,
-      //   },
-      // }
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-data/${username}?token=${userToken}`,
     );
     return response.data;
   } catch (error) {
@@ -250,13 +239,7 @@ export async function getUserPropertiesDashboard(username, page = 1, propType) {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-properties/${username}?token=${userToken}&limit=9&page=${page}&of=${propType}`
-
-      // {
-      //   headers: {
-      //     token: userToken,
-      //   },
-      // }
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-properties/${username}?token=${userToken}&limit=9&page=${page}&of=${propType}`,
     );
     return response.data;
   } catch (error) {
@@ -274,10 +257,7 @@ export const downloadUserLog = async (id, name) => {
     `${process.env.NEXT_PUBLIC_API_URL}/admin/generated/generated-single-user-excel/${id}?token=${userToken}`,
     {
       responseType: "arraybuffer",
-      // headers: {
-      //   token: userToken,
-      // },
-    } // {
+    },
   );
   const blob = new Blob([res.data], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -297,7 +277,7 @@ export async function getOutSoldProperties() {
 
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/sold/get`,
-      { headers: { token: userToken } }
+      { headers: { token: userToken } },
     );
     return response.data;
   } catch (error) {
@@ -311,7 +291,7 @@ export async function getPendingProperties() {
 
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
-      { headers: { token: userToken } }
+      { headers: { token: userToken } },
     );
     return response.data;
   } catch (error) {
