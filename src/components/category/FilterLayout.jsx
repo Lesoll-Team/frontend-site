@@ -38,7 +38,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
         sort: dataObjectFromURL.sort,
         propFinancing: dataObjectFromURL.mortgage,
         searchKeyword: dataObjectFromURL.keyword,
-      })
+      }),
     );
   }, [router]);
   // useEffect(() => {
