@@ -84,7 +84,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
                         value.length > 11 ||
                         (language
                           ? "من فضلك ادخل رقم صحيح"
-                          : "description must be at least 20 characters long")
+                          : "please enter a valid number")
                       );
                     },
                   },
@@ -168,7 +168,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
                         value.length > 11 ||
                         (language
                           ? "من فضلك ادخل رقم صحيح"
-                          : "description must be at least 20 characters long")
+                          : "please enter a valid number")
                       );
                     },
                   },

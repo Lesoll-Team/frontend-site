@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
@@ -6,15 +6,16 @@ import "react-phone-input-2/lib/style.css";
 import { useSelector } from "react-redux";
 import GoogleSignInBtn from "@/components/auth/login/GoogleSignInBtn";
 import { userSignUp } from "../../api/signUpApi";
-import { Ring, Waveform } from "@uiball/loaders";
+import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
+import TimeOut from "@/Shared/ui/TimeOut";
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState("idle");
+  const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState(null);
   const {
     register,
@@ -63,8 +64,12 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (formStatus === "success") {
-      reset();
-      router.push(`/verify-otp/${token}`);
+      if (watch("code") == "20") {
+        router.push(`/verify-otp/${token}`);
+      } else {
+        localStorage.setItem("userToken", JSON.stringify(token));
+        router.replace("/");
+      }
     }
   }, [formStatus, reset, router, token]);
 
@@ -76,8 +81,25 @@ const SignUpForm = () => {
         setEmailUserError(false);
       }, 3500);
     }
+    if (serverError?.code == 429) {
+      setTimeout(function () {
+        setServerError(null);
+      }, 30000);
+    }
   }, [serverError]);
+  useEffect(() => {
+    console.log("hi");
+    if (watch("phone")) {
+      console.log("hi2");
 
+      const phoneNumber = phoneWithoutCode(watch("phone"), watch("code"));
+      if (phoneNumber.length > 10) {
+        console.log("hi3");
+
+        clearErrors("phone");
+      }
+    }
+  }, [watch("phone")]);
   return (
     <form
       noValidate
@@ -188,9 +210,25 @@ const SignUpForm = () => {
           )}
           <input
             {...register("phone", {
-              required: language
-                ? "ادخل رقم الهاتف"
-                : "Please enter your Phone number",
+              required: {
+                value: true,
+                message: language
+                  ? "ادخل رقم الهاتف"
+                  : "Please enter your Phone number",
+              },
+              validate: {
+                // mustBeNumber: (value) => {
+                //   return !isNaN(value) || "must be a number";
+                // },
+                min: (value) => {
+                  return (
+                    value.length > 11 ||
+                    (language
+                      ? "من فضلك ادخل رقم صحيح"
+                      : "please enter a valid number")
+                  );
+                },
+              },
             })}
             className="hidden"
             type="text"
@@ -298,8 +336,9 @@ const SignUpForm = () => {
           </Link>
         </label>
       </div>
+      {serverError?.code === 429 && <TimeOut seconds={30} />}
       <Button
-        disabled={formStatus === "loading"}
+        disabled={formStatus === "loading" || serverError?.code == 429}
         type="submit"
         className="w-full p-3 h-12 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
