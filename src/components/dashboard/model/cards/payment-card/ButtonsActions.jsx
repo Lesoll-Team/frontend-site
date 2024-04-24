@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 const ButtonsActions = ({ stylesCss, data }) => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   const ButtonsBuyPackage = useBuyPackage({ id: data?._id });
   return (
     <>

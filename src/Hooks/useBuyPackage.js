@@ -1,22 +1,32 @@
-import AddPhoneModal from "@/Shared/contact-modals/AddPhoneModal";
-import LoginModal from "@/Shared/contact-modals/LoginModal";
-import NotSignUpModal from "@/Shared/contact-modals/NotSignedModal";
-import RegisterModal from "@/Shared/contact-modals/RegisterModal";
+import dynamic from "next/dynamic";
+const AddPhoneModal = dynamic(
+  () => import("@/Shared/contact-modals/AddPhoneModal"),
+);
+const LoginModal = dynamic(() => import("@/Shared/contact-modals/LoginModal"));
+const RegisterModal = dynamic(
+  () => import("@/Shared/contact-modals/RegisterModal"),
+);
+const NotSignUpModal = dynamic(
+  () => import("@/Shared/contact-modals/NotSignedModal"),
+);
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { buyPackageAction } from "@/utils/PricingAPI";
 import { cn } from "@/utils/cn";
+import PriceModel from "@/components/pricing/PriceModel";
 
 const useBuyPackage = ({ id }) => {
   const userData = useSelector((state) => state.userProfile.userData);
   const [notLogedOpen, setNotLogedOpen] = useState(false);
+  const [isSelectedPayment, setIsSelectedPayment] = useState(false);
   const [noPhoneOpen, setNoPhoneOpen] = useState(false);
   const [registerIsOpen, setRegisterIsOpen] = useState(false);
   const [loginIsOpen, setLoginIsOpen] = useState(false);
+  // const [methodType, setMethodType] = useState("");
+
   const handleActionClick = () => {
     if (userData) {
       if (userData?.phone) {
-        buyPackageAction({ id }).then((data) => router.push(data.link));
+        setIsSelectedPayment(true);
       } else {
         setNoPhoneOpen(true);
       }
@@ -24,6 +34,7 @@ const useBuyPackage = ({ id }) => {
       setNotLogedOpen(true);
     }
   };
+
   const ContactModals = () => {
     return (
       <>
@@ -36,6 +47,12 @@ const useBuyPackage = ({ id }) => {
         <RegisterModal isOpen={registerIsOpen} setIsOpen={setRegisterIsOpen} />
         <LoginModal isOpen={loginIsOpen} setIsOpen={setLoginIsOpen} />
         <AddPhoneModal isOpen={noPhoneOpen} setIsOpen={setNoPhoneOpen} />
+        <PriceModel
+          id={id}
+          // setMethodType={setMethodType}
+          isOpen={isSelectedPayment}
+          setIsOpen={setIsSelectedPayment}
+        />
       </>
     );
   };
