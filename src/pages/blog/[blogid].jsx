@@ -1,9 +1,7 @@
 import BlogSinglePage from "@/components/blogs/blogSinglePage";
 import axios from "axios";
 import Head from "next/head";
-// import { useRouter } from "next/router";
 import React from "react";
-// import { useSelector } from "react-redux";
 
 function blogId({ singleBlog }) {
   return (
@@ -32,7 +30,7 @@ export default blogId;
 export async function getServerSideProps(context) {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/singleblogs/${context.query.blogid}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/singleblogs/${context.query.blogid}`,
     );
     const data = await res.data;
     if (data.getBlogs) {
