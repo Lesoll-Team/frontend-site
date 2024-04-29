@@ -18,7 +18,7 @@ export const editUserData = async ({
           "Content-Type": "multipart/form-data",
           token: token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -46,7 +46,7 @@ export const getActiveProperties = async ({
         headers: {
           token: token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -71,7 +71,7 @@ export const getPendingProperties = async ({
         headers: {
           token: token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -96,7 +96,7 @@ export const getSoldProperties = async ({
         headers: {
           token: token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -127,7 +127,7 @@ export const deleteProperty = async ({
         data: {
           reason: message,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -153,7 +153,7 @@ export const toggleSold = async ({
         headers: {
           token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -182,7 +182,7 @@ export const repostProperty = async ({
         headers: {
           token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -209,10 +209,66 @@ export const pinProperty = async ({
         headers: {
           token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
+    }
+    return response.data;
+  } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};
+
+export const getUserActivePackages = async ({
+  setFormStatus,
+  setServerError,
+  setActivePackages,
+}) => {
+  const token = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    setFormStatus("loading");
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/continuous-package`,
+      {
+        headers: {
+          token,
+        },
+      },
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+    }
+    setActivePackages(response.data);
+    return response.data;
+  } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};
+
+export const getUserPerviousPackages = async ({
+  setFormStatus,
+  setServerError,
+  setPerviousPackages,
+}) => {
+  const token = JSON.parse(localStorage.getItem("userToken"));
+  try {
+    setFormStatus("loading");
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/end-package`,
+      {
+        headers: {
+          token,
+        },
+      },
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+      setPerviousPackages(response.data);
     }
     return response.data;
   } catch (error) {
