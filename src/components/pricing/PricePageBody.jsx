@@ -23,10 +23,8 @@ const PricePageBody = () => {
     let newIndex;
     if (type === "minus") {
       newIndex = currentIndex - 1;
-      console.log("miuns", newIndex);
     } else if (type === "plus") {
       newIndex = currentIndex + 1;
-      console.log("pluse", newIndex);
     }
 
     try {
@@ -105,7 +103,7 @@ const PricePageBody = () => {
                   </div>
                 </div>
               )}
-              <PlanPricingCard showSetting={showSetting} data={plan} />
+              <PlanPricingCard dash showSetting={showSetting} data={plan} />
             </div>
           ))}
         </div>
@@ -121,18 +119,3 @@ const PricePageBody = () => {
 };
 
 export default PricePageBody;
-/**justify-center gap-x-[2.1875vw] items-center flex-wrap gap-y-[2vh] mb-10 */
-// import {
-//    DropdownAction,
-//    ItemDropdown,
-// } from "../dashboard/model/DropdownAction";
-// import { LuAlignRight } from "react-icons/lu";
-/* <DropdownAction iconIs={<LuAlignRight />}>
-                              <ItemDropdown
-                                 label={"Delete"}
-                                 href={null}
-                                 // action={() => handleDeleteProperty(blog._id)}
-                                 title="تأكيد مسح العقار "
-                                 description="  تأكيد مسح العقار  الى الارشيف "
-                              />
-                           </DropdownAction> */

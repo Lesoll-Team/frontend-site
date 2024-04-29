@@ -51,13 +51,12 @@ ChartJS.register(
   BarElement,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
 );
 
 function Dashboard() {
   const userInfo = useSelector((state) => state.userProfile.userData);
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
-  // console.log("PriceService", PriceService);
   const dataSale = useSelector((state) => state.OverView.dataSale);
   const dataRents = useSelector((state) => state.OverView.dataRent);
   const dataDelete = useSelector((state) => state.OverView.dataDeleted);
@@ -309,7 +308,6 @@ function Dashboard() {
       },
     ],
   };
-  // console.log(dateRange[0]);
   return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
     <div className="min-h-[90dvh]  flex" dir="ltr">
       <Head>
@@ -426,7 +424,7 @@ function Dashboard() {
             </div>
 
             <div
-              className="md:w-2/12 w-5/12 max-w-[150px] min-h-[100px]  flex-col border-gray2 border-1 rounded-md flex items-center 
+              className="md:w-2/12 w-5/12 max-w-[150px] min-h-[100px]  flex-col border-gray2 border-1 rounded-md flex items-center
             justify-center font-semibold text-lightGreenHover"
             >
               <span className="text-3xl"> {dataProperties?.totalCount}</span>

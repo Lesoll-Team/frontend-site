@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 const SocialAndPriceProject = ({ cardDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // console.log(cardDetails);
   const phone = useMemo(() => {
     if (cardDetails.connectPhoneNumber) {
       return cardDetails.connectPhoneNumber;
@@ -19,7 +18,7 @@ const SocialAndPriceProject = ({ cardDetails }) => {
       language
         ? `مهتم بمعرفة المزيد عن هذا المشروع https://lesoll.com/projects/${cardDetails?.slug}`
         : `Interested in knowing more about this property https://lesoll.com/projects/${cardDetails?.slug}`,
-    [language, cardDetails]
+    [language, cardDetails],
   );
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: phone,

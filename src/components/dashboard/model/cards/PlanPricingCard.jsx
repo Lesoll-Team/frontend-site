@@ -4,19 +4,18 @@ import PlanTitle from "./payment-card/PlanTitle";
 import ButtonsActions from "./payment-card/ButtonsActions";
 import BodyDataService from "./payment-card/BodyDataService";
 
-const PlanPricingCard = ({ stylesCss, data }) => {
+const PlanPricingCard = ({ stylesCss, data, dash }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(data);
   return (
     <div
-      className={`bg-white drop-shadow overflow-hidden flex flex-col gap-y-[16px] w-full  rounded-[6px] relative ${data?.Popular ? "h-[550px]" : "h-[450px]"}`}
+      className={`bg-white drop-shadow overflow-hidden flex flex-col gap-y-[16px] w-full  rounded-[6px] relative ${data?.Popular ? "h-[550px]" : "h-[500px]"}`}
     >
       <div dir={language ? "ltr" : "rtl"} className={`flex w-full relative`}>
         {data?.Popular && <PopularTag />}
         <PlanTitle data={data} stylesCss={stylesCss} />
       </div>
       <div className="mb-20 overflow-hidden">
-        <BodyDataService data={data} stylesCss={stylesCss} />
+        <BodyDataService data={data} stylesCss={stylesCss} dash={dash} />
       </div>
       <ButtonsActions data={data} stylesCss={stylesCss} />
     </div>
@@ -24,4 +23,3 @@ const PlanPricingCard = ({ stylesCss, data }) => {
 };
 
 export default PlanPricingCard;
-//${data?.Popular ? "md:h-[93.96870554765292vh] md:max-h-[590px] h-[73.96870554765292vh] max-h-[520px]" : "h-[73.96870554765292vh] max-h-[520px]"}

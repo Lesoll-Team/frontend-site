@@ -66,6 +66,21 @@ export async function getPlanPayments() {
     console.log("getPlanPayments error ");
   }
 }
+
+export async function getPlanPaymentsAdmin() {
+  try {
+    const userToken = JSON.parse(localStorage.getItem("userToken"));
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/payment/get-admin-payment?token=${userToken || undefined}`,
+    );
+    return response.data;
+  } catch (error) {
+    console.log("getPlanPayments error ");
+  }
+}
+
+//get-admin-payment
 export async function getSinglePlanPrice({ id }) {
   try {
     const response = await axios.get(
@@ -117,8 +132,7 @@ export async function buyPackageActionWithCard({ id }) {
     { headers: { token: userToken } },
   );
   // const authUrl = response.data;
-  // console.log(authUrl);
-  // console.log(response);
+
   return response.data;
 }
 export async function buyPackageActionWithWallet({ id }) {
@@ -128,8 +142,7 @@ export async function buyPackageActionWithWallet({ id }) {
     { headers: { token: userToken } },
   );
   // const authUrl = response.data;
-  // console.log(authUrl);
-  // console.log(response);
+
   return response.data;
 }
 /**

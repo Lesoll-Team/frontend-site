@@ -1,6 +1,6 @@
 import useContactLinks from "@/Hooks/useContactLinks";
 import { localizedNumber } from "@/utils/localizedNumber";
-import { WhatsAppBtn } from "@/utils/propertyAPI";
+// import { WhatsAppBtn } from "@/utils/propertyAPI";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
@@ -10,7 +10,6 @@ const ProjectTitlePrice = ({ projectData }) => {
     phoneNumber: projectData.owner.code + projectData.owner.phone,
     message: "",
   });
-  // console.log(projectData);
   return (
     <section className="hidden md:flex justify-between items-end md:pb-16 md:border-b-2 flex-wrap gap-y-5 ">
       <div className="flex items-start gap-8">

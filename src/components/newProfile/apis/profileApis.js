@@ -6,7 +6,6 @@ export const editUserData = async ({
   setFormStatus,
   userId,
 }) => {
-  // console.log(userId);
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");

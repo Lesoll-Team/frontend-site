@@ -12,7 +12,7 @@ export const formatApiData = ({ setValue, data }) => {
       ...installment,
       type:
         installmentTypeOptions.find(
-          (item) => item.value === installment.type
+          (item) => item.value === installment.type,
         ) || "",
     };
   });
@@ -20,7 +20,7 @@ export const formatApiData = ({ setValue, data }) => {
   const rentalPeriod =
     rentalTypes.find((item) => item.value === data?.rentalPeriod) || "";
   const finishingType = finishingTypes.find(
-    (item) => item.value === data?.finishingType
+    (item) => item.value === data?.finishingType,
   );
   const unitType = {
     value: data?.unitType?._id,
@@ -43,7 +43,6 @@ export const formatApiData = ({ setValue, data }) => {
     longitude: data?.address?.longitude || "",
     latitude: data?.address?.latitude || "",
   };
-  // console.log(saleOption);
   setValue("title", data?.title);
   setValue(
     "currencies",
@@ -57,7 +56,7 @@ export const formatApiData = ({ setValue, data }) => {
             ar: "الجنيه المصري",
             en: "Egyptian pound",
           },
-        }
+        },
   );
   setValue("description", data?.description);
   setValue("offer", data?.offer);

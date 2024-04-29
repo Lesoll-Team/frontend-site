@@ -46,7 +46,6 @@ const AddProperty = () => {
       dispatch(getCurrencies());
     }
   }, []);
-  // console.log(currencies);
   useEffect(() => {
     if (formStatus === "success") {
       setSended(true);

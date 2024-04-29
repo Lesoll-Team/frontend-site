@@ -82,7 +82,6 @@ const SignUp = () => {
       data: dataTosend,
     });
   };
-  // console.log();
   // router.asPath
   useEffect(() => {
     if (formStatus === "success") {
@@ -229,7 +228,6 @@ const SignUp = () => {
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
       </div>
-      {/* {console.log(watch("typeOfUser"))} */}
       <DropDown
         selected={watch("typeOfUser")}
         options={USER_TYPES}

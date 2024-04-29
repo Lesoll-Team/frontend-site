@@ -32,9 +32,7 @@ const useEditProject = () => {
     watch,
   } = form;
   const { errors } = formState;
-  // console.log(watch("installment"));
   const onSubmit = handleSubmit(async (data) => {
-    // console.log(data);
     const installment = data?.installment?.map((plan) => {
       return {
         period: plan?.period || "",

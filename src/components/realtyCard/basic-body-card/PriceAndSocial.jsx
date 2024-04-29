@@ -68,4 +68,3 @@ export default memo(PriceAndSocial);
 //     `,
 //   user: propertyDetails?.user,
 // });
-// console.log("propertyDetails", propertyDetails);

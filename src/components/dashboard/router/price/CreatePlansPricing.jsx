@@ -85,7 +85,7 @@ const CreatePlansPricing = () => {
 
     const selectedFeaturesArray = selectedItems.map((selectedItem) => {
       const selectedFeature = servicePrice.find(
-        (item) => item._id === selectedItem
+        (item) => item._id === selectedItem,
       );
       if (selectedFeature) {
         const { _id, nameAr, nameEn } = selectedFeature;
@@ -95,10 +95,10 @@ const CreatePlansPricing = () => {
     });
 
     const filteredSelectedFeaturesArray = selectedFeaturesArray.filter(
-      (item) => item !== null
+      (item) => item !== null,
     );
     const featuresIdArray = filteredSelectedFeaturesArray.map(
-      (item) => item._id
+      (item) => item._id,
     );
 
     setFeaturesId(featuresIdArray);
@@ -419,7 +419,7 @@ const CreatePlansPricing = () => {
               </button>
             </div>
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mx-20 ">
             <PlanPricingCard data={data2} />
           </div>
         </div>

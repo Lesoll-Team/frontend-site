@@ -11,7 +11,6 @@ import EditSearchModal from "./EditSearchModal";
 import Skeleton from "@/Shared/ui/Skeleton";
 
 const SavedSearchCard = ({ data }) => {
-  // console.log(data);
   const [isChecked, setIsChecked] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [showMenu, setShowMenu] = useState(false);

@@ -3,19 +3,19 @@ import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import { PlusIcon } from "../../icon/PlusIcon";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getServicePrice } from "@/redux-store/features/PricingSlice";
-import { getPlanPayments } from "@/utils/PricingAPI";
+// import { getServicePrice } from "@/redux-store/features/PricingSlice";
+import { getPlanPaymentsAdmin } from "@/utils/PricingAPI";
 
 const PlansPricing = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [payments, setPayments] = useState([]);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   useEffect(() => {
     const fetchData = async () => {
-      dispatch(getServicePrice());
-      const response = await getPlanPayments();
+      // dispatch(getServicePrice());
+      const response = await getPlanPaymentsAdmin();
       setPayments(response.getPayment);
     };
     fetchData();
@@ -34,7 +34,7 @@ const PlansPricing = () => {
           <PlusIcon />
         </button>
       </div>
-      <div className="gap-10 flex flex-wrap justify-between">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-20 items-center  justify-center md:container md:mx-auto mx-[10px] ">
         {payments?.map((plan, index) => (
           <PlanPricingCard key={index} data={plan} />
         ))}

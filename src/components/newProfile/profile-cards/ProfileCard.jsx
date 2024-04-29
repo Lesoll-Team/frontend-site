@@ -12,13 +12,11 @@ import { MdOutlineStarPurple500 } from "react-icons/md";
 
 const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
    const language = useSelector((state) => state.GlobalState.languageIs);
-   console.log(data);
    const price = localizedNumber(data?.price);
 
    const typePending = useMemo(() => {
       return type === "تحت المراجعة" || type === "Pending";
    }, [type]);
-   console.log(typePending);
    if (data) {
       return (
          <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">

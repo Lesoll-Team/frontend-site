@@ -31,4 +31,3 @@ export const formatDate = (date) => {
 // Example usage:
 // const date = "2016-03-23T12:34:56"; // Added a specific time for demonstration
 // const formattedData = formatDate(date);
-// console.log(formattedData);

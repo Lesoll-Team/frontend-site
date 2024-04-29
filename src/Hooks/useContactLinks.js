@@ -76,7 +76,6 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
       setNotLogedOpen(true);
     }
   };
-  // console.log(notLogedOpen);
 
   const ContactModals = () => {
     return (

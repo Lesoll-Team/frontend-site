@@ -17,7 +17,13 @@ const ButtonsActions = ({ stylesCss, data }) => {
             disabled={data.Subscribed}
             className={`lg-text font-bold ${data.Subscribed ? "bg-[#66bfc2]" : "bg-lightGreen"}  w-10/12 h-[35px] rounded-[6px] text-white`}
           >
-            {language ? "اشترك الان" : "Subscribe now"}
+            {language
+              ? data.Subscribed
+                ? "بالفعل انت مشترك"
+                : "اشترك الان"
+              : data.Subscribed
+                ? "Already subscribed"
+                : "Subscribe now"}
           </ButtonsBuyPackage>
           <div className="w-full flex justify-center items-center gap-x-5 ">
             <Link
