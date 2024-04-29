@@ -6,10 +6,14 @@ root = true
 [*]
 indent_style = space
 <<<<<<< HEAD
+<<<<<<< HEAD
 indent_size = 3
 =======
 indent_size = 2
 >>>>>>> production
+=======
+indent_size = 2
+>>>>>>> test-payment
 end_of_line = crlf
 charset = utf-8
 trim_trailing_whitespace = true

@@ -83,6 +83,7 @@ const RealtyCard = ({ propertyDetails }) => {
         {/* start location and details rooms ...etc*/}
         <LocationAndRooms propertyDetails={propertyDetails} />
       </div>
+      {/* end card data */}
     </div>
   );
 };
