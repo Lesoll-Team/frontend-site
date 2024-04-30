@@ -45,7 +45,7 @@ const SignUpForm = () => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
   const onSubmit = async (data) => {
-    const dataTosend = {
+    const dataToSend = {
       fullname: data.fullname,
       email: data.email,
       code: data.code,
@@ -57,7 +57,7 @@ const SignUpForm = () => {
       setFormStatus,
       setToken,
       setServerError,
-      data: dataTosend,
+      data: dataToSend,
     });
   };
 
