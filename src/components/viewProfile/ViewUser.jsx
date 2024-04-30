@@ -19,6 +19,10 @@ const ViewUser = ({ user, properties, params }) => {
             height={140}
             alt={user.getUser?.fullname}
             src={user.getUser?.avatarUrl || "/user-avatar-placeholder.png"}
+            blurDataURL="data:image/webp;base64,UklGRk4CAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggYAAAAJAHAJ0BKoIAggA/mczgarkyLSigaAMgMwlpbt0AAd0OqpNkzFd98tVUTEPEwk5mhh7Do418cDIHKkdhHffmT6r0ZeseAAD+5YKZPucJxphPwy/sQxCV9xMpm0g/qAAAAA=="
+            placeholder="blur"
+            quality={80}
+            loading="lazy"
             className="rounded-full object-cover w-[50px] h-[50px] md:w-[140px] md:h-[140px]"
           />
           <div className="flex flex-col gap-2 md:gap-4">
@@ -78,7 +82,14 @@ const ViewUser = ({ user, properties, params }) => {
             </p>
           </div>
         )}
-        {/* {!user.getUser?.companyAddress && (
+      </div>
+      <UserProperties user={user} properties={properties} params={params} />
+    </div>
+  );
+};
+export default ViewUser;
+
+/* {!user.getUser?.companyAddress && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
               {language ? " مواقع التواصل" : "Social media"}{" "}
@@ -133,10 +144,4 @@ const ViewUser = ({ user, properties, params }) => {
               )}
             </div>
           </div>
-        )} */}
-      </div>
-      <UserProperties user={user} properties={properties} params={params} />
-    </div>
-  );
-};
-export default ViewUser;
+        )} */

@@ -1,20 +1,17 @@
 import Image from "next/image";
 import FavBtn from "./FavBtn";
 import ShareBtn from "./ShareBtn";
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import ReactTimeAgo from "react-time-ago";
-import { BiTime } from "react-icons/bi";
+import TimeAge from "./TimeAge";
+
 const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
-  const createdAt = useMemo(() => {
-    return new Date(propertyData?.createdAt);
-  }, [propertyData]);
-  // to cmbine the thumbnail and the subImages in ine array to use in lightbox
+
   const subImages = useMemo(() => {
     return propertyData.album.map((image, index) => {
       return { link: image.image, id: index + 1 };
@@ -48,46 +45,43 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         <div className="flex rounded-md w-full drop-shadow-md h-full overflow-hidden bg-gray-300 relative ">
           <Image
             onClick={() => openLightbox(0)}
-            priority
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
             src={propertyData?.thumbnail}
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRvICAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggBAEAAHAMAJ0BKoIAggA/OZC+WD6ppiOrEbsr0CcJZ27dfv8LaHrX8AY9QFUqDOPC7Kvl1mCFaUaFfBUUyI611LIlqlJJf3Phjq1OrXmRMug/OVpRyl+fbjeXT4DPgQEEEpMiI/mvfQ+9gHa8vFS58AD+6TF+T9cj7oWbmByEIF0Bq51Yg0gemEjfK1gDevGbbuLojM91eE0MzH9ZFXiw7WRzNpfOaeUhRRU51eG8kvsWktxYblds0cIR2FK7De+XvgVML9DZgNKxGLbsfPZM8+TZrGY6iIuFOMeBD5emVSb9cxgFWtDuAEeKwV6Drb1kzA+iTfpHP8lQ9Wr6AKH4igADZRHLgAAA"
             className=" object-cover"
           />
-          <div
-            className={`bg-white p-2 absolute z-10 bottom-2 left-2 md:bottom-5 rounded w-fit flex items-center gap-1 lg-text  text-lightGreen font-bold ${language ? "md:right-2  " : "md:left-2 "}`}
-          >
-            {" "}
-            <BiTime className="text-xl" />
-            <ReactTimeAgo
-              date={createdAt}
-              locale={language ? "" : "en-US"}
-              timeStyle="twitter"
-            />
-          </div>
+          {/*time here  */}
+          <TimeAge createdAt={propertyData?.createdAt} />
         </div>
       </div>
       <div className="flex w-full rounded-md max-h-[100px] md:max-h-full bg-gray-300 drop-shadow-md h-full overflow-hidden items-stretch">
         <Image
           onClick={() => openLightbox(1)}
-          priority
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
           src={propertyData?.album[0]?.image}
           className="object-cover "
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRvICAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggBAEAAHAMAJ0BKoIAggA/OZC+WD6ppiOrEbsr0CcJZ27dfv8LaHrX8AY9QFUqDOPC7Kvl1mCFaUaFfBUUyI611LIlqlJJf3Phjq1OrXmRMug/OVpRyl+fbjeXT4DPgQEEEpMiI/mvfQ+9gHa8vFS58AD+6TF+T9cj7oWbmByEIF0Bq51Yg0gemEjfK1gDevGbbuLojM91eE0MzH9ZFXiw7WRzNpfOaeUhRRU51eG8kvsWktxYblds0cIR2FK7De+XvgVML9DZgNKxGLbsfPZM8+TZrGY6iIuFOMeBD5emVSb9cxgFWtDuAEeKwV6Drb1kzA+iTfpHP8lQ9Wr6AKH4igADZRHLgAAA"
         />
       </div>
       <div className="flex w-full h-full drop-shadow-md max-h-[100px] md:max-h-full overflow-hidden bg-gray-300 rounded-md items-stretch">
         <Image
           onClick={() => openLightbox(2)}
-          priority
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
           src={propertyData?.album[1]?.image}
           className=" object-cover"
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRvICAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggBAEAAHAMAJ0BKoIAggA/OZC+WD6ppiOrEbsr0CcJZ27dfv8LaHrX8AY9QFUqDOPC7Kvl1mCFaUaFfBUUyI611LIlqlJJf3Phjq1OrXmRMug/OVpRyl+fbjeXT4DPgQEEEpMiI/mvfQ+9gHa8vFS58AD+6TF+T9cj7oWbmByEIF0Bq51Yg0gemEjfK1gDevGbbuLojM91eE0MzH9ZFXiw7WRzNpfOaeUhRRU51eG8kvsWktxYblds0cIR2FK7De+XvgVML9DZgNKxGLbsfPZM8+TZrGY6iIuFOMeBD5emVSb9cxgFWtDuAEeKwV6Drb1kzA+iTfpHP8lQ9Wr6AKH4igADZRHLgAAA"
         />
       </div>
 
@@ -108,12 +102,14 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
         )}
         <Image
           onClick={() => openLightbox(3)}
-          priority
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
           src={propertyData?.album[2]?.image}
           className="rounded-md brightness-75 object-cover bg-gray-300 md:brightness-100 "
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRvICAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggBAEAAHAMAJ0BKoIAggA/OZC+WD6ppiOrEbsr0CcJZ27dfv8LaHrX8AY9QFUqDOPC7Kvl1mCFaUaFfBUUyI611LIlqlJJf3Phjq1OrXmRMug/OVpRyl+fbjeXT4DPgQEEEpMiI/mvfQ+9gHa8vFS58AD+6TF+T9cj7oWbmByEIF0Bq51Yg0gemEjfK1gDevGbbuLojM91eE0MzH9ZFXiw7WRzNpfOaeUhRRU51eG8kvsWktxYblds0cIR2FK7De+XvgVML9DZgNKxGLbsfPZM8+TZrGY6iIuFOMeBD5emVSb9cxgFWtDuAEeKwV6Drb1kzA+iTfpHP8lQ9Wr6AKH4igADZRHLgAAA"
         />
       </div>
 
@@ -129,12 +125,14 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           )}
           <Image
             onClick={() => openLightbox(4)}
-            priority
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
             src={propertyData.album[3]?.image || "/image-placeholder.svg"}
             className="rounded-md brightness-50 object-cover"
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRvICAABXRUJQVlA4WAoAAAAgAAAAgQAAgQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggBAEAAHAMAJ0BKoIAggA/OZC+WD6ppiOrEbsr0CcJZ27dfv8LaHrX8AY9QFUqDOPC7Kvl1mCFaUaFfBUUyI611LIlqlJJf3Phjq1OrXmRMug/OVpRyl+fbjeXT4DPgQEEEpMiI/mvfQ+9gHa8vFS58AD+6TF+T9cj7oWbmByEIF0Bq51Yg0gemEjfK1gDevGbbuLojM91eE0MzH9ZFXiw7WRzNpfOaeUhRRU51eG8kvsWktxYblds0cIR2FK7De+XvgVML9DZgNKxGLbsfPZM8+TZrGY6iIuFOMeBD5emVSb9cxgFWtDuAEeKwV6Drb1kzA+iTfpHP8lQ9Wr6AKH4igADZRHLgAAA"
           />
         </div>
       )}
@@ -149,7 +147,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           onCloseRequest={closeLightbox}
           onMovePrevRequest={() =>
             setLightboxIndex(
-              (lightboxIndex + images.length - 1) % images.length
+              (lightboxIndex + images.length - 1) % images.length,
             )
           }
           onMoveNextRequest={() =>
@@ -157,10 +155,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           }
         />
       )}
-      {/* <div className="flex items-center justify-end col-span-3 md:col-span-4">
-        <ReactTimeAgo date={createdAt} locale={language ? "" : "en-US"} />
-      </div> */}
     </section>
   );
 };
-export default PropertyImages;
+export default memo(PropertyImages);

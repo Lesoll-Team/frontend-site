@@ -1,3 +1,4 @@
+import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 
 const SearchRedirect = () => {
   return null;
@@ -5,12 +6,12 @@ const SearchRedirect = () => {
 
 export default SearchRedirect;
 export async function getServerSideProps() {
+  const destination = generateRedirectDestination();
 
   return {
     redirect: {
-      destination: "/properties/sale/residential/search?page=1",
+      destination: destination,
       statusCode: 308,
     },
   };
-
 }
