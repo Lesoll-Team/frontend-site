@@ -2,7 +2,6 @@ import Otp from "@/components/auth/otp/components/Otp";
 import axios from "axios";
 
 const OtpPage = ({ userData, token }) => {
-  // console.log(token);
   return <Otp userData={userData} token={token} />;
 };
 
@@ -33,7 +32,7 @@ export default OtpPage;
 export async function getServerSideProps(context) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/profile?token=${context.query.token}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/profile?token=${context.query.token}`,
     );
     const userData = response.data.userData;
     const token = context.query.token;

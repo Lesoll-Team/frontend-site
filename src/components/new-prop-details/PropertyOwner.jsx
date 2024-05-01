@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 
 import useContactLinks from "@/Hooks/useContactLinks";
 import Link from "next/link";
-import ReactTimeAgo from "react-time-ago";
+// import ReactTimeAgo from "react-time-ago";
+// const date = propertyData.createdAt;
+import { memo } from "react";
 
 const PropertyOwner = ({ propertyData, className }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const date = propertyData.createdAt;
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${"https://lesoll.com/property-details/" + propertyData?.slug} `;
@@ -26,7 +27,7 @@ const PropertyOwner = ({ propertyData, className }) => {
     <div
       className={cn(
         "bg-lightNeutral md:bg-white gap-6 md:gap-7 flex md:flex-col items-center md:justify-center  p-3 md:px-5 md:py-10  rounded md:border ",
-        className
+        className,
       )}
     >
       <Image
@@ -58,4 +59,4 @@ const PropertyOwner = ({ propertyData, className }) => {
     </div>
   );
 };
-export default PropertyOwner;
+export default memo(PropertyOwner);

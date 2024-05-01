@@ -1,6 +1,6 @@
 import { localizedNumber } from "@/utils/localizedNumber";
 import Link from "next/link";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { GoPencil } from "react-icons/go";
 import { MdOutlineAnalytics } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -70,13 +70,8 @@ const PriceTitle = ({ propertData }) => {
             </span>
           </Link>
         )}
-        {/* <WhatappLinkBtn
-          className={
-            "py-3 flex items-center justify-center w-full gap-2 bg-[#39AE41] text-white"
-          }
-        /> */}
       </div>
     </section>
   );
 };
-export default PriceTitle;
+export default memo(PriceTitle);

@@ -11,7 +11,6 @@ export const formateApiData = (setValue, data) => {
     longitude: data?.address?.longitude || "",
     latitude: data?.address?.latitude || "",
   };
-  // console.log(data?.installment?.length);
   if (data?.installment?.length > 0) {
     setValue("installment", data?.installment);
   } else {

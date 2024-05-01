@@ -32,9 +32,7 @@ const useEditProject = () => {
     watch,
   } = form;
   const { errors } = formState;
-  // console.log(watch("installment"));
-  const onSubmit = handleSubmit(async (data) => {
-    // console.log(data);
+  const onSubmit = handleSubmit((data) => {
     const installment = data?.installment?.map((plan) => {
       return {
         period: plan?.period || "",
@@ -76,12 +74,12 @@ const useEditProject = () => {
     formData.append("priceTo", data.priceTo || "");
     formData.append("address", JSON.stringify(address));
     formData.append("descriptionAr", data.descriptionAr || "");
-    formData.append("descriptionEn", data.descriptionEn) || "";
+    formData.append("descriptionEn", data.descriptionEn || "");
     formData.append("aboutAr", data.aboutAr || "");
     formData.append("aboutEn", data.aboutEn || "");
     formData.append("isCompound", data.isCompound);
     data.isCompound && formData.append("compaounds", data.compaounds?._id);
-    await dispatch(editProject({ data: formData, id: data.id }));
+    dispatch(editProject({ data: formData, id: data.id }));
   });
   return {
     onSubmit,

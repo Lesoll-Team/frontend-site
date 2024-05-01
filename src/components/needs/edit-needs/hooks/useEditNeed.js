@@ -21,7 +21,6 @@ const useEditNeed = (data) => {
   useEffect(() => {
     formatNeedApiData(setValue, (data = data.getData));
   }, []);
-  // console.log(watch("area"));
   const { errors } = formState;
   const onSubmit = handleSubmit(async (data) => {
     const dataToSend = {

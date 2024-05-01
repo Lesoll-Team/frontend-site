@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 const ProjectInfo = ({ projectData }) => {
   const router = useRouter();
   const slug = router.query.slug;
-  // console.log(routerSlug);
   const openDirectionsInGoogleMaps = () => {
     const url = `https://www.google.com/maps/search/?api=1&query=${projectData?.address.latitude},${projectData?.address.longitude}`;
     window.open(url, "_blank");
