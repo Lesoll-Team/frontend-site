@@ -46,11 +46,6 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/prices" className="font-noto">
-                {languageIs ? "الباقات" : "Packages"}
-              </Link>
-            </li>
-            <li>
               <Link href="/add-property" className="font-noto">
                 {languageIs ? "إضافة عقار" : "Add Property"}
               </Link>
@@ -68,7 +63,10 @@ function Navbar() {
                 >
                   {languageIs ? "جديد" : "New"}
                 </span>
-                <span>{languageIs ? "المشروعات الجديدة" : "New Projects"}</span>
+                <span>
+                  {" "}
+                  {languageIs ? "المشروعات الجديدة" : "New Projects"}
+                </span>
               </Link>
             </li>
           </ul>
