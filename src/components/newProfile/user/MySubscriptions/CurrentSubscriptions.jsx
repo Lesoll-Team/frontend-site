@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { getUserActivePackages } from "../../apis/profileApis";
 import NoItems from "../userProperties/NoItems";
 import { useSelector } from "react-redux";
-import PlanCard from "./PlanCard";
+import PlanCard from "./PackageCard";
+import PackageCardSkeleton from "./PackageCardSkeleton";
 
 const CurrentSubscriptions = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -19,14 +20,16 @@ const CurrentSubscriptions = () => {
   }, []);
   return (
     <div className="space-y-6 md:space-y-8">
-      {activePackages ? (
-        activePackages.package ? (
-          <PlanCard data={activePackages.package} />
-        ) : (
-          <NoItems title={language ? "لايوجد باقات حاليا" : "no packages"} />
-        )
+      {formStatus === "loading" ? (
+        <>
+          <PackageCardSkeleton />
+          <PackageCardSkeleton />
+          <PackageCardSkeleton />
+        </>
+      ) : formStatus === "success" ? (
+        <PlanCard data={activePackages.package} />
       ) : (
-        ""
+        formStatus === "failed" && ""
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import { formatDate } from "@/utils/FormateData";
-import React, { useState, useRef, useEffect, useMemo } from "react";
-import { HiDownload, HiOutlineDotsVertical } from "react-icons/hi";
+import React, { useMemo } from "react";
+import { HiDownload } from "react-icons/hi";
 import { useSelector } from "react-redux";
 
 const PlanCard = ({ data }) => {
@@ -14,47 +14,13 @@ const PlanCard = ({ data }) => {
       return language ? "سنة" : "year";
     }
   }, [data, language]);
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (menuRef.current && !menuRef.current.contains(event.target)) {
-  //       setMenuVisible(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
 
   return (
-    <div className="px-3 py-5 md:px-5 md:py10 border-2 rounded bg-white drop-shadow-md flex flex-col gap-8 relative">
-      {/* <div
-        ref={menuRef}
-        className={`absolute w-fit relat ${language ? "left-3" : " right-3"}`}
-      >
-        <button onClick={() => setMenuVisible(!isMenuVisible)}>
-          <HiOutlineDotsVertical />
-        </button>
-        {isMenuVisible && (
-          <div
-            className={` absolute bg-white  drop-shadow p-1 ${language ? "left-0" : " right-0"} rounded`}
-          >
-            <p  className="text-center px-7  w-full py-2 whitespace-nowrap">
-              {language ? "تغير الباقة" : "Change package"}
-            </p>
-            <hr />
-            <p  className="text-center px-7  w-full py-2 text-red-500 whitespace-nowrap">
-              {language ? " إلغاء الإشتراك" : "unsubscrip"}
-            </p>
-          </div>
-        )}
-      </div> */}
-
+    <div className="px-3 py-5 md:px-5 md:py10 border-1 rounded bg-white drop-shadow-sm flex flex-col gap-8 relative">
       <div className="flex gap-2">
         <h3>{language ? data?.packageName?.ar : data?.packageName?.en}</h3>
         <h3 className="text-lightGreen">
-          {data.price} جنية \ {packagePer}
+          {data.price} {language ? "جنية" : "Egp"} / {packagePer}
         </h3>
       </div>
       <div>

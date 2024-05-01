@@ -3,11 +3,10 @@ import { HiOutlineMailOpen } from "react-icons/hi";
 import { MdOutlineCall, MdOutlineEdit } from "react-icons/md";
 import { useSelector } from "react-redux";
 import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
+import ProfileHeaderSkeleton from "./ProfileHeaderSkeleton";
 
 const ProfileHeader = ({ hideHeader }) => {
   const userData = useSelector((state) => state.userProfile.userData);
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
   if (userData)
     return (
       <div>
@@ -34,17 +33,17 @@ const ProfileHeader = ({ hideHeader }) => {
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
-              <h2 className=" text-baseGray font-bold">
-                {userData?.fullname}{" "}
-                {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
-              </h2>
+              <h2 className=" text-baseGray font-bold">{userData?.fullname}</h2>
               <div className="hidden lg:flex  items-center gap-14">
-                <div className=" flex items-center gap-2">
-                  <MdOutlineCall className="text-2xl text-lightGreen" />
-                  <h3 className=" text-baseGray font-normal">
-                    {userData?.code + userData?.phone}
-                  </h3>
-                </div>
+                {!!userData?.phone && (
+                  <div className=" flex items-center gap-2">
+                    <MdOutlineCall className="text-2xl text-lightGreen" />
+
+                    <h3 className=" text-baseGray font-normal">
+                      {userData?.code + userData?.phone}
+                    </h3>
+                  </div>
+                )}
                 <div className=" flex items-center gap-2">
                   <HiOutlineMailOpen className="text-2xl text-lightGreen" />
                   <h3 className=" text-baseGray break-words break-all font-normal xl:max-w-fit">
@@ -53,41 +52,10 @@ const ProfileHeader = ({ hideHeader }) => {
                 </div>
               </div>
             </div>
-            {/* <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-lightNeutral h-fit rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap ">
-              <p className="text-sm xl:text-base font-bold text-lightGreen">
-                {language ? "الطلبات" : "Needs"}{" "}
-                <span className="text-outLine">{5}</span>
-              </p>
-              <p className="text-sm   xl:text-base font-bold text-lightGreen">
-                {language ? "عدد العقارات" : "Properties"}{" "}
-                <span className="text-outLine">{5}</span>
-              </p>
-            </div> */}
           </div>
         </header>
       </div>
     );
-  else
-    return (
-      <header
-        className={` w-full flex flex-col lg:flex-row justify-center items-center  md:mb-20   gap-[14px] lg:gap-[24px] ${
-          hideHeader && "md:flex hidden"
-        } `}
-      >
-        <div className="rounded-full object-cover w-[84px] h-[84px] lg:w-[100px] bg-gray-300 animate-pulse lg:h-[100px]" />
-        <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
-          <div className="lg:space-y-[24px]">
-            <div className="bg-gray-300 w-32 h-3 rounded animate-pulse" />
-
-            <div className="hidden lg:flex  items-center gap-14">
-              <div className=" flex items-center gap-2 w-44 rounded h-[10px] bg-gray-300 animate-pulse" />
-
-              <div className=" flex items-center gap-2 w-44 rounded h-[10px] bg-gray-300 animate-pulse" />
-            </div>
-          </div>
-          <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-gray-300 animate-pulse  w-[155px] h-[25px] lg:w-[220px] lg:h-[60px] rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap "></div>
-        </div>
-      </header>
-    );
+  else return <ProfileHeaderSkeleton hideHeader={hideHeader} />;
 };
 export default ProfileHeader;

@@ -2,7 +2,8 @@ import { useSelector } from "react-redux";
 import { getUserPerviousPackages } from "../../apis/profileApis";
 import { useEffect, useState } from "react";
 import NoItems from "../userProperties/NoItems";
-import PlanCard from "./PlanCard";
+import PlanCard from "./PackageCard";
+import PackageCardSkeleton from "./PackageCardSkeleton";
 
 const PreviousSubscription = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -23,15 +24,34 @@ const PreviousSubscription = () => {
   }, []);
   return (
     <div className="space-y-6 md:space-y-8">
-      {perviousPackages ? (
+      {formStatus === "loading" ? (
+        <>
+          <PackageCardSkeleton />
+          <PackageCardSkeleton />
+          <PackageCardSkeleton />
+        </>
+      ) : formStatus === "success" ? (
         perviousPackages.package.length > 0 ? (
-          <PlanCard data={perviousPackages.package} />
+          perviousPackages.package.map((data, index) => {
+            return <PlanCard data={data} key={index} />;
+          })
+        ) : (
+          <NoItems title={language ? "لا توجد باقات منتهية" : "no packages"} />
+        )
+      ) : (
+        formStatus === "failed" && ""
+      )}
+      {/* {perviousPackages ? (
+        perviousPackages.package.length > 0 ? (
+          perviousPackages.package.map((data, index) => {
+            return <PlanCard data={data} key={index} />;
+          })
         ) : (
           <NoItems title={language ? "لا توجد باقات منتهية" : "no packages"} />
         )
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };
