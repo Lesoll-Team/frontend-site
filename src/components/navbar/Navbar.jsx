@@ -10,13 +10,14 @@ import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
 import ProfileDropDown from "./ProfileDropDown";
 import NeedsLink from "./NeedsLink";
+import useNavSearch from "@/Hooks/useNavSearch";
 const SearchModelButton = dynamic(() => import("./SearchModelButton"));
 const SearchModel = dynamic(() => import("./SearchModel"));
 function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const userData = useSelector((state) => state.userProfile.userData);
   const [isOpen, setIsOpen] = useState(false);
-
+  const { NavSearch } = useNavSearch();
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
@@ -105,6 +106,7 @@ function Navbar() {
           {isOpen && <SearchModel isOpen={isOpen} setOpen={setIsOpen} />}
         </div>
       </div>
+      <NavSearch />
     </nav>
   );
 }

@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import useSearchBar from "@/Hooks/useSearchBar";
 
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -22,7 +23,7 @@ export default function Layout({ children }) {
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
       .toString()
-      .replace(".", "")
+      .replace(".", ""),
   );
 
   if (typeof window !== "undefined") {
@@ -48,6 +49,7 @@ export default function Layout({ children }) {
       dispatch(setLang(lang));
     }
   }, []);
+  const { SearchBar } = useSearchBar();
   return (
     <div>
       <Head>
@@ -55,6 +57,7 @@ export default function Layout({ children }) {
         <meta property="og:image" content="../../public/socialApperance.svg" />
       </Head>
       <Navbar />
+      <SearchBar />
       <main dir={language ? "rtl" : "ltr"}>{children}</main>
       <Footer dir={language ? "rtl" : "ltr"} />
       <ScrollToTopButton />
