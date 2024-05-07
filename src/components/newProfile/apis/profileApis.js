@@ -276,3 +276,32 @@ export const getUserPerviousPackages = async ({
     throw error.response.data;
   }
 };
+
+export const getInvoice = async ({
+  setFormStatus,
+  setServerError,
+  id,
+  setDownloadLink,
+}) => {
+  try {
+    setFormStatus("loading");
+    const token = JSON.parse(localStorage.getItem("userToken"));
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/download-invoice/${id}?token=${token}`,
+      {
+        headers: {
+          token,
+        },
+      },
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+      setDownloadLink(response.data?.link);
+      return response.data;
+    }
+    return response.data;
+  } catch (error) {
+    setServerError(error.response);
+    throw error.response.data;
+  }
+};

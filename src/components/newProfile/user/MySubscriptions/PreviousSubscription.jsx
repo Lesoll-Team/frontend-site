@@ -11,7 +11,7 @@ const PreviousSubscription = () => {
   const [perviousPackages, setPerviousPackages] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
-  console.log(perviousPackages);
+
   const fetchActivePackage = () => {
     getUserPerviousPackages({
       setPerviousPackages,

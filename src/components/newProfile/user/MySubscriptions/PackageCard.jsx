@@ -1,12 +1,16 @@
 import { formatDate } from "@/utils/FormateData";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { HiDownload } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { getInvoice } from "../../apis/profileApis";
 
 const PlanCard = ({ data }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate: startDate } = formatDate(data?.startDate);
   const { formattedDate: expireDate } = formatDate(data?.expireDate);
+  const [getInvoiceStatus, setGetInvoiceStatus] = useState("idle");
+  const [getInvoiceError, setGetInvoiceError] = useState("idle");
+  const [downloadLink, setDownloadLink] = useState(null);
   const packagePer = useMemo(() => {
     if (data.type === "month") {
       return language ? "شهر" : "month";
@@ -14,7 +18,30 @@ const PlanCard = ({ data }) => {
       return language ? "سنة" : "year";
     }
   }, [data, language]);
-
+  const handleDownloadClick = () => {
+    if (getInvoiceStatus === "success" && downloadLink) {
+      const link = document.createElement("a");
+      link.href = downloadLink;
+      link.target = "_blank";
+      // Set the download filename if necessary
+      console.log();
+      link.setAttribute("download", "Invoice.pdf"); // You can dynamically set the file name based on the response if needed
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+  const getPackageInvoice = () => {
+    getInvoice({
+      id: data.id,
+      setFormStatus: setGetInvoiceStatus,
+      setServerError: setGetInvoiceError,
+      setDownloadLink,
+    });
+  };
+  useEffect(() => {
+    handleDownloadClick();
+  }, [getInvoiceStatus]);
   return (
     <div className="px-3 py-5 md:px-5 md:py10 border-1 rounded bg-white drop-shadow-sm flex flex-col gap-8 relative">
       <div className="flex gap-2">
@@ -57,11 +84,19 @@ const PlanCard = ({ data }) => {
           </div>
         </div>
       </div>
-      <button className="w-fit flex gap-2 items-center text-[#0863BD]">
+      <button
+        disabled={getInvoiceStatus === "loading"}
+        className="w-fit flex gap-2 items-center text-[#0863BD] disabled:opacity-80"
+        onClick={getPackageInvoice}
+      >
         <HiDownload />{" "}
         <p className="text-[#0863BD]">
           {language ? "تحميل الفاتورة" : "Download the invoice "}
         </p>
+        {getInvoiceStatus === "loading" && (
+          <div className="w-3 h-3 border-t-2  rounded-full border-lightGreen animate-spinner-ease-spin "></div>
+        )}
+        {/* <div className="w-10 h-1 bg-black animate-indeterminate-bar rounded-lg"></div> */}
       </button>
     </div>
   );

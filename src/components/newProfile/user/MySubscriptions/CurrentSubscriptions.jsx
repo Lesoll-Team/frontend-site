@@ -11,7 +11,7 @@ const CurrentSubscriptions = () => {
   const [activePackages, setActivePackages] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
-  console.log(activePackages);
+
   const fetchActivePackage = () => {
     getUserActivePackages({ setActivePackages, setFormStatus, setServerError });
   };
