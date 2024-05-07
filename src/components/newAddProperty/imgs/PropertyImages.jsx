@@ -38,9 +38,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   }, [errors.mainImage]);
   const handleMainImageChange = async (e) => {
     const originalFile = e.target.files[0];
-    console.log("original", originalFile.size);
     const compressedFile = await compressImage(originalFile);
-    console.log("compressed", compressedFile.size);
     setMainImage(compressedFile);
   };
   const deleteMainImage = () => {
