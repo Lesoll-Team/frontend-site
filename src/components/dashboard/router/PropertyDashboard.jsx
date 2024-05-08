@@ -18,6 +18,7 @@ import {
 import { useSelector } from "react-redux";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import Image from "next/image";
+import Cookies from "js-cookie";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -41,7 +42,7 @@ export default function PropertyDashboard() {
   const userInfo = useSelector((state) => state.userProfile.userData);
   const fetchAllProperties = async () => {
     try {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const userToken = Cookies.get("userToken");
       const getProperties = await fetchAllProperty(userToken);
       setProperty(getProperties);
       setProperty(getProperties);
@@ -305,7 +306,7 @@ export default function PropertyDashboard() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    []
+    [],
   );
 
   return (
@@ -390,7 +391,7 @@ export default function PropertyDashboard() {
                     router.push(`/editproperty/${blog.slug}`);
                   }}
                 >
-                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> 
+                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full">
                   edit
 
                 </DropdownItem>

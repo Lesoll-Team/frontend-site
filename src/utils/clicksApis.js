@@ -1,16 +1,16 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const propertyCallClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${id}?token=${token}`,
+    const response = await axiosInstance.patch(
+      `/property/calls/${id}?token=${token}`,
       {},
       {
         headers: {
           token: token,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -21,14 +21,14 @@ export const propertyCallClick = async ({ id }) => {
 export const propertyWhatsClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${id}?token=${token}`,
+    const response = await axiosInstance.patch(
+      `/property/whatsappbtn/${id}?token=${token}`,
       {},
       {
         headers: {
           token: token,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -38,14 +38,14 @@ export const propertyWhatsClick = async ({ id }) => {
 export const needsWhatsClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/whatsappbtn/${id}?token=${token}`,
+    const response = await axiosInstance.patch(
+      `/need/whatsappbtn/${id}?token=${token}`,
       {},
       {
         headers: {
           token: token,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -55,14 +55,14 @@ export const needsWhatsClick = async ({ id }) => {
 export const needsCallClick = async ({ id }) => {
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/calls/${id}?token=${token}`,
+    const response = await axiosInstance.patch(
+      `/need/calls/${id}?token=${token}`,
       {},
       {
         headers: {
           token: token,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {

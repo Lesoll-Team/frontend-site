@@ -10,16 +10,17 @@ import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 
 const LinksForm = ({ main }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
   const dispatch = useDispatch();
   const form = useForm();
-  const { register, handleSubmit, formState, setValue, watch } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("faceLink", data.faceLink);
     formData.append("instagramLink", data.instagramLink);
@@ -27,16 +28,16 @@ const LinksForm = ({ main }) => {
     formData.append("linkedInLink", data.linkedInLink);
     formData.append("instagramLink", data.tiktokLink);
 
-    await dispatch(
+    dispatch(
       updateUser({
         userData: data,
-        id: userData?._id,
-      })
+        id: data?._id,
+      }),
     );
     dispatch(getUserData());
   };
 
-  if (userData) {
+  if (data) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -59,7 +60,7 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.faceLink}
+                defaultValue={data.faceLink}
                 {...register("faceLink", {})}
                 className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
                   errors.faceLink && "border-red-500 focus:border-red-500"
@@ -74,9 +75,9 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData?.instagramLink}
+                defaultValue={data?.instagramLink}
                 {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -87,9 +88,9 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.linkedInLink}
+                defaultValue={data.linkedInLink}
                 {...register("linkedInLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -100,9 +101,9 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.xLink}
+                defaultValue={data.xLink}
                 {...register("xLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -113,9 +114,9 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.tiktokLink}
+                defaultValue={data.tiktokLink}
                 {...register("tiktokLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
             </UserSocialMediaContainer>
           </div>

@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   pending: {
@@ -25,15 +26,15 @@ const initialState = {
 export const getPendingNeeds = createAsyncThunk(
   "pendingNeeds/getPendingNeeds",
   async (thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/admin/pending-need?page=1&limit=9`,
+      const response = await axiosInstance.get(
+        `/need/admin/pending-need?page=1&limit=9`,
         {
           headers: {
             token: `${userToken}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -43,14 +44,14 @@ export const getPendingNeeds = createAsyncThunk(
         return thunkAPI.rejectWithValue(error.response.data);
       }
     }
-  }
+  },
 );
 export const getActiveNeeds = createAsyncThunk(
   "pendingNeeds/getActiveNeeds",
   async (page, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/get-all-needs?page=${page || 1}&limit=9`
+      const response = await axiosInstance.get(
+        `/need/get-all-needs?page=${page || 1}&limit=9`,
       );
       return response.data;
     } catch (error) {
@@ -60,45 +61,45 @@ export const getActiveNeeds = createAsyncThunk(
         return thunkAPI.rejectWithValue(error.response.data);
       }
     }
-  }
+  },
 );
 export const acceptNeed = createAsyncThunk(
   "pendingNeeds/acceptNeed",
   async (id, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/accept-need/${id}?token=${userToken}`,
+      const response = await axiosInstance.patch(
+        `/need/accept-need/${id}?token=${userToken}`,
         {
           headers: {
             token: `${userToken}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const deleteNeed = createAsyncThunk(
   "pendingNeeds/deleteNeed",
   async (id, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/delete-need/${id}?token=${userToken}`,
+      const response = await axiosInstance.delete(
+        `/need/delete-need/${id}?token=${userToken}`,
         {
           headers: {
             token: `${userToken}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const pendingNeedsSlice = createSlice({

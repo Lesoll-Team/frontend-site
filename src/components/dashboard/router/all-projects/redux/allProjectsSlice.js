@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   projects: {
@@ -18,40 +18,40 @@ export const getAllProjects = createAsyncThunk(
   async (thunkAPI) => {
     const token = JSON.parse(localStorage.getItem("userToken"));
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/property/all-project`,
+      const response = await axiosInstance.get(
+        `/property/all-project`,
 
         {
           headers: {
             token: token,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const deleteProject = createAsyncThunk(
   "allProjects/deleteProject",
   async (id, thunkAPI) => {
     const token = JSON.parse(localStorage.getItem("userToken"));
     try {
-      const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/property/delete-project/${id}`,
+      const response = await axiosInstance.delete(
+        `/property/delete-project/${id}`,
 
         {
           headers: {
             token: token,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const allProjectsSlice = createSlice({

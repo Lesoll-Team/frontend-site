@@ -1,5 +1,7 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import { logoutUser } from "@/utils/userAPI";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   userData: null,
@@ -9,21 +11,15 @@ const initialState = {
 
 export const getUserData = createAsyncThunk(
   "userProfile/getUserData",
-  async (thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+  async () => {
+    const userToken = Cookies.get("userToken");
     if (userToken) {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/user/profile?token=${userToken}`
-        );
-        return response.data.userData;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.response);
-      }
-    } else {
-      throw "failed";
+      const response = await axiosInstance.get(
+        `/user/profile?token=${userToken}`,
+      );
+      return response.data.userData;
     }
-  }
+  },
 );
 
 const userProfileSlice = createSlice({
@@ -31,6 +27,9 @@ const userProfileSlice = createSlice({
   initialState,
   reducers: {
     clearUserData: (state) => {
+      logoutUser();
+      Cookies.remove("userToken");
+      localStorage.clear();
       state.userData = null;
     },
   },
@@ -42,6 +41,22 @@ const userProfileSlice = createSlice({
       .addCase(getUserData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.userData = action.payload;
+        console.log("succeeded::>>>succeeded::>>>succeeded");
+        //faceLink instagramLink
+        //   localStorage.setItem("id", action.payload._id);
+        //   localStorage.setItem("instagramLink", action.payload.instagramLink);
+        //   localStorage.setItem("faceLink", action.payload.faceLink);
+        //   localStorage.setItem("fullname", action.payload.fullname);
+        //   localStorage.setItem("email", action.payload.email);
+        //   localStorage.setItem("avatarUrl", action.payload.avatarUrl);
+        //   localStorage.setItem("phone", action.payload.phone);
+        //   localStorage.setItem("code", action.payload.code);
+        //   localStorage.setItem("username", action.payload.username);
+        //   localStorage.setItem("typeOfUser", action.payload.typeOfUser);
+        //   localStorage.setItem(
+        //     "features",
+        //     JSON.stringify(action.payload.Features),
+        //   );
       })
       .addCase(getUserData.rejected, (state, action) => {
         state.status = "failed";

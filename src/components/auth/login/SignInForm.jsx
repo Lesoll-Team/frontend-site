@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -8,37 +8,39 @@ import { Ring } from "@uiball/loaders";
 import GoogleSignInBtn from "./GoogleSignInBtn";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "./api/loginApi";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 const SignInForm = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, handleSubmit, formState, reset } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const [WrongPassword, setWrongPasswird] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
-  // functions
   const onSubmit = async (data) => {
     await userLogin({ data, setFormStatus, setServerError, setToken });
   };
 
   useEffect(() => {
-    if (formStatus === "success") {
-      localStorage.setItem("userToken", JSON.stringify(token));
+    console.log("formStatus::>>", formStatus);
+    console.log("token::>>", token);
+    if (formStatus === "success" && token) {
+      dispatch(getUserData());
       router.replace("/");
     }
   }, [formStatus]);
 
   useEffect(() => {
     if (serverError?.message.toLowerCase().includes("password")) {
-      setWrongPasswird(true);
+      setWrongPassword(true);
       setServerError(null);
       setTimeout(function () {
-        setWrongPasswird(false);
+        setWrongPassword(false);
       }, 3500);
     }
     if (serverError?.message.toLowerCase().includes("email")) {
@@ -118,7 +120,7 @@ const SignInForm = () => {
             })}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.password || WrongPassword) &&
+              (errors.password || wrongPassword) &&
               "border-red-500 focus:border-red-500"
             }`}
           />
@@ -143,7 +145,7 @@ const SignInForm = () => {
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
-        {WrongPassword && (
+        {wrongPassword && (
           <p className="text-red-500 text-sm">
             {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
           </p>

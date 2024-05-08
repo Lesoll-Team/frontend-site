@@ -1,64 +1,35 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import Cookies from "js-cookie";
 
 export async function fetchAllProperty(userToken) {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/getpending`,
-      {
-        headers: {
-          token: userToken,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`/admin/property/getpending`, {
+      headers: {
+        token: userToken,
+      },
+    });
     return response.data.result;
   } catch (error) {
     throw error.response.massage;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export async function fetchActiveProperty(
   rowsPerPage,
   page,
   filterUser,
   formattedStartDate,
-  formattedEndDate
+  formattedEndDate,
 ) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const userToken = Cookies.get("userToken");
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?keywords=${filterUser}&start=${formattedStartDate}&end=${formattedEndDate}&limit=${rowsPerPage}&page=${page}`,
+    const response = await axiosInstance.get(
+      `/admin/search/searchprop?keywords=${filterUser}&start=${formattedStartDate}&end=${formattedEndDate}&limit=${rowsPerPage}&page=${page}`,
       {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -66,12 +37,10 @@ export async function fetchActiveProperty(
   }
 }
 
-
-
 // export async function fetchActiveProperty(rowsPerPage,page,userToken) {
 //   try {
-//     const response = await axios.get(
-//       `${process.env.NEXT_PUBLIC_API_URL}/admin/search/searchprop?limit=${rowsPerPage}&page=${page}&token=${userToken}`);
+//     const response = await axiosInstance.get(
+//       `/admin/search/searchprop?limit=${rowsPerPage}&page=${page}&token=${userToken}`);
 
 //     return response.data;
 //   } catch (error) {
@@ -80,15 +49,15 @@ export async function fetchActiveProperty(
 // }
 
 export async function deleteProperties(propertyID) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const userToken = Cookies.get("userToken");
   try {
-    const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propertyID}`,
+    const response = await axiosInstance.delete(
+      `/property/delete/property/${propertyID}`,
       {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -96,18 +65,16 @@ export async function deleteProperties(propertyID) {
   }
 }
 
-
-
 export async function deleteActiveProperty(propertyID) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const userToken = Cookies.get("userToken");
   try {
-    const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/deleteforever/${propertyID}`,
+    const response = await axiosInstance.delete(
+      `/admin/property/deleteforever/${propertyID}`,
       {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -116,11 +83,11 @@ export async function deleteActiveProperty(propertyID) {
 }
 
 export async function acceptProperties(propertyID) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const userToken = Cookies.get("userToken");
 
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/accept/${propertyID}?token=${userToken}`
+    const response = await axiosInstance.patch(
+      `/admin/property/accept/${propertyID}?token=${userToken}`,
     );
     return response.data;
   } catch (error) {
@@ -130,7 +97,7 @@ export async function acceptProperties(propertyID) {
 
 // /api/admin/property/accept/:id
 
-/* 
+/*
 const columns = [
 
   {name: "ID", uid: "id", sortable: true},
@@ -142,7 +109,7 @@ const columns = [
 ];
 
 
-const properties = [ 
+const properties = [
   {
     id: 1,
     title: "الهرم جيزة",
@@ -193,7 +160,7 @@ const properties = [
     property: "https://www.propertyfinder.eg/property/6a3fb141bbde7b46d363876291b3612e/260/185/MODE/a2422a/3552028-1bc07o.webp?ctr=eg",
     userName: "@Hassan8972",
   },
- 
+
 ];
 
 export {columns, properties};

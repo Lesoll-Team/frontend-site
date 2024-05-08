@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaRegUser } from "react-icons/fa";
-import { FaRegHandshake } from "react-icons/fa";
+import { FaRegUser, FaRegHandshake } from "react-icons/fa";
 import { BsBuildings } from "react-icons/bs";
 import SelectBtn from "./SelectBtn";
-import {
-  fetchUserData,
-  updateUserData,
-} from "@/redux-store/features/globalState";
+import { updateUserData } from "@/redux-store/features/globalState";
+import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 
 const UserTypeForm = () => {
   const userInfo = useSelector((state) => state.GlobalState.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
-  const [useType, setUserType] = useState("");
+  const [userType, setUserType] = useState("");
   const [error, setError] = useState(false);
   const selectUserType = (userType) => {
     setUserType(userType);
@@ -21,17 +18,17 @@ const UserTypeForm = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    if (useType) {
+    if (userType) {
       const formData = new FormData();
-      formData.append("typeOfUser", useType);
+      formData.append("typeOfUser", userType);
       try {
         dispatch(
           updateUserData({
             userID: userInfo?._id,
             userUpdate: formData,
-          })
+          }),
         );
-        dispatch(fetchUserData());
+        dispatch(getUserData());
       } catch (error) {
         console.error(error);
       }
@@ -55,7 +52,7 @@ const UserTypeForm = () => {
             description={"أنت مالك عقار وتتطلع إلى إدراجه للإيجار أو البيع."}
             onSelect={selectUserType}
             icon={<FaRegUser className="text-4xl md:text-7xl text-darkGreen" />}
-            useType={useType}
+            useType={userType}
           />
           <SelectBtn
             btnUserType={"broker"}
@@ -67,7 +64,7 @@ const UserTypeForm = () => {
             icon={
               <FaRegHandshake className="text-4xl md:text-7xl text-darkGreen" />
             }
-            useType={useType}
+            useType={userType}
           />
           <SelectBtn
             btnUserType={"company"}
@@ -77,7 +74,7 @@ const UserTypeForm = () => {
             icon={
               <BsBuildings className="text-4xl md:text-7xl text-darkGreen" />
             }
-            useType={useType}
+            useType={userType}
           />
         </div>
         {error && (

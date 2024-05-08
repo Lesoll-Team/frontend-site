@@ -10,11 +10,13 @@ import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
 import ProfileDropDown from "./ProfileDropDown";
 import NeedsLink from "./NeedsLink";
+import { useUser } from "@/Shared/UserContext";
 const SearchModelButton = dynamic(() => import("./SearchModelButton"));
 const SearchModel = dynamic(() => import("./SearchModel"));
 function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,7 +26,7 @@ function Navbar() {
     >
       <div
         className={`container mx-auto  relative flex justify-between h-16 ${
-          userData ? "lg:h-[80px]" : "lg:h-[85px]"
+          data ? "lg:h-[80px]" : "lg:h-[85px]"
         } `}
       >
         <div className="flex items-center gap-24">
@@ -74,7 +76,7 @@ function Navbar() {
 
         <div className="flex items-center gap-5  md:gap-4">
           <div className={`flex items-center gap-3 md:gap-4`}>
-            {!userData && (
+            {!data && (
               <div className="py-2   flex  gap-x-2 items-center text-lightGreen text-xs md:text-sm ">
                 <Link href={"/signin"} title="signin">
                   {languageIs ? "تسجيل الدخول" : "Sign in"}
@@ -87,10 +89,10 @@ function Navbar() {
             )}
             <div className="flex items-center  gap-3">
               <SearchModelButton isOpen={isOpen} setOpen={setIsOpen} />
-              {userData && <Notifications />}
+              {data && <Notifications />}
             </div>
 
-            {userData && <ProfileDropDown />}
+            {data && <ProfileDropDown />}
             <ChangeLang bigScreen={true} />
           </div>
 
@@ -99,7 +101,7 @@ function Navbar() {
 
         <div
           className={` absolute w-11/12 ${
-            userData ? "top-[65px] lg:top-[81px]" : "lg:top-[85px] top-[64px]"
+            data ? "top-[65px] lg:top-[81px]" : "lg:top-[85px] top-[64px]"
           }  justify-center flex items-center`}
         >
           {isOpen && <SearchModel isOpen={isOpen} setOpen={setIsOpen} />}

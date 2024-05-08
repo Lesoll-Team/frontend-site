@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   active: {
@@ -23,50 +24,48 @@ export const getActiveProp = createAsyncThunk(
   "userProperties/getActive",
   async (page = 1, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=9&page=${page}`,
+      const response = await axiosInstance.get(
+        `/user/confirmedprofile?limit=9&page=${page}`,
         {
           headers: {
             token: JSON.parse(localStorage.getItem("userToken")),
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const getPendingProp = createAsyncThunk(
   "userProperties/getPending",
   async (thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
-        { headers: { token: userToken } }
-      );
+      const response = await axiosInstance.get(`/user/pendingrealtyprofile`, {
+        headers: { token: userToken },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const getSoldProp = createAsyncThunk(
   "userProperties/getSold",
   async (thunkAPI) => {
     try {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const userToken = Cookies.get("userToken");
 
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/sold/get`,
-        { headers: { token: userToken } }
-      );
+      const response = await axiosInstance.get(`/user/sold/get`, {
+        headers: { token: userToken },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const userPropertiesSlice = createSlice({

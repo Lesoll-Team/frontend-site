@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
 import Button from "@/Shared/ui/Button";
 import { resetPass } from "./api/resetPassApi";
+import Cookies from "js-cookie";
 const ResetPassForm = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState, reset, watch } = useForm();
@@ -22,7 +23,8 @@ const ResetPassForm = () => {
 
   useEffect(() => {
     if (formStatus === "success") {
-      localStorage.setItem("userToken", JSON.stringify(token));
+      // localStorage.setItem("userToken", JSON.stringify(token));
+      Cookies.set("userToken", token);
       router.replace("/");
       reset();
     }

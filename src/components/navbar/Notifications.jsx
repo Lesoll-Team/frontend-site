@@ -45,12 +45,12 @@ const Notifications = () => {
   }, []);
   const handleNotificationClick = async (id) => {
     setShowMenu(false);
-    await dispatch(visitNotification(id));
+    dispatch(visitNotification(id));
     dispatch(getNotifications());
   };
   const handleSeeAll = async () => {
     setShowMenu(false);
-    await dispatch(visitAllNotifications());
+    dispatch(visitAllNotifications());
     dispatch(getNotifications());
   };
 

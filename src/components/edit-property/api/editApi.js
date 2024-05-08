@@ -1,4 +1,5 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import Cookies from "js-cookie";
 
 export const editProperty = async ({
   data,
@@ -8,16 +9,16 @@ export const editProperty = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${id}`,
+    const userToken = Cookies.get("userToken");
+    const response = await axiosInstance.put(
+      `/property/update/property/${id}`,
       data,
       {
         headers: {
           token: userToken,
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

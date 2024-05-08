@@ -24,11 +24,11 @@ const EditProperty = ({ data }) => {
     setStep,
     clearErrors,
     formStatus,
-    serverError,
   } = useEditProperty(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
   // const formStatus = useSelector((state) => state.editProperty.status);
+
   const userData = useSelector((state) => state.userProfile.userData);
   const userDataStatus = useSelector((state) => state.userProfile.status);
 
@@ -43,7 +43,6 @@ const EditProperty = ({ data }) => {
   useEffect(() => {
     if (formStatus === "success") {
       setSended(true);
-      // dispatch(resetEditPropertySlice());
       setStep(1);
       scrollToTop();
     }
@@ -90,16 +89,6 @@ const EditProperty = ({ data }) => {
           );
 
         case 3:
-          return (
-            <PropertyImages
-              errors={errors}
-              clearErrors={clearErrors}
-              register={register}
-              setValue={setValue}
-              watch={watch}
-            />
-          );
-
         default:
           return (
             <PropertyImages
@@ -146,16 +135,6 @@ const EditProperty = ({ data }) => {
             />
           );
         case 4:
-          return (
-            <PropertyImages
-              errors={errors}
-              clearErrors={clearErrors}
-              register={register}
-              setValue={setValue}
-              watch={watch}
-            />
-          );
-
         default:
           return (
             <PropertyImages

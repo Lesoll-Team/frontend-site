@@ -6,16 +6,17 @@ import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-// import ar from "javascript-time-ago/locale/ar.json";
+import { UserProvider } from "@/Shared/UserContext";
 TimeAgo.addDefaultLocale(en);
-// TimeAgo.addLocale(ar);
 function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <NextUIProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <UserProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </UserProvider>
       </NextUIProvider>
     </Provider>
   );

@@ -1,9 +1,9 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const getOtpCode = async (phone, token) => {
   try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/otp/send/phonenumber?token=${token}`,
+    const response = await axiosInstance.post(
+      `/user/otp/send/phonenumber?token=${token}`,
       {
         phoneNumber: phone,
       },
@@ -11,7 +11,7 @@ export const getOtpCode = async (phone, token) => {
         headers: {
           token: token,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -27,8 +27,8 @@ export const sendOtp = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/otp/send/verify?token=${token}`,
+    const response = await axiosInstance.post(
+      `/user/otp/send/verify?token=${token}`,
       {
         codenumber: otp,
       },
@@ -36,7 +36,7 @@ export const sendOtp = async ({
         headers: {
           token: token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

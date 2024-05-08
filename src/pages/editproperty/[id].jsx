@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-// import axios from "axios";
+//
 // import EditProp from "@/components/editproperty/EditProp";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";

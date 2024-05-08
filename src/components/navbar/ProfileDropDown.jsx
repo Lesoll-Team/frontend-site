@@ -1,4 +1,6 @@
+import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,7 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 const ProfileDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
+  // const userData = useSelector((state) => state.userProfile.userData);
   const menuRef = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -27,8 +31,9 @@ const ProfileDropDown = () => {
   };
   const handleLogout = () => {
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
+    // localStorage.removeItem("userToken");
+    // localStorage.removeItem("userIsLogin");
+    Cookies.remove("userToken");
     router.push("/signin");
   };
   useEffect(() => {
@@ -47,20 +52,16 @@ const ProfileDropDown = () => {
     };
   }, []);
   const isCompany = useMemo(() => {
-    return userData.typeOfUser === "company";
+    return data.typeOfUser === "company";
   }, []);
   const showDashboard = useMemo(() => {
-    if (userData.isAdmin || userData.superAdmin || userData.supAdmin) {
-      return true;
-    } else {
-      return false;
-    }
+    return data.isAdmin || data.superAdmin || data.supAdmin;
   }, []);
   return (
     <div className="relative" ref={menuRef}>
       <Image
         onClick={toggleMenu}
-        src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+        src={data?.avatarUrl || "/user-avatar-placeholder.png"}
         width={50}
         height={50}
         className="rounded-full object-cover h-7 cursor-pointer w-7 sm:w-[30px] sm:h-[30px] lg:h-[40px] lg:w-[40px] 2xl:h-[50px] 2xl:w-[50px]"

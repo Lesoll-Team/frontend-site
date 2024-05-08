@@ -2,15 +2,14 @@ import { useEffect } from "react";
 import ProfileLayout from "../ProfileLayout";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
-import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
 import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
 import useIsAuth from "@/Hooks/useIsAuth";
 import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
 import { useSelector } from "react-redux";
 
-const index = () => {
+const Index = () => {
   const userData = useSelector((state) => state.userProfile.userData);
-  const IsAuth = useIsAuth();
+  useIsAuth();
   const { windowWidth } = useWindowWidth();
   const router = useRouter();
   useEffect(() => {
@@ -27,4 +26,4 @@ const index = () => {
     </ProfileLayout>
   );
 };
-export default index;
+export default Index;

@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   needs: {
@@ -16,40 +17,34 @@ const initialState = {
 export const getUserNeeds = createAsyncThunk(
   "userNeeds/getUserNeeds",
   async (id, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/get-profile-needs`,
-        {
-          headers: {
-            token: userToken,
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/need/get-profile-needs`, {
+        headers: {
+          token: userToken,
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const deleteNeed = createAsyncThunk(
   "userNeeds/deleteNeed",
   async (id, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
     try {
-      const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/delete-need/${id}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        }
-      );
+      const response = await axiosInstance.delete(`/need/delete-need/${id}`, {
+        headers: {
+          token: userToken,
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const userNeedsSlice = createSlice({

@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   addUser: {
@@ -16,24 +17,24 @@ const initialState = {
 export const addSubuser = createAsyncThunk(
   "subuserSlice/addSubuser",
   async (data, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+    const userToken = Cookies.get("userToken");
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/company/send-invite-user/`,
+      const response = await axiosInstance.post(
+        `/user/company/send-invite-user/`,
         data,
         {
           headers: {
             token: userToken,
           },
-        }
+        },
       );
 
       return response.data.userData;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 const subuserSlice = createSlice({
   name: "subuserSlice",

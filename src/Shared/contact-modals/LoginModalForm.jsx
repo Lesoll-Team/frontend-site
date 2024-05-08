@@ -16,7 +16,7 @@ const LoginModalForm = ({ setIsOpen }) => {
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const [WrongPassword, setWrongPasswird] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
   // functions
@@ -25,8 +25,7 @@ const LoginModalForm = ({ setIsOpen }) => {
   };
 
   useEffect(() => {
-    if (formStatus === "success") {
-      localStorage.setItem("userToken", JSON.stringify(token));
+    if (formStatus === "success" && token) {
       dispatch(getUserData());
       setIsOpen(false);
     }
@@ -34,10 +33,10 @@ const LoginModalForm = ({ setIsOpen }) => {
 
   useEffect(() => {
     if (serverError?.message.toLowerCase().includes("password")) {
-      setWrongPasswird(true);
+      setWrongPassword(true);
       setServerError(null);
       setTimeout(function () {
-        setWrongPasswird(false);
+        setWrongPassword(false);
       }, 3500);
     }
     if (serverError?.message.toLowerCase().includes("email")) {
@@ -108,7 +107,7 @@ const LoginModalForm = ({ setIsOpen }) => {
             })}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.password || WrongPassword) &&
+              (errors.password || wrongPassword) &&
               "border-red-500 focus:border-red-500"
             }`}
           />
@@ -133,7 +132,7 @@ const LoginModalForm = ({ setIsOpen }) => {
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
-        {WrongPassword && (
+        {wrongPassword && (
           <p className="text-red-500 text-sm">
             {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
           </p>

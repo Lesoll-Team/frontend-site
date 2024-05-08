@@ -1,16 +1,18 @@
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-function index() {
+function Index() {
   const router = useRouter();
   const token = router?.query?.token;
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("userToken", JSON.stringify(token));
+      // localStorage.setItem("userToken", JSON.stringify(token));
+      Cookies.set("userToken", token);
       router.push("/");
     }
   }, [router]);
 
   return <div className="min-h-[100dvh]"></div>;
 }
-export default index;
+export default Index;

@@ -1,7 +1,9 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
+
 export const getProject = async (slug) => {
   try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/get-single-projects/${slug}`,
+    const res = await axiosInstance.get(
+      `/property/get-single-projects/${slug}`,
     );
     return res.data;
   } catch (error) {

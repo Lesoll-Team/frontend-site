@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import EditNeed from "@/components/needs/edit-needs/EditNeed";
-import axios from "axios";
+
 import React from "react";
 
 const index = ({ data }) => {
@@ -10,8 +11,8 @@ export default index;
 
 export async function getServerSideProps(context) {
   try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/single-need/${context.query.id}`
+    const res = await axiosInstance.get(
+      `/need/single-need/${context.query.id}`,
     );
     const data = res.data;
     return {

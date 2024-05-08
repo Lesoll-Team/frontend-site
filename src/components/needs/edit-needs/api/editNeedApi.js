@@ -1,18 +1,19 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import Cookies from "js-cookie";
 
 export const editNeed = async ({ data, setFormStatus, setError }) => {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const userToken = Cookies.get("userToken");
   try {
     setFormStatus("loading");
     setError(null);
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/update-need/${data.id}`,
+    const response = await axiosInstance.put(
+      `/need/update-need/${data.id}`,
       data,
       {
         headers: {
           token: userToken,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

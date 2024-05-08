@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   gov: null,
@@ -11,14 +11,12 @@ export const getGov = createAsyncThunk(
   "getGovSlice/getGov",
   async (thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/governorate/getall`
-      );
+      const response = await axiosInstance.get(`/admin/governorate/getall`);
       return response.data.governorate;
     } catch (error) {
       thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const getGovSlice = createSlice({

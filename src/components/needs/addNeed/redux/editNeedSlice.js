@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   status: "idle",
@@ -10,22 +11,22 @@ export const editNeed = createAsyncThunk(
   "need/editNeed",
   async (needDetails) => {
     try {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const userToken = Cookies.get("userToken");
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/need/delete-need/${id}?token=${userToken}`,
+      const response = await axiosInstance.post(
+        `/need/delete-need/${id}?token=${userToken}`,
         needDetails,
         {
           headers: {
             token: userToken,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 const editNeedSlice = createSlice({
   name: "editNeedSlice",

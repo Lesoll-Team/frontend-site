@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"; //createAsyncThunk
 import { getUserData, updateUserDataInfo } from "../../utils/userAPI";
-// const getLanguageFromLocalStorage = () => {
-//   if (typeof window !== "undefined") {
-//     const language = localStorage.getItem("language");
-//     return language === "ARB"; // Return true for Arabic, false for English
-//   }
-//   return false; // Default to English if localStorage is not available
-// };
+
 const initialState = {
   userData: null,
   userLod: false,
@@ -22,9 +16,9 @@ export const fetchUserData = createAsyncThunk(
       const response = await getUserData();
       return response;
     } catch (error) {
-      error.message;
+      console.log("error:>>>>", error.message);
     }
-  }
+  },
 );
 export const updateUserData = createAsyncThunk(
   "GlobalState/updateUserData",
@@ -33,13 +27,13 @@ export const updateUserData = createAsyncThunk(
       const response = await updateUserDataInfo(
         data.userID,
         // data.userToken,
-        data.userUpdate
+        data.userUpdate,
       );
       return response;
     } catch (error) {
-      return error.message;
+      console.log("error:>>>>", error.message);
     }
-  }
+  },
 );
 export const globalState = createSlice({
   name: "GlobalState",
