@@ -1,18 +1,20 @@
 import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
+import TestImageSlider from "@/components/image-slider/TestImageSlider";
 import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
 import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
 import axios from "axios";
 export default function PropertyDetails({ query, singleProperty, slug }) {
   return (
     <main className="  min-h-[80dvh] relative">
-      <section className="px-5 md:px-0 md:container mx-auto">
+      {/* <section className="px-5 md:px-0 md:container mx-auto">
         <NewPropDetails
           propertyData={singleProperty}
           slug={slug}
           query={query}
         />
       </section>
-      <ContactLinksMobile propertyData={singleProperty} />
+      <ContactLinksMobile propertyData={singleProperty} /> */}
+      <TestImageSlider data={singleProperty} />
     </main>
   );
 }
