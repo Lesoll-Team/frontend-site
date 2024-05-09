@@ -2,7 +2,6 @@ import RealtyCard from "@/components/realtyCard/RealtyCard";
 import { useSelector } from "react-redux";
 
 const ProjectUnits = ({ projectData, title }) => {
-  // console.log(projectData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div className="w-full  md:container mx-auto space-y-5">

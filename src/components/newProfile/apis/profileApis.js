@@ -6,7 +6,6 @@ export const editUserData = async ({
   setFormStatus,
   userId,
 }) => {
-  // console.log(userId);
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
@@ -18,7 +17,7 @@ export const editUserData = async ({
           "Content-Type": "multipart/form-data",
           token: token,
         },
-      }
+      },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 import Error from "@/Shared/ui/Error";
+import { compressImage } from "@/utils/compressImage";
 
 const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -35,25 +36,23 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
       mainImgContainerRef.current.focus();
     }
   }, [errors.mainImage]);
-  const handleMainImageChange = (e) => {
-    setMainImage(e.target.files[0]);
+  const handleMainImageChange = async (e) => {
+    const originalFile = e.target.files[0];
+    const compressedFile = await compressImage(originalFile);
+    setMainImage(compressedFile);
   };
   const deleteMainImage = () => {
     setMainImage(null);
   };
 
-  const handleMultiImageChange = (event) => {
-    const fileList = event.target.files;
-    const newImages = Array.from(fileList);
+  const handleMultiImageChange = async (event) => {
+    const originalFiles = Array.from(event.target.files);
+    const compressPromises = originalFiles.map(compressImage);
+    const compressedFiles = await Promise.all(compressPromises);
     if (Array.isArray(multiImage)) {
-      setMultiImage((prevImages) => [...prevImages, ...newImages]);
+      setMultiImage((prevImages) => [...prevImages, ...compressedFiles]);
     } else {
-      setMultiImage(newImages);
-    }
-    const photosnumber =
-      newImages.length + (multiImage ? multiImage.length : 0); // Ensure multiImage is not null
-    if (photosnumber >= 3) {
-      clearErrors("multiImage");
+      setMultiImage(compressedFiles);
     }
   };
   // const album = watch("album");

@@ -1,11 +1,7 @@
 import { formatDate } from "@/utils/FormateData";
 import { useMemo } from "react";
 import { BsCash, BsHouses } from "react-icons/bs";
-import {
-  LiaBedSolid,
-  LiaFileSignatureSolid,
-  LiaVectorSquareSolid,
-} from "react-icons/lia";
+import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
 import { PiArmchair, PiBathtub, PiPaintBrushBroad } from "react-icons/pi";
 import { TbCalendarCheck, TbStairsUp } from "react-icons/tb";
 import { useSelector } from "react-redux";
@@ -16,17 +12,27 @@ const PropertyInfo = ({ propertyData }) => {
   const offer = useMemo(() => {
     if (propertyData.offer === "For Rent") {
       return language ? "للإيجار" : "For Rent";
-    } else {
-      if (propertyData?.saleOption.length > 1) {
-        return language ? "تقسيط أو كاش" : "Cash or Installment";
-      } else {
-        if (propertyData?.saleOption[0] === "Cash") {
-          return language ? "للبيع / كاش" : "For Sale / Cash";
-        } else if (propertyData?.saleOption[0] === "Installment") {
-          return language ? "للبيع / تقسيط" : "For Sale / Installment";
-        }
-      }
+    } else if (propertyData?.saleOption.length > 1) {
+      return language ? "تقسيط أو كاش" : "Cash or Installment";
+    } else if (propertyData?.saleOption[0] === "Cash") {
+      return language ? "للبيع / كاش" : "For Sale / Cash";
+    } else if (propertyData?.saleOption[0] === "Installment") {
+      return language ? "للبيع / تقسيط" : "For Sale / Installment";
     }
+
+    // if (propertyData.offer === "For Rent") {
+    //   return language ? "للإيجار" : "For Rent";
+    // } else {
+    //   if (propertyData?.saleOption.length > 1) {
+    //     return language ? "تقسيط أو كاش" : "Cash or Installment";
+    //   } else {
+    //     if (propertyData?.saleOption[0] === "Cash") {
+    //       return language ? "للبيع / كاش" : "For Sale / Cash";
+    //     } else if (propertyData?.saleOption[0] === "Installment") {
+    //       return language ? "للبيع / تقسيط" : "For Sale / Installment";
+    //     }
+    //   }
+    // }
   }, [language]);
   const area = (
     <span>
@@ -46,28 +52,21 @@ const PropertyInfo = ({ propertyData }) => {
     switch (propertyData?.finishingType) {
       case "Not Finished":
         return language ? "بدون تشطيب" : "Not Finished";
-        break;
+
       case "Semi Finished":
         return language ? "نصف تشطيب" : "Semi Finished";
-        break;
+
       case "Lux":
         return language ? "لوكس" : "Lux";
-        break;
+
       case "Super Lux":
         return language ? "سوبر لوكس" : "Super Lux";
-        break;
+
       default:
-        propertyData?.finishingType;
+        return propertyData?.finishingType;
     }
   }, [language]);
 
-  const isRegisterd = useMemo(() => {
-    if (propertyData.isRegisterd) {
-      return language ? "العقار مسجل " : "Registered";
-    } else {
-      return language ? " غير مسجل " : "Not Registered";
-    }
-  }, [language]);
   const isFurnished = useMemo(() => {
     if (propertyData.isFurnished) {
       return language ? "العقار مفروش " : "Furnished";
@@ -143,11 +142,6 @@ const PropertyInfo = ({ propertyData }) => {
           />
         </>
       )}
-      {/* <InfoCard
-        icon={<LiaFileSignatureSolid />}
-        title={language ? "مسجل" : "Registerd"}
-        info={isRegisterd}
-      /> */}
     </section>
   );
 };

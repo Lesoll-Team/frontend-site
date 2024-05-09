@@ -3,9 +3,9 @@ import {
   visitAllNotifications,
   visitNotification,
 } from "@/redux-store/features/user/notifiicationSlice";
-import { formatDate } from "@/utils/FormateData";
+// import { formatDate } from "@/utils/FormateData";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import ReactTimeAgo from "react-time-ago";
@@ -14,10 +14,10 @@ const Notifications = () => {
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const menuRef = useRef(null);
-  const userData = useSelector((state) => state.userProfile.userData);
+  // const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userNotifications = useSelector(
-    (state) => state.notifications.notifications.data
+    (state) => state.notifications.notifications.data,
   );
   // const date = useMemo(()=>new Date())
   const toggleNotification = () => {
@@ -91,7 +91,7 @@ const Notifications = () => {
               userNotifications.map((item, i) => {
                 const notificationDate = new Date(item.createdAt);
                 return (
-                  <>
+                  <div key={item._id}>
                     <Link
                       href={item?.link || ""}
                       key={item._id}
@@ -102,14 +102,11 @@ const Notifications = () => {
                         {language ? item.title.ar : item.title.en}
                       </span>
                       <span className="text-xs md:text-sm text-lightGreen">
-                        <ReactTimeAgo
-                          date={notificationDate}
-                          locale={language ? "" : "en-US"}
-                        />
+                        <ReactTimeAgo date={notificationDate} />
                       </span>
                     </Link>
                     {userNotifications.length != i + 1 && <hr />}
-                  </>
+                  </div>
                 );
               })
             ) : (

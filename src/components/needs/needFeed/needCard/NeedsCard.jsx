@@ -13,7 +13,7 @@ const NeedsCard = ({ need }) => {
   const date = useMemo(() => new Date(need.createdAt), [need]);
   const title = useMemo(
     () => (language ? need?.title?.ar : need?.title?.en),
-    [need]
+    [need],
   );
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: need.userId[0]?.code + need?.userId[0]?.phone,
@@ -118,7 +118,7 @@ const NeedsCard = ({ need }) => {
       >
         <ReactTimeAgo
           date={date}
-          locale={language ? "ar" : "en-Us"}
+          // locale={language ? "ar" : "en-Us"}
           timeStyle="twitter"
         />
       </p>

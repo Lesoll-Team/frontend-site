@@ -10,15 +10,15 @@ const Steps = ({ step = 1, setStep, watch }) => {
   const isStepAboveOne = step > 1;
   const isStepAboveTwo = step > 2;
   const isStepAboveThree = step > 3;
-  const detailsStepLogic = () => {
-    if (isForInvestment) {
-      if (step > 2) {
-        return "button";
-      } else {
-        return "submit";
-      }
-    }
-  };
+  // const detailsStepLogic = () => {
+  //   if (isForInvestment) {
+  //     if (step > 2) {
+  //       return "button";
+  //     } else {
+  //       return "submit";
+  //     }
+  //   }
+  // };
   return (
     <div className="w-full md:w-[80%] mx-auto space-y-2 ">
       <div className="flex justify-between items-center mb-16">
@@ -102,7 +102,6 @@ const Steps = ({ step = 1, setStep, watch }) => {
           // type={detailsStepLogic()}
           // onClick={() => {
           //   if (isForInvestment) {
-          //     console.log(step);
           //     step > 1 && setStep(2);
           //   }
           // }}

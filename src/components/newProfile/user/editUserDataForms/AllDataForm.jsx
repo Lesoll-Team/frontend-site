@@ -4,19 +4,21 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { editUserData } from "../../apis/profileApis";
+import ReactModal from "@/Shared/ui/ReactModal";
 
 const AllDataForm = ({ main }) => {
+  const [successModalIsOpen, setSucessModalIsOpen] = useState(true);
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const formStatus = useSelector((state) => state.editUser.status);
-  const formError = useSelector((state) => state.editUser.error);
+  const [formStatus, setFormStatus] = useState("idle");
   const dispatch = useDispatch();
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
@@ -42,17 +44,17 @@ const AllDataForm = ({ main }) => {
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
     formData.append("instagramLink", data.instagramLink);
     formData.append("faceLink", data.faceLink);
-    await dispatch(
-      updateUser({
-        userData: formData,
-        id: userData?._id,
-      })
-    );
+
+    editUserData({
+      data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
+      userId: userData._id,
+      setFormStatus,
+      setServerError,
+    });
     dispatch(getUserData());
   };
 
   if (userData) {
-    const initailPhone = userData.code + userData?.phone;
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -63,7 +65,6 @@ const AllDataForm = ({ main }) => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-y-10"
         >
-          {/* {formStatus === "failed" && <p>{formError.message}</p>} */}
           <div className="flex flex-col  gap-y-8 md:grid lg:grid-cols-2 md:gap-x-10 lg:gap-x-14 md:gap-y-8">
             <UserInputContainer
               title={language ? "الإسم بالكامل" : "Full Name"}
@@ -155,6 +156,13 @@ const AllDataForm = ({ main }) => {
               </div>
             </UserInputContainer>
           </div>
+          <Button
+            disabled={formStatus === "loading"}
+            type={"submit"}
+            className={"w-fit min-w-[140px]"}
+          >
+            {language ? "حفظ" : "Save"}
+          </Button>
           <div className="flex flex-col gap-y-8 md:gap-y-11">
             <h3 className=" font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
@@ -198,6 +206,15 @@ const AllDataForm = ({ main }) => {
             </Button>
           </div>
         </form>
+        <ReactModal
+          modalIsOpen={successModalIsOpen}
+          setModalIsOpen={setSucessModalIsOpen}
+        >
+          <div className="min-h-[250px] md:min-w-[500px] min-w-[90vw] grid place-content-center gap-5">
+            <Image width={100} height={100} src={"/done-icon.png"} />
+            <h3>{language ? "تم الإرسال بنجاح" : "Send Successfully!"}</h3>
+          </div>
+        </ReactModal>
       </div>
     );
   } else {

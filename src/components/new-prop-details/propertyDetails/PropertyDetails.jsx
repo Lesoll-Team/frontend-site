@@ -4,6 +4,7 @@ import PropertyFeatures from "./sections/PropertyFeatures";
 import PropertyDescription from "./sections/PropertyDescription";
 import PropertyInstallmentPlans from "./sections/PropertyInstallmentPlans";
 import PropertyLocation from "./sections/PropertyLocation";
+import { memo } from "react";
 
 const PropertyDetails = ({ propertyData, className }) => {
   return (
@@ -18,4 +19,4 @@ const PropertyDetails = ({ propertyData, className }) => {
     </div>
   );
 };
-export default PropertyDetails;
+export default memo(PropertyDetails);

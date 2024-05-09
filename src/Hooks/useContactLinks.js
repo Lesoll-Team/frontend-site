@@ -48,7 +48,7 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
   let phoneNumberWithePlus = "+" + phoneNumberWithoutPlus;
   const callLink = `tel:${phoneNumberWithePlus}`;
   const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumberWithoutPlus}&text=${encodeURIComponent(
-    message
+    message,
   )}`;
 
   const handleActionClick = (clickType) => {
@@ -76,7 +76,6 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
       setNotLogedOpen(true);
     }
   };
-  // console.log(notLogedOpen);
 
   const ContactModals = () => {
     return (

@@ -1,9 +1,9 @@
 import { getRecommendRealty } from "@/utils/propertyAPI";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import RealtyCard from "../realtyCard/RealtyCard";
 
-const RecommendedProperties = ({ propertyData, slug }) => {
+const RecommendedProperties = ({ propertyData }) => {
   const [recommended, setRecommended] = useState();
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -31,4 +31,4 @@ const RecommendedProperties = ({ propertyData, slug }) => {
     </div>
   ) : null;
 };
-export default RecommendedProperties;
+export default memo(RecommendedProperties);
