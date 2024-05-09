@@ -15,10 +15,12 @@ import { editUserData } from "../../apis/profileApis";
 import ReactModal from "@/Shared/ui/ReactModal";
 
 const AllDataForm = ({ main }) => {
-  const [successModalIsOpen, setSucessModalIsOpen] = useState(true);
+  const [successModalIsOpen, setSucessModalIsOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState("idle");
+
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [formStatus, setFormStatus] = useState("idle");
   const dispatch = useDispatch();
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
@@ -53,6 +55,11 @@ const AllDataForm = ({ main }) => {
     });
     dispatch(getUserData());
   };
+  useEffect(() => {
+    if (formStatus === "success") {
+      setSucessModalIsOpen(true);
+    }
+  }, [formStatus]);
 
   if (userData) {
     return (
