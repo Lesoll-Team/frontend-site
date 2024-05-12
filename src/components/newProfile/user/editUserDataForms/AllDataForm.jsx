@@ -13,9 +13,12 @@ import MobilePageTitle from "../MobilePageTitle";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { editUserData } from "../../apis/profileApis";
 import ReactModal from "@/Shared/ui/ReactModal";
+import OptModal from "@/Shared/otp/OtpModel";
 
 const AllDataForm = ({ main }) => {
   const [successModalIsOpen, setSucessModalIsOpen] = useState(false);
+  const [otpVerifyIsOpen, setOtpVerifyIsOpen] = useState(false);
+  const [phoneToVerify, setPhoneToVerify] = useState("");
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
 
@@ -46,21 +49,27 @@ const AllDataForm = ({ main }) => {
     //   setFormStatus,
     //   setServerError,
     // });
-
-    const formData = new FormData();
-    formData.append("fullname", data.fullname);
-    formData.append("code", data.code);
-    formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
-    formData.append("instagramLink", data.instagramLink);
-    formData.append("faceLink", data.faceLink);
-
-    console.log("add");
-    dispatch(
-      updateUser({
-        userData: formData,
-        id: userData?._id,
-      }),
-    );
+    // editUserData({
+    //   data:{ ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
+    //   userId: userData?._id,
+    //   setFormStatus,
+    //   setServerError,
+    // });
+    if (phoneNumberwithoutCode(data.phone, data.code) === userData.phone) {
+      editUserData({
+        data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
+        userId: userData?._id,
+        setFormStatus,
+        setServerError,
+      });
+    } else {
+      setPhoneToVerify(phoneNumberwithoutCode(data.phone, data.code));
+      setOtpVerifyIsOpen(true);
+      console.log("not same");
+    }
+  };
+  const onSuccess = () => {
+    console.log("done");
   };
   useEffect(() => {
     if (formStatus === "success") {
@@ -226,10 +235,17 @@ const AllDataForm = ({ main }) => {
           setModalIsOpen={setSucessModalIsOpen}
         >
           <div className="min-h-[250px] md:min-w-[500px] min-w-[90vw] grid place-content-center gap-5">
-            <Image width={100} height={100} src={"/done-icon.png"} />
+            <Image width={100} height={100} src={"/done-icon.png"} alt="done" />
             <h3>{language ? "تم الإرسال بنجاح" : "Send Successfully!"}</h3>
           </div>
         </ReactModal>
+
+        <OptModal
+          phoneNumber={phoneToVerify}
+          isOpen={otpVerifyIsOpen}
+          setIsOpen={setOtpVerifyIsOpen}
+          onSuccess={onSuccess}
+        />
       </div>
     );
   } else {
