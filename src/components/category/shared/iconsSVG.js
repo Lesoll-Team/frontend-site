@@ -569,6 +569,5 @@ export const useUnitsIcons = (nameIcon) => {
     // return ApartmentIcon;
 
     // default:
-    //   console.log("Unknown property type");
   }
 };

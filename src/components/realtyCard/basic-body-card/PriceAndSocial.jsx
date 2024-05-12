@@ -1,6 +1,6 @@
 // import useContact from "@/Hooks/useContact";
 import useContactLinks from "@/Hooks/useContactLinks";
-import Link from "next/link";
+// import Link from "next/link";
 import React, { memo, useMemo } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCall } from "react-icons/io5";
@@ -68,4 +68,3 @@ export default memo(PriceAndSocial);
 //     `,
 //   user: propertyDetails?.user,
 // });
-// console.log("propertyDetails", propertyDetails);

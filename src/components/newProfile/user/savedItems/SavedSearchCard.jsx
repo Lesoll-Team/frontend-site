@@ -3,7 +3,7 @@ import {
   getSavedSearch,
 } from "@/redux-store/features/user/userSavedItemsSlice";
 import { formatDate } from "@/utils/FormateData";
-import { useDisclosure } from "@nextui-org/react";
+// import { useDisclosure } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,8 @@ import EditSearchModal from "./EditSearchModal";
 import Skeleton from "@/Shared/ui/Skeleton";
 
 const SavedSearchCard = ({ data }) => {
-  // console.log(data);
-  const [isChecked, setIsChecked] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // const [isChecked, setIsChecked] = useState(false);
+  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const language = useSelector((state) => state.GlobalState.languageIs);

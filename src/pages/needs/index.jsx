@@ -22,7 +22,7 @@ export async function getServerSideProps({ query }) {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/need/get-all-needs?page=${
         keyword?.page || 1
-      }&limit=9&cdb=${keyword.cdb || ""}`
+      }&limit=9&cdb=${keyword.cdb || ""}`,
     );
     const data = response.data;
     return {
@@ -32,7 +32,6 @@ export async function getServerSideProps({ query }) {
       },
     };
   } catch (error) {
-    // console.log();
     if (error?.response?.status == 400) {
       return {
         props: {

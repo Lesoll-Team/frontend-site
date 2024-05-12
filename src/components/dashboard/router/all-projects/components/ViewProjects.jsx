@@ -25,7 +25,6 @@ const ViewProjects = () => {
     };
     fetchProjects();
   }, [page]);
-  // console.log(data);
   return (
     <div
       dir={language ? "rtl" : "ltr"}

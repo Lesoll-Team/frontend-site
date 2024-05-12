@@ -38,9 +38,6 @@ const NewPropDetails = ({ propertyData, slug, query }) => {
           className={"col-span-2 col-start-1 row-start-1 md:mt-0 mt-4"}
           propertyData={propertyData}
         />
-        {/* <div className="bg-red-400  ">
-          da
-        </div> */}
       </div>
       <RecommendedProperties propertyData={propertyData} slug={slug} />
     </div>

@@ -30,11 +30,10 @@ export async function getAllUsers(userToken, limitPages) {
           headers: {
             token: userToken,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
-      // console.log("error user");
       throw error.response.massage;
     }
   }
@@ -53,7 +52,7 @@ export async function getCountUsersInDate(userToken, startDate, endDate) {
           headers: {
             token: userToken,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
