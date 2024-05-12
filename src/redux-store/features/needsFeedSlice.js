@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   needsPosts: null,
@@ -12,8 +12,8 @@ const initialState = {
 export const getNeeds = createAsyncThunk("needsFeed/getNeeds", async (page) => {
   // need/get-all-needs
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/get-all-needs?page=${page}&limit=9`
+    const response = await axiosInstance.get(
+      `/need/get-all-needs?page=${page}&limit=9`,
     );
     return response.data;
   } catch (error) {

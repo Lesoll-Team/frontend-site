@@ -1,5 +1,4 @@
 import { editUserData } from "@/components/newProfile/apis/profileApis";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +6,13 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Button from "../ui/Button";
 import { useRouter } from "next/router";
+import { useUser } from "../UserContext";
 const AddPhoneModalForm = ({ setIsOpen }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, setUserData } = useUser();
 
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
-  const dispatch = useDispatch();
   const form = useForm();
   const router = useRouter();
   const { register, handleSubmit, formState, setValue, watch } = form;
@@ -27,7 +26,7 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
     await editUserData({
       data: formData,
-      userId: userData?._id,
+      userId: data?._id,
       setFormStatus,
       setServerError,
     });
@@ -37,12 +36,14 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
     if (formStatus === "success") {
       const redirectBackTo = router.asPath;
       setIsOpen(false);
-      if (!userData?.verifiedPhone) {
+      if (!data?.verifiedPhone) {
+        const userToken = Cookies.get("userToken");
+
         router.push(
-          `/verify-otp/${JSON.parse(localStorage.getItem("userToken"))}?refirectBackTo=${redirectBackTo}`,
+          `/verify-otp/${userToken}?refirectBackTo=${redirectBackTo}`,
         );
       }
-      dispatch(getUserData());
+      setUserData();
     }
   }, [formStatus]);
   return (

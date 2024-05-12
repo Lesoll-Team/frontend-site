@@ -1,3 +1,4 @@
+import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,14 +13,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ProfileLinks = ({ main }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
-  const isCompany = userData?.typeOfUser === "company";
+  const { data, logOutUserData } = useUser();
+  const isCompany = data?.typeOfUser === "company";
   const router = useRouter();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
+    logOutUserData();
     router.push("/signin");
   };
   const route = router.asPath;

@@ -13,13 +13,10 @@ const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
     switch (userData?.typeOfUser) {
       case "broker":
         return language ? "سمسار" : "broker";
-        break;
       case "company":
         return language ? "مطور" : "Developer";
-        break;
       case "individual":
         return language ? "فرد" : "Individual";
-        break;
       default:
         return language ? "غير محدد" : "Not specified";
     }

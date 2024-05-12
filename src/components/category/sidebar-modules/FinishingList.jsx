@@ -1,6 +1,6 @@
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 import { finishingOptionsData } from "@/Shared/search/dropdown/dataDropdown";
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 
 const FinishingList = () => {
@@ -23,4 +23,4 @@ const FinishingList = () => {
   );
 };
 
-export default FinishingList;
+export default memo(FinishingList);

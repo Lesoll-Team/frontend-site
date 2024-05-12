@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+// import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 const SavedItemsTabs = ({ params, currentTab }) => {

@@ -12,16 +12,18 @@ import ChangeLang from "./ChangeLang";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
-import io from "socket.io-client";
+import { useUser } from "@/Shared/UserContext";
+// import io from "socket.io-client";
 
 const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
   const [showNeedMenu, setShowNeedMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, logOutUserData } = useUser();
+
   const dispatch = useDispatch();
   const router = useRouter();
-  const isCompany = userData?.typeOfUser === "company";
+  const isCompany = data?.typeOfUser === "company";
   const [showSideMenu, setShowSideMenu] = useState(false);
   const openSideMenu = () => {
     setShowSideMenu(true);
@@ -34,8 +36,8 @@ const SideMenu = () => {
   };
   const handleLogout = () => {
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
+    logOutUserData();
+    Cookies.remove("userToken");
     router.push("/signin");
   };
   useEffect(() => {
@@ -55,18 +57,18 @@ const SideMenu = () => {
       setShowSideMenu(false);
     }
   }, [windowWidth]);
-  useEffect(() => {
-    const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
-      transports: ["websocket"],
-      withCredentials: true,
-    });
-    if (userData?._id) {
-      socket.emit("online", { userId: userData._id });
-    }
-    return () => {
-      socket.disconnect();
-    };
-  }, [userData?._id]);
+  // useEffect(() => {
+  //   const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
+  //     transports: ["websocket"],
+  //     withCredentials: true,
+  //   });
+  //   if (userData?._id) {
+  //     socket.emit("online", { userId: userData._id });
+  //   }
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [userData?._id]);
   return (
     <>
       <button onClick={openSideMenu} className="lg:hidden">
@@ -93,11 +95,11 @@ const SideMenu = () => {
               <IoClose className="text-xl" />
             </button>
           </div>
-          {userData && (
+          {data && (
             <div className="mx-auto flex justify-center items-center gap-3 flex-col">
               <Link href={"/profile"} onClick={closeSideMenu}>
                 <Image
-                  src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+                  src={data?.avatarUrl || "/user-avatar-placeholder.png"}
                   width={84}
                   height={84}
                   className="rounded-full object-cover"
@@ -110,7 +112,7 @@ const SideMenu = () => {
                 className="max-w-[95%] text-center"
               >
                 <p className="text-base text-darkGray font-bold  ">
-                  {userData?.fullname}
+                  {data?.fullname}
                 </p>
               </Link>
             </div>
@@ -198,7 +200,7 @@ const SideMenu = () => {
           <hr className="w-10/12" />
           <div className="grid gap-5">
             <ChangeLang />
-            {userData && (
+            {data && (
               <button onClick={handleLogout} className="text-red-600 w-fit">
                 {language ? "تسجيل الخروج" : "Log out"}
               </button>

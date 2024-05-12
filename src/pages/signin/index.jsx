@@ -3,16 +3,18 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Signin from "@/components/auth/login/Signin";
+import { useUser } from "@/Shared/UserContext";
 const SignIn = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+
+  const { data } = useUser();
 
   useEffect(() => {
-    if (userData) {
+    if (data) {
       router.push("/"); // This will navigate to the home page after login is complete
     }
-  }, [userData]);
+  }, [data]);
   return (
     <>
       <Head>

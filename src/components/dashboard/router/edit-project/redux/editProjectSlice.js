@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   project: {
@@ -16,44 +16,28 @@ const initialState = {
 export const getProject = createAsyncThunk(
   "editProjectSlice/getProject",
   async (slug, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/property/get-single-projects/${slug}`,
-
-        {
-          headers: {
-            token: userToken,
-          },
-        }
+      const response = await axiosInstance.get(
+        `/property/get-single-projects/${slug}`,
       );
       return response.data.result;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const editProject = createAsyncThunk(
   "editProjectSlice/editProject",
   async (data, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/property/update-project/${data.id}`,
-        data.data,
-        {
-          headers: {
-            token: userToken,
-          },
-        }
+      const response = await axiosInstance.put(
+        `/property/update-project/${data.id}`,
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const editProjectSlice = createSlice({

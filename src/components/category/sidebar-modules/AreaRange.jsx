@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AreaRange = () => {
@@ -11,7 +11,7 @@ const AreaRange = () => {
     dispatch(
       updateAllStates({
         areaFrom: e.target.value,
-      })
+      }),
     );
   };
 
@@ -19,7 +19,7 @@ const AreaRange = () => {
     dispatch(
       updateAllStates({
         areaTo: e.target.value,
-      })
+      }),
     );
   };
   return (
@@ -50,4 +50,4 @@ const AreaRange = () => {
   );
 };
 
-export default AreaRange;
+export default memo(AreaRange);

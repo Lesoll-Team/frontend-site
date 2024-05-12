@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const postProjectContact = async ({
   setFormStatus,
@@ -7,10 +7,7 @@ export const postProjectContact = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/contact/add`,
-      data
-    );
+    const response = await axiosInstance.post(`/admin/contact/add`, data);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }

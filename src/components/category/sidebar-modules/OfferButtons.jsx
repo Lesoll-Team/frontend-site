@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const OfferButtons = () => {
@@ -10,7 +10,7 @@ const OfferButtons = () => {
     dispatch(
       updateAllStates({
         saleOption: name,
-      })
+      }),
     );
   };
 
@@ -55,4 +55,4 @@ const OfferButtons = () => {
   );
 };
 
-export default OfferButtons;
+export default memo(OfferButtons);

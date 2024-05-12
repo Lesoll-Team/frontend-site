@@ -1,9 +1,9 @@
-import useIsAuth from "@/Hooks/useIsAuth";
+// import useIsAuth from "@/Hooks/useIsAuth";
 import ProfileLayout from "../ProfileLayout";
 import UserNeeds from "@/components/newProfile/user/userNeeds/UserNeeds";
 
-const index = ({ params }) => {
-  const IsAuth = useIsAuth();
+const index = () => {
+  // const IsAuth = useIsAuth();
   return (
     <ProfileLayout hideHeader={true}>
       <UserNeeds />
@@ -12,11 +12,11 @@ const index = ({ params }) => {
 };
 export default index;
 
-export async function getServerSideProps({ query }) {
-  const params = query;
-  return {
-    props: {
-      params,
-    },
-  };
-}
+// export async function getServerSideProps({ query }) {
+//   const params = query;
+//   return {
+//     props: {
+//       params,
+//     },
+//   };
+// }

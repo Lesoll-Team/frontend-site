@@ -1,9 +1,9 @@
-import { useWindowWidth } from "@/Hooks/useWindowWidth";
+// import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
 import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
 
 const ProfileLayout = ({ children, hideHeader = true }) => {
-  const { windowWidth } = useWindowWidth();
+  // const { windowWidth } = useWindowWidth();
 
   return (
     <div className="md:flex md:gap-16">

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const getProjectsDashBoard = async ({
   setStatus,
@@ -6,17 +6,10 @@ export const getProjectsDashBoard = async ({
   setData,
   page,
 }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setStatus("loading");
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/admin-all-project?limit=1&page=${page || 1}`,
-
-      {
-        headers: {
-          token: token,
-        },
-      }
+    const response = await axiosInstance.get(
+      `/admin/property/admin-all-project?limit=1&page=${page || 1}`,
     );
     if (response.status === 200 || response.status === 201) {
       setStatus("success");
