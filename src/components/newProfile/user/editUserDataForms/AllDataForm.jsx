@@ -40,6 +40,13 @@ const AllDataForm = ({ main }) => {
   }, [userData]);
 
   const onSubmit = async (data) => {
+    // editUserData({
+    //   data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
+    //   userId: userData._id,
+    //   setFormStatus,
+    //   setServerError,
+    // });
+
     const formData = new FormData();
     formData.append("fullname", data.fullname);
     formData.append("code", data.code);
@@ -47,17 +54,18 @@ const AllDataForm = ({ main }) => {
     formData.append("instagramLink", data.instagramLink);
     formData.append("faceLink", data.faceLink);
 
-    editUserData({
-      data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-      userId: userData._id,
-      setFormStatus,
-      setServerError,
-    });
-    dispatch(getUserData());
+    console.log("add");
+    dispatch(
+      updateUser({
+        userData: formData,
+        id: userData?._id,
+      }),
+    );
   };
   useEffect(() => {
     if (formStatus === "success") {
       setSucessModalIsOpen(true);
+      dispatch(getUserData());
     }
   }, [formStatus]);
 
