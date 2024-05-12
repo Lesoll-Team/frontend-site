@@ -10,7 +10,6 @@ import axiosInstance from "./axiosInterceptorInstance";
 //"idle" | "loading" | "succeeded" |"failed"
 const UserContext = createContext({
   data: null,
-  loading: true,
   status: "idle",
 }); // Providing a default structure
 
