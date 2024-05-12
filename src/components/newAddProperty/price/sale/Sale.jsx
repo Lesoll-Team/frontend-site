@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 import Installment from "./Installment";
 import { useCallback } from "react";
 import Cash from "./Cash";
-import Error from "@/Shared/ui/Error";
+// import Error from "@/Shared/ui/Error";
 import AdminInsatllment from "./AdminInstallment";
 import MainPrice from "./mainPriceInput/MainPrice";
+import { useUser } from "@/Shared/UserContext";
 
 const Sale = ({ errors, register, setValue, watch, clearErrors, control }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
 
   const selectedSaleOption = useCallback(() => {
     const selectedOption = watch("saleOption.value");
@@ -26,7 +27,7 @@ const Sale = ({ errors, register, setValue, watch, clearErrors, control }) => {
           />
         );
       } else if (selectedOption[0] === "Installment") {
-        if (userData.email === "info@lesoll.com" && userData.isAdmin) {
+        if (data.email === "info@lesoll.com" && data.isAdmin) {
           return (
             <AdminInsatllment
               control={control}

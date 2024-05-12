@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   notifications: {
@@ -20,20 +19,13 @@ const initialState = {
 
 export const getNotifications = createAsyncThunk(
   "notificationSlice/getNotifications",
-  async (thunkAPI) => {
-    const userToken = Cookies.get("userToken");
+  async () => {
     try {
-      const response = await axiosInstance.get(`/notification/get/user`, {
-        headers: {
-          token: userToken,
-        },
-      });
+      const response = await axiosInstance.get(`/notification/get/user`);
       return response.data.notification;
     } catch (error) {
       console.log("getNotifications slice,", error);
       return [];
-
-      // return thunkAPI.rejectWithValue(error.response.data);
     }
   },
 );
@@ -41,10 +33,9 @@ export const getNotifications = createAsyncThunk(
 export const visitNotification = createAsyncThunk(
   "notificationSlice/visitNotification",
   async (id, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
       const response = await axiosInstance.patch(
-        `/notification/markasread/${id}?token=${userToken}`,
+        `/notification/markasread/${id}`,
       );
       return response.data;
     } catch (error) {
@@ -56,11 +47,8 @@ export const visitNotification = createAsyncThunk(
 export const visitAllNotifications = createAsyncThunk(
   "notificationSlice/visitAllNotifications",
   async (thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
-      const response = await axiosInstance.put(
-        `/notification/markall?token=${userToken}`,
-      );
+      const response = await axiosInstance.put(`/notification/markall`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

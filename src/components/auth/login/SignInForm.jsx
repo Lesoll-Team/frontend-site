@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -8,13 +8,13 @@ import { Ring } from "@uiball/loaders";
 import GoogleSignInBtn from "./GoogleSignInBtn";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "./api/loginApi";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 const SignInForm = () => {
+  const { setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const router = useRouter();
-  const dispatch = useDispatch();
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
@@ -27,10 +27,8 @@ const SignInForm = () => {
   };
 
   useEffect(() => {
-    console.log("formStatus::>>", formStatus);
-    console.log("token::>>", token);
     if (formStatus === "success" && token) {
-      dispatch(getUserData());
+      setUserData();
       router.replace("/");
     }
   }, [formStatus]);
@@ -62,7 +60,6 @@ const SignInForm = () => {
         {language ? "تسجيل الدخول" : "Sign In"}
       </h1>
 
-      {/* ---------------------- email ------------------------- */}
       <div className="space-y-2">
         {" "}
         <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
@@ -102,7 +99,6 @@ const SignInForm = () => {
         )}
       </div>
 
-      {/* ---------------------- Password ------------------------- */}
       <div className="">
         {" "}
         <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
@@ -152,7 +148,6 @@ const SignInForm = () => {
         )}
       </div>
 
-      {/* ---------------------- submit btn ------------------------- */}
       <Button type="submit">
         {formStatus === "loading" ? (
           <>
@@ -167,15 +162,12 @@ const SignInForm = () => {
         ) : (
           <span>{language ? "تسجيل الدخول" : "Sign In"}</span>
         )}
-
-        {/* text */}
       </Button>
       <div className="flex items-center gap-3">
         <div className="h-[1px] w-full bg-gray-500"></div>
         <p className="text-gray-700">{language ? "او" : "or"}</p>
         <div className="h-[1px] w-full bg-gray-500"></div>
       </div>
-      {/* --------------- google sign in */}
       <GoogleSignInBtn />
       <div className="flex items-center justify-center gap-1">
         <p className="text-lightGray">

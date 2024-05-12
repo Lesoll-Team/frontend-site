@@ -9,7 +9,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
 import AdminCashAndInstallment from "./Installment";
 import { useRef } from "react";
-const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
+// const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 
 const mapLib = ["places"];
 const MainInfo = ({
@@ -18,7 +18,7 @@ const MainInfo = ({
   errors,
   register,
   setValue,
-  step,
+  // step,
   watch,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);

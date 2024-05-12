@@ -1,5 +1,4 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import Cookies from "js-cookie";
 
 export async function saveSearchFilter({
   confirmSendMessage,
@@ -7,16 +6,11 @@ export async function saveSearchFilter({
   slug,
 }) {
   try {
-    const userToken = Cookies.get("userToken");
-
-    const response = await axiosInstance.post(
-      `/search/save-search?token=${userToken}`,
-      {
-        title: messageConfirmed,
-        slug,
-        sendEmail: confirmSendMessage,
-      },
-    );
+    const response = await axiosInstance.post(`/search/save-search`, {
+      title: messageConfirmed,
+      slug,
+      sendEmail: confirmSendMessage,
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;

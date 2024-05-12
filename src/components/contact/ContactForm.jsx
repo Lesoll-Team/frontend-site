@@ -23,8 +23,8 @@ const ContactForm = () => {
   };
   const dispatch = useDispatch();
 
-  const onSubmit = async (data) => {
-    await dispatch(postConatctMessage(data));
+  const onSubmit = (data) => {
+    dispatch(postConatctMessage(data));
   };
   useEffect(() => {
     if (status === "succeeded") {
@@ -174,7 +174,6 @@ const ContactForm = () => {
           className="bg-lightGreen h-10 w-full text-white flex items-center justify-center rounded-lg"
         >
           {status === "loading" ? "Loading" : language ? "إرسال" : "Send"}
-          {/* {language ? "إرسال" : "Send"} */}
         </button>
       </form>
     </>

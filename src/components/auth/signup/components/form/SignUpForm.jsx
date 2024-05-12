@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import GoogleSignInBtn from "@/components/auth/login/GoogleSignInBtn";
 import { userSignUp } from "../../api/signUpApi";
 import { Ring } from "@uiball/loaders";
@@ -11,14 +11,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
-import Cookies from "js-cookie";
+import { useUser } from "@/Shared/UserContext";
+// import Cookies from "js-cookie";
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
-  const dispatch = useDispatch();
-
+  const { setUserData } = useUser();
   const [token, setToken] = useState(null);
   const {
     register,
@@ -67,7 +66,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (formStatus === "success" && token) {
-      dispatch(getUserData());
+      setUserData();
       reset();
       router.push(`/verify-otp/${token}`);
     }

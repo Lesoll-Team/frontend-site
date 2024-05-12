@@ -1,19 +1,10 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import Cookies from "js-cookie";
 
 export async function createNewProperty(propertyDetils) {
   try {
-    const userToken = Cookies.get("userToken");
-
     const response = await axiosInstance.post(
       `/property/create`,
       propertyDetils,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "multipart/form-data",
-        },
-      },
     );
     return response.data;
   } catch (error) {
@@ -23,14 +14,8 @@ export async function createNewProperty(propertyDetils) {
 
 export async function propertyIsSold({ propertyId }) {
   try {
-    const userToken = Cookies.get("userToken");
     const response = await axiosInstance.patch(
-      `/admin/property/sold/${propertyId}?token=${userToken}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
+      `/admin/property/sold/${propertyId}`,
     );
     return response.data;
   } catch (error) {
@@ -40,17 +25,9 @@ export async function propertyIsSold({ propertyId }) {
 
 export async function editProperty(propertyDetils, propertyId) {
   try {
-    const userToken = Cookies.get("userToken");
-
     const response = await axiosInstance.put(
       `/property/update/property/${propertyId}`,
       propertyDetils,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      },
     );
     return response.data;
   } catch (error) {
@@ -60,16 +37,7 @@ export async function editProperty(propertyDetils, propertyId) {
 
 export async function AddToFavorites(propertyid) {
   try {
-    const userToken = Cookies.get("userToken");
-
-    const response = await axiosInstance.patch(
-      `/user/favorites/${propertyid}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
-    );
+    const response = await axiosInstance.patch(`/user/favorites/${propertyid}`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -78,12 +46,7 @@ export async function AddToFavorites(propertyid) {
 //  contat btns
 export async function WhatsAppBtn(propertyid) {
   try {
-    await axiosInstance.patch(`/property/whatsappbtn/${propertyid}`, {
-      headers: {
-        token: userToken,
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    await axiosInstance.patch(`/property/whatsappbtn/${propertyid}`);
   } catch (error) {
     console.log("error:>>>>", error);
   }
@@ -139,15 +102,9 @@ export async function shareOtherBtn(propertyid) {
 }
 export async function deleteProperty(propertyid, message) {
   try {
-    const userToken = Cookies.get("userToken");
-
     const response = await axiosInstance.delete(
-      `/property/delete/property/${propertyid}?token=${userToken}`,
-
+      `/property/delete/property/${propertyid}`,
       {
-        headers: {
-          token: userToken,
-        },
         data: {
           reason: message,
         },
@@ -161,17 +118,9 @@ export async function deleteProperty(propertyid, message) {
 
 export async function getRecommendRealty(propertyid) {
   try {
-    const userToken = Cookies.get("userToken");
-
     const response = await axiosInstance.get(
       `/search/recommendrealty/?realtyId=${propertyid}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
     );
-    //?token=${userToken}
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
@@ -180,17 +129,9 @@ export async function getRecommendRealty(propertyid) {
 
 export async function GetActiveProp(page) {
   try {
-    // const userToken = Cookies.get("userToken");
-
     const response = await axiosInstance.get(
       `/user/confirmedprofile?limit=2w&page=${page}`,
-      {
-        headers: {
-          token: JSON.parse(localStorage.getItem("userToken")),
-        },
-      },
     );
-    //?token=${userToken}
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
@@ -198,24 +139,15 @@ export async function GetActiveProp(page) {
 }
 export async function GetEditAds(slug) {
   try {
-    // const userToken = Cookies.get("userToken");
-
     const response = await axiosInstance.get(
       `/admin/property/updatepending/${slug}`,
-      {
-        headers: {
-          token: JSON.parse(localStorage.getItem("userToken")),
-        },
-      },
     );
-    //?token=${userToken}
     return response.data.find;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2
 export async function getGovernorate() {
   try {
     const response = await axiosInstance.get(`/admin/governorate/getall`);
@@ -235,10 +167,9 @@ export async function getRegion() {
 // property details dashboard admin
 
 export async function getPropertyDashboard(slug) {
-  const userToken = Cookies.get("userToken");
   try {
     const response = await axiosInstance.get(
-      `/admin/dashboard/property-details-dashboard/${slug}?token=${userToken}`,
+      `/admin/dashboard/property-details-dashboard/${slug}`,
     );
     return response.data;
   } catch (error) {

@@ -11,7 +11,6 @@ function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const toggleVisibility = () => setIsVisible(!isVisible);
-  //sendResetNewPassword
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
@@ -23,9 +22,7 @@ function ResetPassword() {
       const data = await sendResetNewPassword(userNewPassword);
       if (data.code == 200) {
         router.push("/signin");
-      } else {
       }
-    } else {
     }
   };
   return (

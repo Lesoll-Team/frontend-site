@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"; //createAsyncThunk
-import { getUserData, updateUserDataInfo } from "../../utils/userAPI";
+import { updateUserDataInfo } from "../../utils/userAPI";
 
 const initialState = {
   userData: null,
@@ -9,17 +9,7 @@ const initialState = {
   isUpdated: false,
   updateError: null,
 };
-export const fetchUserData = createAsyncThunk(
-  "GlobalState/fetchUserData",
-  async () => {
-    try {
-      const response = await getUserData();
-      return response;
-    } catch (error) {
-      console.log("error:>>>>", error.message);
-    }
-  },
-);
+
 export const updateUserData = createAsyncThunk(
   "GlobalState/updateUserData",
   async (data) => {
@@ -46,18 +36,7 @@ export const globalState = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserData.pending, (state) => {
-        state.userLod = true;
-        // state.userData = action.payload;
-      })
-      .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.userData = action.payload;
-        state.userLod = false;
-        // localStorage.setItem("userID", JSON.stringify(state.userData?._id))
-      })
-      .addCase(fetchUserData.rejected, (state, action) => {
-        state.userErr = action.error.message;
-      })
+
       .addCase(updateUserData.pending, (state) => {
         state.isUpdated = true;
         state.updateError = null;

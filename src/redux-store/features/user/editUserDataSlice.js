@@ -10,18 +10,10 @@ const initialState = {
 export const updateUser = createAsyncThunk(
   "editUserDataSlice/updateUser",
   async (data, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
-
     try {
       const response = await axiosInstance.put(
         `/user/update/${data.id}`,
         data.userData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            token: userToken,
-          },
-        },
       );
       response.data.userData.token &&
         Cookies.set("userToken", response.data.userData.token);

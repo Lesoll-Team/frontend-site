@@ -23,7 +23,6 @@ const ResetPassForm = () => {
 
   useEffect(() => {
     if (formStatus === "success") {
-      // localStorage.setItem("userToken", JSON.stringify(token));
       Cookies.set("userToken", token);
       router.replace("/");
       reset();

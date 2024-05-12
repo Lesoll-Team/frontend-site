@@ -59,10 +59,10 @@ const SignUp = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showPassword, setShowPassword] = useState(false);
 
-  const setUserType = (type) => {
-    setValue("typeOfUser", type);
-    clearErrors("typeOfUser");
-  };
+  // const setUserType = (type) => {
+  //   setValue("typeOfUser", type);
+  //   clearErrors("typeOfUser");
+  // };
   const phoneWithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };

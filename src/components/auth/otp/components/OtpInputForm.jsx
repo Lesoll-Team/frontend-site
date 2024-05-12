@@ -69,7 +69,6 @@ const OtpInputForm = ({ userData }) => {
   useEffect(() => {
     if (formStatus === "success") {
       const redirectBackTo = router?.query?.redirectBackTo;
-      // localStorage.setItem("userToken", JSON.stringify(token));
       Cookies.set("userToken", token);
 
       if (redirectBackTo) {

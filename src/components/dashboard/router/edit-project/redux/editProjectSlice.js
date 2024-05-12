@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   project: {
@@ -17,17 +16,9 @@ const initialState = {
 export const getProject = createAsyncThunk(
   "editProjectSlice/getProject",
   async (slug, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
-
     try {
       const response = await axiosInstance.get(
         `/property/get-single-projects/${slug}`,
-
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data.result;
     } catch (error) {
@@ -38,17 +29,9 @@ export const getProject = createAsyncThunk(
 export const editProject = createAsyncThunk(
   "editProjectSlice/editProject",
   async (data, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
-
     try {
       const response = await axiosInstance.put(
         `/property/update-project/${data.id}`,
-        data.data,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {

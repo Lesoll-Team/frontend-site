@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   status: "idle", // ? "idle" | "loading" | "succeeded" |"failed"
@@ -10,17 +9,10 @@ const initialState = {
 export const addProject = createAsyncThunk(
   "addProjectSlice/addProject",
   async (data, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
-
     try {
       const response = await axiosInstance.post(
         `/property/create-new-project`,
         data,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {

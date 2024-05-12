@@ -5,40 +5,46 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-import { useDispatch } from "react-redux";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
-import axiosInstance from "./axiosInterceptorInstance";
 
-const UserContext = createContext();
+import axiosInstance from "./axiosInterceptorInstance";
+//"idle" | "loading" | "succeeded" |"failed"
+const UserContext = createContext({
+  data: null,
+  loading: true,
+  status: "idle",
+}); // Providing a default structure
 
 export const useUser = () => useContext(UserContext);
-
 export const UserProvider = ({ children }) => {
-  // const data = useSelector((state) => state.userProfile.userData);
-  const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
-  const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
+  const [logout, setLogout] = useState(false);
+  const [status, setStatus] = useState("idle");
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setStatus("loading");
         const res = await axiosInstance.get(`/user/profile`);
-        console.log("reeeeeed", res);
         setData(res.data.userData);
-        dispatch(getUserData());
-        setLoading(false);
+        setStatus("succeeded");
       } catch (error) {
         console.error("Failed to fetch user data:", error);
-        setLoading(false);
+        setStatus("failed");
       }
     };
 
-    fetchUser();
-  }, []);
+    if (logout) {
+      setStatus("idle");
+      setData(null);
+    } else fetchUser();
+  }, [logout, refreshing]);
 
   const contextValue = useMemo(
     () => ({
       data,
-      loading,
+      status,
+      setUserData: () => setRefreshing(!refreshing),
+      logOutUserData: () => setLogout(true),
     }),
     [data],
   );

@@ -1,13 +1,8 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import Cookies from "js-cookie";
 
-export async function fetchAllProperty(userToken) {
+export async function fetchAllProperty() {
   try {
-    const response = await axiosInstance.get(`/admin/property/getpending`, {
-      headers: {
-        token: userToken,
-      },
-    });
+    const response = await axiosInstance.get(`/admin/property/getpending`);
     return response.data.result;
   } catch (error) {
     throw error.response.massage;
@@ -21,15 +16,9 @@ export async function fetchActiveProperty(
   formattedStartDate,
   formattedEndDate,
 ) {
-  const userToken = Cookies.get("userToken");
   try {
     const response = await axiosInstance.get(
       `/admin/search/searchprop?keywords=${filterUser}&start=${formattedStartDate}&end=${formattedEndDate}&limit=${rowsPerPage}&page=${page}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
     );
     return response.data;
   } catch (error) {
@@ -49,15 +38,9 @@ export async function fetchActiveProperty(
 // }
 
 export async function deleteProperties(propertyID) {
-  const userToken = Cookies.get("userToken");
   try {
     const response = await axiosInstance.delete(
       `/property/delete/property/${propertyID}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
     );
     return response.data;
   } catch (error) {
@@ -66,15 +49,9 @@ export async function deleteProperties(propertyID) {
 }
 
 export async function deleteActiveProperty(propertyID) {
-  const userToken = Cookies.get("userToken");
   try {
     const response = await axiosInstance.delete(
       `/admin/property/deleteforever/${propertyID}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
     );
     return response.data;
   } catch (error) {
@@ -83,11 +60,9 @@ export async function deleteActiveProperty(propertyID) {
 }
 
 export async function acceptProperties(propertyID) {
-  const userToken = Cookies.get("userToken");
-
   try {
     const response = await axiosInstance.patch(
-      `/admin/property/accept/${propertyID}?token=${userToken}`,
+      `/admin/property/accept/${propertyID}`,
     );
     return response.data;
   } catch (error) {

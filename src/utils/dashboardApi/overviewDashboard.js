@@ -8,11 +8,6 @@ export async function fetchPropertiesView(dates) {
     try {
       const response = await axiosInstance.get(
         `/admin/property/result-for-all-realty?start=${dates.dateFrom}&end=${dates.dateEnd}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -29,11 +24,6 @@ export async function fetchSaleView(dates) {
     try {
       const response = await axiosInstance.get(
         `/admin/property/result-for-all-realty-sale?start=${dates.dateFrom}&end=${dates.dateEnd}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -50,11 +40,6 @@ export async function fetchUsersView(dates) {
     try {
       const response = await axiosInstance.get(
         `/admin/property/result-for-all-realty-users?start=${dates.dateFrom}&end=${dates.dateEnd}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -71,11 +56,6 @@ export async function fetchDeleteView(dates) {
     try {
       const response = await axiosInstance.get(
         `/admin/property/result-for-all-realty-delete?start=${dates.dateFrom}&end=${dates.dateEnd}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -92,11 +72,6 @@ export async function fetchRentView(dates) {
     try {
       const response = await axiosInstance.get(
         `/admin/property/result-for-all-realty-rent?start=${dates.dateFrom}&end=${dates.dateEnd}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -107,10 +82,8 @@ export async function fetchRentView(dates) {
 }
 
 export const downloadUserData = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-user-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-user-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -127,10 +100,8 @@ export const downloadUserData = async (dates) => {
 };
 
 export const downloadRealtyData = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-realty-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-realty-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -147,10 +118,8 @@ export const downloadRealtyData = async (dates) => {
 };
 
 export const downloadOverviewData = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-overview-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-overview-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -166,10 +135,8 @@ export const downloadOverviewData = async (dates) => {
 };
 
 export const downloadSearchKeyword = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-search-keyword-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-search-keyword-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -185,10 +152,8 @@ export const downloadSearchKeyword = async (dates) => {
   document.body.removeChild(link);
 };
 export const downloadUpdateProperties = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-update-property-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-update-property-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -205,10 +170,8 @@ export const downloadUpdateProperties = async (dates) => {
 };
 
 export const downloadTrackUsers = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-track-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-track-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -225,10 +188,8 @@ export const downloadTrackUsers = async (dates) => {
 };
 
 export const downloadCampaign = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-campaign-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-campaign-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -245,10 +206,8 @@ export const downloadCampaign = async (dates) => {
 };
 
 export const downloadPropertyTrack = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-property-track-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-property-track-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {
@@ -265,10 +224,8 @@ export const downloadPropertyTrack = async (dates) => {
 };
 //online-users
 export const downloadOnlineUsers = async (dates) => {
-  const userToken = Cookies.get("userToken");
-
   const res = await axiosInstance.get(
-    `/admin/generated/generated-online-users-excel?token=${userToken}&end=${dates.dateEnd}&start=${dates.dateFrom}`,
+    `/admin/generated/generated-online-users-excel?end=${dates.dateEnd}&start=${dates.dateFrom}`,
     { responseType: "arraybuffer" },
   );
   const blob = new Blob([res.data], {

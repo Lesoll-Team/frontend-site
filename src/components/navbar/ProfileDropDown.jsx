@@ -17,9 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 const ProfileDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { data } = useUser();
-
-  // const userData = useSelector((state) => state.userProfile.userData);
+  const { data, logOutUserData } = useUser();
   const menuRef = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -31,9 +29,7 @@ const ProfileDropDown = () => {
   };
   const handleLogout = () => {
     dispatch(clearUserData());
-    // localStorage.removeItem("userToken");
-    // localStorage.removeItem("userIsLogin");
-    Cookies.remove("userToken");
+    logOutUserData();
     router.push("/signin");
   };
   useEffect(() => {

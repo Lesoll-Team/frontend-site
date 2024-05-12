@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   fav: {
@@ -22,13 +21,8 @@ const initialState = {
 export const getFavProp = createAsyncThunk(
   "userNeeds/getFavProp",
   async (thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
-      const response = await axiosInstance.get(` /user/favorites/get`, {
-        headers: {
-          token: userToken,
-        },
-      });
+      const response = await axiosInstance.get(`/user/favorites/get`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -38,13 +32,8 @@ export const getFavProp = createAsyncThunk(
 export const getSavedSearch = createAsyncThunk(
   "userNeeds/getSavedSearch",
   async (thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
-      const response = await axiosInstance.get(` /search/get-save-search `, {
-        headers: {
-          token: userToken,
-        },
-      });
+      const response = await axiosInstance.get(`/search/get-save-search `);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -55,15 +44,9 @@ export const getSavedSearch = createAsyncThunk(
 export const deleteSavedSearch = createAsyncThunk(
   "userNeeds/deleteNeed",
   async (id, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
       const response = await axiosInstance.delete(
         `/search/delete-save-search/${id}`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {

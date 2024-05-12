@@ -5,11 +5,7 @@ export async function getAllNotifications() {
   const userToken = Cookies.get("userToken");
   if (userToken) {
     try {
-      const response = await axiosInstance.get(`/notification/get/user`, {
-        headers: {
-          token: userToken,
-        },
-      });
+      const response = await axiosInstance.get(`/notification/get/user`);
       return response.data.notification;
     } catch (error) {
       console.log("getAllNotifications ", error);
@@ -23,10 +19,7 @@ export async function getAllNotifications() {
 
 export async function seeAllNotifications() {
   try {
-    const userToken = Cookies.get("userToken");
-    const response = await axiosInstance.put(
-      `/notification/markall?token=${userToken}`,
-    );
+    const response = await axiosInstance.put(`/notification/markall`);
     return response.data;
   } catch (error) {
     console.log("seeAllNotifications ", error);
@@ -37,9 +30,8 @@ export async function seeAllNotifications() {
 
 export async function visitNotifications(NotificationsID) {
   try {
-    const userToken = Cookies.get("userToken");
     const response = await axiosInstance.patch(
-      `/notification/markasread/${NotificationsID}?token=${userToken}`,
+      `/notification/markasread/${NotificationsID}`,
     );
     return response.data;
   } catch (error) {

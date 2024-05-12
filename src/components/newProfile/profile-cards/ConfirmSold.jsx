@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function ConfirmSold({ openBtn, propertyDetails }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const propertyOnSold = async () => {
     try {
@@ -20,9 +19,9 @@ export default function ConfirmSold({ openBtn, propertyDetails }) {
 
   return (
     <>
-      <div onClick={onOpen} className="w-full p-0">
+      <button onClick={onOpen} className="w-full p-0">
         {openBtn}
-      </div>
+      </button>
       <Modal radius="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (

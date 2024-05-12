@@ -19,8 +19,7 @@ const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
   const [showNeedMenu, setShowNeedMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // const userData = useSelector((state) => state.userProfile.userData);
-  const { data } = useUser();
+  const { data, logOutUserData } = useUser();
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -37,6 +36,7 @@ const SideMenu = () => {
   };
   const handleLogout = () => {
     dispatch(clearUserData());
+    logOutUserData();
     Cookies.remove("userToken");
     router.push("/signin");
   };

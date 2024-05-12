@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ButtonsRooms = () =>
@@ -7,7 +7,7 @@ const ButtonsRooms = () =>
   {
     const language = useSelector((state) => state.GlobalState.languageIs);
     const { numBedrooms, numBathrooms } = useSelector(
-      (state) => state.Category
+      (state) => state.Category,
     );
     const dispatch = useDispatch();
     const handleButtonClick = (i, name) => {
@@ -17,7 +17,7 @@ const ButtonsRooms = () =>
           dispatch(
             updateAllStates({
               numBedrooms: numBedrooms === i + 1 ? null : i + 1,
-            })
+            }),
           );
           break;
         case "bath":
@@ -25,7 +25,7 @@ const ButtonsRooms = () =>
           dispatch(
             updateAllStates({
               numBathrooms: numBathrooms === i + 1 ? null : i + 1,
-            })
+            }),
           );
           break;
 
@@ -44,7 +44,7 @@ const ButtonsRooms = () =>
           <div className=" flex md:gap-x-[1vw]  gap-x-[1.5vw] sm-text">
             {Array.from(Array(7), (_, i) => (
               <button
-                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]  
+                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]
                              transition-colors duration-200 ease-in-out md:hover:bg-gray-200 md:active:bg-gray-300
                              ${
                                numBedrooms == i + 1
@@ -67,7 +67,7 @@ const ButtonsRooms = () =>
           <div className=" flex md:gap-x-[1vw]  gap-x-[1.5vw] sm-text">
             {Array.from(Array(7), (_, i) => (
               <button
-                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]  
+                className={` md:w-[40px] md:h-[40px] h-[30px] w-[30px] bg-white  rounded-[6px]
                              transition-colors duration-200 ease-in-out md:hover:bg-gray-200 md:active:bg-gray-300
                              ${
                                numBathrooms == i + 1
@@ -86,4 +86,4 @@ const ButtonsRooms = () =>
     );
   };
 
-export default ButtonsRooms;
+export default memo(ButtonsRooms);

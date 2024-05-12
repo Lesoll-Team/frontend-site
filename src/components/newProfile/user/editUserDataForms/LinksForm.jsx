@@ -9,11 +9,10 @@ import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useUser } from "@/Shared/UserContext";
 
 const LinksForm = ({ main }) => {
-  const { data } = useUser();
+  const { data, setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ const LinksForm = ({ main }) => {
         id: data?._id,
       }),
     );
-    dispatch(getUserData());
+    setUserData();
   };
 
   if (data) {

@@ -1,15 +1,9 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const postProperty = async ({ setFormStatus, setServerError, data }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const response = await axiosInstance.post(`/property/create`, data, {
-      headers: {
-        token: token,
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axiosInstance.post(`/property/create`, data);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }

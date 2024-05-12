@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Ring } from "@uiball/loaders";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "@/components/auth/login/api/loginApi";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "../UserContext";
 const LoginModalForm = ({ setIsOpen }) => {
+  const { setUserData } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
@@ -26,7 +28,7 @@ const LoginModalForm = ({ setIsOpen }) => {
 
   useEffect(() => {
     if (formStatus === "success" && token) {
-      dispatch(getUserData());
+      setUserData();
       setIsOpen(false);
     }
   }, [formStatus]);

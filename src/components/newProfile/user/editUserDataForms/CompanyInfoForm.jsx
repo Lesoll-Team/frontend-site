@@ -11,13 +11,12 @@ import CompanyPrograssBar from "../CompanyPrograssBar";
 import MobilePageTitle from "../MobilePageTitle";
 import LinksForm from "./LinksForm";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { cn } from "@/utils/cn";
 import CommercialImgInput from "./CommercialImgInput";
 import { useUser } from "@/Shared/UserContext";
 
 const CompanyInfoForm = ({ main }) => {
-  const { data } = useUser();
+  const { data, setUserData } = useUser();
 
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -67,7 +66,7 @@ const CompanyInfoForm = ({ main }) => {
         id: data?._id,
       }),
     );
-    dispatch(getUserData());
+    setUserData();
   };
 
   if (data) {

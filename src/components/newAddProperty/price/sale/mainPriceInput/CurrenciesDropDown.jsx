@@ -42,22 +42,21 @@ const CurrenciesDropDown = ({ className, setValue, watch }) => {
             language ? "left-0" : "right-0"
           }`}
         >
-          {currencies &&
-            currencies.getCurrencies.map((item, i) => {
-              return (
-                <button
-                  key={item.ISO_code}
-                  onClick={() => {
-                    setShowMenu(false);
-                    setValue("currencies", item);
-                  }}
-                  type="button"
-                  className="dropdown-option  w-full text-start  font-semibold text-darkGray py-2 px-2 md:px-2 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100"
-                >
-                  {language ? item.title.ar : item.title.en}
-                </button>
-              );
-            })}
+          {currencies?.getCurrencies.map((item) => {
+            return (
+              <button
+                key={item.ISO_code}
+                onClick={() => {
+                  setShowMenu(false);
+                  setValue("currencies", item);
+                }}
+                type="button"
+                className="dropdown-option  w-full text-start  font-semibold text-darkGray py-2 px-2 md:px-2 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100"
+              >
+                {language ? item.title.ar : item.title.en}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   status: "idle",
@@ -11,16 +10,9 @@ export const editNeed = createAsyncThunk(
   "need/editNeed",
   async (needDetails) => {
     try {
-      const userToken = Cookies.get("userToken");
-
       const response = await axiosInstance.post(
-        `/need/delete-need/${id}?token=${userToken}`,
+        `/need/delete-need/${id}`,
         needDetails,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {

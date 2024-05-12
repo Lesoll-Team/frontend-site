@@ -1,33 +1,27 @@
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 
 const FavBtn = ({ id }) => {
-  const isAuth = Cookies.get("jwt");
   const [active, setActive] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem("favorites"));
-    if (favorites.includes(id)) {
-      setActive(true);
-    }
-  }, [addToFAv]);
+  const { data, setUserData } = useUser();
+
   const addToFAv = async () => {
     setActive((prev) => !prev);
     const userToken = Cookies.get("userToken");
     if (userToken) {
       try {
         await AddToFavorites(id);
-        dispatch(getUserData());
+        setUserData();
       } catch (error) {
         console.error("Error add to fav :", error);
       }
     }
   };
-  if (isAuth) {
+
+  if (data) {
     return (
       <button
         onClick={() => {

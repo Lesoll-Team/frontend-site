@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdHome } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -56,4 +56,4 @@ const Breadcrumb = ({ dataObjectFromURL, queries }) => {
   );
 };
 
-export default Breadcrumb;
+export default memo(Breadcrumb);

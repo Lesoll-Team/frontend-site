@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   pending: {
@@ -26,15 +25,9 @@ const initialState = {
 export const getPendingNeeds = createAsyncThunk(
   "pendingNeeds/getPendingNeeds",
   async (thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
       const response = await axiosInstance.get(
         `/need/admin/pending-need?page=1&limit=9`,
-        {
-          headers: {
-            token: `${userToken}`,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -66,16 +59,8 @@ export const getActiveNeeds = createAsyncThunk(
 export const acceptNeed = createAsyncThunk(
   "pendingNeeds/acceptNeed",
   async (id, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
-      const response = await axiosInstance.patch(
-        `/need/accept-need/${id}?token=${userToken}`,
-        {
-          headers: {
-            token: `${userToken}`,
-          },
-        },
-      );
+      const response = await axiosInstance.patch(`/need/accept-need/${id}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -85,16 +70,8 @@ export const acceptNeed = createAsyncThunk(
 export const deleteNeed = createAsyncThunk(
   "pendingNeeds/deleteNeed",
   async (id, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
     try {
-      const response = await axiosInstance.delete(
-        `/need/delete-need/${id}?token=${userToken}`,
-        {
-          headers: {
-            token: `${userToken}`,
-          },
-        },
-      );
+      const response = await axiosInstance.delete(`/need/delete-need/${id}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

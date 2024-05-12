@@ -4,10 +4,11 @@ import { FaRegUser, FaRegHandshake } from "react-icons/fa";
 import { BsBuildings } from "react-icons/bs";
 import SelectBtn from "./SelectBtn";
 import { updateUserData } from "@/redux-store/features/globalState";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 
 const UserTypeForm = () => {
-  const userInfo = useSelector((state) => state.GlobalState.userData);
+  const { data, setUserData } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
   const [userType, setUserType] = useState("");
@@ -24,11 +25,11 @@ const UserTypeForm = () => {
       try {
         dispatch(
           updateUserData({
-            userID: userInfo?._id,
+            userID: data?._id,
             userUpdate: formData,
           }),
         );
-        dispatch(getUserData());
+        setUserData();
       } catch (error) {
         console.error(error);
       }

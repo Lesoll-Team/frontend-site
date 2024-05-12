@@ -7,7 +7,6 @@ function Index() {
 
   useEffect(() => {
     if (token) {
-      // localStorage.setItem("userToken", JSON.stringify(token));
       Cookies.set("userToken", token);
       router.push("/");
     }

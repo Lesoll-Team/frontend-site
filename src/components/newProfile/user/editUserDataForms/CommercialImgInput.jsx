@@ -6,7 +6,6 @@ import { FaCircleXmark } from "react-icons/fa6";
 
 const CommercialImgInput = ({ watch, setValue }) => {
   const commercialImgRef = useRef(null);
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleCommercialImgInputClick = () => {
     if (!watch("theCommercialRegistrationImg"))

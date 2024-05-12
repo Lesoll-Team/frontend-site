@@ -12,7 +12,8 @@ import AceeptedCard from "@/components/newAddProperty/AceeptedCard";
 import { DotPulse, Ring } from "@uiball/loaders";
 import useEditProperty from "./hooks/useEditProperty";
 import { scrollToTop } from "@/utils/scrollToTop";
-const EditProperty = ({ data }) => {
+import { useUser } from "@/Shared/UserContext";
+const EditProperty = ({ propData }) => {
   const {
     onSubmit,
     errors,
@@ -24,13 +25,11 @@ const EditProperty = ({ data }) => {
     setStep,
     clearErrors,
     formStatus,
-  } = useEditProperty(data);
+  } = useEditProperty(propData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
-  // const formStatus = useSelector((state) => state.editProperty.status);
 
-  const userData = useSelector((state) => state.userProfile.userData);
-  const userDataStatus = useSelector((state) => state.userProfile.status);
+  const { status, data } = useUser();
 
   const [sended, setSended] = useState(false);
 
@@ -148,14 +147,13 @@ const EditProperty = ({ data }) => {
       }
     }
   };
-  // const errorSubmit = useSelector((state) => state.addProperty.error);
-  if (userDataStatus === "loading") {
+  if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
         <DotPulse size={60} color="#309da0" />
       </div>
     );
-  } else if (userData) {
+  } else if (data) {
     return (
       <form
         noValidate
@@ -201,11 +199,9 @@ const EditProperty = ({ data }) => {
             </div>
           </>
         )}
-
-        {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>
     );
-  } else if (userDataStatus === "failed") {
+  } else if (status === "failed") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">
         <div className="max-w-[450px] p-5 py-8 bg-white rounded-lg border w-full drop-shadow flex flex-col justify-center items-center gap-5 md:gap-8">

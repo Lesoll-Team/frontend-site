@@ -13,25 +13,11 @@ const columns = [
   // {name: "Image", uid: "name"},//, sortable: true
 ];
 
-// const statusOptions = [
-//   {name: "Active", uid: "active"},
-//   {name: "Paused", uid: "paused"},
-//   // {name: "paused", uid: "paused"},
-// ];
-
 export async function getAllUsers(userToken, limitPages) {
-  // const userToken=JSON.parse(localStorage.getItem("userToken"))
   if (userToken) {
     try {
       const response = await axiosInstance.get(
         `/admin/getallusers?limit=${limitPages}&page=1`,
-        //?limit=num&page=num
-        // const response = await axiosInstance.get(`http://api0.lesoll-demo.site/api/user/profile`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {
@@ -42,18 +28,10 @@ export async function getAllUsers(userToken, limitPages) {
 }
 
 export async function getCountUsersInDate(userToken, startDate, endDate) {
-  // const userToken=JSON.parse(localStorage.getItem("userToken"))
   if (userToken) {
     try {
       const response = await axiosInstance.get(
         `/admin/getContUser?from=${startDate}&to=${endDate}`,
-        //?limit=num&page=num
-        // const response = await axiosInstance.get(`http://api0.lesoll-demo.site/api/user/profile`,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
       return response.data;
     } catch (error) {

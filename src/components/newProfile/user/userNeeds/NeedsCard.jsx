@@ -1,6 +1,6 @@
 import Skeleton from "@/Shared/ui/Skeleton";
 import { localizedNumber } from "@/utils/localizedNumber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,15 +23,15 @@ const NeedsCard = ({ data }) => {
   const roomNumbersTitle = language ? "عدد الغرف: " : "Rooms: ";
   const BathNumbersTitle = language ? "عدد الحمامات: " : "Bathrooms: ";
   const currancy = language ? "جنية" : "Egp";
-  const areaUnit = language ? (
-    <span>
-      م<sup>2</sup>
-    </span>
-  ) : (
-    <span>
-      M<sup>2</sup>
-    </span>
-  );
+  // const areaUnit = language ? (
+  //   <span>
+  //     م<sup>2</sup>
+  //   </span>
+  // ) : (
+  //   <span>
+  //     M<sup>2</sup>
+  //   </span>
+  // );
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {

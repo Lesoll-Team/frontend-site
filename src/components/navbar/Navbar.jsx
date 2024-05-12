@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 
+import { useUser } from "@/Shared/UserContext";
 import Link from "next/link";
 import Image from "next/image";
 import React, { memo, useState } from "react";
@@ -10,15 +11,12 @@ import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
 import ProfileDropDown from "./ProfileDropDown";
 import NeedsLink from "./NeedsLink";
-import { useUser } from "@/Shared/UserContext";
 const SearchModelButton = dynamic(() => import("./SearchModelButton"));
 const SearchModel = dynamic(() => import("./SearchModel"));
 function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
-
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}

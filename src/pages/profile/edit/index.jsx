@@ -5,10 +5,11 @@ import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
 import useIsAuth from "@/Hooks/useIsAuth";
 import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useUser } from "@/Shared/UserContext";
 
 const Index = () => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
   useIsAuth();
   const { windowWidth } = useWindowWidth();
   const router = useRouter();
@@ -19,7 +20,7 @@ const Index = () => {
       }
     }
   }, [windowWidth]);
-  const isCompany = userData?.typeOfUser === "company";
+  const isCompany = data?.typeOfUser === "company";
   return (
     <ProfileLayout hideHeader={true}>
       {isCompany ? <CompanyInfoForm /> : <AllDataForm />}

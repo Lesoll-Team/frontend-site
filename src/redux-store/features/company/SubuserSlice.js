@@ -1,6 +1,5 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   addUser: {
@@ -17,17 +16,10 @@ const initialState = {
 export const addSubuser = createAsyncThunk(
   "subuserSlice/addSubuser",
   async (data, thunkAPI) => {
-    const userToken = Cookies.get("userToken");
-
     try {
       const response = await axiosInstance.post(
         `/user/company/send-invite-user/`,
         data,
-        {
-          headers: {
-            token: userToken,
-          },
-        },
       );
 
       return response.data.userData;

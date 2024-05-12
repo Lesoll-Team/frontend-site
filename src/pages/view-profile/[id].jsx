@@ -1,5 +1,5 @@
 import ViewUser from "@/components/viewProfile/ViewUser";
-import axiosInstance from "@/Shared/axiosInterceptorInstance";
+// import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import axios from "axios";
 
 const ViewProfilePage = ({ query, user, properties }) => {

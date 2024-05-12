@@ -7,18 +7,6 @@ const initialState = {
 
 export const postConatctMessage = createAsyncThunk(
   "Contact/registerUser",
-  // async (data) => {
-  //   try {
-  //     const response = await axiosInstance.post(
-  //       `/admin/contact/add`,
-  //       data
-  //     ); // register
-  //     // const response = await axiosInstance.post(`http://api0.lesoll-demo.site/api/auth/register`,userData);// register
-  //     return response.data;
-  //   } catch (error) {
-  //     throw error.response.data;
-  //   }
-  // }
   async (data) => {
     const response = await sendMessage(data);
     return response.message; // Assuming your API returns user data upon successful signup

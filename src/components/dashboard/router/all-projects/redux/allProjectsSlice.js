@@ -16,17 +16,8 @@ const initialState = {
 export const getAllProjects = createAsyncThunk(
   "allProjects/getAllProjects",
   async (thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem("userToken"));
     try {
-      const response = await axiosInstance.get(
-        `/property/all-project`,
-
-        {
-          headers: {
-            token: token,
-          },
-        },
-      );
+      const response = await axiosInstance.get(`/property/all-project`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -36,16 +27,9 @@ export const getAllProjects = createAsyncThunk(
 export const deleteProject = createAsyncThunk(
   "allProjects/deleteProject",
   async (id, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem("userToken"));
     try {
       const response = await axiosInstance.delete(
         `/property/delete-project/${id}`,
-
-        {
-          headers: {
-            token: token,
-          },
-        },
       );
       return response.data;
     } catch (error) {

@@ -8,12 +8,12 @@ const PendingProperties = () => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const pendingProp = useSelector((state) => state.userProperties.pending.data);
-  const pendingPropStatus = useSelector(
-    (state) => state.userProperties.pending.status
-  );
-  const pendingPropError = useSelector(
-    (state) => state.userProperties.pending.error
-  );
+  // const pendingPropStatus = useSelector(
+  //   (state) => state.userProperties.pending.status
+  // );
+  // const pendingPropError = useSelector(
+  //   (state) => state.userProperties.pending.error
+  // );
   useEffect(() => {
     dispatch(getPendingProp());
   }, []);

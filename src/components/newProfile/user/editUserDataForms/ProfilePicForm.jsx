@@ -7,12 +7,10 @@ import {
   resetUpdateUserState,
   updateUser,
 } from "@/redux-store/features/user/editUserDataSlice";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useUser } from "@/Shared/UserContext";
 
 export default function ProfilePicForm({ openBtn }) {
-  const { data } = useUser();
-
+  const { data, setUserData } = useUser();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -30,9 +28,9 @@ export default function ProfilePicForm({ openBtn }) {
     );
 
     if (formStatus === "succeeded") {
-      dispatch(getUserData());
-      dispatch(resetUpdateUserState());
       setProfileImage(null);
+      dispatch(resetUpdateUserState());
+      setUserData();
     }
     // resetUpdateUserState
   };

@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import Rent from "./Rent";
 import Sale from "./sale/Sale";
 import CashAndInstallment from "./sale/CashAndInstallment";
 import AdminCashAndInstallment from "./sale/AdminCashAndInstallment";
+import { useUser } from "@/Shared/UserContext";
 // import PhoneNumber from "../PhoneNumber";
 
 const AddPropertyPrice = ({
@@ -14,7 +14,8 @@ const AddPropertyPrice = ({
   clearErrors,
   control,
 }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const renderPrice = () => {
     switch (watch("offer")) {
       case "For Rent":
@@ -27,7 +28,6 @@ const AddPropertyPrice = ({
             watch={watch}
           />
         );
-        break;
       case "For Sale":
         return (
           <Sale
@@ -39,13 +39,12 @@ const AddPropertyPrice = ({
             watch={watch}
           />
         );
-        break;
       default:
         return <Sale />;
     }
   };
   const renderCashAndInstallment = () => {
-    if (userData.email === "info@lesoll.com" && userData.isAdmin) {
+    if (data.email === "info@lesoll.com" && data.isAdmin) {
       return (
         <AddPropSectionContainer>
           <AdminCashAndInstallment

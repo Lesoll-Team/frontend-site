@@ -1,7 +1,7 @@
 import {
   Modal,
   ModalContent,
-  ModalHeader,
+  // ModalHeader,
   ModalBody,
   useDisclosure,
 } from "@nextui-org/react";
@@ -15,9 +15,9 @@ export default function EditSearchModal({ children }) {
 
   return (
     <>
-      <div onClick={onOpen} className=" w-full">
+      <button onClick={onOpen} className=" w-full">
         {children}
-      </div>
+      </button>
       <Modal size={""} isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (

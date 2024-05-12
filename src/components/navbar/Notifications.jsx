@@ -14,12 +14,10 @@ const Notifications = () => {
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const menuRef = useRef(null);
-  // const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userNotifications = useSelector(
     (state) => state.notifications.notifications.data,
   );
-  // const date = useMemo(()=>new Date())
   const toggleNotification = () => {
     setShowMenu((prev) => !prev);
   };

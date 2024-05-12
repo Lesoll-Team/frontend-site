@@ -1,13 +1,9 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import Cookies from "js-cookie";
 
 export async function addBlogs(blogData) {
-  const userToken = Cookies.get("userToken");
-
   try {
     const response = await axiosInstance.post(`/admin/blog/add`, blogData, {
       headers: {
-        token: userToken,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -17,14 +13,12 @@ export async function addBlogs(blogData) {
   }
 }
 export async function updateBlog(blogData, blogID) {
-  const userToken = Cookies.get("userToken");
   try {
     const response = await axiosInstance.put(
       `/admin/blog/update/blog/${blogID}`,
       blogData,
       {
         headers: {
-          token: userToken,
           "Content-Type": "multipart/form-data",
         },
       },
@@ -55,15 +49,9 @@ export async function getAllCategoryBlogs() {
 }
 
 export async function deleteOneBlog(blogID) {
-  const userToken = Cookies.get("userToken");
   try {
     const response = await axiosInstance.delete(
       `/admin/blog/delete/blog/${blogID}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      },
     );
     // const data = await res.data
     return response.data;

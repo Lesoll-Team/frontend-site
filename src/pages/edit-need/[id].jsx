@@ -4,7 +4,7 @@ import EditNeed from "@/components/needs/edit-needs/EditNeed";
 import React from "react";
 
 const index = ({ data }) => {
-  return <EditNeed data={data} />;
+  return <EditNeed needData={data} />;
 };
 
 export default index;
