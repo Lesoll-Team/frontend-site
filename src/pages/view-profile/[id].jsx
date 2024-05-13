@@ -1,6 +1,6 @@
-import axios from "axios";
 import ViewUser from "@/components/viewProfile/ViewUser";
-import { redirect } from "next/dist/server/api-utils";
+// import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import axios from "axios";
 
 const ViewProfilePage = ({ query, user, properties }) => {
   return (

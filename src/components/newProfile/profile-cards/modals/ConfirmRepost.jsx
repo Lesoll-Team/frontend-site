@@ -12,7 +12,6 @@ const ConfirmRepost = ({ open, setIsOpen, propId, getProperties }) => {
   const repostProp = async () => {
     await repostProperty({ propId, setFormStatus, setServerError });
   };
-  console.log(formStatus);
   useEffect(() => {
     if (formStatus === "success") {
       getProperties();

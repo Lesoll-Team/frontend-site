@@ -1,4 +1,5 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
+// import Cookies from "js-cookie";
 export const userSignUp = async ({
   setFormStatus,
   setToken,
@@ -7,11 +8,9 @@ export const userSignUp = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
-      data,
-    );
+    const response = await axiosInstance.post(`/auth/register`, data);
     if (response.status === 200 || response.status === 201) {
+      // Cookies.set("userToken", token);
       setFormStatus("success");
       setToken(response.data.token);
     }

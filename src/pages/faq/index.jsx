@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import Faq from "@/components/faq/Faq";
-import axios from "axios";
+
 // import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
 import { useSelector } from "react-redux";
@@ -24,9 +25,7 @@ const index = ({ faqData }) => {
 export default index;
 export async function getServerSideProps(context) {
   try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/QandA/getall`
-    );
+    const res = await axiosInstance.get(`/admin/QandA/getall`);
     const data = res.data;
 
     return {

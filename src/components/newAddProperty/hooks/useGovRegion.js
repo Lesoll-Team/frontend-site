@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 const useGovRegion = ({
   govInput,
   regionInput,
-
   selectedGov,
-  selectedRegion,
   setValue,
   clearErrors,
 }) => {
@@ -28,7 +26,7 @@ const useGovRegion = ({
     if (region) {
       if (selectedGov?.number) {
         return region?.filter(
-          (item) => item.governorate_number == selectedGov.number
+          (item) => item.governorate_number == selectedGov.number,
         );
       } else {
         return region;
@@ -71,7 +69,7 @@ const useGovRegion = ({
               item.governorate_name_ar.includes(govInput) ||
               item.governorate_name_en
                 .toLowerCase()
-                .includes(govInput.toLowerCase())
+                .includes(govInput.toLowerCase()),
           );
         } else {
           return gov;

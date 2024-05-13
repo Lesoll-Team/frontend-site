@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 //   // updateAllStates,
 // } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { useSendFilterSearch } from "@/components/category/shared/FilterHooks";
 
 const PaginationPage = ({ currentPage, totalPage }) => {
@@ -60,7 +60,6 @@ const PaginationPage = ({ currentPage, totalPage }) => {
     });
     router.push(route);
   };
-
 
   // useEffect(() => {
   //   router.push({

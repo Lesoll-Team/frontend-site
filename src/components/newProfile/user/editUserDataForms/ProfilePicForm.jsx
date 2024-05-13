@@ -7,46 +7,44 @@ import {
   resetUpdateUserState,
   updateUser,
 } from "@/redux-store/features/user/editUserDataSlice";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 
 export default function ProfilePicForm({ openBtn }) {
+  const { data, setUserData } = useUser();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
   const imagInputRef = useRef(null);
   const [profileImage, setProfileImage] = useState(null);
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const formData = new FormData();
     formData.append("img", profileImage);
-    await dispatch(
+    dispatch(
       updateUser({
         userData: formData,
-        id: userData?._id,
-      })
+        id: data?._id,
+      }),
     );
 
     if (formStatus === "succeeded") {
-      dispatch(getUserData());
-      dispatch(resetUpdateUserState());
       setProfileImage(null);
+      dispatch(resetUpdateUserState());
+      setUserData();
     }
     // resetUpdateUserState
   };
   const imgLink = useMemo(() => {
     if (profileImage) {
       return URL.createObjectURL(profileImage);
-    } else {
-      return null;
     }
   }, [profileImage]);
   return (
     <>
-      <div onClick={onOpen}>{openBtn}</div>
+      <button onClick={onOpen}>{openBtn}</button>
       <Modal radius="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <div
                 dir="rtl"
@@ -57,9 +55,7 @@ export default function ProfilePicForm({ openBtn }) {
                 </h3>
                 <Image
                   src={
-                    imgLink ||
-                    userData?.avatarUrl ||
-                    "/user-avatar-placeholder.png"
+                    imgLink || data?.avatarUrl || "/user-avatar-placeholder.png"
                   }
                   width={100}
                   height={100}
@@ -78,14 +74,13 @@ export default function ProfilePicForm({ openBtn }) {
                     }}
                     className={"w-full"}
                   >
-                    {" "}
                     {profileImage
                       ? language
                         ? "تحديث"
                         : "update"
                       : language
-                      ? "ارفع صورة"
-                      : "Upload Image"}
+                        ? "ارفع صورة"
+                        : "Upload Image"}
                   </Button>
                   {profileImage && (
                     <Button
@@ -109,7 +104,6 @@ export default function ProfilePicForm({ openBtn }) {
                 hidden
                 className="hidden"
               />
-              {/* <button onClick={onClose}>close</button> */}
             </>
           )}
         </ModalContent>

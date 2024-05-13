@@ -43,6 +43,7 @@ import {
   ItemDropdown,
 } from "@/components/dashboard/model/DropdownAction";
 import { MdOutlineUpdate } from "react-icons/md";
+import { useUser } from "@/Shared/UserContext";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -55,9 +56,9 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
-  // console.log("PriceService", PriceService);
   const dataSale = useSelector((state) => state.OverView.dataSale);
   const dataRents = useSelector((state) => state.OverView.dataRent);
   const dataDelete = useSelector((state) => state.OverView.dataDeleted);
@@ -112,10 +113,10 @@ function Dashboard() {
   }, [dateRange]);
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin === false && userInfo.supAdmin === false) {
+    if (data && data.isAdmin === false && data.supAdmin === false) {
       router.push("/404");
     }
-  }, [userInfo]);
+  }, [data]);
   const dataDeletes = {
     labels: dataDelete?.resultDelete.map((item) => {
       const [year, month, day] = item.date.split("-");
@@ -309,7 +310,7 @@ function Dashboard() {
       },
     ],
   };
-  return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
+  return data && (data.isAdmin || data.supAdmin) ? (
     <div className="min-h-[90dvh]  flex" dir="ltr">
       <Head>
         <title>Dashboard</title>

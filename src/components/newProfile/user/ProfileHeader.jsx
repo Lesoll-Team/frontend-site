@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { MdOutlineCall, MdOutlineEdit } from "react-icons/md";
-import { useSelector } from "react-redux";
 import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
+import { useUser } from "@/Shared/UserContext";
 import ProfileHeaderSkeleton from "./ProfileHeaderSkeleton";
 
 const ProfileHeader = ({ hideHeader }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
-  if (userData)
+  const { data } = useUser();
+
+  if (data)
     return (
       <div>
         <header
@@ -17,7 +18,7 @@ const ProfileHeader = ({ hideHeader }) => {
         >
           <div className=" w-[84px] h-[84px] lg:w-[100px] lg:h-[100px] relative">
             <Image
-              src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+              src={data?.avatarUrl || "/user-avatar-placeholder.png"}
               width={100}
               height={100}
               alt="user avatar"
@@ -34,21 +35,21 @@ const ProfileHeader = ({ hideHeader }) => {
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
-              <h2 className=" text-baseGray font-bold">{userData?.fullname}</h2>
+              <h2 className=" text-baseGray font-bold">
+                {data?.fullname}{" "}
+                {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
+              </h2>
               <div className="hidden lg:flex  items-center gap-14">
-                {!!userData?.phone && (
-                  <div className=" flex items-center gap-2">
-                    <MdOutlineCall className="text-2xl text-lightGreen" />
-
-                    <h3 className=" text-baseGray font-normal">
-                      {userData?.code + userData?.phone}
-                    </h3>
-                  </div>
-                )}
+                <div className=" flex items-center gap-2">
+                  <MdOutlineCall className="text-2xl text-lightGreen" />
+                  <h3 className=" text-baseGray font-normal">
+                    {data?.code + data?.phone}
+                  </h3>
+                </div>
                 <div className=" flex items-center gap-2">
                   <HiOutlineMailOpen className="text-2xl text-lightGreen" />
                   <h3 className=" text-baseGray break-words break-all font-normal xl:max-w-fit">
-                    {userData?.email}
+                    {data?.email}
                   </h3>
                 </div>
               </div>

@@ -21,6 +21,7 @@ const ActiveProperties = () => {
       page,
     });
   };
+
   useEffect(() => {
     getProperties();
   }, [page]);

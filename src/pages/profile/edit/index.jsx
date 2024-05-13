@@ -2,15 +2,13 @@ import { useEffect } from "react";
 import ProfileLayout from "../ProfileLayout";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
-import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
 import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
-import useIsAuth from "@/Hooks/useIsAuth";
 import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useUser } from "@/Shared/UserContext";
 
-const index = () => {
-  const userData = useSelector((state) => state.userProfile.userData);
-  const IsAuth = useIsAuth();
+const Index = () => {
+  const { data } = useUser();
   const { windowWidth } = useWindowWidth();
   const router = useRouter();
   useEffect(() => {
@@ -20,11 +18,11 @@ const index = () => {
       }
     }
   }, [windowWidth]);
-  const isCompany = userData?.typeOfUser === "company";
+  const isCompany = data?.typeOfUser === "company";
   return (
     <ProfileLayout hideHeader={true}>
       {isCompany ? <CompanyInfoForm /> : <AllDataForm />}
     </ProfileLayout>
   );
 };
-export default index;
+export default Index;

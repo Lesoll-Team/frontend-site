@@ -11,11 +11,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
+// import { useUser } from "@/Shared/UserContext";
 import TimeOut from "@/Shared/ui/TimeOut";
+import Cookies from "js-cookie";
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState(null);
+  const [serverError, setServerError] = useState("idle");
+  // const { setUserData } = useUser();
   const [token, setToken] = useState(null);
   const {
     register,
@@ -32,7 +35,7 @@ const SignUpForm = () => {
       verificationMethod: "email",
     },
   });
-  const [emailUsedError, setEmailUserError] = useState(false);
+  const [emailUserError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -46,7 +49,7 @@ const SignUpForm = () => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
   const onSubmit = async (data) => {
-    const dataTosend = {
+    const dataToSend = {
       fullname: data.fullname,
       email: data.email,
       code: data.code,
@@ -58,7 +61,7 @@ const SignUpForm = () => {
       setFormStatus,
       setToken,
       setServerError,
-      data: dataTosend,
+      data: dataToSend,
     });
   };
 
@@ -67,7 +70,8 @@ const SignUpForm = () => {
       if (watch("code") == "20") {
         router.push(`/verify-otp/${token}`);
       } else {
-        localStorage.setItem("userToken", JSON.stringify(token));
+        Cookies.set("userToken", token);
+        // setUserData();
         router.replace("/");
       }
     }
@@ -88,14 +92,9 @@ const SignUpForm = () => {
     }
   }, [serverError]);
   useEffect(() => {
-    console.log("hi");
     if (watch("phone")) {
-      console.log("hi2");
-
       const phoneNumber = phoneWithoutCode(watch("phone"), watch("code"));
       if (phoneNumber.length > 10) {
-        console.log("hi3");
-
         clearErrors("phone");
       }
     }
@@ -156,12 +155,12 @@ const SignUpForm = () => {
           })}
           placeholder={language ? "البريد الالكتروني" : "Email"}
           type="text"
-          className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUsedError) && "border-red-500 focus:border-red-500"}`}
+          className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUserError) && "border-red-500 focus:border-red-500"}`}
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
-        {emailUsedError && (
+        {emailUserError && (
           <p className="text-red-500 text-sm">
             {language
               ? "هذا البريد مستخدم بالفعل"
@@ -343,9 +342,7 @@ const SignUpForm = () => {
         className="w-full p-3 h-12 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
         {formStatus === "loading" ? (
-          <>
-            <Ring size={20} color="#fff" />
-          </>
+          <Ring size={20} color="#fff" />
         ) : (
           <span>{language ? "إنشاء حساب" : "Sign up"}</span>
         )}

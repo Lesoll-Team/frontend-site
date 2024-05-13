@@ -1,3 +1,4 @@
+import { useUser } from "@/Shared/UserContext";
 import AddPhoneModal from "@/Shared/contact-modals/AddPhoneModal";
 import LoginModal from "@/Shared/contact-modals/LoginModal";
 import NotSignUpModal from "@/Shared/contact-modals/NotSignedModal";
@@ -16,7 +17,8 @@ import { useSelector } from "react-redux";
 
 const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const [notLogedOpen, setNotLogedOpen] = useState(false);
   const [noPhoneOpen, setNoPhoneOpen] = useState(false);
   const [registerIsOpen, setRegisterIsOpen] = useState(false);
@@ -52,8 +54,8 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
   )}`;
 
   const handleActionClick = (clickType) => {
-    if (userData) {
-      if (userData?.phone) {
+    if (data) {
+      if (data?.phone) {
         if (clickType === "whatsapp") {
           if (type === "property") {
             propertyWhatsClick({ id });
@@ -94,7 +96,7 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
   };
   const WhatappLinkBtn = ({ className, children }) => (
     <>
-      {userData && userData.phone && (
+      {data && data.phone && (
         <a
           ref={whatsLinkRef}
           className="hidden"
@@ -122,7 +124,7 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
   );
   const CallLinkBtn = ({ className, children }) => (
     <>
-      {userData && userData.phone && (
+      {data && data.phone && (
         <a
           ref={callLinkRef}
           className="hidden"

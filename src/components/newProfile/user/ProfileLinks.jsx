@@ -1,3 +1,4 @@
+import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,18 +13,15 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileLinks = ({ main }) => {
-  const { language, userData } = useSelector((state) => ({
-    language: state.GlobalState.languageIs,
-    userData: state.userProfile.userData,
-  }));
-  const isCompany = userData?.typeOfUser === "company";
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { data, logOutUserData } = useUser();
+  const isCompany = data?.typeOfUser === "company";
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleLogout = useCallback(() => {
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
+    logOutUserData();
     router.push("/signin");
   }, [dispatch, router]);
 
@@ -32,6 +30,7 @@ const ProfileLinks = ({ main }) => {
   const isAds = route.includes("/profile/my-properties");
   const isSaved = route.includes("/profile/saved-items");
   const isNeeds = route.includes("/profile/needs");
+  const isPackage = route.includes("/profile/my-subscriptions");
   const NavLink = ({ href, text, icon: Icon, active }) => (
     <Link
       href={href}
@@ -65,6 +64,7 @@ const ProfileLinks = ({ main }) => {
         icon={IoMdHeartEmpty}
         active={isSaved}
       />
+
       <hr />
       {!isCompany && (
         <>
@@ -77,6 +77,13 @@ const ProfileLinks = ({ main }) => {
           <hr />
         </>
       )}
+      <NavLink
+        href="/profile/my-subscriptions"
+        text={{ en: "My subscriptions", ar: " الباقات" }}
+        icon={IoMdCard}
+        active={isPackage}
+      />
+      <hr />
       <button
         onClick={handleLogout}
         className="text-baseGray flex items-center gap-4 font-semibold text-[17px]"

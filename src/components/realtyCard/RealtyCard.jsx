@@ -2,39 +2,37 @@ import { AddToFavorites } from "@/utils/propertyAPI";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import PriceAndSocial from "./basic-body-card/PriceAndSocial";
 import TitleCard from "./basic-body-card/TitleCard";
 import LocationAndRooms from "./basic-body-card/LocationAndRooms";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const userInfo = useSelector((state) => state.userProfile.userData);
-  const dispatch = useDispatch();
+  const { data, setUserData } = useUser();
 
   const [loved, setLoved] = useState(false);
   const addToFAv = async () => {
     try {
       await AddToFavorites(propertyDetails?._id);
-      dispatch(getUserData());
+      setUserData();
     } catch (error) {
       console.error("Error add to fav :", error);
     }
   };
 
   useEffect(() => {
-    if (userInfo?.favorites.includes(propertyDetails?._id)) {
+    if (data?.favorites.includes(propertyDetails?._id)) {
       setLoved(true);
     }
-  }, [userInfo?.favorites]);
+  }, [data?.favorites]);
   return (
     <div className="md:max-w-[400px]  md:h-[355px] h-[145px] flex md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative">
       {/* start icon favorite */}
       <div className="flex absolute md:mt-[16px] m-[10px] md:mr-[20px]">
-        {userInfo && (
+        {data && (
           <div className=" bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center md:text-2xl text-md rounded-full  text-center  cursor-pointer">
-            {userInfo &&
+            {data &&
               (loved ? (
                 <AiFillHeart
                   className="text-red-500 animate-appearance-in"

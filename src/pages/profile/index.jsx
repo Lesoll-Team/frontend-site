@@ -6,12 +6,13 @@ import ProfileLayout from "./ProfileLayout";
 import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
 import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
 import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
+import { useUser } from "@/Shared/UserContext";
 const ProfilePage = () => {
   const router = useRouter();
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, status } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const status = useSelector((state) => state.userProfile.status);
-  const isCompany = userData?.typeOfUser === "company";
+  const isCompany = data?.typeOfUser === "company";
   useEffect(() => {
     if (status === "failed") {
       router.push("/");
@@ -27,7 +28,7 @@ const ProfilePage = () => {
         <link rel="canonical" href={`https://lesoll.com/profile`} />
       </Head>
 
-      {userData ? (
+      {data ? (
         <ProfileLayout hideHeader={false}>
           {isCompany ? (
             <CompanyInfoForm main={true} />

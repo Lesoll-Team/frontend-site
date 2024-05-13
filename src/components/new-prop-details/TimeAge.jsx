@@ -1,10 +1,7 @@
-// import ReactTimeAgo from "react-time-ago";
 import { BiTime } from "react-icons/bi";
 import { useSelector } from "react-redux";
-// import dynamic from "next/dynamic";
 import { memo } from "react";
 import { formatDate } from "@/utils/FormateData";
-// const ReactTimeAgo = dynamic(() => import("react-time-ago"));
 const TimeAge = ({ createdAt }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate } = formatDate(createdAt);

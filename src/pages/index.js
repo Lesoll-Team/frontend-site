@@ -4,18 +4,21 @@ import HeroSection from "@/components/homePage/HeroSection";
 import SearchModule from "@/components/homePage/SearchModule";
 import OtherCards from "@/components/homePage/OtherCards";
 import HomeMetaTag from "@/components/homePage/HomeMetaTag";
+// import { parseCookies } from "nookies";
+// import Cookies from "js-cookie";
+// import nookies from "nookies";
 const PropertiesCategories = dynamic(
-  () => import("@/components/homePage/PropertiesCategories")
+  () => import("@/components/homePage/PropertiesCategories"),
 );
 const LocationCategories = dynamic(
-  () => import("@/components/homePage/LocationCategories")
+  () => import("@/components/homePage/LocationCategories"),
 );
 const SpecialCards = dynamic(
-  () => import("../components/homePage/SpecialCards")
+  () => import("../components/homePage/SpecialCards"),
 );
 
 const BestLinksInHome = dynamic(
-  () => import("../components/linksInHome/BestLinksInHome")
+  () => import("../components/linksInHome/BestLinksInHome"),
 );
 
 const Home = ({ bestSearch }) => {
@@ -44,10 +47,9 @@ const Home = ({ bestSearch }) => {
 export default Home;
 export async function getServerSideProps() {
   let linkInHome = cache.get("linkInHome");
-
   if (!linkInHome) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`
+      `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`,
     );
     const linkInHome = await response.json();
     cache.put("linkInHome", linkInHome, 86400000);

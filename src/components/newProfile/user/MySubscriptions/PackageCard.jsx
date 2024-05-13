@@ -24,7 +24,6 @@ const PlanCard = ({ data }) => {
       link.href = downloadLink;
       link.target = "_blank";
       // Set the download filename if necessary
-      console.log();
       link.setAttribute("download", "Invoice.pdf"); // You can dynamically set the file name based on the response if needed
       document.body.appendChild(link);
       link.click();

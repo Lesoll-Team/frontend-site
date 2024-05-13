@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const PaymentType = () => {
@@ -66,4 +66,4 @@ const PaymentType = () => {
   );
 };
 
-export default PaymentType;
+export default memo(PaymentType);

@@ -8,34 +8,24 @@ import { setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
-import { getUserOffline } from "@/utils/userAPI";
 import { useRouter } from "next/router";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import Cookies from "js-cookie";
+import { getUserOffline } from "@/utils/userAPI";
 
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
   const dispatch = useDispatch();
   const router = useRouter();
-
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
       .toPrecision(16)
       .toString()
-      .replace(".", "")
+      .replace(".", ""),
   );
-
-  if (typeof window !== "undefined") {
-    if (!localStorage.getItem("local_storage_device_id")) {
-      localStorage.setItem("local_storage_device_id", userKey);
-    }
+  const local_storage_device_id = Cookies.get("local_storage_device_id");
+  if (!local_storage_device_id) {
+    Cookies.set("local_storage_device_id", userKey);
   }
-
-  useEffect(() => {
-    if (!userData) {
-      dispatch(getUserData());
-    }
-  }, [dispatch, language, children]);
   useEffect(() => {
     getUserOffline({ url: `${router.asPath}` });
   }, [children]);

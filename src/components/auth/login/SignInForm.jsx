@@ -9,7 +9,9 @@ import GoogleSignInBtn from "./GoogleSignInBtn";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "./api/loginApi";
 import TimeOut from "@/Shared/ui/TimeOut";
+import { useUser } from "@/Shared/UserContext";
 const SignInForm = () => {
+  const { setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
@@ -18,7 +20,7 @@ const SignInForm = () => {
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const [WrongPassword, setWrongPasswird] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
   const onSubmit = async (data) => {
@@ -26,18 +28,18 @@ const SignInForm = () => {
   };
 
   useEffect(() => {
-    if (formStatus === "success") {
-      localStorage.setItem("userToken", JSON.stringify(token));
+    if (formStatus === "success" && token) {
+      setUserData();
       router.replace("/");
     }
   }, [formStatus]);
 
   useEffect(() => {
     if (serverError?.message.toLowerCase().includes("password")) {
-      setWrongPasswird(true);
+      setWrongPassword(true);
       setServerError(null);
       setTimeout(function () {
-        setWrongPasswird(false);
+        setWrongPassword(false);
       }, 3500);
     }
     if (serverError?.message.toLowerCase().includes("email")) {
@@ -63,7 +65,6 @@ const SignInForm = () => {
         {" "}
         {language ? "تسجيل الدخول" : "Sign In"}
       </h1>
-      {/* ---------------------- email ------------------------- */}
       <div className="space-y-2">
         <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
         <input
@@ -101,7 +102,6 @@ const SignInForm = () => {
           </p>
         )}
       </div>
-      {/* --------------------- Password ------------------------- */}
       <div className="">
         {" "}
         <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
@@ -119,7 +119,7 @@ const SignInForm = () => {
             })}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.password || WrongPassword) &&
+              (errors.password || wrongPassword) &&
               "border-red-500 focus:border-red-500"
             }`}
           />
@@ -145,7 +145,7 @@ const SignInForm = () => {
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
-        {WrongPassword && (
+        {wrongPassword && (
           <p className="text-red-500 text-sm">
             {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
           </p>
@@ -170,15 +170,12 @@ const SignInForm = () => {
         ) : (
           <span>{language ? "تسجيل الدخول" : "Sign In"}</span>
         )}
-
-        {/* text */}
       </Button>
       <div className="flex items-center gap-3">
         <div className="h-[1px] w-full bg-gray-500"></div>
         <p className="text-gray-700">{language ? "او" : "or"}</p>
         <div className="h-[1px] w-full bg-gray-500"></div>
       </div>
-      {/* --------------- google sign in */}
       <GoogleSignInBtn />
       <div className="flex items-center justify-center gap-1">
         <p className="text-lightGray">

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import SaleType from "./SaleType";
 import RentType from "./RentType";
 

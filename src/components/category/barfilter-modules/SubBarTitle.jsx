@@ -1,6 +1,6 @@
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 import { sortedData } from "@/Shared/search/dropdown/dataDropdown";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 // import { IoIosStar } from 'react-icons/io';
 // import { LuArrowDownUp } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,4 +59,4 @@ const SubBarTitle = ({ result }) => {
   );
 };
 
-export default SubBarTitle;
+export default memo(SubBarTitle);

@@ -1,7 +1,8 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
 import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
-import axios from "axios";
+
 export default function PropertyDetails({ query, singleProperty, slug }) {
   return (
     <main className="  min-h-[80dvh] relative">
@@ -19,8 +20,8 @@ export default function PropertyDetails({ query, singleProperty, slug }) {
 
 export async function getServerSideProps(context) {
   try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/get/property/singlepage/${context.query.id}`,
+    const res = await axiosInstance.get(
+      `/property/get/property/singlepage/${context.query.id}`,
     );
     const all = res.data;
     const data = res.data.find;

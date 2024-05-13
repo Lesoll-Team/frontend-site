@@ -1,3 +1,4 @@
+import { useUser } from "@/Shared/UserContext";
 import { localizedNumber } from "@/utils/localizedNumber";
 import Link from "next/link";
 import { memo, useMemo } from "react";
@@ -7,12 +8,12 @@ import { useSelector } from "react-redux";
 
 const PriceTitle = ({ propertData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
 
   const price = localizedNumber(propertData.price);
   const showEditBtn =
-    userData && (userData._id === propertData.user._id || userData.supAdmin);
-  const showAdminBtn = userData && userData.isAdmin;
+    data && (data._id === propertData.user._id || data.supAdmin);
+  const showAdminBtn = data && data.isAdmin;
   const sideInfoToPrice = useMemo(() => {
     if (propertData.offer === "For Sale") {
       if (propertData.RealEstateFinance) {

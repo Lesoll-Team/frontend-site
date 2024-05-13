@@ -10,7 +10,6 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import PlanAdded from "../../model/pricing/PlanAdded";
 
 const EditPlansPricing = ({ paymentPlan }) => {
-  // console.log("paymentPlan:::>>>", paymentPlan);
   const dispatch = useDispatch();
   // const [moreOption, setMoreOption] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);

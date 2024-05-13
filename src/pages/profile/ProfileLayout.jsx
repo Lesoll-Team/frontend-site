@@ -1,10 +1,8 @@
-import { useWindowWidth } from "@/Hooks/useWindowWidth";
+// import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
 import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
 
 const ProfileLayout = ({ children, hideHeader = true }) => {
-  const { windowWidth } = useWindowWidth();
-
   return (
     <div className="md:flex md:gap-16">
       <aside className="min-w-[350px]  hidden md:block min-h-[70dvh] pt-[80px] bg-lightNeutral">

@@ -11,7 +11,6 @@ import need from "@/pages/add-need";
 
 const NeedsCard = ({ data }) => {
   const dispatch = useDispatch();
-  console.log(data);
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu((prev) => !prev);
   const menuRef = useRef(null);
@@ -21,15 +20,7 @@ const NeedsCard = ({ data }) => {
   const roomNumbersTitle = language ? "عدد الغرف: " : "Rooms: ";
   const BathNumbersTitle = language ? "عدد الحمامات: " : "Bathrooms: ";
   const currancy = language ? "جنية" : "Egp";
-  const areaUnit = language ? (
-    <span>
-      م<sup>2</sup>
-    </span>
-  ) : (
-    <span>
-      M<sup>2</sup>
-    </span>
-  );
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
