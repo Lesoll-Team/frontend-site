@@ -1,5 +1,5 @@
 import ReactModal from "@/Shared/ui/ReactModal";
-import Link from "next/link";
+// import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { repostProperty } from "../../apis/profileApis";

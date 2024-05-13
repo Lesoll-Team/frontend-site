@@ -17,7 +17,6 @@ const SubBarTitle = ({ result }) => {
   const router = useRouter();
 
   const dispatch = useDispatch();
-  // const userInfo = useSelector((state) => state.userProfile.userData);
   const {
     sort,
     // , messageData, confirmSendMessage, isSaved

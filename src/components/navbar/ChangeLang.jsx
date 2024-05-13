@@ -1,4 +1,5 @@
 import { setLang } from "@/redux-store/features/globalState";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ChangeLang = ({ bigScreen }) => {
@@ -22,4 +23,4 @@ const ChangeLang = ({ bigScreen }) => {
     </button>
   );
 };
-export default ChangeLang;
+export default memo(ChangeLang);

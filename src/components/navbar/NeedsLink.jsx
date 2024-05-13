@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSelector } from "react-redux";
 
@@ -64,4 +64,4 @@ const NeedsLink = () => {
     </div>
   );
 };
-export default NeedsLink;
+export default memo(NeedsLink);

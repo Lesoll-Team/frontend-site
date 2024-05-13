@@ -1,4 +1,4 @@
-import ReactModal from "@/Shared/ui/ReactModal";
+// import ReactModal from "@/Shared/ui/ReactModal";
 import { useState } from "react";
 import { BsArrowRepeat } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -7,28 +7,29 @@ import NoPackageModal from "./modals/NoPackageModal";
 import FeatureLimitModal from "./modals/FeatureLimitModal";
 import ConfirmPin from "./modals/ConfirmPin";
 import ConfirmRepost from "./modals/ConfirmRepost";
+import { useUser } from "@/Shared/UserContext";
 const PaymentActions = ({ propId, getProperties, disabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
   const [noPackage, setNoPackage] = useState(false);
   const [reachedLimit, setReachedLimit] = useState(false);
   const [confirtmRepost, setConfirmRepost] = useState(false);
   const [confirtmPin, setConfirmPin] = useState(false);
 
   const handleRepostClick = () => {
-    if (!userData?.packageSubscribe) {
+    if (!data?.packageSubscribe) {
       setNoPackage(true);
       // setNoRepost(true);
-    } else if (userData?.repostPropertyNumber == 0) {
+    } else if (data?.repostPropertyNumber == 0) {
       setReachedLimit(true);
     } else {
       setConfirmRepost(true);
     }
   };
   const handlePinClick = () => {
-    if (!userData?.packageSubscribe) {
+    if (!data?.packageSubscribe) {
       setNoPackage(true);
-    } else if (userData?.pinPropertyNumber == 0) {
+    } else if (data?.pinPropertyNumber == 0) {
       setReachedLimit(true);
     } else {
       setConfirmPin(true);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 
 const Links = () => {
@@ -102,4 +102,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default memo(Links);

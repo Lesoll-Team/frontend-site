@@ -15,6 +15,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const servicePrice = useSelector((state) => state.Pricing.priceService);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
+  // repostDay: 3,
+  // repostNumber: 7,
 
   const [categoryNameAr, setCategoryNameAr] = useState("");
   const [categoryNameEn, setCategoryNameEn] = useState("");
@@ -51,8 +53,6 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setCategoryNameEn(paymentPlan.PaymentEn);
     setDescriptionCardAr(paymentPlan.descriptionAr);
     setDescriptionCardEn(paymentPlan.descriptionEn);
-    setDurationPlanHome(paymentPlan.pinDayInHome);
-    setPropNumberInHome(paymentPlan.propNumberInHome);
     setTargetUser(paymentPlan.targetUsers);
     setExpiryDate(paymentPlan.expireDate);
     setPopular(paymentPlan.Popular);
@@ -61,6 +61,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setOldPrice(paymentPlan.offerPrice);
     setFeaturesList(paymentPlan.service);
     setFeaturesId([paymentPlan.service]);
+    setDurationPlanHome(paymentPlan.pinDayInHome);
+    setPropNumberInHome(paymentPlan.propNumberInHome);
     setDurationPlan(paymentPlan.repostDayCategory);
     setPropNumber(paymentPlan.propNumberCategory);
   }, []);
@@ -122,7 +124,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
 
     const selectedFeaturesArray = selectedItems.map((selectedItem) => {
       const selectedFeature = servicePrice.find(
-        (item) => item._id === selectedItem
+        (item) => item._id === selectedItem,
       );
       if (selectedFeature) {
         const { _id, nameAr, nameEn } = selectedFeature;
@@ -132,10 +134,10 @@ const EditPlansPricing = ({ paymentPlan }) => {
     });
 
     const filteredSelectedFeaturesArray = selectedFeaturesArray.filter(
-      (item) => item !== null
+      (item) => item !== null,
     );
     const featuresIdArray = filteredSelectedFeaturesArray.map(
-      (item) => item._id
+      (item) => item._id,
     );
 
     setFeaturesId(featuresIdArray);
@@ -371,13 +373,13 @@ const EditPlansPricing = ({ paymentPlan }) => {
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setPropNumber(e.target.value)}
                       placeholder={language ? "عدد الاعلانات " : "Number ads"}
-                      value={propNumber}
+                      value={propNumber || ""}
                     />
                     <input
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setDurationPlan(e.target.value)}
-                      value={durationPlan}
+                      value={durationPlan || ""}
                       placeholder={
                         language
                           ? "عدد ايام ظهور الاعلان"
@@ -399,7 +401,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setPropNumberInHome(e.target.value)}
-                      value={propNumberInHome}
+                      value={propNumberInHome || ""}
                       placeholder={
                         language
                           ? " عدد الاعلانات على الصفحة الرئيسية"
@@ -410,7 +412,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-full"
                       onChange={(e) => setDurationPlanHome(e.target.value)}
-                      value={durationPlanHome}
+                      value={durationPlanHome || ""}
                       placeholder={
                         language
                           ? " عدد ايام ظهور على الصفحة الرئيسية"
@@ -431,7 +433,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
               </button>
             </div>
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mx-auto md:w-[420px]">
             <PlanPricingCard data={data2} />
           </div>
         </div>
@@ -441,39 +443,3 @@ const EditPlansPricing = ({ paymentPlan }) => {
 };
 
 export default EditPlansPricing;
-
-/*more option */
-
-/* <div className="mt-4 grid col-span-2">
-              <button
-                onClick={() => setMoreOption(!moreOption)}
-                className="text-blue-700 underline cursor-pointer w-max "
-              >
-                {language ? " عرض المزيد" : " more option"}
-              </button>
-              <div className={!moreOption && "hidden"}>
-                <label
-                  htmlFor="textarea-content"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  {language ? "محتوي صفحة الباقة" : "Package page content"}
-                  :-
-                </label>
-                <textarea
-                  value={singlePageContentAr}
-                  onChange={(e) => setSinglePageContentAr(e.target.value)}
-                  name="textarea-content"
-                  placeholder={language ? "عربي" : "Arabic"}
-                  className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
-                />
-                <textarea
-                  name="textarea-content"
-                  value={singlePageContentEn}
-                  placeholder={language ? "انجليزي" : "English"}
-                  onChange={(e) => setSinglePageContentEn(e.target.value)}
-                  className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
-                ></textarea>
-              </div>
-            </div> */
-
-/* Button  */

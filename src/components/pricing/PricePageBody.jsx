@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import PlanPricingCard from "../dashboard/model/cards/PlanPricingCard";
 import { getServicePrice } from "@/redux-store/features/PricingSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPlanPayments, updateIndexPlan } from "@/utils/PricingAPI";
 import SkeletonPriceCard from "../dashboard/model/cards/SkeletonPriceCard";
 import { IoMdSettings } from "react-icons/io";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { useUser } from "@/Shared/UserContext";
 
 const PricePageBody = () => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const [loading, setLoading] = useState(false);
   const [sortedPayments, setSortedPayments] = useState([]);
 
@@ -55,7 +57,7 @@ const PricePageBody = () => {
 
   return (
     <div className="md:container md:mx-auto mx-[20px]">
-      {userData?.isAdmin && (
+      {data?.isAdmin && (
         <button
           onClick={() => setShowSetting(!showSetting)}
           className={` text-xl border-1 border-gray-200 p-2 rounded `}
@@ -65,12 +67,15 @@ const PricePageBody = () => {
           />
         </button>
       )}
-      <div className=" flex justify-center gap-x-[2.1875vw] items-center flex-wrap gap-y-[2vh] mb-10">
-        {loading && payments ? (
-          sortedPayments.slice(0, 3).map((plan) => (
-            <div key={plan._id}>
-              {userData?.isAdmin && showSetting && (
-                <div className="flex gap-x-3 my-4 items-center">
+      {loading && payments ? (
+        <div className=" grid grid-cols-1 md:grid-cols-3  items-center  justify-center ">
+          {sortedPayments.map((plan) => (
+            <div
+              key={plan._id}
+              className=" max-w-[390px] mx-auto p-2 gap-x-9 flex flex-col"
+            >
+              {data?.isAdmin && showSetting && (
+                <div className="flex gap-x-3 my-4 items-center ">
                   <div className="flex gap-x-3 items-center w-full justify-center">
                     <button
                       onClick={() =>
@@ -100,28 +105,19 @@ const PricePageBody = () => {
                   </div>
                 </div>
               )}
-              <PlanPricingCard showSetting={showSetting} data={plan} />
+              <PlanPricingCard dash showSetting={showSetting} data={plan} />
             </div>
-          ))
-        ) : (
-          <div className=" flex justify-center gap-x-[2.1875vw] items-center flex-wrap gap-y-[2vh] mb-10">
-            <SkeletonPriceCard />
-            <SkeletonPriceCard />
-            <SkeletonPriceCard />
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className=" grid grid-cols-1 justify-around md:grid-cols-3 ">
+          <SkeletonPriceCard />
+          <SkeletonPriceCard />
+          <SkeletonPriceCard />
+        </div>
+      )}
     </div>
   );
 };
 
 export default PricePageBody;
-/* <DropdownAction iconIs={<LuAlignRight />}>
-                              <ItemDropdown
-                                 label={"Delete"}
-                                 href={null}
-                                 // action={() => handleDeleteProperty(blog._id)}
-                                 title="تأكيد مسح العقار "
-                                 description="  تأكيد مسح العقار  الى الارشيف "
-                              />
-                           </DropdownAction> */

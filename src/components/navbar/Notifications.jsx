@@ -3,9 +3,8 @@ import {
   visitAllNotifications,
   visitNotification,
 } from "@/redux-store/features/user/notifiicationSlice";
-// import { formatDate } from "@/utils/FormateData";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import ReactTimeAgo from "react-time-ago";
@@ -118,4 +117,4 @@ const Notifications = () => {
     </div>
   );
 };
-export default Notifications;
+export default memo(Notifications);

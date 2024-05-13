@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
 import { getOtpCode, sendOtp } from "./api/otpApis";
+import Cookies from "js-cookie";
 
 const OtpInputForm = ({ userData }) => {
   const router = useRouter();
@@ -69,7 +70,7 @@ const OtpInputForm = ({ userData }) => {
   useEffect(() => {
     if (formStatus === "success") {
       const redirectBackTo = router?.query?.redirectBackTo;
-      localStorage.setItem("userToken", JSON.stringify(token));
+      Cookies.set("userToken", token);
       if (redirectBackTo) {
         router.replace(`${redirectBackTo}`);
       } else {

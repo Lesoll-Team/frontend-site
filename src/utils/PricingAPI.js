@@ -41,6 +41,18 @@ export async function getPlanPayments() {
     console.log("getPlanPayments error ");
   }
 }
+
+export async function getPlanPaymentsAdmin() {
+  try {
+    const response = await axiosInstance.get(
+      `/admin/payment/get-admin-payment`,
+    );
+    return response.data;
+  } catch (error) {
+    console.log("getPlanPayments error ");
+  }
+}
+
 export async function getSinglePlanPrice({ id }) {
   try {
     const response = await axiosInstance.get(
@@ -70,10 +82,18 @@ export async function deleteSinglePlanPrice({ id }) {
     console.log(error.response);
   }
 }
-export async function buyPackageAction({ id }) {
+export async function buyPackageActionWithCard({ id }) {
   const response = await axiosInstance.get(`/payment-user/payment-card/${id}`);
   return response.data;
 }
+
+export async function buyPackageActionWithWallet({ id }) {
+  const response = await axiosInstance.get(
+    `/payment-user/payment-wallet/${id}`,
+  );
+  return response.data;
+}
+
 export async function updateIndexPlan(setIndex, id) {
   try {
     const response = await axiosInstance.patch(
