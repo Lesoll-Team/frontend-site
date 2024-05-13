@@ -5,17 +5,19 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Error from "@/Shared/ui/Error";
 import { useMemo } from "react";
-const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
+import { useUser } from "@/Shared/UserContext";
+const PhoneNumber = ({ errors, register, setValue, watch, isNeed }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const showPhoneInput = watch("otherPhone");
   const cancelOtherPhoneNumber = () => {
     setValue("otherPhone", false);
     setValue("connectPhoneNumber", "");
   };
   const userWithNoPhone = useMemo(() => {
-    return !Boolean(userInfo?.phone);
-  }, [userInfo]);
+    return !Boolean(data?.phone);
+  }, [data]);
 
   return (
     <AddPropSectionContainer className={"flex flex-cols"}>
@@ -190,7 +192,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed, isEdit }) => {
           <div className="flex justify-between md:flex-row flex-col">
             <p className="flex items-center gap-5">
               <span>{language ? "رقم التواصل :" : "Contact Number :"}</span>
-              <span dir="ltr">{userInfo?.code + userInfo?.phone}</span>
+              <span dir="ltr">{data?.code + data?.phone}</span>
             </p>
             <button
               onClick={() => setValue("otherPhone", true)}

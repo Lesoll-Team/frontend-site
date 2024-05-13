@@ -10,8 +10,8 @@ const FavoriteProperties = () => {
   const favProp = useSelector((state) => state.userSavedItems.fav.data);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  const status = useSelector((state) => state.userSavedItems.fav.status);
-  const error = useSelector((state) => state.userSavedItems.fav.error);
+  // const status = useSelector((state) => state.userSavedItems.fav.status);
+  // const error = useSelector((state) => state.userSavedItems.fav.error);
   useEffect(() => {
     dispatch(getFavProp());
   }, []);

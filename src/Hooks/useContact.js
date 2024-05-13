@@ -1,21 +1,23 @@
+import { useUser } from "@/Shared/UserContext";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const useContact = ({ phoneNumber, message, user }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const [showPopup, setShowPopup] = useState(false);
 
-  if (!userData && !showPopup) {
+  if (!data && !showPopup) {
     setShowPopup(true);
   }
-  if (phoneNumber && userData) {
+  if (phoneNumber && data) {
     const callLink = `tel:${phoneNumber}`;
     const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-      message
+      message,
     )}`;
     return { callLink, whatsAppLink };
   }
-  if (!phoneNumber && userData) {
+  if (!phoneNumber && data) {
     const callLink = `tel:${user?.code}${user?.phone}`;
     const whatsAppLink = `https://api.whatsapp.com/send?phone=${user?.code}${
       user?.phone

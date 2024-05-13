@@ -2,36 +2,37 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import { editBlog } from "@/redux-store/features/dashboard/blogDashboardSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+
 import Head from "next/head";
 import BlogAdded from "@/components/dashboard/model/BlogAdded";
 import { getAllCategoryBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 const EditBlog = ({ singleBlog }) => {
   const [blogCreated, setBlogCreated] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
   const messageEventBlog = useSelector(
-    (state) => state.BlogDashboard.messageEventBlog
+    (state) => state.BlogDashboard.messageEventBlog,
   );
   const [blogCategoryID, setBlogCategoryID] = useState(
-    singleBlog?.getBlogs.category || ""
+    singleBlog?.getBlogs.category || "",
   );
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const [titleAR, setTitleAR] = useState(singleBlog?.getBlogs.title.ar || "");
 
   const [metaTitleAR, setMetaTitleAR] = useState(
-    singleBlog?.getBlogs.metaTitle.ar || ""
+    singleBlog?.getBlogs.metaTitle.ar || "",
   );
 
   const [slugAR, setSlugAR] = useState(singleBlog?.getBlogs.slug.ar || "");
 
   const [descriptionAR, setDescriptionAR] = useState(
-    singleBlog?.getBlogs.description.ar || ""
+    singleBlog?.getBlogs.description.ar || "",
   );
 
   const [metDescriptionAR, setMetDescriptionAR] = useState(
-    singleBlog?.getBlogs.metaDescription.ar || ""
+    singleBlog?.getBlogs.metaDescription.ar || "",
   );
 
   useEffect(() => {
@@ -48,10 +49,10 @@ const EditBlog = ({ singleBlog }) => {
   }, []);
 
   const [selectedImage, setImage] = useState(
-    singleBlog?.getBlogs.BlogImage || null
+    singleBlog?.getBlogs.BlogImage || null,
   );
   const [selectedImagePrev, setImagePrev] = useState(
-    singleBlog?.getBlogs.BlogImage || null
+    singleBlog?.getBlogs.BlogImage || null,
   );
 
   const handleImgChange = (e) => {
@@ -103,7 +104,7 @@ const EditBlog = ({ singleBlog }) => {
     formData.append("metaTitle", JSON.stringify(metaTitle));
     formData.append("category", blogCategoryID);
     dispatch(
-      editBlog({ blogData: formData, blogID: singleBlog.getBlogs._id }) //, blogData: formData
+      editBlog({ blogData: formData, blogID: singleBlog.getBlogs._id }), //, blogData: formData
     ).then((action) => {
       if (editBlog.fulfilled.match(action)) {
         setBlogCreated(true);
@@ -261,8 +262,8 @@ const EditBlog = ({ singleBlog }) => {
 
 export default EditBlog;
 export async function getServerSideProps(context) {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/singleblogs/${context.query.slug}`
+  const res = await axiosInstance.get(
+    `/admin/blog/singleblogs/${context.query.slug}`,
   );
   const data = await res.data;
   return {

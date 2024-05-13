@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getActiveNeeds } from "../../redux/pendingNeedsSlice";
 import { useEffect } from "react";
-import NeedsAdminCard from "../card/NeedsAdminCard";
+// import NeedsAdminCard from "../card/NeedsAdminCard";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import styles from "@/styles/Pagination.module.css";

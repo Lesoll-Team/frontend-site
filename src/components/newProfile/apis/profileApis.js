@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const editUserData = async ({
   data,
@@ -6,19 +6,9 @@ export const editUserData = async ({
   setFormStatus,
   userId,
 }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userId}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          token: token,
-        },
-      },
-    );
+    const response = await axiosInstance.put(`/user/update/${userId}`, data);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }
@@ -36,17 +26,9 @@ export const getActiveProperties = async ({
   setActiveProperties,
   page,
 }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=9&page=${page}`,
-      {
-        headers: {
-          token: token,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`/user/confirmedprofile?limit=9&page=${page}`);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
       setActiveProperties(response.data);
@@ -61,17 +43,9 @@ export const getPendingProperties = async ({
   setServerError,
   setPendingProperties,
 }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/pendingrealtyprofile`,
-      {
-        headers: {
-          token: token,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`/user/pendingrealtyprofile`);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
       setPendingProperties(response.data);
@@ -86,17 +60,9 @@ export const getSoldProperties = async ({
   setServerError,
   setSoldProperties,
 }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/sold/get`,
-      {
-        headers: {
-          token: token,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`/user/sold/get`);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
       setSoldProperties(response.data);
@@ -113,16 +79,10 @@ export const deleteProperty = async ({
   propdId,
   message,
 }) => {
-  const token = JSON.parse(localStorage.getItem("userToken"));
   setFormStatus("loading");
   try {
-    const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propdId}?token=${token}`,
-
+    const response = await axiosInstance.delete(`/property/delete/property/${propdId}`,
       {
-        headers: {
-          token,
-        },
         data: {
           reason: message,
         },
@@ -145,15 +105,7 @@ export const toggleSold = async ({
   propdId,
 }) => {
   try {
-    const token = JSON.parse(localStorage.getItem("userToken"));
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propdId}?token=${token}`,
-      {
-        headers: {
-          token,
-        },
-      }
-    );
+    const response = await axiosInstance.patch(`/admin/property/sold/${propdId}`);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }
@@ -173,16 +125,7 @@ export const repostProperty = async ({
 }) => {
   try {
     setFormStatus("loading");
-
-    const token = JSON.parse(localStorage.getItem("userToken"));
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/repost-property/${propId}?token=${token}`,
-      {
-        headers: {
-          token,
-        },
-      }
-    );
+    const response = await axiosInstance.patch(`/payment-user/repost-property/${propId}`);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }
@@ -201,15 +144,7 @@ export const pinProperty = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const token = JSON.parse(localStorage.getItem("userToken"));
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/pin-property/${propId}?token=${token}`,
-      {
-        headers: {
-          token,
-        },
-      }
-    );
+    const response = await axiosInstance.patch(`/payment-user/pin-property/${propId}`);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }

@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   status: "idle", //? "idle" | "loading" | "succeeded" |"failed"
@@ -9,25 +10,19 @@ const initialState = {
 export const updateUser = createAsyncThunk(
   "editUserDataSlice/updateUser",
   async (data, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/update/${data.id}`,
+      const response = await axiosInstance.put(
+        `/user/update/${data.id}`,
         data.userData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            token: userToken,
-          },
-        }
       );
+      response.data.userData.token &&
+        Cookies.set("userToken", response.data.userData.token);
 
       return response.data.userData;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 const editUserDataSlice = createSlice({
   name: "editUserDataSlice",
