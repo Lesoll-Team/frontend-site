@@ -22,6 +22,7 @@ const ProfileHeader = ({ hideHeader }) => {
               height={100}
               alt="user avatar"
               className="rounded-full object-cover"
+              priority
             />
             <ProfilePicForm
               openBtn={

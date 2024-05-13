@@ -91,7 +91,7 @@ const Notifications = () => {
               userNotifications.map((item, i) => {
                 const notificationDate = new Date(item.createdAt);
                 return (
-                  <>
+                  <div key={item._id}>
                     <Link
                       href={item?.link || ""}
                       key={item._id}
@@ -106,7 +106,7 @@ const Notifications = () => {
                       </span>
                     </Link>
                     {userNotifications.length != i + 1 && <hr />}
-                  </>
+                  </div>
                 );
               })
             ) : (

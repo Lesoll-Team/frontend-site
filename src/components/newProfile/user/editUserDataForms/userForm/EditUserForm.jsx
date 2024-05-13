@@ -4,26 +4,19 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { editUserData } from "../../apis/profileApis";
-import ReactModal from "@/Shared/ui/ReactModal";
-import OptModal from "@/Shared/otp/OtpModel";
 
 const AllDataForm = ({ main }) => {
-  const [successModalIsOpen, setSucessModalIsOpen] = useState(false);
-  const [otpVerifyIsOpen, setOtpVerifyIsOpen] = useState(false);
-  const [phoneToVerify, setPhoneToVerify] = useState("");
-  const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState("idle");
-
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const formStatus = useSelector((state) => state.editUser.status);
+  const formError = useSelector((state) => state.editUser.error);
   const dispatch = useDispatch();
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
@@ -43,40 +36,20 @@ const AllDataForm = ({ main }) => {
   }, [userData]);
 
   const onSubmit = async (data) => {
-    // editUserData({
-    //   data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-    //   userId: userData._id,
-    //   setFormStatus,
-    //   setServerError,
-    // });
-    // editUserData({
-    //   data:{ ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-    //   userId: userData?._id,
-    //   setFormStatus,
-    //   setServerError,
-    // });
-    if (phoneNumberwithoutCode(data.phone, data.code) === userData.phone) {
-      editUserData({
-        data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-        userId: userData?._id,
-        setFormStatus,
-        setServerError,
-      });
-    } else {
-      setPhoneToVerify(phoneNumberwithoutCode(data.phone, data.code));
-      setOtpVerifyIsOpen(true);
-      console.log("not same");
-    }
+    const formData = new FormData();
+    formData.append("fullname", data.fullname);
+    formData.append("code", data.code);
+    formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
+    formData.append("instagramLink", data.instagramLink);
+    formData.append("faceLink", data.faceLink);
+    await dispatch(
+      updateUser({
+        userData: formData,
+        id: userData?._id,
+      }),
+    );
+    dispatch(getUserData());
   };
-  const onSuccess = () => {
-    console.log("done");
-  };
-  useEffect(() => {
-    if (formStatus === "success") {
-      setSucessModalIsOpen(true);
-      dispatch(getUserData());
-    }
-  }, [formStatus]);
 
   if (userData) {
     return (
@@ -180,13 +153,6 @@ const AllDataForm = ({ main }) => {
               </div>
             </UserInputContainer>
           </div>
-          <Button
-            disabled={formStatus === "loading"}
-            type={"submit"}
-            className={"w-fit min-w-[140px]"}
-          >
-            {language ? "حفظ" : "Save"}
-          </Button>
           <div className="flex flex-col gap-y-8 md:gap-y-11">
             <h3 className=" font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
@@ -230,22 +196,6 @@ const AllDataForm = ({ main }) => {
             </Button>
           </div>
         </form>
-        <ReactModal
-          modalIsOpen={successModalIsOpen}
-          setModalIsOpen={setSucessModalIsOpen}
-        >
-          <div className="min-h-[250px] md:min-w-[500px] min-w-[90vw] grid place-content-center gap-5">
-            <Image width={100} height={100} src={"/done-icon.png"} alt="done" />
-            <h3>{language ? "تم الإرسال بنجاح" : "Send Successfully!"}</h3>
-          </div>
-        </ReactModal>
-
-        <OptModal
-          phoneNumber={phoneToVerify}
-          isOpen={otpVerifyIsOpen}
-          setIsOpen={setOtpVerifyIsOpen}
-          onSuccess={onSuccess}
-        />
       </div>
     );
   } else {

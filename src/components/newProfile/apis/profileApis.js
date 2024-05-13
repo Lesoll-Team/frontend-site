@@ -6,16 +6,17 @@ export const editUserData = async ({
   setFormStatus,
   userId,
 }) => {
+  // console.log(userId);
   const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userId}`,
-      data,
+      { data },
       {
         headers: {
+          token,
           "Content-Type": "multipart/form-data",
-          token: token,
         },
       },
     );

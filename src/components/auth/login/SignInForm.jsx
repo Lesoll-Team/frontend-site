@@ -8,12 +8,12 @@ import { Ring } from "@uiball/loaders";
 import GoogleSignInBtn from "./GoogleSignInBtn";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "./api/loginApi";
+import TimeOut from "@/Shared/ui/TimeOut";
 const SignInForm = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, handleSubmit, formState, reset } = useForm();
+  const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const router = useRouter();
-
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
@@ -21,7 +21,6 @@ const SignInForm = () => {
   const [WrongPassword, setWrongPasswird] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
-  // functions
   const onSubmit = async (data) => {
     await userLogin({ data, setFormStatus, setServerError, setToken });
   };
@@ -48,6 +47,11 @@ const SignInForm = () => {
         setEmailNotFound(false);
       }, 3500);
     }
+    if (serverError?.code == 429) {
+      setTimeout(function () {
+        setServerError(null);
+      }, 30000);
+    }
   }, [serverError]);
 
   return (
@@ -59,10 +63,8 @@ const SignInForm = () => {
         {" "}
         {language ? "تسجيل الدخول" : "Sign In"}
       </h1>
-
       {/* ---------------------- email ------------------------- */}
       <div className="space-y-2">
-        {" "}
         <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
         <input
           name="email"
@@ -99,8 +101,7 @@ const SignInForm = () => {
           </p>
         )}
       </div>
-
-      {/* ---------------------- Password ------------------------- */}
+      {/* --------------------- Password ------------------------- */}
       <div className="">
         {" "}
         <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
@@ -123,6 +124,7 @@ const SignInForm = () => {
             }`}
           />
           <button
+            aria-label={showPassword ? "Hide password" : "Show password"}
             className="-mx-10"
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
@@ -149,9 +151,12 @@ const SignInForm = () => {
           </p>
         )}
       </div>
-
+      {serverError?.code === 429 && <TimeOut seconds={30} />}
       {/* ---------------------- submit btn ------------------------- */}
-      <Button type="submit">
+      <Button
+        type="submit"
+        disabled={serverError?.code === 429 || formStatus === "loading"}
+      >
         {formStatus === "loading" ? (
           <>
             {" "}

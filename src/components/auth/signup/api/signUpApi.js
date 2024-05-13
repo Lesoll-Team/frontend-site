@@ -9,7 +9,7 @@ export const userSignUp = async ({
     setFormStatus("loading");
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
-      data
+      data,
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

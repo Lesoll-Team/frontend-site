@@ -1,6 +1,7 @@
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { IoMdCard, IoMdHeartEmpty } from "react-icons/io";
 import {
@@ -11,99 +12,78 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileLinks = ({ main }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { language, userData } = useSelector((state) => ({
+    language: state.GlobalState.languageIs,
+    userData: state.userProfile.userData,
+  }));
   const isCompany = userData?.typeOfUser === "company";
   const router = useRouter();
   const dispatch = useDispatch();
-  const handleLogout = () => {
+
+  const handleLogout = useCallback(() => {
     dispatch(clearUserData());
     localStorage.removeItem("userToken");
     localStorage.removeItem("userIsLogin");
     router.push("/signin");
-  };
+  }, [dispatch, router]);
+
   const route = router.asPath;
   const isProfile = route === "/profile/edit" || route === "/profile";
   const isAds = route.includes("/profile/my-properties");
   const isSaved = route.includes("/profile/saved-items");
   const isNeeds = route.includes("/profile/needs");
-  const isPackage = route.includes("/profile/my-subscriptions");
+  const NavLink = ({ href, text, icon: Icon, active }) => (
+    <Link
+      href={href}
+      className={`text-baseGray flex items-center gap-4 font-semibold text-[17px] w-fit ${active && "md:text-lightGreen"}`}
+    >
+      <Icon className="md:text-2xl" />
+      {language ? text.ar : text.en}
+    </Link>
+  );
   return (
     <div
-      className={`md:px-10 flex flex-col gap-5 mt-2 ${main && "md:hidden"} `}
+      className={`md:px-10 flex flex-col gap-5 mt-2 ${main ? "md:hidden" : ""} min-h-[50dvh]`}
     >
-      <div className="flex flex-col gap-5">
-        <Link
-          href={"/profile/edit"}
-          className={`text-baseGray md:hidden flex items-center gap-4 font-semibold text-[17px] w-fit `}
-        >
-          <MdOutlineAccountCircle className="md:text-2xl" />
-          {language ? "المعلومات الشخصية" : "Personal Info"}
-        </Link>
-        <Link
-          href={"/profile"}
-          className={`text-baseGray hidden md:flex items-center gap-4 font-semibold text-[17px] w-fit ${isProfile && "md:text-lightGreen"} `}
-        >
-          {" "}
-          <MdOutlineAccountCircle className="md:text-2xl" />
-          {language ? "المعلومات الشخصية" : "Personal Info"}
-        </Link>
-        <hr />
-      </div>
-      <div className="flex flex-col gap-5">
-        <Link
-          href={"/profile/my-properties"}
-          className={`text-baseGray font-semibold flex items-center gap-4  text-[17px] w-fit ${isAds && "md:text-lightGreen"}`}
-        >
-          <MdOutlineRealEstateAgent className="md:text-2xl" />
-          {language ? "الإعلانات" : "Properties"}
-        </Link>
-        <hr />
-      </div>
-      <div className="flex flex-col gap-5">
-        <Link
-          href={"/profile/saved-items"}
-          className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isSaved && "md:text-lightGreen"}`}
-        >
-          <IoMdHeartEmpty className="md:text-2xl" />
-          {language ? "العناصر المحفوظة" : "Saved Items"}
-        </Link>
-        <hr />
-      </div>
+      <NavLink
+        href="/profile/edit"
+        text={{ en: "Personal Info", ar: "المعلومات الشخصية" }}
+        icon={MdOutlineAccountCircle}
+        active={isProfile}
+      />
+      <hr />
+      <NavLink
+        href="/profile/my-properties"
+        text={{ en: "Properties", ar: "الإعلانات" }}
+        icon={MdOutlineRealEstateAgent}
+        active={isAds}
+      />
+      <hr />
+      <NavLink
+        href="/profile/saved-items"
+        text={{ en: "Saved Items", ar: "العناصر المحفوظة" }}
+        icon={IoMdHeartEmpty}
+        active={isSaved}
+      />
+      <hr />
       {!isCompany && (
         <>
-          <div className="flex flex-col gap-5">
-            <Link
-              href={"/profile/needs"}
-              className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isNeeds && "md:text-lightGreen"} `}
-            >
-              <BiEditAlt className="md:text-2xl" />
-              {language ? " الطلبات" : " Needs"}
-            </Link>
-            <hr />
-          </div>
+          <NavLink
+            href="/profile/needs"
+            text={{ en: "Needs", ar: "الطلبات" }}
+            icon={BiEditAlt}
+            active={isNeeds}
+          />
+          <hr />
         </>
       )}
-      <div className="flex flex-col gap-5">
-        <Link
-          href={"/profile/my-subscriptions"}
-          className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isPackage && "md:text-lightGreen"}`}
-        >
-          <IoMdCard className="md:text-2xl" />
-          {language ? " الباقات" : "Package"}
-        </Link>
-        <hr />
-      </div>
-
-      <div className="flex flex-col gap-5">
-        <button
-          onClick={handleLogout}
-          className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
-        >
-          <RiLogoutBoxLine className="md:text-2xl" />
-          {language ? "تسجيل الخروج" : "Log out"}
-        </button>
-      </div>
+      <button
+        onClick={handleLogout}
+        className="text-baseGray flex items-center gap-4 font-semibold text-[17px]"
+      >
+        <RiLogoutBoxLine className="md:text-2xl" />
+        {language ? "تسجيل الخروج" : "Log out"}
+      </button>
     </div>
   );
 };
