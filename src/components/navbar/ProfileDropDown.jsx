@@ -30,7 +30,7 @@ const ProfileDropDown = () => {
   const handleLogout = () => {
     dispatch(clearUserData());
     logOutUserData();
-    router.push("/signin");
+    // router.push("/signin");
   };
   useEffect(() => {
     function handleClickOutside(event) {
