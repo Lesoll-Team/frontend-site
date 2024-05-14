@@ -9,21 +9,18 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = Cookies.get("userToken");
-    console.log("first token (*)line 12", token);
     if (token) {
       config.headers.token = token;
     }
     return config;
   },
   (error) => {
-    console.log("Error getting user access token from cookies (*)line 19");
     return Promise.reject(error);
   },
 );
 // Response interceptor to handle refreshing tokens
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("response ::::>>> ::>>>(*)line 26", response);
     return response;
   },
   async (error) => {
@@ -35,8 +32,13 @@ axiosInstance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       Cookies.remove("userToken");
-      console.log("Access token expired, logging out user... (*) line 36");
-      return Promise.reject("logging out user...");
+      if (
+        window.location.pathname.includes("/profile") ||
+        window.location.pathname.includes("/dashboard")
+      ) {
+        window.location.replace("/");
+      }
+      return Promise.reject(error);
     }
     if (
       error.response &&
@@ -52,15 +54,11 @@ axiosInstance.interceptors.response.use(
         const { accessToken } = refreshResponse.data;
         Cookies.set("userToken", accessToken);
         originalRequest.headers.token = accessToken;
-        console.log("Done ::>>>(*)line 55");
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        console.error("Failed to refresh token (*) line 57:", refreshError);
         return Promise.reject(refreshError);
       }
     }
-
-    console.error("Failed to refresh token (*) line 65", error);
     return Promise.reject(error);
   },
 );

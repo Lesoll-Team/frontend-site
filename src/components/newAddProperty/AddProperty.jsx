@@ -157,6 +157,7 @@ const AddProperty = () => {
     }
   };
   // const errorSubmit = useSelector((state) => state.addProperty.error);
+  console.log("status::>>", status);
   if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
@@ -216,7 +217,7 @@ const AddProperty = () => {
         {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>
     );
-  } else if (status === "failed") {
+  } else if (status === "failed" || status === "idle") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">
         <div className="max-w-[450px] p-5 py-8 bg-white rounded-lg border w-full drop-shadow flex flex-col justify-center items-center gap-5 md:gap-8">
