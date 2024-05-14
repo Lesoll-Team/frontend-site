@@ -1,14 +1,15 @@
+import { useUser } from "@/Shared/UserContext";
 import { signWithGoogle } from "@/utils/userAPI";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector } from "react-redux";
 
 const GoogleSignInBtn = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { setUserData } = useUser();
   const handleGoogleAuth = async () => {
     // e.preventDefault();
-
     await signWithGoogle();
+    setUserData();
   };
   return (
     <button
