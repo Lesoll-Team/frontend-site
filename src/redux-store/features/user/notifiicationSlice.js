@@ -24,7 +24,6 @@ export const getNotifications = createAsyncThunk(
       const response = await axiosInstance.get(`/notification/get/user`);
       return response.data.notification;
     } catch (error) {
-      console.log("getNotifications slice,", error);
       return [];
     }
   },

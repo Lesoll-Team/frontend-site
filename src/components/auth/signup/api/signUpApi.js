@@ -10,14 +10,11 @@ export const userSignUp = async ({
     setFormStatus("loading");
     const response = await axiosInstance.post(`/auth/register`, data);
     if (response.status === 200 || response.status === 201) {
-      // Cookies.set("userToken", token);
       setFormStatus("success");
-      console.log(response.data);
       setToken(response.data.token);
     }
     return response.data;
   } catch (error) {
-    console.log(error);
     setFormStatus("failed");
     setServerError(error.response.data);
     throw error.response.data;

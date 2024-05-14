@@ -13,7 +13,6 @@ export const postNeed = async ({ setFormStatus, setServerError, data }) => {
     setFormStatus("failed");
 
     setServerError(error?.response);
-    // throw error?.response;
-    console.log(error);
+    throw error?.response;
   }
 };
