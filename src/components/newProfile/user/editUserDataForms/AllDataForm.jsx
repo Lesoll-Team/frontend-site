@@ -34,7 +34,7 @@ const AllDataForm = ({ main }) => {
     }
   }, [data]);
 
-  const onSubmit = (userData) => {
+  const onSubmit = async (userData) => {
     const formData = new FormData();
     formData.append("fullname", userData.fullname);
     formData.append("code", userData.code);
@@ -44,7 +44,7 @@ const AllDataForm = ({ main }) => {
     );
     formData.append("instagramLink", userData.instagramLink);
     formData.append("faceLink", userData.faceLink);
-    dispatch(
+    await dispatch(
       updateUser({
         userData: formData,
         id: data?._id,

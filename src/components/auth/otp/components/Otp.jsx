@@ -1,10 +1,10 @@
 import OtpInputForm from "./OtpInputForm";
 
-const Otp = ({ userData, token }) => {
+const Otp = () => {
   return (
     <div className="grid lg:grid-cols-2 min-h-[94dvh]">
       <div className="flex h-full flex-col items-center justify-center">
-        <OtpInputForm userData={userData} token={token} />
+        <OtpInputForm />
       </div>
       <img
         src={"/signin.png"}
