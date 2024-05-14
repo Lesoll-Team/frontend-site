@@ -1,22 +1,27 @@
 import React from "react";
-import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
-import { PiBathtub } from "react-icons/pi";
+import { CgLayoutGridSmall } from "react-icons/cg";
+// import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
+import {
+  // PiBathtub,
+  PiBathtubThin,
+  PiBedLight,
+} from "react-icons/pi";
 
 const LocationAndRooms = ({ propertyDetails }) => {
   return (
-    <div className="flex flex-col  md:flex-row md:items-center h-full md:h-fit md:justify-between justify-end  ">
-      <p className="flex items-center  min-w-max text-gray2 md:text-[16px] text-[12px] gap-1  ">
+    <div className="flex flex-col   w-fit h-full md:h-fit md:justify-between justify-end  ">
+      <p className="flex items-center   min-w-max text-gray2 md:text-[16px] text-[12px] gap-1  ">
         {propertyDetails?.address?.region
           ? propertyDetails?.address?.region
           : propertyDetails?.address?.governrate}
       </p>
-      <div className="  flex items-center  min-w-max  text-darkGray ">
+      <div className="  flex items-center    text-darkGray ">
         {propertyDetails?.rooms > 0 && (
           <ul className="flex items-center gap-x-1  ">
             <li className="font-bold text-[11px] font-inter md:text-[17px]">
               {propertyDetails?.rooms}
             </li>
-            <LiaBedSolid className="md:text-[25px]" />
+            <PiBedLight className="md:text-[25px]" />
           </ul>
         )}
         {propertyDetails?.bathRooms > 0 && (
@@ -26,7 +31,7 @@ const LocationAndRooms = ({ propertyDetails }) => {
               <li className="font-bold text-[11px] font-inter md:text-[17px]">
                 {propertyDetails?.bathRooms}
               </li>
-              <PiBathtub className="md:text-[25px]" />
+              <PiBathtubThin className="md:text-[25px]" />
             </ul>
           </>
         )}
@@ -37,7 +42,7 @@ const LocationAndRooms = ({ propertyDetails }) => {
             )}
 
             <ul className="flex items-center gap-x-1  ">
-              <LiaVectorSquareSolid className=" md:text-[20px]" />
+              <CgLayoutGridSmall className=" md:text-[25px]" />
               <li className="font-bold text-[11px] font-inter md:text-[17px]">
                 {propertyDetails?.area + " m "}
               </li>

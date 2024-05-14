@@ -31,7 +31,7 @@ const PriceAndSocial = ({ propertyDetails }) => {
   });
 
   return (
-    <div className="flex flex-row items-center justify-between">
+    <div className="flex flex-row items-center  justify-between">
       {propertyDetails?.offer !== "For Investment" && (
         <p className=" font-bold font-inter  text-gray2 text-[12px] md:text-[17px]">
           <span>{parseInt(propertyDetails?.price).toLocaleString()}</span>
