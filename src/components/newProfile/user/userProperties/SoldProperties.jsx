@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ProfileCard from "../../profile-cards/ProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getPendingProp,
+  // getPendingProp,
   getSoldProp,
 } from "@/redux-store/features/user/userPropertiesSlice";
 import NoItems from "./NoItems";
@@ -10,11 +10,11 @@ const SoldProperties = () => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const soldProp = useSelector((state) => state.userProperties.sold.data);
-  const soldPropStatus = useSelector(
-    (state) => state.userProperties.sold.status
-  );
+  // const soldPropStatus = useSelector(
+  //   (state) => state.userProperties.sold.status
+  // );
 
-  const soldPropError = useSelector((state) => state.userProperties.sold.error);
+  // const soldPropError = useSelector((state) => state.userProperties.sold.error);
   useEffect(() => {
     dispatch(getSoldProp());
   }, []);

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const getSingleProject = async ({
   setApiStatus,
@@ -8,16 +8,8 @@ export const getSingleProject = async ({
 }) => {
   try {
     setApiStatus("loading");
-    const token = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/get-single-projects/${slug}`,
-
-      {
-        headers: {
-          token,
-        },
-      }
+    const response = await axiosInstance.get(
+      `/property/get-single-projects/${slug}`,
     );
 
     if (response.status === 200 || response.status === 201) {

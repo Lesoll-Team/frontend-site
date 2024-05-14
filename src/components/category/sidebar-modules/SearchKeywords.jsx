@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { TbSearch } from "react-icons/tb";
 import { updateAllStates } from "../../../redux-store/features/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ const SearchKeywords = () => {
     dispatch(
       updateAllStates({
         searchKeyword: e.target.value,
-      })
+      }),
     );
   };
   return (
@@ -34,4 +34,4 @@ const SearchKeywords = () => {
   );
 };
 
-export default SearchKeywords;
+export default memo(SearchKeywords);

@@ -14,13 +14,13 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import { propertyIsSold } from "@/utils/propertyAPI";
 import Image from "next/image";
+import { useUser } from "@/Shared/UserContext";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -40,7 +40,7 @@ export default function ActiveProperty() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState("");
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
 
   useEffect(() => {
     fetchAllProperties(startDate, endDate);
@@ -57,7 +57,7 @@ export default function ActiveProperty() {
         page,
         filterValue,
         formattedStartDate,
-        formattedEndDate
+        formattedEndDate,
       );
       setProperty(getProperties.Property);
       setPropertyLength(getProperties.resultCount);
@@ -106,7 +106,7 @@ export default function ActiveProperty() {
           // blog.bathRooms.toLowerCase().includes(filterValue.toLowerCase()) ||
           // blog.price.toLowerCase().includes(filterValue.toLowerCase()) ||
           // blog.rooms.toLowerCase().includes(filterValue.toLowerCase()) ||
-          blog.offer.toLowerCase().includes(filterValue.toLowerCase())
+          blog.offer.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     return filteredUsers;
@@ -159,10 +159,10 @@ export default function ActiveProperty() {
         );
       case "details":
         const formattedUpdatedAtDate = new Date(
-          blog.updatedAt
+          blog.updatedAt,
         ).toLocaleString();
         const formattedCreatedAtDate = new Date(
-          blog.createdAt
+          blog.createdAt,
         ).toLocaleString();
         return (
           <div className=" flex flex-col  min-w-[250px] max-w-[300px]">
@@ -243,7 +243,7 @@ export default function ActiveProperty() {
                   action={null}
                   id={blog._id}
                 />
-                {userInfo && !userInfo.isAdmin ? (
+                {data && !data.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
@@ -255,7 +255,7 @@ export default function ActiveProperty() {
                   />
                 )}
 
-                {userInfo && !userInfo.isAdmin ? (
+                {data && !data.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
@@ -413,7 +413,7 @@ export default function ActiveProperty() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    []
+    [],
   );
   return (
     <Table

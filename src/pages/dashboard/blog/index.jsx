@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import BlogDashboard from "@/components/dashboard/router/BlogDashboard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import Head from "next/head";
+import { useUser } from "@/Shared/UserContext";
 function Blog() {
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const router = useRouter();
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin === false && userInfo.supAdmin === false) {
+    if (data && data.isAdmin === false && data.supAdmin === false) {
       router.push("/404");
     }
-  }, [userInfo]);
-  return userInfo && (userInfo.isAdmin || userInfo.supAdmin) ? (
+  }, [data]);
+  return data && (data.isAdmin || data.supAdmin) ? (
     <div className="min-h-[90dvh] flex" dir="ltr">
       <Head>
         <title>Dashboard</title>

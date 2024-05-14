@@ -1,5 +1,6 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import NeedsFeed from "@/components/needs/needFeed/NeedsFeed";
-import axios from "axios";
+
 import Head from "next/head";
 import { useSelector } from "react-redux";
 
@@ -19,8 +20,8 @@ export default NeedsPage;
 export async function getServerSideProps({ query }) {
   const keyword = query;
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/need/get-all-needs?page=${
+    const response = await axiosInstance.get(
+      `/need/get-all-needs?page=${
         keyword?.page || 1
       }&limit=9&cdb=${keyword.cdb || ""}`,
     );

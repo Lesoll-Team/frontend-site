@@ -5,18 +5,18 @@ import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
 import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
-import Image from "next/image";
+// import Image from "next/image";
 import NoItems from "./NoItems";
 const ActiveProperties = () => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const activeProp = useSelector((state) => state.userProperties.active.data);
-  const activePropStatus = useSelector(
-    (state) => state.userProperties.active.status
-  );
-  const activePropError = useSelector(
-    (state) => state.userProperties.active.error
-  );
+  // const activePropStatus = useSelector(
+  //   (state) => state.userProperties.active.status
+  // );
+  // const activePropError = useSelector(
+  //   (state) => state.userProperties.active.error
+  // );
   useEffect(() => {
     dispatch(getActiveProp());
   }, []);

@@ -1,4 +1,4 @@
-import AcceptInvite from "@/components/accept-invite/AcceptInvite";
+// import AcceptInvite from "@/components/accept-invite/AcceptInvite";
 import AcceptWithSetPassword from "@/components/accept-invite/AcceptWithSetPassword";
 
 const index = () => {

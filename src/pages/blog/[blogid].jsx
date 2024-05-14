@@ -1,5 +1,7 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import BlogSinglePage from "@/components/blogs/blogSinglePage";
 import axios from "axios";
+
 import Head from "next/head";
 import React from "react";
 

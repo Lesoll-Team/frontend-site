@@ -1,6 +1,6 @@
-import { localizedNumber } from "@/utils/localizedNumber";
+// import { localizedNumber } from "@/utils/localizedNumber";
 import SectionContainer from "../SectionContainer";
-import InstallmentCard from "./InstallmentCard";
+// import InstallmentCard from "./InstallmentCard";
 import { useCallback } from "react";
 
 const InstallmentData = ({ propertyDetails }) => {

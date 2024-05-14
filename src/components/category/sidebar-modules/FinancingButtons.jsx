@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const FinancingButtons = () => {
@@ -57,7 +57,7 @@ const FinancingButtons = () => {
               ${
                 propFinancing == "cbe8" && " border-lightGreen  text-lightGreen"
               }
-              
+
               text-gray2 border-1 border-[#CCCCCC]  md:px-3 md:p-2 bg-white  px-3 h-[40px]  md:h-[3.313rem]  rounded-[6px]`}
         >
           {language ? "تمويل العقاري 8%" : "CBE 8% initiative"}
@@ -67,4 +67,4 @@ const FinancingButtons = () => {
   );
 };
 
-export default FinancingButtons;
+export default memo(FinancingButtons);

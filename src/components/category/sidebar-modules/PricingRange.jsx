@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const PricingRange = () => {
@@ -12,7 +12,7 @@ const PricingRange = () => {
     dispatch(
       updateAllStates({
         priceFrom: value,
-      })
+      }),
     );
   };
 
@@ -21,7 +21,7 @@ const PricingRange = () => {
     dispatch(
       updateAllStates({
         priceTo: value,
-      })
+      }),
     );
   };
   return (
@@ -52,4 +52,4 @@ const PricingRange = () => {
   );
 };
 
-export default PricingRange;
+export default memo(PricingRange);

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const resetPass = async ({
   setFormStatus,
@@ -8,9 +8,9 @@ export const resetPass = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/changepassword?chps=${token}`,
-      data
+    const response = await axiosInstance.patch(
+      `/user/changepassword?chps=${token}`,
+      data,
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

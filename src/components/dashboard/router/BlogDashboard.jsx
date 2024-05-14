@@ -70,7 +70,7 @@ export default function BlogDashboard() {
       filteredUsers = filteredUsers.filter(
         (blog) =>
           blog.title.ar.toLowerCase().includes(filterValue.toLowerCase()) ||
-          blog.title.en.toLowerCase().includes(filterValue.toLowerCase())
+          blog.title.en.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     return filteredUsers;
@@ -116,7 +116,7 @@ export default function BlogDashboard() {
         );
       case "actions":
         return (
-          <div className=" flex justify-end fixed">
+          <div className=" flex justify-end ">
             <DropdownAction iconIs={<VerticalDotsIcon />}>
               <ItemDropdown
                 label={"View"}
@@ -239,7 +239,7 @@ export default function BlogDashboard() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    []
+    [],
   );
 
   return (

@@ -13,14 +13,12 @@ const useEditProperty = (data) => {
   const [serverError, setServerError] = useState(null);
   const form = useForm();
   const projects = useSelector((state) => state.getProjects.projects.data);
-  const projectList =
-    projects &&
-    projects?.Property?.map((item) => {
-      return {
-        value: item._id,
-        name: { ar: item.titleAr, en: item.titleEn },
-      };
-    });
+  const projectList = projects?.Property?.map((item) => {
+    return {
+      value: item._id,
+      name: { ar: item.titleAr, en: item.titleEn },
+    };
+  });
   const {
     handleSubmit,
     control,
@@ -41,7 +39,7 @@ const useEditProperty = (data) => {
 
   useEffect(() => {
     const crruntProject = projectList?.find(
-      (item) => item.value === data.ProjectID
+      (item) => item.value === data.ProjectID,
     );
     setValue("ProjectID", crruntProject);
   }, [projects]);
@@ -64,20 +62,18 @@ const useEditProperty = (data) => {
           setServerError,
         });
       }
+    } else if (step < 4) {
+      scrollToTop();
+      setStep(step + 1);
     } else {
-      if (step < 4) {
-        scrollToTop();
-        setStep(step + 1);
-      } else {
-        const { formData } = editFormData(data);
+      const { formData } = editFormData(data);
 
-        editProperty({
-          data: formData,
-          id: data.id,
-          setFormStatus,
-          setServerError,
-        });
-      }
+      editProperty({
+        data: formData,
+        id: data.id,
+        setFormStatus,
+        setServerError,
+      });
     }
   });
 

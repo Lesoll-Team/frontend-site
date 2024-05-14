@@ -13,9 +13,9 @@ const AdminCashAndInstallment = ({
   control,
   errors,
   register,
-  setValue,
-  watch,
-  clearErrors,
+  // setValue,
+  // watch,
+  // clearErrors,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { fields, append, remove } = useFieldArray({

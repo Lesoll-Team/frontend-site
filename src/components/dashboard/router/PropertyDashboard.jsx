@@ -15,9 +15,11 @@ import {
 } from "@nextui-org/react";
 
 // import { SearchIcon } from "../icon/SearchIcon";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import Image from "next/image";
+import Cookies from "js-cookie";
+import { useUser } from "@/Shared/UserContext";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -38,10 +40,11 @@ export default function PropertyDashboard() {
   useEffect(() => {
     fetchAllProperties();
   }, [page, rowsPerPage, refreshProperty]);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  // const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
   const fetchAllProperties = async () => {
     try {
-      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const userToken = Cookies.get("userToken");
       const getProperties = await fetchAllProperty(userToken);
       setProperty(getProperties);
       setProperty(getProperties);
@@ -193,7 +196,7 @@ export default function PropertyDashboard() {
             </div>
             <div>
               <DropdownAction iconIs={dropIcon}>
-                {userInfo && !userInfo.isAdmin ? (
+                {data && !data.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
@@ -212,7 +215,7 @@ export default function PropertyDashboard() {
                   id={blog._id}
                 />
 
-                {userInfo && !userInfo.isAdmin ? (
+                {data && !data.isAdmin ? (
                   <ul></ul>
                 ) : (
                   <ItemDropdown
@@ -305,7 +308,7 @@ export default function PropertyDashboard() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    []
+    [],
   );
 
   return (
@@ -367,7 +370,7 @@ export default function PropertyDashboard() {
                 aria-label="Property  Options Menu"
                 // aria-labelledbyl="Options Menu Property"
               >
-                {userInfo && !userInfo.supAdmin && (
+                {data && !userInfo.supAdmin && (
                   <DropdownItem
                     textValue="Delete Property"
                     onClick={() => handleDeleteProperty(blog._id)}
@@ -390,7 +393,7 @@ export default function PropertyDashboard() {
                     router.push(`/editproperty/${blog.slug}`);
                   }}
                 >
-                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full"> 
+                  {/* <Link href={`/editproperty/${blog.slug}`} className="w-full h-full">
                   edit
 
                 </DropdownItem>

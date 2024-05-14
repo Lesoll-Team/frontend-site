@@ -14,12 +14,10 @@ const Notifications = () => {
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const menuRef = useRef(null);
-  // const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const userNotifications = useSelector(
     (state) => state.notifications.notifications.data,
   );
-  // const date = useMemo(()=>new Date())
   const toggleNotification = () => {
     setShowMenu((prev) => !prev);
   };
@@ -45,12 +43,12 @@ const Notifications = () => {
   }, []);
   const handleNotificationClick = async (id) => {
     setShowMenu(false);
-    await dispatch(visitNotification(id));
+    dispatch(visitNotification(id));
     dispatch(getNotifications());
   };
   const handleSeeAll = async () => {
     setShowMenu(false);
-    await dispatch(visitAllNotifications());
+    dispatch(visitAllNotifications());
     dispatch(getNotifications());
   };
 
@@ -91,7 +89,7 @@ const Notifications = () => {
               userNotifications.map((item, i) => {
                 const notificationDate = new Date(item.createdAt);
                 return (
-                  <>
+                  <div key={item._id}>
                     <Link
                       href={item?.link || ""}
                       key={item._id}
@@ -106,7 +104,7 @@ const Notifications = () => {
                       </span>
                     </Link>
                     {userNotifications.length != i + 1 && <hr />}
-                  </>
+                  </div>
                 );
               })
             ) : (

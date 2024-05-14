@@ -7,10 +7,11 @@ import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import Link from "next/link";
 import useEditNeed from "./hooks/useEditNeed";
+import { useUser } from "@/Shared/UserContext";
 
-const EditNeed = ({ data }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
-  const userDataStatus = useSelector((state) => state.userProfile.status);
+const EditNeed = ({ needData }) => {
+  const { data, status } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const {
     errors,
@@ -22,7 +23,7 @@ const EditNeed = ({ data }) => {
     step,
     setStep,
     formStatus,
-  } = useEditNeed(data);
+  } = useEditNeed(needData);
   const renderStep = useMemo(() => {
     switch (step) {
       case 1:
@@ -50,13 +51,13 @@ const EditNeed = ({ data }) => {
     }
   });
 
-  if (userDataStatus === "loading") {
+  if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
         <DotPulse size={60} color="#309da0" />
       </div>
     );
-  } else if (userData) {
+  } else if (data) {
     return (
       <form
         noValidate
@@ -80,7 +81,7 @@ const EditNeed = ({ data }) => {
         </div>
       </form>
     );
-  } else if (userDataStatus === "failed") {
+  } else if (status === "failed") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">
         <div className="max-w-[450px] p-5 py-8 bg-white rounded-lg border w-full drop-shadow flex flex-col justify-center items-center gap-5 md:gap-8">
