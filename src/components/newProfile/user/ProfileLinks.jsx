@@ -20,7 +20,7 @@ const ProfileLinks = ({ main }) => {
   const handleLogout = () => {
     dispatch(clearUserData());
     logOutUserData();
-    router.push("/signin");
+    // router.push("/signin");
   };
   const route = router.asPath;
   const isProfile = route === "/profile/edit" || route === "/profile";

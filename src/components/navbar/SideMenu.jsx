@@ -38,7 +38,7 @@ const SideMenu = () => {
     dispatch(clearUserData());
     logOutUserData();
     Cookies.remove("userToken");
-    router.push("/signin");
+    // router.push("/signin");
   };
   useEffect(() => {
     // Prevent scrolling when the SideMenu component is mounted
