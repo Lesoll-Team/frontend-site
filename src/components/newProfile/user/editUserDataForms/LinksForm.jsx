@@ -13,6 +13,7 @@ import { useUser } from "@/Shared/UserContext";
 import { useEffect, useState } from "react";
 import { editUserData } from "../../apis/profileApis";
 import ReactModal from "@/Shared/ui/ReactModal";
+import { Ring } from "@uiball/loaders";
 
 const LinksForm = ({ main }) => {
   const { data: userData, setUserData } = useUser();
@@ -133,7 +134,13 @@ const LinksForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "تعديل" : "Edit"}
+              {formStatus === "loading" ? (
+                <Ring size={20} color="#fff" />
+              ) : language ? (
+                "تعديل"
+              ) : (
+                "Edit"
+              )}
             </Button>
           </div>
         </form>

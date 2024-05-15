@@ -17,6 +17,7 @@ import { editUserData } from "../../apis/profileApis";
 import ReactModal from "@/Shared/ui/ReactModal";
 import OptModal from "@/Shared/otp/OtpModel";
 import Image from "next/image";
+import { Ring } from "@uiball/loaders";
 
 const CompanyInfoForm = ({ main }) => {
   const { data: userData, setUserData } = useUser();
@@ -244,7 +245,13 @@ const CompanyInfoForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "حفظ" : "Save"}
+              {formStatus === "loading" ? (
+                <Ring size={20} color="#fff" />
+              ) : language ? (
+                "تعديل"
+              ) : (
+                "Edit"
+              )}
             </Button>
           </div>
         </form>
