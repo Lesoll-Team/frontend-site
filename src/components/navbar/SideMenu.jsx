@@ -10,7 +10,7 @@ import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChangeLang from "./ChangeLang";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import { useUser } from "@/Shared/UserContext";
 // import io from "socket.io-client";
@@ -22,7 +22,7 @@ const SideMenu = () => {
   const { data, logOutUserData } = useUser();
 
   const dispatch = useDispatch();
-  const router = useRouter();
+  // const router = useRouter();
   const isCompany = data?.typeOfUser === "company";
   const [showSideMenu, setShowSideMenu] = useState(false);
   const openSideMenu = () => {
@@ -37,7 +37,8 @@ const SideMenu = () => {
   const handleLogout = () => {
     dispatch(clearUserData());
     logOutUserData();
-    Cookies.remove("userToken");
+    console.log("remove token from SideMenu line 40");
+    // Cookies.remove("userToken");
     // router.push("/signin");
   };
   useEffect(() => {

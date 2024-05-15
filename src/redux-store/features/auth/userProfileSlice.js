@@ -13,7 +13,8 @@ const userProfileSlice = createSlice({
   reducers: {
     clearUserData: (state) => {
       logoutUser();
-      Cookies.remove("userToken");
+      console.log("remove token from ClearUserData line 16");
+      // Cookies.remove("userToken");
       localStorage.clear();
       state.userData = null;
     },

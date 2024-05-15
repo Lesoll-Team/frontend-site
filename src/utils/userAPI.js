@@ -20,6 +20,7 @@ export async function loginUser(userData) {
 }
 export async function logoutUser() {
   await axiosInstance.post(`/auth/logout`);
+  console.log("remove token from logoutUser line 40");
   Cookies.remove("userToken");
 }
 

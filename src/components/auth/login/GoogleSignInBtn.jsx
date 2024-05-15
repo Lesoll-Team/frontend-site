@@ -7,7 +7,6 @@ const GoogleSignInBtn = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { setUserData } = useUser();
   const handleGoogleAuth = async () => {
-    // e.preventDefault();
     await signWithGoogle();
     setUserData();
   };
