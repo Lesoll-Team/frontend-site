@@ -1,5 +1,4 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import Cookies from "js-cookie";
 export const userSignUp = async ({
   setFormStatus,
   setToken,

@@ -22,7 +22,6 @@ const ProfileLinks = ({ main }) => {
   const handleLogout = useCallback(() => {
     dispatch(clearUserData());
     logOutUserData();
-    // router.push("/signin");
   });
   const route = router.asPath;
   const isProfile = route === "/profile/edit" || route === "/profile";
