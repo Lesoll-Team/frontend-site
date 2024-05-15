@@ -1,68 +1,25 @@
-import { AddToFavorites } from "@/utils/propertyAPI";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Image from "next/image";
 import PriceAndSocial from "./basic-body-card/PriceAndSocial";
 import TitleCard from "./basic-body-card/TitleCard";
 import LocationAndRooms from "./basic-body-card/LocationAndRooms";
-import { useUser } from "@/Shared/UserContext";
+import FavAndDate from "./basic-body-card/FavAndDate";
+import { memo } from "react";
 
 const RealtyCard = ({ propertyDetails }) => {
-  const { data, setUserData } = useUser();
-
-  const [loved, setLoved] = useState(false);
-  const addToFAv = async () => {
-    try {
-      await AddToFavorites(propertyDetails?._id);
-      setUserData();
-    } catch (error) {
-      console.error("Error add to fav :", error);
-    }
-  };
-
-  useEffect(() => {
-    if (data?.favorites.includes(propertyDetails?._id)) {
-      setLoved(true);
-    }
-  }, [data?.favorites]);
   return (
-    <div className="md:max-w-[400px]  md:h-[355px] h-[145px] flex md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative">
+    <div className="overflow-hidden col-5  w-full  sm:h-auto h-[135px] flex sm:block ">
       {/* start icon favorite */}
-      <div className="flex absolute md:mt-[16px] m-[10px] md:mr-[20px]">
-        {data && (
-          <div className=" bg-white  drop-shadow-md flex justify-center w-[25px] h-[25px] md:w-[40px] md:h-[40px] items-center md:text-2xl text-md rounded-full  text-center  cursor-pointer">
-            {data &&
-              (loved ? (
-                <AiFillHeart
-                  className="text-red-500 animate-appearance-in"
-                  onClick={() => {
-                    addToFAv();
-                    setLoved(!loved);
-                  }}
-                />
-              ) : (
-                <AiOutlineHeart
-                  className="text-black animate-appearance-in"
-                  onClick={() => {
-                    addToFAv();
-                    setLoved(!loved);
-                  }}
-                />
-              ))}
-          </div>
-        )}
-      </div>
       <Link
         title={`${propertyDetails?.title}`}
         key={propertyDetails?._id}
         href={`/property-details/${propertyDetails?.slug}`}
-        className=" md:h-[174px] h-[145px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
+        className="  sm:w-full w-5/12 min-w-[140px] flex relative "
       >
+        <FavAndDate propertyDetails={propertyDetails} />
         <Image
           alt={` image  ${propertyDetails?.title}`}
-          radius="none"
-          className="flex object-cover w-[135px] h-[145px] md:w-[400px] md:h-[174px] "
+          className="flex object-cover w-full overflow-hidden h-auto sm:h-[287px] rounded-md"
           loading="lazy"
           width={400}
           height={174}
@@ -73,16 +30,30 @@ const RealtyCard = ({ propertyDetails }) => {
         />
       </Link>
       {/* start card data */}
-      <div className=" md:p-[20px]   p-3 w-full h-full flex flex-col md:gap-y-[16px] gap-y-[6px]">
-        {/* start contact and price */}
-        <PriceAndSocial propertyDetails={propertyDetails} />
+      <div
+        className=" sm:pt-[20px] sm:p-0 p-1.5 w-full flex flex-col justify-between
+      gap-1
+      "
+      >
         {/* start title */}
         <TitleCard propertyDetails={propertyDetails} />
-        {/* start location and details rooms ...etc*/}
+        {/* start location  details  ...etc*/}
+        <p className="flex items-center font-inter min-w-max text-gray2 md:text-[16px] text-[12px] gap-1  ">
+          {propertyDetails?.address?.region
+            ? propertyDetails?.address?.region
+            : propertyDetails?.address?.governrate}
+        </p>
+        {/* start  details rooms ...etc*/}
         <LocationAndRooms propertyDetails={propertyDetails} />
+        {/* start contact and price */}
+        <PriceAndSocial propertyDetails={propertyDetails} />
       </div>
       {/* end card data */}
     </div>
   );
 };
-export default RealtyCard;
+// w-[135px] h-[145px] md:w-[400px] md:h-[174px]
+// className=" md:h-[174px] h-[145px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
+
+export default memo(RealtyCard);
+// <div className="md:max-w-[400px]  md:h-[355px] h-[145px] flex md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative">

@@ -55,7 +55,7 @@ const DeletedProperty = ({ RecommendedOther }) => {
             <h3 className="md:text-2xl text-lg  font-bold">
               {language ? " تصفح عقارات مشابهة" : "similar Properties"}
             </h3>
-            <div className=" flex flex-wrap gap-5 justify-center items-center ">
+            <div className=" grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
               {RecommendedOther.map((recommendations) => (
                 <RealtyCard
                   key={recommendations._id}

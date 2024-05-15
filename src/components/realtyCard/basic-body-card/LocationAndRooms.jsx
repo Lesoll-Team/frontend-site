@@ -1,52 +1,49 @@
-import React from "react";
-import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
-import { PiBathtub } from "react-icons/pi";
+import React, { memo } from "react";
+// import { CgLayoutGridSmall } from "react-icons/cg";
+//LiaBedSolid,
+import { LiaVectorSquareSolid } from "react-icons/lia";
+import {
+  // PiBathtub,
+  PiBathtubThin,
+  PiBedLight,
+} from "react-icons/pi";
+import { useSelector } from "react-redux";
 
 const LocationAndRooms = ({ propertyDetails }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="flex flex-col  md:flex-row md:items-center h-full md:h-fit md:justify-between justify-end  ">
-      <p className="flex items-center  min-w-max text-gray2 md:text-[16px] text-[12px] gap-1  ">
-        {propertyDetails?.address?.region
-          ? propertyDetails?.address?.region
-          : propertyDetails?.address?.governrate}
-      </p>
-      <div className="  flex items-center  min-w-max  text-darkGray ">
-        {propertyDetails?.rooms > 0 && (
-          <ul className="flex items-center gap-x-1  ">
-            <li className="font-bold text-[11px] font-inter md:text-[17px]">
-              {propertyDetails?.rooms}
-            </li>
-            <LiaBedSolid className="md:text-[25px]" />
-          </ul>
-        )}
-        {propertyDetails?.bathRooms > 0 && (
-          <>
-            <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
-            <ul className="flex items-center gap-x-1  ">
-              <li className="font-bold text-[11px] font-inter md:text-[17px]">
-                {propertyDetails?.bathRooms}
-              </li>
-              <PiBathtub className="md:text-[25px]" />
-            </ul>
-          </>
-        )}
-        {propertyDetails?.area > 0 && (
-          <>
-            {propertyDetails?.rooms > 0 && propertyDetails?.bathRooms > 0 && (
-              <hr className=" border-gray-400 border-[1px] md:w-[25px] w-[15px] rotate-90" />
-            )}
+    <div className="flex w-fit justify-end  gap-x-4">
+      {!propertyDetails.rooms == 0 && (
+        <ul className="flex items-center gap-x-1   ">
+          <PiBedLight className="sm:text-xl text-lg" />
+          <li className=" text-[11px] font-inter md:text-[17px]">
+            {propertyDetails.rooms}
+          </li>
+        </ul>
+      )}
 
-            <ul className="flex items-center gap-x-1  ">
-              <LiaVectorSquareSolid className=" md:text-[20px]" />
-              <li className="font-bold text-[11px] font-inter md:text-[17px]">
-                {propertyDetails?.area + " m "}
-              </li>
-            </ul>
-          </>
-        )}
-      </div>
+      {!propertyDetails.bathRooms == 0 && (
+        <ul className="flex items-center gap-x-1   ">
+          <PiBathtubThin className="text-lg sm:text-xl" />
+          <li className=" text-[11px] font-inter md:text-[17px]">
+            {propertyDetails?.bathRooms}
+          </li>
+        </ul>
+      )}
+
+      {!propertyDetails.area == 0 && (
+        <ul className="flex items-center gap-x-1  ">
+          <LiaVectorSquareSolid className="text-lg sm:text-xl" />
+          <li className="text-[11px] font-inter md:text-[17px]">
+            {propertyDetails?.area} {language ? "م" : "m"}
+            <sup>2</sup>
+          </li>
+        </ul>
+      )}
+
+      <span className="p-[8px]"></span>
     </div>
   );
 };
 
-export default LocationAndRooms;
+export default memo(LocationAndRooms);
