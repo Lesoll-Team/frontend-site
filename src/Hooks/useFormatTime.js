@@ -1,11 +1,21 @@
 // import { DateTime } from "luxon";
 
-export function useFormatData(dateString) {
-  const originalDate = dateString || null;
-  const date = new Date(originalDate);
-  return date.toLocaleString("en-US", {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-  });
+export function useFormatNewData({ date, lang }) {
+  const originalDate = date || null;
+  const newDate = new Date(originalDate);
+  switch (lang) {
+    case false:
+      return newDate.toLocaleString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+
+    case true:
+      return newDate.toLocaleString("ar-EG", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+  }
 }

@@ -27,9 +27,17 @@ const Index = () => {
     title: "شقه للبيع استلام فوري تشطيب كامل بكمبوند بالتجمع الخامس بالتقسيط ",
   };
   return (
-    <center className="p-20">
+    <div className=" grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10 ">
       <RealtyCard key={property._id} propertyDetails={property} />
-    </center>
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+      <RealtyCard key={property._id} propertyDetails={property} />
+    </div>
   );
 };
 export default Index;
