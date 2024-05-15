@@ -1,6 +1,5 @@
 import { logoutUser } from "@/utils/userAPI";
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   userData: null,
