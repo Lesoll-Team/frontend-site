@@ -52,7 +52,7 @@ const SignInForm = () => {
     if (serverError?.code == 429) {
       setTimeout(function () {
         setServerError(null);
-      }, 30000);
+      }, 60000);
     }
   }, [serverError]);
 
@@ -155,7 +155,7 @@ const SignInForm = () => {
           </p>
         )}
       </div>
-      {serverError?.code === 429 && <TimeOut seconds={30} />}
+      {serverError?.code === 429 && <TimeOut seconds={60} />}
       {/* ---------------------- submit btn ------------------------- */}
       <Button
         type="submit"

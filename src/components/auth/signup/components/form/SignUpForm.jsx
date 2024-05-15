@@ -77,18 +77,19 @@ const SignUpForm = () => {
     }
   }, [serverError]);
   useEffect(() => {
-    console.log("hi");
+    // console.log("hi");
     if (watch("phone")) {
-      console.log("hi2");
+      // console.log("hi2");
 
       const phoneNumber = phoneWithoutCode(watch("phone"), watch("code"));
       if (phoneNumber.length > 10) {
-        console.log("hi3");
+        // console.log("hi3");
 
         clearErrors("phone");
       }
     }
   }, [watch("phone")]);
+  console.log(watch("typeOfUser"));
   return (
     <form
       noValidate

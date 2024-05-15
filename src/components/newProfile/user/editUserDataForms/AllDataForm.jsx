@@ -1,76 +1,72 @@
-import { useDispatch, useSelector } from "react-redux";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import Link from "next/link";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import InputSkeleton from "./InputSkeleton";
-import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { useUser } from "@/Shared/UserContext";
+import ReactModal from "@/Shared/ui/ReactModal";
+import { editUserData } from "../../apis/profileApis";
+import OptModal from "@/Shared/otp/OtpModel";
+import EditFormSkeleton from "./EditFormSkeleton";
+import Error from "@/Shared/ui/Error";
 
 const AllDataForm = ({ main }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
+  const [phoneToVerify, setPhoneToVerify] = useState();
+  const [otpVerifyIsOpen, setOtpVerifyIsOpen] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const dispatch = useDispatch();
+
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
-
+  const { data: userData, setUserData } = useUser();
   const phoneNumberwithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
-
+  console.log(userData);
   useEffect(() => {
-    if (data) {
-      const { code, phone } = data;
+    if (userData) {
+      const { code, phone } = userData;
 
       setValue("phone", code + phoneNumberwithoutCode(phone, code));
       setValue("code", code);
     }
-  }, [data]);
+  }, [userData]);
 
+  const handleSubmitingForm = async (data) => {
+    editUserData({
+      data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
+      userId: userData._id,
+      setFormStatus,
+      setServerError,
+    });
+  };
   const onSubmit = async (data) => {
-    // editUserData({
-    //   data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-    //   userId: userData._id,
-    //   setFormStatus,
-    //   setServerError,
-    // });
-    // editUserData({
-    //   data:{ ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-    //   userId: userData?._id,
-    //   setFormStatus,
-    //   setServerError,
-    // });
-    if (phoneNumberwithoutCode(data.phone, data.code) === userData.phone) {
-      editUserData({
-        data: { ...data, phone: phoneNumberwithoutCode(data.phone, data.code) },
-        userId: userData?._id,
-        setFormStatus,
-        setServerError,
-      });
+    if (phoneNumberwithoutCode(data.phone, data.code) === userData?.phone) {
+      handleSubmitingForm(data);
     } else {
       setPhoneToVerify(phoneNumberwithoutCode(data.phone, data.code));
       setOtpVerifyIsOpen(true);
-      console.log("not same");
     }
   };
-  const onSuccess = () => {
-    console.log("done");
+  const triggerSubmit = () => {
+    handleSubmit(handleSubmitingForm)();
   };
+
   useEffect(() => {
     if (formStatus === "success") {
-      setSucessModalIsOpen(true);
-      dispatch(getUserData());
+      setFormStatus("idle");
+      setSuccessModalIsOpen(true);
+      setUserData();
     }
   }, [formStatus]);
 
   if (userData) {
-    const initailPhone = userData.code + userData?.phone;
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -89,7 +85,7 @@ const AllDataForm = ({ main }) => {
                 autoComplete="off"
                 type="text"
                 // readOnly
-                defaultValue={data.fullname}
+                defaultValue={userData.fullname}
                 {...register("fullname", {
                   required: {
                     value: true,
@@ -112,7 +108,7 @@ const AllDataForm = ({ main }) => {
               <input
                 readOnly
                 type="text"
-                defaultValue={data.email}
+                defaultValue={userData.email}
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
@@ -172,13 +168,7 @@ const AllDataForm = ({ main }) => {
               </div>
             </UserInputContainer>
           </div>
-          <Button
-            disabled={formStatus === "loading"}
-            type={"submit"}
-            className={"w-fit min-w-[140px]"}
-          >
-            {language ? "حفظ" : "Save"}
-          </Button>
+
           <div className="flex flex-col gap-y-8 md:gap-y-11">
             <h3 className=" font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
@@ -187,27 +177,51 @@ const AllDataForm = ({ main }) => {
               name={"facebook icon"}
               imgLink={"/social-icons/facebook.svg"}
             >
-              <input
-                dir="ltr"
-                autoComplete="off"
-                type="text"
-                defaultValue={data.faceLink}
-                {...register("faceLink", {})}
-                className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
-              />
+              <div className="flex flex-col w-full gap-2">
+                <input
+                  dir="ltr"
+                  autoComplete="off"
+                  type="text"
+                  defaultValue={userData.faceLink}
+                  {...register("faceLink", {
+                    pattern: {
+                      value:
+                        /\b(?:https?:\/\/)?(?:www\.)?facebook\.com\/[a-zA-Z0-9\.]+\/?/,
+                      message: language
+                        ? "ادخل رابط فيسبوك صحيح"
+                        : "Please enter a valid Facebook link",
+                    },
+                  })}
+                  className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+                />
+                {errors.faceLink && <Error>{errors.faceLink.message}</Error>}
+              </div>
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
               name={"facebook icon"}
               imgLink={"/social-icons/instagram.svg"}
             >
-              <input
-                dir="ltr"
-                autoComplete="off"
-                type="text"
-                defaultValue={data.instagramLink}
-                {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
-              />
+              <div className="flex-flex-col w-full gap-2">
+                <input
+                  dir="ltr"
+                  autoComplete="off"
+                  type="text"
+                  defaultValue={userData.instagramLink}
+                  {...register("instagramLink", {
+                    pattern: {
+                      value:
+                        /\b(?:https?:\/\/)?(?:www\.)?instagram\.com\/[a-zA-Z0-9_\.]+\/?/,
+                      message: language
+                        ? "ادخل رابط انستجرام صحيح"
+                        : "Please enter a valid Instagram link",
+                    },
+                  })}
+                  className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
+                />
+                {errors.instagramLink && (
+                  <Error>{errors.instagramLink.message}</Error>
+                )}
+              </div>
             </UserSocialMediaContainer>
           </div>
           <div className="flex justify-end">
@@ -216,50 +230,31 @@ const AllDataForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "حفظ" : "Save"}
+              {language ? "تعديل" : "Edit"}
             </Button>
           </div>
         </form>
         <ReactModal
           modalIsOpen={successModalIsOpen}
-          setModalIsOpen={setSucessModalIsOpen}
+          setModalIsOpen={setSuccessModalIsOpen}
         >
-          <div className="min-h-[250px] md:min-w-[500px] min-w-[90vw] grid place-content-center gap-5">
+          <div className="min-h-[250px] md:min-w-[500px] min-w-[90vw] flex flex-col items-center justify-center gap-5">
             <Image width={100} height={100} src={"/done-icon.png"} alt="done" />
-            <h3>{language ? "تم الإرسال بنجاح" : "Send Successfully!"}</h3>
+            <h3>{language ? "تم التعديل بنجاح" : "Edited Successfully!"}</h3>
           </div>
         </ReactModal>
-
-        <OptModal
-          phoneNumber={phoneToVerify}
-          isOpen={otpVerifyIsOpen}
-          setIsOpen={setOtpVerifyIsOpen}
-          onSuccess={onSuccess}
-        />
+        {otpVerifyIsOpen && (
+          <OptModal
+            phoneNumber={phoneToVerify}
+            isOpen={otpVerifyIsOpen}
+            setIsOpen={setOtpVerifyIsOpen}
+            onSuccess={triggerSubmit}
+          />
+        )}
       </div>
     );
   } else {
-    return (
-      <div className="container mx-auto space-y-8">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-baseGray">
-            {language ? "المعلومات الشخصية" : "Personal Info"}
-          </h3>
-          <Link href={"/profile"}>
-            <FaArrowLeftLong className="text-baseGray text-2xl" />
-          </Link>
-        </div>
-        <div className="flex flex-col gap-y-10">
-          <div className="flex flex-col gap-y-8">
-            <InputSkeleton />
-            <InputSkeleton />
-            <InputSkeleton />
-            <InputSkeleton />
-            <InputSkeleton />
-          </div>
-        </div>
-      </div>
-    );
+    return <EditFormSkeleton />;
   }
 };
 

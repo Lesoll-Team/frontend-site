@@ -10,33 +10,39 @@ import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { useUser } from "@/Shared/UserContext";
+import { useEffect, useState } from "react";
+import { editUserData } from "../../apis/profileApis";
+import ReactModal from "@/Shared/ui/ReactModal";
 
 const LinksForm = ({ main }) => {
-  const { data, setUserData } = useUser();
+  const { data: userData, setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const formStatus = useSelector((state) => state.editUser.status);
-  const dispatch = useDispatch();
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
+
   const form = useForm();
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("faceLink", data.faceLink);
-    formData.append("instagramLink", data.instagramLink);
-    formData.append("xLink", data.xLink);
-    formData.append("linkedInLink", data.linkedInLink);
-    formData.append("instagramLink", data.tiktokLink);
-
-    dispatch(
-      updateUser({
-        userData: data,
-        id: data?._id,
-      }),
-    );
-    setUserData();
+    handleSubmitingForm(data);
   };
-
-  if (data) {
+  const handleSubmitingForm = async (data) => {
+    editUserData({
+      data,
+      userId: userData._id,
+      setFormStatus,
+      setServerError,
+    });
+  };
+  useEffect(() => {
+    if (formStatus === "success") {
+      setFormStatus("idle");
+      setSuccessModalIsOpen(true);
+      setUserData();
+    }
+  }, [formStatus]);
+  if (userData) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -59,7 +65,9 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={data.faceLink}
+                userData
+                u
+                i
                 {...register("faceLink", {})}
                 className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
                   errors.faceLink && "border-red-500 focus:border-red-500"
@@ -74,7 +82,7 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={data?.instagramLink}
+                defaultValue={userData?.instagramLink}
                 {...register("instagramLink", {})}
                 className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
@@ -87,7 +95,7 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={data.linkedInLink}
+                defaultValue={userData.linkedInLink}
                 {...register("linkedInLink", {})}
                 className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
@@ -100,7 +108,7 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={data.xLink}
+                defaultValue={userData.xLink}
                 {...register("xLink", {})}
                 className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
@@ -113,7 +121,7 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={data.tiktokLink}
+                defaultValue={userData.tiktokLink}
                 {...register("tiktokLink", {})}
                 className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
@@ -125,10 +133,19 @@ const LinksForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "حفظ" : "Save"}
+              {language ? "تعديل" : "Edit"}
             </Button>
           </div>
         </form>
+        <ReactModal
+          modalIsOpen={successModalIsOpen}
+          setModalIsOpen={setSuccessModalIsOpen}
+        >
+          <div className="min-h-[250px] md:min-w-[500px] min-w-[90vw] flex flex-col items-center justify-center gap-5">
+            <Image width={100} height={100} src={"/done-icon.png"} alt="done" />
+            <h3>{language ? "تم التعديل بنجاح" : "Edited Successfully!"}</h3>
+          </div>
+        </ReactModal>
       </div>
     );
   } else {

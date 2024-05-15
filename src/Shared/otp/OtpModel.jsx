@@ -48,8 +48,8 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
   };
 
   useEffect(() => {
-    getOtp({ phoneNumber });
-  }, [phoneNumber]);
+    if (isOpen && phoneNumber) getOtp({ phoneNumber });
+  }, [phoneNumber, isOpen]);
 
   useEffect(() => {
     if (serverError?.code === 400) {
