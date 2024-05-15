@@ -2,9 +2,6 @@ import Image from "next/image";
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import SocialMedia from "./SocialMedia";
-// import UsefulLinks from "./UsefulLinks";
-// import Help from "./Help";
-// import Contact from "./Contact";
 import Links from "./Links";
 import CopyRight from "./CopyRight";
 const Footer = () => {

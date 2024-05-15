@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { getOtpCode, sendOtp } from "../api/otpApis";
 import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
+import Cookies from "js-cookie";
+import { useUser } from "@/Shared/UserContext";
 
-const OtpInputForm = ({ userData }) => {
+const OtpInputForm = () => {
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
@@ -18,7 +20,8 @@ const OtpInputForm = ({ userData }) => {
   const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const token = router.query.token;
-
+  const phone = router.query.phone;
+  const { setUserData } = useUser();
   // Countdown timer effect
   useEffect(() => {
     let timer;
@@ -37,7 +40,7 @@ const OtpInputForm = ({ userData }) => {
     return () => clearInterval(timer);
   }, [canResend]);
   const resendOtp = async () => {
-    await getOtpCode(userData.phone, token);
+    await getOtpCode(phone, token);
     setCanResend(false);
     setCountdown(30);
   };
@@ -48,9 +51,9 @@ const OtpInputForm = ({ userData }) => {
 
   useEffect(() => {
     const getOtp = async () => {
-      await getOtpCode(userData.phone, token);
+      await getOtpCode(phone, token);
     };
-    if (token) {
+    if (token && phone) {
       getOtp();
     }
   }, [router]);
@@ -68,10 +71,15 @@ const OtpInputForm = ({ userData }) => {
   useEffect(() => {
     if (formStatus === "success") {
       const redirectBackTo = router?.query?.redirectBackTo;
-      localStorage.setItem("userToken", JSON.stringify(token));
+      Cookies.set("userToken", token);
+
       if (redirectBackTo) {
+        setUserData();
+
         router.replace(`${redirectBackTo}`);
       } else {
+        setUserData();
+
         router.replace("/");
       }
     }

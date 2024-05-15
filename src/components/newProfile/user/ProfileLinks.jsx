@@ -1,3 +1,4 @@
+import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,21 +13,17 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileLinks = ({ main }) => {
-  const { language, userData } = useSelector((state) => ({
-    language: state.GlobalState.languageIs,
-    userData: state.userProfile.userData,
-  }));
-  const isCompany = userData?.typeOfUser === "company";
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { data, logOutUserData } = useUser();
+  const isCompany = data?.typeOfUser === "company";
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleLogout = useCallback(() => {
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
-    router.push("/signin");
-  }, [dispatch, router]);
-
+    logOutUserData();
+    // router.push("/signin");
+  });
   const route = router.asPath;
   const isProfile = route === "/profile/edit" || route === "/profile";
   const isAds = route.includes("/profile/my-properties");

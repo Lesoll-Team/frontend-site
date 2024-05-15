@@ -13,7 +13,7 @@ import AceeptedCard from "./AceeptedCard";
 import { DotPulse, Ring } from "@uiball/loaders";
 import { scrollToTop } from "@/utils/scrollToTop";
 import { getCurrencies } from "./redux/currenciesSlice";
-// import AdminAddProperty from "../admin-add-property/AdminAddProperty";
+import { useUser } from "@/Shared/UserContext";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -26,13 +26,11 @@ const AddProperty = () => {
     setStep,
     clearErrors,
     formStatus,
-    serverError,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
-  // const formStatus = useSelector((state) => state.addProperty.status);
-  const userData = useSelector((state) => state.userProfile.userData);
-  const userDataStatus = useSelector((state) => state.userProfile.status);
+  const { data, status } = useUser();
+
   const currencies = useSelector((state) => state.getCurrencies.data);
 
   const [sended, setSended] = useState(false);
@@ -99,16 +97,6 @@ const AddProperty = () => {
           );
 
         case 3:
-          return (
-            <PropertyImages
-              errors={errors}
-              clearErrors={clearErrors}
-              register={register}
-              setValue={setValue}
-              watch={watch}
-            />
-          );
-
         default:
           return (
             <PropertyImages
@@ -154,18 +142,8 @@ const AddProperty = () => {
               watch={watch}
             />
           );
-        case 4:
-          return (
-            <PropertyImages
-              errors={errors}
-              clearErrors={clearErrors}
-              register={register}
-              setValue={setValue}
-              watch={watch}
-            />
-          );
-
         default:
+        case 4:
           return (
             <PropertyImages
               errors={errors}
@@ -179,13 +157,13 @@ const AddProperty = () => {
     }
   };
   // const errorSubmit = useSelector((state) => state.addProperty.error);
-  if (userDataStatus === "loading") {
+  if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
         <DotPulse size={60} color="#309da0" />
       </div>
     );
-  } else if (userData) {
+  } else if (data) {
     return (
       <form
         noValidate
@@ -238,7 +216,7 @@ const AddProperty = () => {
         {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>
     );
-  } else if (userDataStatus === "failed") {
+  } else if (status === "failed" || status === "idle") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">
         <div className="max-w-[450px] p-5 py-8 bg-white rounded-lg border w-full drop-shadow flex flex-col justify-center items-center gap-5 md:gap-8">

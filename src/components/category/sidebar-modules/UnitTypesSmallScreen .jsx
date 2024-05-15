@@ -1,12 +1,12 @@
-import React from 'react';
-import UnitTypeIcons from '../shared/UnitTypeIcons';
+import React, { memo } from "react";
+import UnitTypeIcons from "../shared/UnitTypeIcons";
 
 const UnitTypesSmallScreen = () => {
-    return (
-        <div >
-            <UnitTypeIcons />
-        </div>
-    );
-}
+  return (
+    <div>
+      <UnitTypeIcons />
+    </div>
+  );
+};
 
-export default UnitTypesSmallScreen;
+export default memo(UnitTypesSmallScreen);

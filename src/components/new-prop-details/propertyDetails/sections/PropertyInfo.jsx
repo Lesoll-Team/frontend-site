@@ -19,20 +19,6 @@ const PropertyInfo = ({ propertyData }) => {
     } else if (propertyData?.saleOption[0] === "Installment") {
       return language ? "للبيع / تقسيط" : "For Sale / Installment";
     }
-
-    // if (propertyData.offer === "For Rent") {
-    //   return language ? "للإيجار" : "For Rent";
-    // } else {
-    //   if (propertyData?.saleOption.length > 1) {
-    //     return language ? "تقسيط أو كاش" : "Cash or Installment";
-    //   } else {
-    //     if (propertyData?.saleOption[0] === "Cash") {
-    //       return language ? "للبيع / كاش" : "For Sale / Cash";
-    //     } else if (propertyData?.saleOption[0] === "Installment") {
-    //       return language ? "للبيع / تقسيط" : "For Sale / Installment";
-    //     }
-    //   }
-    // }
   }, [language]);
   const area = (
     <span>

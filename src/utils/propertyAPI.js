@@ -1,18 +1,10 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export async function createNewProperty(propertyDetils) {
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/create`,
+    const response = await axiosInstance.post(
+      `/property/create`,
       propertyDetils,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "multipart/form-data",
-        },
-      }
     );
     return response.data;
   } catch (error) {
@@ -22,14 +14,8 @@ export async function createNewProperty(propertyDetils) {
 
 export async function propertyIsSold({ propertyId }) {
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propertyId}?token=${userToken}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      }
+    const response = await axiosInstance.patch(
+      `/admin/property/sold/${propertyId}`,
     );
     return response.data;
   } catch (error) {
@@ -39,17 +25,9 @@ export async function propertyIsSold({ propertyId }) {
 
 export async function editProperty(propertyDetils, propertyId) {
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${propertyId}`,
+    const response = await axiosInstance.put(
+      `/property/update/property/${propertyId}`,
       propertyDetils,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
     );
     return response.data;
   } catch (error) {
@@ -59,17 +37,7 @@ export async function editProperty(propertyDetils, propertyId) {
 
 export async function AddToFavorites(propertyid) {
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/favorites/${propertyid}`,
-      {},
-      {
-        headers: {
-          token: userToken,
-        },
-      }
-    );
+    const response = await axiosInstance.patch(`/user/favorites/${propertyid}`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -78,24 +46,14 @@ export async function AddToFavorites(propertyid) {
 //  contat btns
 export async function WhatsAppBtn(propertyid) {
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsappbtn/${propertyid}`,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    await axiosInstance.patch(`/property/whatsappbtn/${propertyid}`);
   } catch (error) {
-    throw error;
+    console.log("error:>>>>", error);
   }
 }
 export async function CallBtn(propertyid) {
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/calls/${propertyid}`
-    );
+    const response = await axiosInstance.patch(`/property/calls/${propertyid}`);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -104,8 +62,8 @@ export async function CallBtn(propertyid) {
 // share btns
 export async function shareWhatsappBtn(propertyid) {
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/whatsapp-share/${propertyid}`
+    const response = await axiosInstance.patch(
+      `/property/whatsapp-share/${propertyid}`,
     );
     return response.data;
   } catch (error) {
@@ -114,8 +72,8 @@ export async function shareWhatsappBtn(propertyid) {
 }
 export async function shareFacebookBtn(propertyid) {
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/facebook-share/${propertyid}`
+    const response = await axiosInstance.patch(
+      `/property/facebook-share/${propertyid}`,
     );
     return response.data;
   } catch (error) {
@@ -124,8 +82,8 @@ export async function shareFacebookBtn(propertyid) {
 }
 export async function shareTwitterBtn(propertyid) {
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/twitter-share/${propertyid}`
+    const response = await axiosInstance.patch(
+      `/property/twitter-share/${propertyid}`,
     );
     return response.data;
   } catch (error) {
@@ -134,8 +92,8 @@ export async function shareTwitterBtn(propertyid) {
 }
 export async function shareOtherBtn(propertyid) {
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/other-share/${propertyid}`
+    const response = await axiosInstance.patch(
+      `/property/other-share/${propertyid}`,
     );
     return response.data;
   } catch (error) {
@@ -144,19 +102,13 @@ export async function shareOtherBtn(propertyid) {
 }
 export async function deleteProperty(propertyid, message) {
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/delete/property/${propertyid}?token=${userToken}`,
-
+    const response = await axiosInstance.delete(
+      `/property/delete/property/${propertyid}`,
       {
-        headers: {
-          token: userToken,
-        },
         data: {
           reason: message,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -166,17 +118,9 @@ export async function deleteProperty(propertyid, message) {
 
 export async function getRecommendRealty(propertyid) {
   try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/search/recommendrealty/?realtyId=${propertyid}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      }
+    const response = await axiosInstance.get(
+      `/search/recommendrealty/?realtyId=${propertyid}`,
     );
-    //?token=${userToken}
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
@@ -185,17 +129,9 @@ export async function getRecommendRealty(propertyid) {
 
 export async function GetActiveProp(page) {
   try {
-    // const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/confirmedprofile?limit=2w&page=${page}`,
-      {
-        headers: {
-          token: JSON.parse(localStorage.getItem("userToken")),
-        },
-      }
+    const response = await axiosInstance.get(
+      `/user/confirmedprofile?limit=2w&page=${page}`,
     );
-    //?token=${userToken}
     return response.data.recommendedData;
   } catch (error) {
     throw error.response.data;
@@ -203,29 +139,18 @@ export async function GetActiveProp(page) {
 }
 export async function GetEditAds(slug) {
   try {
-    // const userToken = JSON.parse(localStorage.getItem("userToken"));
-
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/property/updatepending/${slug}`,
-      {
-        headers: {
-          token: JSON.parse(localStorage.getItem("userToken")),
-        },
-      }
+    const response = await axiosInstance.get(
+      `/admin/property/updatepending/${slug}`,
     );
-    //?token=${userToken}
     return response.data.find;
   } catch (error) {
     throw error.response.data;
   }
 }
 
-///api/search/recommendrealty/?realtyId=64f97c54a7708382a343d1a2
 export async function getGovernorate() {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/governorate/getall`
-    );
+    const response = await axiosInstance.get(`/admin/governorate/getall`);
     return response.data.governorate;
   } catch (error) {
     throw error.response.data;
@@ -233,9 +158,7 @@ export async function getGovernorate() {
 }
 export async function getRegion() {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/region/getall`
-    );
+    const response = await axiosInstance.get(`/admin/region/getall`);
     return response.data.Region;
   } catch (error) {
     throw error.response.data;
@@ -244,10 +167,9 @@ export async function getRegion() {
 // property details dashboard admin
 
 export async function getPropertyDashboard(slug) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/property-details-dashboard/${slug}?token=${userToken}`
+    const response = await axiosInstance.get(
+      `/admin/dashboard/property-details-dashboard/${slug}`,
     );
     return response.data;
   } catch (error) {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import MainInfo from "./steps/MainInfo";
-import { useFieldArray } from "react-hook-form";
+// import { useFieldArray } from "react-hook-form";
 import Button from "@/Shared/ui/Button";
 import useAddProject from "./hooks/useAddProject";
 import { useEffect, useState } from "react";

@@ -1,22 +1,31 @@
 import React, { memo, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
-import SidebarFilter from "./SidebarFilter";
-import BarFilter from "./BarFilter";
-
-import PaginationPage from "@/Shared/Pagination/PaginationSearch";
+const Breadcrumb = dynamic(() => import("./barfilter-modules/Breadcrumb"));
+const SidebarFilter = dynamic(() => import("./SidebarFilter"));
+const BarFilter = dynamic(() => import("./BarFilter"));
+const ResultNotFound = dynamic(() => import("./shared/ResultNotFound"));
+const SubBarTitle = dynamic(() => import("./barfilter-modules/SubBarTitle"));
+const PaginationPage = dynamic(
+  () => import("../../Shared/Pagination/PaginationSearch"),
+);
 import RealtyCard from "../realtyCard/RealtyCard";
-import ResultNotFound from "./shared/ResultNotFound";
-import SubBarTitle from "./barfilter-modules/SubBarTitle";
+
+// const BarFilter = dynamic(() => import("./BarFilter"));
+// import SidebarFilter from "./SidebarFilter";
+// import BarFilter from "./BarFilter";
+// import Breadcrumb from "./barfilter-modules/Breadcrumb";
+// import PaginationPage from "@/Shared/Pagination/PaginationSearch";
+// import ResultNotFound from "./shared/ResultNotFound";
+// import SubBarTitle from "./barfilter-modules/SubBarTitle";
+
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
-// import UnitTypeIcons from "./shared/UnitTypeIcons";
-import Breadcrumb from "./barfilter-modules/Breadcrumb";
 
 const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { openFilter } = useSelector((state) => state.Category);
-  // const userInfo = useSelector((state) => state.userProfile.userData);
   const router = useRouter();
   useEffect(() => {
     dispatch(
@@ -41,14 +50,6 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       }),
     );
   }, [router]);
-  // useEffect(() => {
-  //   // Add or remove the class 'sidebar-open' to the body element based on 'openFilter' state
-  //   if (openFilter) {
-  //     document.body.classList.add("sidebar-open");
-  //   } else {
-  //     document.body.classList.remove("sidebar-open");
-  //   }
-  // }, [openFilter]);
   return (
     <>
       {/*Sidebar filter */}
@@ -67,11 +68,6 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
         <Breadcrumb queries={queries} dataObjectFromURL={dataObjectFromURL} />
       </div>
       {/*unit types */}
-      {/* {result?.aggregation_links.length > 0 && (
-        <div className="md:container pb-[48px] pt-[28px] md:mx-auto mx-[20px] md:block hidden">
-          <UnitTypeIcons items={result?.aggregation_links} main />
-        </div>
-      )} */}
       {/*title & save and filter button*/}
       <SubBarTitle result={result} />
       {/*cards result  */}

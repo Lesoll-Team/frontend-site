@@ -1,7 +1,7 @@
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import { useSelector } from "react-redux";
 
-const Cash = ({ errors, register, setValue, watch, clearErrors }) => {
+const Cash = ({ setValue, watch }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (

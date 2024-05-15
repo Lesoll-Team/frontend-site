@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   notifications: {
@@ -19,52 +19,40 @@ const initialState = {
 
 export const getNotifications = createAsyncThunk(
   "notificationSlice/getNotifications",
-  async (thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+  async () => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/notification/get/user`,
-        {
-          headers: {
-            token: userToken,
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/notification/get/user`);
       return response.data.notification;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return [];
     }
-  }
+  },
 );
 
 export const visitNotification = createAsyncThunk(
   "notificationSlice/visitNotification",
   async (id, thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
     try {
-      const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/notification/markasread/${id}?token=${userToken}`
+      const response = await axiosInstance.patch(
+        `/notification/markasread/${id}`,
       );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const visitAllNotifications = createAsyncThunk(
   "notificationSlice/visitAllNotifications",
   async (thunkAPI) => {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/notification/markall?token=${userToken}`
-      );
+      const response = await axiosInstance.put(`/notification/markall`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const notificationSlice = createSlice({

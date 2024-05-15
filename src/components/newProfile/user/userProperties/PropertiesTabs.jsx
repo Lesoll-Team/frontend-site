@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+// import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
-const PropertiesTabs = ({ params, currentTab }) => {
+const PropertiesTabs = ({ currentTab }) => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
 

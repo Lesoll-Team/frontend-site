@@ -7,21 +7,21 @@ import DeleteBtn from "./DeleteBtn";
 import PropType from "./PropType";
 
 import ProfileCardSkeleton from "./ProfileCardSkeleton";
-import { propertyIsSold } from "@/utils/propertyAPI";
-import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
+// import { propertyIsSold } from "@/utils/propertyAPI";
+// import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
 import ConfirmSold from "./ConfirmSold";
 
 const ProfileCard = ({ data, type, onDelete }) => {
   const price = localizedNumber(data?.price);
   const router = useRouter();
-  const propertyOnSold = async () => {
-    try {
-      await propertyIsSold({ propertyId: propertyDetails?._id });
-      dispatch(getActiveProp());
-    } catch (error) {
-      console.error("Error del prop:", error);
-    }
-  };
+  // const propertyOnSold = async () => {
+  //   try {
+  //     await propertyIsSold({ propertyId: propertyDetails?._id });
+  //     dispatch(getActiveProp());
+  //   } catch (error) {
+  //     console.error("Error del prop:", error);
+  //   }
+  // };
 
   const typeActive = type === "active" || type === "نشطة";
   const typeOnSold = type === "تم البيع" || type === "Sold";
@@ -31,7 +31,7 @@ const ProfileCard = ({ data, type, onDelete }) => {
         <div className="w-full relative">
           <div className="flex w-full absolute items-center justify-between  top-4">
             <PropType type={type} />
-            <DeleteBtn propId={data._id} />
+            {/* <DeleteBtn propId={data._id} /> */}
           </div>
           <Image
             src={data?.thumbnail}

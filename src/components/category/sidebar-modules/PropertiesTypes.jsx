@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
@@ -41,4 +41,4 @@ const PropertiesTypes = () => {
   );
 };
 
-export default PropertiesTypes;
+export default memo(PropertiesTypes);

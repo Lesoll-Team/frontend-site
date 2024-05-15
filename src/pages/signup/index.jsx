@@ -3,16 +3,17 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import SignUp from "@/components/auth/signup/components/SignUp";
+import { useUser } from "@/Shared/UserContext";
 const SignUpPage = () => {
   const router = useRouter();
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const { data } = useUser();
 
   useEffect(() => {
-    if (userData) {
+    if (data) {
       router.push("/");
     }
-  }, [userData]);
+  }, [data]);
 
   return (
     <>

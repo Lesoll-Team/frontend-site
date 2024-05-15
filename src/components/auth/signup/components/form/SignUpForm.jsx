@@ -32,7 +32,7 @@ const SignUpForm = () => {
       verificationMethod: "email",
     },
   });
-  const [emailUsedError, setEmailUserError] = useState(false);
+  const [emailUserError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -46,30 +46,19 @@ const SignUpForm = () => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
   const onSubmit = async (data) => {
-    const dataTosend = {
-      fullname: data.fullname,
-      email: data.email,
-      code: data.code,
-      phone: phoneWithoutCode(data.phone, data.code),
-      password: data.password,
-      typeOfUser: data.typeOfUser,
-    };
     userSignUp({
       setFormStatus,
       setToken,
       setServerError,
-      data: dataTosend,
+      data: { ...data, phone: phoneWithoutCode(data.phone, data.code) },
     });
   };
 
   useEffect(() => {
-    if (formStatus === "success") {
-      if (watch("code") == "20") {
-        router.push(`/verify-otp/${token}`);
-      } else {
-        localStorage.setItem("userToken", JSON.stringify(token));
-        router.replace("/");
-      }
+    if (formStatus === "success" && token) {
+      router.push(
+        `/verify-otp/${token}?phone=${phoneWithoutCode(watch("phone"), watch("code"))}`,
+      );
     }
   }, [formStatus, reset, router, token]);
 
@@ -156,12 +145,12 @@ const SignUpForm = () => {
           })}
           placeholder={language ? "البريد الالكتروني" : "Email"}
           type="text"
-          className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUsedError) && "border-red-500 focus:border-red-500"}`}
+          className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUserError) && "border-red-500 focus:border-red-500"}`}
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
-        {emailUsedError && (
+        {emailUserError && (
           <p className="text-red-500 text-sm">
             {language
               ? "هذا البريد مستخدم بالفعل"
@@ -343,9 +332,7 @@ const SignUpForm = () => {
         className="w-full p-3 h-12 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
         {formStatus === "loading" ? (
-          <>
-            <Ring size={20} color="#fff" />
-          </>
+          <Ring size={20} color="#fff" />
         ) : (
           <span>{language ? "إنشاء حساب" : "Sign up"}</span>
         )}

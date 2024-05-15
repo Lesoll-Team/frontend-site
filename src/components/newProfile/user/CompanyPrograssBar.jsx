@@ -1,3 +1,4 @@
+import { useUser } from "@/Shared/UserContext";
 import { useSelector } from "react-redux";
 const fieldsToConsider = [
   "fullname",
@@ -12,12 +13,13 @@ const fieldsToConsider = [
 ];
 
 const CompanyPrograssBar = () => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const completeness = (() => {
     const totalFields = fieldsToConsider.length;
     const completedFields = fieldsToConsider.filter(
-      (field) => userData[field]
+      (field) => data[field],
     ).length;
     return (completedFields / totalFields) * 100;
   })();
@@ -40,8 +42,8 @@ const CompanyPrograssBar = () => {
                 roundedCompleteness < 40
                   ? "bg-red-500"
                   : roundedCompleteness < 80
-                  ? "bg-yellow-500"
-                  : "bg-green-500"
+                    ? "bg-yellow-500"
+                    : "bg-green-500"
               }`}
             ></span>
           </div>

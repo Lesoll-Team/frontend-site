@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   region: null,
@@ -11,14 +11,12 @@ export const getRegion = createAsyncThunk(
   "getRegionSlice/getRegion",
   async (thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/region/getall`
-      );
+      const response = await axiosInstance.get(`/admin/region/getall`);
       return response.data.Region;
     } catch (error) {
       thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const getRegionSlice = createSlice({

@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Ring } from "@uiball/loaders";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "@/components/auth/login/api/loginApi";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "../UserContext";
 const LoginModalForm = ({ setIsOpen }) => {
+  const { setUserData } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
@@ -16,7 +18,7 @@ const LoginModalForm = ({ setIsOpen }) => {
   const [serverError, setServerError] = useState(null);
   const [token, setToken] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const [WrongPassword, setWrongPasswird] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
   // functions
@@ -25,19 +27,18 @@ const LoginModalForm = ({ setIsOpen }) => {
   };
 
   useEffect(() => {
-    if (formStatus === "success") {
-      localStorage.setItem("userToken", JSON.stringify(token));
-      dispatch(getUserData());
+    if (formStatus === "success" && token) {
+      setUserData();
       setIsOpen(false);
     }
   }, [formStatus]);
 
   useEffect(() => {
     if (serverError?.message.toLowerCase().includes("password")) {
-      setWrongPasswird(true);
+      setWrongPassword(true);
       setServerError(null);
       setTimeout(function () {
-        setWrongPasswird(false);
+        setWrongPassword(false);
       }, 3500);
     }
     if (serverError?.message.toLowerCase().includes("email")) {
@@ -108,7 +109,7 @@ const LoginModalForm = ({ setIsOpen }) => {
             })}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.password || WrongPassword) &&
+              (errors.password || wrongPassword) &&
               "border-red-500 focus:border-red-500"
             }`}
           />
@@ -133,7 +134,7 @@ const LoginModalForm = ({ setIsOpen }) => {
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
-        {WrongPassword && (
+        {wrongPassword && (
           <p className="text-red-500 text-sm">
             {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
           </p>

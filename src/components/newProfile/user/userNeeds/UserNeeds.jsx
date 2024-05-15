@@ -6,7 +6,6 @@ import MobilePageTitle from "../MobilePageTitle";
 import NoItems from "../userProperties/NoItems";
 
 const UserNeeds = () => {
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const needsData = useSelector((state) => state.userNeeds.needs.data);
   const dispatch = useDispatch();

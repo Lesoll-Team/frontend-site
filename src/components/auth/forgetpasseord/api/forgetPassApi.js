@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const forgetPass = async ({
   setFormStatus,
@@ -8,9 +8,9 @@ export const forgetPass = async ({
 }) => {
   try {
     setFormStatus("loading");
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/reset-password?lang=${lang || "AR"}`,
-      data
+    const response = await axiosInstance.post(
+      `/user/reset-password?lang=${lang || "AR"}`,
+      data,
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

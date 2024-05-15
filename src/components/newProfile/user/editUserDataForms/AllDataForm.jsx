@@ -10,18 +10,9 @@ import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { editUserData } from "../../apis/profileApis";
-import ReactModal from "@/Shared/ui/ReactModal";
-import OptModal from "@/Shared/otp/OtpModel";
+import { useUser } from "@/Shared/UserContext";
 
 const AllDataForm = ({ main }) => {
-  const [successModalIsOpen, setSucessModalIsOpen] = useState(false);
-  const [otpVerifyIsOpen, setOtpVerifyIsOpen] = useState(false);
-  const [phoneToVerify, setPhoneToVerify] = useState("");
-  const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState("idle");
-
   const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
@@ -34,13 +25,13 @@ const AllDataForm = ({ main }) => {
   };
 
   useEffect(() => {
-    if (userData) {
-      const { fullname, email, code, phone } = userData;
+    if (data) {
+      const { code, phone } = data;
 
       setValue("phone", code + phoneNumberwithoutCode(phone, code));
       setValue("code", code);
     }
-  }, [userData]);
+  }, [data]);
 
   const onSubmit = async (data) => {
     // editUserData({
@@ -79,6 +70,7 @@ const AllDataForm = ({ main }) => {
   }, [formStatus]);
 
   if (userData) {
+    const initailPhone = userData.code + userData?.phone;
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -97,7 +89,7 @@ const AllDataForm = ({ main }) => {
                 autoComplete="off"
                 type="text"
                 // readOnly
-                defaultValue={userData.fullname}
+                defaultValue={data.fullname}
                 {...register("fullname", {
                   required: {
                     value: true,
@@ -120,7 +112,7 @@ const AllDataForm = ({ main }) => {
               <input
                 readOnly
                 type="text"
-                defaultValue={userData.email}
+                defaultValue={data.email}
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
@@ -199,11 +191,9 @@ const AllDataForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.faceLink}
+                defaultValue={data.faceLink}
                 {...register("faceLink", {})}
-                className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
-                  errors.faceLink && "border-red-500 focus:border-red-500"
-                }`}
+                className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -214,9 +204,9 @@ const AllDataForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.instagramLink}
+                defaultValue={data.instagramLink}
                 {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
           </div>

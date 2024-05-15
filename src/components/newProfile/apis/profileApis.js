@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const editUserData = async ({
   data,
@@ -6,20 +6,9 @@ export const editUserData = async ({
   setFormStatus,
   userId,
 }) => {
-  // console.log(userId);
-  const token = JSON.parse(localStorage.getItem("userToken"));
   try {
     setFormStatus("loading");
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/update/${userId}`,
-      { data },
-      {
-        headers: {
-          token,
-          "Content-Type": "multipart/form-data",
-        },
-      },
-    );
+    const response = await axiosInstance.put(`/user/update/${userId}`, data);
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
     }
