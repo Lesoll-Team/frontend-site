@@ -8,6 +8,7 @@ import Image from "next/image";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { FaRegNewspaper } from "react-icons/fa";
 import { MdOutlineAddHomeWork } from "react-icons/md";
+import { IoIosPaper } from "react-icons/io";
 
 const Sidebar = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -151,13 +152,28 @@ const Sidebar = () => {
           </div>
         </div>
         <Link
-          href={"/dashboard/add-project"}
+          href={"/dashboard/projects"}
           className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
         >
           <MdOutlineAddHomeWork />{" "}
           {toggleNav && (
             <span className="text-lg font-bold hidden md:block">Projects</span>
           )}
+        </Link>
+        <Link
+          href={"/dashboard/needs"}
+          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+        >
+          <IoIosPaper />{" "}
+          {toggleNav && (
+            <span className="text-lg font-bold hidden md:block">Needs</span>
+          )}
+        </Link>
+        <Link
+          href={"/dashboard/compoundes"}
+          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+        >
+          C
         </Link>
       </nav>
     </div>

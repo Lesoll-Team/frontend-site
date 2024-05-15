@@ -8,6 +8,8 @@ import GovRegion from "./location/GovRegion";
 import PlaceLatLng from "./location/PlaceLatLng";
 import { useLoadScript } from "@react-google-maps/api";
 import Error from "@/Shared/ui/Error";
+import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
+import { useUser } from "@/Shared/UserContext";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
 const AddPropMainInfo = ({
@@ -18,10 +20,8 @@ const AddPropMainInfo = ({
   clearErrors,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
-  const projects = useSelector(
-    (state) => state.getProjects.projects.data.Property
-  );
+  const { data } = useUser();
+  const projects = useSelector((state) => state.getProjects.projects.data);
   const dispatch = useDispatch();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_MAP,
@@ -51,27 +51,25 @@ const AddPropMainInfo = ({
     }
   }, [watch("propType.value")]);
   useEffect(() => {
-    if (userData && userData.isAdmin) {
+    if (data.isAdmin) {
       if (!projects) {
         dispatch(getAllProjects());
       }
     }
-  }, [userData]);
-  const projectList =
-    projects &&
-    projects?.map((item) => {
-      return {
-        value: item._id,
-        name: { ar: item.titleAr, en: item.titleEn },
-      };
-    });
-  console.log(projectList);
+  }, [data]);
+  const projectList = projects?.result?.map((item) => {
+    return {
+      value: item._id,
+      name: { ar: item.titleAr, en: item.titleEn },
+    };
+  });
+
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "عنوان الإعلان" : "Proprty Title"}
-        </h3>
+        </p>
         <input
           autoComplete="off"
           type="text"
@@ -82,9 +80,6 @@ const AddPropMainInfo = ({
               message: language ? "ادخل عنوان العقاار" : "please enter title",
             },
             validate: {
-              // mustBeNumber: (value) => {
-              //   return !isNaN(value) || "must be a number";
-              // },
               max: (value) => {
                 return value.length < 100 || language
                   ? "لايجب ان يزيد عن 100 حرف"
@@ -107,18 +102,24 @@ const AddPropMainInfo = ({
         />
         {errors.title && <Error className="">{errors.title.message}</Error>}
       </div>
-      <div className="space-y-2 md:col-span-2">
-        <h2 className="text-xl">{language ? "المشروع" : "project"}</h2>
-        <DropDown
-          selected={watch("ProjectID")}
-          setValue={(value) => {
-            setValue("ProjectID", value);
-          }}
-          options={projectList}
-        />
-      </div>
+      {data?.isAdmin && (
+        <div className="space-y-2 lg:col-span-2">
+          <p className="text-gray-800">{language ? "المشروع" : "project"}</p>
+          {projects && (
+            <DropDown
+              selected={watch("ProjectID")}
+              setValue={(value) => {
+                setValue("ProjectID", value);
+              }}
+              options={projectList}
+            />
+          )}
+        </div>
+      )}
       <div className=" space-y-5">
-        <h3 className="text-xl">{language ? "نوع الإعلان" : "Offer Type"}</h3>
+        <p className="text-gray-800">
+          {language ? "نوع الإعلان" : "Offer Type"}
+        </p>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
             type="button"
@@ -162,9 +163,9 @@ const AddPropMainInfo = ({
         </div>
       </div>
       <div className=" space-y-5">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "العقار فى كومباوند " : "Property in compound"}
-        </h3>
+        </p>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
             type="button"
@@ -195,7 +196,9 @@ const AddPropMainInfo = ({
         </div>
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "نوع العقار" : "Property Type"}</h3>
+        <p className="text-gray-800">
+          {language ? "نوع العقار" : "Property Type"}
+        </p>
         <input
           type="text"
           hidden
@@ -225,7 +228,7 @@ const AddPropMainInfo = ({
         )}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "نوع الوحده" : "Unit Type"}</h3>
+        <p className="text-gray-800">{language ? "نوع الوحده" : "Unit Type"}</p>
         <input
           type="text"
           hidden
@@ -275,9 +278,9 @@ const AddPropMainInfo = ({
         clearErrors={clearErrors}
       /> */}
       <div className="lg:col-span-2 space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "وصف العقار" : "Property description"}
-        </h3>
+        </p>
         <textarea
           {...register("description", {
             required: {

@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const FinancingButtons = () => {
@@ -37,13 +37,13 @@ const FinancingButtons = () => {
   };
   return (
     <div className="flex flex-col bg-[#F8F8F8] p-[1.5vw] gap-y-[1.5vh]">
-      <span className="font-bold text-gray2">
+      <span className="font-bold lg-text text-gray2">
         {language ? "تمويل العقاري" : "Property Financing"}
       </span>
-      <div className="flex gap-x-[0.78vw]">
+      <div className="flex sm-text md:gap-x-[1vw]  gap-x-[1.5vw]">
         <button
           onClick={() => handleFinancingClick("cbe3")}
-          className={` text-gray2 border-1 border-gray1 bg-white md:px-3 md:p-2 h-[40px] px-3  md:h-[3.313rem]  rounded-[6px]
+          className={` text-gray2 border-1 border-[#CCCCCC] bg-white md:px-3 md:p-2 h-[40px] px-3  md:h-[3.313rem]  rounded-[6px]
               ${
                 propFinancing == "cbe3" && " border-lightGreen  text-lightGreen"
               }
@@ -57,8 +57,8 @@ const FinancingButtons = () => {
               ${
                 propFinancing == "cbe8" && " border-lightGreen  text-lightGreen"
               }
-              
-              text-gray2 border-1 border-gray1  md:px-3 md:p-2 bg-white  px-3 h-[40px]  md:h-[3.313rem]  rounded-[6px]`}
+
+              text-gray2 border-1 border-[#CCCCCC]  md:px-3 md:p-2 bg-white  px-3 h-[40px]  md:h-[3.313rem]  rounded-[6px]`}
         >
           {language ? "تمويل العقاري 8%" : "CBE 8% initiative"}
         </button>
@@ -67,4 +67,4 @@ const FinancingButtons = () => {
   );
 };
 
-export default FinancingButtons;
+export default memo(FinancingButtons);

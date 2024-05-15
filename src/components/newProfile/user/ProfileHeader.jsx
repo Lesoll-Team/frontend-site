@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { MdOutlineCall, MdOutlineEdit } from "react-icons/md";
-import { useSelector } from "react-redux";
 import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
+import { useUser } from "@/Shared/UserContext";
 
 const ProfileHeader = ({ hideHeader }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { data } = useUser();
 
-  if (userData)
+  if (data)
     return (
       <div>
         <header
@@ -18,38 +17,38 @@ const ProfileHeader = ({ hideHeader }) => {
         >
           <div className=" w-[84px] h-[84px] lg:w-[100px] lg:h-[100px] relative">
             <Image
-              src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+              src={data?.avatarUrl || "/user-avatar-placeholder.png"}
               width={100}
               height={100}
               alt="user avatar"
               className="rounded-full object-cover"
             />
-            <ProfilePicForm
+            {/* <ProfilePicForm
               openBtn={
                 <div className="absolute bg-gray-300 cursor-pointer border p-2 rounded-full text-xl h-8 w-8 md:w-10 md:h-10  flex items-center justify-center border-black bottom-0">
                   <MdOutlineEdit />
                 </div>
               }
-            />
+            /> */}
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
-              <h3 className="lg:text-2xl text-lg text-baseGray font-bold">
-                {userData?.fullname}{" "}
+              <h2 className=" text-baseGray font-bold">
+                {data?.fullname}{" "}
                 {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
-              </h3>
+              </h2>
               <div className="hidden lg:flex  items-center gap-14">
                 <div className=" flex items-center gap-2">
                   <MdOutlineCall className="text-2xl text-lightGreen" />
-                  <p className="text-xl text-baseGray">
-                    {userData?.code + userData?.phone}
-                  </p>
+                  <h3 className=" text-baseGray font-normal">
+                    {data?.code + data?.phone}
+                  </h3>
                 </div>
                 <div className=" flex items-center gap-2">
                   <HiOutlineMailOpen className="text-2xl text-lightGreen" />
-                  <p className="text-base xl:text-xl text-baseGray break-words break-allxl:max-w-fit">
-                    {userData?.email}
-                  </p>
+                  <h3 className=" text-baseGray break-words break-all font-normal xl:max-w-fit">
+                    {data?.email}
+                  </h3>
                 </div>
               </div>
             </div>

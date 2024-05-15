@@ -1,4 +1,3 @@
-// import { sendFilterToRootsPage } from "@/redux-store/features/category/categorySlice";
 import React, { memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSendFilterSearch } from "./FilterHooks";
@@ -27,39 +26,33 @@ const ButtonSearchAction = ({ isBar }) => {
     sort,
     propFinancing,
     searchKeyword,
-    // openFilter,
-    // clickOnUnits,
-    // sending,
-    // filterResult,
-    // errorResult,
-    clickOnUnits,
   } = useSelector((state) => state.Category);
   const route = useSendFilterSearch({
     filterInput: {
-      category: categoryType?.value,
-      saleOptions: saleOption?.value,
-      unitType: unitTypes?.value,
+      saleOptions: saleOption,
+      category: categoryType,
+      unitType: unitTypes,
       governorate: locationGovernorate,
       region: locationRegion,
     },
     queryInput: {
       priceFrom,
-      page: pageNumber,
+      page: 1,
       priceTo,
       numBathrooms,
       numBedrooms,
       areaFrom,
       areaTo,
-      finishedOption: finishedOption?.value,
+      finishedOption: finishedOption,
       paymentType,
-      sort: sort?.value,
+      sort: sort,
       mortgage: propFinancing,
       keyword: searchKeyword,
     },
   });
   const handleFilterAction = useCallback(() => {
     router.push(route);
-  }, [router, route, clickOnUnits, pageNumber]);
+  }, [router, route, pageNumber]);
 
   // Subscribe to changes in sort, pageNumber, and clickOnUnits
 
@@ -76,17 +69,19 @@ const ButtonSearchAction = ({ isBar }) => {
     return (
       <button
         onClick={handleClick}
-        className="w-[100px] md:w-[9.97vw] md:min-w-[165px] h-[1.875rem] md:h-[3.313rem] rounded-l-[6px]  md:rounded-[6px] font-bold text-[12px] md:text-[20px] text-white bg-lightGreen "
+        className="w-[100px] md:w-[9.97vw] md:min-w-[165px]  rounded-l-[6px] hidden md:block md:rounded-[6px] font-bold 
+        
+        lg-text text-white bg-lightGreen "
       >
         {language ? "بحث" : "Search"}
       </button>
     );
   } else {
     return (
-      <div className="mb-5 flex justify-center">
+      <div className="md:w-[37.7vw] w-full bottom-0 left-0 p-2 pb-3 justify-center flex bg-white fixed ">
         <button
           onClick={handleClick}
-          className="md:w-[24.2vw] w-full rounded-[6px] h-[40px] md:h-[3.813rem] bg-lightGreen text-white"
+          className="bg-lightGreen rounded-[6px] md:w-[24.2vw] lg-text mx-[10px] w-full h-[40px] md:h-[3.813rem] text-white font-bold"
         >
           {language ? "عرض النتائج" : "Show results"}
         </button>

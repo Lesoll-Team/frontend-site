@@ -7,6 +7,8 @@ import { useMemo } from "react";
 import { unitTypeList } from "@/components/newAddProperty/mainInfo/unitTypeList";
 import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";
 import Button from "@/Shared/ui/Button";
+import PhoneNumber from "@/components/newAddProperty/PhoneNumber";
+import { Ring } from "@uiball/loaders";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const NeedsForm = ({
   register,
@@ -16,6 +18,7 @@ const NeedsForm = ({
   errors,
   clearErrors,
   onSubmit,
+  formStatus,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const determineOptions = useMemo(() => {
@@ -47,11 +50,11 @@ const NeedsForm = ({
           />
           {/* {language ? "رجوع" : "Back"} */}
         </button>
-        <h2 className="text-xl md:te md:text-3xl font-bold ">
+        <h1 className=" font-bold ">
           {language
             ? "ادخل بيانات العقار المطلوب"
             : "Enter the required property information"}
-        </h2>
+        </h1>
       </div>
       <div
         onSubmit={onSubmit}
@@ -59,9 +62,9 @@ const NeedsForm = ({
       >
         <div className="flex md:flex-row flex-col gap-10 w-full">
           <div className="space-y-2 w-full">
-            <h3 className="text-xl">
+            <p className="text-gray-800">
               {language ? "نوع العقار" : "Property Type"}
-            </h3>
+            </p>
             <input
               type="text"
               hidden
@@ -80,6 +83,7 @@ const NeedsForm = ({
               selected={watch("propType")}
               setValue={(value) => {
                 setValue("propType", value);
+                clearErrors("propType");
                 if (value.value !== watch("propType")) {
                   setValue("unitType", { name: "", value: "" });
                 }
@@ -91,7 +95,9 @@ const NeedsForm = ({
             )}
           </div>
           <div className="space-y-2 w-full">
-            <h3 className="text-xl">{language ? "نوع الوحده" : "Unit Type"}</h3>
+            <p className="text-gray-800">
+              {language ? "نوع الوحده" : "Unit Type"}
+            </p>
             <input
               type="text"
               hidden
@@ -109,6 +115,7 @@ const NeedsForm = ({
               selected={watch("unitType")}
               setValue={(value) => {
                 setValue("unitType", value);
+                clearErrors("unitType");
               }}
               disabled={!watch("propType.value")}
               options={determineOptions}
@@ -119,8 +126,8 @@ const NeedsForm = ({
           </div>
         </div>
         <div className="space-y-6 w-full">
-          <h3 className="text-xl ">{language ? " السعر" : "Price"}</h3>
-          <div className="flex md:flex-row flex-col items-center gap-8 w-full">
+          <p className="text-gray-800">{language ? " السعر" : "Price"}</p>
+          <div className="flex md:flex-row flex-col  gap-8 w-full">
             <div className=" space-y-2 w-full">
               <div className="relative">
                 <input
@@ -200,10 +207,8 @@ const NeedsForm = ({
           </div>
         </div>
         <div className="space-y-6 w-full">
-          <h3 className="text-xl text-lightGray font-bold">
-            {language ? " المساحة" : "Area"}
-          </h3>
-          <div className="flex  md:flex-row flex-col items-center gap-8">
+          <p className="text-gray-800">{language ? " المساحة" : "Area"}</p>
+          <div className="flex  md:flex-row flex-col  gap-8">
             <div className=" space-y-2 w-full">
               <div className="relative">
                 <input
@@ -286,9 +291,9 @@ const NeedsForm = ({
           watch("offer") === "For Sale" && (
             <div className=" flex md:flex-row flex-col gap-10">
               <div className="space-y-2 w-full  ">
-                <h3 className="text-xl">
+                <p className="text-gray-800">
                   {language ? "المقدم" : "Down payment"}
-                </h3>
+                </p>
                 <input
                   type="text"
                   {...register("installment.0.downPayment", {
@@ -323,9 +328,9 @@ const NeedsForm = ({
                 )}{" "}
               </div>
               <div className="space-y-2 w-full">
-                <h3 className="text-xl">
+                <p className="text-gray-800">
                   {language ? "مدة التقسيط" : "installment period"}
-                </h3>
+                </p>
                 <input
                   type="text"
                   {...register("installment.0.period", {
@@ -362,9 +367,9 @@ const NeedsForm = ({
               </div>
             </div>
           )}
-        <div className=" flex items-center md:flex-row flex-col gap-10">
+        <div className=" flex items- md:flex-row flex-col gap-10">
           <div className="space-y-2 w-full">
-            <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
+            <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
             <input
               type="text"
               {...register("rooms", {
@@ -391,22 +396,22 @@ const NeedsForm = ({
               // className={"border-none"}
             />
             {errors.rooms && (
-              <p className="text-red-500">{errors.rooms.message}</p>
+              <Error className="text-red-500">{errors.rooms.message}</Error>
             )}{" "}
           </div>
           <div className="space-y-2  w-full">
-            <h3 className="text-xl">
+            <p className="text-gray-800">
               {language ? "عدد الحمامات" : "Bathrooms"}
-            </h3>
+            </p>
             <input
               type="text"
               {...register("bathRooms", {
-                required: {
-                  value: true,
-                  message: language
-                    ? "من فضلك ادخل الحمامات"
-                    : "please enter the number of bathrooms",
-                },
+                // required: {
+                //   value: true,
+                //   message: language
+                //     ? "من فضلك ادخل الحمامات"
+                //     : "please enter the number of bathrooms",
+                // },
                 validate: {
                   mustBeNumber: (value) => {
                     return (
@@ -424,7 +429,7 @@ const NeedsForm = ({
               // className={"border-none"}
             />
             {errors.bathRooms && (
-              <p className="text-red-500">{errors.bathRooms.message}</p>
+              <Error className="text-red-500">{errors.bathRooms.message}</Error>
             )}{" "}
           </div>
         </div>
@@ -439,9 +444,9 @@ const NeedsForm = ({
           />
         </div>
         <div className="lg:col-span-2 space-y-2">
-          <h3 className="text-xl">
+          <p className="text-gray-800">
             {language ? "هل تريد إضافة اي تفاصيل أخرى؟  " : "More information"}
-          </h3>
+          </p>
           <textarea
             {...register("description", {
               validate: {
@@ -479,13 +484,26 @@ const NeedsForm = ({
         </div>
         {/* <NeedsDescription /> */}
       </div>
+      <PhoneNumber
+        isNeed={true}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        watch={watch}
+      />
       <div className="flex flex-start">
-        <Button type="submit" className={"md:max-w-[300px]"}>
-          {status === "loading"
-            ? "loading ..."
-            : language
-            ? "أضف طلبك"
-            : "Add your need"}
+        <Button
+          disabled={formStatus === "loading"}
+          type="submit"
+          className={"md:max-w-[300px]"}
+        >
+          {formStatus === "loading" ? (
+            <Ring size={20} color="#fff" />
+          ) : language ? (
+            "أضف طلبك"
+          ) : (
+            "Add your need"
+          )}
         </Button>
       </div>
     </div>

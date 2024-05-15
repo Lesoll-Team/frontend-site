@@ -2,17 +2,18 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Register from "@/components/auth/register/Register";
-const SignUp = () => {
+import SignUp from "@/components/auth/signup/components/SignUp";
+import { useUser } from "@/Shared/UserContext";
+const SignUpPage = () => {
   const router = useRouter();
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const { data } = useUser();
 
   useEffect(() => {
-    if (userData) {
+    if (data) {
       router.push("/");
     }
-  }, [userData]);
+  }, [data]);
 
   return (
     <>
@@ -27,8 +28,8 @@ const SignUp = () => {
         <link rel="canonical" href={`https://lesoll.com/signup`} />
       </Head>
 
-      <Register />
+      <SignUp />
     </>
   );
 };
-export default SignUp;
+export default SignUpPage;

@@ -1,4 +1,4 @@
-import useGooglePlaces from "@/Hooks/addProperty/useGooglePlaces";
+import useGooglePlaces from "@/components/newAddProperty/hooks/useGooglePlaces";
 import ComboBox from "@/Shared/ui/ComboBox";
 import { getCooardinates } from "@/utils/getCooardinates";
 import { useState } from "react"; // Import useRef
@@ -21,9 +21,9 @@ const PlaceLatLng = ({ errors, register, setValue, watch, clearErrors }) => {
 
   return (
     <div className="lg:col-span-2 space-y-2">
-      <h3 className="text-xl">
+      <p className="text-gray-800">
         {language ? "العنوان بالتفصيل" : "Address in detail"}
-      </h3>
+      </p>
 
       <ComboBox
         inputValue={searchinput}

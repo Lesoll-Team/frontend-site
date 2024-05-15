@@ -1,5 +1,5 @@
 // مطعم
-export const RestaurantIcon = ({ styles }) => {
+const RestaurantIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -21,7 +21,7 @@ export const RestaurantIcon = ({ styles }) => {
 };
 // مصنع
 
-export const FactoryIcon = ({ styles }) => {
+const FactoryIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -45,7 +45,7 @@ export const FactoryIcon = ({ styles }) => {
 };
 // مكتب
 
-export const OfficeIcon = ({ styles }) => {
+const OfficeIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -68,7 +68,7 @@ export const OfficeIcon = ({ styles }) => {
 };
 // تاون هاوس
 
-export const TownhouseIcon = ({ styles }) => {
+const TownhouseIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -94,7 +94,7 @@ export const TownhouseIcon = ({ styles }) => {
 };
 // شقة
 
-export const ApartmentIcon = ({ styles }) => {
+const ApartmentIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -120,7 +120,7 @@ export const ApartmentIcon = ({ styles }) => {
 };
 // شقة مفروشة
 
-export const FurnishedApartmentIcon = ({ styles }) => {
+const FurnishedApartmentIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -147,7 +147,7 @@ export const FurnishedApartmentIcon = ({ styles }) => {
 };
 // محل
 
-export const ShopIcon = ({ styles }) => {
+const ShopIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -173,7 +173,7 @@ export const ShopIcon = ({ styles }) => {
 };
 // دوبليكس
 
-export const DuplexIcon = ({ styles }) => {
+const DuplexIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -200,7 +200,7 @@ export const DuplexIcon = ({ styles }) => {
 };
 // الشقة الفندقية
 
-export const HotelApartmentIcon = ({ styles }) => {
+const HotelApartmentIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -228,7 +228,7 @@ export const HotelApartmentIcon = ({ styles }) => {
 };
 // ستوديو
 
-export const StudioIcon = ({ styles }) => {
+const StudioIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -252,7 +252,7 @@ export const StudioIcon = ({ styles }) => {
 };
 // توين هاوس
 
-export const TwinHouseIcon = ({ styles }) => {
+const TwinHouseIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -278,7 +278,7 @@ export const TwinHouseIcon = ({ styles }) => {
 };
 // كبينة
 
-export const CabinIcon = ({ styles }) => {
+const CabinIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -294,7 +294,7 @@ export const CabinIcon = ({ styles }) => {
 };
 // وير هاوس
 
-export const WarehouseIcon = ({ styles }) => {
+const WarehouseIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -316,7 +316,7 @@ export const WarehouseIcon = ({ styles }) => {
 };
 // مبني
 
-export const ArchitectureIcon = ({ styles }) => {
+const ArchitectureIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -343,7 +343,7 @@ export const ArchitectureIcon = ({ styles }) => {
 };
 // بينت هاوس
 
-export const PenthouseIcon = ({ styles }) => {
+const PenthouseIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -368,7 +368,7 @@ export const PenthouseIcon = ({ styles }) => {
 };
 // كافية
 
-export const CoffeeIcon = ({ styles }) => {
+const CoffeeIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -390,7 +390,7 @@ export const CoffeeIcon = ({ styles }) => {
 };
 // شقة بحديقة
 
-export const ApartmentWithGardenIcon = ({ styles }) => {
+const ApartmentWithGardenIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -412,7 +412,7 @@ export const ApartmentWithGardenIcon = ({ styles }) => {
 };
 // فيلة
 
-export const VillaIcon = ({ styles }) => {
+const VillaIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -435,7 +435,7 @@ export const VillaIcon = ({ styles }) => {
 };
 // جراج
 
-export const GarageIcon = ({ styles }) => {
+const GarageIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -457,7 +457,7 @@ export const GarageIcon = ({ styles }) => {
 };
 // بيت
 
-export const HouseIcon = ({ styles }) => {
+const HouseIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -480,7 +480,7 @@ export const HouseIcon = ({ styles }) => {
 };
 // عيادة
 
-export const ClinicIcon = ({ styles }) => {
+const ClinicIcon = ({ styles }) => {
   return (
     <svg
       width="30"
@@ -493,26 +493,81 @@ export const ClinicIcon = ({ styles }) => {
     </svg>
   );
 };
-// // رتيل
+const RetailIcon = ({ styles }) => {
+  return (
+    <svg
+      width="30"
+      height="30"
+      viewBox="0 0 30 30"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`${styles} group-hover:fill-lightGreen fill-[#BDBCBC] `}
+    >
+      <g clipPath="url(#clip0_965_3357)">
+        <path d="M27.04 0H2.96125L0 10.625C0 11.9613 0.46875 13.19 1.25 14.1562V25.625C1.25 28.0375 3.2125 30 5.625 30H14.375C16.7875 30 18.75 28.0375 18.75 25.625V15.3C18.97 15.1525 19.1787 14.99 19.375 14.8137C20.3713 15.7063 21.685 16.25 23.125 16.25H24.375C24.5863 16.25 24.795 16.2375 25 16.215V30H28.75V14.1562C29.5312 13.19 30 11.9613 30 10.625L27.04 0ZM10.625 14.8137C11.6213 15.7063 12.935 16.25 14.375 16.25H15V20H5V16.215C5.205 16.2375 5.41375 16.25 5.625 16.25H6.875C8.315 16.25 9.62875 15.7063 10.625 14.8137ZM14.375 26.25H5.625C5.28 26.25 5 25.97 5 25.625V23.75H15V25.625C15 25.97 14.72 26.25 14.375 26.25ZM23.125 12.5C22.0912 12.5 21.25 11.6587 21.25 10.625V10H17.5V10.625C17.5 11.6587 16.6588 12.5 15.625 12.5H14.375C13.3413 12.5 12.5 11.6587 12.5 10.625V10H8.75V10.625C8.75 11.6587 7.90875 12.5 6.875 12.5H5.625C4.665 12.5 3.87125 11.775 3.7625 10.8438L5.78875 3.75H8.75V6.25H12.5V3.75H17.5V6.25H21.25V3.75H24.21L26.2375 10.8438C26.1287 11.775 25.3337 12.5 24.375 12.5H23.125Z" />
+      </g>
+      <defs>
+        <clipPath id="clip0_965_3357">
+          <rect width="30" height="30" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+export const useUnitsIcons = (nameIcon) => {
+  switch (nameIcon) {
+    case "apartment":
+      return <ApartmentIcon />;
+    case "apartment_with_garden":
+      return <ApartmentWithGardenIcon />;
+    case "duplex":
+      return <DuplexIcon />;
+    case "studio":
+      return <StudioIcon />;
+    case "penthouse":
+      return <PenthouseIcon />;
+    case "hotel_apartment":
+      return <HotelApartmentIcon />;
+    case "home":
+      return <HouseIcon />;
+    case "cabin":
+      return <CabinIcon />;
+    case "villa":
+      return <VillaIcon />;
+    case "townhouse":
+      return <TownhouseIcon />;
+    case "twin_house":
+      return <TwinHouseIcon />;
+    case "clinic":
+      return <ClinicIcon />;
+    case "office":
+      return <OfficeIcon />;
+    case "garage":
+      return <GarageIcon />;
+    case "factory":
+      return <FactoryIcon />;
+    case "warehouse":
+      return <WarehouseIcon />;
+    case "retail":
+      return <RetailIcon />;
+    case "restaurant":
+      return <RestaurantIcon />;
+    case "cafe":
+      return <CoffeeIcon />;
+    case "shop":
+      return <ShopIcon />;
+    case "building":
+      return <ArchitectureIcon />;
+    case "chalet":
+      return <FurnishedApartmentIcon />;
 
-//// export const RetailIcon = ({ styles }) => {
-//   return (
-//     <svg
-//       width="30"
-//       height="30"
-//       viewBox="0 0 30 30"
-//       xmlns="http://www.w3.org/2000/svg"
-//       className={`${styles} group-hover:fill-lightGreen fill-[#BDBCBC] `}
-//     >
-//       <g clipPath="url(#clip0_965_3357)">
-//         <path d="M27.04 0H2.96125L0 10.625C0 11.9613 0.46875 13.19 1.25 14.1562V25.625C1.25 28.0375 3.2125 30 5.625 30H14.375C16.7875 30 18.75 28.0375 18.75 25.625V15.3C18.97 15.1525 19.1787 14.99 19.375 14.8137C20.3713 15.7063 21.685 16.25 23.125 16.25H24.375C24.5863 16.25 24.795 16.2375 25 16.215V30H28.75V14.1562C29.5312 13.19 30 11.9613 30 10.625L27.04 0ZM10.625 14.8137C11.6213 15.7063 12.935 16.25 14.375 16.25H15V20H5V16.215C5.205 16.2375 5.41375 16.25 5.625 16.25H6.875C8.315 16.25 9.62875 15.7063 10.625 14.8137ZM14.375 26.25H5.625C5.28 26.25 5 25.97 5 25.625V23.75H15V25.625C15 25.97 14.72 26.25 14.375 26.25ZM23.125 12.5C22.0912 12.5 21.25 11.6587 21.25 10.625V10H17.5V10.625C17.5 11.6587 16.6588 12.5 15.625 12.5H14.375C13.3413 12.5 12.5 11.6587 12.5 10.625V10H8.75V10.625C8.75 11.6587 7.90875 12.5 6.875 12.5H5.625C4.665 12.5 3.87125 11.775 3.7625 10.8438L5.78875 3.75H8.75V6.25H12.5V3.75H17.5V6.25H21.25V3.75H24.21L26.2375 10.8438C26.1287 11.775 25.3337 12.5 24.375 12.5H23.125Z" />
-//       </g>
-//       <defs>
-//         <clipPath id="clip0_965_3357">
-//           <rect width="30" height="30" fill="white" />
-//         </clipPath>
-//       </defs>
-//     </svg>
-//   );
-//// };
-// // مطعم
+    /***********************/
+    case "agriculture":
+    // return <ShopIcon />;
+    case "floor":
+    // return ApartmentWithGardenIcon;
+    case "residential_building":
+    // return ApartmentIcon;
+
+    // default:
+  }
+};

@@ -1,19 +1,17 @@
-// pages/Realties/[slug].js
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 
 const RealtiesSlugPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Redirect logic
-    router.push("/searching/offer=all");
-    // router.push("/searching/offer=all", undefined, {
-    //   shallow: true,
-    // });
-  }, [router]);
-
-  return <div className="h-[95dvh]"></div>;
+  return null;
 };
 
 export default RealtiesSlugPage;
+export async function getServerSideProps() {
+  const destination = generateRedirectDestination();
+
+  return {
+    redirect: {
+      destination: destination,
+      statusCode: 308,
+    },
+  };
+}

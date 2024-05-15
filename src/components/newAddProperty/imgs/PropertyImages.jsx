@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 import Error from "@/Shared/ui/Error";
+import { compressImage } from "@/utils/compressImage";
 
 const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -15,6 +16,9 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const [album, setAlbum] = useState(watch("album"));
   const mainImgContainerRef = useRef(null);
   const showMultiImages = multiImage || album?.length > 0;
+  useEffect(() => {
+    setAlbum(watch("album"));
+  }, [watch("album")]);
   useEffect(() => {
     setValue("mainImage", mainImage);
     if (mainImage) {
@@ -32,25 +36,23 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
       mainImgContainerRef.current.focus();
     }
   }, [errors.mainImage]);
-  const handleMainImageChange = (e) => {
-    setMainImage(e.target.files[0]);
+  const handleMainImageChange = async (e) => {
+    const originalFile = e.target.files[0];
+    const compressedFile = await compressImage(originalFile);
+    setMainImage(compressedFile);
   };
   const deleteMainImage = () => {
     setMainImage(null);
   };
 
-  const handleMultiImageChange = (event) => {
-    const fileList = event.target.files;
-    const newImages = Array.from(fileList);
+  const handleMultiImageChange = async (event) => {
+    const originalFiles = Array.from(event.target.files);
+    const compressPromises = originalFiles.map(compressImage);
+    const compressedFiles = await Promise.all(compressPromises);
     if (Array.isArray(multiImage)) {
-      setMultiImage((prevImages) => [...prevImages, ...newImages]);
+      setMultiImage((prevImages) => [...prevImages, ...compressedFiles]);
     } else {
-      setMultiImage(newImages);
-    }
-    const photosnumber =
-      newImages.length + (multiImage ? multiImage.length : 0); // Ensure multiImage is not null
-    if (photosnumber >= 3) {
-      clearErrors("multiImage");
+      setMultiImage(compressedFiles);
     }
   };
   // const album = watch("album");
@@ -104,23 +106,18 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           <>
             {" "}
             <Image
-              onClick={() => {
-                if (mainImgInputRef.current) {
-                  mainImgInputRef.current.click();
-                }
-              }}
               width={100}
               height={100}
               src={"/icons/add-img.svg"}
               alt="add image icon"
               className="cursor-pointer"
             />
-            <h3 className="text-center text-base sm:text-lg md:text-2xl text-darkGray font-bold">
+            <h2 className="text-center  text-darkGray font-bold">
               {language
                 ? "اضف الصورة الرئيسية للعقار"
                 : "Add main image for the property"}
-            </h3>
-            <p className="text-center text-xs md:text-sm text-outLine">
+            </h2>
+            <p className="text-center  text-outLine">
               {language
                 ? "جودة الصور المرفقة للعقار تساعد في نشر إعلانك بشكل افضل"
                 : "The quality of the attached images of the property helps in spreading your ad better"}
@@ -205,8 +202,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             {" "}
             <Image
               onClick={() => {
-                if (multiImgInputRef.current) {
-                  multiImgInputRef.current.click();
+                if (multiImage?.length > 0 || album?.length > 0) {
+                  if (multiImgInputRef.current) {
+                    multiImgInputRef.current.click();
+                  }
                 }
               }}
               width={100}
@@ -215,10 +214,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               alt="add image icon"
               className="cursor-pointer"
             />
-            <h3 className="text-center text-lg md:text-2xl text-darkGray font-bold">
+            <h2 className="text-center  text-darkGray font-bold">
               {language ? "اضف الصور الأخرى" : "Add other photos"}
-            </h3>
-            <p className="text-center text-xs md:text-sm text-outLine">
+            </h2>
+            <p className="text-center  text-outLine">
               {language
                 ? "عدد الصور المسموح بها من 3 إلى 20"
                 : "Number of photos allowed from 3 to 20"}
@@ -287,7 +286,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           {...register("multiImage", {
             validate: {
               min: (value) => {
-                const totalPics = value.length + (album?.length || 0);
+                const totalPics = (value?.length || 0) + (album?.length || 0);
                 return (
                   totalPics > 2 ||
                   (language
@@ -297,7 +296,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               },
               max: (value) => {
                 return (
-                  value.length + (album?.length || 0) < 21 ||
+                  (value?.length || 0) + (album?.length || 0) < 21 ||
                   (language
                     ? "يجب الا يزيد عدد الصور عن 20"
                     : "only 20 images a re allowed")

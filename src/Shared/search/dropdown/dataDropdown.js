@@ -16,8 +16,6 @@ export const propertyType = {
     { value: "graves", name: "مدافن", id: 3 },
     { value: "lands", name: "اراضي", id: 6 },
     { value: "finance", name: "تمويل عقاري", id: 2 },
-
-    // { value: "investment", name: "إستثمار", id: 1 },
   ],
   en: [
     { value: "residential", name: "Residential", id: 1 },
@@ -26,7 +24,6 @@ export const propertyType = {
     { value: "graves", name: "Graves", id: 3 },
     { value: "lands", name: "Lands", id: 6 },
     { value: "finance", name: "Finance", id: 2 },
-    // { value: "investment", name: "Investment", id: 1 },
   ],
 };
 export const saleOptionsType = {
@@ -37,7 +34,7 @@ export const saleOptionsType = {
   ],
   ar: [
     { value: "sale", name: "للبيع", id: 1 },
-    { value: "rent", name: "للإيحار", id: 2 },
+    { value: "rent", name: "للإيجار", id: 2 },
     { value: "investment", name: "للإستثمار", id: 3 },
   ],
 };
@@ -101,7 +98,7 @@ export const percentageProperty = {
 
 export const sortedData = {
   en: [
-    { value: "", name: "recently", id: 6 },
+    { value: "", name: "Recently", id: 6 },
     { value: "min_price", name: "Low Price", id: 1 },
     { value: "max_price", name: "High Price", id: 2 },
     { value: "max_view", name: "Most viewed", id: 3 },

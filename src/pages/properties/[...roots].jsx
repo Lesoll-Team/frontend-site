@@ -1,77 +1,56 @@
-import {
-  categoryUnitType,
-  propertyType,
-  saleOptionsType,
-} from "@/Shared/search/dropdown/dataDropdown";
-import { governorateData } from "@/Shared/search/dropdown/governorateLocation";
-import { regionData } from "@/Shared/search/dropdown/regionLocation";
-import SidebarAndBarFilter from "@/components/category/SidebarAndBarFilter";
+import FilterLayout from "@/components/category/FilterLayout";
 import HeadMetaTags from "@/components/category/shared/HeadMetaTags";
 import { foundKeyword } from "@/components/category/shared/api";
-// import Head from "next/head";
+import {
+  useFilterObject,
+  useQueryFilter,
+} from "@/components/category/shared/useCategory";
 
-const SearchPage = ({ page, result }) => {
+const SearchPage = ({
+  page,
+  result,
+  dataObjectFromURL,
+  queries,
+  isSmallScreen,
+  isMobile,
+}) => {
   return (
     <>
-      <HeadMetaTags result={result} />
-      <SidebarAndBarFilter page={page} result={result} />
+      <HeadMetaTags
+        result={result}
+        queries={queries}
+        dataObjectFromURL={dataObjectFromURL}
+      />
+      <FilterLayout
+        isSmallScreen={isSmallScreen}
+        isMobile={isMobile}
+        queries={queries}
+        page={page}
+        result={result}
+        dataObjectFromURL={dataObjectFromURL}
+      />
     </>
   );
 };
 export default SearchPage;
 
 export async function getServerSideProps(context) {
-  const { roots } = context.params;
-  const governorateLocation = governorateData;
-  const regionLocation = regionData;
-  let mapGovernorates = new Map();
-  let maRegions = new Map();
-  let currentGovernorate = null;
-  let currentRegion = null;
-  let unitType = null;
-  let category = null;
-  let saleOption = null;
-  const newSearchKeywords = {};
+  const { req } = context;
+  const userAgent = req.headers["user-agent"];
+  const isMobile = /mobile/i.test(userAgent);
 
-  Object.entries(context.query).forEach(([key, value]) => {
-    if (key !== "roots") {
-      newSearchKeywords[key] = value;
-    }
-  });
+  const screenWidth =
+    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const isSmallScreen = parseInt(screenWidth, 10) <= 768; // Adjust the threshold as needed
 
-  governorateLocation.forEach((item) => {
-    mapGovernorates.set(
-      item.governorate_name_en.split(" ").join("_").toLowerCase(),
-      {
-        name_ar: item.governorate_name_ar.split(" ").join("_"),
-        name_en: item.governorate_name_en.split(" ").join("_").toLowerCase(),
-      }
-    );
-  });
-
-  regionLocation.forEach((item) => {
-    maRegions.set(item.city_name_en.split(" ").join("_").toLowerCase(), {
-      name_ar: item.city_name_ar.split(" ").join("_"),
-      name_en: item.city_name_en.split(" ").join("_").toLowerCase(),
-    });
-  });
-  roots.forEach((value) => {
-    if (mapGovernorates.get(value)) {
-      currentGovernorate = value;
-    }
-    if (maRegions.get(value)) {
-      currentRegion = value;
-    }
-    if (categoryUnitType.includes(value)) {
-      unitType = value;
-    }
-    if (propertyType.ar.some((item) => item.value === value)) {
-      category = value;
-    }
-    if (saleOptionsType.ar.some((item) => item.value === value)) {
-      saleOption = value;
-    }
-  });
+  const {
+    newSearchKeywords,
+    currentGovernorate,
+    currentRegion,
+    unitType,
+    category,
+    saleOption,
+  } = useQueryFilter({ context });
 
   const queryKeywords = {
     ...newSearchKeywords,
@@ -83,26 +62,18 @@ export async function getServerSideProps(context) {
     page: newSearchKeywords.page || 1,
   };
 
-  let response = await foundKeyword(queryKeywords);
+  const objectFilter = useFilterObject(queryKeywords);
+  const response = await foundKeyword(objectFilter);
+  // const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
   return {
     props: {
-      // searchKeywords: {
-      //   ...newSearchKeywords,
-      // },
       result: response?.data || null,
       page: newSearchKeywords.page || 1,
+      dataObjectFromURL: objectFilter,
+      queries: newSearchKeywords,
+      isSmallScreen,
+      isMobile,
     },
   };
 }
-// /**
-//  * React functional component SSR for the search page.
-//  * @component
-//  * @param {Object} props - The props object containing data for the page.
-//  * @param {string[]} props.saleOption - The sale option.
-//  * @param {Object[]} props.mapGovernorates - The governorate object.
-//  * @param {string[]} props.category - The category data type.
-//  * @param {Object[]} props.maRegions - The region object.
-//  * @param {string[]} props.unitType - The category unit type data.
-//  * @param {boolean} props.searchKeywords - A boolean indicating whether "search" is included in roots.
-//  * @returns {JSX.Element} - The JSX element representing the search page.
-//  */

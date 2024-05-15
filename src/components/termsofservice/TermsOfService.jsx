@@ -1,7 +1,7 @@
 import { memo } from "react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export const TermsOfService = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -9,11 +9,9 @@ export const TermsOfService = () => {
   const [terms, setTerms] = useState([]);
   const getTerms = () => {
     try {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/term/get`)
-        .then((res) => {
-          setTerms(res.data.terms);
-        });
+      axiosInstance.get(`/admin/term/get`).then((res) => {
+        setTerms(res.data.terms);
+      });
     } catch (err) {
       console.log(err);
     }

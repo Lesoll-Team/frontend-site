@@ -1,5 +1,5 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const PaymentType = () => {
@@ -37,16 +37,16 @@ const PaymentType = () => {
   };
   return (
     <div className="bg-[#F8F8F8] gap-y-[1.5vh] p-[1.5vw] flex flex-col w-full">
-      <span className="font-bold text-gray2">
+      <span className="font-bold lg-text text-gray2">
         {language ? "طريقة السداد" : "Payment Options"}
       </span>
-      <div className="flex gap-x-[1vw]">
+      <div className="flex sm-text md:gap-x-[1vw]  gap-x-[1.5vw]">
         <button
           onClick={() => handlePaymentClick("cash")}
           className={`bg-white md:px-3 min-w-[80px] md:p-2 h-[40px] px-3  md:h-[3.313rem] rounded-[6px] ${
             paymentTypeIs === "cash"
               ? "border-1 border-lightGreen text-lightGreen"
-              : "border-1 border-gray1"
+              : "border-1 border-[#CCCCCC]"
           }`}
         >
           {language ? "كاش" : "Cash"}
@@ -56,7 +56,7 @@ const PaymentType = () => {
           className={`bg-white md:px-3 md:p-2 h-[40px] px-3 min-w-[80px]  md:h-[3.313rem] rounded-[6px] ${
             paymentTypeIs === "installment"
               ? "border-1 border-lightGreen text-lightGreen"
-              : "border-1 border-gray1"
+              : "border-1 border-[#CCCCCC]"
           }`}
         >
           {language ? "تقسيط" : "Installment"}
@@ -66,4 +66,4 @@ const PaymentType = () => {
   );
 };
 
-export default PaymentType;
+export default memo(PaymentType);

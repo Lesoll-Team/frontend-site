@@ -1,58 +1,55 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { loginUserAsync } from "@/redux-store/features/authSlice";
 import { useRouter } from "next/router";
-import { Waveform } from "@uiball/loaders";
-import { FcGoogle } from "react-icons/fc";
-import { signWithGoogle } from "@/utils/userAPI";
+import { Ring } from "@uiball/loaders";
 import GoogleSignInBtn from "./GoogleSignInBtn";
-import { resetLogin, userLogin } from "@/redux-store/features/auth/loginSlice";
 import Button from "@/Shared/ui/Button";
+import { userLogin } from "./api/loginApi";
+import { useUser } from "@/Shared/UserContext";
 const SignInForm = () => {
-  const { register, handleSubmit, formState, reset } = useForm();
-  const { errors } = formState;
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  // redux states
+  const { setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const status = useSelector((state) => state.login.status);
-  const error = useSelector((state) => state.login.error);
+  const { register, handleSubmit, formState } = useForm();
+  const { errors } = formState;
+  const router = useRouter();
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState(null);
+  const [token, setToken] = useState();
   const [showPassword, setShowPassword] = useState(false);
-  const [WrongPassword, setWrongPasswird] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
 
-  // functions
   const onSubmit = async (data) => {
-    dispatch(userLogin(data));
+    await userLogin({ data, setFormStatus, setServerError, setToken });
   };
-  useEffect(() => {
-    if (status === "succeeded") {
-      router.push("/");
-      dispatch(resetLogin());
-    }
-  }, [status]);
 
   useEffect(() => {
-    if (error?.message.toLowerCase().includes("password")) {
-      setWrongPasswird(true);
-      dispatch(resetLogin());
+    if (formStatus === "success" && token) {
+      setUserData();
+      router.replace("/");
+    }
+  }, [formStatus]);
+
+  useEffect(() => {
+    if (serverError?.message.toLowerCase().includes("password")) {
+      setWrongPassword(true);
+      setServerError(null);
       setTimeout(function () {
-        setWrongPasswird(false);
+        setWrongPassword(false);
       }, 3500);
     }
-    if (error?.message.toLowerCase().includes("email")) {
+    if (serverError?.message.toLowerCase().includes("email")) {
       setEmailNotFound(true);
-      dispatch(resetLogin());
+      setServerError(null);
       setTimeout(function () {
         setEmailNotFound(false);
       }, 3500);
     }
-  }, [error]);
-  // console.log(error);
+  }, [serverError]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -63,7 +60,6 @@ const SignInForm = () => {
         {language ? "تسجيل الدخول" : "Sign In"}
       </h1>
 
-      {/* ---------------------- email ------------------------- */}
       <div className="space-y-2">
         {" "}
         <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
@@ -103,7 +99,6 @@ const SignInForm = () => {
         )}
       </div>
 
-      {/* ---------------------- Password ------------------------- */}
       <div className="">
         {" "}
         <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
@@ -121,7 +116,7 @@ const SignInForm = () => {
             })}
             type={showPassword ? "text" : "password"}
             className={` w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${
-              (errors.password || WrongPassword) &&
+              (errors.password || wrongPassword) &&
               "border-red-500 focus:border-red-500"
             }`}
           />
@@ -146,40 +141,33 @@ const SignInForm = () => {
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
-        {WrongPassword && (
+        {wrongPassword && (
           <p className="text-red-500 text-sm">
             {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
           </p>
         )}
       </div>
 
-      {/* ---------------------- submit btn ------------------------- */}
-      <Button
-        type="submit"
-        // className="w-full p-3 h-12 md:h-14 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
-      >
-        {status === "loading" ? (
+      <Button type="submit">
+        {formStatus === "loading" ? (
           <>
             {" "}
             <div className="md:hidden">
-              <Waveform size={20} color="#fff" />
+              <Ring size={20} color="#fff" />
             </div>
             <div className="md:block hidden">
-              <Waveform size={20} color="#fff" />
+              <Ring size={20} color="#fff" />
             </div>
           </>
         ) : (
-          <span>{language ? "سجل الدخول" : "Sign In"}</span>
+          <span>{language ? "تسجيل الدخول" : "Sign In"}</span>
         )}
-
-        {/* text */}
       </Button>
       <div className="flex items-center gap-3">
         <div className="h-[1px] w-full bg-gray-500"></div>
         <p className="text-gray-700">{language ? "او" : "or"}</p>
         <div className="h-[1px] w-full bg-gray-500"></div>
       </div>
-      {/* --------------- google sign in */}
       <GoogleSignInBtn />
       <div className="flex items-center justify-center gap-1">
         <p className="text-lightGray">

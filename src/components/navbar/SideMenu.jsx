@@ -3,24 +3,27 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { GoHome } from "react-icons/go";
-import { IoMdCard, IoMdMenu } from "react-icons/io";
+import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { LuFileText } from "react-icons/lu";
 import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChangeLang from "./ChangeLang";
-import { logoutUserToken } from "@/redux-store/features/authSlice";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
+import { useUser } from "@/Shared/UserContext";
+// import io from "socket.io-client";
 
 const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
+  const [showNeedMenu, setShowNeedMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, logOutUserData } = useUser();
+
   const dispatch = useDispatch();
   const router = useRouter();
-  const isCompany = userData?.typeOfUser === "company";
+  const isCompany = data?.typeOfUser === "company";
   const [showSideMenu, setShowSideMenu] = useState(false);
   const openSideMenu = () => {
     setShowSideMenu(true);
@@ -28,12 +31,14 @@ const SideMenu = () => {
   const closeSideMenu = () => {
     setShowSideMenu(false);
   };
+  const toggleNeedMenu = () => {
+    setShowNeedMenu((prev) => !prev);
+  };
   const handleLogout = () => {
-    dispatch(logoutUserToken());
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
-    router.push("/signin");
+    logOutUserData();
+    Cookies.remove("userToken");
+    // router.push("/signin");
   };
   useEffect(() => {
     // Prevent scrolling when the SideMenu component is mounted
@@ -52,13 +57,27 @@ const SideMenu = () => {
       setShowSideMenu(false);
     }
   }, [windowWidth]);
+  // useEffect(() => {
+  //   const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
+  //     transports: ["websocket"],
+  //     withCredentials: true,
+  //   });
+  //   if (userData?._id) {
+  //     socket.emit("online", { userId: userData._id });
+  //   }
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [userData?._id]);
   return (
     <>
       <button onClick={openSideMenu} className="lg:hidden">
         <IoMdMenu className="text-2xl" />
       </button>
       {showSideMenu && (
-        <div className="absolute w-screen h-screen top-0 left-0  lg:hidden  bg-white px-8 pt-4 space-y-8 overflow-auto  pb-20">
+        <div
+          className={`absolute w-screen sm:w-full h-screen top-0 left-0   lg:hidden  bg-white px-8 pt-4 space-y-8 overflow-auto  pb-20 ${language ? "sm:right-20" : "sm:left-12"}`}
+        >
           <div className="w-full flex justify-center items-center relative ">
             <Link href={"/"} onClick={closeSideMenu}>
               <Image
@@ -69,15 +88,18 @@ const SideMenu = () => {
                 className="h-[28px] w-[70px] "
               />
             </Link>
-            <button onClick={closeSideMenu} className="absolute left-0">
+            <button
+              onClick={closeSideMenu}
+              className={`absolute  left-0 ${language ? "sm:right-0" : "sm:left-0"}`}
+            >
               <IoClose className="text-xl" />
             </button>
           </div>
-          {userData && (
+          {data && (
             <div className="mx-auto flex justify-center items-center gap-3 flex-col">
               <Link href={"/profile"} onClick={closeSideMenu}>
                 <Image
-                  src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+                  src={data?.avatarUrl || "/user-avatar-placeholder.png"}
                   width={84}
                   height={84}
                   className="rounded-full object-cover"
@@ -90,30 +112,12 @@ const SideMenu = () => {
                 className="max-w-[95%] text-center"
               >
                 <p className="text-base text-darkGray font-bold  ">
-                  {userData?.fullname}
+                  {data?.fullname}
                 </p>
               </Link>
-              {/*
-
-         <div className="p-2 rounded-md bg-lightNeutral text-lightGreen font-bold flex items-center gap-2 text-xs">
-                <p>
-                  {language ? "الطلبات" : "Needs"}{" "}
-                  <span className="text-baseGray">2</span>
-                </p>
-                <p>
-                  {language ? "عدد العقارات" : "Properties"}{" "}
-                  <span className="text-baseGray">2</span>
-                </p>
-              </div>
-         */}
             </div>
           )}
           <div className="flex flex-col justify-start gap-7 text-base text-darkGray">
-            <Link
-              onClick={closeSideMenu}
-              href={"/"}
-              className="flex items-center gap-4"
-            ></Link>
             <Link
               onClick={closeSideMenu}
               href={"/"}
@@ -122,14 +126,15 @@ const SideMenu = () => {
               <GoHome className="text-baseGray text-lg" />
               <span>{language ? "الرئيسية" : "Home"}</span>
             </Link>
-            {/* <Link
+            <Link
               onClick={closeSideMenu}
-              href={"/"}
+              href={"/projects"}
               className="flex items-center gap-4"
             >
-              <IoMdCard className="text-baseGray text-lg" />
-              <span>{language ? "الباقات" : "Packages"}</span>
-            </Link> */}
+              <Image width={18} height={18} src={"/icons/projects-icon.svg"} />
+              <span>{language ? "المشاريع الجديدة" : "New Projects"}</span>
+            </Link>
+
             <Link
               onClick={closeSideMenu}
               href={"/add-property"}
@@ -139,24 +144,40 @@ const SideMenu = () => {
 
               <span>{language ? "إضافة عقار" : "Add Property"}</span>
             </Link>
-            <Link
-              onClick={closeSideMenu}
-              href={isCompany ? "/needs" : "/add-need"}
-              className="flex items-center gap-4"
-            >
-              <AiOutlineEdit className="text-baseGray text-lg" />
+            <div className="space-y-2">
+              <button
+                onClick={toggleNeedMenu}
+                href={isCompany ? "/needs" : "/add-need"}
+                className="flex items-center gap-4 w-full"
+              >
+                <div className="flex items-center justify-between gap-4 ">
+                  <AiOutlineEdit className="text-baseGray text-lg" />
 
-              <span>
-                {" "}
-                {isCompany
-                  ? language
-                    ? "الطلبات"
-                    : " Needs"
-                  : language
-                  ? "إضافة طلب"
-                  : "Add Need"}
-              </span>
-            </Link>
+                  <span> {language ? "الطلبات" : " Needs"}</span>
+                </div>
+                <IoIosArrowDown
+                  className={`mt-1 duration-100 ${showNeedMenu && "rotate-180 duration-100"}`}
+                />
+              </button>
+              {showNeedMenu && (
+                <div className="mx-6 space-y-2">
+                  <Link
+                    onClick={closeSideMenu}
+                    href={"/add-need"}
+                    className="flex items-center gap-4"
+                  >
+                    <span>{language ? "إضافة طلب" : "Add Need"}</span>
+                  </Link>
+                  <Link
+                    onClick={closeSideMenu}
+                    href={"/needs"}
+                    className="flex items-center gap-4"
+                  >
+                    <span>{language ? " رؤية جميع الطلبات" : " Needs"}</span>
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               onClick={closeSideMenu}
               href={"/blog"}
@@ -179,7 +200,7 @@ const SideMenu = () => {
           <hr className="w-10/12" />
           <div className="grid gap-5">
             <ChangeLang />
-            {userData && (
+            {data && (
               <button onClick={handleLogout} className="text-red-600 w-fit">
                 {language ? "تسجيل الخروج" : "Log out"}
               </button>

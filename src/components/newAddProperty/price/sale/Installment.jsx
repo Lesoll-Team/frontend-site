@@ -18,6 +18,7 @@ const INSTALLMENT = {
   period: "",
   amount: "",
   downPayment: "",
+  ProjectPercentage: "",
   discount: "",
 };
 const Installment = ({
@@ -47,18 +48,28 @@ const Installment = ({
     (period) => {
       switch (period) {
         case "Monthly":
-          return language ? "جنية/شهر" : "Egp/Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/شهر`
+            : `${watch("currencies.ISO_code")}/Month`;
         case "Yearly":
-          return language ? "جنية/سنة" : "Egp/Year";
+          return language
+            ? `${watch("currencies.ISO_code")}/سنة`
+            : `${watch("currencies.ISO_code")}/Year`;
         case "6 Monthly":
-          return language ? "جنية/6 شهور" : "Egp/6 Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/ شهور 6`
+            : `${watch("currencies.ISO_code")} /6 Month`;
         case "3 Monthly":
-          return language ? " جنية/3 شهور" : "Egp/3 Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/ شهور 3`
+            : `${watch("currencies.ISO_code")} /3 Month`;
         default:
-          return language ? "جنية" : "Egp";
+          return language
+            ? `${watch("currencies.ISO_code")}`
+            : `${watch("currencies.ISO_code")}`;
       }
     },
-    [watch("installment")]
+    [watch("installment"), watch("currencies")]
   );
 
   return (
@@ -91,9 +102,9 @@ const Installment = ({
               </div>
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? " نظام التقسيط" : "Installment System"}
-                  </h3>
+                  </p>
                   <DropDown
                     options={installmentTypeOptions}
                     selected={watch(`installment.${index}.type`)}
@@ -126,9 +137,9 @@ const Installment = ({
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? "مدة التقسيط" : "Installment Period"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -179,9 +190,9 @@ const Installment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? " المقدم" : " Down payment"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -223,7 +234,7 @@ const Installment = ({
                         language ? "left-14" : "right-14"
                       } `}
                     >
-                      {language ? "جنية" : "Egp"}
+                      {watch("currencies.ISO_code")}
                     </span>
                   </div>
                   {/* {errors?.installment[index]?.downPayment && (
@@ -240,9 +251,9 @@ const Installment = ({
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? "قيمة التقسيط" : "Installment amount"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       type="text"

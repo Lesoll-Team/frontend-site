@@ -2,9 +2,7 @@ import DropDown from "@/Shared/ui/DropDown";
 import { installmentTypeOptions } from "@/utils/addAndEditOptions";
 import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
-
 import { FaSquareMinus } from "react-icons/fa6";
-import usePeriodType from "@/Hooks/usePeriodType";
 import { useCallback } from "react";
 const INSTALLMENT = {
   type: {
@@ -37,20 +35,29 @@ const CashAndInstallment = ({
     (period) => {
       switch (period) {
         case "Monthly":
-          return language ? "جنية/شهر" : "Egp/Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/شهر`
+            : `${watch("currencies.ISO_code")}/Month`;
         case "Yearly":
-          return language ? "جنية/سنة" : "Egp/Year";
+          return language
+            ? `${watch("currencies.ISO_code")}/سنة`
+            : `${watch("currencies.ISO_code")}/Year`;
         case "6 Monthly":
-          return language ? "جنية/6 شهور" : "Egp/6 Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/ شهور 6`
+            : `${watch("currencies.ISO_code")} /6 Month`;
         case "3 Monthly":
-          return language ? " جنية/3 شهور" : "Egp/3 Month";
+          return language
+            ? `${watch("currencies.ISO_code")}/ شهور 3`
+            : `${watch("currencies.ISO_code")} /3 Month`;
         default:
-          return language ? "جنية" : "Egp";
+          return language
+            ? `${watch("currencies.ISO_code")}`
+            : `${watch("currencies.ISO_code")}`;
       }
     },
-    [watch("installment")]
+    [watch("installment"), watch("currencies")]
   );
-
   return (
     <>
       <div className="lg:col-span-2 ">
@@ -62,9 +69,9 @@ const CashAndInstallment = ({
                 {language ? `خطة رقم ${index + 1}` : ""}
               </h4> */}
         <div className="space-y-2 w-full mb-4">
-          <h3 className="text-xl font-bold">
+          <p className="text-gray-800">
             {language ? "  الدفع الكاش" : " Cash Payment"}
-          </h3>
+          </p>
           <h4 className="text-base text-darkGray">
             {language ? "الخصم" : "Discount"}
           </h4>
@@ -112,9 +119,9 @@ const CashAndInstallment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? " نظام التقسيط" : "Installment System"}
-                  </h3>
+                  </p>
                   <DropDown
                     options={installmentTypeOptions}
                     selected={watch(`installment.${index}.type`)}
@@ -145,9 +152,9 @@ const CashAndInstallment = ({
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? "مدة التقسيط" : "Installment Period"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -185,9 +192,9 @@ const CashAndInstallment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? " المقدم" : " Down payment"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -217,14 +224,14 @@ const CashAndInstallment = ({
                         language ? "left-14" : "right-14"
                       } `}
                     >
-                      {language ? "جنية" : "Egp"}
+                      {watch("currencies.ISO_code")}
                     </span>
                   </div>
                 </div>
                 <div className="space-y-2 w-full">
-                  <h3 className="text-xl">
+                  <p className="text-gray-800">
                     {language ? "قيمة التقسيط" : "Installment amount"}
-                  </h3>
+                  </p>
                   <div className="relative">
                     <input
                       type="text"

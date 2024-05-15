@@ -10,13 +10,12 @@ import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 
 const AllDataForm = ({ main }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
-  const formError = useSelector((state) => state.editUser.error);
   const dispatch = useDispatch();
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
@@ -27,32 +26,34 @@ const AllDataForm = ({ main }) => {
   };
 
   useEffect(() => {
-    if (userData) {
-      const { fullname, email, code, phone } = userData;
+    if (data) {
+      const { code, phone } = data;
 
       setValue("phone", code + phoneNumberwithoutCode(phone, code));
       setValue("code", code);
     }
-  }, [userData]);
+  }, [data]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (userData) => {
     const formData = new FormData();
-    formData.append("fullname", data.fullname);
-    formData.append("code", data.code);
-    formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
-    formData.append("instagramLink", data.instagramLink);
-    formData.append("faceLink", data.faceLink);
+    formData.append("fullname", userData.fullname);
+    formData.append("code", userData.code);
+    formData.append(
+      "phone",
+      phoneNumberwithoutCode(userData.phone, userData.code),
+    );
+    formData.append("instagramLink", userData.instagramLink);
+    formData.append("faceLink", userData.faceLink);
     await dispatch(
       updateUser({
         userData: formData,
-        id: userData?._id,
-      })
+        id: data?._id,
+      }),
     );
-    dispatch(getUserData());
+    setUserData();
   };
 
-  if (userData) {
-    const initailPhone = userData.code + userData?.phone;
+  if (data) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -72,7 +73,7 @@ const AllDataForm = ({ main }) => {
                 autoComplete="off"
                 type="text"
                 // readOnly
-                defaultValue={userData.fullname}
+                defaultValue={data.fullname}
                 {...register("fullname", {
                   required: {
                     value: true,
@@ -95,7 +96,7 @@ const AllDataForm = ({ main }) => {
               <input
                 readOnly
                 type="text"
-                defaultValue={userData.email}
+                defaultValue={data.email}
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
@@ -111,10 +112,18 @@ const AllDataForm = ({ main }) => {
                     fontSize: "16px",
                     color: "#1b6e6d",
                     borderRadius: "8px",
-                    border: "1px",
+                    width: "100%",
                   }}
-                  buttonStyle={{ height: "40px", backgroundColor: "white" }}
-                  dropdownStyle={{ height: "150px" }}
+                  buttonStyle={{
+                    height: "39px",
+                    backgroundColor: "white",
+                  }}
+                  containerStyle={{
+                    borderColor: errors.phone && "red",
+                  }}
+                  dropdownStyle={{
+                    height: "150px",
+                  }}
                   autocompleteSearch={true}
                   countryCodeEditable={false}
                   enableSearch={true}
@@ -148,7 +157,7 @@ const AllDataForm = ({ main }) => {
             </UserInputContainer>
           </div>
           <div className="flex flex-col gap-y-8 md:gap-y-11">
-            <h3 className="text-base md:text-xl font-bold text-lightGreen">
+            <h3 className=" font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
             </h3>
             <UserSocialMediaContainer
@@ -159,11 +168,9 @@ const AllDataForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.faceLink}
+                defaultValue={data.faceLink}
                 {...register("faceLink", {})}
-                className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
-                  errors.faceLink && "border-red-500 focus:border-red-500"
-                }`}
+                className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -174,9 +181,9 @@ const AllDataForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.instagramLink}
+                defaultValue={data.instagramLink}
                 {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
           </div>
@@ -221,7 +228,7 @@ export default AllDataForm;
 
 const UserInputContainer = ({ title, children }) => (
   <div className="flex flex-col gap-y-2">
-    <label className="text-base md:text-xl text-outLine">{title}</label>
+    <p className=" text-gray-800 ">{title}</p>
     {children}
   </div>
 );

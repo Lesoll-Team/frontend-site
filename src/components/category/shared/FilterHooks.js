@@ -72,3 +72,14 @@ export const useSendFilterSearch = ({ queryInput, filterInput }) => {
 
   return newUrl;
 };
+
+export const useSelectListByKey = ({ key, language, data }) => {
+  const isLanguage = language ? "ar" : "en";
+
+  let objectData = null;
+  if (data && data[isLanguage]) {
+    objectData = data[isLanguage].filter((item) => item.value === key);
+  }
+
+  return objectData && objectData[0];
+};

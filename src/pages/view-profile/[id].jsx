@@ -1,5 +1,6 @@
-import axios from "axios";
 import ViewUser from "@/components/viewProfile/ViewUser";
+// import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import axios from "axios";
 
 const ViewProfilePage = ({ query, user, properties }) => {
   return (
@@ -10,29 +11,25 @@ const ViewProfilePage = ({ query, user, properties }) => {
 };
 
 export default ViewProfilePage;
-export async function getServerSideProps({ query, res }) {
+export async function getServerSideProps({ query }) {
   const param = query;
-
-  try {
-    const user = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${query.id}`
-    );
-    // const user = res.data.find;
-    const properties = await axios.get(
+  let userdata;
+  const user = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${query.id}`,
+  );
+  userdata = user.data;
+  const properties = await axios
+    .get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${
         query.id
-      }?limit=10&page=${query?.page || 1}&of=${query?.type || "000"}`
-    );
-    return {
-      props: { query: param, user: user.data, properties: properties.data },
-      // revalidate: 10,
-    };
-  } catch (error) {
-    if (error.response && error.response.status === 500) {
-      res.writeHead(410);
-      res.end();
-    }
-    // If the error is not a 400 status code, re-throw the error
-    throw error;
-  }
+      }?limit=10&page=${query?.page || 1}&of=${query?.type || "000"}`,
+    )
+    .catch(() => console.log("Error"));
+  return {
+    props: {
+      query: param,
+      user: user.data,
+      properties: properties?.data || {},
+    },
+  };
 }

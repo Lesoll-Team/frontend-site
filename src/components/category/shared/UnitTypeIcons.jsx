@@ -1,71 +1,140 @@
-import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-const UnitTypeIcons = ({ items }) => {
-  const dispatch = useDispatch();
+import { useSelector } from "react-redux";
+import { useSendFilterSearch } from "./FilterHooks";
+import { useRouter } from "next/router";
+import { useUnitsIcons } from "./iconsSVG";
+const UnitTypeIcons = ({ items, main }) => {
+  const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const {
     categoryType,
+    saleOption,
     unitTypes,
     locationGovernorate,
     locationRegion,
-    clickOnUnits,
+    priceFrom,
+    priceTo,
+    numBathrooms,
+    numBedrooms,
+    areaFrom,
+    areaTo,
+    finishedOption,
+    paymentType,
+    sort,
+    propFinancing,
+    searchKeyword,
   } = useSelector((state) => state.Category);
-  const handleTapClicked = (item) => {
-    if (!categoryType?.value) {
-      // setClickOnTap(!clickOnTap);
-      dispatch(
-        updateAllStates({
-          categoryType: {
-            value: item.keyword,
-            name: language ? item.ar : item.en,
-          },
-          pageNumber: 1,
-          clickOnUnits: !clickOnUnits,
-        })
-      );
-    } else if (!unitTypes?.value) {
-      dispatch(
-        updateAllStates({
-          unitTypes: {
-            value: item.keyword,
-            name: language ? item.ar : item.en,
-          },
-          pageNumber: 1,
 
-          clickOnUnits: !clickOnUnits,
-        })
-      );
+  const handleTapClicked = (item) => {
+    if (!categoryType) {
+      const route = useSendFilterSearch({
+        filterInput: {
+          saleOptions: saleOption,
+          category: item.keyword,
+          unitType: unitTypes,
+          governorate: locationGovernorate,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
+    } else if (!unitTypes) {
+      const route = useSendFilterSearch({
+        filterInput: {
+          saleOptions: saleOption,
+          category: categoryType,
+          unitType: item.keyword,
+          governorate: locationGovernorate,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
     } else if (!locationGovernorate) {
-      // setClickOnTap(!clickOnTap);
-      dispatch(
-        updateAllStates({
-          locationGovernorate: item.keyword,
-          clickOnUnits: !clickOnUnits,
-          pageNumber: 1,
-        })
-      );
-      // setLocationGovernorate(Key);
+      const route = useSendFilterSearch({
+        filterInput: {
+          saleOptions: saleOption,
+          category: categoryType,
+          unitType: unitTypes,
+          governorate: item.keyword,
+          region: locationRegion,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
+      //, undefined, { scroll: false }
     } else if (!locationRegion) {
-      // setClickOnTap(!clickOnTap);
-      dispatch(
-        updateAllStates({
-          locationRegion: item.keyword,
-          clickOnUnits: !clickOnUnits,
-          pageNumber: 1,
-        })
-      );
-      // setLocationRegion(Key);
+      const route = useSendFilterSearch({
+        filterInput: {
+          saleOptions: saleOption,
+          category: categoryType,
+          unitType: unitTypes,
+          governorate: locationGovernorate,
+          region: item.keyword,
+        },
+        queryInput: {
+          priceFrom,
+          page: 1,
+          priceTo,
+          numBathrooms,
+          numBedrooms,
+          areaFrom,
+          areaTo,
+          finishedOption: finishedOption,
+          paymentType,
+          sort: sort,
+          mortgage: propFinancing,
+          keyword: searchKeyword,
+        },
+      });
+      router.push(route);
     }
-    // console.log(item);
   };
   const [seeMore, setSeeMore] = useState(8);
   useEffect(() => {
     const handleResize = () => {
-      window.innerWidth <= 1280 ? setSeeMore(6) : setSeeMore(8);
-      window.innerWidth <= 970 && setSeeMore(4);
-      window.innerWidth >= 1280 && setSeeMore(9);
+      window.innerWidth >= 1280 && setSeeMore(items.length);
+      window.innerWidth <= 1280 ? setSeeMore(8) : setSeeMore(9);
+      window.innerWidth <= 970 && setSeeMore(7);
     };
 
     handleResize(); // Call the function to set the initial value
@@ -75,22 +144,29 @@ const UnitTypeIcons = ({ items }) => {
       window.removeEventListener("resize", handleResize); // Clean up event listener
     };
   }, []);
-  return (
-    <div className="flex overflow-x-auto   no-scrollbar gap-x-[2.4vw] ">
-      {items
-        ?.filter((_, i) => i < seeMore)
-        .map((item) => (
-          <button
-            key={item.keyword}
-            onClick={() => handleTapClicked(item)}
-            className=" text-[12px] md:text-[16px] whitespace-nowrap hover:text-lightGreen flex gap-x-1 "
-          >
-            <span className="text-gray2"> {language ? item.ar : item.en}</span>
-            <span className="text-lightGreen">({item.getDataNumber})</span>
-          </button>
-        ))}
-    </div>
-  );
+
+  if (items && main) {
+    return (
+      <div className="flex overflow-x-auto  no-scrollbar gap-x-[2.4vw] ">
+        {items
+          ?.filter((_, i) => i < seeMore)
+          .map((item) => {
+            const icon = useUnitsIcons(item.keyword);
+            return (
+              <button
+                key={item.keyword}
+                onClick={() => handleTapClicked(item)}
+                className=" text-[12px] md:text-[16px]  whitespace-nowrap hover:text-lightGreen text-gray2 flex gap-x-1 flex-col justify-center group items-center"
+              >
+                <span>{icon}</span>
+                <span className="">{language ? item.ar : item.en}</span>
+                <span className="">({item.getDataNumber})</span>
+              </button>
+            );
+          })}
+      </div>
+    );
+  }
 };
 
-export default UnitTypeIcons;
+export default memo(UnitTypeIcons);

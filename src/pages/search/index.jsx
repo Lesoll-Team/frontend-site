@@ -1,14 +1,17 @@
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 
 const SearchRedirect = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Redirect logic
-    router.push(`/searching/offer=all`);
-  }, [router]);
   return null;
 };
 
 export default SearchRedirect;
+export async function getServerSideProps() {
+  const destination = generateRedirectDestination();
+
+  return {
+    redirect: {
+      destination: destination,
+      statusCode: 308,
+    },
+  };
+}

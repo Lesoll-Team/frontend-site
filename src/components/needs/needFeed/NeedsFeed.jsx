@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import NeedsCard from "./needCard/NeedsCard";
 import ReactPaginate from "react-paginate";
-import styles from "../../../styles/paginations.module.css"; // Import the CSS module
+import styles from "../../../styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { IoMdAdd } from "react-icons/io";
 
 const NeedsFeed = ({ data, keyword }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -14,12 +15,35 @@ const NeedsFeed = ({ data, keyword }) => {
   };
   return (
     <div className="mx-3 md:container md:mx-auto mt-16 pb-10 space-y-6 md:space-y-12  ">
-      <h3 className="text-3xl font-bold">{language ? "الطلبات" : "Needs"}</h3>
+      <div className="flex items-center justify-between ">
+        <h1
+          className="seo-hidden"
+          /* 
+  The .seo-hidden class is used for SEO purposes to hide elements off-screen.
+*/
+        >
+          {language
+            ? "طلبات الشراء الحالية: استكشف ما يبحث عنه الآخرون"
+            : "Current Orders: Explore what others are searching for"}
+        </h1>
+        <h2 className="text-[24px] md:text-[28px] font-bold">
+          {language ? "الطلبات" : "Needs"}
+        </h2>
+        <Link
+          href={"/add-need"}
+          className="w-fit px-4 py-2 flex items-center gap-2 text-[17px] md:text-[19px] font-bold rounded-lg"
+        >
+          <span className="underline">
+            {language ? " اطلب عقارك الان" : "Add need"}
+          </span>
+          <IoMdAdd className="text-black" />
+        </Link>
+      </div>
 
       <div className="p-4 md:p-16 bg-lightNeutral mb-20 rounded-lg space-y-4 min-h-[60dvh]">
         {data && data.getAllData.length > 0 ? (
-          data?.getAllData?.map((need, index) => (
-            <NeedsCard need={need} key={index} />
+          data?.getAllData?.map((need) => (
+            <NeedsCard need={need} key={need?._id} />
           ))
         ) : (
           <div className="w-full min-h-[50dvh] flex flex-col justify-center items-center  gap-10">

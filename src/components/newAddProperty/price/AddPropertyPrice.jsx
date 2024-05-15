@@ -1,8 +1,9 @@
-// import { useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import Rent from "./Rent";
 import Sale from "./sale/Sale";
 import CashAndInstallment from "./sale/CashAndInstallment";
+import AdminCashAndInstallment from "./sale/AdminCashAndInstallment";
+import { useUser } from "@/Shared/UserContext";
 // import PhoneNumber from "../PhoneNumber";
 
 const AddPropertyPrice = ({
@@ -12,12 +13,8 @@ const AddPropertyPrice = ({
   watch,
   clearErrors,
   control,
-  fields,
-  append,
-  remove,
 }) => {
-  // const language = useSelector((state) => state.GlobalState.languageIs);
-  // const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
 
   const renderPrice = () => {
     switch (watch("offer")) {
@@ -31,13 +28,9 @@ const AddPropertyPrice = ({
             watch={watch}
           />
         );
-        break;
       case "For Sale":
         return (
           <Sale
-            fields={fields}
-            append={append}
-            remove={remove}
             control={control}
             errors={errors}
             clearErrors={clearErrors}
@@ -46,17 +39,26 @@ const AddPropertyPrice = ({
             watch={watch}
           />
         );
-        break;
       default:
         return <Sale />;
-        break;
     }
   };
-
-  return (
-    <>
-      <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
-      {watch("saleOption.value")?.length > 1 && (
+  const renderCashAndInstallment = () => {
+    if (data.email === "info@lesoll.com" && data.isAdmin) {
+      return (
+        <AddPropSectionContainer>
+          <AdminCashAndInstallment
+            errors={errors}
+            clearErrors={clearErrors}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+            control={control}
+          />
+        </AddPropSectionContainer>
+      );
+    } else {
+      return (
         <AddPropSectionContainer>
           <CashAndInstallment
             errors={errors}
@@ -67,7 +69,14 @@ const AddPropertyPrice = ({
             control={control}
           />
         </AddPropSectionContainer>
-      )}
+      );
+    }
+  };
+
+  return (
+    <>
+      <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
+      {watch("saleOption.value")?.length > 1 && renderCashAndInstallment()}
 
       {/* <PhoneNumber
         clearErrors={clearErrors}

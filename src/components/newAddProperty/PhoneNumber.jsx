@@ -5,17 +5,19 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Error from "@/Shared/ui/Error";
 import { useMemo } from "react";
-const PhoneNumber = ({ errors, register, setValue, watch }) => {
+import { useUser } from "@/Shared/UserContext";
+const PhoneNumber = ({ errors, register, setValue, watch, isNeed }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userInfo = useSelector((state) => state.userProfile.userData);
+  const { data } = useUser();
+
   const showPhoneInput = watch("otherPhone");
   const cancelOtherPhoneNumber = () => {
     setValue("otherPhone", false);
     setValue("connectPhoneNumber", "");
   };
   const userWithNoPhone = useMemo(() => {
-    return !Boolean(userInfo?.phone);
-  }, [userInfo]);
+    return !Boolean(data?.phone);
+  }, [data]);
 
   return (
     <AddPropSectionContainer className={"flex flex-cols"}>
@@ -23,8 +25,8 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
         <div className="p-5 bg-white w-full rounded space-y-4 relative">
           <h3 className="text-sm md:text-xl font-cairo">
             {language
-              ? " سيتم استخدام رقم الهاتف  للتواصل عبر واتساب او التليفون لهذا الاعلان فقط"
-              : "The phone number you will enter will be used to communicate via WhatsApp or phone for this add only"}
+              ? ` سيتم استخدام رقم الهاتف  للتواصل عبر واتساب او التليفون لهذا ${isNeed ? "الطلب" : "الإعلان"} فقط`
+              : `The phone number you will enter will be used to communicate via WhatsApp or phone for this ${isNeed ? "Need" : "Add"} only`}
           </h3>
           <div className="space-y-2">
             <div dir="ltr">
@@ -37,6 +39,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                   fontSize: "18px",
                   color: "#1b6e6d",
                   borderRadius: "4px",
+                  width: "100%",
                 }}
                 buttonStyle={{
                   height: "40px",
@@ -73,6 +76,19 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                     message: language
                       ? "من فضلك ادخل رقم الهاتف"
                       : "please enter phone number",
+                  },
+                  validate: {
+                    // mustBeNumber: (value) => {
+                    //   return !isNaN(value) || "must be a number";
+                    // },
+                    min: (value) => {
+                      return (
+                        value.length > 11 ||
+                        (language
+                          ? "من فضلك ادخل رقم صحيح"
+                          : "description must be at least 20 characters long")
+                      );
+                    },
                   },
                 })}
               />
@@ -93,8 +109,8 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
           </button>
           <h3 className="text-sm md:text-xl font-cairo">
             {language
-              ? " سيتم استخدام رقم الهاتف الجديد للتواصل عبر واتساب او التليفون لهذا الاعلان فقط"
-              : "The phone number you will enter will be used to communicate via WhatsApp or phone for this add only"}
+              ? ` سيتم استخدام رقم الهاتف  للتواصل عبر واتساب او التليفون لهذا ${isNeed ? "الطلب" : "الإعلان"} فقط`
+              : `The phone number you will enter will be used to communicate via WhatsApp or phone for this ${isNeed ? "Need" : "Add"} only`}
           </h3>
           <div className="space-y-2">
             <div dir="ltr">
@@ -107,6 +123,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                   fontSize: "18px",
                   color: "#1b6e6d",
                   borderRadius: "4px",
+                  width: "100%",
                 }}
                 buttonStyle={{
                   height: "40px",
@@ -144,6 +161,19 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
                       ? "من فضلك ادخل رقم الهاتف"
                       : "please enter phone number",
                   },
+                  validate: {
+                    // mustBeNumber: (value) => {
+                    //   return !isNaN(value) || "must be a number";
+                    // },
+                    min: (value) => {
+                      return (
+                        value.length > 11 ||
+                        (language
+                          ? "من فضلك ادخل رقم صحيح"
+                          : "description must be at least 20 characters long")
+                      );
+                    },
+                  },
                 })}
               />
             </div>
@@ -162,7 +192,7 @@ const PhoneNumber = ({ errors, register, setValue, watch }) => {
           <div className="flex justify-between md:flex-row flex-col">
             <p className="flex items-center gap-5">
               <span>{language ? "رقم التواصل :" : "Contact Number :"}</span>
-              <span dir="ltr">{userInfo?.code + userInfo?.phone}</span>
+              <span dir="ltr">{data?.code + data?.phone}</span>
             </p>
             <button
               onClick={() => setValue("otherPhone", true)}

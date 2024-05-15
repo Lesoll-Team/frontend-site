@@ -5,7 +5,7 @@ const PropType = ({ type }) => {
 
   return (
     <div
-      className={`bg-white px-5 py-1 text-sm md:text-base text-baseGray   ${
+      className={`bg-white px-5 py-1 lg-text text-baseGray   ${
         language ? "rounded-l-md" : "rounded-r-md"
       }  `}
     >

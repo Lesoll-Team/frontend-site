@@ -1,9 +1,19 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import SingleProject from "@/components/projects/singleProject/SingleProject";
-import axios from "axios";
+import ProjectMobileContact from "@/components/projects/singleProject/mobileContact/ProjectMobileContact";
 
 const SingleProjectPage = ({ data, query }) => {
   return (
-    <SingleProject propertyData={data.result} allData={data} query={query} />
+    <main className="  min-h-[80dvh] relative">
+      <section className="   mx-auto">
+        <SingleProject
+          propertyData={data.result}
+          allData={data}
+          query={query}
+        />
+      </section>
+      <ProjectMobileContact projectData={data.result} />
+    </main>
   );
 };
 export default SingleProjectPage;
@@ -11,8 +21,8 @@ export default SingleProjectPage;
 export async function getServerSideProps(context) {
   const slug = context?.query?.slug;
   try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/get-single-projects/${slug}`
+    const res = await axiosInstance.get(
+      `/property/get-single-projects/${slug}`,
     );
 
     const data = res.data;

@@ -1,30 +1,64 @@
+import useContactLinks from "@/Hooks/useContactLinks";
+import { localizedNumber } from "@/utils/localizedNumber";
+// import { WhatsAppBtn } from "@/utils/propertyAPI";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 
 const ProjectTitlePrice = ({ projectData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
+    phoneNumber: projectData.owner.code + projectData.owner.phone,
+    message: "",
+  });
   return (
-    <section className="space-y-5 md:space-y-5 md:border-b-1 md:pb-10">
-      <h1 className="text-lg md:text-4xl font-bold text-darkGray  md:text-black md:font-medium">
-        {language ? projectData.titleAr : projectData.titleEn}{" "}
-      </h1>
-      <div className="flex items-center flex-wrap gap-5  md:gap-10">
-        <h2 className="text-lg md:text-4xl font-bold  flex items-center gap-2">
-          <span className="font-normal">
-            {language ? "السعر الابتدائي" : "Starting Price"}
-          </span>
-          <span className="text-lightGreen ">
-            {projectData.price + " "} {language ? "ج.م " : "Egp "}
-          </span>
-        </h2>
-        <h2 className="text-lg md:text-4xl font-bold  flex items-center gap-2">
-          <span className="font-normal">
-            {language ? "المساحات  تبدأ من" : "Starting Areas"}
-          </span>
-          <span className="text-lightGreen ">
-            {projectData.area + " "} {language ? "م2" : "m2 "}
-          </span>
-        </h2>
+    <section className="hidden md:flex justify-between items-end md:pb-16 md:border-b-2 flex-wrap gap-y-5 ">
+      <div className="flex items-start gap-8">
+        {projectData?.projectLogo && (
+          <div className=" rounded-full hidden md:block">
+            <Image
+              src={projectData?.projectLogo}
+              width={68}
+              height={68}
+              className="rounded-full w-[68px] h-[68px] object-cover "
+              alt="company logo"
+            />
+          </div>
+        )}
+        <div className="flex flex-col gap-2 md:gap-y-4">
+          <h1 className="">
+            {language ? projectData.titleAr : projectData.titleEn}
+          </h1>
+          <div className="flex gap-6 items-center">
+            <div className="flex gap-4 items-center">
+              <p>{language ? "السعر يبدأ من :" : "Price start from"}</p>
+              <h2>
+                {localizedNumber(projectData.priceFrom)}{" "}
+                {language ? "ج.م " : "Egp "}
+              </h2>
+            </div>
+            {!!projectData.priceTo && (
+              <div className="hidden md:flex gap-4  items-center">
+                <p>{language ? " إلى:" : "To:"}</p>
+                <h2>
+                  {localizedNumber(projectData.priceTo)}{" "}
+                  {language ? "ج.م " : "Egp "}
+                </h2>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="hidden items-center gap-5 lg:flex ">
+        <CallLinkBtn
+          className={
+            "py-3 px-8 max-w-fit flex flex-row-reverse items-center gap-2 bg-lightNeutral text-xl text-[#5F98D1] rounded-md"
+          }
+        />
+        <WhatappLinkBtn
+          className={
+            "py-3 px-8 max-w-fit flex flex-row-reverse items-center gap-2 bg-[#39AE41] text-xl text-white rounded-md"
+          }
+        />
       </div>
     </section>
   );

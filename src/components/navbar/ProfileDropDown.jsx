@@ -1,5 +1,6 @@
+import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { logoutUserToken } from "@/redux-store/features/authSlice";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 const ProfileDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, logOutUserData } = useUser();
   const menuRef = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -27,11 +28,9 @@ const ProfileDropDown = () => {
     setShowMenu(false);
   };
   const handleLogout = () => {
-    dispatch(logoutUserToken());
     dispatch(clearUserData());
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userIsLogin");
-    router.push("/signin");
+    logOutUserData();
+    // router.push("/signin");
   };
   useEffect(() => {
     function handleClickOutside(event) {
@@ -49,20 +48,16 @@ const ProfileDropDown = () => {
     };
   }, []);
   const isCompany = useMemo(() => {
-    return userData.typeOfUser === "company";
+    return data.typeOfUser === "company";
   }, []);
   const showDashboard = useMemo(() => {
-    if (userData.isAdmin || userData.superAdmin || userData.supAdmin) {
-      return true;
-    } else {
-      return false;
-    }
+    return data.isAdmin || data.superAdmin || data.supAdmin;
   }, []);
   return (
     <div className="relative" ref={menuRef}>
       <Image
         onClick={toggleMenu}
-        src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+        src={data?.avatarUrl || "/user-avatar-placeholder.png"}
         width={50}
         height={50}
         className="rounded-full object-cover h-7 cursor-pointer w-7 sm:w-[30px] sm:h-[30px] lg:h-[40px] lg:w-[40px] 2xl:h-[50px] 2xl:w-[50px]"
@@ -70,14 +65,14 @@ const ProfileDropDown = () => {
       />
       {showMenu && (
         <div
-          className={`bg-white drop-shadow rounded-lg flex fade-in flex-col gap-4 absolute top-8 p-4 lg:p-8 lg:top-14 w-[210px] lg:w-[320px] ${
+          className={`bg-white drop- rounded-lg flex fade-in flex-col border gap-4 absolute top-8 p-4 lg:p-8 lg:top-12 w-[230px] lg:w-[320px] ${
             language ? "-left-10 sm:-left-4 " : "-right-10 sm:-right-4"
           } `}
         >
           <Link
             onClick={closeMenu}
             href={"/profile/edit"}
-            className="text-baseGray md:hidden flex items-center gap-4   text-sm "
+            className="text-baseGray md:hidden flex items-center gap-4   text-[17px] md:text-[19px]"
           >
             <MdOutlineAccountCircle className="" />
             <span className=" whitespace-nowrap break-keep">
@@ -87,32 +82,17 @@ const ProfileDropDown = () => {
           <Link
             onClick={closeMenu}
             href={"/profile"}
-            className="text-baseGray hidden md:flex items-center gap-4  text-sm lg:text-xl w-fit"
+            className="text-baseGray hidden md:flex items-center gap-4  text-[17px] lg:text-[19px] w-fit"
           >
             <MdOutlineAccountCircle className="" />
             {language ? "المعلومات الشخصية" : "Personal Info"}
           </Link>
           <hr />
-          {showDashboard && (
-            <>
-              <Link
-                onClick={closeMenu}
-                href={"/dashboard"}
-                className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
-              >
-                <RiDashboardLine />
-                <span className=" whitespace-nowrap break-keep">
-                  {language ? "لوحة القيادة" : "Dashboard"}
-                </span>
-              </Link>
 
-              <hr />
-            </>
-          )}
           <Link
             onClick={closeMenu}
             href={"/profile/my-properties"}
-            className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
+            className="text-baseGray flex items-center gap-4  text-[17px] lg:text-[19px] "
           >
             <MdOutlineRealEstateAgent className="" />
             <span className=" whitespace-nowrap break-keep">
@@ -125,7 +105,7 @@ const ProfileDropDown = () => {
           <Link
             onClick={closeMenu}
             href={"/profile/saved-items"}
-            className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
+            className="text-baseGray flex items-center gap-4  text-[17px] lg:text-[19px] "
           >
             <IoMdHeartEmpty className="" />
             <span className=" whitespace-nowrap break-keep">
@@ -139,7 +119,7 @@ const ProfileDropDown = () => {
               <Link
                 onClick={closeMenu}
                 href={"/profile/needs"}
-                className="text-baseGray flex items-center gap-4  text-sm lg:text-xl "
+                className="text-baseGray flex items-center gap-4  text-[17px] lg:text-[19px] "
               >
                 <BiEditAlt className="" />
                 <span className=" whitespace-nowrap break-keep">
@@ -149,9 +129,25 @@ const ProfileDropDown = () => {
               <hr />
             </>
           )}
+          {showDashboard && (
+            <>
+              <Link
+                onClick={closeMenu}
+                href={"/dashboard"}
+                className="text-baseGray flex items-center gap-4  text-[17px] lg:text-[19px] "
+              >
+                <RiDashboardLine />
+                <span className=" whitespace-nowrap break-keep">
+                  {language ? "لوحة القيادة" : "Dashboard"}
+                </span>
+              </Link>
+
+              <hr />
+            </>
+          )}
           <button
             onClick={handleLogout}
-            className="text-red-500  text-sm  lg:text-xl w-fit flex items-center gap-4 "
+            className="text-red-500  text-[17px] lg:text-[19px] w-fit flex items-center gap-4 "
           >
             <RiLogoutBoxLine />
             {language ? "تسجيل الخروج" : "Log out"}

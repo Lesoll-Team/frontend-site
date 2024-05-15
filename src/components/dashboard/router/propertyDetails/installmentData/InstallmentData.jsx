@@ -1,13 +1,64 @@
+// import { localizedNumber } from "@/utils/localizedNumber";
 import SectionContainer from "../SectionContainer";
-import InstallmentCard from "./InstallmentCard";
+// import InstallmentCard from "./InstallmentCard";
+import { useCallback } from "react";
 
 const InstallmentData = ({ propertyDetails }) => {
+  const period = useCallback((period) => {
+    switch (period) {
+      case "Monthly":
+        return "شهريا";
+      case "Yearly":
+        return "سنويا";
+      case "6 Monthly":
+        return "نصف سنويا";
+      case "3 Monthly":
+        return "ربع سنويا";
+      default:
+        return "جنية";
+    }
+  }, []);
   return (
     <SectionContainer style={"pb-10"}>
       <h3 className="mb-3 text-xl">نظام التقسيط</h3>
       {propertyDetails.getProperty.saleOption.includes("Installment") ? (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2  h-[80%]">
-          <InstallmentCard
+          {propertyDetails.getProperty.installment.map((item, index) => {
+            const type = period(item.type);
+            return (
+              <div
+                key={index}
+                className="border h-fit  p-2 bg-white drop-shadow rounded-md"
+              >
+                {!!item.downPayment && (
+                  <div className="flex items-center justify-center gap-2">
+                    <p>المقدم</p>
+                    <p>{parseInt(item.downPayment).toLocaleString()}</p>
+                  </div>
+                )}
+                <div className="gap-1 flex flex-col justify-center items-center">
+                  <p className="flex items-center gap-1">
+                    {item.amount && (
+                      <>
+                        {" "}
+                        <span>
+                          {parseInt(item.amount).toLocaleString()}
+                        </span>{" "}
+                        <span>{type}</span>
+                      </>
+                    )}
+                    {item.ProjectPercentage && (
+                      <span>{item.ProjectPercentage} % مقدم</span>
+                    )}
+                  </p>{" "}
+                  <div className="flex gap-1">
+                    <span>{item.period}</span> <span>سنين</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          {/* <InstallmentCard
             title={"الدفعة الاولى"}
             info={propertyDetails.getProperty.downPayment}
           />
@@ -30,7 +81,7 @@ const InstallmentData = ({ propertyDetails }) => {
           <InstallmentCard
             title={"مبلغ التقسيط"}
             info={propertyDetails.getProperty.installmentOption.amount}
-          />
+          /> */}
         </div>
       ) : (
         <div className="min-h-[120px] w-full grid place-content-center">

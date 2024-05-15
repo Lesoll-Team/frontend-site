@@ -1,9 +1,9 @@
 import { getRecommendRealty } from "@/utils/propertyAPI";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import RealtyCard from "../realtyCard/RealtyCard";
 
-const RecommendedProperties = ({ propertyData, slug }) => {
+const RecommendedProperties = ({ propertyData }) => {
   const [recommended, setRecommended] = useState();
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -21,9 +21,7 @@ const RecommendedProperties = ({ propertyData, slug }) => {
   }, []);
   return isRecommended ? (
     <div className="w-full md:space-y-[30px] space-y-[16px] pb-5">
-      <h3 className="text-sm sm:text-3xl ">
-        {language ? "عقارات مشابه" : "Recommended Properties"}
-      </h3>
+      <h2>{language ? "عقارات مشابهة" : "Recommended Properties"}</h2>
       <div className="grid lg:grid-cols-2 xl:grid-cols-3 items-center gap-5">
         {recommended &&
           recommended.slice(0, 3).map((item) => {
@@ -33,4 +31,4 @@ const RecommendedProperties = ({ propertyData, slug }) => {
     </div>
   ) : null;
 };
-export default RecommendedProperties;
+export default memo(RecommendedProperties);

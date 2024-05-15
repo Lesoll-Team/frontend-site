@@ -1,4 +1,4 @@
-import useFeaures from "@/Hooks/addProperty/useFeaures";
+import useFeaures from "@/components/newAddProperty/hooks/useFeaures";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -19,9 +19,9 @@ const SelectFeatures = ({ register, setValue, watch }) => {
 
   return (
     <AddPropSectionContainer className={"flex flex-col gap-4 "}>
-      <h3 className="text-xl font-bold text-darkGray">
+      <p className="text-gray-800">
         {language ? "مميزات العقار" : "Property Features"}
-      </h3>
+      </p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {features &&
           features.map((feature, i) => {

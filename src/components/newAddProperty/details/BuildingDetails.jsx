@@ -21,9 +21,9 @@ const BuildingDetails = ({
   return (
     <AddPropSectionContainer>
       <div className="space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "مساحة المبنى " : "Building Area"}
-        </h3>
+        </p>
         <input
           inputMode="numeric"
           type="text"
@@ -53,9 +53,9 @@ const BuildingDetails = ({
         {errors.area && <p className="text-red-500">{errors.area.message}</p>}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language ? "عدد الادوار" : "Number of floors"}
-        </h3>
+        </p>
         <input
           inputMode="numeric"
           type="text"
@@ -80,7 +80,7 @@ const BuildingDetails = ({
         {errors.level && <Error>{errors.level.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "عدد الغرف" : "Rooms"}</h3>
+        <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -110,7 +110,9 @@ const BuildingDetails = ({
         {errors.rooms && <Error>{errors.rooms.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? "عدد الحمامات" : "Bathrooms"}</h3>
+        <p className="text-gray-800">
+          {language ? "عدد الحمامات" : "Bathrooms"}
+        </p>
         <input
           type="text"
           inputMode="numeric"
@@ -141,7 +143,9 @@ const BuildingDetails = ({
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-xl">{language ? " التشطيب" : "Finishing Type"}</h3>
+        <p className="text-gray-800">
+          {language ? " التشطيب" : "Finishing Type"}
+        </p>
         <DropDown
           selected={watch("finishingType")}
           options={finishingType}
@@ -166,11 +170,11 @@ const BuildingDetails = ({
         />
       </div>
       <div className="flex gap-4 items-center lg:mt-9">
-        <h3 className="text-xl">
+        <p className="text-gray-800">
           {language
             ? "هل العقار مسجل"
             : "Notarized by the real estate certificate"}
-        </h3>
+        </p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isRegisterd")}

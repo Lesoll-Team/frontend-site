@@ -1,5 +1,5 @@
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const initialState = {
   features: null,
@@ -11,14 +11,12 @@ export const getFeatures = createAsyncThunk(
   "getFeaturesSlice/getFeatures",
   async (thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/service/getall`
-      );
+      const response = await axiosInstance.get(`/admin/service/getall`);
       return response.data.service;
     } catch (error) {
       thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const getFeaturesSlice = createSlice({

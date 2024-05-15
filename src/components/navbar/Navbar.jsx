@@ -1,51 +1,40 @@
+import dynamic from "next/dynamic";
+
+import { useUser } from "@/Shared/UserContext";
 import Link from "next/link";
 import Image from "next/image";
-import SearchModel from "./SearchModel";
+import React, { memo, useState } from "react";
+
 import { useSelector } from "react-redux";
-import SideMenu from "./SideMenu";
-import ChangeLang from "./ChangeLang";
 import Notifications from "./Notifications";
-import ProfileDropDown from "./ProfileDropDown";
-export default function Navbar() {
+import NeedsLink from "./NeedsLink";
+const SearchModel = dynamic(() => import("./SearchModel"));
+const SideMenu = dynamic(() => import("./SideMenu"));
+const ChangeLang = dynamic(() => import("./ChangeLang"));
+const ProfileDropDown = dynamic(() => import("./ProfileDropDown"));
+// import ProfileDropDown from "./ProfileDropDown";
+// import ChangeLang from "./ChangeLang";
+// import SideMenu from "./SideMenu";
+// const SearchModelButton = dynamic(() => import("./SearchModelButton"));
+// const NeedsLink = dynamic(() => import("./NeedsLink"));
+
+function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
-  const userData = useSelector((state) => state.userProfile.userData);
-  const isCompany = userData?.typeOfUser === "company";
+  const { data } = useUser();
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
-      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md"
+      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md font-noto"
     >
-      {!userData && (
-        <>
-          <div className="py-2 container mx-auto flex justify-end gap-2 items-center text-lightGreen text-xs md:text-sm ">
-            <Link href={"/signin"} title="signin">
-              {languageIs ? "تسجيل الدخول" : "Sign in"}
-            </Link>
-            |
-            <Link href={"/signup"} title="signin">
-              {languageIs ? "التسجيل" : "Sign up"}
-            </Link>
-          </div>
-          <div className="w-full h-[1px] bg-outLine" />
-        </>
-      )}
-
-      <div className="container mx-auto">
-        {/* Jump to Main Content Button */}
-        <button href="#main-content" className="sr-only focus:not-sr-only">
-          Skip to main content
-        </button>
-      </div>
-
       <div
-        className={`container mx-auto flex justify-between h-16 ${
-          userData ? "lg:h-[80px]" : "lg:h-[85px]"
+        className={`container mx-auto  relative flex justify-between h-16 ${
+          data ? "lg:h-[80px]" : "lg:h-[85px]"
         } `}
       >
         <div className="flex items-center gap-24">
           <Link href="/">
             <Image
-              priority
               src={"/logo.svg"}
               width={114}
               height={46}
@@ -56,54 +45,71 @@ export default function Navbar() {
 
           <ul className="font-inter hidden text-base gap-5 2xl:text-xl text-baseGray lg:flex items-center">
             <li>
-              <Link href="/">{languageIs ? "الرئيسية" : "Home"}</Link>
-            </li>
-            {/* <li>
-              <Link href="/Packages">
-                {languageIs ? "الباقات" : "Packages"}
+              <Link href="/" className="font-noto">
+                {languageIs ? "الرئيسية" : "Home"}
               </Link>
-            </li> */}
+            </li>
             <li>
-              <Link href="/add-property">
+              <Link href="/add-property" className="font-noto">
                 {languageIs ? "إضافة عقار" : "Add Property"}
               </Link>
             </li>
+
             <li>
-              <Link
-                href={isCompany ? "/needs" : "/add-need"}
-                className="relative text-base 2xl:text-xl"
-              >
+              <NeedsLink />
+            </li>
+            <li>
+              <Link className="relative font-noto" href="/projects">
                 <span
-                  className={`text-xs absolute text-white rounded-xl -top-5 bg-green-500 px-2 py-1 ${
+                  className={`text-xs absolute text-white rounded-xl -top-4 bg-green-500 px-2 py-1 ${
                     languageIs ? "-left-8" : " -right-8"
                   }`}
                 >
                   {languageIs ? "جديد" : "New"}
                 </span>
-                {isCompany
-                  ? languageIs
-                    ? "الطلبات"
-                    : " Needs"
-                  : languageIs
-                  ? "إضافة طلب"
-                  : "Add Need"}
+                <span>
+                  {" "}
+                  {languageIs ? "المشروعات الجديدة" : "New Projects"}
+                </span>
               </Link>
             </li>
           </ul>
         </div>
-        <div className="flex items-center gap-3  md:gap-4">
-          <div className="flex items-center gap-3 md:gap-4 md:flex-row flex-row-reverse">
-            <div className="flex items-center  gap-4">
-              <SearchModel />
-              {userData && <Notifications />}
+
+        <div className="flex items-center gap-5  md:gap-4">
+          <div className={`flex items-center gap-3 md:gap-4`}>
+            {!data && (
+              <div className="py-2   flex  gap-x-2 items-center text-lightGreen text-xs md:text-sm ">
+                <Link href={"/signin"} title="signin">
+                  {languageIs ? "تسجيل الدخول" : "Sign in"}
+                </Link>
+                |
+                <Link href={"/signup"} title="signin">
+                  {languageIs ? "التسجيل" : "Sign up"}
+                </Link>
+              </div>
+            )}
+            <div className="flex items-center  gap-3">
+              {/* <SearchModelButton isOpen={isOpen} setOpen={setIsOpen} /> */}
+              {data && <Notifications />}
             </div>
+
+            {data && <ProfileDropDown />}
             <ChangeLang bigScreen={true} />
-            {userData && <ProfileDropDown />}
           </div>
 
           <SideMenu />
+        </div>
+
+        <div
+          className={` absolute w-11/12 ${
+            data ? "top-[65px] lg:top-[81px]" : "lg:top-[85px] top-[64px]"
+          }  justify-center flex items-center`}
+        >
+          {isOpen && <SearchModel isOpen={isOpen} setOpen={setIsOpen} />}
         </div>
       </div>
     </nav>
   );
 }
+export default memo(Navbar);

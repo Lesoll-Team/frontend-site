@@ -1,38 +1,27 @@
-import axios from "axios";
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
 export async function addBlogs(blogData) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
-
   try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/add`,
-      blogData,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    ); // register
-    // const response = await axios.post(`http://api0.lesoll-demo.site/api/auth/register`,userData);// register
+    const response = await axiosInstance.post(`/admin/blog/add`, blogData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data.blog;
   } catch (error) {
     throw error.response.data;
   }
 }
 export async function updateBlog(blogData, blogID) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
-
   try {
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/update/blog/${blogID}`,
+    const response = await axiosInstance.put(
+      `/admin/blog/update/blog/${blogID}`,
       blogData,
       {
         headers: {
-          token: userToken,
           "Content-Type": "multipart/form-data",
         },
-      }
+      },
     );
 
     return response.data;
@@ -43,26 +32,26 @@ export async function updateBlog(blogData, blogID) {
 
 export async function getAllBlogs() {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/allblogs`
-    );
+    const response = await axiosInstance.get(`/admin/blog/allblogs`);
     // const data = await res.data
     return response.data.getBlogs;
   } catch (error) {
     throw error.response.data;
   }
 }
+export async function getAllCategoryBlogs() {
+  try {
+    const response = await axiosInstance.get(`/admin/blog/get-category`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
 
 export async function deleteOneBlog(blogID) {
-  const userToken = JSON.parse(localStorage.getItem("userToken"));
   try {
-    const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/blog/delete/blog/${blogID}`,
-      {
-        headers: {
-          token: userToken,
-        },
-      }
+    const response = await axiosInstance.delete(
+      `/admin/blog/delete/blog/${blogID}`,
     );
     // const data = await res.data
     return response.data;

@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { FiPaperclip } from "react-icons/fi";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Link from "next/link";
-import Image from "next/image";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Button from "@/Shared/ui/Button";
@@ -13,48 +11,36 @@ import CompanyPrograssBar from "../CompanyPrograssBar";
 import MobilePageTitle from "../MobilePageTitle";
 import LinksForm from "./LinksForm";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { cn } from "@/utils/cn";
 import CommercialImgInput from "./CommercialImgInput";
+import { useUser } from "@/Shared/UserContext";
 
 const CompanyInfoForm = ({ main }) => {
+  const { data, setUserData } = useUser();
+
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userProfile.userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
-  const formError = useSelector((state) => state.editUser.error);
 
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
   const { errors } = formState;
 
-  const commercialImgRef = useRef(null);
   const taxImgRef = useRef(null);
-  // const { ref: comRef, ...restCommercial } = register(
-  //   "theCommercialRegistrationImg"
-  // );
-
-  const handleCommercialImgInputClick = () => {
-    if (!watch("theCommercialRegistrationImg"))
-      commercialImgRef.current.click();
-  };
-  const handleDeleteCommrcialImg = () => {
-    setValue("theCommercialRegistrationImg", null);
-  };
   useEffect(() => {
-    if (userData) {
-      const { fullname, email, code, phone, Bio } = userData;
+    if (data) {
+      const { code, phone, Bio } = data;
       setValue("phone", code + phoneNumberwithoutCode(phone, code));
       setValue("code", code);
       setValue("Bio", Bio);
     }
-  }, [userData]);
+  }, [data]);
 
   const phoneNumberwithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("fullname", data.fullname);
     formData.append("code", data.code);
@@ -63,7 +49,7 @@ const CompanyInfoForm = ({ main }) => {
     if (data.theCommercialRegistrationImg) {
       formData.append(
         "theCommercialRegistrationImg",
-        data.theCommercialRegistrationImg[0]
+        data.theCommercialRegistrationImg[0],
       );
     }
     if (data.taxCard) {
@@ -74,16 +60,16 @@ const CompanyInfoForm = ({ main }) => {
     formData.append("workingHours", data.workingHours);
     formData.append("Bio", data.Bio);
 
-    await dispatch(
+    dispatch(
       updateUser({
         userData: formData,
-        id: userData?._id,
-      })
+        id: data?._id,
+      }),
     );
-    dispatch(getUserData());
+    setUserData();
   };
 
-  if (userData) {
+  if (data) {
     return (
       <div className={`mx-auto space-y-8 ${main && "md:block hidden"}`}>
         <MobilePageTitle
@@ -101,7 +87,7 @@ const CompanyInfoForm = ({ main }) => {
               <input
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.fullname}
+                defaultValue={data.fullname}
                 {...register("fullname", {
                   required: {
                     value: true,
@@ -124,7 +110,7 @@ const CompanyInfoForm = ({ main }) => {
               <input
                 readOnly
                 type="text"
-                defaultValue={userData.email}
+                defaultValue={data.email}
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
@@ -141,6 +127,7 @@ const CompanyInfoForm = ({ main }) => {
                     color: "#1b6e6d",
                     borderRadius: "8px",
                     border: "1px",
+                    width: "100%",
                   }}
                   buttonStyle={{ height: "40px", backgroundColor: "white" }}
                   dropdownStyle={{ height: "150px" }}
@@ -181,42 +168,12 @@ const CompanyInfoForm = ({ main }) => {
               <input
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.workingHours}
+                defaultValue={data.workingHours}
                 {...register("companyAddress")}
                 className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserInputContainer>
-            {/* <UserInputContainer
-              title={language ? " صورة السجل التجاري" : " صورة السجل التجاري"}
-            >
-              <button
-                type="button"
-                onClick={handleCommercialImgInputClick}
-                className={`h-[40px] px-3 flex items-center gap-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
-              >
-                {!watch("theCommercialRegistrationImg") ? (
-                  <>
-                    {" "}
-                    <FiPaperclip className="-rotate-45" />
-                    <p>{language ? "إضافة ملف" : "Add File"}</p>
-                  </>
-                ) : (
-                  <div className="p-1 bg-gray-300">
-                    {watch("theCommercialRegistration").name}
-                  </div>
-                )}
-              </button>
-              <input
-                ref={commercialImgRef}
-                hidden
-                autoComplete="off"
-                type="file"
-                onChange={(e) => {
-                  setValue("theCommercialRegistrationImg", e.target.files[0]);
-                }}
-                // {...restCommercial}
-              />
-            </UserInputContainer> */}
+
             <CommercialImgInput setValue={setValue} watch={watch} />
             <UserInputContainer
               title={language ? " صورة البطاقة الضريبية" : "Working Hours"}
@@ -236,7 +193,7 @@ const CompanyInfoForm = ({ main }) => {
               <input
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.workingHours}
+                defaultValue={data.workingHours}
                 {...register("workingHours")}
                 className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
@@ -248,7 +205,7 @@ const CompanyInfoForm = ({ main }) => {
               <textarea
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.Bio}
+                defaultValue={data.Bio}
                 {...register("Bio")}
                 className={`p-2 placeholder:text-outLine min-h-[150px] resize-none rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
@@ -297,19 +254,6 @@ export default CompanyInfoForm;
 const UserInputContainer = ({ title, children, className }) => (
   <div className={cn("flex flex-col gap-y-2", className)}>
     <label className={"text-base md:text-xl text-outLine"}>{title}</label>
-    {children}
-  </div>
-);
-
-const UserSocialMediaContainer = ({ imgLink, children, name }) => (
-  <div className="flex items-center gap-x-8">
-    <Image
-      width={32}
-      height={32}
-      src={imgLink}
-      alt={name}
-      className="object-cover"
-    />
     {children}
   </div>
 );

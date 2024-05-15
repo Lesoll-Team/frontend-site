@@ -16,7 +16,7 @@ const BlogSearch = () => {
     setSearchInput(e.target.value);
   };
   return (
-    <div className="px-5 py-4 md:py-0 md:px-0 md:bg-transparent bg-white">
+    <div className="px-5 py-4 md:py-0 md:px-0 md:bg-transparent bg-white -mb-1 md:mb-0">
       <form
         onSubmit={handleSubmit}
         noValidate
@@ -32,7 +32,7 @@ const BlogSearch = () => {
         />
         <button
           type="submit"
-          className="bg-lightGreen font-bold px-7 py-1 w-fit h-full text-white focus:outline-none focus:ring-0"
+          className="bg-lightGreen font-bold px-7 py-1 lg-text w-fit h-full text-white focus:outline-none focus:ring-0"
         >
           {language ? "أبحث" : "Search"}
         </button>

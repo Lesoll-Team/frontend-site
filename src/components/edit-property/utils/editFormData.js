@@ -13,9 +13,11 @@ export const editFormData = (data) => {
       amount: plan?.amount || "",
       downPayment: plan?.downPayment || "",
       discount: plan?.discount || "",
+      discount: plan?.discount || "",
+      ProjectPercentage: plan.ProjectPercentage || "",
     };
   });
-  // console.log(data.saleOption);
+
   const saleOption =
     data.saleOption &&
     data?.saleOption?.value?.map((item) => {
@@ -57,17 +59,20 @@ export const editFormData = (data) => {
   formData.append("propType", data?.propType.value);
   formData.append("unitType", data?.unitType.value);
   // formData.append("installmentOption", "");
-  formData.append("price", data?.price);
+  formData.append("price", data?.price || 0);
   formData.append("area", data?.area);
   formData.append("RealEstateFinance", data?.RealEstateFinance);
   formData.append("downPayment", data?.downPayment || "");
-  formData.append("rooms", data?.rooms);
-  formData.append("bathRooms", data?.bathRooms);
+  formData.append("rooms", data?.rooms || 0);
+  formData.append("bathRooms", data?.bathRooms || 0);
   formData.append("description", data?.description);
   formData.append("level", data?.level);
   formData.append("thumbnail", data?.thumbnail);
   for (let i = 0; i < data?.album.length; i++) {
     formData.append("album", data?.album[i]._id);
   }
+  data.ProjectID && formData.append("ProjectID", data?.ProjectID?.value);
+  formData.append("currencies", data.currencies.ISO_code);
+
   return { formData };
 };

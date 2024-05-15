@@ -15,7 +15,6 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 const SidebarFilter = ({ languageIs }) => {
   const dispatch = useDispatch();
-  // const openFilter = useSelector((state) => state.Category.openFilter);
   const openSideFilter = () => {
     dispatch(
       updateAllStates({
@@ -24,38 +23,21 @@ const SidebarFilter = ({ languageIs }) => {
     );
   };
   return (
-    <div dir="ltr" className="w-full  h-screen flex   ">
+    <div dir="ltr" className="w-full  h-screen flex">
       {/*body content in sidebar */}
       <div
         dir={languageIs ? "rtl" : "ltr"}
         className={` bg-white shadow-lg overflow-y-auto shadow-gray-600 z-[1] h-screen  md:w-[37.7vw] w-full  
-         p-[2vw] flex flex-col md:gap-y-[3vh] gap-y-[20px]`}
+         p-[2vw] pb-[100px]  flex flex-col md:gap-y-[3vh] gap-y-[20px]relative `}
       >
         {/*search text and button close*/}
-        <div className=" w-full flex justify-between items-center">
-          <span className="text-[25px]">
-            {languageIs ? "خيارات أكثر" : "More Option"}
-          </span>
+        <div className=" w-full flex justify-between pb-5 items-center">
+          <h3 className="">{languageIs ? "خيارات أكثر" : "More Option"}</h3>
           <IoClose
             onClick={openSideFilter}
             className="text-[20px] cursor-pointer"
           />
         </div>
-        {/* <div className="md:container py-[48px] md:mx-auto mx-[20px] md:hidden block ">
-          <UnitTypeIcons
-            category={categoryTypeKey}
-            items={result?.aggregation_links}
-            setUnitTypesKey={setUnitTypesKey}
-            unitTypesKey={unitTypesKey}
-            setLocationGovernorate={setLocationGovernorate}
-            setLocationRegion={setLocationRegion}
-            setCategoryTypeKey={setCategoryTypeKey}
-            setClickOnTap={setClickOnTap}
-            clickOnTap={clickOnTap}
-            locationGovernorate={locationGovernorate}
-            locationRegion={locationRegion}
-          />
-        </div> */}
         {/*search by keywords  */}
         <SearchKeywords />
         {/*offer and property type  */}
@@ -85,3 +67,11 @@ const SidebarFilter = ({ languageIs }) => {
 };
 
 export default memo(SidebarFilter);
+
+/* <div className="  py-[10px]  flex flex-col gap-y-5 md:hidden  ">
+          <span className="flex lg-text font-bold text-gray2 ">          {languageIs ? "نوع الوحدة" : "unit type"}
+          </span>
+          <UnitTypesSmallScreen
+          // unitTypesItems={result?.UnitTypes}
+          />
+        </div> */

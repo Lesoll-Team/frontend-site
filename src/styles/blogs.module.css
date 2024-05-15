@@ -1,19 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap');
-
-.genericDiv h1 {
-  font-size: clamp(1.30rem, 3vw, 1.70rem);
-  line-height: 1.5;
-  text-wrap: unset;
-  font-weight: bold;
-  color: #000;
-
-  text-align: start;
-  /* margin-top: 40px; */
+.genericDiv p {
+  margin-top: 8px
 }
 
-.genericDiv p,
-.genericDiv ul {
-  text-align: justify;
+.genericDiv ul,
+.genericDiv ol {
+  margin-top: 16px;
+  line-height: 1;
+  margin-inline: 10px;
+}
+
+.genericDiv li {
+  line-height: 1.7;
 }
 
 .genericDiv h1,
@@ -26,38 +23,15 @@
 }
 
 .genericDiv h2 {
-  font-size: clamp(1rem, 2vw, 1.20rem);
-  line-height: 1.5;
-  text-wrap: unset;
-  font-weight: bold;
-  color: #000;
-
-  text-align: start;
   margin-top: 22px;
+  margin-bottom: 10px;
 }
 
 .genericDiv h3 {
-  /* font-size: clamp(2rem, 4vw, 3rem); */
-  font-size: clamp(0.90rem, 2.5vw, 1rem);
-  line-height: 1.5;
-  text-wrap: unset;
-  font-weight: bold;
-  color: #000;
-
-  text-align: start;
-  margin-top: 11px;
-
+  margin-top: 1px;
 }
 
 .genericDiv h4 {
-  /* font-size: clamp(2rem, 3vw, 2rem); */
-  font-size: clamp(1rem, 2.5vw, 1.10rem);
-  line-height: 1.5;
-  text-wrap: unset;
-  font-weight: bold;
-  color: #000;
-
-  text-align: start;
   margin-top: 22px;
 }
 
@@ -74,36 +48,16 @@
 }
 
 .genericDiv h5 {
-  /* font-size: clamp(2rem, 2vw, 1rem); */
-  font-size: clamp(0.85rem, 2vw, 0.90rem);
-  line-height: 1.5;
-  text-wrap: unset;
-  font-weight: bold;
-  color: #000;
-
-  text-align: start;
   margin-top: 22px;
-
 }
 
 .genericDiv h6 {
-  /* font-size: clamp(2rem, 1vw, 1rem); */
-  font-size: clamp(0.75rem, 2vw, 0.70rem);
-  line-height: 1.5;
-  text-wrap: unset;
-  font-weight: bold;
-  color: #000;
-
-  text-align: start;
   margin-top: 22px;
-
 }
 
 .genericDiv li {
   list-style-type: disc;
   text-wrap: unset;
-  /* list-style-position: inside; */
-  margin: 0px 6px 0px 0px;
 
 }
 
@@ -114,11 +68,10 @@
 
 .genericDiv ul {
   margin-bottom: 10px;
-
 }
 
-.genericDiv p {
-  text-wrap: unset;
+.genericDiv ul li {
+  margin: 10px 6px 10px 0px;
 }
 
 @media (min-width: 768px) {
@@ -131,25 +84,21 @@
   }
 
   .genericDiv h1 {
-    font-size: 1.70rem;
-    color: #000;
+
     margin-top: 40px;
 
   }
 
   .genericDiv h2 {
-    font-size: 1.50rem;
-    color: #000;
+
     margin-top: 40px;
 
 
   }
 
   .genericDiv h3 {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #000;
-    margin-top: 15px;
+
+    margin-top: 10px;
 
 
   }
@@ -161,24 +110,21 @@
   }
 
   .genericDiv h4 {
-    font-size: 1.10rem;
-    color: #000;
+
     margin-top: 40px;
 
 
   }
 
   .genericDiv h5 {
-    font-size: 0.90rem;
-    color: #000;
+
     margin-top: 40px;
 
 
   }
 
   .genericDiv h6 {
-    font-size: 0.70rem;
-    color: #000;
+
     margin-top: 40px;
 
 

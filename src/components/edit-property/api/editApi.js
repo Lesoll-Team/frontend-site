@@ -1,19 +1,25 @@
-export async function editProperty(propertyDetils, propertyId) {
-  try {
-    const userToken = JSON.parse(localStorage.getItem("userToken"));
+import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
-    const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/update/property/${propertyId}`,
-      propertyDetils,
-      {
-        headers: {
-          token: userToken,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
+export const editProperty = async ({
+  data,
+  id,
+  setFormStatus,
+  setServerError,
+}) => {
+  try {
+    setFormStatus("loading");
+    const response = await axiosInstance.put(
+      `/property/update/property/${id}`,
+      data,
     );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+      setServerError(null);
+    }
     return response.data;
   } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
     throw error.response.data;
   }
-}
+};

@@ -3,22 +3,22 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 
 // Steps component definition
-const Steps = ({ step = 1, setStep, watch }) => {
+const Steps = ({ step = 1, watch }) => {
   // Redux selector to get the language from global state
   const language = useSelector((state) => state.GlobalState.languageIs);
   const isForInvestment = watch("offer") === "For Investment";
   const isStepAboveOne = step > 1;
   const isStepAboveTwo = step > 2;
   const isStepAboveThree = step > 3;
-  const detailsStepLogic = () => {
-    if (isForInvestment) {
-      if (step > 2) {
-        return "button";
-      } else {
-        return "submit";
-      }
-    }
-  };
+  // const detailsStepLogic = () => {
+  //   if (isForInvestment) {
+  //     if (step > 2) {
+  //       return "button";
+  //     } else {
+  //       return "submit";
+  //     }
+  //   }
+  // };
   return (
     <div className="w-full md:w-[80%] mx-auto space-y-2 ">
       <div className="flex justify-between items-center mb-16">
@@ -35,7 +35,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
             src={"/add-steps/main-step-active.svg"}
           />
           {/* Conditional rendering of text based on language */}
-          <p className="text-center absolute font-bold mt-1 w-full text-lightGreen sm:text-base text-xs">
+          <p className="text-center absolute font-bold mt-1 w-full text-lightGreen sm-text">
             {language ? (
               <span className="flex gap-1 flex-wrap md:flex-nowrap justify-center">
                 <span>المعلومات </span>
@@ -79,7 +79,7 @@ const Steps = ({ step = 1, setStep, watch }) => {
               />
               {/* Conditional rendering of text based on step */}
               <p
-                className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+                className={`text-center absolute mt-1 w-full sm-text ${
                   isStepAboveOne
                     ? "text-lightGreen font-bold"
                     : "font-semibold text-lightGray"
@@ -102,7 +102,6 @@ const Steps = ({ step = 1, setStep, watch }) => {
           // type={detailsStepLogic()}
           // onClick={() => {
           //   if (isForInvestment) {
-          //     console.log(step);
           //     step > 1 && setStep(2);
           //   }
           // }}
@@ -119,13 +118,13 @@ const Steps = ({ step = 1, setStep, watch }) => {
                   ? "/add-steps/details-step-active.svg"
                   : "/add-steps/details-step-inactive.svg"
                 : isStepAboveTwo
-                ? "/add-steps/details-step-active.svg"
-                : "/add-steps/details-step-inactive.svg"
+                  ? "/add-steps/details-step-active.svg"
+                  : "/add-steps/details-step-inactive.svg"
             }
           />
           {/* Conditional rendering of text based on step */}
           <p
-            className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+            className={`text-center absolute mt-1 w-full sm-text ${
               isStepAboveTwo
                 ? "text-lightGreen font-bold"
                 : "font-semibold text-lightGray"
@@ -142,8 +141,8 @@ const Steps = ({ step = 1, setStep, watch }) => {
                 ? "bg-lightGreen"
                 : "bg-[#ccc]"
               : isStepAboveThree
-              ? "bg-lightGreen"
-              : "bg-[#ccc]"
+                ? "bg-lightGreen"
+                : "bg-[#ccc]"
           }`}
         />
 
@@ -159,20 +158,20 @@ const Steps = ({ step = 1, setStep, watch }) => {
                   ? "/add-steps/imgs-step-active.svg"
                   : "/add-steps/imgs-step-inactive.svg"
                 : isStepAboveThree
-                ? "/add-steps/imgs-step-active.svg"
-                : "/add-steps/imgs-step-inactive.svg"
+                  ? "/add-steps/imgs-step-active.svg"
+                  : "/add-steps/imgs-step-inactive.svg"
             }
           />
           {/* Conditional rendering of text based on step */}
           <p
-            className={`text-center absolute mt-1 w-full sm:text-base text-xs ${
+            className={`text-center absolute mt-1 w-full sm-text ${
               isForInvestment
                 ? isStepAboveTwo
                   ? "text-lightGreen font-bold"
                   : "font-semibold text-lightGray"
                 : isStepAboveThree
-                ? "text-lightGreen font-bold"
-                : "font-semibold text-lightGray"
+                  ? "text-lightGreen font-bold"
+                  : "font-semibold text-lightGray"
             }`}
           >
             {language ? "الصور" : "Images"}

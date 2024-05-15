@@ -6,7 +6,27 @@ import { addProject } from "../redux/addProjectSlice";
 const useAddProject = () => {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      installment: [
+        {
+          type: {
+            value: "",
+            name: {
+              ar: "",
+              en: "",
+            },
+          },
+          period: "",
+          amount: "",
+          downPayment: "",
+          ProjectPercentage: "",
+
+          discount: "",
+        },
+      ],
+    },
+  });
   const {
     handleSubmit,
     control,
@@ -19,7 +39,16 @@ const useAddProject = () => {
   } = form;
   const { errors } = formState;
   const onSubmit = handleSubmit(async (data) => {
-    // console.log(data);
+    const installment = data?.installment?.map((plan) => {
+      return {
+        type: plan?.type?.value || "",
+        period: plan?.period || "",
+        amount: plan?.amount || "",
+        downPayment: plan?.downPayment || "",
+        discount: plan?.discount || "",
+        ProjectPercentage: plan.ProjectPercentage || "",
+      };
+    });
     const address = {
       name: data.address.name,
       longitude: data.address.longitude,
@@ -29,17 +58,27 @@ const useAddProject = () => {
     };
     const formData = new FormData();
     formData.append("mainImage", data.mainImage);
+    data?.projectLogo && formData.append("projectLogo", data.projectLogo);
+    // data?.watermark && formData.append("watermark", data.watermark);
     for (let i = 0; i < data.multiImage.length; i++) {
       formData.append("multiImage", data.multiImage[i]);
     }
-    formData.append("titleAr", data.titleAr);
-    formData.append("titleEn", data.titleEn);
-    formData.append("area", data.area);
-    formData.append("price", data.price);
+    for (let i = 0; i < installment?.length; i++) {
+      formData.append("installment", JSON.stringify(installment[i]));
+    }
+    formData.append("titleAr", data.titleAr || "");
+    formData.append("titleEn", data.titleEn || "");
+    formData.append("cashPercentage", data.cashPercentage || "");
+    formData.append("areaFrom", data.areaFrom || "");
+    formData.append("areaTo", data.areaTo || "");
+    formData.append("priceFrom", data.priceFrom || "");
+    formData.append("priceTo", data.priceTo || "");
     formData.append("address", JSON.stringify(address));
-    formData.append("isCompound", data.isCompound);
-    formData.append("description", data.description);
-    formData.append("about", data.about);
+    formData.append("isCompound", data.isCompound ? true : false);
+    formData.append("descriptionAr", data.descriptionAr || "");
+    formData.append("descriptionEn", data.descriptionEn || "");
+    formData.append("aboutAr", data.aboutAr || "");
+    formData.append("aboutEn", data.aboutEn || "");
     data.isCompound && formData.append("compaounds", data.compaounds?._id);
     await dispatch(addProject(formData));
   });

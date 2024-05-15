@@ -1,20 +1,30 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProjects } from "../redux/allProjectsSlice";
-import SpecialCard from "@/components/realtyCard/SpecialCard";
-import Image from "next/image";
-import Link from "next/link";
-import Button from "@/Shared/ui/Button";
-import DeleteProject from "./modals/DeleteModal";
-
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import ProjectCard from "./ProjectCard";
+import { getProjectsDashBoard } from "../api/projectsApi";
+import ReactPaginate from "react-paginate";
+import styles from "@/styles/Pagination.module.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 const ViewProjects = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
-  const dispatch = useDispatch();
-  const projects = useSelector((state) => state.getProjects.projects.data);
+  const [Status, setStatus] = useState("idle");
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState(null);
+  const [serverError, setServerError] = useState(null);
+  const handlePageChange = (page) => {
+    setPage(page + 1);
+  };
   useEffect(() => {
-    dispatch(getAllProjects());
-  }, []);
+    const fetchProjects = async () => {
+      await getProjectsDashBoard({
+        setData,
+        setStatus,
+        setServerError,
+        page,
+      });
+    };
+    fetchProjects();
+  }, [page]);
   return (
     <div
       dir={language ? "rtl" : "ltr"}
@@ -24,45 +34,39 @@ const ViewProjects = () => {
         {language ? "المشاريع" : "Projects"}
       </h1>
       <div className="grid lg:grid-cols-2 gap-4">
-        {projects && projects?.Property.length > 0
-          ? projects?.Property.map((item) => {
-              return (
-                <div
-                  key={item?._id}
-                  className="flex md:flex-row flex-col border drop-shadow p-2 bg-white"
-                >
-                  <div className="flex items-start gap-3 md:flex-row flex-col w-full ">
-                    <Link
-                      href={"/"}
-                      className="object-cover w-full md:max-w-[150px] max-h-[150px] border rounded-md"
-                    >
-                      <Image
-                        src={item?.thumbnail}
-                        width={300}
-                        height={300}
-                        className="object-cover w-full md:max-w-[150px] max-h-[150px] border rounded-md"
-                      />
-                    </Link>
-                    <div className="flex flex-col justify-between w-full h-full gap-2">
-                      <div className="h-full space-y-1">
-                        <h3 className="text-xl font-bold">
-                          {language ? item?.titleAr : item?.titleEn}
-                        </h3>
-                        <p className="line-clamp-2 text-outLine break-all">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div className="flex w-full">
-                        {/* <Link href={} */}
-                        <DeleteProject id={item._id} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
+        {data && data?.Property.length > 0
+          ? data?.Property.map((item) => {
+              return <ProjectCard data={item} key={item._id} />;
             })
           : ""}
       </div>
+      {data?.totalPages > 1 && (
+        <div dir="ltr" className={styles.pagination}>
+          <ReactPaginate
+            breakLabel={
+              <span className="rounded px-2 border-2 h-fit"> ...</span>
+            }
+            breakClassName={"break-me"}
+            pageCount={data?.totalPages}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={1}
+            onPageChange={(data) => handlePageChange(data.selected)}
+            containerClassName={styles.paginationContainer} // Use the styles from the CSS module
+            pageClassName={styles.paginationPage}
+            activeClassName={styles.activePage}
+            previousLabel={
+              <FaAngleLeft className="text-2xl font-medium text-baseGray" />
+            }
+            previousClassName={styles.paginationPrevious}
+            nextLabel={
+              <FaAngleRight className="text-2xl font-medium text-baseGray" />
+            }
+            nextClassName={styles.paginationNext}
+            disabledClassName={styles.paginationDisabled}
+            initialPage={page ? page - 1 : 0}
+          />
+        </div>
+      )}
     </div>
   );
 };

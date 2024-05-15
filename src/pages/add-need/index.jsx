@@ -8,7 +8,9 @@ export default function need() {
   return (
     <div className="min-h-[80dvh]  ">
       <Head>
-        <title>{language ? "أضف طلبك | ليسول" : ""}</title>
+        <title>{language ? "أضف طلبك | ليسول" : "Add your needs"}</title>
+        <meta name="robots" content="noindex, nofollow" />
+
         <meta
           name="description"
           content={

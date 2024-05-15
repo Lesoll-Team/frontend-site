@@ -11,7 +11,7 @@ const DropdownsFilter = () => {
   const { saleOption, unitTypes, categoryType } = useSelector(
     (state) => state.Category
   );
-  const unitTypesData = useUnitTypesData(categoryType?.value);
+  const unitTypesData = useUnitTypesData(categoryType);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -21,7 +21,6 @@ const DropdownsFilter = () => {
         defaultValue={language ? "العرض" : "offer"}
         data={saleOptionsType}
         value={saleOption}
-        dataOptions="text"
       />
 
       <Dropdown
@@ -29,7 +28,6 @@ const DropdownsFilter = () => {
         defaultValue={language ? "نوع الإعلان" : "property type"}
         data={propertyType}
         value={categoryType}
-        dataOptions="text"
       />
 
       <Dropdown
@@ -37,7 +35,6 @@ const DropdownsFilter = () => {
         defaultValue={language ? "نوع الوحدة" : "Unit types"}
         data={unitTypesData()}
         value={unitTypes}
-        dataOptions="text"
       />
     </>
   );

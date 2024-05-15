@@ -14,7 +14,7 @@ const BlogPosts = ({ blogs, className, keyword }) => {
   return (
     <div
       className={cn(
-        "flex flex-col  gap-[24px] md:gap-[60px] mt-6 md:mt-0  md:mx-0 px-2",
+        "flex flex-col  gap-[24px] md:gap-[60px] mt-6 md:mt-0  md:mx-0 px-5",
         className
       )}
     >

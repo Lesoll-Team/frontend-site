@@ -67,7 +67,7 @@ const DropdownAction = ({ children, iconIs }) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="z-10 absolute right-0 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow ">
+        <div className="z-10 absolute right-0 mt-2 w-max max-h-[160px] overflow-y-auto overflow-hidden bg-white divide-y divide-gray-100 rounded-lg shadow ">
           <ul className="py-2 text-sm text-gray-700 ">
             {React.Children.map(children, (child) =>
               React.cloneElement(child, { onClick: closeDropdown })

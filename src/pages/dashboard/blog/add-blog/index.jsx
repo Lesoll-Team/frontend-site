@@ -1,42 +1,52 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
-import { createBlogs } from "@/redux-store/features/dashboard/blogDashboardSlice";
+import {
+  createBlogs,
+  resetInputsBlog,
+} from "@/redux-store/features/dashboard/blogDashboardSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-// createBlogs
+import BlogAdded from "@/components/dashboard/model/BlogAdded";
+import { getAllCategoryBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
 const AddBlog = () => {
   const router = useRouter();
-  const errorBlog = useSelector((state) => state.BlogDashboard.errorBlog);
-  const messageEventBlog = useSelector((state) => state.BlogDashboard.messageEventBlog);
+  const { errorBlog, messageEventBlog } = useSelector(
+    (state) => state.BlogDashboard
+  );
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   const dispatch = useDispatch();
   const [titleAR, setTitleAR] = useState("");
-  const [titleEN, setTitleEN] = useState("");
-
-  const [metaTitleAR, setMetaTitleAR] = useState("");
-  const [metaTitleEN, setMetaTitleEN] = useState("");
-
-  const [slugAR, setSlugAR] = useState("");
-  const [slugEN, setSlugEN] = useState("");
-
-  const [descriptionAR, setDescriptionAR] = useState(``);
-  const [descriptionEN, setDescriptionEN] = useState(``);
-
   const [metDescriptionAR, setMetDescriptionAR] = useState("");
-  const [metDescriptionEN, setMetDescriptionEN] = useState("");
+  const [metaTitleAR, setMetaTitleAR] = useState("");
+  const [blogCategoryID, setBlogCategoryID] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [descriptionAR, setDescriptionAR] = useState(``);
+  const [slugAR, setSlugAR] = useState("");
 
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
   const [blogCreated, setBlogCreated] = useState(false);
 
-  const handleImgChange = (e) => {
-    const newImage = e.target.files[0];
-    setImage(newImage);
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const data = await getAllCategoryBlogs(); // Call your API function
+        setCategories(data.getAll);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
 
-    if (newImage) {
+    fetchCategories();
+  }, []);
+  const handleImgChange = (e) => {
+    setImage(e.target.files[0]);
+
+    if (e.target.files[0]) {
       if (typeof window !== "undefined") {
-        setImagePrev(window.URL.createObjectURL(newImage));
+        setImagePrev(window.URL.createObjectURL(e.target.files[0]));
       }
     } else {
       setImagePrev(null);
@@ -52,23 +62,23 @@ const AddBlog = () => {
     const formData = new FormData();
     const metaDescription = {
       ar: metDescriptionAR,
-      en: metDescriptionEN,
+      en: metDescriptionAR,
     };
     const description = {
       ar: descriptionAR,
-      en: descriptionEN,
+      en: descriptionAR,
     };
     const title = {
       ar: titleAR,
-      en: titleEN,
+      en: titleAR,
     };
     const slug = {
       ar: slugAR,
-      en: slugEN,
+      en: slugAR,
     };
     const metaTitle = {
       ar: metaTitleAR,
-      en: metaTitleEN,
+      en: metaTitleAR,
     };
 
     formData.append("img", selectedImage);
@@ -77,54 +87,73 @@ const AddBlog = () => {
     formData.append("description", JSON.stringify(description));
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
-   dispatch(createBlogs({ blogData: formData })).then((action) => {
-     if (createBlogs.fulfilled.match(action)) {
-       setBlogCreated(true);
-     }
-   });
+    formData.append("category", blogCategoryID);
+    dispatch(createBlogs({ blogData: formData })).then((action) => {
+      if (createBlogs.fulfilled.match(action)) {
+        setBlogCreated(true);
+        dispatch(resetInputsBlog());
+        setTitleAR("");
+        setMetaTitleAR("");
+        setSlugAR("");
+        setDescriptionAR(``);
+        setMetDescriptionAR("");
+        setImage(null);
+        setImagePrev(null);
+        setBlogCategoryID("");
+      }
+    });
   };
 
   useEffect(() => {
     setTitleAR("");
-    setTitleEN("");
     setMetaTitleAR("");
-    setMetaTitleEN("");
     setSlugAR("");
-    setSlugEN("");
     setDescriptionAR(``);
-    setDescriptionEN(``);
     setMetDescriptionAR("");
-    setMetDescriptionEN("");
     setImage(null);
     setImagePrev(null);
+    setBlogCreated(false);
+    setBlogCategoryID("");
   }, [router]);
-
+  if (blogCreated) {
+    return (
+      <BlogAdded
+        isAdd
+        message={language ? "تم إضافة  المقال بنجاح" : "The blog has been add"}
+        setBlogCreated={setBlogCreated}
+      />
+    );
+  }
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
       <Head>
         <title>Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <div className="bg-gray-100 shadow-md shadow-gray-500  sticky top-0">
+      <div className="  sticky top-0">
         <Sidebar />
       </div>
-      <div className="w-full p-10 overflow-x-auto overflow-y-hidden">
-        <div className="">
-          <Input
-            name="image-set"
-            type="file"
-            placeholder="set Image here"
-            labelPlacement="outside"
-            label="Image"
-            className="my-5"
-            onChange={handleImgChange}
-          />
-        </div>
-        <div>
-          <img
-            style={{ maxWidth: 100, maxHeight: 100 }}
-            src={selectedImagePrev}
-          />
+      <div className="md:container md:my-20  w-full my-10 md:mx-auto sm:mx-[20px] mx-[5px] gap-y-[40px] flex flex-col">
+        <div className="flex items-center justify-between border-1.5 border-gray-200 p-3">
+          <div className="flex flex-col w-full">
+            {selectedImagePrev && (
+              <img
+                style={{ maxWidth: 100, maxHeight: 100 }}
+                src={selectedImagePrev}
+                className="min-w-[100px] min-h-[100px] max-w-[100px] max-h-[100px] "
+                alt=" selected Prev"
+              />
+            )}
+
+            <input
+              name="image-set"
+              type="file"
+              placeholder="set Image here"
+              className="my-5 w-full p-2 bg-gray-100"
+              onChange={handleImgChange}
+            />
+          </div>
+
           <button
             type="button"
             onClick={handleDeleteImage}
@@ -133,123 +162,89 @@ const AddBlog = () => {
             Delete
           </button>
         </div>
-        <div className=" my-5 gap-5 flex">
-          <Input
-            name="title-ar"
-            color="default"
-            value={titleAR}
-            type="text"
-            placeholder="إدخال عنوان المقال باللغة العربية هنا ..."
-            labelPlacement="outside"
-            dir="rtl"
-            label=<b>Title Arabic</b>
-            onChange={(e) => setTitleAR(e.target.value)}
-          />
-          <Input
-            color="default"
-            type="text"
-            value={titleEN}
-            name="title-en"
-            placeholder="set Title English here"
-            labelPlacement="outside"
-            label=<b>Title English</b>
-            onChange={(e) => setTitleEN(e.target.value)}
-          />
+
+        <div
+          dir="rtl"
+          className="w-full border-1.5 border-gray-200 p-3 gap-5 flex md:flex-row flex-col"
+        >
+          <div className="flex  flex-col gap-5 md:w-6/12 w-full">
+            <b>عنوان المقال </b>
+
+            <input
+              name="title-ar"
+              className="indent-3 w-full h-full flex  focus:outline-none"
+              value={titleAR}
+              type="text"
+              placeholder="إدخال عنوان المقال..."
+              onChange={(e) => setTitleAR(e.target.value)}
+            />
+          </div>
+
+          <div className="flex  flex-col gap-5 md:w-4/12 w-full">
+            <b>فئة المقال </b>
+            <select
+              value={blogCategoryID}
+              onChange={(e) => setBlogCategoryID(e.target.value)}
+            >
+              <option value="">اختر تصنيف</option>
+              {categories?.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.categoryNameAr}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className=" flex flex-col gap-5">
-          <b>Description Arabic</b>
+
+        <div
+          dir="rtl"
+          className=" flex flex-col border-gray-200 border-1.5  p-3 gap-5"
+        >
+          <b>وصف المقال </b>
           <textarea
-            dir="rtl"
+            // dir="rtl"
             value={descriptionAR}
             onChange={(e) => setDescriptionAR(e.target.value)}
             placeholder="حقل إدخال الوصف "
-            className="min-h-[300px] rounded-lg indent-10 border-4 border-gray-200"
-          />
-          <b>Description English</b>
-          <textarea
-            value={descriptionEN}
-            onChange={(e) => setDescriptionEN(e.target.value)}
-            placeholder="Enter your description"
-            className="min-h-[300px] border-4 border-gray-200  rounded-lg indent-10 "
+            className="min-h-[300px] rounded-lg indent-3 "
           />
         </div>
 
-        <div className="flex gap-5 ">
-          <Input
-            color="primary"
-            value={metaTitleAR}
-            onChange={(e) => setMetaTitleAR(e.target.value)}
-            label=<b>
-              Meta Title Arabic
-              <span className="text-lightOrange">{metaTitleAR.length}</span>
-            </b>
-            labelPlacement="outside"
-            placeholder="حقل إدخال الوصف "
-          />
-          <Input
-            color="primary"
-            value={metaTitleEN}
-            onChange={(e) => setMetaTitleEN(e.target.value)}
-            label=<b>
-              Meta Title English
-              <span className="text-lightOrange">{metaTitleEN.length}</span>
-            </b>
-            labelPlacement="outside"
-            placeholder="حقل إدخال الوصف "
-          />
+        <div dir="rtl" className="flex flex-col  p-3 md:flex-row gap-10 ">
+          <div className="w-full md:w-6/12">
+            <b>meta title {metaTitleAR.length}</b>
+            <input
+              value={metaTitleAR}
+              onChange={(e) => setMetaTitleAR(e.target.value)}
+              placeholder="حقل إدخال الوصف meta title"
+              className="w-full border-b-1.5 p-2 focus:outline-none"
+            />
+          </div>
+          {/* <div className="bg-gray-400 w-[1px] h-full mx-4" /> */}
+          <div className="w-full md:w-6/12">
+            <b>URL {slugAR.length}</b>
+            <input
+              onChange={(e) => setSlugAR(e.target.value)}
+              value={slugAR}
+              placeholder="حقل إدخال URL"
+              className="w-full border-b-1.5 p-2 focus:outline-none"
+            />
+          </div>
         </div>
-        <div className=" flex gap-5">
-          <Textarea
-            color="primary"
+
+        <div
+          dir="rtl"
+          className="border-1.5 border-gray-200 p-3 flex flex-col gap-3"
+        >
+          <b>meta description {metDescriptionAR.length}</b>
+          <textarea
             value={metDescriptionAR}
             onChange={(e) => setMetDescriptionAR(e.target.value)}
-            label=<b>
-              Meta Description Arabic{" "}
-              <span className="text-lightOrange">
-                {metDescriptionAR.length}
-              </span>
-            </b>
-            labelPlacement="outside"
-            placeholder="حقل إدخال الوصف "
-          />
-          <Textarea
-            color="primary"
-            value={metDescriptionEN}
-            onChange={(e) => setMetDescriptionEN(e.target.value)}
-            label=<b>
-              Meta Description English{" "}
-              <span className="text-lightOrange ">
-                {metDescriptionEN.length}
-              </span>
-            </b>
-            labelPlacement="outside"
-            placeholder="Enter your description"
+            placeholder="حقل إدخال meta description "
+            className="min-h-[100px] max-h-[150px] rounded-lg indent-3 w-full focus:outline-none"
           />
         </div>
-        <div className=" flex gap-5">
-          <Input
-            color="primary"
-            onChange={(e) => setSlugAR(e.target.value)}
-            value={slugAR}
-            label=<b>
-              Slug Arabic{" "}
-              <span className="text-lightOrange">{slugAR.length}</span>
-            </b>
-            labelPlacement="outside"
-            placeholder="حقل إدخال الوصف "
-          />
-          <Input
-            color="primary"
-            onChange={(e) => setSlugEN(e.target.value)}
-            value={slugEN}
-            label=<b>
-              Slug English{" "}
-              <span className="text-lightOrange">{slugEN.length}</span>
-            </b>
-            labelPlacement="outside"
-            placeholder="Enter your description"
-          />
-        </div>
+
         <div className=" flex flex-col justify-center  mt-10">
           <button
             onClick={handleBlogButton}
@@ -257,17 +252,11 @@ const AddBlog = () => {
           >
             {messageEventBlog ? "add blog..." : "add blog"}
           </button>
-          {blogCreated && (
-            <div className="text-green-500 font-semibold text-lg pt-5 text-center">
-              Blog added successfully!
-            </div>
-          )}
           {errorBlog && (
             <div className="text-red-500 font-semibold text-lg pt-5 text-center">
               Error adding blog: {errorBlog.message}
             </div>
           )}
-          <div className="text-red-500 font-semibold text-lg pt-5 text-center"></div>
         </div>
       </div>
     </div>

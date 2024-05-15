@@ -1,16 +1,14 @@
 import RealtyCard from "@/components/realtyCard/RealtyCard";
 import { useSelector } from "react-redux";
 
-const ProjectUnits = ({ projectData }) => {
+const ProjectUnits = ({ projectData, title }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="w-full  container mx-auto space-y-8">
-      <h3 className="text-sm sm:text-3xl ">
-        {language ? "وحدات المشروع" : "Project Units"}
-      </h3>
-      <div className="flex gap-5 flex-wrap md:justify-start justify-center">
+    <div className="w-full  md:container mx-auto space-y-5">
+      <h2>{language ? `وحدات ${title}` : `${title} Units`}</h2>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5  md:justify-start ">
         {projectData?.getProperties?.map((item) => {
-          return <RealtyCard propertyDetails={item} />;
+          return <RealtyCard propertyDetails={item} key={item._id} />;
         })}
       </div>
     </div>

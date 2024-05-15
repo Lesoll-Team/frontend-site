@@ -27,12 +27,18 @@ const SimilarBlogs = ({ blog }) => {
             height={100}
             alt="similar image"
             className="md:h-[85px] md:w-[100px] h-[60px] w-[60px]"
+            loading="lazy"
+            quality={40}
+            blurDataURL="data:image/webp;base64,UklGRoIDAABXRUJQVlA4WAoAAAAgAAAAtgAAtgAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgglAEAABASAJ0BKrcAtwA/EX63VqwnpSOldAt5gCIJZ27d1f7V/CtB5ANgE4nE4nEpU2jav/iwBFqtmJJnAOHBzADxgLTgkwQK0L4ynWZcjdX2nxySyq2MB2+Tt8YJqXUNkseMlrxYvfvLlUlY5G/TB0D3UDqRi26qfj4P3ttxbleysd7mLxvg7ab2/pu2LVhUMmm8EbOuE92Lsu32AAD+U+fI7CG7Dl7Dk2ugXOYzHJJeAREK69iIxwZqtBeDgrVnBn3CWvLAN9O5Rv/R/54iOzzaNQ4s95IQlpReabgeM8t5vu6fKKbDz3Un9/icDgqcvhGemSwyhEUyq/so9VrcZMv5T/8Hh4BMp9l88bah9mntzFOpBJiHQVRTqcncHkLZesPw7ZcBrCbPjT/3ZcIYhS2yuNZ7RhGbbVXoqDfhSvBWnkzMw7KG+NnKXE+C7xV1cfHIy6KD+OrL1FNsGHkC5c9pN4EbgMmOrH8mRNI8evQQXivy0iR9c/wATdjSWENlZHcK1J+x2uB+wFVcGMUQVbA9aRloAAAA"
+            placeholder="blur"
           />
-          <div className=" flex flex-col text-justify justify-around pr-[16px]">
-            <span className="md:text-[16px] text-[12px] text-gray2 line-clamp-2 font-semibold">
+          <div
+            className={` flex flex-col text-justify justify-around ${language ? "pr-[16px]" : "pl-[16px]"} `}
+          >
+            <span className="lg-text text-gray2 line-clamp-2 font-semibold">
               {language ? blog[i]?.slug?.title.ar : blog[i]?.slug?.title.en}
             </span>
-            <span className="md:text-[14px] text-[10px] text-[#309DA0]">
+            <span className="sm-text text-[#309DA0]">
               {formattedDate(blog[i]?.createdAt, language)}
             </span>
           </div>

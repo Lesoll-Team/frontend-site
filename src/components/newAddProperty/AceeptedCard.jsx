@@ -15,25 +15,25 @@ const AceeptedCard = () => {
           alt="check done mark"
           className="mx-auto"
         />
-        <div className="text-center space-y-2">
-          <h3 className="font-bold text-lg md:text-3xl">
+        <div className="text-center space-y-4 mb-2">
+          <h2 className="font-bold ">
             {language
-              ? "تم إضافة  عقارك بنجاح, شكرا لثقتك بنا"
+              ? "تم إضافة  عقارك بنجاح, شكراً لثقتك بنا"
               : "Your property has been added successfully, thanks for trusting us"}
-          </h3>
-          <p className="text-base md:text-2xl text-baseGray">
+          </h2>
+          <p className="">
             {language
               ? "سنقوم بمراجعة عقارك والرد في اسرع وقت"
               : "We will review your property and respond as soon as possible"}
           </p>
         </div>
+        <Link
+          href={"/"}
+          className="w-8/12 lg:max-w-[300px] py-2 bg-lightGreen rounded-md text-white mx-auto"
+        >
+          {language ? "الرئيسية" : "Home Page"}{" "}
+        </Link>
       </div>
-      <Link
-        href={"/"}
-        className="w-8/12 lg:max-w-[300px] py-2 bg-lightGreen rounded-md text-white mx-auto"
-      >
-        {language ? "الرئيسية" : "Home Page"}{" "}
-      </Link>
     </div>
   );
 };

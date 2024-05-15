@@ -1,4 +1,3 @@
-// import { Image } from "@nextui-org/react";
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -9,25 +8,25 @@ const LocationCategories = () => {
     {
       titleAr: "القاهرة",
       titleEn: "Cairo",
-      totalAr: "( 2961+ وحدة )",
-      totalEn: "( +2961 Uint )",
-      url: "/properties/cairo/sale/residential",
+      totalAr: "( 2487+ وحدة )",
+      totalEn: "( +2487 Unit )",
+      url: "/properties/sale/residential/cairo/search?page=1",
       id: 8,
     },
     {
       titleAr: "الجيزة",
       titleEn: "Giza",
       totalAr: "( 2505+ وحدة )",
-      totalEn: "( +2505 Uint )",
-      url: "/properties/giza/sale/residential",
+      totalEn: "( +2505 Unit )",
+      url: "/properties/sale/residential/giza/search?page=1",
       id: 1,
     },
     {
       titleAr: "الاسكندرية",
       titleEn: "Alexandria",
       totalAr: "( 526+ وحدة )",
-      totalEn: "( +526 Uint )",
-      url: "/properties/alexandria/sale/residential",
+      totalEn: "( +526 Unit )",
+      url: "/properties/sale/residential/alexandria/search?page=1",
       id: 2,
     },
 
@@ -35,32 +34,32 @@ const LocationCategories = () => {
       titleAr: "القليوبية",
       titleEn: "Qaliubiya",
       totalAr: "( 255+ وحدة )",
-      totalEn: "( +255 Uint )",
-      url: "/properties/qaliubiya/sale/residential",
+      totalEn: "( +255 Unit )",
+      url: "/properties/sale/residential/qaliubiya/search?page=1",
       id: 4,
     },
     {
       titleAr: "مطروح",
       titleEn: "Matrouh",
       totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
-      url: "/properties/matrouh/sale/residential",
+      totalEn: "( +300 Unit )",
+      url: "/properties/sale/residential/matrouh/search?page=1",
       id: 3,
     },
     {
       titleAr: "الشرقية",
       titleEn: "Sharkia",
       totalAr: "( 290+ وحدة )",
-      totalEn: "( +290 Uint )",
-      url: "/properties/sharkia/sale/residential",
+      totalEn: "( +290 Unit )",
+      url: "/properties/sale/residential/sharkia/search?page=1",
       id: 6,
     },
     {
       titleAr: "الغربية",
       titleEn: "Gharbiya",
       totalAr: "( 180+ وحدة )",
-      totalEn: "( +180 Uint )",
-      url: "/properties/gharbiya/sale/residential",
+      totalEn: "( +180 Unit )",
+      url: "/properties/sale/residential/gharbiya/search?page=1",
       id: 5,
     },
 
@@ -68,8 +67,8 @@ const LocationCategories = () => {
       titleAr: "الدقهلية",
       titleEn: "Dakahlia",
       totalAr: "( 300+ وحدة )",
-      totalEn: "( +300 Uint )",
-      url: "/properties/dakahlia/sale/residential",
+      totalEn: "( +300 Unit )",
+      url: "/properties/sale/residential/dakahlia/search?page=1",
       id: 7,
     },
   ];
@@ -90,56 +89,37 @@ const LocationCategories = () => {
   }, []);
   return (
     <div>
-      <div className="md:container  md:mb-[32px]  smb-[17px] md:mx-auto mx-[20px]">
-        <h6 className="font-bold md:text-[30px] text-[18px] flex  text-grayText2">
+      <div className="md:container  md:mb-[32px]  md:mx-auto mx-[20px]">
+        <h2 className="font-bold  flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}
-        </h6>
-        <p className="text-gray2 md:text-[25px] text-[12px] ">
+        </h2>
+        <p className="text-gray2  lg-text">
           {language
             ? "اختر المحافظة لنساعدك في إيجاد افضل العقارات"
             : "Choose the governorate to help you find the best properties"}
         </p>
       </div>
       <div
-        className="
-  md:bg-[#EFEFEF]
-  lg:py-[83px]
-  lg:px-[100px]
-   py-[20px]
-  px-[20px]
+        className="md:bg-[#EFEFEF] lg:py-[83px] lg:px-[100px] py-[20px] px-[20px]
       "
       >
-        <div
-          className="md:container md:mx-auto  
-        grid grid-cols-3 md:grid-cols-4
-                      md:bg-inherit
-                      bg-[#EFEFEF]
-md:p-[0px] p-[30px]
-                      md:gap-x-[30px] md:gap-y-[17px]
-                      md:gap-0 gap-[15px]"
-        >
+        <div className="md:container md:mx-auto  md:min-h-[289px] min-h-[208px]  grid grid-cols-3 md:grid-cols-4 md:bg-inherit bg-[#EFEFEF] md:p-[0px] p-[15px] md:gap-x-[30px] md:gap-y-[17px] md:gap-0 gap-[15px]">
           {locations
             .filter((_, i) => i < seeMore)
             .map((location) => (
               <Link
                 href={location.url}
                 key={location.id}
-                className="
-                  
-               cursor-pointer shadow-black 
-               flex flex-col items-center justify-center 
-               md:rounded-[8px]  rounded-[4px]  md:py-10 py-5
-               gap-y-[5px]
-               bg-white
+                className=" cursor-pointer shadow-black  flex flex-col items-center justify-center  md:rounded-[8px]  rounded-[4px]  md:py-10 py-5 gap-y-[5px] bg-white
                "
               >
                 <div className=" grid grid-cols-1 text-center md:gap-y-[1.5vh] gap-y-[0.4vh]">
-                  <p className=" md:text-[20px] text-[12px] font-bold">
+                  <span className=" lg-text font-bold">
                     {language ? location.titleAr : location.titleEn}
-                  </p>
-                  <p className="text-lightGreen md:text-[20px] text-[11px]">
+                  </span>
+                  <span className="text-lightGreen sm-text">
                     {language ? location.totalAr : location.totalEn}
-                  </p>
+                  </span>
                 </div>
               </Link>
             ))}

@@ -4,8 +4,8 @@ import { PiBathtub } from "react-icons/pi";
 
 const LocationAndRooms = ({ propertyDetails }) => {
   return (
-    <div className="md:flex  md:items-center  md:justify-between md:space-y-[0px] space-y-[8px]">
-      <p className="flex items-center  min-w-max text-gray2 md:text-[17px] text-[12px] gap-1  ">
+    <div className="flex flex-col  md:flex-row md:items-center h-full md:h-fit md:justify-between justify-end  ">
+      <p className="flex items-center  min-w-max text-gray2 md:text-[16px] text-[12px] gap-1  ">
         {propertyDetails?.address?.region
           ? propertyDetails?.address?.region
           : propertyDetails?.address?.governrate}

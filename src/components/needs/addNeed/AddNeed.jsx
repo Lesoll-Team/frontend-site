@@ -1,33 +1,29 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import OfferType from "../steps/OfferType";
 import NeedsForm from "../steps/form/NeedsForm";
 import SecondStep from "../steps/SecondStep";
 import useAddNeed from "./hooks/useAddNeed";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import Link from "next/link";
-import { resetAddNeed } from "./redux/addNeedSlice";
+import { useUser } from "@/Shared/UserContext";
 
 const AddNeed = () => {
-  const formStatus = useSelector((state) => state.addNeed.status);
-  const [sended, setSended] = useState();
-  const userData = useSelector((state) => state.userProfile.userData);
-  const userDataStatus = useSelector((state) => state.userProfile.status);
+  const { data, status } = useUser();
+
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const dispatch = useDispatch();
+
   const {
     errors,
     onSubmit,
-    control,
     clearErrors,
-    // formState,
     register,
-    reset,
     setValue,
     watch,
     step,
     setStep,
+    formStatus,
   } = useAddNeed();
 
   const renderStep = useMemo(() => {
@@ -43,6 +39,7 @@ const AddNeed = () => {
       case 3:
         return (
           <NeedsForm
+            formStatus={formStatus}
             onSubmit={onSubmit}
             setValue={setValue}
             register={register}
@@ -56,47 +53,40 @@ const AddNeed = () => {
         return <OfferType />;
     }
   });
-  useEffect(() => {
-    if (formStatus === "succeeded") {
-      setSended(true);
-      dispatch(resetAddNeed());
-    }
-  }, [formStatus]);
-  if (userDataStatus === "loading") {
+
+  if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
         <DotPulse size={60} color="#309da0" />
       </div>
     );
-  } else if (userData) {
+  } else if (data) {
     return (
       <form
         noValidate
         onSubmit={onSubmit}
         className={`min-h-[88dvh]  py-10 px-5  md:px-0   ${
-          sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
+          formStatus === "success"
+            ? "flex flex-col gap-8  justify-center"
+            : "space-y-8"
         }`}
       >
-        {sended ? (
-          <Accepted />
-        ) : (
-          <div className=" my-10">
-            <div className=" ">
-              {sended ? (
-                <div className="flex items-center justify-center h-[70dvh] container mx-auto">
-                  <Accepted />
-                </div>
-              ) : (
-                renderStep
-              )}
-            </div>
+        <div className=" my-10">
+          <div className=" ">
+            {formStatus === "success" ? (
+              <div className="flex items-center justify-center h-[70dvh] container mx-auto">
+                <Accepted />
+              </div>
+            ) : (
+              renderStep
+            )}
           </div>
-        )}
+        </div>
 
         {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>
     );
-  } else if (userDataStatus === "failed") {
+  } else if (status === "failed") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">
         <div className="max-w-[450px] p-5 py-8 bg-white rounded-lg border w-full drop-shadow flex flex-col justify-center items-center gap-5 md:gap-8">

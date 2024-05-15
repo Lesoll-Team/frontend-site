@@ -8,15 +8,10 @@ const PropertyDescription = ({ propertyData }) => {
 
   return (
     <section className="md:space-y-[30px] space-y-[16px]">
-      <h3 className="text-sm sm:text-3xl ">
-        {language ? "الوصف" : "Description"}
-      </h3>
+      <h2>{language ? "الوصف" : "Description"}</h2>
       <div>
         {" "}
-        <p
-          className="text-xs sm:text-base md:text-[25px] font-inter text-baseGray"
-          style={{ lineHeight: "1.7" }}
-        >
+        <p className=" font-noto text-baseGray" style={{ lineHeight: "1.7" }}>
           {propertyData.description
             .trim()
             .split("\n")
@@ -31,7 +26,7 @@ const PropertyDescription = ({ propertyData }) => {
         </p>
         {descriptionLinesNumbers > 3 && (
           <button
-            className="underline text-linkColor "
+            className="underline text-linkColor lg-text "
             onClick={() => setShowFullDescription((prev) => !prev)}
           >
             {showFullDescription
@@ -39,8 +34,8 @@ const PropertyDescription = ({ propertyData }) => {
                 ? " رؤية الاقل"
                 : "See less"
               : language
-              ? "رؤية المزيد"
-              : "show more"}
+                ? "رؤية المزيد"
+                : "show more"}
           </button>
         )}
       </div>

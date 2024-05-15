@@ -1,6 +1,5 @@
-import useAddProperty from "@/Hooks/addProperty/useAddProperty";
+import useAddProperty from "@/components/newAddProperty/hooks/useAddProperty";
 import Button from "@/Shared/ui/Button";
-import { DevTool } from "@hookform/devtools";
 import AddPropMainInfo from "./mainInfo/AddPropMainInfo";
 import Steps from "./Steps";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +8,12 @@ import AddPropDetails from "./details/AddPropDetails";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "./price/AddPropertyPrice";
 import PropertyImages from "./imgs/PropertyImages";
-import { getCompounds } from "@/redux-store/features/property/compoundSlice";
-import { resetAddProp } from "@/redux-store/features/property/addPropertySlice";
-import Image from "next/image";
 import Link from "next/link";
 import AceeptedCard from "./AceeptedCard";
-import { DotPulse, Ring, Wobble } from "@uiball/loaders";
+import { DotPulse, Ring } from "@uiball/loaders";
 import { scrollToTop } from "@/utils/scrollToTop";
-// import AdminAddProperty from "../admin-add-property/AdminAddProperty";
+import { getCurrencies } from "./redux/currenciesSlice";
+import { useUser } from "@/Shared/UserContext";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -28,15 +25,13 @@ const AddProperty = () => {
     step,
     setStep,
     clearErrors,
-    fields,
-    append,
-    remove,
+    formStatus,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
-  const formStatus = useSelector((state) => state.addProperty.status);
-  const userData = useSelector((state) => state.userProfile.userData);
-  const userDataStatus = useSelector((state) => state.userProfile.status);
+  const { data, status } = useUser();
+
+  const currencies = useSelector((state) => state.getCurrencies.data);
 
   const [sended, setSended] = useState(false);
 
@@ -45,11 +40,13 @@ const AddProperty = () => {
     if (!features) {
       dispatch(getFeatures());
     }
+    if (!currencies) {
+      dispatch(getCurrencies());
+    }
   }, []);
   useEffect(() => {
-    if (formStatus === "succeeded") {
+    if (formStatus === "success") {
       setSended(true);
-      dispatch(resetAddProp());
       setStep(1);
       scrollToTop();
     }
@@ -100,16 +97,6 @@ const AddProperty = () => {
           );
 
         case 3:
-          return (
-            <PropertyImages
-              errors={errors}
-              clearErrors={clearErrors}
-              register={register}
-              setValue={setValue}
-              watch={watch}
-            />
-          );
-
         default:
           return (
             <PropertyImages
@@ -136,9 +123,6 @@ const AddProperty = () => {
         case 2:
           return (
             <AddPropertyPrice
-              fields={fields}
-              append={append}
-              remove={remove}
               control={control}
               errors={errors}
               clearErrors={clearErrors}
@@ -158,18 +142,8 @@ const AddProperty = () => {
               watch={watch}
             />
           );
-        case 4:
-          return (
-            <PropertyImages
-              errors={errors}
-              clearErrors={clearErrors}
-              register={register}
-              setValue={setValue}
-              watch={watch}
-            />
-          );
-
         default:
+        case 4:
           return (
             <PropertyImages
               errors={errors}
@@ -183,13 +157,13 @@ const AddProperty = () => {
     }
   };
   // const errorSubmit = useSelector((state) => state.addProperty.error);
-  if (userDataStatus === "loading") {
+  if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">
         <DotPulse size={60} color="#309da0" />
       </div>
     );
-  } else if (userData) {
+  } else if (data) {
     return (
       <form
         noValidate
@@ -242,7 +216,7 @@ const AddProperty = () => {
         {/* {errorSubmit && <p>{errorSubmit.message}</p>} */}
       </form>
     );
-  } else if (userDataStatus === "failed") {
+  } else if (status === "failed" || status === "idle") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center container mx-auto">
         <div className="max-w-[450px] p-5 py-8 bg-white rounded-lg border w-full drop-shadow flex flex-col justify-center items-center gap-5 md:gap-8">

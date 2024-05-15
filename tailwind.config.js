@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 import { nextui } from "@nextui-org/react";
 
 module.exports = {
@@ -38,6 +37,7 @@ module.exports = {
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        noto:["Noto Kufi Arabic"]
       },
     },
     fontFamily: {},
