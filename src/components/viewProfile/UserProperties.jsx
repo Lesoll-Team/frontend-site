@@ -118,7 +118,7 @@ const UserProperties = ({ user, properties, params }) => {
             </div>
           )}
       </div>
-      <div className="flex gap-4 md:gap-x-1 items-center justify-evenly flex-wrap">
+      <div className="grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
         {properties?.getConfirmedRealty &&
         properties.getConfirmedRealty.length > 0 ? (
           properties.getConfirmedRealty.map((item) => {
