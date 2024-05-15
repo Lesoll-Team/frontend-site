@@ -157,7 +157,6 @@ const AddProperty = () => {
     }
   };
   // const errorSubmit = useSelector((state) => state.addProperty.error);
-  console.log("status::>>", status);
   if (status === "loading") {
     return (
       <div className="w-full h-[90dvh] flex items-center justify-center">

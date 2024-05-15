@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 
 const LocationAndRooms = ({ propertyDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log("propertyDetails::>>>", propertyDetails);
   return (
     <div className="flex w-fit justify-end  gap-x-4">
       {!propertyDetails.rooms == 0 && (
