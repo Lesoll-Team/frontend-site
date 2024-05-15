@@ -1,6 +1,5 @@
 import { logoutUser } from "@/utils/userAPI";
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   userData: null,
@@ -13,7 +12,6 @@ const userProfileSlice = createSlice({
   reducers: {
     clearUserData: (state) => {
       logoutUser();
-      Cookies.remove("userToken");
       localStorage.clear();
       state.userData = null;
     },

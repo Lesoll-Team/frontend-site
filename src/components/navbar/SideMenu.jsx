@@ -10,10 +10,8 @@ import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChangeLang from "./ChangeLang";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
-import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import { useUser } from "@/Shared/UserContext";
-// import io from "socket.io-client";
 
 const SideMenu = () => {
   const { windowWidth } = useWindowWidth();
@@ -22,7 +20,6 @@ const SideMenu = () => {
   const { data, logOutUserData } = useUser();
 
   const dispatch = useDispatch();
-  const router = useRouter();
   const isCompany = data?.typeOfUser === "company";
   const [showSideMenu, setShowSideMenu] = useState(false);
   const openSideMenu = () => {
@@ -37,8 +34,6 @@ const SideMenu = () => {
   const handleLogout = () => {
     dispatch(clearUserData());
     logOutUserData();
-    Cookies.remove("userToken");
-    // router.push("/signin");
   };
   useEffect(() => {
     // Prevent scrolling when the SideMenu component is mounted
@@ -57,18 +52,7 @@ const SideMenu = () => {
       setShowSideMenu(false);
     }
   }, [windowWidth]);
-  // useEffect(() => {
-  //   const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}`, {
-  //     transports: ["websocket"],
-  //     withCredentials: true,
-  //   });
-  //   if (userData?._id) {
-  //     socket.emit("online", { userId: userData._id });
-  //   }
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [userData?._id]);
+
   return (
     <>
       <button onClick={openSideMenu} className="lg:hidden">
