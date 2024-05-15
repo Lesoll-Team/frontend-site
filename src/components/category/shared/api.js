@@ -23,7 +23,7 @@ export async function foundKeyword(keyword) {
       .join("&");
 
     const response = await axiosInstance.get(
-      `/category/get-data?${queryString}&limit=18`,
+      `/category/get-data?${queryString}&limit=20`,
     );
     return response;
   } catch (error) {

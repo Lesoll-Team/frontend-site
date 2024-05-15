@@ -23,13 +23,13 @@ const ProfileHeader = ({ hideHeader }) => {
               alt="user avatar"
               className="rounded-full object-cover"
             />
-            <ProfilePicForm
+            {/* <ProfilePicForm
               openBtn={
                 <div className="absolute bg-gray-300 cursor-pointer border p-2 rounded-full text-xl h-8 w-8 md:w-10 md:h-10  flex items-center justify-center border-black bottom-0">
                   <MdOutlineEdit />
                 </div>
               }
-            />
+            /> */}
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">

@@ -10,7 +10,6 @@ export const userSignUp = async ({
     setFormStatus("loading");
     const response = await axiosInstance.post(`/auth/register`, data);
     if (response.status === 200 || response.status === 201) {
-      Cookies.set("userToken", token);
       setFormStatus("success");
       setToken(response.data.token);
     }

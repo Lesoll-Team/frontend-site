@@ -20,9 +20,7 @@ export const updateUserData = createAsyncThunk(
         data.userUpdate,
       );
       return response;
-    } catch (error) {
-      console.log("error:>>>>", error.message);
-    }
+    } catch (error) {}
   },
 );
 export const globalState = createSlice({

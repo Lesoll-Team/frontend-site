@@ -45,7 +45,7 @@ const SignUp = () => {
     reset,
     setValue,
     watch,
-    clearErrors,
+    // clearErrors,
   } = useForm({
     defaultValues: {
       code: "+20",
@@ -53,41 +53,33 @@ const SignUp = () => {
       verificationMethod: "email",
     },
   });
-  const [emailUsedError, setEmailUserError] = useState(false);
+  const [emailUserError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showPassword, setShowPassword] = useState(false);
-
-  // const setUserType = (type) => {
-  //   setValue("typeOfUser", type);
-  //   clearErrors("typeOfUser");
-  // };
   const phoneWithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
   const onSubmit = async (data) => {
-    const dataTosend = {
-      fullname: data.fullname,
-      email: data.email,
-      code: data.code,
-      phone: phoneWithoutCode(data.phone, data.code),
-      password: data.password,
-      typeOfUser: data.typeOfUser.value,
-    };
     userSignUp({
       setFormStatus,
       setToken,
       setServerError,
-      data: dataTosend,
+      data: {
+        ...data,
+        phone: phoneWithoutCode(data.phone, data.code),
+        typeOfUser: data.typeOfUser.value,
+      },
     });
   };
-  // router.asPath
+
   useEffect(() => {
     if (formStatus === "success") {
       const redirectBackTo = router.asPath;
-      // reset();
-      router.push(`/verify-otp/${token}?redirectBackTo=${redirectBackTo}`);
+      router.push(
+        `/verify-otp/${token}?phone=${phoneWithoutCode(watch("phone"), watch("code"))}&redirectBackTo=${redirectBackTo}`,
+      );
     }
   }, [formStatus, reset, router, token]);
 
@@ -137,12 +129,12 @@ const SignUp = () => {
           })}
           placeholder={language ? "البريد الالكتروني" : "Email"}
           type="text"
-          className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUsedError) && "border-red-500 focus:border-red-500"}`}
+          className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUserError) && "border-red-500 focus:border-red-500"}`}
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
-        {emailUsedError && (
+        {emailUserError && (
           <p className="text-red-500 text-sm">
             {language
               ? "هذا البريد مستخدم بالفعل"
@@ -235,44 +227,6 @@ const SignUp = () => {
           setValue("typeOfUser", e);
         }}
       />
-      {/* {watch("typeOfUser") !== "individual" && (
-        <div className="space-y-2">
-          <label htmlFor="">
-            {language ? " عرفنا بيك" : "choose your type"}
-          </label>
-          <div className="flex items-center">
-            <input
-              {...register("typeOfUser", {
-                required: language
-                  ? "يرجى اختيار نوع المستخدم"
-                  : "Please choose your type",
-              })}
-              hidden
-            />
-            <div className="flex w-full items-center gap-4 md:gap-6">
-              <button
-                onClick={() => setUserType("company")}
-                className={`bg-lightNeutral py-2 flex items-center justify-center rounded-md  gap-4 px-2 md:text-base text-sm w-full  ${watch("typeOfUser") === "company" && "border border-lightGreen "}`}
-                type="button"
-              >
-                <Image src={"/icons/company-icon.svg"} width={30} height={30} />
-                <span>{language ? "مطور عقارى" : "Developer"}</span>
-              </button>
-              <button
-                onClick={() => setUserType("broker")}
-                className={`bg-lightNeutral py-2 flex items-center justify-center rounded-md  gap-4 px-2 md:text-base text-sm w-full ${watch("typeOfUser") === "broker" && "border border-lightGreen "}`}
-                type="button"
-              >
-                <Image src={"/icons/broker-icon.svg"} width={30} height={30} />
-                <span>{language ? "سمسار" : "Broker"}</span>
-              </button>
-            </div>
-          </div>
-          {errors.typeOfUser && (
-            <p className="text-red-500 text-sm">{errors.typeOfUser.message}</p>
-          )}
-        </div>
-      )} */}
       <div className="space-y-2 flex items-center gap-1">
         <input
           {...register("terms", {
@@ -302,9 +256,7 @@ const SignUp = () => {
         className="w-full p-3 h-12 flex items-center justify-center rounded-md text-white bg-lightGreen text-xl"
       >
         {formStatus === "loading" ? (
-          <>
-            <Ring size={20} color="#fff" />
-          </>
+          <Ring size={20} color="#fff" />
         ) : (
           <span>{language ? "إنشاء حساب" : "Sign up"}</span>
         )}

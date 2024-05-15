@@ -11,13 +11,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
-import { useUser } from "@/Shared/UserContext";
-// import Cookies from "js-cookie";
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
-  const { setUserData } = useUser();
   const [token, setToken] = useState(null);
   const {
     register,
@@ -48,27 +45,19 @@ const SignUpForm = () => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
   const onSubmit = async (data) => {
-    const dataToSend = {
-      fullname: data.fullname,
-      email: data.email,
-      code: data.code,
-      phone: phoneWithoutCode(data.phone, data.code),
-      password: data.password,
-      typeOfUser: data.typeOfUser,
-    };
     userSignUp({
       setFormStatus,
       setToken,
       setServerError,
-      data: dataToSend,
+      data: { ...data, phone: phoneWithoutCode(data.phone, data.code) },
     });
   };
 
   useEffect(() => {
     if (formStatus === "success" && token) {
-      setUserData();
-      reset();
-      router.push(`/verify-otp/${token}`);
+      router.push(
+        `/verify-otp/${token}?phone=${phoneWithoutCode(watch("phone"), watch("code"))}`,
+      );
     }
   }, [formStatus, reset, router, token]);
 
