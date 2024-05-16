@@ -11,14 +11,9 @@ import PlanAdded from "../../model/pricing/PlanAdded";
 
 const EditPlansPricing = ({ paymentPlan }) => {
   const dispatch = useDispatch();
-  // const [moreOption, setMoreOption] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const servicePrice = useSelector((state) => state.Pricing.priceService);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
-  // repostDay: 3,
-  // repostNumber: 7,
-  // const [singlePageContentEn, setSinglePageContentEn] = useState("");
-  // const [singlePageContentAr, setSinglePageContentAr] = useState("");
 
   const [categoryNameAr, setCategoryNameAr] = useState("");
   const [categoryNameEn, setCategoryNameEn] = useState("");
@@ -35,8 +30,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
   const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
 
-  // const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-  // const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
   const [featuresList, setFeaturesList] = useState(new Set([]));
   const [featuresId, setFeaturesId] = useState([]);
@@ -65,8 +60,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setDurationPlan(paymentPlan.repostDayCategory);
     setPropNumber(paymentPlan.propNumberCategory);
     setNormalProp(paymentPlan.normalProp);
-    // setDurationPlanHome(paymentPlan.pinDayInHome);
-    // setPropNumberInHome(paymentPlan.propNumberInHome);
+    setDurationPlanHome(paymentPlan.pinDayInHome);
+    setPropNumberInHome(paymentPlan.propNumberInHome);
   }, []);
   const data2 = {
     PaymentAr: categoryNameAr,
@@ -87,12 +82,12 @@ const EditPlansPricing = ({ paymentPlan }) => {
     repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
       ? 0
       : durationPlan,
-    // propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-    //   ? 0
-    //   : propNumberInHome,
-    // pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-    //   ? 0
-    //   : durationPlanHome,
+    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : propNumberInHome,
+    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : durationPlanHome,
   };
   const data = {
     PaymentAr: categoryNameAr,
@@ -113,12 +108,12 @@ const EditPlansPricing = ({ paymentPlan }) => {
     repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
       ? 0
       : durationPlan,
-    // propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-    //   ? 0
-    //   : propNumberInHome,
-    // pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-    //   ? 0
-    //   : durationPlanHome,
+    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : propNumberInHome,
+    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+      ? 0
+      : durationPlanHome,
   };
   useEffect(() => {
     setFeaturesId(paymentPlan.service.map((feature) => feature._id));
@@ -404,6 +399,39 @@ const EditPlansPricing = ({ paymentPlan }) => {
                         language
                           ? "عدد ايام ظهور الاعلان"
                           : "Number of days the ad appears"
+                      }
+                    />
+                  </div>
+                </>
+              )}
+              {featuresId.includes("656cc0c1485cfd01499d1365") && (
+                <>
+                  <b>
+                    {language
+                      ? " تحديد مدة وعدد ظهور الإعلانات على صفحة البحث"
+                      : "Determine the duration and number of ads that appear on the search page"}
+                  </b>
+                  <div className="flex gap-x-2">
+                    <input
+                      type="number"
+                      className="mt-1 px-3 py-2 border rounded w-full"
+                      onChange={(e) => setPropNumberInHome(e.target.value)}
+                      value={propNumberInHome || ""}
+                      placeholder={
+                        language
+                          ? " عدد الاعلانات على صفحة البحث"
+                          : "Number of ads on the search page"
+                      }
+                    />
+                    <input
+                      type="number"
+                      className="mt-1 px-3 py-2 border rounded w-full"
+                      onChange={(e) => setDurationPlanHome(e.target.value)}
+                      value={durationPlanHome || ""}
+                      placeholder={
+                        language
+                          ? " عدد ايام ظهور على صفحة البحث"
+                          : "Number of days to appear on the search page"
                       }
                     />
                   </div>

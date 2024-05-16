@@ -1,6 +1,21 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+const TimeAndButton = ({ language }) => {
+  const [isTime, setIsTime] = useState(60);
+  const router = useRouter();
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (isTime > 0) {
+        setIsTime(isTime - 1);
+      } else {
+        clearInterval(timer);
+        router.push("/profile/my-subscriptions");
+      }
+    }, 1000);
 
-const TimeAndButton = ({ language, isTime }) => {
+    return () => clearInterval(timer);
+  }, [isTime, router]);
   return (
     <div className=" text-center gap-y-3 my-5 flex  flex-col">
       <Link
