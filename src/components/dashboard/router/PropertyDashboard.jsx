@@ -191,7 +191,7 @@ export default function PropertyDashboard() {
               <hr />
               <div className="text-bold text-medium">
                 <b>Phone: </b>
-                <span>{blog.user.phone || "Empty"}</span>
+                <span>{blog?.user?.phone || "Empty"}</span>
               </div>
             </div>
             <div>

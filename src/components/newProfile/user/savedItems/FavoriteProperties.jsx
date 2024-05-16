@@ -16,12 +16,14 @@ const FavoriteProperties = () => {
     dispatch(getFavProp());
   }, []);
   return (
-    <div className="grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
+    <>
       {favProp?.propertyFavorites ? (
         favProp?.propertyFavorites.length > 0 ? (
-          favProp.propertyFavorites.map((item) => {
-            return <RealtyCard propertyDetails={item} key={item?._id} />;
-          })
+          <div className="grid grid-cols-1   lg:grid-cols-2 xl:grid-cols-4 justify-between gap-10 xl:gap-5">
+            {favProp.propertyFavorites.map((item) => {
+              return <RealtyCard propertyDetails={item} key={item?._id} />;
+            })}
+          </div>
         ) : (
           <NoItems
             title={language ? "لا توجد إعلانات مفضلة " : "No favorite ads "}
@@ -35,7 +37,27 @@ const FavoriteProperties = () => {
           <ProfileCard />
         </>
       )}
-    </div>
+      {/* <div className="grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
+        {favProp?.propertyFavorites ? (
+          favProp?.propertyFavorites.length > 0 ? (
+            favProp.propertyFavorites.map((item) => {
+              return <RealtyCard propertyDetails={item} key={item?._id} />;
+            })
+          ) : (
+            <NoItems
+              title={language ? "لا توجد إعلانات مفضلة " : "No favorite ads "}
+            />
+          )
+        ) : (
+          <>
+            {" "}
+            <ProfileCard />
+            <ProfileCard />
+            <ProfileCard />
+          </>
+        )}
+      </div> */}
+    </>
   );
 };
 export default FavoriteProperties;
