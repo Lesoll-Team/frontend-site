@@ -9,9 +9,7 @@ const refreshToken = async () => {
   try {
     const refreshResponse = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-      {
-        withCredentials: true,
-      },
+      { withCredentials: true },
     );
     const { accessToken } = refreshResponse.data;
     Cookies.set("userToken", accessToken);
@@ -24,12 +22,6 @@ const refreshToken = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     let token = Cookies.get("userToken");
-    const jwt = Cookies.get("jwt");
-
-    if (!token && jwt) {
-      token = await refreshToken();
-    }
-
     if (token) {
       config.headers.token = token;
     }
@@ -37,36 +29,27 @@ axiosInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
+
 // Response interceptor to handle refreshing tokens
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
-    if (error.response) {
-      const { status } = error.response;
-
-      if ((status === 401 || status === 403) && !originalRequest._retry) {
-        originalRequest._retry = true;
-
-        try {
-          const token = await refreshToken();
-          originalRequest.headers.token = token;
-          return axiosInstance(originalRequest);
-        } catch (refreshError) {
-          if (status === 401) {
-            if (
-              window.location.pathname.includes("/profile") ||
-              window.location.pathname.includes("/dashboard")
-            ) {
-              window.location.replace("/");
-            }
-          }
-          return Promise.reject(refreshError);
-        }
+    if (
+      ((error.response && error.response.status === 401) ||
+        error.response.status === 403) &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      try {
+        const accessToken = await refreshToken();
+        originalRequest.headers.token = accessToken;
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        Cookies.remove("userToken");
+        return Promise.reject(error); // Return the original error from the endpoint
       }
     }
-
     return Promise.reject(error);
   },
 );

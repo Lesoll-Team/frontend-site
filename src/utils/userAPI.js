@@ -19,9 +19,9 @@ export async function loginUser(userData) {
   }
 }
 export async function logoutUser() {
-  await axiosInstance.post(`/auth/logout`);
-  // Cookies.remove("jwt");
   Cookies.remove("userToken");
+  Cookies.remove("jwt");
+  await axiosInstance.post(`/auth/logout`);
 }
 
 export async function updateUserDataInfo(userID, userUpdate) {
