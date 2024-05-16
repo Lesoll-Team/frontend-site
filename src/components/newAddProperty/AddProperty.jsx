@@ -164,7 +164,7 @@ const AddProperty = () => {
       </div>
     );
   } else if (data) {
-    if (!data?.propertyPackageNumber > 0) {
+    if (data?.propertyPackageNumber > 0) {
       return (
         <form
           noValidate
