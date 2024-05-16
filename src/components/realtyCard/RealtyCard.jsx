@@ -8,15 +8,15 @@ import { memo } from "react";
 
 const RealtyCard = ({ propertyDetails }) => {
   return (
-    <div className="overflow-hidden col-5  w-full  sm:h-auto h-[135px] flex sm:block ">
+    <div className="overflow-hidden col-5  w-full  sm:h-auto h-[135px] flex sm:block relative">
       {/* start icon favorite */}
+      <FavAndDate propertyDetails={propertyDetails} />
       <Link
         title={`${propertyDetails?.title}`}
         key={propertyDetails?._id}
         href={`/property-details/${propertyDetails?.slug}`}
-        className="  sm:w-full w-5/12 min-w-[140px] flex relative "
+        className="  sm:w-full w-5/12 min-w-[140px] flex  "
       >
-        <FavAndDate propertyDetails={propertyDetails} />
         <Image
           alt={` image  ${propertyDetails?.title}`}
           className="flex object-cover w-full overflow-hidden h-auto sm:h-[287px] rounded-md"
