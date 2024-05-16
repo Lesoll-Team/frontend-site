@@ -17,13 +17,14 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   // repostDay: 3,
   // repostNumber: 7,
+  // const [singlePageContentEn, setSinglePageContentEn] = useState("");
+  // const [singlePageContentAr, setSinglePageContentAr] = useState("");
 
   const [categoryNameAr, setCategoryNameAr] = useState("");
   const [categoryNameEn, setCategoryNameEn] = useState("");
   const [descriptionCardAr, setDescriptionCardAr] = useState("");
   const [descriptionCardEn, setDescriptionCardEn] = useState("");
-  // const [singlePageContentEn, setSinglePageContentEn] = useState("");
-  // const [singlePageContentAr, setSinglePageContentAr] = useState("");
+  const [normalProp, setNormalProp] = useState(0);
 
   const [targetUser, setTargetUser] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -34,20 +35,20 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
   const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
 
-  const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-  const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  // const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  // const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
   const [featuresList, setFeaturesList] = useState(new Set([]));
   const [featuresId, setFeaturesId] = useState([]);
   useEffect(() => {
     dispatch(getServicePrice());
   }, []);
-  const resetValues = () => {
-    setPropNumber(0);
-    setDurationPlan(0);
-    setDurationPlanHome(0);
-    setPropNumberInHome(0);
-  };
+  // const resetValues = () => {
+  //   setPropNumber(0);
+  //   setDurationPlan(0);
+  //   setDurationPlanHome(0);
+  //   setPropNumberInHome(0);
+  // };
   useEffect(() => {
     setCategoryNameAr(paymentPlan.PaymentAr);
     setCategoryNameEn(paymentPlan.PaymentEn);
@@ -61,10 +62,11 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setOldPrice(paymentPlan.offerPrice);
     setFeaturesList(paymentPlan.service);
     setFeaturesId([paymentPlan.service]);
-    setDurationPlanHome(paymentPlan.pinDayInHome);
-    setPropNumberInHome(paymentPlan.propNumberInHome);
     setDurationPlan(paymentPlan.repostDayCategory);
     setPropNumber(paymentPlan.propNumberCategory);
+    setNormalProp(paymentPlan.normalProp);
+    // setDurationPlanHome(paymentPlan.pinDayInHome);
+    // setPropNumberInHome(paymentPlan.propNumberInHome);
   }, []);
   const data2 = {
     PaymentAr: categoryNameAr,
@@ -78,18 +80,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
     service: [...featuresList],
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : propNumberInHome,
-    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : durationPlanHome,
+    normalProp,
     propNumberCategory: !featuresId.includes("656cc095485cfd01499d1362")
       ? 0
       : propNumber,
     repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
       ? 0
       : durationPlan,
+    // propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+    //   ? 0
+    //   : propNumberInHome,
+    // pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+    //   ? 0
+    //   : durationPlanHome,
   };
   const data = {
     PaymentAr: categoryNameAr,
@@ -103,18 +106,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
     service: featuresId,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : propNumberInHome,
-    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : durationPlanHome,
+    normalProp,
     propNumberCategory: !featuresId.includes("656cc095485cfd01499d1362")
       ? 0
       : propNumber,
     repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
       ? 0
       : durationPlan,
+    // propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+    //   ? 0
+    //   : propNumberInHome,
+    // pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
+    //   ? 0
+    //   : durationPlanHome,
   };
   useEffect(() => {
     setFeaturesId(paymentPlan.service.map((feature) => feature._id));
@@ -166,10 +170,10 @@ const EditPlansPricing = ({ paymentPlan }) => {
           }
         />
       ) : (
-        <div className="w-full grid lg:grid-cols-2 grid-cols-1">
+        <div className="w-full grid lg:grid-cols-4 grid-cols-1">
           <div
             dir={language ? "rtl" : "ltr"}
-            className="mt-6  mx-[20px] mb-10 flex flex-col gap-y-[4vh]"
+            className="mt-6 lg:col-span-3 mx-[20px] mb-10 flex flex-col gap-y-[4vh]"
           >
             <div>
               <div className="block text-sm font-medium text-gray-600">
@@ -262,6 +266,22 @@ const EditPlansPricing = ({ paymentPlan }) => {
             </div>
             {/* Price & Old price */}
             <div className="items-center grid sm:grid-cols-2 grid-cols-1 gap-x-3 gap-y-[1vh]">
+              <div className="w-full flex flex-col gap-y-[0.5vh]">
+                <label
+                  htmlFor="normal properties"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  {language ? "عقارات مجاني" : " free properties "} :-
+                </label>
+                <input
+                  name="normal properties"
+                  type="number"
+                  placeholder={language ? ` عقارات مجاني` : `free properties`}
+                  value={normalProp}
+                  className="mt-1 px-3 py-2 border rounded w-full"
+                  onChange={(e) => setNormalProp(e.target.value)}
+                />
+              </div>
               <div>
                 <label
                   htmlFor="price"
@@ -389,7 +409,29 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   </div>
                 </>
               )}
-              {featuresId.includes("656cc0c1485cfd01499d1365") && (
+            </div>
+
+            <div className="flex justify-center items-center">
+              <button
+                onClick={handleEditFeatures}
+                className="bg-lightGreen py-5 lg-text px-10 rounded-xl font-bold text-white"
+              >
+                {language ? "تاكيد إضافة الباقة" : "Confirm adding the package"}
+              </button>
+            </div>
+          </div>
+          <div className="grid justify-center grid-cols-1 ">
+            <PlanPricingCard data={data2} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default EditPlansPricing;
+/**
+ *  {featuresId.includes("656cc0c1485cfd01499d1365") && (
                 <>
                   <b>
                     {language
@@ -422,24 +464,4 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   </div>
                 </>
               )}
-            </div>
-
-            <div className="flex justify-center items-center">
-              <button
-                onClick={handleEditFeatures}
-                className="bg-lightGreen py-5 lg-text px-10 rounded-xl font-bold text-white"
-              >
-                {language ? "تاكيد إضافة الباقة" : "Confirm adding the package"}
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-center items-center mx-auto md:w-[420px]">
-            <PlanPricingCard data={data2} />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default EditPlansPricing;
+ */

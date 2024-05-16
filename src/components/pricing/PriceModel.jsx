@@ -43,7 +43,7 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
           <div className="flex gap-5 w-full  justify-center">
             <button
               onClick={() => setButtonTarget("card")}
-              className=" bg-[#F2F8F9] flex flex-col justify-center items-center  rounded-[6px] w-6/12 h-52"
+              className={`${buttonTarget == "card" && "border-2 border-[#309DA0] "} bg-[#F2F8F9] flex flex-col justify-center items-center  rounded-[6px] w-6/12 h-52`}
             >
               <div className="flex w-full gap-2  h-20 justify-center  items-center">
                 <Image
@@ -78,7 +78,7 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
             </button>
             <button
               onClick={() => setButtonTarget("wallet")}
-              className=" bg-[#F2F8F9] flex flex-col justify-center items-center  rounded-[6px] w-6/12 h-52"
+              className={`${buttonTarget == "wallet" && "border-2 border-[#309DA0] "} bg-[#F2F8F9] flex flex-col justify-center items-center  rounded-[6px] w-6/12 h-52`}
             >
               <div className="flex w-full gap-2 h-20 justify-center  ">
                 <Image
