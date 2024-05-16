@@ -65,11 +65,11 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
 
                 <Image
                   loading="lazy"
-                  src={"/price/master-logo.png"}
+                  src={"/price/MasterCard_Logo.png"}
                   alt="master logo"
-                  width={100}
-                  height={100}
-                  className="w-[50px] h-[50px]"
+                  width={50}
+                  height={50}
+                  className="w-[50px] h-[30px]"
                 />
               </div>
               <span className="font-bold text-darkGray md:text-2xl w-full  h-16 items-center justify-center lg-text flex ">
@@ -83,7 +83,7 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
               <div className="flex w-full gap-2 h-20 justify-center  ">
                 <Image
                   loading="lazy"
-                  src={"/price/vodafone-logo.png"}
+                  src={"/price/wallet-logo.svg"}
                   alt="vodafone logo"
                   width={100}
                   height={100}
