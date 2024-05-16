@@ -36,7 +36,9 @@ const PreviousSubscription = () => {
             return <PlanCard data={data} key={index} />;
           })
         ) : (
-          <NoItems title={language ? "لا توجد باقات منتهية" : "no packages"} />
+          <NoItems
+            title={language ? "لا توجد باقات منتهية" : "No expired packages"}
+          />
         )
       ) : (
         formStatus === "failed" && ""

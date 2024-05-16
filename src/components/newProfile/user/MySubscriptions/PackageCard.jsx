@@ -37,6 +37,7 @@ const PlanCard = ({ data }) => {
       setFormStatus: setGetInvoiceStatus,
       setServerError: setGetInvoiceError,
       setDownloadLink,
+      lang: language,
     });
   };
   useEffect(() => {
@@ -57,7 +58,7 @@ const PlanCard = ({ data }) => {
               {language ? "عدد الإعلانات المتبقية للتثبيت" : "Remaining ads "}
             </p>
             <p className=" md:text-[16px] text-xs">
-              {data?.numberOfPin} {language ? "إعلان" : "ad"}
+              {data?.numberOfPin || 0} {language ? "إعلان" : "ad"}
             </p>
           </div>
           <div className="py-3 px-4 flex justify-between items-center ">
@@ -67,7 +68,7 @@ const PlanCard = ({ data }) => {
                 : "Remaining ads "}
             </p>
             <p className=" md:text-[16px] text-xs">
-              {data?.numberOfRepost} {language ? "إعلان" : "ad"}
+              {data?.numberOfRepost || 0} {language ? "إعلان" : "ad"}
             </p>
           </div>
           <div className="py-3 px-4 flex justify-between bg-gray-200">

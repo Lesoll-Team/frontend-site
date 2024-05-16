@@ -27,7 +27,13 @@ const CurrentSubscriptions = () => {
           <PackageCardSkeleton />
         </>
       ) : formStatus === "success" ? (
-        <PlanCard data={activePackages.package} />
+        activePackages.package ? (
+          <PlanCard data={activePackages.package} />
+        ) : (
+          <NoItems
+            title={language ? "لا يوجد باقات نشطة" : "No Active Packages"}
+          />
+        )
       ) : (
         formStatus === "failed" && ""
       )}

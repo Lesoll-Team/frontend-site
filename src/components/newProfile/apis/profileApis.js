@@ -284,12 +284,13 @@ export const getInvoice = async ({
   setServerError,
   id,
   setDownloadLink,
+  lang,
 }) => {
   try {
     setFormStatus("loading");
     const token = JSON.parse(localStorage.getItem("userToken"));
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/download-invoice/${id}?token=${token}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/payment-user/download-invoice/${id}?token=${token}&lang=${lang ? "ar" : "en"}`,
       {
         headers: {
           token,
