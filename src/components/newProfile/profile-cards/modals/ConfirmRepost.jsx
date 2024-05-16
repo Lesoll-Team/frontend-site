@@ -1,5 +1,5 @@
 import ReactModal from "@/Shared/ui/ReactModal";
-import Link from "next/link";
+// import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { repostProperty } from "../../apis/profileApis";
@@ -12,7 +12,6 @@ const ConfirmRepost = ({ open, setIsOpen, propId, getProperties }) => {
   const repostProp = async () => {
     await repostProperty({ propId, setFormStatus, setServerError });
   };
-  console.log(formStatus);
   useEffect(() => {
     if (formStatus === "success") {
       getProperties();

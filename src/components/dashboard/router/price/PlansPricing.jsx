@@ -1,22 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import { PlusIcon } from "../../icon/PlusIcon";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getPricesPlans,
-  getServicePrice,
-} from "@/redux-store/features/PricingSlice";
+// import { getServicePrice } from "@/redux-store/features/PricingSlice";
+import { getPlanPaymentsAdmin } from "@/utils/PricingAPI";
 
 const PlansPricing = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const dispatch = useDispatch();
-  const pricesPlans = useSelector((state) => state.Pricing.pricesPlans);
+  // const dispatch = useDispatch();
+  const [payments, setPayments] = useState([]);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   useEffect(() => {
-    dispatch(getServicePrice());
-    dispatch(getPricesPlans());
+    const fetchData = async () => {
+      // dispatch(getServicePrice());
+      const response = await getPlanPaymentsAdmin();
+      setPayments(response.getPayment);
+    };
+    fetchData();
   }, [isUpdated]);
   return (
     <div
@@ -25,8 +27,6 @@ const PlansPricing = () => {
     >
       <div className=" flex ">
         <button
-          // endContent={<PlusIcon />}
-          // color="secondary"
           onClick={() => router.push("/dashboard/pricing/add")}
           className=" font-semibold flex border-1 border-gray-600 rounded-[6px]  p-2"
         >
@@ -34,8 +34,8 @@ const PlansPricing = () => {
           <PlusIcon />
         </button>
       </div>
-      <div className="gap-10 flex flex-wrap justify-between">
-        {pricesPlans?.getPayment.map((plan, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-20 items-center  justify-center md:container md:mx-auto mx-[10px] ">
+        {payments?.map((plan, index) => (
           <PlanPricingCard key={index} data={plan} />
         ))}
       </div>

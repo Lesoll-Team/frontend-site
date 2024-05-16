@@ -30,12 +30,12 @@ const CreatePlansPricing = () => {
   const [isOffer, setOffer] = useState(false);
   const [basicPrice, setBasicPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(0);
-
-  const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
+  const [normalProp, setNormalProp] = useState(0);
   const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
+  const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
 
-  const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-  const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  // const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  // const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
   const [featuresList, setFeaturesList] = useState(new Set([]));
   const [featuresId, setFeaturesId] = useState([]);
@@ -52,10 +52,11 @@ const CreatePlansPricing = () => {
     service: [...featuresList],
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    propNumberInHome,
-    pinDayInHome: durationPlanHome,
     propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
+    normalProp,
+    // propNumberInHome,
+    // pinDayInHome: durationPlanHome,
     // singlePageContentAr,
     // singlePageContentEn,
   };
@@ -72,10 +73,11 @@ const CreatePlansPricing = () => {
     service: featuresId,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    propNumberInHome,
-    pinDayInHome: durationPlanHome,
     propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
+    normalProp,
+    // propNumberInHome,
+    // pinDayInHome: durationPlanHome,
     // singlePageContentAr,
     // singlePageContentEn,
   };
@@ -85,7 +87,7 @@ const CreatePlansPricing = () => {
 
     const selectedFeaturesArray = selectedItems.map((selectedItem) => {
       const selectedFeature = servicePrice.find(
-        (item) => item._id === selectedItem
+        (item) => item._id === selectedItem,
       );
       if (selectedFeature) {
         const { _id, nameAr, nameEn } = selectedFeature;
@@ -95,10 +97,10 @@ const CreatePlansPricing = () => {
     });
 
     const filteredSelectedFeaturesArray = selectedFeaturesArray.filter(
-      (item) => item !== null
+      (item) => item !== null,
     );
     const featuresIdArray = filteredSelectedFeaturesArray.map(
-      (item) => item._id
+      (item) => item._id,
     );
 
     setFeaturesId(featuresIdArray);
@@ -129,10 +131,10 @@ const CreatePlansPricing = () => {
           isAdd
         />
       ) : (
-        <div className="w-full grid lg:grid-cols-2 grid-cols-1">
+        <div className="w-full grid lg:grid-cols-4 grid-cols-1">
           <div
             dir={language ? "rtl" : "ltr"}
-            className="mt-6  mx-[20px] mb-10 flex flex-col gap-y-[4vh]"
+            className="mt-6 lg:col-span-3 mx-[20px] mb-10 flex flex-col gap-y-[4vh]"
           >
             <div>
               <div className="block text-sm font-medium text-gray-600">
@@ -224,7 +226,23 @@ const CreatePlansPricing = () => {
               </div>
             </div>
             {/* Price & Old price */}
-            <div className="items-center grid sm:grid-cols-2 grid-cols-1 gap-x-3 gap-y-[1vh]">
+            <div className="items-center grid sm:grid-cols-3 grid-cols-1 gap-x-3 gap-y-[1vh]">
+              <div className="w-full flex flex-col gap-y-[0.5vh]">
+                <label
+                  htmlFor="normal properties"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  {language ? "عقارات مجاني" : " free properties "} :-
+                </label>
+                <input
+                  name="normal properties"
+                  type="number"
+                  placeholder={language ? ` عقارات مجاني` : `free properties`}
+                  className="mt-1 px-3 py-2 border rounded w-full"
+                  onChange={(e) => setNormalProp(e.target.value)}
+                />
+              </div>
+
               <div className="">
                 <label
                   htmlFor="price"
@@ -345,7 +363,30 @@ const CreatePlansPricing = () => {
                   </div>
                 </>
               )}
-              {featuresId.includes("656cc0c1485cfd01499d1365") && (
+            </div>
+            {/* Button  */}
+            <div className="flex justify-center items-center">
+              <button
+                onClick={handleAddFeatures}
+                className="bg-lightGreen py-5 lg-text px-10 rounded-xl font-bold text-white"
+              >
+                {language ? "تاكيد إضافة الباقة" : "Confirm adding the package"}
+              </button>
+            </div>
+          </div>
+          <div className="grid justify-center grid-cols-1 lg:mt-14 mt-3 ">
+            <PlanPricingCard data={data2} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CreatePlansPricing;
+
+/*more option */
+/* {featuresId.includes("656cc0c1485cfd01499d1365") && (
                 <>
                   <b>
                     {language
@@ -375,10 +416,9 @@ const CreatePlansPricing = () => {
                     />
                   </div>
                 </>
-              )}
-            </div>
-            {/*more option */}
-            {/* <div className=" grid col-span-2">
+              )} */
+
+/* <div className=" grid col-span-2">
               <button
                 onClick={() => setMoreOption(!moreOption)}
                 className="text-blue-700 underline cursor-pointer w-max "
@@ -408,24 +448,4 @@ const CreatePlansPricing = () => {
                   className="mt-1 max-h-[600px] min-h-[150px] px-3 py-2 border rounded w-full"
                 ></textarea>
               </div>
-            </div> */}
-            {/* Button  */}
-            <div className="flex justify-center items-center">
-              <button
-                onClick={handleAddFeatures}
-                className="bg-lightGreen py-5 lg-text px-10 rounded-xl font-bold text-white"
-              >
-                {language ? "تاكيد إضافة الباقة" : "Confirm adding the package"}
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-center items-center">
-            <PlanPricingCard data={data2} />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default CreatePlansPricing;
+            </div> */

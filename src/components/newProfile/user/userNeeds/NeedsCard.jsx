@@ -11,7 +11,6 @@ import need from "@/pages/add-need";
 
 const NeedsCard = ({ data }) => {
   const dispatch = useDispatch();
-  console.log(data);
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu((prev) => !prev);
   const menuRef = useRef(null);

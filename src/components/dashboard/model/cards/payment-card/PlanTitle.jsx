@@ -15,12 +15,20 @@ const PlanTitle = ({ stylesCss, data }) => {
           : data?.PaymentEn}
       </h3>
       <div className="flex flex-wrap gap-x-2 items-end ">
-        <div className="font-semibold text-lightGreen items-center flex gap-x-1 space-x-1">
-          <h3 className="text-lightGreen">
-            {parseInt(data?.price).toLocaleString()}{" "}
-          </h3>
-          <h3 className="text-lightGreen"> {language ? " جنية " : " EGP "} </h3>
-        </div>
+        {data.price > 0 ? (
+          <div className="font-semibold text-lightGreen items-center flex gap-x-1 space-x-1">
+            <h3 className="text-lightGreen">
+              {parseInt(data?.price).toLocaleString()}
+            </h3>
+            <h3 className="text-lightGreen">{language ? " جنية " : " EGP "}</h3>
+          </div>
+        ) : (
+          <div className="font-semibold text-lightGreen items-center flex gap-x-1 space-x-1">
+            <h3 className="text-lightGreen">
+              {language ? " مجانية " : " Free "}
+            </h3>
+          </div>
+        )}
         {data?.offer && (
           <div className=" items-center space-x-1 overflow-hidden flex gap-x-1 text-[#CCCCCC]">
             <s> {parseInt(data?.offerPrice).toLocaleString()} </s>

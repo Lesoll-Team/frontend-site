@@ -57,7 +57,6 @@ ChartJS.register(
 function Dashboard() {
   const userInfo = useSelector((state) => state.userProfile.userData);
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
-  // console.log("PriceService", PriceService);
   const dataSale = useSelector((state) => state.OverView.dataSale);
   const dataRents = useSelector((state) => state.OverView.dataRent);
   const dataDelete = useSelector((state) => state.OverView.dataDeleted);
