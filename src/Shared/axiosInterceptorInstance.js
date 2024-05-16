@@ -15,8 +15,7 @@ const refreshToken = async () => {
     Cookies.set("userToken", accessToken);
     return accessToken;
   } catch (error) {
-    console.error("Failed to refresh token", error);
-    throw error;
+    throw error.response.data;
   }
 };
 axiosInstance.interceptors.request.use(
@@ -47,6 +46,12 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         Cookies.remove("userToken");
+        if (
+          window.location.href.includes("profile") ||
+          window.location.href.includes("dashboard")
+        ) {
+          window.location.href = "/";
+        }
         return Promise.reject(error); // Return the original error from the endpoint
       }
     }

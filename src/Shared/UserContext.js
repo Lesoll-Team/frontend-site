@@ -27,8 +27,8 @@ export const UserProvider = ({ children }) => {
         setData(res.data.userData);
         setStatus("succeeded");
       } catch (error) {
-        console.error("Failed to fetch user data:", error.response.data.code);
         setStatus("failed");
+        throw error.response.data;
       }
     };
 
