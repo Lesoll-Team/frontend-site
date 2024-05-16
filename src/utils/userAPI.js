@@ -20,6 +20,7 @@ export async function loginUser(userData) {
 }
 export async function logoutUser() {
   await axiosInstance.post(`/auth/logout`);
+  // Cookies.remove("jwt");
   Cookies.remove("userToken");
 }
 
