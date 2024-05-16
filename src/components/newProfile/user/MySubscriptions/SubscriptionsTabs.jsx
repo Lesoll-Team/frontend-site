@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
-const SubscriptionsTabs = ({}) => {
+const SubscriptionsTabs = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
 

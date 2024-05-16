@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import MobilePageTitle from "../MobilePageTitle";
-import PlanCard from "./PackageCard";
+// import PlanCard from "./PackageCard";
 import SubscriptionsTabs from "./subscriptionsTabs";
 import CurrentSubscriptions from "./CurrentSubscriptions";
 import { useRouter } from "next/router";
