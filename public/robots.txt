@@ -20,4 +20,5 @@ Disallow: /termsofservice
 Disallow: /google-log
 Disallow: /add-need
 Disallow: /add-property
+Disallow: /callback-price
 Sitemap: https://lesoll.com/sitemap.xml

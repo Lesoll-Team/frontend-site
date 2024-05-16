@@ -14,7 +14,7 @@ const customStyles = {
     zIndex: "10000",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent background
+    backgroundColor: "rgba(0, 0, 0, 0.3)", // semi-transparent background
     zIndex: 10000, // ensure the modal is on top of everything
   },
 };

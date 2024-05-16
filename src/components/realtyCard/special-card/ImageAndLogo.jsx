@@ -23,6 +23,8 @@ const ImageAndLogo = ({ cardDetails }) => {
         radius="none"
         className={`
      w-full
+     md:h-[300px]
+     h-[240px]
      object-cover
      `}
         priority={true}

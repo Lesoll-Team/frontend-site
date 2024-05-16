@@ -20,13 +20,15 @@ import allProjectsSlice from "@/components/dashboard/router/all-projects/redux/a
 import editProjectSlice from "@/components/dashboard/router/edit-project/redux/editProjectSlice";
 import pendingNeedsSlice from "@/components/dashboard/router/needs/redux/pendingNeedsSlice";
 import currenciesSlice from "@/components/newAddProperty/redux/currenciesSlice";
+import PricingReducer from "./features/PricingSlice";
+
 export default combineReducers({
   GlobalState: globalState,
   Property: overViewReducer,
   Contact: contactReducer,
   BlogDashboard: blogDashboardReducer,
   OverView: overViewReducer,
-  // Searching: searchingReducer,
+  Pricing: PricingReducer,
   Profile: profileReducer,
   userProfile: userProfileReducer,
   getGov: getGovReducer,

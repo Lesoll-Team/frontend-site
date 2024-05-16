@@ -1,111 +1,105 @@
-import DeleteModal from "@/Shared/models/DeleteModal";
-import { deleteProperty } from "@/utils/propertyAPI";
-import { useState } from "react";
-import { FiTrash2 } from "react-icons/fi";
+import Button from "@/Shared/ui/Button";
+import { useForm } from "react-hook-form";
 import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { deleteProperty } from "../apis/profileApis";
+import { useEffect, useState } from "react";
 
-const DeleteBtn = ({ propId, onDelete }) => {
-  const dispatch = useDispatch();
-  const [reason, setReason] = useState("");
-  const [selectedReason, setSelectedReason] = useState("");
-  const [error, setError] = useState(false);
+const DeleteBtn = ({ propId, getProperties, setDeleteIsOpen }) => {
+  const [formStatus, setFormStatus] = useState("idle");
+  const [serverError, setServerError] = useState("idle");
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const form = useForm({
+    defaultValues: {
+      message: "تم البيع / التأجير من خلال ليسول",
+      tap: "lesoll",
+    },
+  });
+  const { setValue, watch, reset, register, handleSubmit, formState } = form;
+  // useForm();
 
-  const onReasonSelect = (selected, messege) => {
-    setError(false);
-    setSelectedReason(selected);
-    setReason(messege);
+  const onSubmit = async (data) => {
+    await deleteProperty({
+      setFormStatus,
+      setServerError,
+      message: data.message,
+      propdId: propId,
+    });
   };
-  const deleteProp = async () => {
-    try {
-      await deleteProperty(propId, reason);
-      dispatch(onDelete);
-    } catch (error) {
-      console.error("Error del prop:", error);
+  useEffect(() => {
+    if (formStatus === "success") {
+      getProperties();
+      setDeleteIsOpen(false);
     }
-  };
+  }, [formStatus]);
   return (
-    <DeleteModal
-      selectedReason={selectedReason}
-      OpenButton={
-        <button className=" w-9 h-9 rounded-full mx-5 bg-white flex items-center justify-center border drop-shadow-md hover:text-red-500 duration-150">
-          <FiTrash2 className="text-xl " />
-        </button>
-      }
-      reason={reason}
-      error={error}
-      setError={setError}
-      deleteProp={deleteProp}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-start gap-3 p-3 w-[90vw] md:w-[50vw]"
     >
-      <div className="flex flex-col items-start gap-3 mb-3">
-        <h3 className="text-2xl fomt-semiBold">
-          {language
-            ? " ما سبب رغبتك في حذف هذا العقار؟"
-            : "What is the reason you want to delete this property?"}
-        </h3>
-        <button
-          onClick={() =>
-            onReasonSelect("lesoll", "تم البيع / التأجير من خلال ليسول")
-          }
-          type="button"
-          className="flex gap-2 items-center text-lg font-normal"
-        >
-          {selectedReason === "lesoll" ? (
-            <IoIosRadioButtonOn className="text-lightGreen" />
-          ) : (
-            <IoMdRadioButtonOff className="text-lightGreen" />
-          )}
+      <h3 className="text-2xl fomt-semiBold">
+        {language
+          ? " ما سبب رغبتك في حذف هذا العقار؟"
+          : "What is the reason you want to delete this property?"}
+      </h3>
+      <button
+        onClick={() => {
+          setValue("tap", "lesoll");
+          setValue("message", "تم البيع / التأجير من خلال ليسول");
+        }}
+        type="button"
+        className="flex gap-2 items-center text-lg font-normal"
+      >
+        <RadioBtn active={watch("tap") === "lesoll"} />
 
-          {language ? "تم البيع / التأجير من خلال ليسول" : ""}
-        </button>
-        <button
-          onClick={() =>
-            onReasonSelect("non-lesoll", "تم البيع / التأجير من خلال وسيط اخر")
-          }
-          type="button"
-          className="flex gap-2 items-center text-lg font-normal"
-        >
-          {selectedReason === "non-lesoll" ? (
-            <IoIosRadioButtonOn className="text-lightGreen" />
-          ) : (
-            <IoMdRadioButtonOff className="text-lightGreen" />
-          )}
-          {language ? "تم البيع / التأجير من خلال وسيط اخر" : ""}
-        </button>
-        <button
-          onClick={() => {
-            onReasonSelect("other", otherMessage);
-          }}
-          type="button"
-          className="flex gap-2 items-center text-lg font-normal"
-        >
-          {selectedReason === "other" ? (
-            <IoIosRadioButtonOn className="text-lightGreen" />
-          ) : (
-            <IoMdRadioButtonOff className="text-lightGreen" />
-          )}
-          {language ? "اخرى" : ""}
-        </button>
-        {selectedReason === "other" && (
-          <textarea
-            value={otherMessage}
-            onChange={(e) => {
-              setReason(e.target.value);
-              setOtherMessage(e.target.value);
-            }}
-            className={`resize-none w-full p-2 border-[2px] md:border-[3px] rounded-md focus:ring-0 focus:border-lightGreen focus:outline-none animate-appearance-in ${
-              selectedReason !== "other" && "animate-appearance-out"
-            }`}
-            placeholder={language ? "سبب أخر" : "Other reason"}
-            name=""
-            id=""
-            cols="30"
-            rows="5"
-          ></textarea>
-        )}
-      </div>
-    </DeleteModal>
+        {language ? "تم البيع / التأجير من خلال ليسول" : ""}
+      </button>
+      <button
+        onClick={() => {
+          setValue("tap", "non-lesoll");
+          setValue("message", "تم البيع / التأجير من خلال وسيط اخر");
+        }}
+        type="button"
+        className="flex gap-2 items-center text-lg font-normal"
+      >
+        <RadioBtn active={watch("tap") === "non-lesoll"} />
+        {language ? "تم البيع / التأجير من خلال وسيط اخر" : ""}
+      </button>
+      <button
+        onClick={() => {
+          setValue("tap", "other");
+          setValue("message", "");
+        }}
+        type="button"
+        className="flex gap-2 items-center text-lg font-normal"
+      >
+        <RadioBtn active={watch("tap") === "other"} />
+
+        {language ? "اخرى" : ""}
+      </button>
+      {watch("tap") === "other" && (
+        <textarea
+          {...register("message")}
+          className={`resize-none w-full p-2 border-[2px] md:border-[3px] rounded-md focus:ring-0 focus:border-lightGreen focus:outline-none animate-appearance-in `}
+          placeholder={language ? "سبب أخر" : "Other reason"}
+          name=""
+          id=""
+          cols="30"
+          rows="5"
+        />
+      )}
+      <Button className={"bg-red-500 border-none"}>
+        {language ? "حذف" : "Delete"}
+      </Button>
+    </form>
   );
 };
 export default DeleteBtn;
+
+const RadioBtn = ({ active }) => {
+  return active ? (
+    <IoIosRadioButtonOn className="text-lightGreen" />
+  ) : (
+    <IoMdRadioButtonOff className="text-lightGreen" />
+  );
+};

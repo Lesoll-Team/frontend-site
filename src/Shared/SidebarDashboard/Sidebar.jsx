@@ -7,7 +7,7 @@ import { TbHomeCheck, TbHomeDown } from "react-icons/tb";
 import Image from "next/image";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { FaRegNewspaper } from "react-icons/fa";
-import { MdOutlineAddHomeWork } from "react-icons/md";
+import { MdOutlineAddHomeWork, MdOutlinePriceChange } from "react-icons/md";
 import { IoIosPaper } from "react-icons/io";
 
 const Sidebar = () => {
@@ -98,6 +98,19 @@ const Sidebar = () => {
           />{" "}
           <span className={toggleNav ? "lg:block hidden " : "hidden"}>
             Users
+          </span>
+        </Link>
+        <Link
+          className={` flex items-center justify-start ${
+            toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+          } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
+          href={"/dashboard/pricing"}
+        >
+          <MdOutlinePriceChange
+            className={toggleNav ? "lg:text-xl text-[30px] " : " text-[30px]  "}
+          />{" "}
+          <span className={toggleNav ? "lg:block hidden " : "hidden"}>
+            Pricing
           </span>
         </Link>
         {/**"flex justify-start  space-x-4 items-center" */}
