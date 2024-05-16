@@ -148,6 +148,7 @@ export const toggleSold = async ({
     const token = JSON.parse(localStorage.getItem("userToken"));
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/property/sold/${propdId}?token=${token}`,
+      {},
       {
         headers: {
           token,
@@ -177,6 +178,7 @@ export const repostProperty = async ({
     const token = JSON.parse(localStorage.getItem("userToken"));
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/payment-user/repost-property/${propId}?token=${token}`,
+      {},
       {
         headers: {
           token,
