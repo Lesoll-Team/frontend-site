@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
 
 import { FaSquareMinus } from "react-icons/fa6";
-
 const INSTALLMENT = {
   type: {
     value: "",

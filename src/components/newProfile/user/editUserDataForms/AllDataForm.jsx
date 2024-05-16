@@ -28,7 +28,6 @@ const AllDataForm = ({ main }) => {
   const phoneNumberwithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;
   };
-  console.log(userData);
   useEffect(() => {
     if (userData) {
       const { code, phone } = userData;

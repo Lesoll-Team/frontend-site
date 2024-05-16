@@ -6,7 +6,11 @@ import { GoHome } from "react-icons/go";
 import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { LuFileText } from "react-icons/lu";
-import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
+import {
+  MdOutlineAddHomeWork,
+  MdOutlineHeadsetMic,
+  MdOutlinePayment,
+} from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ChangeLang from "./ChangeLang";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
@@ -109,6 +113,16 @@ const SideMenu = () => {
             >
               <GoHome className="text-baseGray text-lg" />
               <span>{language ? "الرئيسية" : "Home"}</span>
+            </Link>
+
+            <Link
+              onClick={closeSideMenu}
+              href="/prices"
+              className="flex items-center gap-4"
+            >
+              <MdOutlinePayment className="text-baseGray text-lg" />
+
+              {language ? "الباقات" : "Packages"}
             </Link>
             <Link
               onClick={closeSideMenu}

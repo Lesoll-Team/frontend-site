@@ -59,7 +59,6 @@ function Dashboard() {
   const { data } = useUser();
 
   const dataProperties = useSelector((state) => state.OverView.dataProperties);
-
   const dataSale = useSelector((state) => state.OverView.dataSale);
   const dataRents = useSelector((state) => state.OverView.dataRent);
   const dataDelete = useSelector((state) => state.OverView.dataDeleted);

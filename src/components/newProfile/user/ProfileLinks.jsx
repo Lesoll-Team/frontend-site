@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { BiEditAlt } from "react-icons/bi";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdCard, IoMdHeartEmpty } from "react-icons/io";
 import {
   MdOutlineAccountCircle,
   MdOutlineRealEstateAgent,
@@ -28,6 +28,7 @@ const ProfileLinks = ({ main }) => {
   const isAds = route.includes("/profile/my-properties");
   const isSaved = route.includes("/profile/saved-items");
   const isNeeds = route.includes("/profile/needs");
+  const isPackage = route.includes("/profile/my-subscriptions");
   const NavLink = ({ href, text, icon: Icon, active }) => (
     <Link
       href={href}
@@ -73,13 +74,26 @@ const ProfileLinks = ({ main }) => {
           <hr />
         </>
       )}
-      <button
-        onClick={handleLogout}
-        className="text-baseGray flex items-center gap-4 font-semibold text-[17px]"
-      >
-        <RiLogoutBoxLine className="md:text-2xl" />
-        {language ? "تسجيل الخروج" : "Log out"}
-      </button>
+      <div className="flex flex-col gap-5">
+        <Link
+          href={"/profile/my-subscriptions"}
+          className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isPackage && "md:text-lightGreen"}`}
+        >
+          <IoMdCard className="md:text-2xl" />
+          {language ? " الباقات" : "Package"}
+        </Link>
+        <hr />
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <button
+          onClick={handleLogout}
+          className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
+        >
+          <RiLogoutBoxLine className="md:text-2xl" />
+          {language ? "تسجيل الخروج" : "Log out"}
+        </button>
+      </div>
     </div>
   );
 };

@@ -9,7 +9,6 @@ import { getOtp, verifyPhoneNumber } from "./apis";
 import ReactModal from "../ui/ReactModal";
 
 const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
-  console.log(phoneNumber);
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
