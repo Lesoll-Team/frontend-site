@@ -6,10 +6,10 @@ import { useFormatNewData } from "@/Hooks/useFormatTime";
 import { useSelector } from "react-redux";
 const FavAndDate = ({ propertyDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  // console.log("propertyDetails>>::", propertyDetails);
   const { data, setUserData } = useUser();
   const time = useFormatNewData({
-    date: propertyDetails.createdAt,
+    date: propertyDetails.acceptAt,
     lang: language,
   });
   const [loved, setLoved] = useState(false);

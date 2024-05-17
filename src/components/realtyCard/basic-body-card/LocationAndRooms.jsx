@@ -1,18 +1,12 @@
 import React, { memo } from "react";
-// import { CgLayoutGridSmall } from "react-icons/cg";
-//LiaBedSolid,
 import { LiaVectorSquareSolid } from "react-icons/lia";
-import {
-  // PiBathtub,
-  PiBathtubThin,
-  PiBedLight,
-} from "react-icons/pi";
+import { PiBathtubThin, PiBedLight } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
 const LocationAndRooms = ({ propertyDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
-    <div className="flex w-fit justify-end  gap-x-4">
+    <div className="flex w-fit justify-end   gap-x-2 sm:gap-x-4">
       {!propertyDetails.rooms == 0 && (
         <ul className="flex items-center gap-x-1   ">
           <PiBedLight className="sm:text-xl text-lg" />
@@ -32,7 +26,7 @@ const LocationAndRooms = ({ propertyDetails }) => {
       )}
 
       {!propertyDetails.area == 0 && (
-        <ul className="flex items-center gap-x-1  ">
+        <ul className="flex items-center gap-x-1  whitespace-nowrap ">
           <LiaVectorSquareSolid className="text-lg sm:text-xl" />
           <li className="text-[11px] font-inter md:text-[17px]">
             {propertyDetails?.area} {language ? "م" : "m"}
@@ -40,10 +34,10 @@ const LocationAndRooms = ({ propertyDetails }) => {
           </li>
         </ul>
       )}
-
-      <span className="p-[8px]"></span>
     </div>
   );
 };
 
 export default memo(LocationAndRooms);
+
+/* <span className="p-[8px]"></span> */

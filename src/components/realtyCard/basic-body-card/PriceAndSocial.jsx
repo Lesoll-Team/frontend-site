@@ -32,24 +32,24 @@ const PriceAndSocial = ({ propertyDetails }) => {
   return (
     <div className="flex flex-row items-center  justify-between">
       {propertyDetails?.offer !== "For Investment" ? (
-        <p className=" font-bold gap-x-1 text-gray2 text-[10px] md:text-[16px] flex">
+        <p className=" font-bold gap-x-1 text-gray2 text-[10px] sm:text-[16px] flex">
           <span> EGP </span>
           <span> {parseInt(propertyDetails?.price).toLocaleString()} </span>
         </p>
       ) : (
-        <p className=" font-bold gap-x-1 text-gray2 text-[12px] md:text-[17px] flex">
+        <p className=" font-bold gap-x-1 text-gray2 text-[12px] sm:text-[17px] flex">
           <span> {language ? "للإستثمار" : "Investment"} </span>
         </p>
       )}
-      <div className="flex   gap-x-[14px]  ">
+      <div className="flex   gap-x-[0.9114583333333334vw] ">
         <CallLinkBtn>
-          <span className="bg-[#F2F8F9] cursor-pointer active:animate-appearance-in w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
-            <IoCall className="text-[16px] md:text-[23px] text-[#5F98D1]" />
+          <span className="bg-[#F2F8F9] cursor-pointer active:animate-appearance-in w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full flex items-center justify-center">
+            <IoCall className="text-[16px] sm:text-[23px] text-[#5F98D1]" />
           </span>
         </CallLinkBtn>
         <WhatappLinkBtn>
-          <span className="bg-[#39AE41] cursor-pointer active:animate-appearance-in w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center">
-            <FaWhatsapp className="text-[16px]  md:text-[23px] text-white" />
+          <span className="bg-[#39AE41] cursor-pointer active:animate-appearance-in w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] rounded-full flex items-center justify-center">
+            <FaWhatsapp className="text-[16px]  sm:text-[23px] text-white" />
           </span>
         </WhatappLinkBtn>
       </div>
