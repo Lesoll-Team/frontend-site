@@ -31,7 +31,7 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
       setModalIsOpen={setIsOpen}
       closeBtn={false}
     >
-      <div className="w-screen  px-3 sm:h-fit py-2 pt-5 md:pt-2 relative overflow-auto  sm:w-[80vw] md:w-[500px] space-y-4">
+      <div className="w-[70vw] md:w-[500px] sm:h-fit  px-3 py-2 pt-5 md:pt-2 relative overflow-auto  space-y-4">
         <div className="flex justify-between items-center px-1">
           <h2>{language ? "الدفع من خلال" : "Payment method"}</h2>
           <button onClick={() => setIsOpen(false)}>
@@ -40,57 +40,40 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
         </div>
 
         <div className=" flex flex-col gap-3   h-full justify-center items-center">
-          <div className="flex gap-5 w-full  justify-center">
+          <div className="flex md:flex-row flex-col md:gap-5 gap-3 w-full  justify-center md:items-center">
             <button
               onClick={() => setButtonTarget("card")}
-              className={`${buttonTarget == "card" && "border-2 border-[#309DA0] "} bg-[#F2F8F9] flex flex-col justify-center items-center  rounded-[6px] w-6/12 h-52`}
+              className={`${buttonTarget == "card" && "border-3 border-[#309DA0] animate-appearance-in"} bg-[#F2F8F9] flex flex-row md:flex-col md:space-y-2 justify-center items-center p-3 md:p-0 rounded-[6px] md:w-6/12 w-full md:h-[120px] `}
             >
-              <div className="flex w-full gap-2  h-20 justify-center  items-center">
-                <Image
-                  loading="lazy"
-                  src={"/price/meeza-logo.png"}
-                  alt="meeza logo"
-                  width={50}
-                  height={50}
-                  className="w-[50px] h-[50px]"
-                />
-                <Image
-                  loading="lazy"
-                  src={"/price/visa-logo.png"}
-                  alt="visa logo"
-                  width={50}
-                  height={50}
-                  className="w-[50px] h-[50px]"
-                />
-
-                <Image
-                  loading="lazy"
-                  src={"/price/MasterCard_Logo.png"}
-                  alt="master logo"
-                  width={50}
-                  height={50}
-                  className="w-[50px] h-[30px]"
-                />
-              </div>
-              <span className="font-bold text-darkGray md:text-2xl w-full  h-16 items-center justify-center lg-text flex ">
+              <Image
+                loading="lazy"
+                src={"/price/credit-card.svg"}
+                alt="credit card logo"
+                width={32}
+                height={32}
+                className="w-[32px] h-[32px]"
+              />
+              <span
+                className={`${buttonTarget == "card" ? " text-[#309DA0] " : "text-darkGray"} font-bold   w-full   items-center justify-center text-[17px] md:text-[19px] flex`}
+              >
                 {language ? "حساب بنكي" : "Bank account"}
               </span>
             </button>
             <button
               onClick={() => setButtonTarget("wallet")}
-              className={`${buttonTarget == "wallet" && "border-2 border-[#309DA0] "} bg-[#F2F8F9] flex flex-col justify-center items-center  rounded-[6px] w-6/12 h-52`}
+              className={`${buttonTarget == "wallet" && "border-3 border-[#309DA0] animate-appearance-in"} bg-[#F2F8F9] flex flex-row md:flex-col md:space-y-2 justify-center items-center p-3 md:p-0 rounded-[6px] md:w-6/12 w-full md:h-[120px]`}
             >
-              <div className="flex w-full gap-2 h-20 justify-center  ">
-                <Image
-                  loading="lazy"
-                  src={"/price/wallet-logo.svg"}
-                  alt="vodafone logo"
-                  width={100}
-                  height={100}
-                  className="w-[75px] h-[75px]"
-                />
-              </div>
-              <span className="font-bold text-darkGray md:text-2xl w-full items-center justify-center    h-16 lg-text flex ">
+              <Image
+                loading="lazy"
+                src={"/price/wallet-logo.svg"}
+                alt="wallet logo"
+                width={32}
+                height={32}
+                className="w-[32px] h-[32px] "
+              />
+              <span
+                className={`${buttonTarget == "wallet" ? " text-[#309DA0] " : "text-darkGray"} font-bold   w-full   items-center justify-center text-[17px] md:text-[19px] flex`}
+              >
                 {language ? "محفظة الكترونية" : "Electronic wallet"}
               </span>
             </button>
@@ -98,7 +81,7 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
 
           <button
             onClick={handlePaymentSelection}
-            className=" bg-lightGreen text-white font-semibold w-6/12 h-[48px] rounded-[6px]"
+            className=" bg-lightGreen text-white font-semibold w-6/12 md:h-[48px] h-[40px] mt-3 rounded-[6px]"
           >
             التالي
           </button>

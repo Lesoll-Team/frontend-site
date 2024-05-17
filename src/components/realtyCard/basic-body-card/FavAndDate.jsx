@@ -2,7 +2,6 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useUser } from "@/Shared/UserContext";
 import { useEffect, useState } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
-// import useFormatDate from "@/Hooks/useFormatDate";
 import { useFormatNewData } from "@/Hooks/useFormatTime";
 import { useSelector } from "react-redux";
 const FavAndDate = ({ propertyDetails }) => {
@@ -10,7 +9,7 @@ const FavAndDate = ({ propertyDetails }) => {
 
   const { data, setUserData } = useUser();
   const time = useFormatNewData({
-    date: propertyDetails.acceptAt,
+    date: propertyDetails.createdAt,
     lang: language,
   });
   const [loved, setLoved] = useState(false);

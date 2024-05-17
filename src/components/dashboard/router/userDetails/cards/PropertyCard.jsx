@@ -43,12 +43,12 @@ const PropertyCard = ({ propertyDetails }) => {
                 ? "للبيع"
                 : "For Sale"
               : propertyDetails?.offer === "For Rent"
-              ? language
-                ? "للإيجار"
-                : "For Rent"
-              : language
-              ? "للإستثمار"
-              : "For Investment"}
+                ? language
+                  ? "للإيجار"
+                  : "For Rent"
+                : language
+                  ? "للإستثمار"
+                  : "For Investment"}
           </p>
         </div>
         <h3 className="text-lg md:text-xl w-full  font-semibold line-clamp-1">
@@ -169,7 +169,7 @@ const PropertyCard = ({ propertyDetails }) => {
         />
         <p className=" absolute bottom-0 z-20 p-1 text-center w-full text-white bg-darkGreen font-semibold">
           {" "}
-          تم النشر فى {formatDate(propertyDetails.acceptAt)}
+          تم النشر فى {formatDate(propertyDetails.createdAt)}
         </p>
       </div>
     </div>

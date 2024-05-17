@@ -10,7 +10,6 @@ const NotSignUpModal = dynamic(
   () => import("@/Shared/contact-modals/NotSignedModal"),
 );
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { cn } from "@/utils/cn";
 import PriceModel from "@/components/pricing/PriceModel";
 import { useUser } from "@/Shared/UserContext";
