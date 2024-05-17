@@ -10,13 +10,12 @@ import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { useUser } from "@/Shared/UserContext";
 
 const AllDataForm = ({ main }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const formStatus = useSelector((state) => state.editUser.status);
-  const formError = useSelector((state) => state.editUser.error);
   const dispatch = useDispatch();
   const form = useForm();
   const { register, handleSubmit, formState, setValue, watch } = form;
@@ -27,31 +26,34 @@ const AllDataForm = ({ main }) => {
   };
 
   useEffect(() => {
-    if (userData) {
-      const { fullname, email, code, phone } = userData;
+    if (data) {
+      const { code, phone } = data;
 
       setValue("phone", code + phoneNumberwithoutCode(phone, code));
       setValue("code", code);
     }
-  }, [userData]);
+  }, [data]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = (dataChange) => {
     const formData = new FormData();
-    formData.append("fullname", data.fullname);
-    formData.append("code", data.code);
-    formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
-    formData.append("instagramLink", data.instagramLink);
-    formData.append("faceLink", data.faceLink);
-    await dispatch(
+    formData.append("fullname", dataChange.fullname);
+    formData.append("code", dataChange.code);
+    formData.append(
+      "phone",
+      phoneNumberwithoutCode(dataChange.phone, dataChange.code),
+    );
+    formData.append("instagramLink", dataChange.instagramLink);
+    formData.append("faceLink", dataChange.faceLink);
+    dispatch(
       updateUser({
         userData: formData,
-        id: userData?._id,
+        id: data?._id,
       }),
     );
-    dispatch(getUserData());
+    setUserData();
   };
 
-  if (userData) {
+  if (data) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -70,7 +72,7 @@ const AllDataForm = ({ main }) => {
                 autoComplete="off"
                 type="text"
                 // readOnly
-                defaultValue={userData.fullname}
+                defaultValue={data.fullname}
                 {...register("fullname", {
                   required: {
                     value: true,
@@ -93,7 +95,7 @@ const AllDataForm = ({ main }) => {
               <input
                 readOnly
                 type="text"
-                defaultValue={userData.email}
+                defaultValue={data.email}
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
@@ -165,7 +167,7 @@ const AllDataForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.faceLink}
+                defaultValue={data.faceLink}
                 {...register("faceLink", {})}
                 className={`p-2 md:p-3py-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
                   errors.faceLink && "border-red-500 focus:border-red-500"
@@ -180,9 +182,9 @@ const AllDataForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.instagramLink}
+                defaultValue={data.instagramLink}
                 {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen`}
               />
             </UserSocialMediaContainer>
           </div>
@@ -224,13 +226,6 @@ const AllDataForm = ({ main }) => {
 };
 
 export default AllDataForm;
-
-const UserInputContainer = ({ title, children }) => (
-  <div className="flex flex-col gap-y-2">
-    <p className=" text-gray-800 ">{title}</p>
-    {children}
-  </div>
-);
 
 const UserSocialMediaContainer = ({ imgLink, children, name }) => (
   <div className="flex items-center gap-x-8">

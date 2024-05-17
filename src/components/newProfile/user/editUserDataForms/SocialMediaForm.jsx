@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -7,33 +7,33 @@ import Button from "@/Shared/ui/Button";
 
 import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
-import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
+// import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
-import { getUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useState } from "react";
 import { editUserData } from "../../apis/profileApis";
+import { useUser } from "@/Shared/UserContext";
 
 const SocialMediaForm = ({ main }) => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  const { data, setUserData } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const form = useForm();
-  const { register, handleSubmit, formState, setValue, watch } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
-  const onSubmit = async (data) => {
+  const onSubmit = async (dataUpdated) => {
     await dispatch(
       editUserData({
-        data,
+        dataUpdated,
         setServerError,
         setFormStatus,
-        id: userData?._id,
+        id: data?._id,
       }),
     );
-    dispatch(getUserData());
+    setUserData();
   };
 
-  if (userData) {
+  if (data) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
         <MobilePageTitle
@@ -56,7 +56,7 @@ const SocialMediaForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.faceLink}
+                defaultValue={data.faceLink}
                 {...register("faceLink", {})}
                 className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
                   errors.faceLink && "border-red-500 focus:border-red-500"
@@ -71,9 +71,9 @@ const SocialMediaForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData?.instagramLink}
+                defaultValue={data?.instagramLink}
                 {...register("instagramLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -84,9 +84,9 @@ const SocialMediaForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.linkedInLink}
+                defaultValue={data.linkedInLink}
                 {...register("linkedInLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -97,9 +97,9 @@ const SocialMediaForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.xLink}
+                defaultValue={data.xLink}
                 {...register("xLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
             <UserSocialMediaContainer
@@ -110,9 +110,9 @@ const SocialMediaForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                defaultValue={userData.tiktokLink}
+                defaultValue={data.tiktokLink}
                 {...register("tiktokLink", {})}
-                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${errors}`}
+                className={`p-2  md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen `}
               />
             </UserSocialMediaContainer>
           </div>

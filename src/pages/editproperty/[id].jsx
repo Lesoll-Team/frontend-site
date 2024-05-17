@@ -31,11 +31,3 @@ const EditPropertyPage = () => {
 };
 
 export default EditPropertyPage;
-
-// import { useSelector } from "react-redux";
-// import EditProp from "@/components/editproperty/EditProp";
-// import AddProperty from "@/components/newAddProperty/AddProperty";
-// import { formatApiData } from "@/components/edit-property/fromateApiData";
-// import EditProp from "@/components/editProperty/EditProp";
-// import EditProp from '@/components/editProperty/EditProp'
-// const userInfo = useSelector((state) => state.userProfile.userData);

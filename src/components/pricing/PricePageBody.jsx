@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import PlanPricingCard from "../dashboard/model/cards/PlanPricingCard";
 import { getServicePrice } from "@/redux-store/features/PricingSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPlanPayments, updateIndexPlan } from "@/utils/PricingAPI";
 import SkeletonPriceCard from "../dashboard/model/cards/SkeletonPriceCard";
 import { IoMdSettings } from "react-icons/io";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { useUser } from "@/Shared/UserContext";
 
 const PricePageBody = () => {
-  const userData = useSelector((state) => state.userProfile.userData);
+  // const data = useSelector((state) => state.userProfile.data);
+  const { data } = useUser;
   const [loading, setLoading] = useState(false);
   const [sortedPayments, setSortedPayments] = useState([]);
 
@@ -55,7 +57,7 @@ const PricePageBody = () => {
 
   return (
     <div className="md:container md:mx-auto gap-x-[1vh] mx-[20px]">
-      {userData?.isAdmin && (
+      {data?.isAdmin && (
         <button
           onClick={() => setShowSetting(!showSetting)}
           className={` text-xl border-1 border-gray-200 p-2 rounded `}
@@ -72,7 +74,7 @@ const PricePageBody = () => {
               key={plan._id}
               className=" max-w-[390px] mx-auto p-2 gap-x-9 flex flex-col"
             >
-              {userData?.isAdmin && showSetting && (
+              {data?.isAdmin && showSetting && (
                 <div className="flex gap-x-3 my-4 items-center ">
                   <div className="flex gap-x-3 items-center w-full justify-center">
                     <button
