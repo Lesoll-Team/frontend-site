@@ -51,7 +51,9 @@ const FavAndDate = ({ propertyDetails }) => {
           )}
         </div>
       )}
-      <div className="bg-[#F1F1F1] px-2 rounded-sm font-inter text-[12px]">
+      <div
+        className={`bg-[#F1F1F1] px-2 rounded-sm font-inter  ${language ? "text-[12px]" : "text-[10px]"}`}
+      >
         {time}
       </div>
     </div>

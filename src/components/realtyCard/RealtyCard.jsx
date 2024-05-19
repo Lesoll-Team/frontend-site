@@ -7,6 +7,7 @@ import FavAndDate from "./basic-body-card/FavAndDate";
 import { memo } from "react";
 
 const RealtyCard = ({ propertyDetails }) => {
+  // console.log("propertyDetails");
   return (
     <div className="overflow-hidden  w-full  sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md">
       {/* start icon favorite */}
@@ -56,3 +57,26 @@ const RealtyCard = ({ propertyDetails }) => {
   );
 };
 export default memo(RealtyCard);
+//${propertyDetails.makeRepost || propertyDetails.makePin ? "border-2 border-yellow-200" : "bg-white"}
+// {
+// acceptAt:"2024-05-17T09:11:15.047Z"
+// address:{name: 'ميدان الساعة الطلبية فيصل، شارع الملك فيصل، كفر طهرمس / ب، الطالبية', governrate: 'الجيزة', region: 'فيصل',longitude: '31.1760326'}
+// area:100
+// bathRooms:2
+// connectPhoneNumber:""
+// countOfVisit:0
+// createdAt:"2024-05-17T09:10:59.532Z"
+// isSold:false
+// makePin:true
+// makeRepost:false
+// offer:"For Sale"
+// price:200000
+// property_badge:"Gold"
+// publishAt:"2024-05-17T09:10:59.532Z"
+// rooms:2
+// slug:"ID5254737459-شقة-للبيع-فيصل-الجيزة"
+// thumbnail:"https://cloud.lesoll.com/v0/public/Realty/2024/5/65250e9c459867f951c0b1bd-66471f2348ddaa7b6b0708a9-46283854.webp"
+// title:"مصطفى "
+// user:{code: '20', phone: '1114029705'}
+// _id:"66471f2348ddaa7b6b0708a9"
+// }
