@@ -9,11 +9,14 @@ import ActionsMenu from "./ActionsMenu";
 import { useMemo } from "react";
 import PaymentActions from "./PaymentActions";
 import { MdOutlineStarPurple500 } from "react-icons/md";
+import Link from "next/link";
+import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import { useUser } from "@/Shared/UserContext";
 
 const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const price = localizedNumber(data?.price);
-
+  const { data: userData } = useUser();
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
   }, [type]);
@@ -45,6 +48,17 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             alt="property image"
             className="w-full max-h-[150px] object-cover"
           />
+          {userData && userData.dashboardPackage && (
+            <div className="absolute bottom-0 left-0 bg-white border py-1 px-2">
+              <Link
+                href={`/profile/property-analytics/${data?.slug}`}
+                className="flex gap-1 items-center text-linkColor underline"
+              >
+                <TbBrandGoogleAnalytics />{" "}
+                {language ? "إحصائيات العقار" : "Property insights"}{" "}
+              </Link>
+            </div>
+          )}
         </div>
         <div className="px-2 mb-4 md:mb-7 md:px-5 flex-col space-y-3 md:space-y-6 ">
           <p className="text-sm text-baseGray md:text-xl font-bold font-inter ">
