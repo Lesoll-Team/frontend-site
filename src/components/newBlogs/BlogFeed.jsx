@@ -6,7 +6,7 @@ import Head from "next/head";
 
 const BlogFeed = ({ blogs, keyword }) => {
   return (
-    <div className="flex flex-col md:gap-y-[80px] mb-10">
+    <div className="flex flex-col md:gap-y-[80px] md:mb-20 mb-10">
       <Head>
         <title>المقالات</title>
       </Head>
