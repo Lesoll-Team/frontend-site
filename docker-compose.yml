@@ -1,9 +1,9 @@
-version: '2'
+version: "3"
 services:
   node-app:
-    bulid: .
+    build: .
     container_name: "Lesoll-dev"
     ports:
-      -"3000":"3000"
+      - "3000:3000"
     volumes:
       - ./src:/app/src
