@@ -227,3 +227,24 @@ export const getInvoice = async ({
     throw error.response.data;
   }
 };
+
+export const getPropertyAnalytics = async ({
+  slug,
+  setApiStatus,
+  setServerError,
+  setData,
+}) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.get(
+      `/payment-user/dashboard-min/${slug}`,
+    );
+    if (response.status === 200) {
+      setApiStatus("success");
+      setData(response.data);
+    }
+  } catch (error) {
+    setApiStatus("failed");
+    setServerError(error.response.data);
+  }
+};
