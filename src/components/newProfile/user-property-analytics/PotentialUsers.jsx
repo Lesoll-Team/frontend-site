@@ -13,7 +13,7 @@ const PotentialUsers = ({ users }) => {
         </p>
       </div>
       <div>
-        {users && !users.length > 0 ? (
+        {users && users.length > 0 ? (
           users.map((user, index) => {
             const odd = (index + 1) % 2;
             return <UserRow data={user?.userId} key={user?._id} odd={odd} />;
