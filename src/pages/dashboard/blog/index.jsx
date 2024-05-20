@@ -14,7 +14,7 @@ function Blog() {
     }
   }, [data]);
   return data && (data.isAdmin || data.supAdmin) ? (
-    <div className="min-h-[90dvh] flex" dir="ltr">
+    <div className="min-h-[90dvh] flex " dir="ltr">
       <Head>
         <title>Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
@@ -22,7 +22,7 @@ function Blog() {
       <div className=" sticky top-0">
         <Sidebar />
       </div>
-      <div className="w-full m-10 overflow-x-auto overflow-y-hidden">
+      <div className="w-full  m-10 overflow-x-auto overflow-y-hidden">
         <BlogDashboard />
       </div>
     </div>
