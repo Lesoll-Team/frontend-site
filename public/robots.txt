@@ -1,24 +1,35 @@
 User-agent: *
+
 Disallow: /dashboard
-Disallow: /editproperty
-Disallow: /profile
-Disallow: /admin/
 Disallow: /dashboard/prop-active
 Disallow: /dashboard/prop-pending
 Disallow: /dashboard/users
+Disallow: /dashboard/pricing
 Disallow: /dashboard/blog
 Disallow: /dashboard/blog/add-blog
+Disallow: /dashboard/blog/edit-blog
+Disallow: /dashboard/projects
+Disallow: /dashboard/projects/add-project
+Disallow: /dashboard/projects/all-projects
+Disallow: /dashboard/projects/needs
+Disallow: /dashboard/compoundes
+
+Disallow: /profile
 Disallow: /signin
 Disallow: /signup
-Disallow: /feed/
 Disallow: /faq
-Disallow: /privacypolicy
-Disallow: /Privacy
-Disallow: /forgetpassword
-Disallow: /resetpassword
+
 Disallow: /termsofservice
-Disallow: /google-log
+Disallow: /privacypolicy
+
 Disallow: /add-need
+Disallow: /edit-need
 Disallow: /add-property
+Disallow: /editproperty
+
+Disallow: /resetpassword
+Disallow: /forgetpassword
+Disallow: /google-log
 Disallow: /callback-price
+
 Sitemap: https://lesoll.com/sitemap.xml
