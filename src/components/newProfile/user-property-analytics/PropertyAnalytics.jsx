@@ -24,9 +24,9 @@ const PropertyAnalytics = () => {
       case "success":
         return (
           <>
-            <PropertyInfo />
+            <PropertyInfo data={data?.display} />
             <PropertyInsights data={data?.display} />
-            <PotentialUsers users={data?.display?.usersActive} />
+            <PotentialUsers users={data?.display} />
           </>
         );
       case "failed":

@@ -46,7 +46,7 @@ const UserRow = ({ odd, data }) => {
         <p>{email}</p>
         <div className="relative">
           {copied && (
-            <div className="absolute -top-8 left-[37%] fade-in bg-white rounded-xl border px-3 p-1.5 ">
+            <div className="absolute -top-8 left-[37%] fade-in  bg-white rounded-xl border px-3 p-1.5 ">
               <p className="text-xs">{language ? "تم النسخ" : "Copied"}</p>
             </div>
           )}

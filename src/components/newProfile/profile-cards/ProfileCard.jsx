@@ -48,7 +48,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             alt="property image"
             className="w-full max-h-[150px] object-cover"
           />
-          {userData && !userData.dashboardPackage && (
+          {userData && userData.dashboardPackage && (
             <div className="absolute bottom-0 left-0 bg-white border py-1 px-2">
               <Link
                 href={`/profile/property-analytics/${data?.slug}`}

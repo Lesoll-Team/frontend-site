@@ -14,22 +14,22 @@ const PropertyInsights = ({ data }) => {
         <DataWidget
           icon={<AiOutlineGlobal />}
           title={language ? "عدد مرات الظهور" : "Number of impressions"}
-          data={0}
+          data={data?.seen}
         />
         <DataWidget
           icon={<IoEyeOutline />}
           title={language ? "المشاهدات" : "Views"}
-          data={data?.getViewPage}
+          data={data?.usersVisitAdCount}
         />
         <DataWidget
           icon={<IoShareSocialOutline />}
           title={language ? "عدد المشاركات" : "Number of shares"}
-          data={data?.otherShareTotal}
+          data={data?.totalShare}
         />
         <DataWidget
           icon={<IoIosCall />}
           title={language ? "محاولات التواصل" : "attempts to communicate"}
-          data={data?.totalCallAndWhatsapp}
+          data={data?.totalContact}
         />
       </div>
     </div>

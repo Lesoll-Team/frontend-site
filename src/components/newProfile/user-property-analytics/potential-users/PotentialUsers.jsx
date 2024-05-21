@@ -12,9 +12,9 @@ const PotentialUsers = ({ users }) => {
   };
   const renderTab = useCallback(() => {
     if (tab === "visits") {
-      return <RenderUsers users={users} />;
+      return <RenderUsers users={users?.usersVisitAd} />;
     } else if (tab === "actions") {
-      return <RenderUsers users={users} />;
+      return <RenderUsers users={users?.usersClickWhatsappAndCall} />;
     } else return <RenderUsers users={[]} />;
   }, [tab]);
   return (
