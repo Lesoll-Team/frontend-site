@@ -2,7 +2,8 @@ import useBuyPackage from "@/Hooks/useBuyPackage";
 import { deletePricePlan } from "@/redux-store/features/PricingSlice";
 import Link from "next/link";
 import React from "react";
-import { MdDeleteForever } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
+import { MdDeleteForever, MdOutlineTableView } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 const ButtonsActions = ({ stylesCss, data }) => {
@@ -27,12 +28,21 @@ const ButtonsActions = ({ stylesCss, data }) => {
           </ButtonsBuyPackage>
           <div className="w-full flex justify-center items-center gap-x-5 ">
             <Link
-              href={`/dashboard/pricing/edit/${data._id}`}
-              className={`py-1 px-5 border-2  rounded-xl ${stylesCss?.buttonCss}`}
+              href={`/dashboard/pricing/plan/${data._id}`}
+              className={`py-1 mx-5   rounded-xl ${stylesCss?.buttonCss}`}
             >
-              Edit Plan
+              <MdOutlineTableView className="text-2xl" />
             </Link>
-            <button onClick={() => dispatch(deletePricePlan({ id: data._id }))}>
+            <Link
+              href={`/dashboard/pricing/edit/${data._id}`}
+              className={`py-1 mx-5   rounded-xl ${stylesCss?.buttonCss}`}
+            >
+              <FiEdit className="text-2xl" />
+            </Link>
+            <button
+              className="py-1 mx-5   rounded-xl"
+              onClick={() => dispatch(deletePricePlan({ id: data._id }))}
+            >
               <MdDeleteForever className="text-2xl" />
             </button>
           </div>

@@ -1,4 +1,7 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
+import PlanDetailsFilters from "./PlanDetailsFilters";
+import PlanAnalytics from "./PlanAnalytics";
+import PlanUsersTable from "./PlanUsersTable";
 
 const PlanDetailsLayout = ({ planDetails }) => {
   return (
@@ -8,6 +11,9 @@ const PlanDetailsLayout = ({ planDetails }) => {
       </div>
       <div>
         <h1>Plan id: {JSON.stringify(planDetails)}</h1>
+        <PlanDetailsFilters planDetails={planDetails} />
+        <PlanAnalytics planDetails={planDetails} />
+        <PlanUsersTable planDetails={planDetails} />
       </div>
     </div>
   );

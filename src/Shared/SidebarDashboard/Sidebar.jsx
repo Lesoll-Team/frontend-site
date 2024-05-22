@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiUsersFour } from "react-icons/pi";
-import { TbHomeCheck, TbHomeDown } from "react-icons/tb";
+import { TbHomeCheck, TbHomeDown, TbUserStar } from "react-icons/tb";
 import Image from "next/image";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { FaRegNewspaper } from "react-icons/fa";
@@ -112,6 +112,26 @@ const Sidebar = () => {
             }
           >
             Pricing
+          </span>
+        </Link>
+        {/* <TbUserDollar />
+        <TbUserStar />
+<PiUserCircleGearBold />
+
+         */}
+        <Link
+          className={` flex items-center justify-start ${
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
+          } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
+          href={"/dashboard/vip-users"}
+        >
+          <TbUserStar className=" text-[20px]" />
+          <span
+            className={
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
+            }
+          >
+            VIP Users
           </span>
         </Link>
         {/**"flex justify-start  space-x-4 items-center" */}

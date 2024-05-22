@@ -1,0 +1,592 @@
+{
+  "userData": {
+    "_id": "66430e87bfa1ab71078d108f",
+    "fullname": "Abdo mostafa mohamed",
+    "email": "disha@gmail.com",
+    "avatarUrl": "",
+    "code": "20",
+    "phone": "1066256137",
+    "propertyPackageNumber": 240,
+    "repostPropertyNumber": 119,
+    "pinPropertyNumber": 117,
+    "countPinProperty": 3,
+    "countRepostProperty": 0
+  },
+  "allUsersPackageContinuous": [
+    {
+      "_id": "664c395aa1ee5b4393461e2b",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-20T06:04:10.971Z",
+      "status": "Continuous",
+      "createdAt": "2024-05-21T06:04:10.989Z"
+    }
+  ],
+  "allUsersPackageEnd": [
+    {
+      "_id": "6645aa895c6e8f11518fd924",
+      "packageID": {
+        "_id": "662e45bb09ceee967f385415",
+        "PaymentAr": "جولدن",
+        "PaymentEn": "Golden"
+      },
+      "expireDate": "2024-06-15T06:41:13.778Z",
+      "status": "End",
+      "createdAt": "2024-05-16T06:41:13.779Z"
+    },
+    {
+      "_id": "6645afab9a6c586cc5d21873",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T07:03:07.206Z",
+      "status": "End",
+      "createdAt": "2024-05-16T07:03:07.219Z"
+    },
+    {
+      "_id": "6645b06fca5421768c9812b3",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T07:06:23.837Z",
+      "status": "End",
+      "createdAt": "2024-05-16T07:06:23.847Z"
+    },
+    {
+      "_id": "6645c6421f09a7334637a1fe",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T08:39:30.626Z",
+      "status": "End",
+      "createdAt": "2024-05-16T08:39:30.673Z"
+    },
+    {
+      "_id": "6645c8fcdd613278826fc760",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T08:51:08.420Z",
+      "status": "End",
+      "createdAt": "2024-05-16T08:51:08.469Z"
+    },
+    {
+      "_id": "6645d56640b535b1094637a4",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T09:44:06.068Z",
+      "status": "End",
+      "createdAt": "2024-05-16T09:44:06.071Z"
+    },
+    {
+      "_id": "6645f5ab9bc810b8ff8cdca4",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T12:01:47.016Z",
+      "status": "End",
+      "createdAt": "2024-05-16T12:01:47.024Z"
+    },
+    {
+      "_id": "664610b186a0a8a84fff5fc1",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T13:57:05.005Z",
+      "status": "End",
+      "createdAt": "2024-05-16T13:57:05.007Z"
+    },
+    {
+      "_id": "6646126b86a0a8a84fff5fcc",
+      "packageID": null,
+      "expireDate": "2024-05-17T14:04:27.254Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:04:27.258Z"
+    },
+    {
+      "_id": "664613bfa399e158fec66f39",
+      "packageID": null,
+      "expireDate": "2024-05-17T14:10:07.457Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:10:07.476Z"
+    },
+    {
+      "_id": "66461580979ecc774b496038",
+      "packageID": null,
+      "expireDate": "2024-05-17T14:17:36.471Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:17:36.483Z"
+    },
+    {
+      "_id": "664616bfdd4bd46c1395a9c2",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T14:22:55.683Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:22:55.702Z"
+    },
+    {
+      "_id": "66461798295aec6354d4aa59",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T14:26:32.580Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:26:32.589Z"
+    },
+    {
+      "_id": "664618363183bee3694fd06f",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T14:29:10.467Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:29:10.475Z"
+    },
+    {
+      "_id": "66461ac077c5886ec9bd6a20",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T14:40:00.325Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:40:00.336Z"
+    },
+    {
+      "_id": "66461e47c149de0f3228b9cc",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T14:55:03.113Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:55:03.133Z"
+    },
+    {
+      "_id": "66461e86c149de0f3228b9d3",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T14:56:06.381Z",
+      "status": "End",
+      "createdAt": "2024-05-16T14:56:06.382Z"
+    },
+    {
+      "_id": "6646229bd3042c4ba91ee2a8",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-15T15:13:31.022Z",
+      "status": "End",
+      "createdAt": "2024-05-16T15:13:31.035Z"
+    },
+    {
+      "_id": "664680b548ddaa7b6b06fcbc",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-05-19T21:55:01.443Z",
+      "status": "End",
+      "createdAt": "2024-05-16T21:55:01.446Z"
+    },
+    {
+      "_id": "6649a262852ac82ce919e6da",
+      "packageID": {
+        "_id": "66095c77932ca5e26e2b35c1",
+        "PaymentAr": "جولد",
+        "PaymentEn": "Gold"
+      },
+      "expireDate": "2024-06-18T06:55:30.965Z",
+      "status": "End",
+      "createdAt": "2024-05-19T06:55:31.004Z"
+    }
+  ],
+  "paidProperties": [
+    {
+      "address": {
+        "name": "3FCM+M29، ثانى القاهرة الجديدة، محافظة القاهرة‬ 4750520، مصر",
+        "governrate": "القاهرة",
+        "region": "القاهرة الجديدة",
+        "longitude": "31.4826075",
+        "latitude": "30.0716523",
+        "placeId": "ChIJ8YloXhMZWBQR5sVcQ2-lB00"
+      },
+      "makeRepost": false,
+      "isSold": false,
+      "seen": 0,
+      "_id": "64024bb17757af2de75c5baa",
+      "title": "شقة للبيع بالرحاب - 116م بدون وسطاء ",
+      "offer": "For Sale",
+      "price": 3000000,
+      "area": 116,
+      "rooms": 2,
+      "bathRooms": 2,
+      "createdAt": "2023-03-03T19:34:09.383Z",
+      "slug": "Lesoll-8054700370-شقة-للبيع-ثانى-القاهرة-الجديدة-القاهره-شقة-للبيع-116-متر-بالرحاب-بدون-وسطاء-",
+      "countOfVisit": 1230,
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/عقار-للبيع-القاهره-ثانى القاهرة الجديدة5948553893890000.webp",
+      "connectPhoneNumber": "",
+      "acceptAt": "2024-01-20T18:22:37.830Z",
+      "makePin": true,
+      "property_badge": "Golden",
+      "publishAt": "2024-05-21T07:57:39.602Z",
+      "packageType": "Paid",
+      "visitNumber": 6,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "العجمى شاطىء النخيل, Alex - Cairo, الذراع البحري، قسم أول العامرية",
+        "longitude": "29.7345445",
+        "latitude": "",
+        "region": "العجمي",
+        "governrate": "الاسكندرية"
+      },
+      "seen": 0,
+      "_id": "66448fe49e4e683c2b63bfa2",
+      "title": "اول نمره   على البحر باوراما شاطئ الزراعيين  او فاميلى بيتش ",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66448a509e4e683c2b63a886-66448fe49e4e683c2b63bfa2-63210881.webp",
+      "price": 950000,
+      "area": 85,
+      "rooms": 2,
+      "bathRooms": 1,
+      "acceptAt": null,
+      "makePin": true,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 0,
+      "isSold": false,
+      "property_badge": "Golden",
+      "publishAt": "2024-05-15T10:35:16.640Z",
+      "createdAt": "2002-05-15T10:35:16.640Z",
+      "slug": "ID2235253794-شقة-للبيع-العجمي-الاسكندرية",
+      "packageType": "Paid",
+      "visitNumber": 11,
+      "whatsappClickTotal": 1,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "Arkan Plaza, زايد،، أول الشيخ زايد",
+        "governrate": "القاهرة",
+        "region": "15 مايو",
+        "longitude": "31.0032932"
+      },
+      "seen": 0,
+      "_id": "6645a8625c6e8f11518fd6ee",
+      "title": "efeefwewf",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66430e87bfa1ab71078d108f-6645a8625c6e8f11518fd6ee-99887345.webp",
+      "price": 1111,
+      "area": 1111,
+      "rooms": 1,
+      "bathRooms": 1,
+      "acceptAt": "2024-05-16T06:32:18.516Z",
+      "makePin": true,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 1,
+      "isSold": false,
+      "property_badge": "Golden",
+      "publishAt": "2024-05-16T06:32:02.670Z",
+      "createdAt": "2024-05-16T06:32:02.670Z",
+      "slug": "ID9579862398-شقة-للبيع-15-مايو-القاهرة",
+      "packageType": "Paid",
+      "visitNumber": 5,
+      "whatsappClickTotal": 1,
+      "callClickTotal": 1
+    }
+  ],
+  "freeProperties": [
+    {
+      "address": {
+        "name": "Madinaty B6، ثانى القاهرة الجديدة،، ثانى القاهرة الجديدة، محافظة القاهرة‬ 4770444، مصر",
+        "governrate": "محافظة القاهرة‬",
+        "region": "ثانى القاهرة الجديدة",
+        "longitude": "31.6440122",
+        "latitude": "30.0785792",
+        "placeId": "ChIJyYmRLEv1VxQRCtTZ_DONzuw"
+      },
+      "acceptAt": null,
+      "makePin": false,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "isSold": false,
+      "property_badge": "",
+      "seen": 0,
+      "_id": "6402339e7757af2de75c5107",
+      "title": "شقه للايجار مفروش في مدينتي B6",
+      "offer": "For Rent",
+      "price": 9500,
+      "area": 92,
+      "rooms": 2,
+      "bathRooms": 1,
+      "createdAt": "2023-03-03T17:51:26.509Z",
+      "slug": "Lesoll-3927585878-شقق-مفروشة-للايجار-ثانى-القاهرة-الجديدة-القاهره-شقه-للايجار-مفروش-في-مدينتي-B6",
+      "countOfVisit": 2730,
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/عقار-للإيجار-القاهره-ثانى القاهرة الجديدة1533211260864000.webp",
+      "publishAt": "2024-05-21T07:57:39.598Z",
+      "packageType": "Free",
+      "visitNumber": 1,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "District 7, Sheikh Zayed City, Giza Governorate, Egypt",
+        "governrate": "الجيزة",
+        "region": "الشيخ زايد",
+        "longitude": "30.98333019999999",
+        "latitude": "30.0277629",
+        "placeId": "ChIJZwkqTPdZWBQRus8khLU7a7U"
+      },
+      "makePin": false,
+      "makeRepost": false,
+      "isSold": false,
+      "property_badge": "",
+      "seen": 0,
+      "_id": "6400936e7757af2de75bc432",
+      "title": "بنتهاوس للبيع - روف للبيع الشيخ زايد 400 م",
+      "offer": "For Sale",
+      "price": 10001,
+      "area": 400,
+      "rooms": 2,
+      "bathRooms": 1,
+      "createdAt": "2023-03-02T12:15:42.609Z",
+      "slug": "Lesoll-4008659675-بنتهاوس-للبيع-الشيخ-زايد-الجيزه-روف-400-م-للبيع",
+      "countOfVisit": 2013,
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/عقار-للبيع-الجيزه-الشيخ زايد6521952104190000.webp",
+      "connectPhoneNumber": "",
+      "acceptAt": "2024-01-18T18:57:52.876Z",
+      "publishAt": "2024-05-21T07:57:39.602Z",
+      "packageType": "Free",
+      "visitNumber": 1,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "منطقة الساحل الشمالى، الساحل الشمالى، الإسكندرية، مصر",
+        "governrate": "الاسكندرية",
+        "region": "الساحل الشمالي",
+        "longitude": "29.4135791",
+        "latitude": "30.9073714",
+        "placeId": "ChIJeS614_eA9RQRoHSj7_QuYWY"
+      },
+      "makePin": false,
+      "makeRepost": false,
+      "isSold": false,
+      "property_badge": "",
+      "seen": 0,
+      "_id": "64019f907757af2de75c1cfe",
+      "title": "شقه للبيع الساحل الشمالى بقريه مراقيا الجنوبية 75م",
+      "offer": "For Sale",
+      "price": 360000,
+      "area": 75,
+      "rooms": 3,
+      "bathRooms": 1,
+      "createdAt": "2023-03-03T07:19:44.374Z",
+      "slug": "Lesoll-5373334131-شقة-بحديقة-للبيع-الساحل-الشمالى-الإسكندرية-شقه-3-غرف-بقريه-مراقيا-الجنوبيه-الساحل-الشمالى-",
+      "countOfVisit": 483,
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/عقار-للبيع-الإسكندرية-الساحل الشمالى1536962452030000.webp",
+      "connectPhoneNumber": "",
+      "acceptAt": "2024-01-21T12:21:11.828Z",
+      "publishAt": "2024-05-21T07:57:39.603Z",
+      "packageType": "Free",
+      "visitNumber": 1,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "Shooting Club Dokki, الدكتور ميشيل باخوم، الدقي، قسم الدقي",
+        "governrate": "القاهرة",
+        "region": "البساتين",
+        "longitude": "31.201818"
+      },
+      "seen": 0,
+      "_id": "6645846f64c3c4db8bd5778c",
+      "title": "kkkkk",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66430e87bfa1ab71078d108f-6645846f64c3c4db8bd5778c-50809599.webp",
+      "price": 111,
+      "area": 111,
+      "rooms": 1,
+      "bathRooms": 1,
+      "acceptAt": "2024-05-16T03:59:26.520Z",
+      "makePin": false,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 0,
+      "isSold": false,
+      "property_badge": "Featured",
+      "publishAt": "2024-05-16T03:58:39.153Z",
+      "createdAt": "2024-05-16T03:58:39.153Z",
+      "slug": "ID284590711-شقة-للبيع-البساتين-القاهرة",
+      "packageType": "Free",
+      "visitNumber": 2,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "Academy Of Arts, خاتم المرسلين، العمرانية الغربية، قسم العمرانية",
+        "governrate": "القاهرة",
+        "region": "البساتين",
+        "longitude": "31.1964595"
+      },
+      "seen": 0,
+      "_id": "6645856e64c3c4db8bd578f6",
+      "title": "tets",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66430e87bfa1ab71078d108f-6645856e64c3c4db8bd578f6-61761276.webp",
+      "price": 111,
+      "area": 1111,
+      "rooms": 11,
+      "bathRooms": 1,
+      "acceptAt": "2024-05-16T04:03:45.126Z",
+      "makePin": false,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 0,
+      "isSold": false,
+      "property_badge": "Featured",
+      "publishAt": "2024-05-16T04:02:54.775Z",
+      "createdAt": "2024-05-20T04:08:16.296Z",
+      "slug": "ID8816160805-شقة-للبيع-البساتين-القاهرة",
+      "packageType": "Free",
+      "visitNumber": 0,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "15 مايو",
+        "governrate": "القاهرة",
+        "region": "15 مايو",
+        "longitude": "31.3884671"
+      },
+      "seen": 0,
+      "_id": "6645866464c3c4db8bd57a39",
+      "title": "aaa",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66430e87bfa1ab71078d108f-6645866464c3c4db8bd57a39-33463320.webp",
+      "price": 111111,
+      "area": 1,
+      "rooms": 1,
+      "bathRooms": 1,
+      "acceptAt": "2024-05-16T04:07:29.029Z",
+      "makePin": false,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 0,
+      "isSold": false,
+      "property_badge": "",
+      "publishAt": "2024-05-16T04:07:00.790Z",
+      "createdAt": "2024-05-16T04:07:00.790Z",
+      "slug": "ID8203645359-شقة-للبيع-15-مايو-القاهرة",
+      "packageType": "Free",
+      "visitNumber": 0,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "10th of Rammadan City",
+        "governrate": "القاهرة",
+        "region": "15 مايو",
+        "longitude": "31.7403058"
+      },
+      "seen": 0,
+      "_id": "6645a7f55c6e8f11518fd63c",
+      "title": "test wow",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66430e87bfa1ab71078d108f-6645a7f55c6e8f11518fd63c-52197926.webp",
+      "price": 111,
+      "area": 1111,
+      "rooms": 1,
+      "bathRooms": 1,
+      "acceptAt": "2024-05-16T06:30:33.090Z",
+      "makePin": false,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 1,
+      "isSold": false,
+      "property_badge": "Golden",
+      "publishAt": "2024-05-16T06:30:13.771Z",
+      "createdAt": "2024-05-20T06:43:46.879Z",
+      "slug": "ID7658475764-شقةبحديقة-للبيع-15-مايو-القاهرة",
+      "packageType": "Free",
+      "visitNumber": 1,
+      "whatsappClickTotal": 0,
+      "callClickTotal": 0
+    },
+    {
+      "address": {
+        "name": "15 مايو",
+        "governrate": "القاهرة",
+        "region": "15 مايو",
+        "longitude": "31.3884671"
+      },
+      "_id": "6645c222c6f6dde17de92f7f",
+      "title": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "offer": "For Sale",
+      "thumbnail": "https://cloud.lesoll.com/v0/public/Realty/2024/5/66430e87bfa1ab71078d108f-6645c222c6f6dde17de92f7f-82869753.webp",
+      "price": 111,
+      "area": 1,
+      "rooms": 1,
+      "bathRooms": 1,
+      "acceptAt": "2024-05-16T13:47:04.364Z",
+      "makePin": false,
+      "makeRepost": false,
+      "connectPhoneNumber": "",
+      "countOfVisit": 0,
+      "isSold": false,
+      "property_badge": "",
+      "publishAt": "2024-05-16T08:21:54.158Z",
+      "createdAt": "2024-05-16T08:21:54.158Z",
+      "slug": "ID5505449790-شقة-للبيع-15-مايو-القاهرة",
+      "seen": 1,
+      "packageType": "Free",
+      "visitNumber": 5,
+      "whatsappClickTotal": 1,
+      "callClickTotal": 2
+    }
+  ]
+}

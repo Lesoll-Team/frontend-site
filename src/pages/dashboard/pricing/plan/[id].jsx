@@ -10,8 +10,6 @@ const Plan = ({ planDetails }) => {
 export default Plan;
 export async function getServerSideProps({ params }) {
   const id = params.id;
-
-  // const response = await getSinglePlanPrice({ id });
   return {
     props: {
       planDetails: id,

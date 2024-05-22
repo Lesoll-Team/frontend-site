@@ -2,24 +2,22 @@ import React, { useEffect, useState } from "react";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import { PlusIcon } from "../../icon/PlusIcon";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-// import { getServicePrice } from "@/redux-store/features/PricingSlice";
+import { useSelector } from "react-redux";
 import { getPlanPaymentsAdmin } from "@/utils/PricingAPI";
 
 const PlansPricing = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // const dispatch = useDispatch();
   const [payments, setPayments] = useState([]);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   useEffect(() => {
     const fetchData = async () => {
-      // dispatch(getServicePrice());
       const response = await getPlanPaymentsAdmin();
       setPayments(response.getPayment);
     };
     fetchData();
   }, [isUpdated]);
+  console.log(payments);
   return (
     <div
       dir={language ? "rtl" : "ltr"}
