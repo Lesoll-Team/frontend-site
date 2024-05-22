@@ -2,7 +2,7 @@ import SelectFeatures from "./SelectFeatures";
 import DefaultDetails from "./DefaultDetails";
 import LandDetails from "./LandDetails";
 import BuildingDetails from "./BuildingDetails";
-import PhoneNumber from "../PhoneNumber";
+import PhoneNumber from "../components/PhoneNumber";
 const AddPropDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const renderDetails = () => {
     if (watch("propType.value") === "Land") {

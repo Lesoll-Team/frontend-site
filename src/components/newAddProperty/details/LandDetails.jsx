@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 
 import "react-datepicker/dist/react-datepicker.css";
 

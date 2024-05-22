@@ -1,4 +1,4 @@
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";

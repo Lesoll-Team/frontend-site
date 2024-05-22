@@ -1,0 +1,3 @@
+.addPropInput {
+  @apply w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2
+}

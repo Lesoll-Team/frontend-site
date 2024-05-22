@@ -2,7 +2,7 @@ import useFeaures from "@/components/newAddProperty/hooks/useFeaures";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 
 const SelectFeatures = ({ register, setValue, watch }) => {
   const features = useSelector((state) => state.getFeatures.features);

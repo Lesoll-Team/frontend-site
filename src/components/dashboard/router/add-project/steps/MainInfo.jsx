@@ -1,6 +1,6 @@
 import Error from "@/Shared/ui/Error";
 import RadioBtn from "@/Shared/ui/RadioBtn";
-import PhoneNumber from "@/components/newAddProperty/PhoneNumber";
+import PhoneNumber from "@/components/newAddProperty/components/PhoneNumber";
 import PropertyImages from "@/components/newAddProperty/imgs/PropertyImages";
 // import PropertyImages from "@/components/new-prop-details/PropertyImages";
 import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";

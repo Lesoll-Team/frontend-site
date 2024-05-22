@@ -1,4 +1,4 @@
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import Rent from "./Rent";
 import Sale from "./sale/Sale";
 import CashAndInstallment from "./sale/CashAndInstallment";

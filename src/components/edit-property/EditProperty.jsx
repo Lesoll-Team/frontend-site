@@ -1,6 +1,6 @@
 import Button from "@/Shared/ui/Button";
 import AddPropMainInfo from "@/components/newAddProperty/mainInfo/AddPropMainInfo";
-import Steps from "@/components/newAddProperty/Steps";
+import Steps from "@/components/newAddProperty/components/Steps";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import AddPropDetails from "@/components/newAddProperty/details/AddPropDetails";
@@ -8,7 +8,7 @@ import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "@/components/newAddProperty/price/AddPropertyPrice";
 import PropertyImages from "@/components/newAddProperty/imgs/PropertyImages";
 import Link from "next/link";
-import AceeptedCard from "@/components/newAddProperty/AceeptedCard";
+import AceeptedCard from "@/components/newAddProperty/components/AceeptedCard";
 import { DotPulse, Ring } from "@uiball/loaders";
 import useEditProperty from "./hooks/useEditProperty";
 import { scrollToTop } from "@/utils/scrollToTop";

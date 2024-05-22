@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { initialAddPropData } from "./initialData";
-import { useState } from "react";
+import { initialAddPropData } from "../data/initialData";
+import { useEffect, useState } from "react";
 import useFromatAddData from "./useFromatAddData";
 import { scrollToTop } from "@/utils/scrollToTop";
 import { postProperty } from "@/components/newAddProperty/apis/addEditPropertyApis";
@@ -8,6 +8,8 @@ const useAddProperty = () => {
   const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
+  const [returnData, setReturnData] = useState(null);
+  console.log(returnData);
   const form = useForm({
     defaultValues: initialAddPropData,
   });
@@ -20,7 +22,12 @@ const useAddProperty = () => {
     setValue,
     watch,
   } = form;
-
+  useEffect(() => {
+    if (returnData?._id && !watch("thumbnail")) {
+      setValue("album", returnData.album);
+      setValue("thumbnail", returnData?.thumbnail);
+    }
+  }, [returnData]);
   const { errors } = formState;
   const onSubmit = handleSubmit((data) => {
     const isInvestment = watch("offer") === "For Investment";
@@ -30,7 +37,12 @@ const useAddProperty = () => {
         scrollToTop();
       } else {
         const { formData } = useFromatAddData(data);
-        postProperty({ data: formData, setFormStatus, setServerError });
+        postProperty({
+          data: formData,
+          setFormStatus,
+          setServerError,
+          setReturnData,
+        });
       }
     } else {
       if (step < 4) {
@@ -38,7 +50,12 @@ const useAddProperty = () => {
         setStep(step + 1);
       } else {
         const { formData } = useFromatAddData(data);
-        postProperty({ data: formData, setFormStatus, setServerError });
+        postProperty({
+          data: formData,
+          setFormStatus,
+          setServerError,
+          setReturnData,
+        });
       }
     }
   });

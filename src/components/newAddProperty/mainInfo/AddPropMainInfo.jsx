@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import DropDown from "@/Shared/ui/DropDown";
-import { propTypeList } from "./propTypeList";
-import { unitTypeList } from "./unitTypeList";
+import { propTypeList } from "../data/propTypeList";
+import { unitTypeList } from "../data/unitTypeList";
 import { useEffect, useMemo } from "react";
 import GovRegion from "./location/GovRegion";
 import PlaceLatLng from "./location/PlaceLatLng";
@@ -10,6 +10,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import Error from "@/Shared/ui/Error";
 import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 import { useUser } from "@/Shared/UserContext";
+import styles from "@/components/newAddProperty/styles/addProperrty.module.css";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
 const AddPropMainInfo = ({
@@ -81,11 +82,14 @@ const AddPropMainInfo = ({
             },
             validate: {
               max: (value) => {
-                return value.length < 100 || language
-                  ? "لايجب ان يزيد عن 100 حرف"
-                  : "the title should not be more than 100 characters";
+                return (
+                  value.length < 100 ||
+                  (language
+                    ? "لايجب ان يزيد عن 100 حرف"
+                    : "the title should not be more than 100 characters")
+                );
               },
-              max: (value) => {
+              phone: (value) => {
                 return (
                   !value.match(phoneRegex) ||
                   (language
@@ -95,7 +99,7 @@ const AddPropMainInfo = ({
               },
             },
           })}
-          className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+          className={` ${styles.addPropInput} ${
             errors.title && "border-red-500 focus:border-red-500"
           }`}
           // className={"border-none"}
@@ -270,13 +274,6 @@ const AddPropMainInfo = ({
           clearErrors={clearErrors}
         />
       )}
-      {/* <GoogleMapLocation
-        errors={errors}
-        register={register}
-        setValue={setValue}
-        watch={watch}
-        clearErrors={clearErrors}
-      /> */}
       <div className="lg:col-span-2 space-y-2">
         <p className="text-gray-800">
           {language ? "وصف العقار" : "Property description"}
@@ -312,7 +309,7 @@ const AddPropMainInfo = ({
           id=""
           cols="30"
           rows="10"
-          className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen resize-none placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+          className={`${styles.addPropInput} ${
             errors.description && "border-red-500 focus:border-red-500"
           }`}
         />
