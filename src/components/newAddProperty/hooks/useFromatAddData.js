@@ -20,13 +20,15 @@ const useFromatAddData = (data) => {
     return item;
   });
   const formData = new FormData();
-  for (let i = 0; i < data.multiImage.length; i++) {
-    formData.append("multiImage", data.multiImage[i]);
+  if (data?.multiImage) {
+    for (let i = 0; i < data.multiImage?.length; i++) {
+      formData.append("multiImage", data.multiImage[i]);
+    }
   }
-  for (let i = 0; i < saleOption.length; i++) {
+  for (let i = 0; i < saleOption?.length; i++) {
     formData.append("saleOption", saleOption[i]);
   }
-  for (let i = 0; i < installment.length; i++) {
+  for (let i = 0; i < installment?.length; i++) {
     formData.append("installment", JSON.stringify(installment[i]));
   }
   data.service.map((service) => {

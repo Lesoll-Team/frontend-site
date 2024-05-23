@@ -142,7 +142,6 @@ const AddProperty = () => {
               watch={watch}
             />
           );
-        default:
         case 4:
           return (
             <PropertyImages
@@ -153,6 +152,7 @@ const AddProperty = () => {
               watch={watch}
             />
           );
+        default:
       }
     }
   };
