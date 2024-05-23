@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FaFire, FaMapPin } from "react-icons/fa";
 import { FaHouzz } from "react-icons/fa6";
 import { TbRefresh } from "react-icons/tb";
+import { RxDrawingPinFilled } from "react-icons/rx";
 
 const HeaderUserData = ({ userData }) => {
   const premium = userData?.countRepostProperty + userData?.countPinProperty;
@@ -34,7 +35,7 @@ const HeaderUserData = ({ userData }) => {
         <ul className="w-full px-[1vw]  p-0.5 flex flex-col ">
           <p>Pin</p>
           <div className="w-full px-[1vw]  p-0.5 justify-between items-center flex  bg-gray-100 py-2">
-            <FaMapPin className="text-red-500 md:text-4xl text-xl -rotate-6" />
+            <RxDrawingPinFilled className="text-red-500 md:text-4xl text-xl -rotate-90" />
             <li className="font-bold md:text-4xl text-xl">
               {userData?.countPinProperty}
             </li>
@@ -56,6 +57,7 @@ const HeaderUserData = ({ userData }) => {
 export default HeaderUserData;
 //<FaHouseFire />
 //<FaFire />
+//<RxDrawingPinFilled />
 
 //<TbRefresh />
 //<TbHours24 />

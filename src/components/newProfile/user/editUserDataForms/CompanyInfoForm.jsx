@@ -46,7 +46,6 @@ const CompanyInfoForm = ({ main }) => {
   };
 
   const handleSubmitingForm = async (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append("fullname", data.fullname);
     formData.append("code", data.code);

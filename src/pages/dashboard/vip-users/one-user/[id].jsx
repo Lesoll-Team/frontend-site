@@ -6,12 +6,19 @@ const VipUsers = ({ userData }) => {
 };
 export default VipUsers;
 export async function getServerSideProps({ query }) {
-  console.log(query);
-  const userData = await getUserDataVIP({ userId: query?.id });
-  return {
-    props: {
-      userData: userData,
-    },
-  };
+  try {
+    const userData = await getUserDataVIP({ userId: query?.id });
+    return {
+      props: {
+        userData: userData || {},
+      },
+    };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      props: {
+        error: "Failed to fetch data",
+      },
+    };
+  }
 }
-// getUserDataVIP;

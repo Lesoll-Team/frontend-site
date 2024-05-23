@@ -16,7 +16,6 @@ const PropertyAnalytics = () => {
       getPropertyAnalytics({ setApiStatus, setData, setServerError, slug });
     }
   }, [router, slug]);
-  console.log(apiStatus);
   const renderElements = useCallback(() => {
     switch (apiStatus) {
       case "loading":
@@ -32,7 +31,6 @@ const PropertyAnalytics = () => {
         return "";
     }
   }, [apiStatus]);
-  console.log(data);
   return (
     <div className="container mx-auto py-11 space-y-12 min-h-[80dvh]">
       {renderElements()}

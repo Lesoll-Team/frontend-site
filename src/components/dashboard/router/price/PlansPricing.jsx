@@ -17,7 +17,6 @@ const PlansPricing = () => {
     };
     fetchData();
   }, [isUpdated]);
-  console.log(payments);
   return (
     <div
       dir={language ? "rtl" : "ltr"}

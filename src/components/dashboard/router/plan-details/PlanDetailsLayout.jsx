@@ -1,6 +1,5 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
-import PlanDetailsFilters from "./PlanDetailsFilters";
-import PlanAnalytics from "./PlanAnalytics";
+import PlanDataAndAnalytics from "./PlanDataAndAnalytics";
 import PlanUsersTable from "./PlanUsersTable";
 
 const PlanDetailsLayout = ({ planDetails }) => {
@@ -9,10 +8,11 @@ const PlanDetailsLayout = ({ planDetails }) => {
       <div className="bg-white  sticky top-0">
         <Sidebar />
       </div>
-      <div>
-        <h1>Plan id: {JSON.stringify(planDetails)}</h1>
-        <PlanDetailsFilters planDetails={planDetails} />
-        <PlanAnalytics planDetails={planDetails} />
+      <div className="w-full from-slate-300 bg-gradient-to-b to-white">
+        <PlanDataAndAnalytics
+          allDataPlan={planDetails}
+          planDetails={planDetails?.packageData}
+        />
         <PlanUsersTable planDetails={planDetails} />
       </div>
     </div>

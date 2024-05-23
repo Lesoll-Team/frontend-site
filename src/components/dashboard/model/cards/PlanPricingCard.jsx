@@ -4,10 +4,11 @@ import PlanTitle from "./payment-card/PlanTitle";
 import ButtonsActions from "./payment-card/ButtonsActions";
 import BodyDataService from "./payment-card/BodyDataService";
 
-const PlanPricingCard = ({ stylesCss, data, dash }) => {
+const PlanPricingCard = ({ stylesCss, data, dash,key }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div
+      key={key}
       className={`bg-white drop-shadow overflow-hidden flex flex-col gap-y-[16px] w-full  rounded-[6px] relative ${data?.Popular ? "h-[550px]" : "h-[500px]"}`}
     >
       <div dir={language ? "ltr" : "rtl"} className={`flex w-full relative`}>

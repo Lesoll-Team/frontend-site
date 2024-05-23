@@ -2,7 +2,7 @@ import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import TableVipUser from "@/Shared/Table/TableVipUser";
 import { getUsersVIP } from "@/utils/dashboardApi/paymentDetailsAPI";
 import { useEffect, useState } from "react";
-import AnalyticsPackage from "./AnalyticsPackage";
+import { AnalyticsPackage } from "./AnalyticsPackage";
 
 const VipsUsersLayout = () => {
   const [usersVIPData, setUsersVIPData] = useState();
@@ -24,7 +24,6 @@ const VipsUsersLayout = () => {
     { name: "Total Package", uid: "totalItems" },
     { name: "Expire Package", uid: "expireDate" },
   ];
-  // console.log("usersVIPData:>>", usersVIPData);
   return (
     <div dir="ltr" className="w-full  flex">
       <div className="bg-white  sticky top-0">

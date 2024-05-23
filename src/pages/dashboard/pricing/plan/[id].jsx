@@ -1,4 +1,5 @@
 import PlanDetailsLayout from "@/components/dashboard/router/plan-details/PlanDetailsLayout";
+import { getUsersVIPPackage } from "@/utils/dashboardApi/paymentDetailsAPI";
 
 const Plan = ({ planDetails }) => {
   return (
@@ -8,11 +9,21 @@ const Plan = ({ planDetails }) => {
   );
 };
 export default Plan;
-export async function getServerSideProps({ params }) {
-  const id = params.id;
-  return {
-    props: {
-      planDetails: id,
-    },
-  };
+export async function getServerSideProps({ query }) {
+  try {
+    const usersData = await getUsersVIPPackage({ packageId: query?.id });
+
+    return {
+      props: {
+        planDetails: usersData,
+      },
+    };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      props: {
+        error: "Failed to fetch data",
+      },
+    };
+  }
 }

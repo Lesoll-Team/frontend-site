@@ -9,6 +9,7 @@ export async function getUsersVIP() {
   }
 }
 export async function getUsersVIPPackage({ packageId }) {
+  //admin/dashboard/package/:id => id package
   try {
     const response = await axiosInstance.get(
       `/admin/dashboard/package/${packageId}`,
@@ -25,6 +26,7 @@ export async function getUserDataVIP({ userId }) {
     );
     return response.data;
   } catch (error) {
+    console.log("error:>>>", error);
     throw error.response.data;
   }
 }
