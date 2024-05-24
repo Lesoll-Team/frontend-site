@@ -37,6 +37,13 @@ const useFromatAddData = (data) => {
 
   formData.append("connectPhoneNumber", data.connectPhoneNumber || "");
   data.deliveryDate && formData.append("deliveryDate", data.deliveryDate);
+  // adType: "free",
+  // packageId: "",
+  // toPin: "",
+  data.packId && formData.append("packId", data.packId);
+  formData.append("adType", data.adType);
+  data.toPin && formData.append("toPin", data.toPin);
+
   formData.append("title", data.title);
   formData.append("isCompound", data.isCompound);
   data.isCompound && formData.append("compaounds", data.compaounds?._id);

@@ -9,13 +9,16 @@ import {
   postProperty,
 } from "@/components/newAddProperty/apis/addEditPropertyApis";
 import { useUser } from "@/Shared/UserContext";
-import { setStep as reduxSetStep } from "@/redux-store/features/addPropertySlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
+import { getCurrencies } from "../redux/currenciesSlice";
 
 const useAddProperty = () => {
   const { data: userData } = useUser();
   const userHavePackage =
     userData?.packageSubscribe && userData?.pinPropertyNumber;
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [returnData, setReturnData] = useState(null);
@@ -38,7 +41,17 @@ const useAddProperty = () => {
     watch,
   } = form;
   const { errors } = formState;
-
+  const currencies = useSelector((state) => state.getCurrencies.data);
+  const features = useSelector((state) => state.getFeatures.features);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!features) {
+      dispatch(getFeatures());
+    }
+    if (!currencies) {
+      dispatch(getCurrencies());
+    }
+  }, []);
   useEffect(() => {
     if (draftFormStatus === "success") {
       const nextStep = watch("offer") === "For Investment" ? 4 : 5;
@@ -46,7 +59,7 @@ const useAddProperty = () => {
       scrollToTop();
     }
   }, [draftFormStatus]);
-
+  console.log(step);
   useEffect(() => {
     if (returnData?._id && !watch("thumbnail")) {
       setValue("mainImage", null);
@@ -57,7 +70,7 @@ const useAddProperty = () => {
   }, [returnData, setValue, watch]);
 
   const handleDraftOrPost = (formData) => {
-    if (userHavePackage) {
+    if (!userHavePackage) {
       postProperty({
         data: formData,
         setFormStatus,

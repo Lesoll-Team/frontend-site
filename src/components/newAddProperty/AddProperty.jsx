@@ -2,18 +2,17 @@ import useAddProperty from "@/components/newAddProperty/hooks/useAddProperty";
 import Button from "@/Shared/ui/Button";
 import AddPropMainInfo from "./mainInfo/AddPropMainInfo";
 import Steps from "./components/Steps";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import AddPropDetails from "./details/AddPropDetails";
-import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import AddPropertyPrice from "./price/AddPropertyPrice";
-import PropertyImages from "./imgs/PropertyImages";
 import Link from "next/link";
 import AceeptedCard from "./components/AceeptedCard";
 import { DotPulse, Ring } from "@uiball/loaders";
 import { scrollToTop } from "@/utils/scrollToTop";
-import { getCurrencies } from "./redux/currenciesSlice";
 import { useUser } from "@/Shared/UserContext";
+import ImagesStep from "./components/ImagesStep";
+import PaymentStep from "./components/payment-step/PaymentStep";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -28,22 +27,10 @@ const AddProperty = () => {
     formStatus,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const features = useSelector((state) => state.getFeatures.features);
+  const isInvestment = watch("offer") === "For Investment";
+
   const { data, status } = useUser();
-
-  const currencies = useSelector((state) => state.getCurrencies.data);
-
   const [sended, setSended] = useState(false);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (!features) {
-      dispatch(getFeatures());
-    }
-    if (!currencies) {
-      dispatch(getCurrencies());
-    }
-  }, []);
   useEffect(() => {
     if (formStatus === "success") {
       setSended(true);
@@ -51,10 +38,6 @@ const AddProperty = () => {
       scrollToTop();
     }
   }, [formStatus]);
-  // const addNewwProp = () => {
-  //   setSended(false);
-  // };
-
   const submitBtnText = useMemo(() => {
     const isInvestment = watch("offer") === "For Investment";
     if (isInvestment) {
@@ -72,11 +55,9 @@ const AddProperty = () => {
     }
   }, [step, language]);
   const renderStep = () => {
-    const isInvestment = watch("offer") === "For Investment";
-    if (isInvestment) {
-      switch (step) {
-        case 1:
-          return (
+    const stepComponents = isInvestment
+      ? {
+          1: (
             <AddPropMainInfo
               errors={errors}
               clearErrors={clearErrors}
@@ -84,9 +65,8 @@ const AddProperty = () => {
               setValue={setValue}
               watch={watch}
             />
-          );
-        case 2:
-          return (
+          ),
+          2: (
             <AddPropDetails
               errors={errors}
               clearErrors={clearErrors}
@@ -94,24 +74,28 @@ const AddProperty = () => {
               setValue={setValue}
               watch={watch}
             />
-          );
-
-        case 3:
-        default:
-          return (
-            <PropertyImages
+          ),
+          3: (
+            <ImagesStep
               errors={errors}
               clearErrors={clearErrors}
               register={register}
               setValue={setValue}
               watch={watch}
             />
-          );
-      }
-    } else {
-      switch (step) {
-        case 1:
-          return (
+          ),
+          4: (
+            <PaymentStep
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          ),
+        }
+      : {
+          1: (
             <AddPropMainInfo
               errors={errors}
               clearErrors={clearErrors}
@@ -119,9 +103,8 @@ const AddProperty = () => {
               setValue={setValue}
               watch={watch}
             />
-          );
-        case 2:
-          return (
+          ),
+          2: (
             <AddPropertyPrice
               control={control}
               errors={errors}
@@ -130,10 +113,8 @@ const AddProperty = () => {
               setValue={setValue}
               watch={watch}
             />
-          );
-
-        case 3:
-          return (
+          ),
+          3: (
             <AddPropDetails
               errors={errors}
               clearErrors={clearErrors}
@@ -141,21 +122,30 @@ const AddProperty = () => {
               setValue={setValue}
               watch={watch}
             />
-          );
-        case 4:
-          return (
-            <PropertyImages
+          ),
+          4: (
+            <ImagesStep
               errors={errors}
               clearErrors={clearErrors}
               register={register}
               setValue={setValue}
               watch={watch}
             />
-          );
-        default:
-      }
-    }
+          ),
+          5: (
+            <PaymentStep
+              errors={errors}
+              clearErrors={clearErrors}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          ),
+        };
+
+    return stepComponents[step] || null;
   };
+
   // const errorSubmit = useSelector((state) => state.addProperty.error);
   if (status === "loading") {
     return (
@@ -178,7 +168,13 @@ const AddProperty = () => {
           ) : (
             <>
               {" "}
-              <Steps setStep={setStep} step={step} watch={watch} />
+              {isInvestment
+                ? step !== 4 && (
+                    <Steps setStep={setStep} step={step} watch={watch} />
+                  )
+                : step !== 5 && (
+                    <Steps setStep={setStep} step={step} watch={watch} />
+                  )}
               {renderStep()}
               {/* <div>
                 <Ring size={60} color="#309da0" />
