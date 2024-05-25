@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
 import { useFormatNewData } from "@/Hooks/useFormatTime";
 import { useSelector } from "react-redux";
+import { PiCrownSimpleFill } from "react-icons/pi";
 const FavAndDate = ({ propertyDetails }) => {
+  console.log("propertyDetails::>>", propertyDetails);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data, setUserData } = useUser();
   const time = useFormatNewData({
@@ -50,11 +52,24 @@ const FavAndDate = ({ propertyDetails }) => {
           )}
         </div>
       )}
-      <div
-        className={`bg-[#F1F1F1] px-2 rounded-sm font-inter  ${language ? "text-[12px]" : "text-[10px]"}`}
-      >
-        {time}
-      </div>
+      {propertyDetails.makePin || propertyDetails.makeRepost ? (
+        <div
+          className={` bg-gradient-to-r from-yellow-100 via-yellow-50 to-white  drop-shadow-sm sm:w-4/12 sm:max-w-[100px] p-1 sm:justify-around justify-center items-center rounded-sm font-inter  flex `}
+        >
+          <div className=" bg-[#F6AE2D] rounded-full min-w-fit p-1">
+            <PiCrownSimpleFill className="text-white text-sm" />
+          </div>
+          <span className="text-[#F6AE2D] font-semibold sm:block hidden font-noto">
+            مميز
+          </span>
+        </div>
+      ) : (
+        <div
+          className={`bg-[#F1F1F1] px-2 rounded-sm font-inter  ${language ? "text-[12px]" : "text-[10px]"}`}
+        >
+          {time}
+        </div>
+      )}
     </div>
   );
 };
