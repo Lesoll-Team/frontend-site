@@ -60,7 +60,7 @@ const FavAndDate = ({ propertyDetails }) => {
             <PiCrownSimpleFill className="text-white text-sm" />
           </div>
           <span className="text-[#F6AE2D] font-semibold sm:block hidden font-noto">
-            مميز
+            {language ? "متميز" : "Featured"}
           </span>
         </div>
       ) : (
