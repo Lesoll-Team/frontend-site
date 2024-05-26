@@ -29,7 +29,7 @@ const SubscribedOptions = ({
             clearErrors("adType");
           }}
           type="button"
-          className={`w-full bg-white flex p-4 rounded-md border ${watch("adType") === "free" && "border-lightGreen "}`}
+          className={`w-full bg-white flex p-4 rounded-md border  flex-wrap justify-between items-center ${watch("adType") === "free" && "border-lightGreen "}`}
         >
           <div className="flex items-center gap-2">
             {watch("adType") === "free" ? (
@@ -37,8 +37,13 @@ const SubscribedOptions = ({
             ) : (
               <IoIosRadioButtonOff className="text-outLine text-xl" />
             )}
-            <p>{language ? "مجانى" : "Free"}</p>
+            <h3>{language ? "مجانى" : "Free"}</h3>
           </div>
+          <p>
+            {language ? "متبقى لديك" : "You have"}{" "}
+            {userData.propertyPackageNumber}{" "}
+            {language ? "إعلانات مجانية" : "free ad left"}
+          </p>
         </button>
         <button
           type="button"
@@ -47,7 +52,7 @@ const SubscribedOptions = ({
             setValue("toPin", "pin");
             clearErrors("adType");
           }}
-          className={`w-full bg-white flex p-4 rounded-md border ${watch("adType") === "paid" && "border-lightGreen border"}`}
+          className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${watch("adType") === "paid" && "border-lightGreen border"}`}
         >
           <div className="flex items-center gap-2">
             {watch("adType") === "paid" ? (
@@ -55,8 +60,12 @@ const SubscribedOptions = ({
             ) : (
               <IoIosRadioButtonOff className="text-outLine text-xl" />
             )}
-            <p>{language ? "مثبت" : "pin"}</p>
+            <h3>{language ? "مثبت" : "pin"}</h3>
           </div>
+          <p className="text-start">
+            {language ? "متبقى لديك" : "You have"} {userData.pinPropertyNumber}{" "}
+            {language ? "إعلان يمكن تثبيتة" : "pin ad left"}
+          </p>
         </button>
         <input
           hidden
