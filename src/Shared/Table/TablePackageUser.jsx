@@ -1,5 +1,8 @@
 import { useFormatNewData } from "@/Hooks/useFormatTime";
+import { downloadUserInvoice } from "@/utils/dashboardApi/paymentDetailsAPI";
 import React, { memo, useMemo } from "react";
+import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { useSelector } from "react-redux";
 
 const TablePackageUser = ({ data, cols }) => {
   const MemoizedRenderTable = useMemo(() => RenderTable, [data]);
@@ -49,11 +52,28 @@ const RenderTable = ({ row, col }) => {
     date: row.expireDate,
     lang: false,
   });
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   switch (col) {
     case "expireDate":
       return (
         <p>{(formattedDate != "Invalid Date" && formattedDate) || "End"}</p>
+      );
+    case "invoice":
+      return (
+        <button
+          onClick={() =>
+            downloadUserInvoice({
+              bundleId: row._id,
+              userName: "user",
+              lang: language,
+            })
+          }
+          className="flex items-center justify-center w-full gap-x-1"
+        >
+          <LiaFileInvoiceDollarSolid className="text-linkColor" />
+          <span className="underline">Download</span>
+        </button>
       );
     default:
       return <div>{row[col]}</div>;

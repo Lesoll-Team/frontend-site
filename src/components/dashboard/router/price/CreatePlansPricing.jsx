@@ -28,6 +28,7 @@ const CreatePlansPricing = () => {
   const [targetUser, setTargetUser] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [isPopular, setPopular] = useState(false);
+  const [isAddProperty, setAddProperty] = useState(false);
   const [isOffer, setOffer] = useState(false);
   const [basicPrice, setBasicPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(0);
@@ -55,6 +56,7 @@ const CreatePlansPricing = () => {
     normalProp,
     propNumberInHome,
     pinDayInHome: durationPlanHome,
+    addProperty: isAddProperty,
   };
 
   const data = {
@@ -74,6 +76,7 @@ const CreatePlansPricing = () => {
     normalProp,
     propNumberInHome,
     pinDayInHome: durationPlanHome,
+    addProperty: isAddProperty,
   };
 
   const handleFeaturesSelectionChange = (selectedKeys) => {
@@ -399,7 +402,19 @@ const CreatePlansPricing = () => {
               </button>
             </div>
           </div>
-          <div className="grid justify-center grid-cols-1 lg:mt-14 mt-3 ">
+          <div className="flex flex-col lg:mt-14 mt-3   ">
+            <div className=" p-2 gap-x-2 flex items-center justify-center">
+              <label htmlFor="setAddProperty">
+                {language ? "إضافة الي إضافة العقار" : "Add to add property"}
+              </label>
+              <input
+                type="checkbox"
+                checked={isAddProperty}
+                onChange={(e) => setAddProperty(e.target.checked)}
+                name="setAddProperty"
+                className="w-[20px] h-[20px]"
+              />
+            </div>
             <PlanPricingCard data={data2} />
           </div>
         </div>

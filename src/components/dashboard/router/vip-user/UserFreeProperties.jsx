@@ -6,9 +6,11 @@ const cols = [
   { name: "Traffic", uid: "seen" },
   { name: "Location", uid: "location" },
   { name: "Status", uid: "status" },
+
   // { name: "Package", uid: "package" },
 ];
 const UserFreeProperties = ({ freeProperties }) => {
+  console.log("freeProperties::>>", freeProperties);
   return (
     <div>
       <h2>Free Properties available</h2>

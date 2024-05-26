@@ -1,25 +1,31 @@
 import Image from "next/image";
-import { FaFire, FaMapPin } from "react-icons/fa";
 import { FaHouzz } from "react-icons/fa6";
 import { TbRefresh } from "react-icons/tb";
 import { RxDrawingPinFilled } from "react-icons/rx";
+import Link from "next/link";
+import { memo } from "react";
 
 const HeaderUserData = ({ userData }) => {
   const premium = userData?.countRepostProperty + userData?.countPinProperty;
   const normal = userData?.countProperty - premium;
-
   return (
     <div className="w-full grid lg:grid-cols-2 grid-cols-1 space-y-4 p-2 items-center">
       <div className="flex items-center  justify-center md:justify-normal w-full ">
-        <Image
-          alt="user avatar"
-          width={100}
-          height={100}
-          src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
-          className="rounded-full object-cover w-[8vw] h-[8vw] min-h-[60px] max-h-[130px] min-w-[60px] max-w-[130px]"
-        />
+        <Link href={`/view-profile/${userData.username}`}>
+          <Image
+            alt="user avatar"
+            width={100}
+            height={100}
+            src={userData?.avatarUrl || "/user-avatar-placeholder.png"}
+            className="rounded-full object-cover w-[8vw] h-[8vw] min-h-[60px] max-h-[130px] min-w-[60px] max-w-[130px]"
+          />
+        </Link>
         <div className=" mx-2">
-          <h1 className="text-2xl font-bold">{userData?.fullname}</h1>
+          <h1 className="text-2xl font-bold">
+            <Link href={`/view-profile/${userData.username}`}>
+              {userData?.fullname}
+            </Link>
+          </h1>
           <p className="text-gray-500">{userData?.email}</p>
           <p className="text-gray-500">{userData?.phone}</p>
         </div>
@@ -54,31 +60,4 @@ const HeaderUserData = ({ userData }) => {
     </div>
   );
 };
-export default HeaderUserData;
-//<FaHouseFire />
-//<FaFire />
-//<RxDrawingPinFilled />
-
-//<TbRefresh />
-//<TbHours24 />
-
-//<VscPin />
-//<SiHouzz />
-/**
- *         <div className="md:my-8 my-4" />
-        <b>User Package</b>
-        <div className=" flex lg:flex-row flex-col ">
-          <ul className="w-full px-[1vw]  p-0.5 justify-between flex bg-gray-100">
-            <li>Free property:</li>
-            <li className="font-bold">{userData?.propertyPackageNumber}</li>
-          </ul>
-          <ul className="w-full px-[1vw]  p-0.5 justify-between flex">
-            <li>Pin :</li>
-            <li className="font-bold">{userData?.pinPropertyNumber}</li>
-          </ul>
-          <ul className="w-full px-[1vw]  p-0.5 justify-between flex bg-gray-100">
-            <li>Repost :</li>
-            <li className="font-bold">{userData?.repostPropertyNumber}</li>
-          </ul>
-        </div>
- */
+export default memo(HeaderUserData);

@@ -168,6 +168,7 @@ const RenderTable = ({ row, col }) => {
           </div>
         </div>
       );
+
     default:
       return <div>{row[col]}</div>;
   }

@@ -6,9 +6,12 @@ const cols = [
   { name: "Repost", uid: "repostNumber" },
   { name: "Pin", uid: "pinNumber" },
   { name: "Expire Date ", uid: "expireDate" },
+  { name: "Invoice ", uid: "invoice" },
 ];
 
 const UsersPackageAvailable = ({ packageAvailable }) => {
+  console.log("packageAvailable::>>", packageAvailable);
+
   return (
     <div>
       <h2>Package available</h2>

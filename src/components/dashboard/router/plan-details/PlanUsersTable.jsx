@@ -7,6 +7,7 @@ const PlanUsersTable = ({ planDetails }) => {
     { name: "Email", uid: "userEmail" },
     { name: "Created", uid: "createdAt" },
     { name: "Expire", uid: "expireDate" },
+    { name: "Invoice", uid: "invoice" },
   ];
   console.log("planDetails::>>", planDetails);
   return (
