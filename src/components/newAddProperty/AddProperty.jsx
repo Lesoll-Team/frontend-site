@@ -13,7 +13,7 @@ import { scrollToTop } from "@/utils/scrollToTop";
 import { useUser } from "@/Shared/UserContext";
 import ImagesStep from "./components/ImagesStep";
 import PaymentStep from "./components/payment-step/PaymentStep";
-const AddProperty = () => {
+const AddProperty = ({ propData }) => {
   const {
     onSubmit,
     errors,
@@ -27,7 +27,7 @@ const AddProperty = () => {
     formStatus,
     loading,
     posted,
-  } = useAddProperty();
+  } = useAddProperty({ propData });
   const language = useSelector((state) => state.GlobalState.languageIs);
   const isInvestment = watch("offer") === "For Investment";
 

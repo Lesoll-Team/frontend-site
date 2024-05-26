@@ -19,7 +19,7 @@ import {
   buyPackageActionWithWallet,
 } from "@/utils/PricingAPI";
 
-const useAddProperty = () => {
+const useAddProperty = ({ propData }) => {
   const { data: userData } = useUser();
   const userHavePackage =
     userData?.packageSubscribe && userData?.pinPropertyNumber;

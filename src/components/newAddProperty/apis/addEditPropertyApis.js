@@ -77,3 +77,25 @@ export const getPackagesInAddProperty = async ({
     throw error.response.data;
   }
 };
+
+export const getSingleDraft = async ({
+  setApiStatus,
+  id,
+  setData,
+  setServerError,
+}) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.get(
+      `/property/get/property/single/draft/${id}`,
+    );
+    if (response.status === 200 || response.status === 201) {
+      setApiStatus("success");
+      setData(response.data);
+    }
+  } catch (error) {
+    setApiStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};

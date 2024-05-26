@@ -20,6 +20,9 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
   }, [type]);
+  const typeActive = useMemo(() => {
+    return type === "نشطة" || type === "active";
+  }, [type]);
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
@@ -48,7 +51,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             alt="property image"
             className="w-full max-h-[150px] object-cover"
           />
-          {userData && userData.dashboardPackage && (
+          {userData && userData.dashboardPackage && typeActive && (
             <div className="absolute bottom-0 left-0 bg-white border py-1 px-2">
               <Link
                 href={`/profile/property-analytics/${data?.slug}`}
@@ -67,9 +70,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
           </p>
 
           <div className="space-y-5">
-            <p className="text-xl font-bold text-baseGray line-clamp-1">
-              {data.title}
-            </p>
+            <p className=" font-bold  line-clamp-1">{data.title}</p>
 
             <div className="flex flex-col justify-between flex-wrap gap-2">
               <p className="text-baseGray text-sm md:text-base">
@@ -77,17 +78,17 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
                 {data.address.region && ", " + data.address.region}{" "}
               </p>
               <div className="flex gap-3">
-                <div className="flex gap-2">
+                <p className="flex gap-2">
                   <LiaBedSolid className="text-2xl" />
                   {data?.rooms}
-                </div>
+                </p>
                 |
-                <div className="flex gap-2">
+                <p className="flex gap-2">
                   <PiBathtub className="text-2xl" />
                   {data?.bathRooms}
-                </div>
+                </p>
                 |
-                <div className="flex gap-2">
+                <p className="flex gap-2">
                   <LiaVectorSquareSolid className="text-2xl" />
                   {data?.area}{" "}
                   {language ? (
@@ -99,15 +100,17 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
                       m <sup>2</sup>
                     </span>
                   )}
-                </div>
+                </p>
               </div>
             </div>
           </div>
-          <PaymentActions
-            getProperties={getProperties}
-            propId={data._id}
-            disabled={paymentDisabled || data?.makePin || data?.makeRepost}
-          />
+          {!paymentDisabled && (
+            <PaymentActions
+              getProperties={getProperties}
+              propId={data._id}
+              disabled={paymentDisabled || data?.makePin || data?.makeRepost}
+            />
+          )}
         </div>
       </div>
     );
