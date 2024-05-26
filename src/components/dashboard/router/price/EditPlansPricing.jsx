@@ -20,6 +20,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [descriptionCardAr, setDescriptionCardAr] = useState("");
   const [descriptionCardEn, setDescriptionCardEn] = useState("");
   const [normalProp, setNormalProp] = useState(0);
+  const [isAddProperty, setAddProperty] = useState(false);
 
   const [targetUser, setTargetUser] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -62,6 +63,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setNormalProp(paymentPlan.normalProp);
     setDurationPlanHome(paymentPlan.pinDayInHome);
     setPropNumberInHome(paymentPlan.propNumberInHome);
+    setAddProperty(paymentPlan.addProperty);
   }, []);
   const data2 = {
     PaymentAr: categoryNameAr,
@@ -114,6 +116,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
     pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
       ? 0
       : durationPlanHome,
+    addProperty: isAddProperty,
   };
   useEffect(() => {
     setFeaturesId(paymentPlan.service.map((feature) => feature._id));
@@ -448,7 +451,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
               </button>
             </div>
           </div>
-          <div className="grid justify-center grid-cols-1 ">
+          <div className="flex flex-col lg:mt-14 mt-3   ">
+            <div className=" p-2 gap-x-2 flex items-center justify-center">
+              <label htmlFor="setAddProperty">
+                {language ? "إضافة الي إضافة العقار" : "Add to add property"}
+              </label>
+              <input
+                type="checkbox"
+                checked={isAddProperty}
+                onChange={(e) => setAddProperty(e.target.checked)}
+                name="setAddProperty"
+                className="w-[20px] h-[20px]"
+              />
+            </div>
             <PlanPricingCard data={data2} />
           </div>
         </div>

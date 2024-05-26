@@ -7,7 +7,6 @@ import FavAndDate from "./basic-body-card/FavAndDate";
 import { memo } from "react";
 
 const RealtyCard = ({ propertyDetails }) => {
-  // console.log("propertyDetails");
   return (
     <div className="overflow-hidden  w-full  sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md">
       {/* start icon favorite */}

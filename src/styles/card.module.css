@@ -1,0 +1,25 @@
+.crown_container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #282c34; */
+}
+
+.crown_icon {
+  font-size: 900px;
+  color: #ffd700;
+  /* لون ذهبي */
+  animation: shine 2s ease-in infinite;
+  position: relative;
+}
+
+@keyframes shine {
+  0% {
+    text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ffd700, 0 0 50px #ffd700, 0 0 60px #ffd700, 0 0 70px #ffd700;
+  }
+
+  100% {
+    text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ffd700, 0 0 50px #ffd700, 0 0 60px #ffd700, 0 0 70px #ffd700, 0 0 80px #ffd700, 0 0 90px #ffd700;
+  }
+}

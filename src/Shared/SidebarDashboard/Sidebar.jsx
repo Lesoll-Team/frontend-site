@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiUsersFour } from "react-icons/pi";
-import { TbHomeCheck, TbHomeDown } from "react-icons/tb";
+import { TbHomeCheck, TbHomeDown, TbUserStar } from "react-icons/tb";
 import Image from "next/image";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { FaRegNewspaper } from "react-icons/fa";
@@ -13,19 +13,19 @@ import { IoIosPaper } from "react-icons/io";
 const Sidebar = () => {
   const [toggleNav, setToggleNav] = useState(false);
   const asideWrapper = toggleNav
-    ? " h-screen  rounded-r-xl z-20  space-y-4"
-    : " w-[65px]  h-screen  rounded-r-xl z-20  space-y-4";
+    ? " h-screen  rounded-r-xl z-20  space-y-1"
+    : " w-[50px]  h-screen  rounded-r-xl z-20  space-y-1";
 
   const [toggleBlogList, setToggleBlogList] = useState(false);
   return (
     <div className={asideWrapper}>
-      <div className="justify-center flex p-5 mb-5">
+      <div className="justify-center flex ">
         <Image
-          className="justify-center flex"
-          src={toggleNav ? "/logo-x.png" : "/favicon.png"}
+          className="justify-center flex w-[50px] h-[50px]"
+          src={"/favicon.png"}
           alt="sidebar logo"
-          width="150"
-          height="100"
+          width={50}
+          height={50}
           priority
         />
       </div>
@@ -38,104 +38,129 @@ const Sidebar = () => {
           {toggleNav ? <GoSidebarExpand /> : <GoSidebarCollapse />}
         </button>
       </div>
-      <nav className="h-screen  top-20 p-5 flex flex-col items-center space-y-6">
+      <nav className="h-screen  top-10 p-3 flex flex-col items-center space-y-4">
         <Link
           className={` flex items-center justify-start ${
-            toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
           } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           href={"/dashboard"}
         >
-          <LuLayoutDashboard
+          <LuLayoutDashboard className="text-[20px]" />
+          <span
             className={
-              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
             }
-          />
-          <span className={toggleNav ? "lg:block hidden " : "hidden"}>
-            {" "}
+          >
             Dashboard
           </span>
         </Link>
         <Link
           className={`flex items-center justify-start ${
-            toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
           } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           href={"/dashboard/prop-active"}
         >
-          <TbHomeCheck
+          <TbHomeCheck className="text-[20px]" />{" "}
+          <span
             className={
-              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
             }
-          />{" "}
-          <span className={toggleNav ? "lg:block hidden " : "hidden"}>
+          >
             Active
           </span>
         </Link>
         <Link
           className={` flex items-center justify-start ${
-            toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
           } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           href={"/dashboard/prop-pending"}
         >
-          <TbHomeDown
+          <TbHomeDown className="text-[20px]" />{" "}
+          <span
             className={
-              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
             }
-          />{" "}
-          <span className={toggleNav ? "lg:block hidden " : "hidden"}>
+          >
             Pending
           </span>
         </Link>
         <Link
           className={` flex items-center justify-start ${
-            toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
           } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           href={"/dashboard/users"}
         >
-          <PiUsersFour
+          <PiUsersFour className="text-[20px]" />{" "}
+          <span
             className={
-              toggleNav ? "lg:text-3xl text-[30px] " : " text-[30px]  "
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
             }
-          />{" "}
-          <span className={toggleNav ? "lg:block hidden " : "hidden"}>
+          >
             Users
           </span>
         </Link>
         <Link
           className={` flex items-center justify-start ${
-            toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
           } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           href={"/dashboard/pricing"}
         >
-          <MdOutlinePriceChange
-            className={toggleNav ? "lg:text-xl text-[30px] " : " text-[30px]  "}
-          />{" "}
-          <span className={toggleNav ? "lg:block hidden " : "hidden"}>
+          <MdOutlinePriceChange className=" text-[20px]" />
+          <span
+            className={
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
+            }
+          >
             Pricing
+          </span>
+        </Link>
+        {/* <TbUserDollar />
+        <TbUserStar />
+<PiUserCircleGearBold />
+
+         */}
+        <Link
+          className={` flex items-center justify-start ${
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
+          } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
+          href={"/dashboard/vip-users"}
+        >
+          <TbUserStar className=" text-[20px]" />
+          <span
+            className={
+              toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
+            }
+          >
+            VIP Users
           </span>
         </Link>
         {/**"flex justify-start  space-x-4 items-center" */}
         <div className="w-full flex flex-col items-center ">
           <div
             className={`flex items-center justify-start ${
-              toggleNav ? "lg:w-full lg:py-2 lg:space-x-3 " : "justify-center "
+              toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
             } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
           >
             <FaRegNewspaper
-              className="cursor-pointer text-3xl"
+              className="cursor-pointer text-[20px]"
               onClick={() => setToggleBlogList(!toggleBlogList)}
             />
             <button
               className="cursor-pointer select-none"
               onClick={() => setToggleBlogList(!toggleBlogList)}
             >
-              {" "}
-              <span className={toggleNav ? "lg:block hidden " : "hidden"}>
-                {" "}
+              <span
+                className={
+                  toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
+                }
+              >
                 Blogs
               </span>
             </button>
             <button
-              className={toggleNav ? "lg:block hidden " : "hidden"}
+              className={
+                toggleNav ? "lg:block hidden sm-text" : " hidden sm-text"
+              }
               onClick={() => setToggleBlogList(!toggleBlogList)}
             >
               <AiFillCaretDown
@@ -147,17 +172,19 @@ const Sidebar = () => {
           </div>
           <div
             className={
-              toggleBlogList ? " flex flex-col items-center  w-full" : "hidden"
+              toggleBlogList
+                ? "sm-text flex flex-col items-center  w-full"
+                : "hidden first-line:"
             }
           >
             <Link
-              className="w-full text-center py-2 rounded-lg  text-black hover:text-gray-700 font-bold "
+              className="w-full text-center    text-black hover:text-gray-700 font-bold "
               href={"/dashboard/blog"}
             >
               Blogs
             </Link>
             <Link
-              className="w-full text-center  py-2 rounded-lg  text-black hover:text-gray-700 font-bold "
+              className="w-full text-center whitespace-nowrap  text-black hover:text-gray-700 font-bold "
               href={"/dashboard/blog/add-blog"}
             >
               Add Blogs
@@ -166,27 +193,38 @@ const Sidebar = () => {
         </div>
         <Link
           href={"/dashboard/projects"}
-          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+          className={` flex items-center justify-start ${
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
+          } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
         >
-          <MdOutlineAddHomeWork />{" "}
+          <MdOutlineAddHomeWork className="text-[20px]" />{" "}
           {toggleNav && (
-            <span className="text-lg font-bold hidden md:block">Projects</span>
+            <span className="sm-text font-bold hidden md:block">Projects</span>
           )}
         </Link>
         <Link
           href={"/dashboard/needs"}
-          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+          className={` flex items-center justify-start ${
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
+          } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
         >
-          <IoIosPaper />{" "}
+          <IoIosPaper className="text-[20px]" />
           {toggleNav && (
-            <span className="text-lg font-bold hidden md:block">Needs</span>
+            <span className="sm-text font-bold hidden md:block">Needs</span>
           )}
         </Link>
         <Link
           href={"/dashboard/compoundes"}
-          className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
+          className={` flex items-center justify-start ${
+            toggleNav ? "lg:w-full lg:py-1 lg:space-x-3 " : "justify-center "
+          } select-none   rounded-lg hover:bg-white hover:text-lightGreen font-bold active:bg-gray-300`}
         >
-          C
+          <span className="text-[20px]">C</span>
+          {toggleNav && (
+            <span className="sm-text font-bold hidden md:block">
+              Components
+            </span>
+          )}
         </Link>
       </nav>
     </div>
