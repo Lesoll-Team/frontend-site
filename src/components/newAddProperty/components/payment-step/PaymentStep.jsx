@@ -18,14 +18,12 @@ const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
   const [packages, setPackages] = useState();
   const [apiStatus, setApiStatus] = useState();
   const [serverError, setServerError] = useState();
-  console.log(packages);
   useEffect(() => {
     if (!packages) {
       getPackagesInAddProperty({ setPackages, setApiStatus, setServerError });
     }
   }, []);
   const { data: userData } = useUser();
-  console.log(userData);
   return (
     <div className="space-y-6">
       <AddPropSectionContainer

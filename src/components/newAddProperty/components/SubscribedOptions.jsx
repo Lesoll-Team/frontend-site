@@ -14,9 +14,7 @@ const SubscribedOptions = ({
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
-  console.log(userData);
-  console.log(watch("adType"));
-  console.log(errors);
+
   return (
     <AddPropSectionContainer className={"flex flex-col"}>
       <h3>{language ? "نوع الإعلان" : "Ad type"}</h3>

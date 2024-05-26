@@ -217,7 +217,6 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           </>
         ) : (
           <div className="flex flex-wrap justify-center items-center gap-3  ">
-            {/* {console.log(multiImages)} */}
             {watch("multiImage") &&
               Array.isArray(multiImages) &&
               watch("multiImage")?.map((image, index) => (

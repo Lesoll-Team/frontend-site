@@ -26,15 +26,15 @@ const AddProperty = () => {
     clearErrors,
     formStatus,
     loading,
+    posted,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const isInvestment = watch("offer") === "For Investment";
 
   const { data, status } = useUser();
-  const [sended, setSended] = useState(false);
+
   useEffect(() => {
     if (formStatus === "success") {
-      setSended(true);
       setStep(1);
       scrollToTop();
     }
@@ -161,10 +161,10 @@ const AddProperty = () => {
           noValidate
           onSubmit={onSubmit}
           className={`min-h-[88dvh]  py-10 container mx-auto  ${
-            sended ? "flex flex-col gap-8  justify-center" : "space-y-8"
+            posted ? "flex flex-col gap-8  justify-center" : "space-y-8"
           }`}
         >
-          {sended ? (
+          {posted ? (
             <AceeptedCard />
           ) : (
             <>

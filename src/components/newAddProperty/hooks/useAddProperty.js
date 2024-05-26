@@ -32,6 +32,7 @@ const useAddProperty = () => {
   const [finalStepStatus, setFinalStepStatus] = useState(null);
   const [finalStepError, setFinalStepError] = useState(null);
   const [loading, setLaoding] = useState(false);
+  const [posted, setPosted] = useState(false);
 
   const form = useForm({
     defaultValues: initialAddPropData,
@@ -80,6 +81,11 @@ const useAddProperty = () => {
       setLaoding(true);
     } else {
       setLaoding(false);
+    }
+    if (formStatus === "success" || finalStepStatus === "success") {
+      setPosted(true);
+    } else {
+      setPosted(false);
     }
   }, [draftFormStatus, finalStepStatus, formStatus]);
 
@@ -190,6 +196,7 @@ const useAddProperty = () => {
     formStatus,
     serverError,
     loading,
+    posted,
   };
 };
 
