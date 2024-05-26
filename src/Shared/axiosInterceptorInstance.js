@@ -47,6 +47,12 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         Cookies.remove("userToken");
+        if (
+          window.location.pathname.includes("/profile") ||
+          window.location.pathname.includes("/dashboard")
+        ) {
+          window.location.replace("/");
+        }
         return Promise.reject(error); // Return the original error from the endpoint
       }
     }
