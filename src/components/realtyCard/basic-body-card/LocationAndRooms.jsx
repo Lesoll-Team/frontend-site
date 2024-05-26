@@ -1,15 +1,14 @@
 import React, { memo } from "react";
-import { LiaVectorSquareSolid } from "react-icons/lia";
-import { PiBathtubThin, PiBedLight } from "react-icons/pi";
 import { useSelector } from "react-redux";
-
+import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
+import { PiBathtub } from "react-icons/pi";
 const LocationAndRooms = ({ propertyDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div className="flex w-fit justify-end   gap-x-2 sm:gap-x-4">
       {!propertyDetails.rooms == 0 && (
         <ul className="flex items-center gap-x-1   ">
-          <PiBedLight className="sm:text-xl text-lg" />
+          <LiaBedSolid className="sm:text-xl text-lg" />
           <li className=" text-[11px] font-inter md:text-[17px]">
             {propertyDetails.rooms}
           </li>
@@ -18,7 +17,7 @@ const LocationAndRooms = ({ propertyDetails }) => {
 
       {!propertyDetails.bathRooms == 0 && (
         <ul className="flex items-center gap-x-1   ">
-          <PiBathtubThin className="text-lg sm:text-xl" />
+          <PiBathtub className="text-lg sm:text-xl" />
           <li className=" text-[11px] font-inter md:text-[17px]">
             {propertyDetails?.bathRooms}
           </li>
@@ -39,5 +38,3 @@ const LocationAndRooms = ({ propertyDetails }) => {
 };
 
 export default memo(LocationAndRooms);
-
-/* <span className="p-[8px]"></span> */

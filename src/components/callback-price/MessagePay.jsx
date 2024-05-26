@@ -1,5 +1,3 @@
-// import Image from "next/image";
-
 import { useSelector } from "react-redux";
 import ImageSuccess from "./success/ImageSuccess";
 import PaymentDetails from "./success/PaymentDetails";
