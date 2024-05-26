@@ -23,7 +23,7 @@ const useAddProperty = () => {
   const { data: userData } = useUser();
   const userHavePackage =
     userData?.packageSubscribe && userData?.pinPropertyNumber;
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [returnData, setReturnData] = useState(null);
@@ -86,7 +86,7 @@ const useAddProperty = () => {
   // redirect to the payment gateway when is successful
   useEffect(() => {
     const id = watch("packId");
-    if (draftFormStatus === "success") {
+    if (draftFormStatus === "success" && watch("adType") === "paid") {
       if (watch("paymentMethod") === "card") {
         buyPackageActionWithCard({ id }).then((data) => {
           router.push(data.link);
