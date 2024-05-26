@@ -25,6 +25,7 @@ const AddProperty = () => {
     setStep,
     clearErrors,
     formStatus,
+    loading,
   } = useAddProperty();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const isInvestment = watch("offer") === "For Investment";
@@ -195,16 +196,12 @@ const AddProperty = () => {
                   </Button>
                 )}
                 <Button
-                  disabled={formStatus === "loading"}
+                  disabled={loading}
                   variant=""
                   type={"submit"}
                   className={"w- h-auto py-2"}
                 >
-                  {formStatus === "loading" ? (
-                    <Ring size={28} color="#fff" />
-                  ) : (
-                    submitBtnText
-                  )}
+                  {loading ? <Ring size={28} color="#fff" /> : submitBtnText}
                 </Button>
               </div>
             </>

@@ -13,6 +13,11 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import { getCurrencies } from "../redux/currenciesSlice";
+import { useRouter } from "next/router";
+import {
+  buyPackageActionWithCard,
+  buyPackageActionWithWallet,
+} from "@/utils/PricingAPI";
 
 const useAddProperty = () => {
   const { data: userData } = useUser();
@@ -26,6 +31,7 @@ const useAddProperty = () => {
   const [draftServerError, setDraftServerError] = useState(null);
   const [finalStepStatus, setFinalStepStatus] = useState(null);
   const [finalStepError, setFinalStepError] = useState(null);
+  const [loading, setLaoding] = useState(false);
 
   const form = useForm({
     defaultValues: initialAddPropData,
@@ -44,6 +50,9 @@ const useAddProperty = () => {
   const currencies = useSelector((state) => state.getCurrencies.data);
   const features = useSelector((state) => state.getFeatures.features);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  // fetch the needed data to use in the form
   useEffect(() => {
     if (!features) {
       dispatch(getFeatures());
@@ -52,6 +61,8 @@ const useAddProperty = () => {
       dispatch(getCurrencies());
     }
   }, []);
+
+  // the last step before payment when it successfull it goes automatically to the next step of the payment process
   useEffect(() => {
     if (draftFormStatus === "success") {
       const nextStep = watch("offer") === "For Investment" ? 4 : 5;
@@ -59,7 +70,37 @@ const useAddProperty = () => {
       scrollToTop();
     }
   }, [draftFormStatus]);
-  console.log(step);
+
+  useEffect(() => {
+    if (
+      draftFormStatus === "loading" ||
+      finalStepStatus === "loading" ||
+      formStatus === "loading"
+    ) {
+      setLaoding(true);
+    } else {
+      setLaoding(false);
+    }
+  }, [draftFormStatus, finalStepStatus, formStatus]);
+
+  // redirect to the payment gateway when is successful
+  useEffect(() => {
+    const id = watch("packId");
+    if (draftFormStatus === "success") {
+      if (watch("paymentMethod") === "card") {
+        buyPackageActionWithCard({ id }).then((data) => {
+          router.push(data.link);
+        });
+      }
+      if (watch("paymentMethod") === "wallet") {
+        buyPackageActionWithWallet({ id }).then((data) => {
+          router.push(data.link);
+        });
+      }
+    }
+  }, [finalStepStatus]);
+
+  // on the success of post draft change the images to the new images from the backend  as a links and id to not resend the images agian if the user edit
   useEffect(() => {
     if (returnData?._id && !watch("thumbnail")) {
       setValue("mainImage", null);
@@ -69,8 +110,9 @@ const useAddProperty = () => {
     }
   }, [returnData, setValue, watch]);
 
+  // handle the logic to update or post the draft
   const handleDraftOrPost = (formData) => {
-    if (!userHavePackage) {
+    if (userHavePackage) {
       postProperty({
         data: formData,
         setFormStatus,
@@ -94,7 +136,7 @@ const useAddProperty = () => {
       }
     }
   };
-
+  //  the edit draft for fonal action
   const handleEditDraft = (formData) => {
     editDraft({
       id: returnData._id,
@@ -104,6 +146,7 @@ const useAddProperty = () => {
     });
   };
 
+  // hancle the form submission on every step
   const handleStepsActions = (data) => {
     const { formData } = useFromatAddData(data);
     const isInvestment = watch("offer") === "For Investment";
@@ -146,6 +189,7 @@ const useAddProperty = () => {
     clearErrors,
     formStatus,
     serverError,
+    loading,
   };
 };
 

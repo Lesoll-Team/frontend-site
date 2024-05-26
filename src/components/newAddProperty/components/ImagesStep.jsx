@@ -16,7 +16,7 @@ const ImagesStep = ({ errors, register, setValue, watch, clearErrors }) => {
         errors={errors}
         register={register}
       />
-      {!userHavePackage && (
+      {userHavePackage && (
         <SubscribedOptions
           clearErrors={clearErrors}
           watch={watch}
