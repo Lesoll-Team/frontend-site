@@ -63,7 +63,7 @@ const RenderTable = ({ row, col }) => {
     case "userFullname":
       return (
         <Link
-          href={`/dashboard/vip-users/one-user/${row._id}`}
+          href={`/dashboard/vip-users/one-user/${row.userId}`}
           className="font-bold text-medium underline text-blue-900"
         >
           {row.userFullname}
