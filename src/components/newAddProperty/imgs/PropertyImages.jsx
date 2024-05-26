@@ -1,4 +1,4 @@
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
@@ -11,26 +11,20 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const mainImgInputRef = useRef(null);
   const multiImgInputRef = useRef(null);
   const thumbnail = watch("thumbnail") || "";
-  const [mainImage, setMainImage] = useState(watch("mainImage"));
-  const [multiImage, setMultiImage] = useState(watch("multiImage"));
+  // const [multiImage, setMultiImage] = useState(watch("multiImage"));
   const [album, setAlbum] = useState(watch("album"));
   const mainImgContainerRef = useRef(null);
-  const showMultiImages = multiImage || album?.length > 0;
+  const showMultiImages = watch("multiImage") || watch("album")?.length > 0;
+  const multiImages = watch("multiImage");
   useEffect(() => {
     setAlbum(watch("album"));
   }, [watch("album")]);
+
   useEffect(() => {
-    setValue("mainImage", mainImage);
-    if (mainImage) {
-      clearErrors("mainImage");
-    }
-  }, [mainImage]);
-  useEffect(() => {
-    setValue("multiImage", multiImage);
-    if (multiImage && multiImage.length > 0) {
+    if (watch("multiImage") && watch("multiImage").length > 0) {
       clearErrors("multiImage");
     }
-  }, [multiImage]);
+  }, [watch("multiImage")]);
   useEffect(() => {
     if (errors.mainImage) {
       mainImgContainerRef.current.focus();
@@ -39,50 +33,48 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
   const handleMainImageChange = async (e) => {
     const originalFile = e.target.files[0];
     const compressedFile = await compressImage(originalFile);
-    setMainImage(compressedFile);
+    setValue("mainImage", compressedFile);
   };
   const deleteMainImage = () => {
-    setMainImage(null);
+    setValue("mainImage", null);
   };
 
   const handleMultiImageChange = async (event) => {
     const originalFiles = Array.from(event.target.files);
     const compressPromises = originalFiles.map(compressImage);
     const compressedFiles = await Promise.all(compressPromises);
-    if (Array.isArray(multiImage)) {
-      setMultiImage((prevImages) => [...prevImages, ...compressedFiles]);
+    if (Array.isArray(watch("multiImage"))) {
+      setValue("multiImage", [...multiImages, ...compressedFiles]);
     } else {
-      setMultiImage(compressedFiles);
+      setValue("multiImage", compressedFiles);
     }
   };
-  // const album = watch("album");
-  const handleDeleteImage = (index) => {
-    const newImages = multiImage.filter((_, i) => i !== index);
 
+  const handleDeleteImage = (index) => {
+    const newImages = watch("multiImage").filter((_, i) => i !== index);
     if (newImages.length > 0) {
-      setMultiImage(newImages);
+      setValue("multiImage", newImages);
     } else {
-      setMultiImage(null);
+      setValue("multiImage", null);
     }
   };
   const handleDeleteImageFromAlbum = (id) => {
     const newAlbum = album.filter((item) => item._id !== id);
     setValue("album", newAlbum);
-    setAlbum(newAlbum);
   };
   const deleteThumbnail = () => {
-    setValue("thumbnail", "");
+    setValue("thumbnail", null);
   };
   const addMainImage = () => {
-    if (mainImage || thumbnail) {
-    } else {
+    if (!watch("mainImage") && !watch("thumbnail")) {
       if (mainImgInputRef.current) {
         mainImgInputRef.current.click();
       }
     }
   };
   const addMultiImage = () => {
-    if (multiImage?.length > 0 || album?.length > 0) {
+    if (watch("multiImage")?.length > 0 || watch("album")?.length > 0) {
+      return;
     } else {
       if (multiImgInputRef.current) {
         multiImgInputRef.current.click();
@@ -102,7 +94,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           type="button"
           className="w-0 h-0 focus:outline-none focus:ring-0"
         ></button>
-        {!mainImage && !thumbnail ? (
+        {!watch("mainImage") && !watch("thumbnail") ? (
           <>
             {" "}
             <Image
@@ -134,27 +126,27 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           <div className="relative overflow-hidden">
             <button
               type="button"
-              onClick={mainImage ? deleteMainImage : deleteThumbnail}
+              onClick={watch("mainImage") ? deleteMainImage : deleteThumbnail}
               className="absolute drop-shadow top-3 mx-2 px-2 py-1 rounded font-bold  text-red-500 bg-white"
             >
               {language ? "حذف" : "Delete"}
             </button>
-            {mainImage && (
+            {watch("mainImage") && (
               <Image
                 alt="main-image"
                 className="max-w-[420] cursor-default rounded object-cover max-h-[300px] border-2 border-outLine"
                 width={400}
                 height={300}
-                src={URL.createObjectURL(mainImage)}
+                src={URL.createObjectURL(watch("mainImage"))}
               />
             )}
-            {thumbnail && (
+            {watch("thumbnail") && (
               <Image
                 alt="main-image"
                 className="max-w-[420] rounded object-cover max-h-[300px] border-2 border-outLine"
                 width={400}
                 height={300}
-                src={thumbnail}
+                src={watch("thumbnail")}
               />
             )}
           </div>
@@ -202,7 +194,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
             {" "}
             <Image
               onClick={() => {
-                if (multiImage?.length > 0 || album?.length > 0) {
+                if (multiImages?.length > 0 || watch("album")?.length > 0) {
                   if (multiImgInputRef.current) {
                     multiImgInputRef.current.click();
                   }
@@ -225,8 +217,9 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
           </>
         ) : (
           <div className="flex flex-wrap justify-center items-center gap-3  ">
-            {multiImage &&
-              multiImage.map((image, index) => (
+            {watch("multiImage") &&
+              Array.isArray(multiImages) &&
+              watch("multiImage")?.map((image, index) => (
                 <div key={index} className="relative">
                   <Image
                     alt={`multi-image-${index}`}
@@ -244,8 +237,9 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
                   </button>
                 </div>
               ))}
-            {album &&
-              album.map((item, index) => {
+
+            {watch("album") &&
+              watch("album").map((item, index) => {
                 return (
                   <div key={index} className="relative">
                     <button

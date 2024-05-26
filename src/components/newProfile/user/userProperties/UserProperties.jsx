@@ -5,6 +5,7 @@ import PendingProperties from "./PendingProperties";
 import SoldProperties from "./SoldProperties";
 import MobilePageTitle from "../MobilePageTitle";
 import { useSelector } from "react-redux";
+import DraftProperties from "./DraftProperties";
 
 const UserProperties = ({ params }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -17,6 +18,8 @@ const UserProperties = ({ params }) => {
         return "pending";
       case "sold":
         return "sold";
+      case "draft":
+        return "draft";
       default:
         return "active";
     }
@@ -29,6 +32,8 @@ const UserProperties = ({ params }) => {
         return <PendingProperties />;
       case "sold":
         return <SoldProperties />;
+      case "draft":
+        return <DraftProperties />;
       default:
         return <ActiveProperties />;
     }

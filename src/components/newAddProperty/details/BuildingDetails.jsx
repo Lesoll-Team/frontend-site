@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import AddPropSectionContainer from "../AddPropSectionContainer";
+import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useMemo, useRef } from "react";
 import { MdOutlineDateRange } from "react-icons/md";
 import DropDown from "@/Shared/ui/DropDown";
-import { finishingType } from "../finishingType";
+import { finishingType } from "../data/finishingType";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 

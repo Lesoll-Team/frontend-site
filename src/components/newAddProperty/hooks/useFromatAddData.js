@@ -20,13 +20,15 @@ const useFromatAddData = (data) => {
     return item;
   });
   const formData = new FormData();
-  for (let i = 0; i < data.multiImage.length; i++) {
-    formData.append("multiImage", data.multiImage[i]);
+  if (data?.multiImage) {
+    for (let i = 0; i < data.multiImage?.length; i++) {
+      formData.append("multiImage", data.multiImage[i]);
+    }
   }
-  for (let i = 0; i < saleOption.length; i++) {
+  for (let i = 0; i < saleOption?.length; i++) {
     formData.append("saleOption", saleOption[i]);
   }
-  for (let i = 0; i < installment.length; i++) {
+  for (let i = 0; i < installment?.length; i++) {
     formData.append("installment", JSON.stringify(installment[i]));
   }
   data.service.map((service) => {
@@ -35,6 +37,13 @@ const useFromatAddData = (data) => {
 
   formData.append("connectPhoneNumber", data.connectPhoneNumber || "");
   data.deliveryDate && formData.append("deliveryDate", data.deliveryDate);
+  // adType: "free",
+  // packageId: "",
+  // toPin: "",
+  data.packId && formData.append("packId", data.packId);
+  formData.append("adType", data.adType);
+  data.toPin && formData.append("toPin", data.toPin);
+
   formData.append("title", data.title);
   formData.append("isCompound", data.isCompound);
   data.isCompound && formData.append("compaounds", data.compaounds?._id);

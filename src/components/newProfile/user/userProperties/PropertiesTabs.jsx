@@ -11,9 +11,9 @@ const PropertiesTabs = ({ currentTab }) => {
   };
 
   return (
-    <div className="flex items-center md:justify-center lg:justify-start md:gap-5">
+    <div className="flex overflow-auto no-scrollbar  items-center md:justify-center lg:justify-start md:gap-5">
       <button
-        className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
+        className={`md:rounded-md min-w-fit whitespace-nowrap  text-xs font-medium px-4 md:px-5 py-2 border-b ${
           currentTab === "active"
             ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
             : "text-baseGray md:bg-gray-100"
@@ -25,7 +25,7 @@ const PropertiesTabs = ({ currentTab }) => {
         {language ? "النشطة" : "Active"}
       </button>
       <button
-        className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
+        className={`md:rounded-md min-w-fit whitespace-nowrap  text-xs font-medium px-4 md:px-5 py-2 border-b ${
           currentTab === "pending"
             ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
             : "text-baseGray md:bg-gray-100"
@@ -37,7 +37,7 @@ const PropertiesTabs = ({ currentTab }) => {
         {language ? "قيد المراجعة" : "Pending"}
       </button>
       <button
-        className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
+        className={`md:rounded-md min-w-fit whitespace-nowrap  text-xs font-medium px-4 md:px-5 py-2 border-b ${
           currentTab === "sold"
             ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
             : "text-baseGray md:bg-gray-100"
@@ -47,6 +47,18 @@ const PropertiesTabs = ({ currentTab }) => {
         }}
       >
         {language ? "تم البيع" : "Sold"}
+      </button>
+      <button
+        className={`md:rounded-md min-w-fit whitespace-nowrap  text-xs font-medium px-4 md:px-5 py-2 border-b ${
+          currentTab === "draft"
+            ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
+            : "text-baseGray md:bg-gray-100"
+        }`}
+        onClick={() => {
+          handleTabClick("draft");
+        }}
+      >
+        {language ? "مسودة" : "Draft"}
       </button>
     </div>
   );

@@ -5,12 +5,14 @@ import styles from "@/styles/Pagination.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import NoItems from "./NoItems";
-import { getActiveProperties } from "../../apis/profileApis";
+import { getActiveProperties, getDrafts } from "../../apis/profileApis";
 const ActiveProperties = () => {
   const [activeProperties, setActiveProperties] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
+  const [apiStatus, setApiStatus] = useState("idle");
   const [page, setPage] = useState(1);
+  const [drafts, setDrafts] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   // make as a function like that so i can pass as a prop to the card so when the user delete or change the state of a peoperty it call it again
   const getProperties = () => {
@@ -23,7 +25,10 @@ const ActiveProperties = () => {
   };
   useEffect(() => {
     getProperties();
+    getDrafts({ setApiStatus, setDrafts, setServerError });
   }, [page]);
+
+  console.log(drafts);
 
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage + 1);

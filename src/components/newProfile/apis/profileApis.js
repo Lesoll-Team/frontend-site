@@ -248,3 +248,22 @@ export const getPropertyAnalytics = async ({
     setServerError(error.response.data);
   }
 };
+
+export const getDrafts = async ({
+  setApiStatus,
+  setServerError,
+  setDrafts,
+}) => {
+  try {
+    setApiStatus("loading");
+
+    const response = await axiosInstance.get(`/user/user-draft`);
+    if (response.status === 200) {
+      setApiStatus("success");
+      setDrafts(response.data);
+    }
+  } catch (error) {
+    setApiStatus("failed");
+    setServerError(error.response.data);
+  }
+};

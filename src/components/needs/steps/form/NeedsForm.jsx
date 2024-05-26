@@ -4,10 +4,10 @@ import DropDown from "@/Shared/ui/DropDown";
 import { propTypeList } from "@/utils/addAndEditOptions";
 import Error from "@/Shared/ui/Error";
 import { useMemo } from "react";
-import { unitTypeList } from "@/components/newAddProperty/mainInfo/unitTypeList";
+import { unitTypeList } from "@/components/newAddProperty/data/unitTypeList";
 import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";
 import Button from "@/Shared/ui/Button";
-import PhoneNumber from "@/components/newAddProperty/PhoneNumber";
+import PhoneNumber from "@/components/newAddProperty/components/PhoneNumber";
 import { Ring } from "@uiball/loaders";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const NeedsForm = ({
