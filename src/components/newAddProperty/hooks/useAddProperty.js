@@ -18,6 +18,7 @@ import {
   buyPackageActionWithCard,
   buyPackageActionWithWallet,
 } from "@/utils/PricingAPI";
+import { formatApiData } from "@/components/edit-property/utils/fromateApiData";
 
 const useAddProperty = ({ propData }) => {
   const { data: userData } = useUser();
@@ -62,6 +63,15 @@ const useAddProperty = ({ propData }) => {
       dispatch(getCurrencies());
     }
   }, []);
+  useEffect(() => {
+    if (propData) {
+      formatApiData({
+        setValue: setValue,
+        data: propData,
+      });
+      setReturnData({ _id: propData._id });
+    }
+  }, [propData]);
 
   // the last step before payment when it successfull it goes automatically to the next step of the payment process
   useEffect(() => {
@@ -119,11 +129,20 @@ const useAddProperty = ({ propData }) => {
   // handle the logic to update or post the draft
   const handleDraftOrPost = (formData) => {
     if (userHavePackage) {
-      postProperty({
-        data: formData,
-        setFormStatus,
-        setServerError,
-      });
+      if (returnData?._id) {
+        editDraft({
+          id: returnData._id,
+          data: formData,
+          setFormStatus: setFinalStepStatus,
+          setServerError: setFinalStepError,
+        });
+      } else {
+        postProperty({
+          data: formData,
+          setFormStatus,
+          setServerError,
+        });
+      }
     } else {
       if (returnData?._id) {
         editDraft({
