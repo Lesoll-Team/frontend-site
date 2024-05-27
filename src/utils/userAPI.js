@@ -113,8 +113,8 @@ export async function ViewUser(username) {
 
 export async function getUserDataDashboard(username) {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard/user-data/${username}`,
+    const response = await axiosInstance.get(
+      `/admin/dashboard/user-data/${username}`,
     );
     return response.data;
   } catch (error) {
