@@ -21,6 +21,7 @@ import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import { propertyIsSold } from "@/utils/propertyAPI";
 import Image from "next/image";
 import { useUser } from "@/Shared/UserContext";
+import { PiCrownSimpleFill } from "react-icons/pi";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -35,6 +36,8 @@ export default function ActiveProperty() {
 
   const [property, setProperty] = useState([]);
   const [refreshProperty, setRefreshProperty] = useState(false);
+  const [isRepost, setIsRepost] = useState(false);
+  const [isPin, setIsPin] = useState(false);
   const [propertyLength, setPropertyLength] = useState(0);
   const [propertyLengthAPI, setPropertyLengthAPI] = useState(0);
   const [page, setPage] = useState(1);
@@ -58,6 +61,8 @@ export default function ActiveProperty() {
         filterValue,
         formattedStartDate,
         formattedEndDate,
+        isRepost,
+        isPin,
       );
       setProperty(getProperties.Property);
       setPropertyLength(getProperties.resultCount);
@@ -195,8 +200,14 @@ export default function ActiveProperty() {
         );
       case "thumbnail":
         return (
-          <div className=" flex min-w-[150px] max-w-[200px]">
-            <Link href={`/dashboard/property-details/${blog.slug}`}>
+          <div className=" flex min-w-[150px] max-w-[200px] ">
+            <Link
+              className="relative "
+              href={`/dashboard/property-details/${blog.slug}`}
+            >
+              {blog.makePin || blog.makeRepost ? (
+                <PiCrownSimpleFill className="absolute right-0 bg-white p-1 rounded-full top-0 text-2xl text-[#F6AE2D]" />
+              ) : null}
               <Image
                 width={100}
                 height={100}
@@ -210,7 +221,7 @@ export default function ActiveProperty() {
         );
       case "title":
         return (
-          <div className="min-w-[250px]">
+          <div className="min-w-[250px] ">
             <Link href={`/dashboard/property-details/${blog.slug}`}>
               <p className="font-bold text-medium text-center">{blog.title}</p>
             </Link>
@@ -277,6 +288,37 @@ export default function ActiveProperty() {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
   }, []);
+
+  const onFilterFeaturedChange = useCallback(
+    (e) => {
+      // console.log("onFilterFeaturedChange", e.target.value);
+      // setIsRepost
+      // IsPin;
+      switch (e.target.value) {
+        case "featured":
+          setIsRepost(true);
+          setIsPin(true);
+          break;
+
+        // case "pin":
+        //   setIsRepost(false);
+        //   setIsPin(true);
+        //   break;
+
+        // case "repost":
+        //   setIsRepost(true);
+        //   setIsPin(false);
+        //   break;
+
+        case "all":
+        default:
+          setIsRepost(false);
+          setIsPin(false);
+          break;
+      }
+    },
+    [isPin, isRepost],
+  );
 
   const onSearchChange = useCallback((value) => {
     if (value) {
@@ -349,7 +391,7 @@ export default function ActiveProperty() {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="flex w-full md:w-8/12 justify-between">
+          <div className="flex sm:flex-row flex-col w-full md:w-8/12 justify-between">
             <span className="text-default-400 text-small">
               Total property Active:{" "}
               <b className="text-lightOrange mx-2">{propertyLengthAPI}</b>
@@ -365,6 +407,18 @@ export default function ActiveProperty() {
                 <option value="15">15</option>
                 <option value="30">30</option>
                 <option value="60">60</option>
+              </select>
+            </label>
+            <label className="flex items-center text-default-400 text-small">
+              Subscriptions filter:
+              <select
+                className="bg-transparent outline-none text-default-400 text-small"
+                onChange={(e) => onFilterFeaturedChange(e)}
+              >
+                <option value="all">All</option>
+                <option value="featured">Featured</option>
+                {/* <option value="pin">Pin</option>
+                <option value="repost">Repost</option> */}
               </select>
             </label>
           </div>
@@ -415,6 +469,7 @@ export default function ActiveProperty() {
     }),
     [],
   );
+
   return (
     <Table
       isCompact
@@ -450,7 +505,7 @@ export default function ActiveProperty() {
         {(item) => (
           <TableRow key={item._id}>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell className="">{renderCell(item, columnKey)}</TableCell>
             )}
           </TableRow>
         )}
