@@ -124,7 +124,7 @@ export async function getUserDataDashboard(username) {
 export async function getUserPropertiesDashboard(username, page = 1, propType) {
   try {
     const response = await axiosInstance.get(
-      `/admin/dashboard/user-properties/${username}&limit=9&page=${page}&of=${propType}`,
+      `/admin/dashboard/user-properties/${username}?limit=9&page=${page}&of=${propType}`,
     );
     return response.data;
   } catch (error) {
