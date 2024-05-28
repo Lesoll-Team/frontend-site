@@ -18,8 +18,8 @@ import {
 // import { useSelector } from "react-redux";
 import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import Image from "next/image";
-import Cookies from "js-cookie";
 import { useUser } from "@/Shared/UserContext";
+import { PiCrownSimpleFill } from "react-icons/pi";
 const columns = [
   { name: "Image", uid: "thumbnail" },
   { name: "Title", uid: "title" },
@@ -43,8 +43,7 @@ export default function PropertyDashboard() {
   const { data } = useUser();
   const fetchAllProperties = async () => {
     try {
-      const userToken = Cookies.get("userToken");
-      const getProperties = await fetchAllProperty(userToken);
+      const getProperties = await fetchAllProperty();
       setProperty(getProperties);
       setProperty(getProperties);
     } catch (error) {
@@ -108,7 +107,6 @@ export default function PropertyDashboard() {
       return {}.direction === "descending" ? -cmp : cmp;
     });
   }, [{}, items]);
-
   const renderCell = useCallback((blog, columnKey) => {
     const formattedUpdatedAtDate = new Date(blog.updatedAt).toLocaleString();
     const formattedCreatedAtDate = new Date(blog.createdAt).toLocaleString();
@@ -162,15 +160,20 @@ export default function PropertyDashboard() {
 
       case "thumbnail":
         return (
-          <div className="w-[200px]">
-            <Image
-              width={200}
-              height={200}
-              src={blog.thumbnail}
-              loading="lazy"
-              className=" min-w-[100px] w-[100px] h-[100px]"
-              alt="NextUI Image with fallback"
-            />
+          <div className="w-[200px] ">
+            <div className="relative w-fit">
+              {blog.makePin || blog.makeRepost ? (
+                <PiCrownSimpleFill className="absolute right-0 bg-white p-1 rounded-full top-0 text-2xl text-[#F6AE2D]" />
+              ) : null}
+              <Image
+                width={200}
+                height={200}
+                src={blog.thumbnail}
+                loading="lazy"
+                className=" min-w-[100px] w-[100px] h-[100px]"
+                alt="NextUI Image with fallback"
+              />
+            </div>
           </div>
         );
       case "title":

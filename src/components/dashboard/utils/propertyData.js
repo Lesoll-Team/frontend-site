@@ -15,11 +15,24 @@ export async function fetchActiveProperty(
   filterUser,
   formattedStartDate,
   formattedEndDate,
+  isRepost,
+  isPin,
 ) {
   try {
-    const response = await axiosInstance.get(
-      `/admin/search/searchprop?keywords=${filterUser}&start=${formattedStartDate}&end=${formattedEndDate}&limit=${rowsPerPage}&page=${page}`,
-    );
+    const response = await axiosInstance
+      // .get
+      // `/admin/search/searchprop?keywords=${filterUser}&&&start=${formattedStartDate}&end=${formattedEndDate}&limit=${rowsPerPage}&page=${page}`,
+      .get(`/admin/search/searchprop`, {
+        params: {
+          keywords: filterUser,
+          start: formattedStartDate,
+          end: formattedEndDate,
+          limit: rowsPerPage,
+          page,
+          makeRepost: isRepost,
+          makePin: isPin,
+        },
+      });
     return response.data;
   } catch (error) {
     throw error.response.massage;
