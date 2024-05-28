@@ -8,15 +8,11 @@ import React, { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import Notifications from "./Notifications";
 import NeedsLink from "./NeedsLink";
-const SearchModel = dynamic(() => import("./SearchModel"));
+// const SearchModel = dynamic(() => import("./SearchModel"));
 const SideMenu = dynamic(() => import("./SideMenu"));
 const ChangeLang = dynamic(() => import("./ChangeLang"));
 const ProfileDropDown = dynamic(() => import("./ProfileDropDown"));
-// import ProfileDropDown from "./ProfileDropDown";
-// import ChangeLang from "./ChangeLang";
-// import SideMenu from "./SideMenu";
-// const SearchModelButton = dynamic(() => import("./SearchModelButton"));
-// const NeedsLink = dynamic(() => import("./NeedsLink"));
+
 
 function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
@@ -92,7 +88,6 @@ function Navbar() {
               </div>
             )}
             <div className="flex items-center  gap-3">
-              {/* <SearchModelButton isOpen={isOpen} setOpen={setIsOpen} /> */}
               {data && <Notifications />}
             </div>
 
@@ -103,13 +98,13 @@ function Navbar() {
           <SideMenu />
         </div>
 
-        <div
+        {/* <div
           className={` absolute w-11/12 ${
             data ? "top-[65px] lg:top-[81px]" : "lg:top-[85px] top-[64px]"
           }  justify-center flex items-center`}
         >
           {isOpen && <SearchModel isOpen={isOpen} setOpen={setIsOpen} />}
-        </div>
+        </div> */}
       </div>
     </nav>
   );

@@ -1,16 +1,6 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
-export async function createNewProperty(propertyDetils) {
-  try {
-    const response = await axiosInstance.post(
-      `/property/create`,
-      propertyDetils,
-    );
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-}
+
 
 export async function propertyIsSold({ propertyId }) {
   try {

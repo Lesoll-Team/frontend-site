@@ -36,15 +36,4 @@ const Footer = () => {
 };
 
 export default memo(Footer);
-/* <div className="space-y-5 flex flex-col ">
-  <UsefulLinks />
-</div>
-<div className="space-y-5 flex flex-col">
-  <Help />
-</div>
-<div className="space-y-5 flex flex-col">
-  <Contact />
-</div>
-<div className="sm:hidden block  space-y-5 ">
-  <SocialMedia />
-</div> */
+

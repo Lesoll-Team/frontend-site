@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import globalState from "./features/globalState";
 import contactReducer from "./features/contactSlice";
-import profileReducer from "./features/profileSlice";
 import blogDashboardReducer from "./features/dashboard/blogDashboardSlice";
 import overViewReducer from "./features/dashboard/overViewSlice";
 import userProfileReducer from "./features/auth/userProfileSlice";
@@ -29,7 +28,6 @@ export default combineReducers({
   BlogDashboard: blogDashboardReducer,
   OverView: overViewReducer,
   Pricing: PricingReducer,
-  Profile: profileReducer,
   userProfile: userProfileReducer,
   getGov: getGovReducer,
   getRegion: getRegionReducer,
@@ -45,6 +43,5 @@ export default combineReducers({
   getProjects: allProjectsSlice,
   editProject: editProjectSlice,
   PendingNeeds: pendingNeedsSlice,
-  // Compare:compareReducer,
   getCurrencies: currenciesSlice,
 });

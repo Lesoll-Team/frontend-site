@@ -63,7 +63,7 @@ const FavAndDate = ({ propertyDetails }) => {
             //font-semibold
             className="text-[#F6AE2D]  sm:block hidden font-noto"
           >
-            {language ? "متميز" : "Featured"}
+            {language ? "مميز" : "Featured"}
           </span>
         </div>
       ) : (
