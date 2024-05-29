@@ -31,7 +31,9 @@ const PropertyCard = ({ propertyDetails }) => {
               <span>
                 {language
                   ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
-                  : parseInt(propertyDetails?.price).toLocaleString()}{" "}
+                  : parseInt(propertyDetails?.price).toLocaleString(
+                      "en-US",
+                    )}{" "}
               </span>
               {language ? "جنية" : "EGP"}
             </p>
@@ -115,7 +117,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <p>
               {language
                 ? propertyDetails?.rooms.toLocaleString("ar-Eg")
-                : propertyDetails?.rooms.toLocaleString()}{" "}
+                : propertyDetails?.rooms.toLocaleString("en-US")}{" "}
               {language ? "غرف" : "Rooms"}
             </p>
           </div>
@@ -124,7 +126,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <p>
               {language
                 ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
-                : propertyDetails?.bathRooms.toLocaleString()}{" "}
+                : propertyDetails?.bathRooms.toLocaleString("en-US")}{" "}
               {language ? "حمام" : "Bath"}
             </p>
           </div>
@@ -134,7 +136,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <p>
               {language
                 ? propertyDetails?.area.toLocaleString("ar-Eg")
-                : propertyDetails?.area.toLocaleString()}{" "}
+                : propertyDetails?.area.toLocaleString("en-US")}{" "}
               {language ? (
                 <span>
                   م<sup>2</sup>

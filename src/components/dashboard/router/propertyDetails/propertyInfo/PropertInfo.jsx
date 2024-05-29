@@ -54,7 +54,7 @@ const PropertInfo = ({ propertyDetails }) => {
         icon={<MdMapsHomeWork />}
       />
       <InfoCard
-        info={propertyDetails.getProperty.area.toLocaleString()}
+        info={propertyDetails.getProperty.area.toLocaleString("en-US")}
         title={"المساحة"}
         icon={<TbRulerMeasure />}
       />

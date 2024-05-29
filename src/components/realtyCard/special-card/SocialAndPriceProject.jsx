@@ -33,7 +33,7 @@ const SocialAndPriceProject = ({ cardDetails }) => {
         </span>
 
         <span className="">
-          {parseInt(cardDetails?.priceFrom).toLocaleString()} {" EGP "}
+          {parseInt(cardDetails?.priceFrom).toLocaleString("en-US")} {" EGP "}
         </span>
       </div>
 

@@ -108,8 +108,12 @@ export default function PropertyDashboard() {
     });
   }, [{}, items]);
   const renderCell = useCallback((blog, columnKey) => {
-    const formattedUpdatedAtDate = new Date(blog.updatedAt).toLocaleString();
-    const formattedCreatedAtDate = new Date(blog.createdAt).toLocaleString();
+    const formattedUpdatedAtDate = new Date(blog.updatedAt).toLocaleString(
+      "en-US",
+    );
+    const formattedCreatedAtDate = new Date(blog.createdAt).toLocaleString(
+      "en-US",
+    );
     const dropIcon = (
       <svg
         className="w-5 h-5"

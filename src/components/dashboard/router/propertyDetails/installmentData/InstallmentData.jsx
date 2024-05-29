@@ -33,7 +33,7 @@ const InstallmentData = ({ propertyDetails }) => {
                 {!!item.downPayment && (
                   <div className="flex items-center justify-center gap-2">
                     <p>المقدم</p>
-                    <p>{parseInt(item.downPayment).toLocaleString()}</p>
+                    <p>{parseInt(item.downPayment).toLocaleString("en-US")}</p>
                   </div>
                 )}
                 <div className="gap-1 flex flex-col justify-center items-center">
@@ -42,7 +42,7 @@ const InstallmentData = ({ propertyDetails }) => {
                       <>
                         {" "}
                         <span>
-                          {parseInt(item.amount).toLocaleString()}
+                          {parseInt(item.amount).toLocaleString("en-US")}
                         </span>{" "}
                         <span>{type}</span>
                       </>

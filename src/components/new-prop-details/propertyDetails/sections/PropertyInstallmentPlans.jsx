@@ -54,7 +54,7 @@ const InstallmentCard = ({ data }) => {
           <>
             {!!data.amount && (
               <p>
-                {parseInt(data.amount).toLocaleString()} {period}
+                {parseInt(data.amount).toLocaleString("en-US")} {period}
               </p>
             )}{" "}
             |{" "}

@@ -1,5 +1,8 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
+import {
+  generateRedirectDestination,
+  filterSlugURL,
+} from "@/Shared/generateRedirectDestination";
 import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
 import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
 
@@ -19,9 +22,10 @@ export default function PropertyDetails({ query, singleProperty, slug }) {
 }
 
 export async function getServerSideProps(context) {
+  const new_slug = filterSlugURL(context.query.id);
   try {
     const res = await axiosInstance.get(
-      `/property/get/property/singlepage/${context.query.id}`,
+      `/property/get/property/singlepage/${new_slug}`,
     );
     const all = res.data;
     const data = res.data.find;
@@ -29,7 +33,7 @@ export async function getServerSideProps(context) {
       props: {
         singleProperty: data,
         all,
-        slug: context.query.id,
+        slug: new_slug,
         query: context.query,
       },
     };

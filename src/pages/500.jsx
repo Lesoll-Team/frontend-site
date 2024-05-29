@@ -1,3 +1,4 @@
+import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,3 +44,13 @@ const Custom505 = () => {
   );
 };
 export default Custom505;
+export async function getServerSideProps() {
+  const destination = generateRedirectDestination();
+
+  return {
+    redirect: {
+      destination: destination,
+      statusCode: 308,
+    },
+  };
+}
