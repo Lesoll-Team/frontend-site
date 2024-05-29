@@ -40,3 +40,15 @@ export function generateRedirectDestination() {
 
   return destination;
 }
+export const filterSlugURL = (url) => {
+  const new_url = url
+    .split(" ")
+    .join("")
+    .split("%")
+    .join("")
+    .split("#")
+    .join("")
+    .split("/")
+    .join("");
+  return new_url;
+};

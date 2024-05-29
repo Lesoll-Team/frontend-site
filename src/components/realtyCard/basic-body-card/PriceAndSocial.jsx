@@ -34,7 +34,9 @@ const PriceAndSocial = ({ propertyDetails }) => {
       {propertyDetails?.offer !== "For Investment" ? (
         <p className=" font-bold gap-x-1 text-gray2 text-[10px] md:text-[16px] flex">
           <span> EGP </span>
-          <span> {parseInt(propertyDetails?.price).toLocaleString()} </span>
+          <span>
+            {parseInt(propertyDetails?.price).toLocaleString("en-US")}
+          </span>
         </p>
       ) : (
         <p className=" font-bold gap-x-1 text-gray2 text-[12px] md:text-[17px] flex">

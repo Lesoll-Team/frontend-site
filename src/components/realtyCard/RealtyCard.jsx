@@ -5,15 +5,18 @@ import TitleCard from "./basic-body-card/TitleCard";
 import LocationAndRooms from "./basic-body-card/LocationAndRooms";
 import FavAndDate from "./basic-body-card/FavAndDate";
 import { memo } from "react";
+import { filterSlugURL } from "@/Shared/generateRedirectDestination";
 
 const RealtyCard = ({ propertyDetails }) => {
+  const slug = filterSlugURL(propertyDetails?.slug);
+
   return (
     <div className="overflow-hidden col-5  w-full  sm:h-auto h-[135px] flex sm:block ">
       {/* start icon favorite */}
       <Link
         title={`${propertyDetails?.title}`}
         key={propertyDetails?._id}
-        href={`/property-details/${propertyDetails?.slug}`}
+        href={`/property-details/${slug}`}
         className="  sm:w-full w-5/12 min-w-[140px] flex relative "
       >
         <FavAndDate propertyDetails={propertyDetails} />
@@ -52,8 +55,4 @@ const RealtyCard = ({ propertyDetails }) => {
     </div>
   );
 };
-// w-[135px] h-[145px] md:w-[400px] md:h-[174px]
-// className=" md:h-[174px] h-[145px] md:min-w-[480px] md:max-w-[480px]  min-w-[135px] max-w-[135px] flex"
-
 export default memo(RealtyCard);
-// <div className="md:max-w-[400px]  md:h-[355px] h-[145px] flex md:block overflow-hidden rounded-md bg-white drop-shadow-md  relative">
