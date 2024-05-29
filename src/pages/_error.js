@@ -34,13 +34,3 @@ const ErrorPage = () => {
 };
 
 export default ErrorPage;
-export async function getServerSideProps() {
-  const destination = generateRedirectDestination();
-
-  return {
-    redirect: {
-      destination: destination,
-      statusCode: 308,
-    },
-  };
-}

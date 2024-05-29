@@ -44,13 +44,3 @@ const Custom505 = () => {
   );
 };
 export default Custom505;
-export async function getServerSideProps() {
-  const destination = generateRedirectDestination();
-
-  return {
-    redirect: {
-      destination: destination,
-      statusCode: 308,
-    },
-  };
-}
