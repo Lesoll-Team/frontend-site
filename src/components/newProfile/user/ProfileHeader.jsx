@@ -1,10 +1,13 @@
 import Image from "next/image";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { MdOutlineCall, MdOutlineEdit } from "react-icons/md";
-import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
+
 import { useUser } from "@/Shared/UserContext";
+import EditProfilePic from "./editUserDataForms/EditProfilePic";
+import { useState } from "react";
 
 const ProfileHeader = ({ hideHeader }) => {
+  const [editPicOpen, setEdiPicOpen] = useState(false);
   const { data } = useUser();
 
   if (data)
@@ -24,13 +27,16 @@ const ProfileHeader = ({ hideHeader }) => {
               className="rounded-full object-cover"
               priority
             />
-            {/* <ProfilePicForm
-              openBtn={
-                <div className="absolute bg-gray-300 cursor-pointer border p-2 rounded-full text-xl h-8 w-8 md:w-10 md:h-10  flex items-center justify-center border-black bottom-0">
-                  <MdOutlineEdit />
-                </div>
-              }
-            /> */}
+
+            <button
+              onClick={() => setEdiPicOpen(true)}
+              className="absolute bg-gray-300 cursor-pointer border p-2 rounded-full text-xl h-8 w-8 md:w-10 md:h-10  flex items-center justify-center border-black bottom-0"
+            >
+              <MdOutlineEdit />
+            </button>
+            {editPicOpen && (
+              <EditProfilePic isOpen={editPicOpen} setIsOpen={setEdiPicOpen} />
+            )}
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
