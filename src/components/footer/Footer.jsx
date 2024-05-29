@@ -16,7 +16,6 @@ const Footer = () => {
             width={200}
             height={100}
             className="  w-[121px] h-[40px]"
-            priority={false}
             src={"/icons/logoNavbar.png"}
           />
           <div className=" ml-[16px]  hidden md:block bg-gray2 w-[1px] h-[26px] " />
@@ -36,4 +35,3 @@ const Footer = () => {
 };
 
 export default memo(Footer);
-

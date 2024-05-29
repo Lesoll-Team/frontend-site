@@ -163,12 +163,12 @@ export default function ActiveProperty() {
           </div>
         );
       case "details":
-        const formattedUpdatedAtDate = new Date(
-          blog.updatedAt,
-        ).toLocaleString();
-        const formattedCreatedAtDate = new Date(
-          blog.createdAt,
-        ).toLocaleString();
+        const formattedUpdatedAtDate = new Date(blog.updatedAt).toLocaleString(
+          "en-US",
+        );
+        const formattedCreatedAtDate = new Date(blog.createdAt).toLocaleString(
+          "en-US",
+        );
         return (
           <div className=" flex flex-col  min-w-[250px] max-w-[300px]">
             <div className="text-bold flex gap-x-3 text-medium capitalize">

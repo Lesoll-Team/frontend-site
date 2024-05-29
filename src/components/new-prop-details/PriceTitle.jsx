@@ -13,7 +13,7 @@ const PriceTitle = ({ propertData }) => {
   const price = localizedNumber(propertData.price);
   const showEditBtn =
     data && (data._id === propertData.user._id || data.supAdmin);
-  const showAdminBtn = data && data.isAdmin;
+  const showAdminBtn = data?.isAdmin;
   const sideInfoToPrice = useMemo(() => {
     if (propertData.offer === "For Sale") {
       if (propertData.RealEstateFinance) {
@@ -21,7 +21,7 @@ const PriceTitle = ({ propertData }) => {
           ? "(متاح تمويل عقارى)"
           : "(RealEstate Finance Avilable)";
       } else if (propertData.negotiable) {
-        language ? "(قابل للتفاوض)" : "(Negotiable)";
+        return language ? "(قابل للتفاوض)" : "(Negotiable)";
       }
     } else {
       return "";

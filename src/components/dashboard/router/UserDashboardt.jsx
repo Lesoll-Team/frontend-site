@@ -77,7 +77,7 @@ export default function UserDashboard() {
         (user) =>
           user.fullname.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.email.toLowerCase().includes(filterUser.toLowerCase()) ||
-          user.phone.toLowerCase().includes(filterUser.toLowerCase())
+          user.phone.toLowerCase().includes(filterUser.toLowerCase()),
       );
     }
     return filteredUsers;
@@ -136,7 +136,7 @@ export default function UserDashboard() {
         );
 
       case "createdAt":
-        const formattedDate = new Date(user.createdAt).toLocaleString();
+        const formattedDate = new Date(user.createdAt).toLocaleString("en-US");
         return (
           <div className="flex flex-col">
             <p className="text-bold text-tiny capitalize text-default-500">
@@ -274,7 +274,7 @@ export default function UserDashboard() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    []
+    [],
   );
   return (
     <Table

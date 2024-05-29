@@ -1,3 +1,4 @@
+import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -33,3 +34,13 @@ const ErrorPage = () => {
 };
 
 export default ErrorPage;
+export async function getServerSideProps() {
+  const destination = generateRedirectDestination();
+
+  return {
+    redirect: {
+      destination: destination,
+      statusCode: 308,
+    },
+  };
+}

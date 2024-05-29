@@ -20,18 +20,15 @@ export function generateRedirectDestination() {
   const typeIndex = Math.floor(Math.random() * type.length);
 
   let destination;
-
+  const residentialIndex = Math.floor(
+    Math.random() * residentialOptions.length,
+  );
+  const commercialIndex = Math.floor(Math.random() * residentialOptions.length);
   switch (type[typeIndex]) {
     case "residential":
-      const residentialIndex = Math.floor(
-        Math.random() * residentialOptions.length,
-      );
       destination = `/properties/${offer[offerIndex]}/residential/${residentialOptions[residentialIndex]}/search?page=1`;
       break;
     case "commercial":
-      const commercialIndex = Math.floor(
-        Math.random() * commercialOptions.length,
-      );
       destination = `/properties/${offer[offerIndex]}/commercial/${commercialOptions[commercialIndex]}/search?page=1`;
       break;
     default:
@@ -40,3 +37,15 @@ export function generateRedirectDestination() {
 
   return destination;
 }
+export const filterSlugURL = (url) => {
+  const new_url = url
+    .split(" ")
+    .join("")
+    .split("%")
+    .join("")
+    .split("#")
+    .join("")
+    .split("/")
+    .join("");
+  return new_url;
+};
