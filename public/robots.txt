@@ -2,7 +2,6 @@ User-agent: *
 
 Disallow: /dashboard
 
-
 Disallow: 404
 Disallow: 500
 
