@@ -1,4 +1,3 @@
-import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +11,7 @@ const Custom404 = () => {
     <>
       <Head>
         <title>{language ? "صفحة غير موجودة" : "Page Not Found"}</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="w-full h-[92dvh] flex flex-col  lg:flex-row container mx-auto gap-5 lg:gap-20 items-center justify-center ">
         <Image
@@ -47,13 +47,3 @@ const Custom404 = () => {
   );
 };
 export default Custom404;
-export async function getServerSideProps() {
-  const destination = generateRedirectDestination();
-
-  return {
-    redirect: {
-      destination: destination,
-      statusCode: 308,
-    },
-  };
-}

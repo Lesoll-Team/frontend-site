@@ -1,21 +1,10 @@
 User-agent: *
 
 Disallow: /dashboard
-Disallow: /dashboard/prop-active
-Disallow: /dashboard/prop-pending
-Disallow: /dashboard/users
-Disallow: /dashboard/pricing
-Disallow: /dashboard/pricing/add
-Disallow: /dashboard/pricing/edit
-Disallow: /dashboard/pricing/plan
-Disallow: /dashboard/blog
-Disallow: /dashboard/blog/add-blog
-Disallow: /dashboard/blog/edit-blog
-Disallow: /dashboard/projects
-Disallow: /dashboard/projects/add-project
-Disallow: /dashboard/projects/all-projects
-Disallow: /dashboard/projects/needs
-Disallow: /dashboard/compoundes
+
+
+Disallow: 404
+Disallow: 500
 
 Disallow: /profile
 Disallow: /signin

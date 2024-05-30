@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
         window.location.reload();
       },
     }),
-    [data],
+    [data, status],
   );
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
