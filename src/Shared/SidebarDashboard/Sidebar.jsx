@@ -9,6 +9,7 @@ import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { FaRegNewspaper } from "react-icons/fa";
 import { MdOutlineAddHomeWork } from "react-icons/md";
 import { IoIosPaper } from "react-icons/io";
+import { RiFolderImageLine } from "react-icons/ri";
 
 const Sidebar = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -174,6 +175,12 @@ const Sidebar = () => {
           className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
         >
           C
+        </Link>
+        <Link href={"/dashboard/images"}>
+          <RiFolderImageLine />
+          {toggleNav && (
+            <span className="text-lg font-bold hidden md:block">Images</span>
+          )}
         </Link>
       </nav>
     </div>
