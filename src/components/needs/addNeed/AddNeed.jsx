@@ -25,7 +25,7 @@ const AddNeed = () => {
     setStep,
     formStatus,
   } = useAddNeed();
-
+  console.log(status);
   const renderStep = useMemo(() => {
     switch (step) {
       case 1:
@@ -60,7 +60,7 @@ const AddNeed = () => {
         <DotPulse size={60} color="#309da0" />
       </div>
     );
-  } else if (data) {
+  } else if (status === "succeeded") {
     return (
       <form
         noValidate
