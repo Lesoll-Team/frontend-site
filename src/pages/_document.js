@@ -3,8 +3,8 @@ import { Html, Head, Main, NextScript } from "next/document";
 export default function Document() {
   return (
     <Html lang="ar">
-      <Head />
-      {/* <script
+      <Head>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -15,17 +15,17 @@ export default function Document() {
           `,
           }}
         />
-      </Head> */}
+      </Head>
       <body className="font-cairo">
         <Main />
         <NextScript />
-        {/* <iframe
+        <iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-T876WFM"
           height="0"
           width="0"
           style={{ display: "none", visibility: "hidden" }}
           title="GTM"
-        /> */}
+        />
       </body>
     </Html>
   );
