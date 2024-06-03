@@ -25,7 +25,6 @@ const AddNeed = () => {
     setStep,
     formStatus,
   } = useAddNeed();
-  console.log(status);
   const renderStep = useMemo(() => {
     switch (step) {
       case 1:

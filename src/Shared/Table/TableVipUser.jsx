@@ -13,7 +13,6 @@ const RenderTable = ({ row, col }) => {
     date: row.createdAt,
     lang: false,
   });
-  // createdDate;
   switch (col) {
     case "userFullname":
       return (
@@ -45,7 +44,7 @@ const RenderTable = ({ row, col }) => {
             </p>
           ) : (
             <p className="text-red-700 bg-red-100 w-8/12 font-semibold rounded-xl">
-              Field
+              failed
             </p>
           )}
         </div>

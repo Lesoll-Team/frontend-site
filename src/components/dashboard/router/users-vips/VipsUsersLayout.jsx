@@ -40,8 +40,6 @@ const VipsUsersLayout = () => {
     fetchSuccessOperation();
   }, [filterSuccessOptions, searchByKeywords]);
 
-  console.log("successOperation:>>", successOperation);
-
   const statusCall = [
     { name: "Name", uid: "userFullname" },
     { name: "Phone", uid: "userPhoneNumber" },

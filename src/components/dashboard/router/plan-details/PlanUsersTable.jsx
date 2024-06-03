@@ -9,7 +9,6 @@ const PlanUsersTable = ({ planDetails }) => {
     { name: "Expire", uid: "expireDate" },
     { name: "Invoice", uid: "invoice" },
   ];
-  console.log("planDetails::>>", planDetails);
   return (
     <div className="md:container md:mx-auto grid gap-10">
       <div className="bg-white p-5 rounded-md grid gap-5">

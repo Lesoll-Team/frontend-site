@@ -291,7 +291,6 @@ export default function ActiveProperty() {
 
   const onFilterFeaturedChange = useCallback(
     (e) => {
-      // console.log("onFilterFeaturedChange", e.target.value);
       // setIsRepost
       // IsPin;
       switch (e.target.value) {
