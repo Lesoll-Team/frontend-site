@@ -45,7 +45,7 @@ const VipsUsersLayout = () => {
     { name: "Phone", uid: "userPhoneNumber" },
     { name: "Created", uid: "createdAt" },
     { name: "Expire Package", uid: "expireDate" },
-    { name: "Status", uid: "success", sort: ["All", "Success", "Field"] },
+    { name: "Status", uid: "success", sort: ["All", "Paid", "Failed"] },
     { name: "Order ID", uid: "order_id" },
   ];
   return (
@@ -73,13 +73,3 @@ const VipsUsersLayout = () => {
   );
 };
 export default VipsUsersLayout;
-// getSuccessOperation()
-// getFailedOperation();
-// const cols = [
-//   { name: "Name", uid: "userFullname" },
-//   { name: "Phone", uid: "userPhoneNumber" },
-//   { name: "Total Package", uid: "totalItems" },
-//   { name: "Expire Package", uid: "expireDate" },
-//   { name: "Order ID", uid: "order_id" },
-//   //order_id
-// ];

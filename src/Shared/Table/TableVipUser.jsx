@@ -44,7 +44,7 @@ const RenderTable = ({ row, col }) => {
             </p>
           ) : (
             <p className="text-red-700 bg-red-100 w-8/12 font-semibold rounded-xl">
-              failed
+              Failed
             </p>
           )}
         </div>
