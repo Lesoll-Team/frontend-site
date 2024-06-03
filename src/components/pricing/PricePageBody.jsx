@@ -9,11 +9,9 @@ import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useUser } from "@/Shared/UserContext";
 
 const PricePageBody = () => {
-  // const data = useSelector((state) => state.userProfile.data);
-  const { data } = useUser;
+  const { data } = useUser();
   const [loading, setLoading] = useState(false);
   const [sortedPayments, setSortedPayments] = useState([]);
-
   const [showSetting, setShowSetting] = useState(false);
   const [payments, setPayments] = useState([]);
   const getPlansPayment = async () => {
@@ -28,7 +26,6 @@ const PricePageBody = () => {
     } else if (type === "plus") {
       newIndex = currentIndex + 1;
     }
-
     try {
       await updateIndexPlan(newIndex, planId);
       setPayments((prevPayments) =>
@@ -54,7 +51,6 @@ const PricePageBody = () => {
       [...payments].sort((a, b) => a.indexNumber - b.indexNumber),
     );
   }, [payments, updateIndexPlan]);
-
   return (
     <div className="md:container md:mx-auto gap-x-[1vh] mx-[20px]">
       {data?.isAdmin && (

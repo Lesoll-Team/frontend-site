@@ -30,7 +30,7 @@ const PaymentMethod = ({ errors, register, setValue, watch, clearErrors }) => {
             height={32}
             className="w-[32px] h-[32px]"
           />{" "}
-          <p>{language ? "حساب بنكى" : "Bank account"}</p>
+          <p>{language ? "بطاقة ائتمانية" : "Credit card"}</p>
         </div>
         {watch("paymentMethod") === "card" ? (
           <IoIosRadioButtonOn className="text-2xl text-lightGreen" />
