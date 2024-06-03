@@ -92,7 +92,7 @@ const useAddProperty = ({ propData }) => {
     } else {
       setLaoding(false);
     }
-    if (formStatus === "success" || finalStepStatus === "success") {
+    if (formStatus === "success") {
       setPosted(true);
     } else {
       setPosted(false);
@@ -104,6 +104,7 @@ const useAddProperty = ({ propData }) => {
     const id = watch("packId");
     if (draftFormStatus === "success" && watch("adType") === "paid") {
       if (watch("paymentMethod") === "card") {
+        setLaoding(true);
         buyPackageActionWithCard({ id }).then((data) => {
           router.push(data.link);
         });
