@@ -7,11 +7,10 @@ const cols = [
   { name: "Pin", uid: "pinNumber" },
   { name: "Expire Date ", uid: "expireDate" },
   { name: "Invoice ", uid: "invoice" },
+  { name: "Order ID", uid: "order_id" },
 ];
 
 const UsersPackageAvailable = ({ packageAvailable }) => {
-  console.log("packageAvailable::>>", packageAvailable);
-
   return (
     <div>
       <h2>Package available</h2>

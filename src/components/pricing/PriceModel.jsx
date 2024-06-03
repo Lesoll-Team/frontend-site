@@ -56,7 +56,7 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
               <span
                 className={`${buttonTarget == "card" ? " text-[#309DA0] " : "text-darkGray"} font-bold   w-full   items-center justify-center text-[17px] md:text-[19px] flex`}
               >
-                {language ? "حساب بنكي" : "Bank account"}
+                {language ? "بطاقة ائتمانية" : "Credit card"}
               </span>
             </button>
             <button

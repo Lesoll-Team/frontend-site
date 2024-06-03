@@ -6,10 +6,9 @@ const cols = [
   { name: "Pin", uid: "pinNumber" },
   { name: "Expire Date ", uid: "expireDate" },
   { name: "Invoice ", uid: "invoice" },
+  { name: "Order ID", uid: "order_id" },
 ];
 const UserPackageExpire = ({ packageExpire }) => {
-  console.log("packageExpire::>>", packageExpire);
-
   return (
     <div>
       <h2>Package expire</h2>

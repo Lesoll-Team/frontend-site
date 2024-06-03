@@ -11,7 +11,7 @@ const VipUserLayout = ({ userData }) => {
       <div className="bg-white  sticky top-0">
         <Sidebar />
       </div>
-      <div className="md:container md:mx-auto mx-[1vw] md:my-14 my-2 w-full felx flex-col space-y-10 ">
+      <div className="md:container md:mx-auto mx-[1vw] md:my-14 my-2 w-full flex flex-col space-y-10 ">
         <HeaderUserData userData={userData?.userData} />
         <UsersPackageAvailable
           //TablePackageUser

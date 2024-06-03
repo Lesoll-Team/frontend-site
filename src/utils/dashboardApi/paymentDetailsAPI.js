@@ -9,7 +9,6 @@ export async function getUsersVIP() {
   }
 }
 export async function getUsersVIPPackage({ packageId }) {
-  //admin/dashboard/package/:id => id package
   try {
     const response = await axiosInstance.get(
       `/admin/dashboard/package/${packageId}`,
@@ -34,25 +33,21 @@ export const downloadUserInvoice = async ({ bundleId, userName, lang }) => {
   try {
     const response = await axiosInstance.get(
       `/admin/dashboard/download-invoice/${bundleId}?lang=${lang ? "ar" : "en"}`,
-      { responseType: "blob" },
     );
-    console.log("response.data.link:>", response.data.link);
-    const blob = new Blob([response.data.link], { type: "application/pdf" });
 
     const link = document.createElement("a");
-    const url = window.URL.createObjectURL(blob);
+    const url = response.data.link;
     link.href = url;
-    link.download = `${userName}-invoice.pdf`;
-
+    link.target = "_blank";
+    link.download = `${userName}.pdf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
+    // const blob = new Blob([response.data.link]);
     // const link = document.createElement("a");
-    // const url = response.data.link;
-    // link.href = url;
-    // link.target = "_blank";
-    // link.download = `${userName}-invoice.pdf`;
+    // // const url = window.URL.createObjectURL(response.data.link);
+    // link.href = response.data.link;
+    // // link.download = `${userName}-invoice.pdf`;
     // document.body.appendChild(link);
     // link.click();
     // document.body.removeChild(link);
@@ -61,3 +56,18 @@ export const downloadUserInvoice = async ({ bundleId, userName, lang }) => {
     throw error.response.data;
   }
 };
+/**
+ * @param  keyword search by order id
+ * @param   status all || field || success
+ * @returns array contain all fields and success pid payments
+ */
+export async function getStatusOperation({ keyword, status }) {
+  try {
+    const response = await axiosInstance.get(
+      `/admin/dashboard/success-pay?limit=100&page=1&order=${keyword}&success=${status}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
