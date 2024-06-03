@@ -36,7 +36,7 @@ const PlanTitle = ({ stylesCss, data }) => {
           </div>
         )}
       </div>
-      <p className={`text-sm font-medium line-clamp-2  text-[#CCCCCC] lg-text`}>
+      <p className={`text-sm font-medium line-clamp-5  text-[#CCCCCC] lg-text`}>
         {language ? data?.descriptionAr : data?.descriptionEn}
       </p>
     </div>
@@ -44,29 +44,3 @@ const PlanTitle = ({ stylesCss, data }) => {
 };
 
 export default PlanTitle;
-/**
- *        {data?.offer ? (
-          <s className="text-red-500  flex-none font-semibold text-lg">
-            {language ? "جنية" : "EGP"} {data?.offerPrice}
-          </s>
-        ) : null}
- */
-/* <span className="font-semibold flex-none text-sm ">
-          {language ? dateTranslation(data?.expireDate) : data?.expireDate}
-        </span> */
-// const dateTranslation = (date) => {
-//   if (language) {
-//     switch (date) {
-//       case "one day":
-//         return "يوم واحد";
-//       case "week":
-//         return "اسبوعي";
-//       case "month":
-//         return "شهري";
-//       case "yearly":
-//         return "سنوي";
-//       default:
-//         return null;
-//     }
-//   }
-// };

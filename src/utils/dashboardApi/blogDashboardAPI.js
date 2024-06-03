@@ -33,7 +33,6 @@ export async function updateBlog(blogData, blogID) {
 export async function getAllBlogs() {
   try {
     const response = await axiosInstance.get(`/admin/blog/allblogs`);
-    // const data = await res.data
     return response.data.getBlogs;
   } catch (error) {
     throw error.response.data;
