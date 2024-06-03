@@ -24,7 +24,7 @@ const DraftProperties = () => {
         drafts.draftRealty.length > 0 ? (
           drafts.draftRealty.map((item) => {
             return (
-              <DraftCard data={item} />
+              <DraftCard getDrafts={getProperties} data={item} />
               // <ProfileCard
               //   paymentDisabled={true}
               //   getProperties={getProperties}
@@ -36,7 +36,7 @@ const DraftProperties = () => {
           })
         ) : (
           <NoItems
-            title={language ? "لا توجد اعلانات قيد الراجعة" : "No Pending Ads"}
+            title={language ? "لا توجد اعلانات فى المسودة" : "No draft Ads"}
           />
         )
       ) : (

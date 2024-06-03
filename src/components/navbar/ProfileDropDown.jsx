@@ -9,6 +9,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { IoMdHeartEmpty } from "react-icons/io";
 import {
   MdOutlineAccountCircle,
+  MdOutlinePayment,
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { RiDashboardLine, RiLogoutBoxLine } from "react-icons/ri";
@@ -96,7 +97,19 @@ const ProfileDropDown = () => {
           >
             <MdOutlineRealEstateAgent className="" />
             <span className=" whitespace-nowrap break-keep">
-              {language ? "الإعلانات" : "Properties"}
+              {language ? "إعلاناتى" : "My ads"}
+            </span>
+          </Link>
+
+          <hr />
+          <Link
+            onClick={closeMenu}
+            href={"/profile/my-subscriptions"}
+            className="text-baseGray flex items-center gap-4  text-[17px] lg:text-[19px] "
+          >
+            <MdOutlinePayment className="" />
+            <span className=" whitespace-nowrap break-keep">
+              {language ? "باقاتى" : "My Packages"}
             </span>
           </Link>
 
