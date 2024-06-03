@@ -38,8 +38,9 @@ const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
               setValue("adType", "free");
               clearErrors("adType");
             }}
+            disabled={userData.propertyPackageNumber == 0}
             // key={item._id}
-            className={`bg-white p-4 rounded-md border flex-wrap flex gap-2 justify-between ${watch("adType") === "free" && "border-lightGreen"}`}
+            className={`bg-white p-4 rounded-md border flex-wrap disabled:opacity-60 flex gap-2 justify-between ${watch("adType") === "free" && "border-lightGreen"}`}
           >
             <div className="flex items-center gap-2">
               {watch("adType") === "free" ? (
@@ -101,7 +102,7 @@ const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
                   </button>
                 );
               })
-            : "loading"}
+            : "loading ..."}
           <input
             hidden
             {...register("adType", {

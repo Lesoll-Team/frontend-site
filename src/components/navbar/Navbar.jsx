@@ -13,7 +13,6 @@ const SideMenu = dynamic(() => import("./SideMenu"));
 const ChangeLang = dynamic(() => import("./ChangeLang"));
 const ProfileDropDown = dynamic(() => import("./ProfileDropDown"));
 
-
 function Navbar() {
   const languageIs = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
@@ -83,7 +82,7 @@ function Navbar() {
                 </Link>
                 |
                 <Link href={"/signup"} title="signin">
-                  {languageIs ? "التسجيل" : "Sign up"}
+                  {languageIs ? "الإشتراك" : "Sign up"}
                 </Link>
               </div>
             )}

@@ -267,3 +267,17 @@ export const getDrafts = async ({
     setServerError(error.response.data);
   }
 };
+
+export const deleteDraft = async ({ setApiStatus, id }) => {
+  try {
+    setApiStatus("loading");
+
+    const response = await axiosInstance.delete(`/property/delete/draft/${id}`);
+    if (response.status === 200 || response.status === 201) {
+      setApiStatus("success");
+    }
+    return response.data;
+  } catch {
+    setApiStatus("failed");
+  }
+};

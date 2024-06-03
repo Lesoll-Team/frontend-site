@@ -26,8 +26,9 @@ const SubscribedOptions = ({
             setValue("toPin", "");
             clearErrors("adType");
           }}
+          disabled={userData.propertyPackageNumber !== 0}
           type="button"
-          className={`w-full bg-white flex p-4 rounded-md border  flex-wrap justify-between items-center ${watch("adType") === "free" && "border-lightGreen "}`}
+          className={`w-full bg-white flex p-4 rounded-md border disabled:opacity-60  flex-wrap justify-between items-center ${watch("adType") === "free" && "border-lightGreen "}`}
         >
           <div className="flex items-center gap-2">
             {watch("adType") === "free" ? (
