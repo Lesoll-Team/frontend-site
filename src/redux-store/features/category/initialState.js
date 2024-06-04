@@ -1,4 +1,5 @@
 export const initialStateCategory = {
+  searchData: null,
   pageNumber: 0,
   categoryType: null,
   saleOption: null,

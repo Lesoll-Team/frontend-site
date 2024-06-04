@@ -61,7 +61,8 @@ const ButtonSearchAction = ({ isBar }) => {
     dispatch(
       updateAllStates({
         openFilter: false,
-      })
+        searchData: null,
+      }),
     );
   };
 
@@ -69,8 +70,8 @@ const ButtonSearchAction = ({ isBar }) => {
     return (
       <button
         onClick={handleClick}
-        className="w-[100px] md:w-[9.97vw] md:min-w-[165px]  rounded-l-[6px] hidden md:block md:rounded-[6px] font-bold 
-        
+        className="w-[100px] md:w-[9.97vw] md:min-w-[165px]  rounded-l-[6px] hidden md:block md:rounded-[6px] font-bold
+
         lg-text text-white bg-lightGreen "
       >
         {language ? "بحث" : "Search"}

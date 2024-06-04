@@ -1,4 +1,11 @@
-import React, { memo, useEffect } from "react";
+import React, {
+  memo,
+  useEffect,
+  useRef,
+  useCallback,
+  useState,
+  useMemo,
+} from "react";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 const Breadcrumb = dynamic(() => import("./barfilter-modules/Breadcrumb"));
@@ -11,25 +18,25 @@ const PaginationPage = dynamic(
 );
 import RealtyCard from "../realtyCard/RealtyCard";
 
-// const BarFilter = dynamic(() => import("./BarFilter"));
-// import SidebarFilter from "./SidebarFilter";
-// import BarFilter from "./BarFilter";
-// import Breadcrumb from "./barfilter-modules/Breadcrumb";
-// import PaginationPage from "@/Shared/Pagination/PaginationSearch";
-// import ResultNotFound from "./shared/ResultNotFound";
-// import SubBarTitle from "./barfilter-modules/SubBarTitle";
-
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 
 const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
+  const [visible, setvisible] = useState(false);
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { openFilter } = useSelector((state) => state.Category);
+  const { openFilter, searchData } = useSelector((state) => state.Category);
   const router = useRouter();
+  const paginationRef = useRef(null);
+  const newData = result?.categoryResults;
   useEffect(() => {
     dispatch(
       updateAllStates({
+        searchData: searchData
+          ? newData
+            ? [...searchData, ...newData]
+            : [...searchData]
+          : newData,
         pageNumber: dataObjectFromURL.page,
         categoryType: dataObjectFromURL.category,
         saleOption: dataObjectFromURL.saleOptions,
@@ -50,15 +57,44 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       }),
     );
   }, [router]);
+
+  const handleIntersection = useCallback(
+    (entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        // Log to console when the pagination element is in view
+        if (searchData) {
+          setvisible(true);
+        }
+      }
+    },
+    [searchData],
+  );
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: null, // Use the viewport as the root
+      threshold: 1.0, // Trigger when 100% of the target is visible
+    });
+
+    if (paginationRef.current) {
+      observer.observe(paginationRef.current);
+    }
+
+    return () => {
+      if (paginationRef.current) {
+        observer.unobserve(paginationRef.current);
+      }
+    };
+  }, [handleIntersection, searchData]);
+
   return (
     <>
-      {/*Sidebar filter */}
       {openFilter && (
         <div className={`fixed z-[700]  w-full top-0`}>
           <SidebarFilter languageIs={language} result={result} />
         </div>
       )}
-      {/*bar filter */}
       <div
         className={` z-20 shadow-sm bg-white flex justify-center sticky  md:top-[57px] top-[62px] lg:top-[80px]`}
       >
@@ -67,29 +103,30 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       <div className="md:container py-[15px] md:mx-auto mx-[20px]">
         <Breadcrumb queries={queries} dataObjectFromURL={dataObjectFromURL} />
       </div>
-      {/*unit types */}
-      {/*title & save and filter button*/}
       <SubBarTitle result={result} />
-      {/*cards result  */}
       <div
-        className={`  grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10 `}
+        className={`grid grid-cols-1 md:container md:mx-auto mx-[20px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10`}
       >
-        {result?.categoryResults?.map((property) => (
+        {searchData?.map((property) => (
           <RealtyCard key={property._id} propertyDetails={property} />
         ))}
       </div>
-      {/*error not found */}
-      {result == null && (
-        <div className="w-full md:container md:mx-auto mx-[10px">
+      {result == null && !searchData && (
+        <div className="w-full md:container md:mx-auto mx-[10px]">
           <ResultNotFound />
         </div>
       )}
-      {/*Pagination   */}
-      {result?.totalPages && (
-        <div className="my-[4vh]">
-          <PaginationPage totalPage={result.totalPages} currentPage={page} />
-        </div>
-      )}
+      <div className="my-[4vh]" ref={paginationRef}>
+        {searchData && result?.totalPages && page != result?.totalPages && (
+          <PaginationPage
+            setVisible={setvisible}
+            visible={visible}
+            totalPage={result.totalPages}
+            currentPage={page}
+          />
+        )}{" "}
+      </div>
+      <div className="flex items-center justify-center py-2"> </div>
     </>
   );
 };
