@@ -9,6 +9,7 @@ const PlansPricing = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [payments, setPayments] = useState([]);
+  console.log("info:::>>>", payments);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +33,8 @@ const PlansPricing = () => {
         </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-20 items-center  justify-center md:container md:mx-auto mx-[10px] ">
-        {payments?.map((plan, index) => (
-          <PlanPricingCard key={index} data={plan} />
+        {payments?.map((plan) => (
+          <PlanPricingCard key={plan._id} data={plan} planId={plan._id} />
         ))}
       </div>
     </div>

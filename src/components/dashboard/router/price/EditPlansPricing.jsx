@@ -2,12 +2,12 @@ import {
   EditPricePlan,
   getServicePrice,
 } from "@/redux-store/features/PricingSlice";
-import { Select, SelectItem } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import PlanAdded from "../../model/pricing/PlanAdded";
+import SelectServices from "../../model/pricing/SelectServices";
 
 const EditPlansPricing = ({ paymentPlan }) => {
   const dispatch = useDispatch();
@@ -28,23 +28,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [isOffer, setOffer] = useState(false);
   const [basicPrice, setBasicPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(0);
+
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
   const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
 
   const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
   const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
-  const [featuresList, setFeaturesList] = useState(new Set([]));
-  const [featuresId, setFeaturesId] = useState([]);
+  const [featuresList, setFeaturesList] = useState(null);
+
   useEffect(() => {
     dispatch(getServicePrice());
   }, []);
-  // const resetValues = () => {
-  //   setPropNumber(0);
-  //   setDurationPlan(0);
-  //   setDurationPlanHome(0);
-  //   setPropNumberInHome(0);
-  // };
+
   useEffect(() => {
     setCategoryNameAr(paymentPlan.PaymentAr);
     setCategoryNameEn(paymentPlan.PaymentEn);
@@ -56,15 +52,15 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setOffer(paymentPlan.offer);
     setBasicPrice(paymentPlan.price);
     setOldPrice(paymentPlan.offerPrice);
-    setFeaturesList(paymentPlan.service);
-    setFeaturesId([paymentPlan.service]);
+    setFeaturesList(paymentPlan.newService);
     setDurationPlan(paymentPlan.repostDayCategory);
     setPropNumber(paymentPlan.propNumberCategory);
-    setNormalProp(paymentPlan.normalProp);
+    setNormalProp(paymentPlan.propNumber);
     setDurationPlanHome(paymentPlan.pinDayInHome);
     setPropNumberInHome(paymentPlan.propNumberInHome);
     setAddProperty(paymentPlan.addProperty);
   }, []);
+
   const data2 = {
     PaymentAr: categoryNameAr,
     PaymentEn: categoryNameEn,
@@ -74,23 +70,16 @@ const EditPlansPricing = ({ paymentPlan }) => {
     offer: isOffer,
     offerPrice: isOffer ? oldPrice : 0,
     expireDate: expiryDate,
-    service: [...featuresList],
+    service: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
     normalProp,
-    propNumberCategory: !featuresId.includes("656cc095485cfd01499d1362")
-      ? 0
-      : propNumber,
-    repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
-      ? 0
-      : durationPlan,
-    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : propNumberInHome,
-    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : durationPlanHome,
+    propNumberCategory: propNumber,
+    repostDayCategory: durationPlan,
+    propNumberInHome: propNumberInHome,
+    pinDayInHome: durationPlanHome,
   };
+
   const data = {
     PaymentAr: categoryNameAr,
     PaymentEn: categoryNameEn,
@@ -100,59 +89,24 @@ const EditPlansPricing = ({ paymentPlan }) => {
     offer: isOffer,
     offerPrice: isOffer ? oldPrice : 0,
     expireDate: expiryDate,
-    service: featuresId,
+    newService: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
     normalProp,
-    propNumberCategory: !featuresId.includes("656cc095485cfd01499d1362")
-      ? 0
-      : propNumber,
-    repostDayCategory: !featuresId.includes("656cc095485cfd01499d1362")
-      ? 0
-      : durationPlan,
-    propNumberInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : propNumberInHome,
-    pinDayInHome: !featuresId.includes("656cc0c1485cfd01499d1365")
-      ? 0
-      : durationPlanHome,
     addProperty: isAddProperty,
+    propNumberCategory: propNumber,
+    repostDayCategory: durationPlan,
+    propNumberInHome: propNumberInHome,
+    pinDayInHome: durationPlanHome,
   };
-  useEffect(() => {
-    setFeaturesId(paymentPlan.service.map((feature) => feature._id));
-  }, [paymentPlan.service]);
-  const handleFeaturesSelectionChange = (selectedKeys) => {
-    const selectedItems = Array.from(selectedKeys);
 
-    const selectedFeaturesArray = selectedItems.map((selectedItem) => {
-      const selectedFeature = servicePrice.find(
-        (item) => item._id === selectedItem,
-      );
-      if (selectedFeature) {
-        const { _id, nameAr, nameEn } = selectedFeature;
-        return { _id, nameAr, nameEn };
-      }
-      return null;
-    });
-
-    const filteredSelectedFeaturesArray = selectedFeaturesArray.filter(
-      (item) => item !== null,
-    );
-    const featuresIdArray = filteredSelectedFeaturesArray.map(
-      (item) => item._id,
-    );
-
-    setFeaturesId(featuresIdArray);
-
-    setFeaturesList(filteredSelectedFeaturesArray); // Update the state with the new selected features
-  };
   const handleEditFeatures = (e) => {
     e.preventDefault();
     dispatch(EditPricePlan({ pricePlanData: data, id: paymentPlan._id }));
   };
-  useEffect(() => {
-    dispatch(getServicePrice());
-  }, []);
+  console.log("paymentPlan::>>", paymentPlan);
+  // console.log("servicePrice::>>", servicePrice);
+  // console.log("featuresList::>>", featuresList);
 
   return (
     <div dir="ltr" className="w-full  flex">
@@ -349,99 +303,21 @@ const EditPlansPricing = ({ paymentPlan }) => {
               ></textarea>
             </div>
             {/*features*/}
-            <div className="mt-4  col-span-2">
-              <label
-                htmlFor="features"
-                className="block text-sm font-medium text-gray-600"
-              >
-                {language ? "المميزات" : "Features"} :-
-              </label>
-              <div className=" mb-2 flex">
-                <Select
-                  label={language ? "المميزات" : "Features"}
-                  placeholder={
-                    language
-                      ? "اختار مميزات الباقة"
-                      : "Choose the package features"
-                  }
-                  selectionMode="multiple"
-                  selectedKeys={featuresId}
-                  onSelectionChange={handleFeaturesSelectionChange}
-                >
-                  {servicePrice?.map((item) => (
-                    <SelectItem
-                      value={language ? item.nameAr : item.nameEn}
-                      key={item._id}
-                    >
-                      {language ? item.nameAr : item.nameEn}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </div>
-              {featuresId.includes("656cc095485cfd01499d1362") && (
-                <>
-                  <b>
-                    {language
-                      ? "تحديد مدة وعدد ظهور الإعلانات"
-                      : "Determine the duration and number of advertisements to appear"}
-                  </b>
-                  <div className="flex gap-x-2">
-                    <input
-                      type="number"
-                      className="mt-1 px-3 py-2 border rounded w-full"
-                      onChange={(e) => setPropNumber(e.target.value)}
-                      placeholder={language ? "عدد الاعلانات " : "Number ads"}
-                      value={propNumber || ""}
-                    />
-                    <input
-                      type="number"
-                      className="mt-1 px-3 py-2 border rounded w-full"
-                      onChange={(e) => setDurationPlan(e.target.value)}
-                      value={durationPlan || ""}
-                      placeholder={
-                        language
-                          ? "عدد ايام ظهور الاعلان"
-                          : "Number of days the ad appears"
-                      }
-                    />
-                  </div>
-                </>
-              )}
-              {featuresId.includes("656cc0c1485cfd01499d1365") && (
-                <>
-                  <b>
-                    {language
-                      ? " تحديد مدة وعدد ظهور الإعلانات على صفحة البحث"
-                      : "Determine the duration and number of ads that appear on the search page"}
-                  </b>
-                  <div className="flex gap-x-2">
-                    <input
-                      type="number"
-                      className="mt-1 px-3 py-2 border rounded w-full"
-                      onChange={(e) => setPropNumberInHome(e.target.value)}
-                      value={propNumberInHome || ""}
-                      placeholder={
-                        language
-                          ? " عدد الاعلانات على صفحة البحث"
-                          : "Number of ads on the search page"
-                      }
-                    />
-                    <input
-                      type="number"
-                      className="mt-1 px-3 py-2 border rounded w-full"
-                      onChange={(e) => setDurationPlanHome(e.target.value)}
-                      value={durationPlanHome || ""}
-                      placeholder={
-                        language
-                          ? " عدد ايام ظهور على صفحة البحث"
-                          : "Number of days to appear on the search page"
-                      }
-                    />
-                  </div>
-                </>
-              )}
+            <div className=" mb-2 flex">
+              <SelectServices
+                servicePrice={servicePrice}
+                setFeaturesList={setFeaturesList}
+                featuresList={featuresList}
+                setDurationPlanHome={setDurationPlanHome}
+                setPropNumberInHome={setPropNumberInHome}
+                setPropNumber={setPropNumber}
+                setDurationPlan={setDurationPlan}
+                durationPlanHome={durationPlanHome}
+                propNumberInHome={propNumberInHome}
+                durationPlan={durationPlan}
+                propNumber={propNumber}
+              />
             </div>
-
             <div className="flex justify-center items-center">
               <button
                 onClick={handleEditFeatures}
@@ -473,38 +349,42 @@ const EditPlansPricing = ({ paymentPlan }) => {
 };
 
 export default EditPlansPricing;
-/**
- *  {featuresId.includes("656cc0c1485cfd01499d1365") && (
-                <>
-                  <b>
-                    {language
-                      ? " تحديد مدة وعدد ظهور الإعلانات على الصفحة الرئيسية"
-                      : "Determine the duration and number of ads that appear on the home page"}
-                  </b>
-                  <div className="flex gap-x-2">
-                    <input
-                      type="number"
-                      className="mt-1 px-3 py-2 border rounded w-full"
-                      onChange={(e) => setPropNumberInHome(e.target.value)}
-                      value={propNumberInHome || ""}
-                      placeholder={
-                        language
-                          ? " عدد الاعلانات على الصفحة الرئيسية"
-                          : "Number of ads on the home page"
-                      }
-                    />
-                    <input
-                      type="number"
-                      className="mt-1 px-3 py-2 border rounded w-full"
-                      onChange={(e) => setDurationPlanHome(e.target.value)}
-                      value={durationPlanHome || ""}
-                      placeholder={
-                        language
-                          ? " عدد ايام ظهور على الصفحة الرئيسية"
-                          : "Number of days to appear on the home page"
-                      }
-                    />
-                  </div>
-                </>
-              )}
- */
+// propNumberCategory:
+//   !featuresList?.id || !featuresList?._id == "656cc095485cfd01499d1362"
+//     ? 0
+//     : propNumber,
+// repostDayCategory:
+//   !featuresList?.id || !featuresList?._id == "656cc095485cfd01499d1362"
+//     ? 0
+//     : durationPlan,
+// propNumberInHome:
+//   !featuresList?.id || !featuresList?._id == "656cc0c1485cfd01499d1365"
+//     ? 0
+//     : propNumberInHome,
+// pinDayInHome:
+//   !featuresList?.id || !featuresList?._id == "656cc0c1485cfd01499d1365"
+//     ? 0
+//     : durationPlanHome,
+// useEffect(() => {
+//   if (!paymentPlan.newService) {
+//     setFeaturesList(
+//       paymentPlan.newService.map((feature) => {
+//         return {
+//           id: feature._id,
+//           ar: feature.nameAr,
+//           en: feature.nameEn,
+//         };
+//       }),
+//     );
+//   } else {
+//     setFeaturesList(
+//       paymentPlan.newService.map((feature) => {
+//         return {
+//           id: feature.id || "",
+//           ar: feature.nameAr || feature.ar,
+//           en: feature.nameEn || feature.en,
+//         };
+//       }),
+//     );
+//   }
+// }, [paymentPlan.newService]);

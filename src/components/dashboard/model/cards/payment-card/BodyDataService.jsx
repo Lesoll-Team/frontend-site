@@ -9,22 +9,34 @@ const BodyDataService = ({ data, dash }) => {
 
   return (
     <div dir={language ? "rtl" : "ltr"} className="flex flex-col   gap-y-[3vh]">
-      {data?.service?.map((item) => (
-        <div key={item._id} className="flex gap-x-1  items-center px-3">
-          <IoMdCheckmarkCircleOutline className=" max-w-[40px] min-w-[40px] text-2xl text-[#30D143]" />
-          <p className="line-clamp-1 lg-text ">
-            {language ? item.nameAr : item.nameEn}
-          </p>
-        </div>
-      ))}
+      {dash
+        ? data?.newService?.map((item) => (
+            <div key={item._id} className="flex gap-x-1  items-center px-3">
+              <IoMdCheckmarkCircleOutline className=" max-w-[40px] min-w-[40px] text-2xl text-[#30D143]" />
+              <p className="line-clamp-1 lg-text ">
+                {language ? item.ar : item.en}
+              </p>
+            </div>
+          ))
+        : data?.newService?.map((item, index) => (
+            <div
+              key={item._id || index}
+              className="flex gap-x-1  items-center px-3"
+            >
+              <IoMdCheckmarkCircleOutline className=" max-w-[40px] min-w-[40px] text-2xl text-[#30D143]" />
+              <p className="line-clamp-1 lg-text ">
+                {language ? item.ar : item.en}
+              </p>
+            </div>
+          ))}
       {dash &&
         servicePrice?.map(
           (list) =>
-            !data.service.some(
+            !data.newService.some(
               (item) =>
-                item._id === list._id &&
-                item._id !== null &&
-                item._id !== undefined,
+                item.serviceID === list._id &&
+                item.serviceID !== null &&
+                item.serviceID !== undefined,
             ) && (
               <div key={list._id} className="flex gap-x-1 items-center px-3">
                 <IoClose className=" max-w-[40px] min-w-[40px] text-2xl text-[#666666]" />

@@ -101,7 +101,13 @@ const PricePageBody = () => {
                   </div>
                 </div>
               )}
-              <PlanPricingCard dash showSetting={showSetting} data={plan} />
+              <PlanPricingCard
+                dash
+                showSetting={showSetting}
+                data={plan}
+                key={plan._id}
+                planId={plan._id}
+              />
             </div>
           ))}
         </div>
