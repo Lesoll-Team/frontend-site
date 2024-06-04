@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 
 const SelectServices = ({
@@ -62,7 +62,8 @@ const SelectServices = ({
   const toggleListVisibility = () => {
     setListVisible(!listVisible);
   };
-  const logSelectedItems = () => {
+
+  useEffect(() => {
     const itemsWithIds = selectedItems.map((item) => {
       const service = servicePrice.find((option) => option.nameAr === item);
       setPropNumberInHome(propNumHome);
@@ -76,7 +77,7 @@ const SelectServices = ({
       };
     });
     setFeaturesList(itemsWithIds);
-  };
+  }, [selectedItems, propNumHome, timeHome, propNum, time, inputs]);
   const addCustomCheckbox = () => {
     if (newCheckboxName.trim()) {
       setCustomCheckboxes([...customCheckboxes, newCheckboxName.trim()]);
@@ -220,14 +221,29 @@ const SelectServices = ({
         </label>
       )}
 
-      <button
+      {/* <button
         onClick={logSelectedItems}
         className="mt-4 p-2 bg-blue-500 text-white rounded"
       >
         Set Selected Items
-      </button>
+      </button> */}
     </div>
   );
 };
 
 export default SelectServices;
+  // const logSelectedItems = () => {
+  //   const itemsWithIds = selectedItems.map((item) => {
+  //     const service = servicePrice.find((option) => option.nameAr === item);
+  //     setPropNumberInHome(propNumHome);
+  //     setDurationPlanHome(timeHome);
+  //     setPropNumber(propNum);
+  //     setDurationPlan(time);
+  //     return {
+  //       serviceID: service?._id,
+  //       ar: inputs[item]?.ar || "",
+  //       en: inputs[item]?.en || "",
+  //     };
+  //   });
+  //   setFeaturesList(itemsWithIds);
+  // };
