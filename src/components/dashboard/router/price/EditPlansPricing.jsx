@@ -68,16 +68,17 @@ const EditPlansPricing = ({ paymentPlan }) => {
     targetUsers: targetUser,
     Popular: isPopular,
     offer: isOffer,
-    offerPrice: isOffer ? oldPrice : 0,
+    offerPrice: oldPrice,
     expireDate: expiryDate,
-    service: featuresList,
+    newService: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    normalProp,
     propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
-    propNumberInHome: propNumberInHome,
+    normalProp,
+    propNumberInHome,
     pinDayInHome: durationPlanHome,
+    addProperty: isAddProperty,
   };
 
   const data = {
@@ -87,17 +88,17 @@ const EditPlansPricing = ({ paymentPlan }) => {
     targetUsers: targetUser,
     Popular: isPopular,
     offer: isOffer,
-    offerPrice: isOffer ? oldPrice : 0,
+    offerPrice: oldPrice,
     expireDate: expiryDate,
     newService: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    normalProp,
-    addProperty: isAddProperty,
     propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
-    propNumberInHome: propNumberInHome,
+    normalProp,
+    propNumberInHome,
     pinDayInHome: durationPlanHome,
+    addProperty: isAddProperty,
   };
 
   const handleEditFeatures = (e) => {
