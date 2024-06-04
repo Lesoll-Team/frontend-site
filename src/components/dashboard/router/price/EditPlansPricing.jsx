@@ -105,9 +105,6 @@ const EditPlansPricing = ({ paymentPlan }) => {
     e.preventDefault();
     dispatch(EditPricePlan({ pricePlanData: data, id: paymentPlan._id }));
   };
-  console.log("paymentPlan::>>", paymentPlan);
-  // console.log("servicePrice::>>", servicePrice);
-  // console.log("featuresList::>>", featuresList);
 
   return (
     <div dir="ltr" className="w-full  flex">

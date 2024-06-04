@@ -11,7 +11,6 @@ const Index = () => {
   const [data, setData] = useState(null);
   const [apiStatus, setApiStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
-  console.log(data);
   const router = useRouter();
   const id = router.query.id;
   useEffect(() => {

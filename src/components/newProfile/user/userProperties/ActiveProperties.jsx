@@ -28,8 +28,6 @@ const ActiveProperties = () => {
     getDrafts({ setApiStatus, setDrafts, setServerError });
   }, [page]);
 
-  console.log(drafts);
-
   const handlePageChange = (selectedPage) => {
     setPage(selectedPage + 1);
   };

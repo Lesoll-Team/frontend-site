@@ -9,7 +9,6 @@ const PlansPricing = () => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [payments, setPayments] = useState([]);
-  console.log("info:::>>>", payments);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
   useEffect(() => {
     const fetchData = async () => {

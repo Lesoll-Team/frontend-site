@@ -4,17 +4,16 @@ import { MdArrowDropDown } from "react-icons/md";
 const SelectServices = ({
   servicePrice,
   setFeaturesList,
+  featuresList,
   setPropNumberInHome,
   setDurationPlanHome,
   setPropNumber,
   setDurationPlan,
-  featuresList,
   durationPlanHome,
   propNumberInHome,
   durationPlan,
   propNumber,
 }) => {
-  console.log("featuresList:>>>", featuresList);
   const [selectedItems, setSelectedItems] = useState([]);
   const [featuresId, setFeaturesId] = useState([]);
   const [listVisible, setListVisible] = useState(false);
@@ -232,18 +231,18 @@ const SelectServices = ({
 };
 
 export default SelectServices;
-  // const logSelectedItems = () => {
-  //   const itemsWithIds = selectedItems.map((item) => {
-  //     const service = servicePrice.find((option) => option.nameAr === item);
-  //     setPropNumberInHome(propNumHome);
-  //     setDurationPlanHome(timeHome);
-  //     setPropNumber(propNum);
-  //     setDurationPlan(time);
-  //     return {
-  //       serviceID: service?._id,
-  //       ar: inputs[item]?.ar || "",
-  //       en: inputs[item]?.en || "",
-  //     };
-  //   });
-  //   setFeaturesList(itemsWithIds);
-  // };
+// const logSelectedItems = () => {
+//   const itemsWithIds = selectedItems.map((item) => {
+//     const service = servicePrice.find((option) => option.nameAr === item);
+//     setPropNumberInHome(propNumHome);
+//     setDurationPlanHome(timeHome);
+//     setPropNumber(propNum);
+//     setDurationPlan(time);
+//     return {
+//       serviceID: service?._id,
+//       ar: inputs[item]?.ar || "",
+//       en: inputs[item]?.en || "",
+//     };
+//   });
+//   setFeaturesList(itemsWithIds);
+// };

@@ -7,7 +7,6 @@ const PlanDataAndAnalytics = ({ planDetails, allDataPlan }) => {
     date: planDetails?.createdAt,
     lang: false,
   });
-  console.log("planDetails>>:>:>:", planDetails);
   return (
     <div className="w-full  py-10 md:container md:mx-auto mb-14  justify-items-center items-center relative   grid xl:grid-cols-3 grid-cols-1 p-5">
       {/*simple card */}
