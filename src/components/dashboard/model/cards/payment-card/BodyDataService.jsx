@@ -7,7 +7,10 @@ const BodyDataService = ({ data, dash }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const servicePrice = useSelector((state) => state.Pricing.priceService);
   return (
-    <div dir={language ? "rtl" : "ltr"} className="flex flex-col   gap-y-[3vh]">
+    <div
+      dir={language ? "rtl" : "ltr"}
+      className="flex flex-col   gap-y-[1.5vh]"
+    >
       {dash
         ? data?.newService?.map((item) => (
             <div key={item._id} className="flex gap-x-1  items-center px-3">

@@ -64,11 +64,11 @@ const PricePageBody = () => {
         </button>
       )}
       {loading && payments ? (
-        <div className=" grid grid-cols-1 md:grid-cols-3  items-center  justify-center ">
+        <div className=" grid grid-cols-1 lg:grid-cols-3  items-center  justify-center ">
           {sortedPayments.map((plan) => (
             <div
               key={plan._id}
-              className=" max-w-[390px] mx-auto p-2 gap-x-9 flex flex-col"
+              className=" max-w-[390px] mx-auto  p-1 flex flex-col"
             >
               {data?.isAdmin && showSetting && (
                 <div className="flex gap-x-3 my-4 items-center ">
