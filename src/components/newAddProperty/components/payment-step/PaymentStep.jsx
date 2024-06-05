@@ -12,6 +12,8 @@ import { buyPackageActionWithCard } from "@/utils/PricingAPI";
 import { useRouter } from "next/router";
 import PaymentMethod from "./PaymentMethod";
 import { useUser } from "@/Shared/UserContext";
+import PlanCard from "./PlanCard";
+import PlanCardSkeleton from "./PlanCardSkeleton";
 
 const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -57,52 +59,26 @@ const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
             </p>
           </button>
           <h3>{language ? "الباقات" : "Packages"}</h3>{" "}
-          {packages
-            ? packages?.map((item) => {
-                const selected = watch("packId") === item._id;
-                return (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setValue("packId", item._id);
-                      setValue("adType", "paid");
-                      clearErrors("adType");
-                    }}
-                    key={item._id}
-                    className={`bg-white p-4 rounded-md space-y-4 border ${selected && "border-lightGreen"}`}
-                  >
-                    <div className="flex items-center justify-between gap-2 ">
-                      <div className="flex items-center gap-2">
-                        {selected ? (
-                          <IoIosRadioButtonOn className="text-2xl text-lightGreen" />
-                        ) : (
-                          <IoIosRadioButtonOff className="text-2xl text-outLine" />
-                        )}{" "}
-                        <p>{language ? item.PaymentAr : item.PaymentEn}</p>
-                      </div>
-                      <p>
-                        {item.price} {language ? "جنية" : "Egp"}
-                      </p>
-                    </div>
-                    <div className="space-y-2">
-                      {item?.service?.map((service) => {
-                        return (
-                          <div
-                            className="flex items-start justify-start gap-2"
-                            key={service._id}
-                          >
-                            <IoMdCheckmarkCircleOutline className="text-xl text-green-400" />
-                            <p className="text-start">
-                              {language ? service.nameAr : service.nameEn}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </button>
-                );
-              })
-            : "loading ..."}
+          {packages ? (
+            packages?.map((item) => {
+              const selected = watch("packId") === item._id;
+              return (
+                <PlanCard
+                  clearErrors={clearErrors}
+                  selected={selected}
+                  item={item}
+                  setValue={setValue}
+                  key={item._id}
+                />
+              );
+            })
+          ) : (
+            <>
+              <PlanCardSkeleton />
+              <PlanCardSkeleton />
+              <PlanCardSkeleton />
+            </>
+          )}
           <input
             hidden
             {...register("adType", {
