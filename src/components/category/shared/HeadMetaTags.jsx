@@ -24,6 +24,9 @@ const HeadMetaTags = ({ result, dataObjectFromURL, queries }) => {
         name="description"
         content={`${result?.supTitleCategory?.ar} لدينا العديد من العقارات في مصر، شقق، اراضي، محلات تجارية.  اتصل بنا واكتشف مجموعة متنوعة من الخيارات المتاحة  اراضي، محلات تجارية, شقة `}
       />
+      {result?.length == 0 && (
+        <meta name="robots" content="noindex, nofollow" />
+      )}
       <link rel="canonical" href={canonicalUrl} />
     </Head>
   );
