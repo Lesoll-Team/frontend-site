@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import SearchKeywords from "./sidebar-modules/SearchKeywords";
 import OfferButtons from "./sidebar-modules/OfferButtons";
@@ -10,24 +10,37 @@ import FinishingList from "./sidebar-modules/FinishingList";
 import PaymentType from "./sidebar-modules/PaymentType";
 import FinancingButtons from "./sidebar-modules/FinancingButtons";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 const SidebarFilter = ({ languageIs }) => {
+  const { openFilter } = useSelector((state) => state.Category);
   const dispatch = useDispatch();
   const openSideFilter = () => {
     dispatch(
       updateAllStates({
         openFilter: false,
-      })
+      }),
     );
   };
+  useEffect(() => {
+    // Prevent scrolling when the SideMenu component is mounted
+    if (openFilter) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      // Enable scrolling when the SideMenu component is unmounted
+      document.body.style.overflow = "auto";
+    };
+  }, [openFilter]);
   return (
     <div dir="ltr" className="w-full  h-screen flex">
       {/*body content in sidebar */}
       <div
         dir={languageIs ? "rtl" : "ltr"}
-        className={` bg-white shadow-lg overflow-y-auto shadow-gray-600 z-[1] h-screen  md:w-[37.7vw] w-full  
+        className={` bg-white shadow-lg overflow-y-auto shadow-gray-600 z-[1] h-screen  md:w-[37.7vw] w-full
          p-[2vw] pb-[100px]  flex flex-col md:gap-y-[3vh] gap-y-[20px]relative `}
       >
         {/*search text and button close*/}

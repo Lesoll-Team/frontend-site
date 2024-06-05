@@ -1,8 +1,9 @@
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import Link from "next/link";
 import React, { memo } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdHome } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const Breadcrumb = ({ dataObjectFromURL, queries }) => {
   const { category, saleOptions, unitType, region, governorate } =
     dataObjectFromURL;
@@ -33,12 +34,23 @@ const Breadcrumb = ({ dataObjectFromURL, queries }) => {
       path: `/properties/${saleOptions ? saleOptions + "/" : ""}${category ? category + "/" : ""}${unitType ? unitType + "/" : ""}${governorate ? governorate + "/" : ""}${region}/search?${queryString}`,
     },
   ].filter((crumb) => crumb.label);
+  const dispatch = useDispatch();
 
   return (
     <div className="items-center flex gap-x-1">
       {crumbs.map((crumb, index) => (
         <React.Fragment key={index}>
-          <Link scroll={false} href={crumb.path}>
+          <Link
+            scroll={false}
+            href={crumb.path}
+            onClick={() =>
+              dispatch(
+                updateAllStates({
+                  searchData: null,
+                }),
+              )
+            }
+          >
             <div
               className={` ${crumb.path == "/" ? "text-lightGreen text-xl" : "text-gray1 sm-text hover:underline hover:text-gray2"}  `}
             >

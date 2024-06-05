@@ -1,25 +1,18 @@
-import React, {
-  memo,
-  useEffect,
-  useRef,
-  useCallback,
-  useState,
-  useMemo,
-} from "react";
+import { memo, useEffect, useRef, useCallback, useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 const Breadcrumb = dynamic(() => import("./barfilter-modules/Breadcrumb"));
 const SidebarFilter = dynamic(() => import("./SidebarFilter"));
 const BarFilter = dynamic(() => import("./BarFilter"));
-const ResultNotFound = dynamic(() => import("./shared/ResultNotFound"));
+
 const SubBarTitle = dynamic(() => import("./barfilter-modules/SubBarTitle"));
 const PaginationPage = dynamic(
   () => import("../../Shared/Pagination/PaginationSearch"),
 );
-import RealtyCard from "../realtyCard/RealtyCard";
-
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
+
+import RenderProperties from "./RenderProperties";
 
 const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
   const [visible, setvisible] = useState(false);
@@ -29,14 +22,22 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
   const router = useRouter();
   const paginationRef = useRef(null);
   const newData = result?.categoryResults;
+  const setData = useMemo(() => {
+    if (!searchData) {
+      return newData;
+    } else {
+      const searchDataIds = new Set(searchData.map((item) => item._id));
+      const uniqueNewData = newData.filter(
+        (item) => !searchDataIds.has(item._id),
+      );
+      return [...searchData, ...uniqueNewData];
+    }
+  }, [searchData, newData]);
+
   useEffect(() => {
     dispatch(
       updateAllStates({
-        searchData: searchData
-          ? newData
-            ? [...searchData, ...newData]
-            : [...searchData]
-          : newData,
+        searchData: setData,
         pageNumber: dataObjectFromURL.page,
         categoryType: dataObjectFromURL.category,
         saleOption: dataObjectFromURL.saleOptions,
@@ -104,18 +105,8 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
         <Breadcrumb queries={queries} dataObjectFromURL={dataObjectFromURL} />
       </div>
       <SubBarTitle result={result} />
-      <div
-        className={`grid grid-cols-1 md:container md:mx-auto mx-[20px] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10`}
-      >
-        {searchData?.map((property) => (
-          <RealtyCard key={property._id} propertyDetails={property} />
-        ))}
-      </div>
-      {result == null && !searchData && (
-        <div className="w-full md:container md:mx-auto mx-[10px]">
-          <ResultNotFound />
-        </div>
-      )}
+      <RenderProperties searchData={searchData} />
+
       <div className="my-[4vh]" ref={paginationRef}>
         {searchData && result?.totalPages && page != result?.totalPages && (
           <PaginationPage
@@ -126,6 +117,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
           />
         )}{" "}
       </div>
+
       <div className="flex items-center justify-center py-2"> </div>
     </>
   );

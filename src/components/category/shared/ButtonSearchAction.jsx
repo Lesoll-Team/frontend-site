@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { scrollToTop } from "@/utils/scrollToTop";
 
 const ButtonSearchAction = ({ isBar }) => {
   const router = useRouter();
@@ -57,6 +58,7 @@ const ButtonSearchAction = ({ isBar }) => {
   // Subscribe to changes in sort, pageNumber, and clickOnUnits
 
   const handleClick = () => {
+    scrollToTop();
     handleFilterAction();
     dispatch(
       updateAllStates({

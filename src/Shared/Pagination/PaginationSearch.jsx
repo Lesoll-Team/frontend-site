@@ -1,15 +1,11 @@
-import styles from "../../styles/Pagination.module.css";
 import { useSelector } from "react-redux";
 import { memo, useEffect, useRef, useState } from "react";
 import { useSendFilterSearch } from "@/components/category/shared/FilterHooks";
 import Link from "next/link";
 import { Ring } from "@uiball/loaders";
-import { useRouter } from "next/router";
-const PaginationPage = ({ visible, setVisible }) => {
-  const [newUrl, setNewUrl] = useState();
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
+const PaginationPage = ({ visible, setVisible }) => {
+  const [loading, setLoading] = useState(false);
   const linkRef = useRef();
   const {
     pageNumber,
@@ -30,7 +26,7 @@ const PaginationPage = ({ visible, setVisible }) => {
     propFinancing,
     searchKeyword,
   } = useSelector((state) => state.Category);
-  console.log(newUrl);
+
   const route = useSendFilterSearch({
     filterInput: {
       saleOptions: saleOption,
@@ -54,24 +50,23 @@ const PaginationPage = ({ visible, setVisible }) => {
       keyword: searchKeyword,
     },
   });
+
   const handleShowMore = () => {
-    // setNewUrl(route);
-    console.log("function");
     linkRef.current.click();
-    // console.log(route);
   };
+
   useEffect(() => {
     if (visible) {
       handleShowMore();
       setVisible(false);
       setLoading(true);
     }
-  }, [visible]);
-  console.log(visible);
+  }, [visible, setVisible]);
+
   return (
     <>
       <Link
-        href={route || "/properties/sale/residential/penthouse/search?page=100"}
+        href={route || "/"}
         scroll={false}
         hidden
         ref={linkRef}
@@ -80,7 +75,7 @@ const PaginationPage = ({ visible, setVisible }) => {
 
       {loading && (
         <div className="flex items-center justify-center">
-          <Ring color="#000" size={40} />
+          <Ring color="#309da0" size={40} />
         </div>
       )}
     </>
