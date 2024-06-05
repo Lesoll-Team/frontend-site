@@ -18,7 +18,7 @@ const HeadMetaTags = ({ result, dataObjectFromURL, queries }) => {
   return (
     <Head>
       <title>
-        {language ? result?.supTitleCategory.ar : result?.supTitleCategory.en}
+        {language ? result?.supTitleCategory?.ar : result?.supTitleCategory?.en}
       </title>
       <meta
         name="description"

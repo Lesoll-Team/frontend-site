@@ -68,7 +68,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      result: response?.data || null,
+      result: response?.data || { categoryResults: [] },
       page: newSearchKeywords.page || 1,
       dataObjectFromURL: objectFilter,
       queries: newSearchKeywords,

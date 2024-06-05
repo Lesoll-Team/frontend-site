@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { scrollToTop } from "@/utils/scrollToTop";
 
 const ButtonSearchAction = ({ isBar }) => {
   const router = useRouter();
@@ -57,11 +58,13 @@ const ButtonSearchAction = ({ isBar }) => {
   // Subscribe to changes in sort, pageNumber, and clickOnUnits
 
   const handleClick = () => {
+    scrollToTop();
     handleFilterAction();
     dispatch(
       updateAllStates({
         openFilter: false,
-      })
+        searchData: null,
+      }),
     );
   };
 
@@ -69,8 +72,8 @@ const ButtonSearchAction = ({ isBar }) => {
     return (
       <button
         onClick={handleClick}
-        className="w-[100px] md:w-[9.97vw] md:min-w-[165px]  rounded-l-[6px] hidden md:block md:rounded-[6px] font-bold 
-        
+        className="w-[100px] md:w-[9.97vw] md:min-w-[165px]  rounded-l-[6px] hidden md:block md:rounded-[6px] font-bold
+
         lg-text text-white bg-lightGreen "
       >
         {language ? "بحث" : "Search"}

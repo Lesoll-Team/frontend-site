@@ -60,13 +60,13 @@ function Navbar() {
             </li>
             <li>
               <Link className="relative font-noto" href="/projects">
-                <span
+                {/* <span
                   className={`text-xs absolute text-white rounded-xl -top-4 bg-green-500 px-2 py-1 ${
                     languageIs ? "-left-8" : " -right-8"
                   }`}
                 >
                   {languageIs ? "جديد" : "New"}
-                </span>
+                </span> */}
                 <span>{languageIs ? "المشروعات الجديدة" : "New Projects"}</span>
               </Link>
             </li>

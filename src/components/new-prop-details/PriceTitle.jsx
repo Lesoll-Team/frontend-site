@@ -7,12 +7,13 @@ import { MdOutlineAnalytics } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const PriceTitle = ({ propertData }) => {
+  console.log(propertData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
 
   const price = localizedNumber(propertData.price);
   const showEditBtn =
-    data && (data._id === propertData.user._id || data.supAdmin);
+    data && (data._id === propertData?.user?._id || data.supAdmin);
   const showAdminBtn = data?.isAdmin;
   const sideInfoToPrice = useMemo(() => {
     if (propertData.offer === "For Sale") {

@@ -9,9 +9,21 @@ import { useSelector } from "react-redux";
 const PropertyInfo = ({ propertyData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { year } = formatDate(propertyData.deliveryDate);
+  const forRent = (rentalType) => {
+    switch (rentalType) {
+      case "Monthly":
+        return language ? "للإيجار الشهرى" : "For monthly rent";
+      case "Daily":
+        return language ? "للإيجار اليومى" : "For daily rent";
+      case "Weekly":
+        return language ? "للإيجار الإسبوعى" : "For weekly rent";
+      default:
+        return language ? "للإيجار " : "For rent";
+    }
+  };
   const offer = useMemo(() => {
     if (propertyData.offer === "For Rent") {
-      return language ? "للإيجار" : "For Rent";
+      return forRent(propertyData?.rentalPeriod);
     } else if (propertyData?.saleOption.length > 1) {
       return language ? "تقسيط أو كاش" : "Cash or Installment";
     } else if (propertyData?.saleOption[0] === "Cash") {

@@ -11,10 +11,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { getUserOffline } from "@/utils/userAPI";
+import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
+  const { searchData } = useSelector((state) => state.Category);
+
   const router = useRouter();
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
@@ -38,6 +41,19 @@ export default function Layout({ children }) {
       dispatch(setLang(lang));
     }
   }, []);
+  useEffect(() => {
+    const inSearch =
+      router.asPath.includes("properties/") ||
+      router.asPath.includes("property-details/");
+    if (searchData && !inSearch) {
+      dispatch(
+        updateAllStates({
+          searchData: null,
+        }),
+      );
+    }
+  }, [router]);
+
   return (
     <div>
       <Head>
