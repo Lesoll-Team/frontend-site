@@ -37,26 +37,6 @@ const CreatePlansPricing = () => {
 
   const [featuresList, setFeaturesList] = useState(null);
 
-  const data2 = {
-    PaymentAr: categoryNameAr,
-    PaymentEn: categoryNameEn,
-    price: basicPrice,
-    targetUsers: targetUser,
-    Popular: isPopular,
-    offer: isOffer,
-    offerPrice: oldPrice,
-    expireDate: expiryDate,
-    newService: featuresList,
-    descriptionAr: descriptionCardAr,
-    descriptionEn: descriptionCardEn,
-    propNumberCategory: propNumber,
-    repostDayCategory: durationPlan,
-    normalProp,
-    propNumberInHome,
-    pinDayInHome: durationPlanHome,
-    addProperty: isAddProperty,
-  };
-
   const data = {
     PaymentAr: categoryNameAr,
     PaymentEn: categoryNameEn,
@@ -114,20 +94,14 @@ const CreatePlansPricing = () => {
                   className="mt-1 px-3 py-2 border rounded w-full"
                   type="text"
                   name="CategoryNameAr"
-                  placeholder={
-                    language ? "اسم الباقة (عربي)" : "Category name (Arabic)"
-                  }
+                  placeholder={"اسم الباقة (عربي)"}
                   onChange={(e) => setCategoryNameAr(e.target.value)}
                 />
                 <input
                   className="mt-1 px-3 py-2 border rounded w-full"
                   type="text"
                   name="CategoryNameEn"
-                  placeholder={
-                    language
-                      ? "اسم الباقة (انجليزي)"
-                      : "Category name (English)"
-                  }
+                  placeholder={"اسم الباقة (انجليزي)"}
                   onChange={(e) => setCategoryNameEn(e.target.value)}
                 />
               </div>
@@ -206,7 +180,7 @@ const CreatePlansPricing = () => {
                 <input
                   name="normal properties"
                   type="number"
-                  placeholder={language ? ` عقارات مجاني` : `free properties`}
+                  placeholder={` عقارات مجاني`}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   onChange={(e) => setNormalProp(e.target.value)}
                 />
@@ -222,11 +196,7 @@ const CreatePlansPricing = () => {
                 <input
                   name="price"
                   type="number"
-                  placeholder={
-                    language
-                      ? `أدخل السعر ${isOffer ? "بعد الخصم" : "الباقه"}`
-                      : `Enter the ${isOffer ? "price after discount" : "package price"}`
-                  }
+                  placeholder={`أدخل سعر `}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   onChange={(e) => setBasicPrice(e.target.value)}
                 />
@@ -247,12 +217,7 @@ const CreatePlansPricing = () => {
                 <input
                   name="rank"
                   type="number"
-                  placeholder={
-                    isOffer &&
-                    (language
-                      ? "ادخل السعر القديم قبل الخصم"
-                      : "Enter the old price before the discount")
-                  }
+                  placeholder={`أدخل سعر قبل الخصم`}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   disabled={!isOffer}
                   onChange={(e) => setOldPrice(e.target.value)}
@@ -265,12 +230,12 @@ const CreatePlansPricing = () => {
                 {language ? "الوصف" : "Description"} :-
               </label>
               <textarea
-                placeholder={language ? "عربي" : "Arabic"}
+                placeholder="عربي"
                 onChange={(e) => setDescriptionCardAr(e.target.value)}
                 className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
               ></textarea>
               <textarea
-                placeholder={language ? "انجليزي" : "English"}
+                placeholder="انجليزي"
                 onChange={(e) => setDescriptionCardEn(e.target.value)}
                 className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
               ></textarea>
@@ -317,7 +282,7 @@ const CreatePlansPricing = () => {
                 className="w-[20px] h-[20px]"
               />
             </div>
-            <PlanPricingCard data={data2} />
+            <PlanPricingCard data={data} />
           </div>
         </div>
       )}

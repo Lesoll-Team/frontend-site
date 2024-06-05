@@ -53,34 +53,14 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setBasicPrice(paymentPlan.price);
     setOldPrice(paymentPlan.offerPrice);
     setFeaturesList(paymentPlan.newService);
+    setAddProperty(paymentPlan.addProperty);
+
     setDurationPlan(paymentPlan.repostDayCategory);
     setPropNumber(paymentPlan.propNumberCategory);
     setNormalProp(paymentPlan.propNumber);
     setDurationPlanHome(paymentPlan.pinDayInHome);
     setPropNumberInHome(paymentPlan.propNumberInHome);
-    setAddProperty(paymentPlan.addProperty);
   }, []);
-
-  const data2 = {
-    PaymentAr: categoryNameAr,
-    PaymentEn: categoryNameEn,
-    price: basicPrice,
-    targetUsers: targetUser,
-    Popular: isPopular,
-    offer: isOffer,
-    offerPrice: oldPrice,
-    expireDate: expiryDate,
-    newService: featuresList,
-    descriptionAr: descriptionCardAr,
-    descriptionEn: descriptionCardEn,
-    propNumberCategory: propNumber,
-    repostDayCategory: durationPlan,
-    normalProp,
-    propNumberInHome,
-    pinDayInHome: durationPlanHome,
-    addProperty: isAddProperty,
-  };
-
   const data = {
     PaymentAr: categoryNameAr,
     PaymentEn: categoryNameEn,
@@ -226,7 +206,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 <input
                   name="normal properties"
                   type="number"
-                  placeholder={language ? ` عقارات مجاني` : `free properties`}
+                  placeholder={` عقارات مجاني`}
                   value={normalProp}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   onChange={(e) => setNormalProp(e.target.value)}
@@ -244,11 +224,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   type="number"
                   className="mt-1 px-3 py-2 border rounded w-full"
                   onChange={(e) => setBasicPrice(e.target.value)}
-                  placeholder={
-                    language
-                      ? `أدخل السعر ${isOffer ? "بعد الخصم" : "الباقه"}`
-                      : `Enter the ${isOffer ? "price after discount" : "package price"}`
-                  }
+                  placeholder={`أدخل سعر `}
                   value={basicPrice}
                 />
               </div>
@@ -270,12 +246,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   name="rank"
                   type="number"
                   value={isOffer ? oldPrice : 0}
-                  placeholder={
-                    isOffer &&
-                    (language
-                      ? "ادخل السعر القديم قبل الخصم"
-                      : "Enter the old price before the discount")
-                  }
+                  placeholder={`أدخل سعر قبل الخصم`}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   disabled={!isOffer}
                   onChange={(e) => setOldPrice(e.target.value)}
@@ -288,13 +259,13 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 {language ? "الوصف" : "Description"} :-
               </label>
               <textarea
-                placeholder={language ? "عربي" : "Arabic"}
+                placeholder={"عربي"}
                 onChange={(e) => setDescriptionCardAr(e.target.value)}
                 value={descriptionCardAr}
                 className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
               ></textarea>
               <textarea
-                placeholder={language ? "انجليزي" : "English"}
+                placeholder={"English"}
                 onChange={(e) => setDescriptionCardEn(e.target.value)}
                 value={descriptionCardEn}
                 className="mt-1 max-h-28 min-h-[50px] px-3 py-2 border rounded w-full"
@@ -314,6 +285,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 propNumberInHome={propNumberInHome}
                 durationPlan={durationPlan}
                 propNumber={propNumber}
+                paymentPlan={paymentPlan}
               />
             </div>
             <div className="flex justify-center items-center">
@@ -338,7 +310,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 className="w-[20px] h-[20px]"
               />
             </div>
-            <PlanPricingCard data={data2} />
+            <PlanPricingCard data={data} />
           </div>
         </div>
       )}
@@ -347,42 +319,3 @@ const EditPlansPricing = ({ paymentPlan }) => {
 };
 
 export default EditPlansPricing;
-// propNumberCategory:
-//   !featuresList?.id || !featuresList?._id == "656cc095485cfd01499d1362"
-//     ? 0
-//     : propNumber,
-// repostDayCategory:
-//   !featuresList?.id || !featuresList?._id == "656cc095485cfd01499d1362"
-//     ? 0
-//     : durationPlan,
-// propNumberInHome:
-//   !featuresList?.id || !featuresList?._id == "656cc0c1485cfd01499d1365"
-//     ? 0
-//     : propNumberInHome,
-// pinDayInHome:
-//   !featuresList?.id || !featuresList?._id == "656cc0c1485cfd01499d1365"
-//     ? 0
-//     : durationPlanHome,
-// useEffect(() => {
-//   if (!paymentPlan.newService) {
-//     setFeaturesList(
-//       paymentPlan.newService.map((feature) => {
-//         return {
-//           id: feature._id,
-//           ar: feature.nameAr,
-//           en: feature.nameEn,
-//         };
-//       }),
-//     );
-//   } else {
-//     setFeaturesList(
-//       paymentPlan.newService.map((feature) => {
-//         return {
-//           id: feature.id || "",
-//           ar: feature.nameAr || feature.ar,
-//           en: feature.nameEn || feature.en,
-//         };
-//       }),
-//     );
-//   }
-// }, [paymentPlan.newService]);
