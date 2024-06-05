@@ -24,7 +24,7 @@ const useAddProperty = ({ propData }) => {
   const { data: userData } = useUser();
   const userHavePackage =
     userData?.packageSubscribe && userData?.pinPropertyNumber;
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [returnData, setReturnData] = useState(null);
