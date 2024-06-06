@@ -167,7 +167,7 @@ const SelectServices = ({
               <label htmlFor={option._id}>{option.nameAr}</label>
             </div>
           ))}
-          {customCheckboxes.map((items, index) => (
+          {customCheckboxes?.map((items, index) => (
             <div key={index} className="flex items-center mb-2">
               <input
                 type="checkbox"
@@ -205,7 +205,7 @@ const SelectServices = ({
       )}
 
       {listVisible &&
-        selectedItems.map((item) => (
+        selectedItems?.map((item) => (
           <div key={item} className="mt-4 w-full">
             <label className="w-full flex flex-col sm:flex-row  gap-x-2">
               <span className="whitespace-nowrap">{item} :-</span>
@@ -226,7 +226,7 @@ const SelectServices = ({
             </label>
           </div>
         ))}
-      {listVisible && featuresId.includes("656cc095485cfd01499d1362") && (
+      {listVisible && featuresId?.includes("656cc095485cfd01499d1362") && (
         <label className="flex flex-col gap-x-2">
           ضمان ظهور إعلانك ضمن أول الإعلانات:-
           <input
@@ -246,7 +246,7 @@ const SelectServices = ({
         </label>
       )}
 
-      {listVisible && featuresId.includes("656cc0c1485cfd01499d1365") && (
+      {listVisible && featuresId?.includes("656cc0c1485cfd01499d1365") && (
         <label className="flex flex-col gap-x-2">
           تجديد إعلانك يوميًا على الصفحة البحث:-
           <input
