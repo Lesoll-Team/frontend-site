@@ -20,7 +20,7 @@ const NoPackageModal = ({ open, setIsOpen }) => {
         </p>
         <Link
           className="py-3 px-12 bg-lightGreen rounded-md text-white"
-          href={"/"}
+          href={"/prices"}
         >
           {language ? "اشترك الان" : "Subscribe now"}
         </Link>
