@@ -1,4 +1,5 @@
-import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
+// import { generateRedirectDestination } from "@/Shared/generateRedirectDestination";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,6 +9,9 @@ const ErrorPage = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div className="w-full h-[92dvh] flex flex-col  lg:flex-row container mx-auto gap-5 lg:gap-20 items-center justify-center ">
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <Image
         src="/client-error.svg"
         className="min-w-fit object-cover w-[200px] h-[200px] lg:w-[375px] lg:h-[375px]"
@@ -34,13 +38,13 @@ const ErrorPage = () => {
 };
 
 export default ErrorPage;
-export async function getServerSideProps() {
-  const destination = generateRedirectDestination();
+// export async function getServerSideProps() {
+//   const destination = generateRedirectDestination();
 
-  return {
-    redirect: {
-      destination: destination,
-      statusCode: 308,
-    },
-  };
-}
+//   return {
+//     redirect: {
+//       destination: destination,
+//       statusCode: 308,
+//     },
+//   };
+// }

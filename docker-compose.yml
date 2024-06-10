@@ -1,0 +1,9 @@
+version: "3"
+services:
+  node-app:
+    build: .
+    container_name: "lesoll-dev-container"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src:ro

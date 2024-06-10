@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { deleteUsers, searchUsersApi } from "../utils/userAPI";
+import { searchUsersApi } from "../utils/userAPI";
 import {
   Table,
   TableHeader,
@@ -9,19 +9,13 @@ import {
   TableCell,
   Pagination,
 } from "@nextui-org/react";
-
-// import { SearchIcon } from "../icon/SearchIcon";
-import { VerticalDotsIcon } from "../icon/VerticalDotsIcon";
-import UserUpdateModule from "../model/users/UpdateUserData";
 import Link from "next/link";
-import { DropdownAction, ItemDropdown } from "../model/DropdownAction";
 import Image from "next/image";
 const columns = [
   { name: "User", uid: "fullname" },
-  // { name: "Phone", uid: "phone" },
+  { name: "Phone", uid: "phone" },
   { name: "Type & Email", uid: "typeOfUser" },
   { name: "Created", uid: "createdAt" },
-  { name: "ACTIONS & ID", uid: "actions" },
 ];
 export default function UserDashboard() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
@@ -30,9 +24,7 @@ export default function UserDashboard() {
   const [usersLengthOfAPI, setUsersLengthOfAPI] = useState(0);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [refreshUsers, setRefreshUsers] = useState(false);
 
-  // const [filterValue, setFilterValue] = useState("");
   const [filterUser, setFilterUser] = useState("");
 
   const searchUsers = async () => {
@@ -48,20 +40,10 @@ export default function UserDashboard() {
     }
   };
 
-  const handleDeleteUser = async (UserId) => {
-    try {
-      await deleteUsers(UserId);
-      // await fetchUsersData();
-      await searchUsers();
-      setRefreshUsers(!refreshUsers);
-    } catch (error) {
-      console.error("Error deleting Users:", error);
-    }
-  };
   useEffect(() => {
     // fetchUsersData();
     searchUsers();
-  }, [page, rowsPerPage, refreshUsers]);
+  }, [page, rowsPerPage]);
 
   const [sortDescriptor, setSortDescriptor] = useState({});
   const pages = Math.ceil(usersLength / rowsPerPage);
@@ -77,7 +59,7 @@ export default function UserDashboard() {
         (user) =>
           user.fullname.toLowerCase().includes(filterUser.toLowerCase()) ||
           user.email.toLowerCase().includes(filterUser.toLowerCase()) ||
-          user.phone.toLowerCase().includes(filterUser.toLowerCase())
+          user.phone.toLowerCase().includes(filterUser.toLowerCase()),
       );
     }
     return filteredUsers;
@@ -106,7 +88,7 @@ export default function UserDashboard() {
         return (
           <Link
             href={`/dashboard/user-details/${user?.username}`}
-            className="flex items-center gap-x-3"
+            className="flex items-center gap-x-3 hover:bg-gray-100"
           >
             <Image
               width={60}
@@ -114,10 +96,13 @@ export default function UserDashboard() {
               src={user?.avatarUrl || "/user-avatar-placeholder.png"}
               className="min-w-[50px] min-h-[50px] "
               loading="lazy"
+              alt=" user avatar "
             />
             <div className="flex flex-col">
               <span className="text-sm text-gray-500">{user.fullname}</span>
-              <span className="text-sm text-gray-500">{user.username}</span>
+              <p className="text-bold text-tiny capitalize text-default-500">
+                {user.typeOfUser}
+              </p>
             </div>
           </Link>
         );
@@ -125,13 +110,10 @@ export default function UserDashboard() {
       case "typeOfUser":
         return (
           <div className="flex flex-col">
-            <span className="text-sm text-gray-500">phone : {user.phone}</span>
             <p className="text-bold text-tiny capitalize text-default-500">
               {user.email}
             </p>
-            <p className="text-bold text-tiny capitalize text-default-500">
-              {user.typeOfUser}
-            </p>
+            <span className="text-sm text-gray-500">{user.username}</span>
           </div>
         );
 
@@ -144,25 +126,10 @@ export default function UserDashboard() {
             </p>
           </div>
         );
-      case "actions":
+      case "phone":
         return (
           <div className="relative flex justify-start items-center gap-2">
-            <DropdownAction iconIs={<VerticalDotsIcon />}>
-              <ItemDropdown
-                label={"Delete"}
-                href={null}
-                action={() => handleDeleteUser(user._id)}
-                title="تأكيد مسح المستخدم "
-                description="تأكيد مسح حساب المستخدم نهائياً"
-              />
-            </DropdownAction>
-            {/* {user._id} */}
-
-            <UserUpdateModule
-              typeUser={user.typeOfUser}
-              userID={user._id}
-              userIsAdmin={user.isAdmin}
-            />
+            <span className="text-sm text-gray-500"> {user.phone}</span>
           </div>
         );
     }
@@ -274,7 +241,7 @@ export default function UserDashboard() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    []
+    [],
   );
   return (
     <Table

@@ -101,7 +101,6 @@ const Sidebar = () => {
             Users
           </span>
         </Link>
-        {/**"flex justify-start  space-x-4 items-center" */}
         <div className="w-full flex flex-col items-center ">
           <div
             className={`flex items-center justify-start ${
@@ -175,12 +174,6 @@ const Sidebar = () => {
           className="text-3xl md:text-3xl flex gap-2 justify-center md:justify-start w-full hover:text-lightGreen duration-100"
         >
           C
-        </Link>
-        <Link href={"/dashboard/images"}>
-          <RiFolderImageLine />
-          {toggleNav && (
-            <span className="text-lg font-bold hidden md:block">Images</span>
-          )}
         </Link>
       </nav>
     </div>
