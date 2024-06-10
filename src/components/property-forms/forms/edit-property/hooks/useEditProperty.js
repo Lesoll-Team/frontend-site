@@ -5,7 +5,7 @@ import { formatApiData } from "../utils/fromateApiData";
 import { editFormData } from "../utils/editFormData";
 import { scrollToTop } from "@/utils/scrollToTop";
 import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
-import { editProperty } from "../api/editApi";
+import { editProperty } from "../../../apis/editPropertyApi";
 const useEditProperty = (data) => {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);

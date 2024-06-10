@@ -5,29 +5,28 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useMemo, useRef } from "react";
 import { MdOutlineDateRange } from "react-icons/md";
 import DropDown from "@/Shared/ui/DropDown";
-import { finishingType } from "../data/finishingType";
+import { finishingType } from "../../../data/finishingType";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 
-const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
+const BuildingDetails = ({
+  errors,
+  register,
+  setValue,
+  watch,
+  clearErrors,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  const deliveryDateRef = useRef(null);
-  const handleStartDateChange = (date) => {
-    setValue("deliveryDate", date);
-  };
-  const selectedDate = useMemo(() => {
-    if (watch("deliveryDate")) {
-      return new Date(watch("deliveryDate"));
-    } else null;
-  }, [watch("deliveryDate")]);
   return (
     <AddPropSectionContainer>
       <div className="space-y-2">
-        <p className="text-gray-800">{language ? "المساحة " : "Space"}</p>
+        <p className="text-gray-800">
+          {language ? "مساحة المبنى " : "Building Area"}
+        </p>
         <input
-          type="text"
           inputMode="numeric"
+          type="text"
           {...register("area", {
             required: {
               value: true,
@@ -51,28 +50,17 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.area && (
-          <Error className="text-red-500">{errors.area.message}</Error>
-        )}{" "}
+        {errors.area && <p className="text-red-500">{errors.area.message}</p>}{" "}
       </div>
       <div className="space-y-2">
         <p className="text-gray-800">
-          {language ? "الدور" : "level"}{" "}
-          <span className="text-outLine">
-            {language ? "(إختيارى)" : "(optional)"}
-          </span>
+          {language ? "عدد الادوار" : "Number of floors"}
         </p>
         <input
           inputMode="numeric"
           type="text"
           multiple
           {...register("level", {
-            // required: {
-            //   value: true,
-            //   message: language
-            //     ? "من فضلك ادخل الدور"
-            //     : "please enter the level",
-            // },
             validate: {
               mustBeNumber: (value) => {
                 return (
@@ -89,9 +77,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.level && (
-          <Error className="text-red-500">{errors.level.message}</Error>
-        )}{" "}
+        {errors.level && <Error>{errors.level.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
         <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
@@ -121,15 +107,15 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.rooms && <p className="text-red-500">{errors.rooms.message}</p>}{" "}
+        {errors.rooms && <Error>{errors.rooms.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
         <p className="text-gray-800">
           {language ? "عدد الحمامات" : "Bathrooms"}
         </p>
         <input
-          inputMode="numeric"
           type="text"
+          inputMode="numeric"
           {...register("bathRooms", {
             required: {
               value: true,
@@ -153,47 +139,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           }`}
           // className={"border-none"}
         />
-        {errors.bathRooms && (
-          <p className="text-red-500">{errors.bathRooms.message}</p>
-        )}{" "}
+        {errors.bathRooms && <Error>{errors.bathRooms.message}</Error>}{" "}
       </div>
-      <div className="w-full space-y-2">
-        <p className="text-gray-800">
-          {language ? " سنة التسليم" : "Delivery Date"}{" "}
-          <span className="text-outLine">
-            {language ? "(إختيارى)" : "(optional)"}
-          </span>
-        </p>
 
-        <div
-          role="button"
-          type="button"
-          onClick={() => {
-            if (deliveryDateRef.current) {
-              deliveryDateRef.current.setOpen(true);
-            }
-          }}
-          className={` w-full text-start bg-white text-lg font-semibold flex justify-between items-center focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-[8px] ${
-            errors?.deliveryDate && "border-red-500 focus:border-red-500"
-          }`}
-        >
-          <DatePicker
-            ref={deliveryDateRef}
-            className="focus:border-none focus:outline-none "
-            closeOnScroll={(e) => e.target === document}
-            selected={selectedDate}
-            onChange={handleStartDateChange}
-            showYearPicker
-            placeholderText={language ? "سنة التسليم" : "Delivery Date"}
-            dateFormat="yyyy"
-            yearItemNumber={10}
-            minDate={new Date()}
-            // className="w-full"
-          />
-          <MdOutlineDateRange />
-        </div>
-        <input type="text" {...register("deliveryDate")} hidden />
-      </div>
       <div className="space-y-2">
         <p className="text-gray-800">
           {language ? " التشطيب" : "Finishing Type"}
@@ -221,7 +169,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           })}
         />
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center lg:mt-9">
         <p className="text-gray-800">
           {language
             ? "هل العقار مسجل"
@@ -244,28 +192,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
           />
         </div>
       </div>
-      <div className="flex gap-4">
-        <p className="text-gray-800">
-          {language ? "هل العقار مفروش ؟" : "Is the property furnished?"}
-        </p>
-        <div className="flex items-center gap-3">
-          <RadioBtn
-            active={watch("isFurnished")}
-            onClick={() => {
-              setValue("isFurnished", true);
-            }}
-            title={language ? "نعم" : "Yes"}
-          />
-          <RadioBtn
-            active={!watch("isFurnished")}
-            onClick={() => {
-              setValue("isFurnished", false);
-            }}
-            title={language ? "لا" : "No"}
-          />
-        </div>
-      </div>
     </AddPropSectionContainer>
   );
 };
-export default DefaultDetails;
+export default BuildingDetails;

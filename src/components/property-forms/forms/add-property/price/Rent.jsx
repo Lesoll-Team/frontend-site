@@ -1,6 +1,6 @@
 import DropDown from "@/Shared/ui/DropDown";
 import { useSelector } from "react-redux";
-import { rentalTypes } from "../data/rentalTypes";
+import { rentalTypes } from "../../../data/rentalTypes";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 import MainPrice from "./sale/mainPriceInput/MainPrice";

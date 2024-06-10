@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
-import EditProperty from "@/components/edit-property/EditProperty";
+import EditProperty from "@/components/property-forms/forms/edit-property/EditProperty";
 const EditPropertyPage = () => {
   const router = useRouter();
   const [propData, setPropData] = useState("");

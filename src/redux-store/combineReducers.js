@@ -18,7 +18,7 @@ import addProjectSlice from "@/components/dashboard/router/add-project/redux/add
 import allProjectsSlice from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 import editProjectSlice from "@/components/dashboard/router/edit-project/redux/editProjectSlice";
 import pendingNeedsSlice from "@/components/dashboard/router/needs/redux/pendingNeedsSlice";
-import currenciesSlice from "@/components/newAddProperty/redux/currenciesSlice";
+import currenciesSlice from "@/components/property-forms/forms/add-property/redux/currenciesSlice";
 import PricingReducer from "./features/PricingSlice";
 
 export default combineReducers({

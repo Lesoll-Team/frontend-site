@@ -1,4 +1,4 @@
-import useFeaures from "@/components/newAddProperty/hooks/useFeaures";
+import useFeaures from "@/components/property-forms/forms/add-property/hooks/useFeaures";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";

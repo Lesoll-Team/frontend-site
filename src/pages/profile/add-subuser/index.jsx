@@ -1,4 +1,4 @@
-import AddSubUser from "@/components/newProfile/user/addSubUser/AddSubUser";
+import AddSubUser from "@/components/profile/user/addSubUser/AddSubUser";
 
 const index = () => {
   return <AddSubUser />;

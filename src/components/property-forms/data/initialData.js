@@ -1,4 +1,7 @@
 export const initialAddPropData = {
+  adType: "",
+  packId: null,
+  toPin: "",
   title: "",
   offer: "For Sale",
   mainImage: "",

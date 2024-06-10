@@ -1,5 +1,5 @@
-import AddProperty from "@/components/newAddProperty/AddProperty";
-import { getSingleDraft } from "@/components/newAddProperty/apis/addEditPropertyApis";
+import AddProperty from "@/components/property-forms/forms/add-property/AddProperty";
+import { getSingleDraft } from "@/components/property-forms/apis/addEditPropertyApis";
 import { Ring } from "@uiball/loaders";
 import Head from "next/head";
 import { useRouter } from "next/router";

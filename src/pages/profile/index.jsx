@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import ProfileLayout from "./ProfileLayout";
-import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
-import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
-import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
+import AllDataForm from "@/components/profile/user/editUserDataForms/AllDataForm";
+import ProfileLinks from "@/components/profile/user/ProfileLinks";
+import CompanyInfoForm from "@/components/profile/user/editUserDataForms/CompanyInfoForm";
 import { useUser } from "@/Shared/UserContext";
 const ProfilePage = () => {
   const router = useRouter();

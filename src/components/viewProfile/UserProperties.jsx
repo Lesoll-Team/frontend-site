@@ -7,7 +7,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Link from "next/link";
-import NoItems from "../newProfile/user/userProperties/NoItems";
+import NoItems from "../profile/user/userProperties/NoItems";
 
 const UserProperties = ({ user, properties, params }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);

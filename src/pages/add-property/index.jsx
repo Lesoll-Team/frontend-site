@@ -1,4 +1,4 @@
-import AddProperty from "@/components/newAddProperty/AddProperty";
+import AddProperty from "@/components/property-forms/forms/add-property/AddProperty";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 

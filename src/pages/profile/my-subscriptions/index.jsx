@@ -1,4 +1,4 @@
-import MySubscriptionsPage from "../../../components/newProfile/user/MySubscriptions/MySubscriptionsPage";
+import MySubscriptionsPage from "../../../components/profile/user/MySubscriptions/MySubscriptionsPage";
 import ProfileLayout from "../ProfileLayout";
 
 const Index = () => {

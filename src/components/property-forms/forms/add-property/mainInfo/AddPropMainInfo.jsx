@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import DropDown from "@/Shared/ui/DropDown";
-import { propTypeList } from "../data/propTypeList";
-import { unitTypeList } from "../data/unitTypeList";
+import { propTypeList } from "../../../data/propTypeList";
+import { unitTypeList } from "../../../data/unitTypeList";
 import { useEffect, useMemo } from "react";
 import GovRegion from "./location/GovRegion";
 import PlaceLatLng from "./location/PlaceLatLng";
@@ -10,7 +10,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import Error from "@/Shared/ui/Error";
 import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 import { useUser } from "@/Shared/UserContext";
-import styles from "@/components/newAddProperty/styles/addProperrty.module.css";
+import styles from "@/components/property-forms/forms/add-property/styles/addProperrty.module.css";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
 const AddPropMainInfo = ({

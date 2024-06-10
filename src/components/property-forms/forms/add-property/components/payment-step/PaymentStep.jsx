@@ -1,15 +1,9 @@
 import { useSelector } from "react-redux";
 import AddPropSectionContainer from "../AddPropSectionContainer";
 import { useEffect, useState } from "react";
-import { getPackagesInAddProperty } from "../../apis/addEditPropertyApis";
-import {
-  IoIosRadioButtonOff,
-  IoIosRadioButtonOn,
-  IoMdCheckmarkCircleOutline,
-} from "react-icons/io";
+import { getPackagesInAddProperty } from "../../../../apis/addPropertyApis";
+import { IoIosRadioButtonOff, IoIosRadioButtonOn } from "react-icons/io";
 import Error from "@/Shared/ui/Error";
-import { buyPackageActionWithCard } from "@/utils/PricingAPI";
-import { useRouter } from "next/router";
 import PaymentMethod from "./PaymentMethod";
 import { useUser } from "@/Shared/UserContext";
 import PlanCard from "./PlanCard";

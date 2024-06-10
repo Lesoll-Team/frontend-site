@@ -1,6 +1,6 @@
 // import useIsAuth from "@/Hooks/useIsAuth";
 import ProfileLayout from "../ProfileLayout";
-import UserNeeds from "@/components/newProfile/user/userNeeds/UserNeeds";
+import UserNeeds from "@/components/profile/user/userNeeds/UserNeeds";
 
 const index = () => {
   // const IsAuth = useIsAuth();

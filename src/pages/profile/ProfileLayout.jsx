@@ -1,6 +1,6 @@
 // import { useWindowWidth } from "@/Hooks/useWindowWidth";
-import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
-import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
+import ProfileHeader from "@/components/profile/user/ProfileHeader";
+import ProfileLinks from "@/components/profile/user/ProfileLinks";
 
 const ProfileLayout = ({ children, hideHeader = true }) => {
   // const { windowWidth } = useWindowWidth();

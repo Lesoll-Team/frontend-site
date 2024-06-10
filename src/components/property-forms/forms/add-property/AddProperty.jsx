@@ -1,4 +1,4 @@
-import useAddProperty from "@/components/newAddProperty/hooks/useAddProperty";
+import useAddProperty from "@/components/property-forms/forms/add-property/hooks/useAddProperty";
 import Button from "@/Shared/ui/Button";
 import AddPropMainInfo from "./mainInfo/AddPropMainInfo";
 import Steps from "./components/Steps";

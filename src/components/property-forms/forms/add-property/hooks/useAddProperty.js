@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { initialAddPropData } from "../data/initialData";
+import { initialAddPropData } from "../../../data/initialData";
 import { useEffect, useState } from "react";
 import useFromatAddData from "./useFromatAddData";
 import { scrollToTop } from "@/utils/scrollToTop";
@@ -7,10 +7,9 @@ import {
   editDraft,
   postDraft,
   postProperty,
-} from "@/components/newAddProperty/apis/addEditPropertyApis";
+} from "@/components/property-forms/apis/addEditPropertyApis";
 import { useUser } from "@/Shared/UserContext";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getFeatures } from "@/redux-store/features/property/getFeaturesSlice";
 import { getCurrencies } from "../redux/currenciesSlice";
 import { useRouter } from "next/router";
@@ -18,7 +17,7 @@ import {
   buyPackageActionWithCard,
   buyPackageActionWithWallet,
 } from "@/utils/PricingAPI";
-import { formatApiData } from "@/components/edit-property/utils/fromateApiData";
+import { formatApiData } from "../../edit-property/utils/fromateApiData";
 
 const useAddProperty = ({ propData }) => {
   const { data: userData } = useUser();
@@ -32,7 +31,7 @@ const useAddProperty = ({ propData }) => {
   const [draftServerError, setDraftServerError] = useState(null);
   const [finalStepStatus, setFinalStepStatus] = useState(null);
   const [finalStepError, setFinalStepError] = useState(null);
-  const [loading, setLaoding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [posted, setPosted] = useState(false);
 
   const form = useForm({
@@ -88,9 +87,9 @@ const useAddProperty = ({ propData }) => {
       finalStepStatus === "loading" ||
       formStatus === "loading"
     ) {
-      setLaoding(true);
+      setLoading(true);
     } else {
-      setLaoding(false);
+      setLoading(false);
     }
     if (formStatus === "success") {
       setPosted(true);
@@ -108,7 +107,7 @@ const useAddProperty = ({ propData }) => {
     const id = watch("packId");
     if (draftFormStatus === "success" && watch("adType") === "paid") {
       if (watch("paymentMethod") === "card") {
-        setLaoding(true);
+        setLoading(true);
         buyPackageActionWithCard({ id }).then((data) => {
           router.push(data.link);
         });

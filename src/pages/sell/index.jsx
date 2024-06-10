@@ -3,7 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import AddProperty from "@/components/newAddProperty/AddProperty";
+import AddProperty from "@/components/property-forms/forms/add-property/AddProperty";
 const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 

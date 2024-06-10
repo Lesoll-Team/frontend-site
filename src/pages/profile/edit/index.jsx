@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import ProfileLayout from "../ProfileLayout";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
-import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataForm";
+import AllDataForm from "@/components/profile/user/editUserDataForms/AllDataForm";
 import useIsAuth from "@/Hooks/useIsAuth";
-import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
+import CompanyInfoForm from "@/components/profile/user/editUserDataForms/CompanyInfoForm";
 // import { useSelector } from "react-redux";
 import { useUser } from "@/Shared/UserContext";
 
