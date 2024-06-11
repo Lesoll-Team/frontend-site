@@ -18,7 +18,7 @@ const PlanTitle = ({ stylesCss, data }) => {
         {data.price > 0 ? (
           <div className="font-semibold text-lightGreen items-center flex gap-x-1 space-x-1">
             <h3 className="text-lightGreen">
-              {parseInt(data?.price).toLocaleString("en-US")}
+              {data?.price.toLocaleString("en-US")}
             </h3>
             <h3 className="text-lightGreen">{language ? " جنية " : " EGP "}</h3>
           </div>

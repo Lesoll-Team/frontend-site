@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import PlanAdded from "../../model/pricing/PlanAdded";
-import SelectServices from "../../model/pricing/SelectServices";
+// import SelectServices from "../../model/pricing/SelectServices";
+import DropBoxSelectServices from "../../model/pricing/DropBoxSelectServices";
 
 const EditPlansPricing = ({ paymentPlan }) => {
   const dispatch = useDispatch();
@@ -272,21 +273,57 @@ const EditPlansPricing = ({ paymentPlan }) => {
               ></textarea>
             </div>
             {/*features*/}
-            <div className=" mb-2 flex">
-              <SelectServices
+            <div className=" mb-2 ">
+              <DropBoxSelectServices
                 servicePrice={servicePrice}
                 setFeaturesList={setFeaturesList}
                 featuresList={featuresList}
-                setDurationPlanHome={setDurationPlanHome}
-                setPropNumberInHome={setPropNumberInHome}
-                setPropNumber={setPropNumber}
-                setDurationPlan={setDurationPlan}
-                durationPlanHome={durationPlanHome}
-                propNumberInHome={propNumberInHome}
-                durationPlan={durationPlan}
-                propNumber={propNumber}
-                paymentPlan={paymentPlan}
               />
+              <div className=" w-full ">
+                {featuresList?.some(
+                  (option) => option.serviceID === "656cc095485cfd01499d1362",
+                ) && (
+                  <label className="flex flex-col gap-x-2">
+                    ضمان ظهور إعلانك ضمن أول الإعلانات:-
+                    <input
+                      type="number"
+                      className="mt-1 px-3 py-2 border rounded w-fit "
+                      onChange={(e) => setPropNumber(e.target.value)}
+                      placeholder="عدد العقارات "
+                      value={propNumber}
+                    />
+                    <input
+                      type="number"
+                      className="mt-1 px-3 py-2 border rounded w-fit"
+                      placeholder="عدد الايام "
+                      onChange={(e) => setDurationPlan(e.target.value)}
+                      value={durationPlan}
+                    />
+                  </label>
+                )}
+
+                {featuresList?.some(
+                  (option) => option.serviceID === "656cc0c1485cfd01499d1365",
+                ) && (
+                  <label className="flex flex-col gap-x-2">
+                    تجديد إعلانك يوميًا على الصفحة البحث:-
+                    <input
+                      type="number"
+                      className=" mt-1 px-3 py-2 border rounded w-fit"
+                      onChange={(e) => setPropNumberInHome(e.target.value)}
+                      placeholder="عدد العقارات "
+                      value={propNumberInHome}
+                    />
+                    <input
+                      type="number"
+                      className="  mt-1 px-3 py-2 border rounded w-fit"
+                      onChange={(e) => setDurationPlanHome(e.target.value)}
+                      placeholder="عدد الايام "
+                      value={durationPlanHome}
+                    />
+                  </label>
+                )}
+              </div>
             </div>
             <div className="flex justify-center items-center">
               <button
