@@ -6,7 +6,7 @@ import BodyDataService from "./payment-card/BodyDataService";
 
 const PlanPricingCard = ({ stylesCss, data, dash, planId }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  // className={`bg-white drop-shadow overflow-hidden flex flex-col gap-y-[16px] w-full  rounded-[6px] relative ${data?.Popular ? "h-[550px]" : "h-[500px]"}`}
+
   return (
     <div
       key={planId}
@@ -17,9 +17,7 @@ const PlanPricingCard = ({ stylesCss, data, dash, planId }) => {
         <PlanTitle data={data} stylesCss={stylesCss} />
       </div>
       <div className="mb-20 overflow-hidden ">
-        {/* <div className="mb-20 overflow-hidden"> */}
         <BodyDataService data={data} stylesCss={stylesCss} dash={dash} />
-        {/* <BodyDataService data={data} stylesCss={stylesCss} dash={dash} /> */}
       </div>
       <ButtonsActions data={data} stylesCss={stylesCss} />
     </div>
