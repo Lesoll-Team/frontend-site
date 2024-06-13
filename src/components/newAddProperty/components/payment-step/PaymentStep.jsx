@@ -25,7 +25,6 @@ const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
       getPackagesInAddProperty({ setPackages, setApiStatus, setServerError });
     }
   }, []);
-  console.log(packages);
   const { data: userData } = useUser();
   return (
     <div className="space-y-6">

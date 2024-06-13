@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 const ProfileHeader = ({ hideHeader }) => {
   const [editPicOpen, setEdiPicOpen] = useState(false);
   const { data } = useUser();
-  console.log(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   if (data)

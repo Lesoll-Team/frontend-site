@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { getInvoice } from "../../apis/profileApis";
 
 const PlanCard = ({ data }) => {
-  console.log(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate: startDate } = formatDate(data?.startDate);
   const { formattedDate: expireDate } = formatDate(data?.expireDate);

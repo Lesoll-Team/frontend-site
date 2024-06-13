@@ -7,7 +7,6 @@ import { MdOutlineAnalytics } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const PriceTitle = ({ propertData }) => {
-  console.log(propertData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
 

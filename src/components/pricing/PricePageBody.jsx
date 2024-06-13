@@ -7,15 +7,26 @@ import SkeletonPriceCard from "../dashboard/model/cards/SkeletonPriceCard";
 import { IoMdSettings } from "react-icons/io";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useUser } from "@/Shared/UserContext";
+import PriceFilter from "./PriceFilter";
 
 const PricePageBody = () => {
   const { data } = useUser();
   const [loading, setLoading] = useState(false);
+  const [typeExist, setTypeExist] = useState();
+  const [type, setType] = useState("");
   const [sortedPayments, setSortedPayments] = useState([]);
   const [showSetting, setShowSetting] = useState(false);
   const [payments, setPayments] = useState([]);
   const getPlansPayment = async () => {
-    const response = await getPlanPayments();
+    setLoading(false);
+    const response = await getPlanPayments(type);
+    setLoading(true);
+    setTypeExist({
+      yearly: response?.packageYearly,
+      monthly: response?.packageMonthly,
+      weakly: response?.packageWeakly,
+      daily: response?.packageDaily,
+    });
     setPayments(response.getPayment);
   };
   const dispatch = useDispatch();
@@ -41,84 +52,87 @@ const PricePageBody = () => {
   };
   useEffect(() => {
     dispatch(getServicePrice());
+    setPayments([]);
     getPlansPayment();
-    setTimeout(() => {
-      setLoading(true);
-    }, 2000);
-  }, [updateIndexPlan]);
+  }, [updateIndexPlan, type]);
   useEffect(() => {
     setSortedPayments(
       [...payments].sort((a, b) => a.indexNumber - b.indexNumber),
     );
   }, [payments, updateIndexPlan]);
   return (
-    <div className="md:container md:mx-auto gap-x-[1vh] mx-[20px]">
-      {data?.isAdmin && (
-        <button
-          onClick={() => setShowSetting(!showSetting)}
-          className={` text-xl border-1 border-gray-200 p-2 rounded `}
-        >
-          <IoMdSettings
-            className={`${showSetting ? "rotate-45" : "-rotate-45"} duration-250`}
-          />
-        </button>
+    <>
+      {payments && (
+        <PriceFilter type={type} setType={setType} typeExist={typeExist} />
       )}
-      {loading && payments ? (
-        <div className=" grid grid-cols-1 lg:grid-cols-3  items-center  justify-center ">
-          {sortedPayments.map((plan) => (
-            <div
-              key={plan._id}
-              className=" max-w-[390px] mx-auto  p-1 flex flex-col"
-            >
-              {data?.isAdmin && showSetting && (
-                <div className="flex gap-x-3 my-4 items-center ">
-                  <div className="flex gap-x-3 items-center w-full justify-center">
-                    <button
-                      onClick={() =>
-                        handleSetIndexAction({
-                          type: "minus",
-                          currentIndex: plan.indexNumber,
-                          planId: plan._id,
-                        })
-                      }
-                      className="p-2 border-1 border-gray-200 rounded-md"
-                    >
-                      <FaCaretRight />
-                    </button>
-                    {plan?.indexNumber}
-                    <button
-                      onClick={() =>
-                        handleSetIndexAction({
-                          type: "plus",
-                          currentIndex: plan.indexNumber,
-                          planId: plan._id,
-                        })
-                      }
-                      className="p-2 border-1  border-gray-200 rounded-md"
-                    >
-                      <FaCaretLeft />
-                    </button>
-                  </div>
-                </div>
-              )}
-              <PlanPricingCard
-                dash
-                showSetting={showSetting}
-                data={plan}
+      <div className="md:container md:mx-auto gap-x-[1vh] mx-[20px]">
+        {data?.isAdmin && (
+          <button
+            onClick={() => setShowSetting(!showSetting)}
+            className={` text-xl border-1 border-gray-200 p-2 rounded `}
+          >
+            <IoMdSettings
+              className={`${showSetting ? "rotate-45" : "-rotate-45"} duration-250`}
+            />
+          </button>
+        )}
+        {loading && payments ? (
+          <div className=" grid grid-cols-1 lg:grid-cols-3  items-center  justify-center ">
+            {sortedPayments.map((plan) => (
+              <div
                 key={plan._id}
-                planId={plan._id}
-              />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className=" grid grid-cols-1 justify-around md:grid-cols-3 ">
-          <SkeletonPriceCard />
-          <SkeletonPriceCard />
-          <SkeletonPriceCard />
-        </div>
-      )}
-    </div>
+                className=" max-w-[390px] mx-auto  p-1 flex flex-col"
+              >
+                {data?.isAdmin && showSetting && (
+                  <div className="flex gap-x-3 my-4 items-center ">
+                    <div className="flex gap-x-3 items-center w-full justify-center">
+                      <button
+                        onClick={() =>
+                          handleSetIndexAction({
+                            type: "minus",
+                            currentIndex: plan.indexNumber,
+                            planId: plan._id,
+                          })
+                        }
+                        className="p-2 border-1 border-gray-200 rounded-md"
+                      >
+                        <FaCaretRight />
+                      </button>
+                      {plan?.indexNumber}
+                      <button
+                        onClick={() =>
+                          handleSetIndexAction({
+                            type: "plus",
+                            currentIndex: plan.indexNumber,
+                            planId: plan._id,
+                          })
+                        }
+                        className="p-2 border-1  border-gray-200 rounded-md"
+                      >
+                        <FaCaretLeft />
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <PlanPricingCard
+                  dash
+                  showSetting={showSetting}
+                  data={plan}
+                  key={plan._id}
+                  planId={plan._id}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className=" grid grid-cols-1 justify-around md:grid-cols-3 ">
+            <SkeletonPriceCard />
+            <SkeletonPriceCard />
+            <SkeletonPriceCard />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
