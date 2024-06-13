@@ -46,6 +46,7 @@ const VipsUsersLayout = () => {
     { name: "Status", uid: "success", sort: ["All", "Paid", "Failed"] },
     { name: "Order ID", uid: "order_id" },
   ];
+  console.log("successOperation:>:>:>:>", successOperation);
   return (
     <div dir="ltr" className="w-full  flex">
       <div className="bg-white  sticky top-0">
@@ -58,6 +59,7 @@ const VipsUsersLayout = () => {
             totalEndPackages: successOperation?.totalEndPackages,
             totalUsers: successOperation?.totalUsers,
             totalRevenue: successOperation?.totalRevenue,
+            totalReq: successOperation?.users.length,
           }}
         />
         <SearchBar
