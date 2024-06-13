@@ -22,10 +22,10 @@ export default function PropertyDetails({ query, singleProperty, slug }) {
 }
 
 export async function getServerSideProps(context) {
-  const new_slug = filterSlugURL(context.query.id);
+  const slug = filterSlugURL(context.query.id);
   try {
     const res = await axiosInstance.get(
-      `/property/get/property/singlepage/${new_slug}`,
+      `/property/get/property/singlepage/${slug}`,
     );
     const all = res.data;
     const data = res.data.find;

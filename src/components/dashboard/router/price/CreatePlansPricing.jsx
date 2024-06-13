@@ -65,7 +65,6 @@ const CreatePlansPricing = () => {
   useEffect(() => {
     dispatch(getServicePrice());
   }, []);
-  console.log("featuresList :>>>>", featuresList);
   return (
     <div dir="ltr" className="w-full  flex">
       <div className="bg-white  sticky top-0">

@@ -25,7 +25,7 @@ const RecommendedProperties = ({ propertyData }) => {
       <div className="grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
         {recommended &&
           recommended.slice(0, 3).map((item) => {
-            return <RealtyCard propertyDetails={item} key={item._id} />;
+            return <RealtyCard propertyDetails={item} cardID={item._id} />;
           })}
       </div>
     </div>

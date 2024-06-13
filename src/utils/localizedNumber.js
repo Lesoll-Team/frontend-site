@@ -1,6 +1,5 @@
 export const localizedNumber = (input) => {
-  const price = parseInt(input).toLocaleString("en-US");
-  return price;
+  return parseInt(input).toLocaleString("en-US");
   // const number = Number(input);
   // if (isNaN(number)) {
   //   return "";

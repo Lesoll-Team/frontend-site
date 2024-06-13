@@ -1,5 +1,6 @@
 import { useUser } from "@/Shared/UserContext";
 import Cookies from "js-cookie";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 function Index({ token }) {
@@ -15,7 +16,13 @@ function Index({ token }) {
     }
   }, [router]);
 
-  return <div className="min-h-[100dvh]"></div>;
+  return (
+    <div className="min-h-[100dvh]">
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+    </div>
+  );
 }
 export default Index;
 export async function getServerSideProps({ query }) {

@@ -122,7 +122,7 @@ const UserProperties = ({ user, properties, params }) => {
         {properties?.getConfirmedRealty &&
         properties.getConfirmedRealty.length > 0 ? (
           properties.getConfirmedRealty.map((item) => {
-            return <RealtyCard key={item._id} propertyDetails={item} />;
+            return <RealtyCard cardID={item._id} propertyDetails={item} />;
           })
         ) : (
           <NoItems title={language ? "لا توجد عقارات" : "No Properties"} />

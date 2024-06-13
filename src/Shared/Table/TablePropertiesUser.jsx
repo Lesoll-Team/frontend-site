@@ -5,13 +5,13 @@ import React, { memo, useMemo } from "react";
 const TablePropertiesUser = ({ data, cols }) => {
   const MemoizedRenderTable = useMemo(() => RenderTable, [data]);
 
-  if (!data || data.length === 0) {
-    return (
-      <p className="w-full p-10 flex items-center justify-center bg-gray-100">
-        No data available.
-      </p>
-    );
-  }
+  // if (!data || data.length === 0) {
+  //   return (
+  //     <p className="w-full p-10 flex items-center justify-center bg-gray-100">
+  //       No data available.
+  //     </p>
+  //   );
+  // }
 
   return (
     <div className="overflow-x-auto h-[300px]  relative">

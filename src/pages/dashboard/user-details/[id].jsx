@@ -16,8 +16,8 @@ const UserDetailsPage = () => {
   const [totalPropNum, setTotalPropNum] = useState();
   const [visitedPages, setVisitedPages] = useState();
   const router = useRouter();
-  const slug = router.query.id;
 
+  const slug = router.query.id;
   useEffect(() => {
     const fetchData = async () => {
       if (slug) {

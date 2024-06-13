@@ -21,7 +21,7 @@ const FavoriteProperties = () => {
         favProp?.propertyFavorites.length > 0 ? (
           <div className="grid grid-cols-1   lg:grid-cols-2 xl:grid-cols-4 justify-between gap-10 xl:gap-5">
             {favProp.propertyFavorites.map((item) => {
-              return <RealtyCard propertyDetails={item} key={item?._id} />;
+              return <RealtyCard propertyDetails={item} cardID={item?._id} />;
             })}
           </div>
         ) : (
