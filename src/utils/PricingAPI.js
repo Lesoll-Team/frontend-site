@@ -35,11 +35,11 @@ export async function getPlanPrice() {
     throw error.response.data;
   }
 }
-export async function getPlanPayments() {
+export async function getPlanPayments(type) {
   const token = Cookies.get("userToken") || "undefined";
   try {
     const response = await axiosInstance.get(
-      `/admin/payment/get-payment?token=${token}`,
+      `/admin/payment/get-payment?token=${token}&filter=${type || ""}`,
     );
     return response.data;
   } catch (error) {

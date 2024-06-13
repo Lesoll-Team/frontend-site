@@ -17,10 +17,9 @@ import { IoCallOutline } from "react-icons/io5";
 
 const PropertyCard = ({ propertyDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   const formatDate = (date) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
-    return new Date(date).toLocaleString("ar-Eg", options);
+    return new Date(date).toLocaleString("en-US", options);
   };
   return (
     <div className="max-w-[700px] flex sm:flex-row flex-col-reverse p-3   md:p-3 gap-3 items-center bg-white drop-shadow-md  sm:min-h-[130px]  border rounded-md">
@@ -30,7 +29,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <p className="text-lightGreen font-bold">
               <span>
                 {language
-                  ? parseInt(propertyDetails?.price).toLocaleString("ar-Eg")
+                  ? parseInt(propertyDetails?.price).toLocaleString("ar-EG")
                   : parseInt(propertyDetails?.price).toLocaleString(
                       "en-US",
                     )}{" "}
@@ -38,8 +37,11 @@ const PropertyCard = ({ propertyDetails }) => {
               {language ? "جنية" : "EGP"}
             </p>
           )}
-          <p className="text-lightOrange">
-            {" "}
+          <p className="text-lightGreen">
+            {propertyDetails.makePin || propertyDetails.makeRepost ? (
+              <b className="text-yellow-500 mx-1"> مميز </b>
+            ) : null}
+
             {propertyDetails?.offer === "For Sale"
               ? language
                 ? "للبيع"
@@ -56,12 +58,6 @@ const PropertyCard = ({ propertyDetails }) => {
         <h3 className="text-lg md:text-xl w-full  font-semibold line-clamp-1">
           {propertyDetails?.title}
         </h3>
-        {/* <p className="line-clamp-1 text-sm sm:text-md">
-          شقة تمليك بين فيصل والهرم محطة التعاون شارع جعفر مساحة ١٨٨ متر دور
-          خامس.. اسانسير اول تشطيب ٣ نوم و ٢ حمام و مطبخ و ريسبشن و بلكونة حصة ب
-          الارض شارع راقي
-        </p> */}
-
         <div className="flex items-center gap-10 ">
           <Popover placement="bottom" showArrow={true}>
             <PopoverTrigger>
@@ -116,7 +112,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <BiSolidBed className="text-xl " />
             <p>
               {language
-                ? propertyDetails?.rooms.toLocaleString("ar-Eg")
+                ? propertyDetails?.rooms.toLocaleString("ar-EG")
                 : propertyDetails?.rooms.toLocaleString("en-US")}{" "}
               {language ? "غرف" : "Rooms"}
             </p>
@@ -125,7 +121,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <FaBath className="text-xl " />
             <p>
               {language
-                ? propertyDetails?.bathRooms.toLocaleString("ar-Eg")
+                ? propertyDetails?.bathRooms.toLocaleString("ar-EG")
                 : propertyDetails?.bathRooms.toLocaleString("en-US")}{" "}
               {language ? "حمام" : "Bath"}
             </p>
@@ -135,7 +131,7 @@ const PropertyCard = ({ propertyDetails }) => {
 
             <p>
               {language
-                ? propertyDetails?.area.toLocaleString("ar-Eg")
+                ? propertyDetails?.area.toLocaleString("ar-EG")
                 : propertyDetails?.area.toLocaleString("en-US")}{" "}
               {language ? (
                 <span>
@@ -167,11 +163,17 @@ const PropertyCard = ({ propertyDetails }) => {
       <div className="sm:w-4/12 relative rounded-md overflow-hidden max-h-[250px] sm:max-h-full">
         <Image
           src={propertyDetails?.thumbnail}
-          className=" w-[100%]  sm:min-h-[200px]   object-cover  "
+          className=" w-full   sm:min-h-[200px] max-h-[200px]   object-cover  "
         />
-        <p className=" absolute bottom-0 z-20 p-1 text-center w-full text-white bg-darkGreen font-semibold">
+        <p
+          className={`${
+            propertyDetails.makePin || propertyDetails.makeRepost
+              ? "bg-yellow-500"
+              : "bg-darkGreen"
+          } absolute bottom-0 z-20 p-1 text-center w-full text-white  font-semibold`}
+        >
           {" "}
-          تم النشر فى {formatDate(propertyDetails.createdAt)}
+          تم النشر فى {formatDate(propertyDetails.acceptAt)}
         </p>
       </div>
     </div>

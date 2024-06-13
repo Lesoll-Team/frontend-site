@@ -33,16 +33,14 @@ const PlanCard = ({ item, setValue, clearErrors, selected }) => {
         </p>
       </div>
       <div className="space-y-2">
-        {item?.service?.map((service) => {
+        {item?.newService?.map((service) => {
           return (
             <div
               className="flex items-start justify-start gap-2"
               key={service._id}
             >
               <IoMdCheckmarkCircleOutline className="text-xl text-green-400" />
-              <p className="text-start">
-                {language ? service.nameAr : service.nameEn}
-              </p>
+              <p className="text-start">{language ? service.ar : service.en}</p>
             </div>
           );
         })}

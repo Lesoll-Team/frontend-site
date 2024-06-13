@@ -61,11 +61,55 @@ export const downloadUserInvoice = async ({ bundleId, userName, lang }) => {
  * @param   status all || field || success
  * @returns array contain all fields and success pid payments
  */
-export async function getStatusOperation({ keyword, status }) {
+export async function getStatusOperation({
+  keyword,
+  status,
+  startDate,
+  endDate,
+}) {
   try {
     const response = await axiosInstance.get(
-      `/admin/dashboard/success-pay?limit=100&page=1&order=${keyword}&success=${status}`,
+      `/admin/dashboard/success-pay?limit=100&page=1&order=${keyword}&success=${status}&start=${startDate || undefined}&end=${endDate || undefined}`,
     );
+    return response.data;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+export async function downloadFileVipUsers({ startDate, endDate }) {
+  const response = await axiosInstance.get(
+    `/admin/generated/generated-revenues?start=${startDate}&end=${endDate}`,
+    { responseType: "arraybuffer" },
+  );
+  const blob = new Blob([response.data], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = "vip-users.xlsx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export async function sendGiftToUser({ packageID, userID }) {
+  try {
+    const response = await axiosInstance.post(`/admin/dashboard/gift-sub`, {
+      package: packageID,
+      user: userID,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function deleteGiftFromUser({ packageID, userID }) {
+  try {
+    const response = await axiosInstance.patch(`/admin/dashboard/delete-sub`, {
+      package: packageID,
+      user: userID,
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;

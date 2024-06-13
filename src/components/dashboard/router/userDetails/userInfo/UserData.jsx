@@ -1,14 +1,13 @@
 import { Avatar } from "@nextui-org/react";
 import Link from "next/link";
-import { FaEdit, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import InfoCard from "./InfoCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import DescriptionModal from "../../propertyDetails/description/DescriptionModal";
 
 const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const [date, setdate] = useState();
   const userTypeLang = () => {
     switch (userData?.typeOfUser) {
       case "broker":
@@ -22,7 +21,6 @@ const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
     }
   };
 
-  const [date, setdate] = useState();
   useEffect(() => {
     const createdAt = userData?.createdAt;
     function formatDate(date) {
@@ -41,28 +39,13 @@ const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
             <p className="text-3xl font-semibold md:text-start text-center">
               {userData?.fullname}
             </p>
-            {/* <p>{userData?.username}</p> */}
+            <p>{userData?.username}</p>
           </div>
         </div>
         <div className="flex items-stretch justify-stretch gap-2">
-          <DescriptionModal
-            description={
-              <span className="flex flex-col">
-                <span className="w-full h-full flex justify-center items-center min-h-[250px] gap-1 text-3xl">
-                  <span>تحت الإنشاء</span>
-                  <span className="animate-bounce ">🛠️</span>{" "}
-                </span>
-              </span>
-            }
-          >
-            <button
-              // href={"/"}
-              className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
-            >
-              <FaEdit />
-              تعديل
-            </button>
-          </DescriptionModal>
+          <button className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2">
+            منح باقة
+          </button>
           <Link
             href={`/view-profile/${userData.username}`}
             className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"

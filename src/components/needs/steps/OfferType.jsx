@@ -1,6 +1,7 @@
 import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
 import { useSelector } from "react-redux";
+import Head from "next/head";
 
 const OfferType = ({ setValue, setStep }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -15,6 +16,9 @@ const OfferType = ({ setValue, setStep }) => {
   };
   return (
     <div className="min-h-[70dvh] md:min-h-[82dvh] grid place-content-center space-y-8 md:space-y-16 fade-in-right ">
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <h1 className="text-xl   display-text text-center font-bold">
         {language ? "بتدور على ايه؟" : "What you are looking for?"}
       </h1>

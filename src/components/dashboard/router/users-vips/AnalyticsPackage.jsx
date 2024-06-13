@@ -1,33 +1,41 @@
+import { BiTransfer } from "react-icons/bi";
 import { FaBoxOpen, FaUsers } from "react-icons/fa";
-import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from "react-icons/fa6";
 import { LuPackageCheck } from "react-icons/lu";
 import { MdOutlineTimerOff } from "react-icons/md";
 
 export const AnalyticsPackage = ({ dataAnalytics }) => {
   return (
     <div className="md:container md:mx-auto mx-[1vw] ">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-10 gap-3 ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-10 gap-3 ">
         <StatCard title="Total Users" value={dataAnalytics?.totalUsers} />
         <StatCard
-          title="Total Packages Available"
-          value={dataAnalytics?.totalPackageAvailable}
+          title="Total Packages"
+          value={
+            dataAnalytics?.totalPackageAvailable +
+            dataAnalytics?.totalEndPackages
+          }
         />
-        <StatCard
-          title="Total End Packages"
-          value={dataAnalytics?.totalEndPackages}
-        />
+        <StatCard title="Total Revenue" value={dataAnalytics?.totalRevenue} />
+        <StatCard title="Total Request" value={dataAnalytics?.totalReq} />
       </div>
     </div>
   );
 };
-
+// totalReq;
 export function StatCard({ title, value }) {
   const iconMap = {
     "Total Packages Available": (
       <FaBoxOpen className="text-2xl md:text-4xl text-blue-500" />
     ),
-    "Total End Packages": (
-      <MdOutlineTimerOff className="text-2xl md:text-4xl text-red-500" />
+    "Total Packages": (
+      <FaBoxOpen className="text-2xl md:text-4xl text-blue-500" />
+    ),
+    "Total Request": (
+      <BiTransfer className="text-2xl md:text-4xl text-orange-500" />
+    ),
+    "Total Revenue": (
+      <FaMoneyBillTrendUp className="text-2xl md:text-4xl text-green-500" />
     ),
     "Total Users": <FaUsers className="text-2xl md:text-4xl text-green-500" />,
     "Available Bundle": (

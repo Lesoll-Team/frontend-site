@@ -24,28 +24,28 @@ export async function getServerSideProps(context) {
         );
         payload = JSON.parse(decodedPayload);
       } catch (error) {
-        return {
-          redirect: {
-            destination: "/prices",
-            statusCode: 308,
-          },
-        };
+        // return {
+        //   redirect: {
+        //     destination: "/prices",
+        //     statusCode: 308,
+        //   },
+        // };
       }
     } else {
-      return {
-        redirect: {
-          destination: "/prices",
-          statusCode: 308,
-        },
-      };
+      // return {
+      //   redirect: {
+      //     destination: "/prices",
+      //     statusCode: 308,
+      //   },
+      // };
     }
   } else {
-    return {
-      redirect: {
-        destination: "/prices",
-        statusCode: 404,
-      },
-    };
+    // return {
+    //   redirect: {
+    //     destination: "/prices",
+    //     statusCode: 404,
+    //   },
+    // };
   }
 
   return {

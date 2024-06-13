@@ -1,5 +1,6 @@
 import UserData from "./userInfo/UserData";
 import UserLog from "./userInfo/UserLog";
+import UserPayment from "./UserPayment";
 import UserProperties from "./UserProperties";
 
 const UserDetails = ({
@@ -24,6 +25,7 @@ const UserDetails = ({
         totalPropNum={totalPropNum}
         visitedPages={visitedPages}
       />
+      <UserPayment userData={userData} />
       <UserProperties
         invstNum={invstNum}
         totalPropNum={totalPropNum}

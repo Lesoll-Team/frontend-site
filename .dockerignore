@@ -1,2 +1,20 @@
-/node_modules
-/.next/
+# ignore dependencies project
+node_modules
+.next
+package-lock.json
+
+# ignore git files
+.git
+.gitignore
+
+# ignore docker files
+Dockerfile
+docker-compose*
+.dockerignore
+
+# ignore thame editor config
+.vscode
+.editorconfig
+
+# ignore other files
+README.md

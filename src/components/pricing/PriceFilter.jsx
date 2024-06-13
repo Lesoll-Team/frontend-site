@@ -1,64 +1,83 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-const PriceFilter = () => {
+const PriceFilter = ({ type, setType, typeExist }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [timeFilter, setTimeFilter] = useState("yearly");
+
   return (
     <div className="w-full flex justify-center my-[7vh]">
       <div className="flex">
         <div
-          className={`${timeFilter == "yearly" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
+          className={`${type == "" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
         >
-          <button
-            onClick={() => setTimeFilter("yearly")}
-            className="px-[1vw] lg-text"
-          >
-            {language ? "سنوية" : "Yearly"}
+          <button onClick={() => setType("")} className="px-[1vw] lg-text">
+            {language ? "الكل" : "All"}
           </button>
           <div
-            className={`w-full h-[1px] ${timeFilter == "yearly" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
+            className={`w-full h-[1px] ${type == "" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
           />
         </div>
-        <div
-          className={`${timeFilter == "monthly" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
-        >
-          <button
-            onClick={() => setTimeFilter("monthly")}
-            className="px-[1vw] lg-text"
-          >
-            {language ? "شهرية" : "Monthly"}
-          </button>
+        {!!typeExist?.yearly && (
           <div
-            className={`w-full h-[1px] ${timeFilter == "monthly" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
-          />
-        </div>
-        <div
-          className={`${timeFilter == "daily" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
-        >
-          <button
-            onClick={() => setTimeFilter("daily")}
-            className="px-[1vw] lg-text"
+            className={`${type == "Yearly" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
           >
-            {language ? "يومية" : "Daily"}
-          </button>
+            <button
+              onClick={() => setType("Yearly")}
+              className="px-[1vw] lg-text"
+            >
+              {language ? "سنوية" : "Yearly"}
+            </button>
+            <div
+              className={`w-full h-[1px] ${type == "Yearly" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
+            />
+          </div>
+        )}
+        {!!typeExist?.monthly && (
           <div
-            className={`w-full h-[1px] ${timeFilter == "daily" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
-          />
-        </div>
-        <div
-          className={`${timeFilter == "by-lesoll" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
-        >
-          <button
-            onClick={() => setTimeFilter("by-lesoll")}
-            className="px-[1vw] lg-text"
+            className={`${type == "Monthly" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
           >
-            {language ? "تحت إدارة ليسول" : "Managed by Lesoll"}
-          </button>
+            <button
+              onClick={() => setType("Monthly")}
+              className="px-[1vw] lg-text"
+            >
+              {language ? "شهرية" : "Monthly"}
+            </button>
+            <div
+              className={`w-full h-[1px] ${type == "Monthly" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
+            />
+          </div>
+        )}
+        {!!typeExist?.weakly && (
           <div
-            className={`w-full h-[1px] ${timeFilter == "by-lesoll" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
-          />
-        </div>
+            className={`${type == "Weakly" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
+          >
+            <button
+              onClick={() => setType("Weakly")}
+              className="px-[1vw] lg-text"
+            >
+              {language ? "أسبوعية" : "Weakly"}
+            </button>
+            <div
+              className={`w-full h-[1px] ${type == "Weakly" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
+            />
+          </div>
+        )}
+
+        {!!typeExist?.daily && (
+          <div
+            className={`${type == "Daily" ? "text-lightGreen" : "text-[#CCCCCC]"} items-center flex-col flex gap-y-[2.2vh] `}
+          >
+            <button
+              onClick={() => setType("Daily")}
+              className="px-[1vw] lg-text"
+            >
+              {language ? "يومية" : "Daily"}
+            </button>
+            <div
+              className={`w-full h-[1px] ${type == "Daily" ? "bg-lightGreen" : "bg-[#CCCCCC]"} `}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

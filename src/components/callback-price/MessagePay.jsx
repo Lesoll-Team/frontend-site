@@ -29,9 +29,9 @@ const MessagePay = ({ info }) => {
           )}
 
           {info.status == "success" ? (
-            <TimeAndButton language={language} />
+            <TimeAndButton language={language} info={info} />
           ) : (
-            <TryButtonFailed language={language} />
+            <TryButtonFailed info={info} language={language} />
           )}
         </div>
       </div>

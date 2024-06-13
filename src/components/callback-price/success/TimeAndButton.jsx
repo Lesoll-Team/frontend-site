@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-const TimeAndButton = ({ language }) => {
-  const [isTime, setIsTime] = useState(60);
+const TimeAndButton = ({ language, info }) => {
+  const isFromAddProperty = info.lastLink.includes("add-property");
+  const [isTime, setIsTime] = useState(10);
   const router = useRouter();
   useEffect(() => {
     const timer = setInterval(() => {
@@ -10,7 +11,11 @@ const TimeAndButton = ({ language }) => {
         setIsTime(isTime - 1);
       } else {
         clearInterval(timer);
-        router.push("/profile/my-subscriptions");
+        if (isFromAddProperty) {
+          router.push("/profile/my-properties?tab=pending");
+        } else {
+          router.push("/profile/my-subscriptions");
+        }
       }
     }, 1000);
 
@@ -24,7 +29,12 @@ const TimeAndButton = ({ language }) => {
       >
         {language ? "عرض جميع باقاتي" : "View my subscriptions"}
       </Link>
-      <p className="xs-text">{`سيتم توجيهك الي الصفحة الشخصية خلال ${isTime} ثانية`}</p>
+      <p className="xs-text">
+        {language
+          ? `سيتم توجيهك الى ${isFromAddProperty ? "عقارتك خلال" : "باقاتك خلال"} `
+          : `You will be redirect to your ${isFromAddProperty ? "Properties " : "Packages "} in `}
+        {isTime} {language ? " ثوانى" : "seconds"}
+      </p>
     </div>
   );
 };
