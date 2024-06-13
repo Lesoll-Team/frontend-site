@@ -8,22 +8,26 @@ import {
   buyPackageActionWithWallet,
 } from "@/utils/PricingAPI";
 import { useRouter } from "next/router";
+import { Ring } from "@uiball/loaders";
 const PriceModel = ({ isOpen, setIsOpen, id }) => {
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [buttonTarget, setButtonTarget] = useState("");
-  const handlePaymentSelection = () => {
+  const [loading, setLoading] = useState(false);
+  const handlePaymentSelection = async () => {
+    setLoading(true);
     if (buttonTarget === "card") {
-      buyPackageActionWithCard({ id }).then((data) => {
+      await buyPackageActionWithCard({ id }).then((data) => {
         router.push(data.link);
         setIsOpen(false);
       });
     } else if (buttonTarget === "wallet") {
-      buyPackageActionWithWallet({ id }).then((data) => {
+      await buyPackageActionWithWallet({ id }).then((data) => {
         router.push(data.link);
         setIsOpen(false);
       });
     }
+    setLoading(false);
   };
   return (
     <ReactModal
@@ -80,10 +84,17 @@ const PriceModel = ({ isOpen, setIsOpen, id }) => {
           </div>
 
           <button
+            disabled={loading || !buttonTarget}
             onClick={handlePaymentSelection}
-            className=" bg-lightGreen text-white font-semibold w-6/12 md:h-[48px] h-[40px] mt-3 rounded-[6px]"
+            className=" bg-lightGreen disabled:opacity-75 text-white font-semibold flex items-center justify-center w-6/12 md:h-[48px] h-[40px] mt-3 rounded-[6px]"
           >
-            التالي
+            {loading ? (
+              <Ring color="#fff" size={25} />
+            ) : language ? (
+              "التالي"
+            ) : (
+              "next"
+            )}
           </button>
         </div>
       </div>

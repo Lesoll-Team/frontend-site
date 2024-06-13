@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { getInvoice } from "../../apis/profileApis";
 
 const PlanCard = ({ data }) => {
+  console.log(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate: startDate } = formatDate(data?.startDate);
   const { formattedDate: expireDate } = formatDate(data?.expireDate);
@@ -57,7 +58,8 @@ const PlanCard = ({ data }) => {
               {language ? "عدد الإعلانات المتبقية للتثبيت" : "Remaining ads "}
             </p>
             <p className=" md:text-[16px] text-xs">
-              {data?.numberOfPin || 0} {language ? "إعلان" : "ad"}
+              {data?.userPin || 0} {language ? " من" : "out of "}{" "}
+              {data?.pinPackage} {language ? "إعلان" : "ad"}
             </p>
           </div>
           <div className="py-3 px-4 flex justify-between items-center ">
@@ -67,7 +69,8 @@ const PlanCard = ({ data }) => {
                 : "Remaining ads "}
             </p>
             <p className=" md:text-[16px] text-xs">
-              {data?.numberOfRepost || 0} {language ? "إعلان" : "ad"}
+              {data?.userRepost || 0} {language ? " من" : "out of "}{" "}
+              {data?.repostPackage} {language ? "إعلان" : "ad"}
             </p>
           </div>
           <div className="py-3 px-4 flex justify-between bg-gray-200">

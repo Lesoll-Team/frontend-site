@@ -5,10 +5,13 @@ import { MdOutlineCall, MdOutlineEdit } from "react-icons/md";
 import { useUser } from "@/Shared/UserContext";
 import EditProfilePic from "./editUserDataForms/EditProfilePic";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const ProfileHeader = ({ hideHeader }) => {
   const [editPicOpen, setEdiPicOpen] = useState(false);
   const { data } = useUser();
+  console.log(data);
+  const language = useSelector((state) => state.GlobalState.languageIs);
 
   if (data)
     return (
@@ -38,23 +41,34 @@ const ProfileHeader = ({ hideHeader }) => {
             )}
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
-            <div className="lg:space-y-[24px]">
-              <h2 className=" text-baseGray font-bold">
+            <div className=" space-y-3 lg:space-y-[24px] flex flex-col w-full lg:items-start items-center">
+              <h2 className=" text-baseGray font-bold lg:text-start text-center">
                 {data?.fullname}{" "}
                 {/* <span className="text-xl text-baseGray font-normal">(فرد)</span> */}
               </h2>
-              <div className="hidden lg:flex  items-center gap-14">
-                <div className=" flex items-center gap-2">
-                  <MdOutlineCall className="text-2xl text-lightGreen" />
-                  <h3 className=" text-baseGray font-normal">
-                    {data?.code + data?.phone}
-                  </h3>
+              <div className="flex items-center justify-center gap-2 lg:justify-between w-full ">
+                <div className="hidden lg:flex  items-center gap-14">
+                  <div className=" flex items-center gap-2">
+                    <MdOutlineCall className="text-2xl text-lightGreen" />
+                    <h3 className=" text-baseGray font-normal">
+                      {data?.code + data?.phone}
+                    </h3>
+                  </div>
+                  <div className=" flex items-center gap-2">
+                    <HiOutlineMailOpen className="text-2xl text-lightGreen" />
+                    <h3 className=" text-baseGray break-words break-all font-normal xl:max-w-fit">
+                      {data?.email}
+                    </h3>
+                  </div>
                 </div>
-                <div className=" flex items-center gap-2">
-                  <HiOutlineMailOpen className="text-2xl text-lightGreen" />
-                  <h3 className=" text-baseGray break-words break-all font-normal xl:max-w-fit">
-                    {data?.email}
-                  </h3>
+                <div className="bg-neutral px-4 py-2 flex items center gap-1 rounded">
+                  <p className="text-lightGreen font-bold">
+                    {language ? "رصيد العقارات" : "Ads Balance "}:
+                  </p>
+                  <p className="text-outLine font-semibold">
+                    {" "}
+                    {data?.propertyPackageNumber}
+                  </p>
                 </div>
               </div>
             </div>

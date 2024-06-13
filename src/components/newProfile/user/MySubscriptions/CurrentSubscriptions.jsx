@@ -18,6 +18,7 @@ const CurrentSubscriptions = () => {
   useEffect(() => {
     fetchActivePackage();
   }, []);
+
   return (
     <div className="space-y-6 md:space-y-8">
       {formStatus === "loading" ? (
@@ -27,8 +28,10 @@ const CurrentSubscriptions = () => {
           <PackageCardSkeleton />
         </>
       ) : formStatus === "success" ? (
-        activePackages.package ? (
-          <PlanCard data={activePackages.package} />
+        activePackages.package.length > 0 ? (
+          activePackages.package.map((item) => {
+            return <PlanCard data={item} />;
+          })
         ) : (
           <NoItems
             title={language ? "لا يوجد باقات نشطة" : "No Active Packages"}
