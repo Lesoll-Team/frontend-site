@@ -1,5 +1,5 @@
 import { FaBoxOpen, FaUsers } from "react-icons/fa";
-import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from "react-icons/fa6";
 import { LuPackageCheck } from "react-icons/lu";
 import { MdOutlineTimerOff } from "react-icons/md";
 
@@ -9,13 +9,13 @@ export const AnalyticsPackage = ({ dataAnalytics }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-10 gap-3 ">
         <StatCard title="Total Users" value={dataAnalytics?.totalUsers} />
         <StatCard
-          title="Total Packages Available"
-          value={dataAnalytics?.totalPackageAvailable}
+          title="Total Packages"
+          value={
+            dataAnalytics?.totalPackageAvailable +
+            dataAnalytics?.totalEndPackages
+          }
         />
-        <StatCard
-          title="Total End Packages"
-          value={dataAnalytics?.totalEndPackages}
-        />
+        <StatCard title="Total Revenue" value={dataAnalytics?.totalRevenue} />
       </div>
     </div>
   );
@@ -26,8 +26,11 @@ export function StatCard({ title, value }) {
     "Total Packages Available": (
       <FaBoxOpen className="text-2xl md:text-4xl text-blue-500" />
     ),
-    "Total End Packages": (
-      <MdOutlineTimerOff className="text-2xl md:text-4xl text-red-500" />
+    "Total Packages": (
+      <FaBoxOpen className="text-2xl md:text-4xl text-blue-500" />
+    ),
+    "Total Revenue": (
+      <FaMoneyBillTrendUp className="text-2xl md:text-4xl text-green-500" />
     ),
     "Total Users": <FaUsers className="text-2xl md:text-4xl text-green-500" />,
     "Available Bundle": (

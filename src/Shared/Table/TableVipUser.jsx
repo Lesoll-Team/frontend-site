@@ -63,14 +63,6 @@ const TableVipUser = ({
   const MemoizedRenderTable = useMemo(() => RenderTable, [data]);
   const MemoizedRenderHeadTable = useMemo(() => RenderHeadTable, [data]);
 
-  if (!data || data.length === 0) {
-    return (
-      <p className="w-full p-10 flex items-center justify-center bg-gray-100">
-        No data available.
-      </p>
-    );
-  }
-
   return (
     <div className="overflow-x-auto  min-h-screen relative">
       <table className="absolute w-full  bg-white border-5 border-gray-200 whitespace-nowrap">
@@ -78,7 +70,6 @@ const TableVipUser = ({
           <tr className="bg-gray-200 sticky -top-1  ">
             {cols.map((col, index) => (
               <th key={index} className="py-3">
-                {/* {col.name} */}
                 <MemoizedRenderHeadTable
                   name={col.uid}
                   value={col.name}
@@ -90,20 +81,26 @@ const TableVipUser = ({
             ))}
           </tr>
         </thead>
-        <tbody>
-          {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="hover:bg-gray-100 py-2 ">
-              {cols.map((col, colIndex) => (
-                <td
-                  key={colIndex}
-                  className="text-center border-b py-2 px-1 border-r-3 border-l-3 border-black"
-                >
-                  <MemoizedRenderTable row={row} col={col.uid} />
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
+        {data?.length === 0 ? (
+          <p className="w-full p-10 absolute flex items-center justify-center bg-gray-100">
+            No data available.
+          </p>
+        ) : (
+          <tbody>
+            {data?.map((row, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-100 py-2 ">
+                {cols.map((col, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className="text-center border-b py-2 px-1 border-r-3 border-l-3 border-black"
+                  >
+                    <MemoizedRenderTable row={row} col={col.uid} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
     </div>
   );

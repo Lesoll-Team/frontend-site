@@ -65,7 +65,7 @@ function Dashboard() {
   const dataUser = useSelector((state) => state.OverView.dataUsers);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [isToggleDateRange, setToggleDateRange] = useState(false);
+  const [isToggleDateRange, setIsToggleDateRange] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -119,7 +119,7 @@ function Dashboard() {
   }, [data]);
   const dataDeletes = {
     labels: dataDelete?.resultDelete.map((item) => {
-      const [year, month, day] = item.date.split("-");
+      const [, , day] = item.date.split("-");
       return day;
     }),
     datasets: [
@@ -158,7 +158,7 @@ function Dashboard() {
   };
   const overviewProperties = {
     labels: dataRents?.resultRent.map((item) => {
-      const [year, month, day] = item.date.split("-");
+      const [, , day] = item.date.split("-");
       return day;
     }),
     datasets: [
@@ -185,7 +185,7 @@ function Dashboard() {
 
   const dataUsers = {
     labels: dataUser?.resultUser.map((item) => {
-      const [year, month, day] = item.date.split("-");
+      const [, , day] = item.date.split("-");
       return day;
     }), // هنا بنحط الايام
     datasets: [
@@ -216,7 +216,7 @@ function Dashboard() {
 
   const dataRent = {
     labels: dataRents?.resultRent.map((item) => {
-      const [year, month, day] = item.date.split("-");
+      const [, , day] = item.date.split("-");
       return day;
     }), // هنا بنحط الايام
     datasets: [
@@ -247,7 +247,7 @@ function Dashboard() {
 
   const dataSales = {
     labels: dataSale?.resultSale.map((item) => {
-      const [year, month, day] = item.date.split("-");
+      const [, , day] = item.date.split("-");
       return day;
     }), // هنا بنحط الايام
     datasets: [
@@ -278,7 +278,7 @@ function Dashboard() {
 
   const dataProperty = {
     labels: dataProperties?.resultRealtyData.map((item) => {
-      const [year, month, day] = item.date.split("-");
+      const [, , day] = item.date.split("-");
       return day;
     }), // هنا بنحط الايام
     datasets: [
@@ -335,7 +335,7 @@ function Dashboard() {
             )}
             <div className="flex md:justify-end justify-center gap-2 ">
               <button
-                onClick={() => setToggleDateRange(!isToggleDateRange)}
+                onClick={() => setIsToggleDateRange(!isToggleDateRange)}
                 className={`text-lightGreen flex gap-1 items-center  text-2xl rounded-md px-2 ${isToggleDateRange ? "rotate-90 duration-700" : "rotate-0 duration-700"}`}
               >
                 <MdOutlineUpdate />

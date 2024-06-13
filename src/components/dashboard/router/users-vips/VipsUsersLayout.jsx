@@ -1,44 +1,42 @@
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import TableVipUser from "@/Shared/Table/TableVipUser";
-import {
-  getStatusOperation,
-  getUsersVIP,
-} from "@/utils/dashboardApi/paymentDetailsAPI";
+import { getStatusOperation } from "@/utils/dashboardApi/paymentDetailsAPI";
 import { useEffect, useState } from "react";
 import { AnalyticsPackage } from "./AnalyticsPackage";
 import SearchBar from "./SearchBarVIPUsers";
 
 const VipsUsersLayout = () => {
-  const [usersVIPData, setUsersVIPData] = useState(null);
   const [successOperation, setSuccessOperation] = useState(null);
   const [filterSuccessOptions, setFilterSuccessOptions] = useState("all");
   const [searchByKeywords, setSearchByKeywords] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [clickChange, setClickChange] = useState(false);
 
   useEffect(() => {
-    const fetchUsersVIP = async () => {
-      try {
-        const resData = await getUsersVIP();
-        setUsersVIPData(resData);
-      } catch (error) {
-        console.error("Error fetching VIP users data:", error);
-      }
-    };
-    fetchUsersVIP();
-  }, []);
-  useEffect(() => {
     const fetchSuccessOperation = async () => {
+      const formatDate = (inputDateString) => {
+        const parsedDate = new Date(inputDateString);
+        const year = parsedDate.getFullYear();
+        const month = String(parsedDate.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1 and pad with '0' if needed
+        const day = String(parsedDate.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+      };
       try {
         const successData = await getStatusOperation({
           status: filterSuccessOptions,
           keyword: searchByKeywords,
+          startDate: startDate && formatDate(startDate),
+          endDate: endDate && formatDate(endDate),
         });
         setSuccessOperation(successData);
       } catch (error) {
-        console.error("Error fetching VIP users data:", error);
+        throw new Error(error.message);
       }
     };
     fetchSuccessOperation();
-  }, [filterSuccessOptions, searchByKeywords]);
+  }, [filterSuccessOptions, searchByKeywords, clickChange]);
 
   const statusCall = [
     { name: "Name", uid: "userFullname" },
@@ -56,12 +54,21 @@ const VipsUsersLayout = () => {
       <div className="md:container md:mx-auto mx-[1vw] md:my-14 my-2 w-full flex flex-col space-y-10 ">
         <AnalyticsPackage
           dataAnalytics={{
-            totalPackageAvailable: usersVIPData?.totalContinuousPackages,
-            totalEndPackages: usersVIPData?.totalEndPackages,
-            totalUsers: usersVIPData?.totalUsers,
+            totalPackageAvailable: successOperation?.totalContinuousPackages,
+            totalEndPackages: successOperation?.totalEndPackages,
+            totalUsers: successOperation?.totalUsers,
+            totalRevenue: successOperation?.totalRevenue,
           }}
         />
-        <SearchBar setSearchByKeywords={setSearchByKeywords} />
+        <SearchBar
+          setSearchByKeywords={setSearchByKeywords}
+          setEndDate={setEndDate}
+          setStartDate={setStartDate}
+          startDate={startDate}
+          endDate={endDate}
+          setClickChange={setClickChange}
+          clickChange={clickChange}
+        />
         <TableVipUser
           data={successOperation?.users}
           cols={statusCall}
