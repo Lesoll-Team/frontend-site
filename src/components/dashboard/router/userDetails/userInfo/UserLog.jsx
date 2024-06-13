@@ -1,34 +1,11 @@
 import { useState } from "react";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Tooltip,
-} from "@nextui-org/react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TbFilterSearch } from "react-icons/tb";
 import { downloadUserLog } from "@/utils/userAPI";
 import { MdDownload } from "react-icons/md";
-const formatDate = (date) => {
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
-  const formattedDate = new Date(date).toLocaleString("en-US", options);
-  return formattedDate;
-};
-
-const copyLinkPage = (text) => {
-  navigator.clipboard.writeText(text);
-};
+import TableVipUser from "@/Shared/Table/TableVipUser";
 
 const UserLog = ({ visitedPages, userData }) => {
   const [startDate, setStartDate] = useState(null);
@@ -57,19 +34,21 @@ const UserLog = ({ visitedPages, userData }) => {
   const handleEndDateChange = (date) => {
     setEndDate(date);
   };
-
+  const statusCall = [
+    { name: "Page", uid: "Action" },
+    { name: "Date", uid: "startPage" },
+  ];
   return (
-    <section className="w-full md:bg-gray-100 md:p-5 space-y-4 rounded-lg">
+    <section className="w-full md:bg-gray-100 md:p-5 space-y-4 rounded-lg container mx-auto">
       <h3 className="text-2xl font-medium text-lightGreen">
         سجل تصفح المستخدم
       </h3>
-      <div className="flex gap-2 items-start sm:items-end sm:flex-row flex-col">
+      <div className="flex gap-2  items-start sm:items-end sm:flex-row flex-col">
         <div className="flex items-center flex-col sm:flex-row gap-1">
           <div>
             <p>من</p>
             <DatePicker
               placeholderText="start Date"
-              closeOnScroll={(e) => e.target === document}
               dateFormat="yyyy/MM/dd"
               value={startDate}
               className="rounded-md border px-2 py-1"
@@ -81,7 +60,6 @@ const UserLog = ({ visitedPages, userData }) => {
             <p>الى</p>
             <DatePicker
               placeholderText="end Date"
-              closeOnScroll={(e) => e.target === document}
               dateFormat="yyyy/MM/dd"
               value={endDate}
               className="rounded-md border px-2 py-1"
@@ -107,14 +85,27 @@ const UserLog = ({ visitedPages, userData }) => {
           </button>
         </div>
       </div>
-      <Table
+      <TableVipUser cols={statusCall} data={rowsToRender} />
+    </section>
+  );
+};
+
+export default UserLog;
+
+/* <Table
         isHeaderSticky
         isStriped
         dir="ltr"
         aria-label="Example static collection table"
         classNames={{
-          base: "max-h-[520px] overflow-scroll w-[300px] sm:w-full",
-          table: "min-h-[400px]",
+          base: "max-h-[520px]   min-h-[400px] ",
+          // table: "w-fit overflow-hidden",
+          // thead: "bg-red-300 w-fit overflow-hidden",
+          thead: "bg-red-300 w-[600px]",
+          tbody: "",
+          tr: "",
+          th: "",
+          td: "",
         }}
       >
         <TableHeader>
@@ -130,7 +121,7 @@ const UserLog = ({ visitedPages, userData }) => {
                   <Tooltip content="اضغط لنسخ الرابط">
                     <button
                       onClick={() => copyLinkPage(page.Action)}
-                      className="text-start focus:outline-none"
+                      className="text-start focus:outline-none "
                     >
                       {page.Action}
                     </button>
@@ -140,9 +131,29 @@ const UserLog = ({ visitedPages, userData }) => {
             );
           })}
         </TableBody>
-      </Table>
-    </section>
-  );
-};
+    </Table> */
 
-export default UserLog;
+// const formatDate = (date) => {
+//   const options = {
+//     year: "numeric",
+//     month: "numeric",
+//     day: "numeric",
+//     hour: "numeric",
+//     minute: "numeric",
+//   };
+//   const formattedDate = new Date(date).toLocaleString("en-US", options);
+//   return formattedDate;
+// };
+
+// const copyLinkPage = (text) => {
+//   navigator.clipboard.writeText(text);
+// };
+// import {
+//   Table,
+//   TableHeader,
+//   TableColumn,
+//   TableBody,
+//   TableRow,
+//   TableCell,
+//   Tooltip,
+// } from "@nextui-org/react";

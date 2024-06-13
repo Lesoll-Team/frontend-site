@@ -93,3 +93,27 @@ export async function downloadFileVipUsers({ startDate, endDate }) {
   link.click();
   document.body.removeChild(link);
 }
+
+export async function sendGiftToUser({ packageID, userID }) {
+  try {
+    const response = await axiosInstance.post(`/admin/dashboard/gift-sub`, {
+      package: packageID,
+      user: userID,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
+export async function deleteGiftFromUser({ packageID, userID }) {
+  try {
+    const response = await axiosInstance.patch(`/admin/dashboard/delete-sub`, {
+      package: packageID,
+      user: userID,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

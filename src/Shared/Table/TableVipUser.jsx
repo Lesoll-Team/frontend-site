@@ -10,7 +10,7 @@ const RenderTable = ({ row, col }) => {
   });
 
   const createdDate = useFormatNewData({
-    date: row.createdAt,
+    date: row.createdAt || row.startPage,
     lang: false,
   });
   switch (col) {
@@ -28,6 +28,7 @@ const RenderTable = ({ row, col }) => {
         <p>{(formattedDate != "Invalid Date" && formattedDate) || "End"}</p>
       );
     case "createdAt":
+    case "startPage":
       return <p>{createdDate}</p>;
     case "userPhoneNumber":
       return (
@@ -48,6 +49,12 @@ const RenderTable = ({ row, col }) => {
             </p>
           )}
         </div>
+      );
+    case "Action":
+      return (
+        <p className=" flex justify-end font-semibold overflow-hidden ">
+          {row.Action.slice(0, 150)}
+        </p>
       );
     default:
       return <div>{row[col]}</div>;

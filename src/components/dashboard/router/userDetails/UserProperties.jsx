@@ -49,6 +49,7 @@ const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
         return 0;
     }
   };
+  console.log("propertyData:>>", propertyData);
   return (
     <section className=" space-y-2 sm:space-y-4 md:py-7 md:p-5 md:rounded-lg  md:bg-gray-100">
       <div className=" flex flex-wrap justify-center items-center sm:grid grid-cols-3 gap-1 ">
