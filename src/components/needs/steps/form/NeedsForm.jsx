@@ -9,6 +9,7 @@ import GovRegion from "@/components/newAddProperty/mainInfo/location/GovRegion";
 import Button from "@/Shared/ui/Button";
 import PhoneNumber from "@/components/newAddProperty/components/PhoneNumber";
 import { Ring } from "@uiball/loaders";
+import Head from "next/head";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const NeedsForm = ({
   register,
@@ -36,6 +37,9 @@ const NeedsForm = ({
   }, [watch("propType.value")]);
   return (
     <div className="space-y-6 fade-in-right px-2 md:px-0 md:container mx-auto">
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className="flex items-center gap-2 ">
         <button
           onClick={() => {

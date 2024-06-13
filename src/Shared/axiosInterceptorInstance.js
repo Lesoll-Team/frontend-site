@@ -47,10 +47,10 @@ axiosInstance.interceptors.response.use(
       } catch (refreshError) {
         Cookies.remove("userToken");
         if (
-          window.location.href.includes("profile") ||
-          window.location.href.includes("dashboard")
+          window.location.pathname.includes("/profile") ||
+          window.location.pathname.includes("/dashboard")
         ) {
-          window.location.href = "/";
+          window.location.replace("/");
         }
         return Promise.reject(error); // Return the original error from the endpoint
       }

@@ -13,6 +13,7 @@ const Custom505 = () => {
         <title> {language ? "خطأ فى السيرفر" : "Server Error"} </title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
+
       <div className="w-full h-[92dvh] flex flex-col  lg:flex-row container mx-auto gap-5 lg:gap-20 items-center justify-center ">
         <Image
           src="/500-error.svg"

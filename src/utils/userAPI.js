@@ -10,6 +10,7 @@ export async function registerUser(userData) {
     throw error.response.data;
   }
 }
+
 export async function loginUser(userData) {
   try {
     const response = await axiosInstance.post(`/auth/login`, userData); //login
@@ -18,6 +19,7 @@ export async function loginUser(userData) {
     throw error.response.data;
   }
 }
+
 export async function logoutUser() {
   Cookies.remove("userToken");
   Cookies.remove("jwt");
@@ -109,8 +111,6 @@ export async function ViewUser(username) {
   }
 }
 
-// dashboard view user apis
-
 export async function getUserDataDashboard(username) {
   try {
     const response = await axiosInstance.get(
@@ -121,10 +121,10 @@ export async function getUserDataDashboard(username) {
     throw error.response.data;
   }
 }
-export async function getUserPropertiesDashboard(username, page = 1, propType) {
+export async function getUserPropertiesDashboard(username, page, propType) {
   try {
     const response = await axiosInstance.get(
-      `/admin/dashboard/user-properties/${username}?limit=9&page=${page}&of=${propType}`,
+      `/admin/dashboard/user-properties/${username}?limit=9&page=${page || 1}&of=${propType}`,
     );
     return response.data;
   } catch (error) {
@@ -186,42 +186,3 @@ export async function getUserOffline({ url }) {
     throw error.response.data;
   }
 }
-// export async function updateGoogleData({ data }) {
-//   try {
-//     // const response =
-//     await axiosInstance.put(`/auth/update-users-google`, data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-/*
- * export async function ViewUserProperties(username, page, type) {
-  try {
-    const response = await axiosInstance.get(
-      `/user/uservisit-property/${username}?limit=12&page=${page}&of=${type}`,
-    );
-
-    return response.data;
-  } catch (error) {
-    if (error.response.status === 400) {
-      error.response.getConfirmedRealty = [];
-      return error.response;
-    } else {
-      throw error.response.data;
-    }
-  }
-}
-
-export async function sendEmailResetPassword(email) {
-  try {
-    const response = await axiosInstance.post(
-      `/user/reset-password&lang=AR`,
-      email,
-    );
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-}
- */

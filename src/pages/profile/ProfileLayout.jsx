@@ -1,12 +1,16 @@
 // import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import ProfileHeader from "@/components/newProfile/user/ProfileHeader";
 import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
+import Head from "next/head";
 
 const ProfileLayout = ({ children, hideHeader = true }) => {
   // const { windowWidth } = useWindowWidth();
 
   return (
     <div className="md:flex md:gap-16">
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <aside className="min-w-[350px]  hidden md:block min-h-[70dvh] pt-[80px] bg-lightNeutral">
         <ProfileLinks />
       </aside>

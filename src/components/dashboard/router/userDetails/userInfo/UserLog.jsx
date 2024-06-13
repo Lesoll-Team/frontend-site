@@ -13,7 +13,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TbFilterSearch } from "react-icons/tb";
 import { downloadUserLog } from "@/utils/userAPI";
-// import { useRouter } from "next/router";
 import { MdDownload } from "react-icons/md";
 const formatDate = (date) => {
   const options = {
@@ -35,11 +34,10 @@ const UserLog = ({ visitedPages, userData }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [reverseOrder, setReverseOrder] = useState(false);
-  // const router = useRouter();
-  // const slug = router.query.id;
+
   const filterByDate = (page) => {
     if (!startDate || !endDate) {
-      return true; // No date range specified, show all pages
+      return true;
     }
 
     const pageDate = new Date(page.startPage);
@@ -98,7 +96,8 @@ const UserLog = ({ visitedPages, userData }) => {
             onClick={handleReverse}
             className="flex items-center gap-1 bg-darkGreen text-white font-bold px-3 rounded-md py-1"
           >
-            <TbFilterSearch /> <p>{reverseOrder ? "الأقدم" : "الأحدث"}</p>
+            <TbFilterSearch />
+            <p className="text-white">{reverseOrder ? "الأقدم" : "الأحدث"}</p>
           </button>
           <button
             className="text-4xl text-darkGray hover:text-lightGreen duration-300"

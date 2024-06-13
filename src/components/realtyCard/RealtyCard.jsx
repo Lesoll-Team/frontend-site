@@ -7,10 +7,13 @@ import FavAndDate from "./basic-body-card/FavAndDate";
 import { memo } from "react";
 import { filterSlugURL } from "../../Shared/generateRedirectDestination";
 
-const RealtyCard = ({ propertyDetails }) => {
+const RealtyCard = ({ propertyDetails, cardID }) => {
   const new_slug = filterSlugURL(propertyDetails?.slug);
   return (
-    <div className="overflow-hidden  w-full  sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md">
+    <div
+      key={cardID}
+      className="overflow-hidden  w-full  sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md"
+    >
       {/* start icon favorite */}
       <div className=" sm:w-full w-5/12 min-w-[125px]  flex  relative   h-auto sm:h-[40vh] sm:max-h-[250px] sm:min-h-[250px]">
         <FavAndDate propertyDetails={propertyDetails} />
