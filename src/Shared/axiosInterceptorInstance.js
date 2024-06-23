@@ -25,6 +25,10 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.token = token;
     }
+    // const userLanguage = navigator.language || "ar"; // Default to "en-US" if navigator.language is unavailable
+    // config.headers["Accept-Language"] = userLanguage;
+    // console.log("userLanguage:>:>:>", userLanguage);
+    // console.log("navigator:>:>:>", navigator);
     return config;
   },
   (error) => Promise.reject(error),
