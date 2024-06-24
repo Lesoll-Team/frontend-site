@@ -4,10 +4,21 @@ import { rentalTypes } from "../data/rentalTypes";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 import MainPrice from "./sale/mainPriceInput/MainPrice";
-
+import { handleMonyInputChange } from "../utils/handleNumberInput";
+const formatNumber = (value) => {
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  // const handleInputChange = (e, name,setValue) => {
+  //   // console.log(n);
+  //   const value = e.target.value.replace(/,/g, "");
+  //   if (!isNaN(value)) {
+  //     setValue(name, formatNumber(value));
+  //   } else {
+  //     setValue(name, value);
+  //   }
+  // };
   return (
     <>
       <MainPrice
@@ -70,10 +81,12 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
                 },
               },
             })}
+            onChange={(e) => handleMonyInputChange(e, "insurance", setValue)}
             className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
               errors.insurance && "border-red-500 focus:border-red-500"
             }`}
           />
+
           <span
             className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
               language ? "left-14" : "right-14"
