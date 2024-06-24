@@ -25,7 +25,19 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.token = token;
     }
-    // const userLanguage = navigator.language || "ar"; // Default to "en-US" if navigator.language is unavailable
+    const languageCode = Cookies.get("language"); // Default to 'en' if no language code is found
+    config.headers["Accept-Language"] = languageCode;
+    console.log("Accept-Language header set to: ", languageCode);
+    // const languageFromPath =
+    //   (window.location.pathname.startsWith("/en") && "en") ||
+    //   (window.location.pathname.startsWith("/ar") && "ar") ||
+    //   (!window.location.pathname.startsWith("/en") &&
+    //     !window.location.pathname.startsWith("/ar") &&
+    //     "ar");
+    // config.headers["Accept-Language"] = languageFromPath;
+
+    // console.log("navigator:>:>:>", languageFromPath);
+    // const userLanguage = navigator.language || "ar";
     // config.headers["Accept-Language"] = userLanguage;
     // console.log("userLanguage:>:>:>", userLanguage);
     // console.log("navigator:>:>:>", navigator);

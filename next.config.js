@@ -4,6 +4,12 @@ module.exports = async () => {
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
+    i18n: {
+      defaultLocale: "ar",
+      locales: ["en", "ar"],
+      localeDetection: true, // This disables automatic locale detection
+    },
+
     images: {
       domains: ["cloud.lesoll.com", "lh3.googleusercontent.com"],
     },
