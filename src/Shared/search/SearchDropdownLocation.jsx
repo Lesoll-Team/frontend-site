@@ -6,7 +6,13 @@ import { useGetCity, useGetRegion } from "@/Hooks/fetchCitiesAndRegions";
 import { useRouter } from "next/router";
 import { useSendFilterSearch } from "@/components/category/shared/FilterHooks";
 
-export function SearchDropdownLocation({ isToggle, isHome }) {
+export function SearchDropdownLocation({
+  isToggle,
+  isHome,
+  isBlog,
+  setRegion,
+  setCity,
+}) {
   const router = useRouter();
   let languageIs = useSelector((state) => state.GlobalState.languageIs);
   const {
@@ -69,7 +75,7 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
       setMapLocation(mapLocation);
     } catch (error) {
       console.error(
-        "Error in fetching  governorates file: ( SearchDropdownLocation ) "
+        "Error in fetching  governorates file: ( SearchDropdownLocation ) ",
       );
     }
   }, []);
@@ -87,20 +93,20 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
       const term = e.target.value;
       setSearchTerm(term);
     },
-    [fetchGovernoratesData]
+    [fetchGovernoratesData],
   );
 
   useEffect(() => {
     const filtered = governorates.filter(
       (governorate) =>
         governorate.name_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        governorate.name_ar.toLowerCase().includes(searchTerm.toLowerCase())
+        governorate.name_ar.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
     setFilteredOptions(
       govNum > 0
         ? filtered.filter((gov) => gov.numberReg_governorate_number === govNum)
-        : filtered
+        : filtered,
     );
   }, [searchTerm, govNum, governorates]);
 
@@ -181,8 +187,12 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
           mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue,
         locationRegion:
           mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue,
-      })
+      }),
     );
+    if (isBlog) {
+      setRegion(mapLocation.get(numberGovFromReg)?.name_en && selectedEnValue);
+      setCity(mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue);
+    }
     callAfterSelectCity({
       locationGovernorate:
         mapLocation.get(numberGovFromReg)?.name_en || selectedEnValue,
@@ -204,8 +214,12 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
           updateAllStates({
             locationGovernorate: null,
             locationRegion: null,
-          })
+          }),
         );
+        if (isBlog) {
+          setRegion("");
+          setCity("");
+        }
         callAfterSelectCity({
           locationGovernorate: null,
           locationRegion: null,
@@ -215,8 +229,11 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
         dispatch(
           updateAllStates({
             locationRegion: null,
-          })
+          }),
         );
+        if (isBlog) {
+          setRegion("");
+        }
         // callAfterSelectCity({
         //   locationRegion: null,
         //   locationGovernorate: null,
@@ -225,7 +242,7 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
       updatedValues.splice(0, 1);
       setSelectedValues(updatedValues);
     },
-    [selectedValues]
+    [selectedValues],
   );
 
   const handleKeyDown = (e) => {
@@ -233,14 +250,14 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
       case "ArrowDown":
         e.preventDefault();
         setHighlightedIndex((prevIndex) =>
-          prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
+          prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex,
         );
         break;
 
       case "ArrowUp":
         e.preventDefault();
         setHighlightedIndex((prevIndex) =>
-          prevIndex > 0 ? prevIndex - 1 : prevIndex
+          prevIndex > 0 ? prevIndex - 1 : prevIndex,
         );
         break;
 
@@ -314,7 +331,7 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
               onClick={() =>
                 handleClearCared(
                   selectedValues.length - 1,
-                  selectedValues[selectedValues.length - 1]
+                  selectedValues[selectedValues.length - 1],
                 )
               }
               className="text-gray2  items-center flex sm-text font-semibold"
@@ -337,8 +354,12 @@ export function SearchDropdownLocation({ isToggle, isHome }) {
                   updateAllStates({
                     locationGovernorate: null,
                     locationRegion: null,
-                  })
+                  }),
                 );
+                if (isBlog) {
+                  setRegion("");
+                  setCity("");
+                }
               }}
               className="text-gray2  items-center flex sm-text font-semibold"
             >

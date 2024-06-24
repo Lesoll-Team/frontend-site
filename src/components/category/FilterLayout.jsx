@@ -72,7 +72,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       <SubBarTitle result={result} />
       {/*cards result  */}
       <div
-        className={`  grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10 `}
+        className={`  grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between md:gap-10 gap-5 `}
       >
         {result?.categoryResults?.map((property) => (
           <RealtyCard key={property._id} propertyDetails={property} />
