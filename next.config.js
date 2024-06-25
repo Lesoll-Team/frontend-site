@@ -1,15 +1,14 @@
 // module.exports = nextConfig;
+// import { i18n } from "./next-i18next.config";
+// const { i18n } = require("./next-i18next.config");
+const { i18n } = require("./next-i18next.config.js");
+
 module.exports = async () => {
   /**
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
-    i18n: {
-      defaultLocale: "ar",
-      locales: ["en", "ar"],
-      localeDetection: true, // This disables automatic locale detection
-    },
-
+    i18n,
     images: {
       domains: ["cloud.lesoll.com", "lh3.googleusercontent.com"],
     },

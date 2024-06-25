@@ -4,23 +4,15 @@ import HeroSection from "@/components/homePage/HeroSection";
 import SearchModule from "@/components/homePage/SearchModule";
 import OtherCards from "@/components/homePage/OtherCards";
 import HomeMetaTag from "@/components/homePage/HomeMetaTag";
-// import { parseCookies } from "nookies";
-// import Cookies from "js-cookie";
-// import nookies from "nookies";
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories"),
 );
 const LocationCategories = dynamic(
   () => import("@/components/homePage/LocationCategories"),
 );
-// const SpecialCards = dynamic(
-//   () => import("../components/homePage/SpecialCards"),
-// );
-
 const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome"),
 );
-
 const Home = ({ bestSearch }) => {
   return (
     <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">

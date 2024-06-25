@@ -13,6 +13,7 @@ const refreshToken = async () => {
     );
     const { accessToken } = refreshResponse.data;
     Cookies.set("userToken", accessToken);
+
     return accessToken;
   } catch (error) {
     console.error("Failed to refresh token", error);
@@ -22,25 +23,14 @@ const refreshToken = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     let token = Cookies.get("userToken");
+
     if (token) {
       config.headers.token = token;
     }
-    const languageCode = Cookies.get("language"); // Default to 'en' if no language code is found
-    config.headers["Accept-Language"] = languageCode;
-    console.log("Accept-Language header set to: ", languageCode);
-    // const languageFromPath =
-    //   (window.location.pathname.startsWith("/en") && "en") ||
-    //   (window.location.pathname.startsWith("/ar") && "ar") ||
-    //   (!window.location.pathname.startsWith("/en") &&
-    //     !window.location.pathname.startsWith("/ar") &&
-    //     "ar");
-    // config.headers["Accept-Language"] = languageFromPath;
 
-    // console.log("navigator:>:>:>", languageFromPath);
-    // const userLanguage = navigator.language || "ar";
-    // config.headers["Accept-Language"] = userLanguage;
-    // console.log("userLanguage:>:>:>", userLanguage);
-    // console.log("navigator:>:>:>", navigator);
+    const languageCode = Cookies.get("language");
+    config.headers["Accept-Language"] = languageCode;
+
     return config;
   },
   (error) => Promise.reject(error),
@@ -76,3 +66,17 @@ axiosInstance.interceptors.response.use(
   },
 );
 export default axiosInstance;
+// const languageFromPath =
+//   (window.location.pathname.startsWith("/en") && "en") ||
+//   (window.location.pathname.startsWith("/ar") && "ar") ||
+//   (!window.location.pathname.startsWith("/en") &&
+//     !window.location.pathname.startsWith("/ar") &&
+//     "ar");
+// config.headers["Accept-Language"] = languageFromPath;
+// console.log("Accept-Language header set to: ", languageCode);
+
+// console.log("navigator:>:>:>", languageFromPath);
+// const userLanguage = navigator.language || "ar";
+// config.headers["Accept-Language"] = userLanguage;
+// console.log("userLanguage:>:>:>", userLanguage);
+// console.log("navigator:>:>:>", navigator);
