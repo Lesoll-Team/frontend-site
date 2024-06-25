@@ -94,6 +94,10 @@ const useAddProperty = ({ propData }) => {
     }
     if (formStatus === "success") {
       setPosted(true);
+    } else if (finalStepStatus === "success") {
+      if (watch("adType" === "free")) {
+        setPosted(true);
+      }
     } else {
       setPosted(false);
     }
@@ -179,15 +183,30 @@ const useAddProperty = ({ propData }) => {
 
     const steps = isInvestment
       ? {
-          1: () => setStep(2),
-          2: () => setStep(3),
+          1: () => {
+            setStep(2);
+            scrollToTop();
+          },
+          2: () => {
+            setStep(3);
+            scrollToTop();
+          },
           3: () => handleDraftOrPost(formData),
           4: () => handleEditDraft(formData),
         }
       : {
-          1: () => setStep(2),
-          2: () => setStep(3),
-          3: () => setStep(4),
+          1: () => {
+            setStep(2);
+            scrollToTop();
+          },
+          2: () => {
+            setStep(3);
+            scrollToTop();
+          },
+          3: () => {
+            setStep(4);
+            scrollToTop();
+          },
           4: () => handleDraftOrPost(formData),
           5: () => handleEditDraft(formData),
         };

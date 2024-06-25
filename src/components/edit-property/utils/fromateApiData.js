@@ -59,6 +59,7 @@ export const formatApiData = ({ setValue, data }) => {
         },
   );
   setValue("description", data?.description);
+  setValue("resale", data?.resale);
   setValue("offer", data?.offer);
   setValue("propType", propType);
   setValue("mainImage", "");

@@ -48,6 +48,7 @@ const useFromatAddData = (data) => {
   data.toPin && formData.append("toPin", data.toPin);
 
   formData.append("title", data.title);
+  formData.append("resale", data.resale);
   formData.append("isCompound", data.isCompound);
   data.isCompound && formData.append("compaounds", data.compaounds?._id);
   formData.append("offer", data.offer);
