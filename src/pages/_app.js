@@ -10,6 +10,7 @@ import { UserProvider } from "@/Shared/UserContext";
 import { appWithTranslation } from "next-i18next";
 // import { appWithTranslation } from "next-i18next";
 import nextI18nextConfig from "../../next-i18next.config";
+
 // import nextI18nextConfig from "../../next-i18next.config";
 // import nextI18nextConfig from "../../next-i18next.config";
 
