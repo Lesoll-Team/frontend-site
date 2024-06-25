@@ -33,7 +33,7 @@ export async function getServerSideProps(context) {
       props: {
         singleProperty: data,
         all,
-        slug: new_slug,
+        slug: context?.query?.id,
         query: context.query,
       },
     };
