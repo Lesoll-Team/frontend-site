@@ -25,12 +25,12 @@ const Links = () => {
 
       id: 3,
     },
-    {
-      link: "/faq",
-      titleAr: "الأسئلة الشائعة",
-      titleEn: "Common Questions",
-      id: 4,
-    },
+    // {
+    //   link: "/faq",
+    //   titleAr: "الأسئلة الشائعة",
+    //   titleEn: "Common Questions",
+    //   id: 4,
+    // },
     {
       link: "/termsofservice",
       titleAr: "الشروط والاحكام",
