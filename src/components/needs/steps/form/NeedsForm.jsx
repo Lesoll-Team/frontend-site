@@ -371,72 +371,78 @@ const NeedsForm = ({
               </div>
             </div>
           )}
-        <div className=" flex items- md:flex-row flex-col gap-10">
-          <div className="space-y-2 w-full">
-            <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
-            <input
-              type="text"
-              {...register("rooms", {
-                required: {
-                  value: true,
-                  message: language
-                    ? "من فضلك ادخل عددالغرف"
-                    : "please enter the number of rooms",
-                },
-                validate: {
-                  mustBeNumber: (value) => {
-                    return (
-                      !isNaN(value) ||
-                      (language
-                        ? "عدد الغرف يجب ان يكون رقما"
-                        : "Rooms must be a number")
-                    );
+        {watch("propType.value") !== "Land" && (
+          <div className=" flex items- md:flex-row flex-col gap-10">
+            <div className="space-y-2 w-full">
+              <p className="text-gray-800">
+                {language ? "عدد الغرف" : "Rooms"}
+              </p>
+              <input
+                type="text"
+                {...register("rooms", {
+                  required: {
+                    value: true,
+                    message: language
+                      ? "من فضلك ادخل عددالغرف"
+                      : "please enter the number of rooms",
                   },
-                },
-              })}
-              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                errors.rooms && "border-red-500 focus:border-red-500"
-              }`}
-              // className={"border-none"}
-            />
-            {errors.rooms && (
-              <Error className="text-red-500">{errors.rooms.message}</Error>
-            )}{" "}
-          </div>
-          <div className="space-y-2  w-full">
-            <p className="text-gray-800">
-              {language ? "عدد الحمامات" : "Bathrooms"}
-            </p>
-            <input
-              type="text"
-              {...register("bathRooms", {
-                // required: {
-                //   value: true,
-                //   message: language
-                //     ? "من فضلك ادخل الحمامات"
-                //     : "please enter the number of bathrooms",
-                // },
-                validate: {
-                  mustBeNumber: (value) => {
-                    return (
-                      !isNaN(value) ||
-                      (language
-                        ? "عدد الحمامات يجب ان يكون رقما"
-                        : "bathrooms must be a number")
-                    );
+                  validate: {
+                    mustBeNumber: (value) => {
+                      return (
+                        !isNaN(value) ||
+                        (language
+                          ? "عدد الغرف يجب ان يكون رقما"
+                          : "Rooms must be a number")
+                      );
+                    },
                   },
-                },
-              })}
-              className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                errors.bathRooms && "border-red-500 focus:border-red-500"
-              }`}
-              // className={"border-none"}
-            />
-            {errors.bathRooms && (
-              <Error className="text-red-500">{errors.bathRooms.message}</Error>
-            )}{" "}
+                })}
+                className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                  errors.rooms && "border-red-500 focus:border-red-500"
+                }`}
+                // className={"border-none"}
+              />
+              {errors.rooms && (
+                <Error className="text-red-500">{errors.rooms.message}</Error>
+              )}{" "}
+            </div>
+            <div className="space-y-2  w-full">
+              <p className="text-gray-800">
+                {language ? "عدد الحمامات" : "Bathrooms"}
+              </p>
+              <input
+                type="text"
+                {...register("bathRooms", {
+                  // required: {
+                  //   value: true,
+                  //   message: language
+                  //     ? "من فضلك ادخل الحمامات"
+                  //     : "please enter the number of bathrooms",
+                  // },
+                  validate: {
+                    mustBeNumber: (value) => {
+                      return (
+                        !isNaN(value) ||
+                        (language
+                          ? "عدد الحمامات يجب ان يكون رقما"
+                          : "bathrooms must be a number")
+                      );
+                    },
+                  },
+                })}
+                className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                  errors.bathRooms && "border-red-500 focus:border-red-500"
+                }`}
+                // className={"border-none"}
+              />
+              {errors.bathRooms && (
+                <Error className="text-red-500">
+                  {errors.bathRooms.message}
+                </Error>
+              )}{" "}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="flex flex-col md:flex-row gap-10 w-full">
           <GovRegion
