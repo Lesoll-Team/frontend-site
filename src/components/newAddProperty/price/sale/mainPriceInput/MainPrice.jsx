@@ -10,7 +10,6 @@ import {
 
 const MainPrice = ({ register, errors, watch, setValue }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   const { onChange: priceOnChange, ...priceRgister } = register("price", {
     required: {
       value: true,

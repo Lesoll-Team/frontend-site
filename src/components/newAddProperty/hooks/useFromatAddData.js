@@ -1,4 +1,7 @@
+import { convertToNumber } from "../utils/handleNumberInput";
+
 const useFromatAddData = (data) => {
+  console.log(data);
   const address = {
     name: data.address.name,
     longitude: data.address.longitude,
@@ -9,9 +12,9 @@ const useFromatAddData = (data) => {
   const installment = data.installment.map((plan) => {
     return {
       type: plan.type.value,
-      period: plan.period || "",
-      amount: plan.amount || "",
-      downPayment: plan.downPayment || "",
+      period: convertToNumber(plan.period) || "",
+      amount: convertToNumber(plan.amount) || "",
+      downPayment: convertToNumber(plan.downPayment) || "",
       discount: plan.discount || "",
       ProjectPercentage: plan.ProjectPercentage || "",
     };
@@ -59,11 +62,11 @@ const useFromatAddData = (data) => {
   formData.append("insurance", data.insurance || "");
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
-  formData.append("price", data.price);
+  formData.append("price", convertToNumber(data.price));
   data.ProjectID && formData.append("ProjectID", data?.ProjectID?.value);
-  formData.append("area", data.area);
+  formData.append("area", convertToNumber(data.area));
   formData.append("RealEstateFinance", data.realEstateFinance);
-  formData.append("downPayment", data.downPayment || "");
+  formData.append("downPayment", convertToNumber(data.downPayment) || "");
   formData.append("rooms", data.rooms);
   formData.append("bathRooms", data.bathRooms);
   formData.append("description", data.description);
