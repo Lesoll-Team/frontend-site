@@ -21,7 +21,7 @@ export const initialAddPropData = {
       en: "",
     },
   }, //'', 'Cash', 'Installment', 'Cash & Installment'
-  reSale: true,
+  resale: true,
   governrate: {},
   region: {},
   propType: {
