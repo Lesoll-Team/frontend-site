@@ -8,6 +8,8 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import { UserProvider } from "@/Shared/UserContext";
 import { appWithTranslation } from "next-i18next";
+// import { appWithTranslation } from "next-i18next";
+import nextI18nextConfig from "../../next-i18next.config";
 // import nextI18nextConfig from "../../next-i18next.config";
 // import nextI18nextConfig from "../../next-i18next.config";
 
@@ -27,4 +29,4 @@ function App({ Component, pageProps }) {
   );
 }
 
-export default appWithTranslation(App);
+export default appWithTranslation(App, nextI18nextConfig);
