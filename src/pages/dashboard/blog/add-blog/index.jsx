@@ -145,13 +145,7 @@ const AddBlog = () => {
       />
     );
   }
-  console.log(`
-city     ==>${city}
-region   ==>${region}
-propType ==>${propType}
-unitType ==>${unitType}
-offer    ==>${offer}
-    `);
+
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
       <Head>

@@ -23,13 +23,19 @@ const refreshToken = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     let token = Cookies.get("userToken");
+    let langCode;
 
     if (token) {
       config.headers.token = token;
     }
 
-    const languageCode = Cookies.get("language");
-    config.headers["Accept-Language"] = languageCode;
+    if (typeof window !== "undefined") {
+      langCode = window.location.pathname.split("/")[1] || "ar";
+      if (langCode !== "ar" && langCode !== "en") {
+        langCode = "ar";
+      }
+    }
+    config.headers["Accept-Language"] = langCode;
 
     return config;
   },
@@ -66,17 +72,3 @@ axiosInstance.interceptors.response.use(
   },
 );
 export default axiosInstance;
-// const languageFromPath =
-//   (window.location.pathname.startsWith("/en") && "en") ||
-//   (window.location.pathname.startsWith("/ar") && "ar") ||
-//   (!window.location.pathname.startsWith("/en") &&
-//     !window.location.pathname.startsWith("/ar") &&
-//     "ar");
-// config.headers["Accept-Language"] = languageFromPath;
-// console.log("Accept-Language header set to: ", languageCode);
-
-// console.log("navigator:>:>:>", languageFromPath);
-// const userLanguage = navigator.language || "ar";
-// config.headers["Accept-Language"] = userLanguage;
-// console.log("userLanguage:>:>:>", userLanguage);
-// console.log("navigator:>:>:>", navigator);

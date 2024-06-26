@@ -5,7 +5,8 @@ import { store } from "../redux-store/store";
 import { NextUIProvider } from "@nextui-org/react";
 import React from "react";
 import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
+import ar from "javascript-time-ago/locale/ar.json";
+
 import { UserProvider } from "@/Shared/UserContext";
 import { appWithTranslation } from "next-i18next";
 // import { appWithTranslation } from "next-i18next";
@@ -14,7 +15,7 @@ import nextI18nextConfig from "../../next-i18next.config";
 // import nextI18nextConfig from "../../next-i18next.config";
 // import nextI18nextConfig from "../../next-i18next.config";
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addDefaultLocale(ar);
 
 function App({ Component, pageProps }) {
   return (
