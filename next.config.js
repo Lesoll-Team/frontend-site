@@ -9,6 +9,20 @@ module.exports = async () => {
    */
   const nextConfig = {
     i18n,
+    /* start use dev tool  */
+    productionBrowserSourceMaps: true,
+    experimental: {
+      instrumentationHook: true,
+    },
+    generateEtags: false,
+
+    /* end use dev tool  */
+
+    poweredByHeader: false,
+    onDemandEntries: {
+      maxInactiveAge: 25 * 1000,
+      pagesBufferLength: 2,
+    },
     images: {
       domains: ["cloud.lesoll.com", "lh3.googleusercontent.com"],
     },
