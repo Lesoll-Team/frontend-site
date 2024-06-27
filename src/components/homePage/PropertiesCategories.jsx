@@ -16,7 +16,6 @@ import {
 import { IoIosArrowBack } from "react-icons/io";
 // import { getLangBoolean } from "@/utils/getLangBoolean";
 const PropertiesCategories = ({ isHome, language }) => {
-
   const categories = [
     {
       icon: <ResidentialSale />,

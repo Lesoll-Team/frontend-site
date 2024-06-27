@@ -1,16 +1,6 @@
+import { useTranslation } from "next-i18next";
 const getLangBoolean = () => {
-  let languageCode;
-  if (typeof window !== "undefined") {
-    languageCode = window.location.pathname.split("/")[1];
-  }
-  switch (languageCode) {
-    case "ar":
-      return true;
-    case "en":
-      return false;
-    default:
-      return true;
-  }
+  const lang = useTranslation("common");
+  return lang[1].language != "en";
 };
-
 export { getLangBoolean };
