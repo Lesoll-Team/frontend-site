@@ -30,11 +30,11 @@ const CreatePlansPricing = () => {
   const [oldPrice, setOldPrice] = useState(0);
   const [normalProp, setNormalProp] = useState(0);
 
-  const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
+  // const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
 
   const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-  const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  // const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
   const [featuresList, setFeaturesList] = useState(null);
 
@@ -50,10 +50,10 @@ const CreatePlansPricing = () => {
     newService: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    propNumberCategory: propNumber,
+    // propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
     normalProp,
-    propNumberInHome,
+    // propNumberInHome,
     pinDayInHome: durationPlanHome,
     addProperty: isAddProperty,
   };
@@ -175,12 +175,12 @@ const CreatePlansPricing = () => {
                   htmlFor="normal properties"
                   className="block text-sm font-medium text-gray-600"
                 >
-                  {language ? "عقارات مجاني" : " free properties "} :-
+                  {language ? "عقارات " : "  properties "} :-
                 </label>
                 <input
                   name="normal properties"
                   type="number"
-                  placeholder={` عقارات مجاني`}
+                  placeholder={`عدد العقارات`}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   onChange={(e) => setNormalProp(e.target.value)}
                 />
@@ -260,12 +260,12 @@ const CreatePlansPricing = () => {
                   ) && (
                     <label className="flex flex-col gap-x-2">
                       ضمان ظهور إعلانك ضمن أول الإعلانات:-
-                      <input
+                      {/* <input
                         type="number"
                         className="mt-1 px-3 py-2 border rounded w-fit "
                         onChange={(e) => setPropNumber(e.target.value)}
                         placeholder="عدد العقارات "
-                      />
+                      /> */}
                       <input
                         type="number"
                         className="mt-1 px-3 py-2 border rounded w-fit"
@@ -280,19 +280,19 @@ const CreatePlansPricing = () => {
                   ) && (
                     <label className="flex flex-col gap-x-2">
                       تجديد إعلانك يوميًا على الصفحة البحث:-
-                      <input
+                      {/* <input
                         type="number"
                         className=" mt-1 px-3 py-2 border rounded w-fit"
                         onChange={(e) => setPropNumberInHome(e.target.value)}
                         placeholder="عدد العقارات "
                         value={propNumberInHome}
-                      />
+                      /> */}
                       <input
                         type="number"
                         className="  mt-1 px-3 py-2 border rounded w-fit"
                         onChange={(e) => setDurationPlanHome(e.target.value)}
                         placeholder="عدد الايام "
-                        value={durationPlanHome}
+                        // value={durationPlanHome}
                       />
                     </label>
                   )}

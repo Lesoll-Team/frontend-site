@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import PlanPricingCard from "../../model/cards/PlanPricingCard";
 import Sidebar from "@/Shared/SidebarDashboard/Sidebar";
 import PlanAdded from "../../model/pricing/PlanAdded";
-// import SelectServices from "../../model/pricing/SelectServices";
 import DropBoxSelectServices from "../../model/pricing/DropBoxSelectServices";
+// import SelectServices from "../../model/pricing/SelectServices";
 
 const EditPlansPricing = ({ paymentPlan }) => {
   const dispatch = useDispatch();
@@ -31,10 +31,10 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const [oldPrice, setOldPrice] = useState(0);
 
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
-  const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
+  // const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
 
   const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-  const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
+  // const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
 
   const [featuresList, setFeaturesList] = useState(null);
 
@@ -55,12 +55,11 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setOldPrice(paymentPlan.offerPrice);
     setFeaturesList(paymentPlan.newService);
     setAddProperty(paymentPlan.addProperty);
-
     setDurationPlan(paymentPlan.repostDayCategory);
-    setPropNumber(paymentPlan.propNumberCategory);
     setNormalProp(paymentPlan.propNumber);
     setDurationPlanHome(paymentPlan.pinDayInHome);
-    setPropNumberInHome(paymentPlan.propNumberInHome);
+    // setPropNumber(paymentPlan.propNumberCategory);
+    // setPropNumberInHome(paymentPlan.propNumberInHome);
   }, []);
   const data = {
     PaymentAr: categoryNameAr,
@@ -74,12 +73,12 @@ const EditPlansPricing = ({ paymentPlan }) => {
     newService: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
-    propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
     normalProp,
-    propNumberInHome,
     pinDayInHome: durationPlanHome,
     addProperty: isAddProperty,
+    // propNumberCategory: propNumber,
+    // propNumberInHome,
   };
 
   const handleEditFeatures = (e) => {
@@ -202,12 +201,12 @@ const EditPlansPricing = ({ paymentPlan }) => {
                   htmlFor="normal properties"
                   className="block text-sm font-medium text-gray-600"
                 >
-                  {language ? "عقارات مجاني" : " free properties "} :-
+                  {language ? "عقارات" : "  properties "} :-
                 </label>
                 <input
                   name="normal properties"
                   type="number"
-                  placeholder={` عقارات مجاني`}
+                  placeholder={`عدد العقارات`}
                   value={normalProp}
                   className="mt-1 px-3 py-2 border rounded w-full"
                   onChange={(e) => setNormalProp(e.target.value)}
@@ -285,19 +284,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 ) && (
                   <label className="flex flex-col gap-x-2">
                     ضمان ظهور إعلانك ضمن أول الإعلانات:-
-                    <input
+                    {/* <input
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-fit "
                       onChange={(e) => setPropNumber(e.target.value)}
                       placeholder="عدد العقارات "
                       value={propNumber}
-                    />
+                    /> */}
                     <input
                       type="number"
                       className="mt-1 px-3 py-2 border rounded w-fit"
                       placeholder="عدد الايام "
                       onChange={(e) => setDurationPlan(e.target.value)}
-                      value={durationPlan}
+                      value={durationPlan || ""}
                     />
                   </label>
                 )}
@@ -307,19 +306,19 @@ const EditPlansPricing = ({ paymentPlan }) => {
                 ) && (
                   <label className="flex flex-col gap-x-2">
                     تجديد إعلانك يوميًا على الصفحة البحث:-
-                    <input
+                    {/* <input
                       type="number"
                       className=" mt-1 px-3 py-2 border rounded w-fit"
                       onChange={(e) => setPropNumberInHome(e.target.value)}
                       placeholder="عدد العقارات "
                       value={propNumberInHome}
-                    />
+                    /> */}
                     <input
                       type="number"
                       className="  mt-1 px-3 py-2 border rounded w-fit"
                       onChange={(e) => setDurationPlanHome(e.target.value)}
                       placeholder="عدد الايام "
-                      value={durationPlanHome}
+                      value={durationPlanHome || ""}
                     />
                   </label>
                 )}
