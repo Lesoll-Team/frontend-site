@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import {
   CommercialRent,
   CommercialSale,
@@ -14,8 +14,8 @@ import {
 } from "./iconHomeSVG";
 
 import { IoIosArrowBack } from "react-icons/io";
-const PropertiesCategories = ({ isHome }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+// import { getLangBoolean } from "@/utils/getLangBoolean";
+const PropertiesCategories = ({ isHome, language }) => {
   const categories = [
     {
       icon: <ResidentialSale />,
@@ -84,7 +84,6 @@ const PropertiesCategories = ({ isHome }) => {
     },
     {
       icon: <InvestmentIcon />,
-
       titleAr: "تمويل عقاري",
       titleEn: "Real estate finance",
       totalAr: "( 289+ وحدة )",

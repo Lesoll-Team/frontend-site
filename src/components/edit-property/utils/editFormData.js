@@ -49,6 +49,7 @@ export const editFormData = (data) => {
   data?.isCompound && formData.append("compaounds", data?.compaounds?._id);
   formData.append("offer", data?.offer);
   formData.append("mainImage", data?.mainImage);
+  formData.append("resale", data?.resale);
   // formData.append("installmentOption", JSON.stringify(data.installmentOption));
   formData.append("address", JSON.stringify(address));
   formData.append("negotiable", data?.negotiable);

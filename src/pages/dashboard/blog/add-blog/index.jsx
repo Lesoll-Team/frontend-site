@@ -9,10 +9,16 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import BlogAdded from "@/components/dashboard/model/BlogAdded";
 import { getAllCategoryBlogs } from "@/utils/dashboardApi/blogDashboardAPI";
+import {
+  propertyType,
+  saleOptionsType,
+} from "@/Shared/search/dropdown/dataDropdown";
+import { useUnitTypesData } from "@/components/category/shared/FilterHooks";
+import { SearchDropdownLocation } from "@/Shared/search/SearchDropdownLocation";
 const AddBlog = () => {
   const router = useRouter();
   const { errorBlog, messageEventBlog } = useSelector(
-    (state) => state.BlogDashboard
+    (state) => state.BlogDashboard,
   );
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -28,6 +34,14 @@ const AddBlog = () => {
   const [selectedImage, setImage] = useState(null);
   const [selectedImagePrev, setImagePrev] = useState(null);
   const [blogCreated, setBlogCreated] = useState(false);
+
+  const [city, setCity] = useState("");
+  const [region, setRegion] = useState("");
+  const [propType, setPropType] = useState("");
+  const [unitType, setUnitType] = useState("");
+  const [offer, setOffer] = useState("");
+
+  const unitTypesData = useUnitTypesData(propType);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -88,6 +102,13 @@ const AddBlog = () => {
     formData.append("slug", JSON.stringify(slug));
     formData.append("metaTitle", JSON.stringify(metaTitle));
     formData.append("category", blogCategoryID);
+
+    formData.append("city", city);
+    formData.append("region", region);
+    formData.append("propType", propType);
+    formData.append("unitType", unitType);
+    formData.append("offer", offer);
+
     dispatch(createBlogs({ blogData: formData })).then((action) => {
       if (createBlogs.fulfilled.match(action)) {
         setBlogCreated(true);
@@ -124,6 +145,7 @@ const AddBlog = () => {
       />
     );
   }
+
   return (
     <div className="min-h-[90dvh] flex" dir="ltr">
       <Head>
@@ -208,6 +230,55 @@ const AddBlog = () => {
             placeholder="حقل إدخال الوصف "
             className="min-h-[300px] rounded-lg indent-3 "
           />
+        </div>
+        <div
+          dir="rtl"
+          // className="w-full border-1.5 border-gray-200 p-3 gap-5 flex md:flex-row flex-col"
+        >
+          <b>حدد العقارات في المقال</b>
+          <div className="bg-black p-2 rounded-md md:h-16 flex md:flex-row flex-col  gap-3">
+            <select
+              className="rounded-md"
+              onChange={(e) => setPropType(e.target.value)}
+            >
+              <option>{propType || "اختار التصنيف"}</option>
+              {propertyType.en.map((category) => (
+                <option key={category.id} value={category.value}>
+                  {category.value}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="rounded-md"
+              onChange={(e) => setUnitType(e.target.value)}
+            >
+              <option>{unitType || "اختار نوع الوحده"}</option>
+              {unitTypesData()?.en?.map((category) => (
+                <option key={category.id} value={category.value}>
+                  {category.value}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="rounded-md"
+              onChange={(e) => setOffer(e.target.value)}
+            >
+              <option>{offer || "نوع العرض"}</option>
+              {saleOptionsType?.en?.map((category) => (
+                <option key={category.id} value={category.value}>
+                  {category.value}
+                </option>
+              ))}
+            </select>
+            <SearchDropdownLocation
+              isHome
+              isBlog
+              setCity={setCity}
+              setRegion={setRegion}
+            />
+          </div>
         </div>
 
         <div dir="rtl" className="flex flex-col  p-3 md:flex-row gap-10 ">

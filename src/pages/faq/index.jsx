@@ -1,5 +1,5 @@
-import axiosInstance from "@/Shared/axiosInterceptorInstance";
-import Faq from "@/components/faq/Faq";
+// import axiosInstance from "@/Shared/axiosInterceptorInstance";
+// import Faq from "@/components/faq/Faq";
 
 // import { redirect } from "next/dist/server/api-utils";
 import Head from "next/head";
@@ -18,23 +18,29 @@ const index = ({ faqData }) => {
         <link rel="canonical" href={`https://lesoll.com/faq`} />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <Faq faqData={faqData} />
+      {/* <Faq faqData={faqData} /> */}
     </div>
   );
 };
 export default index;
 export async function getServerSideProps(context) {
-  try {
-    const res = await axiosInstance.get(`/admin/QandA/getall`);
-    const data = res.data;
+  // try {
+  //   const res = await axiosInstance.get(`/admin/QandA/getall`);
+  //   const data = res.data;
 
-    return {
-      props: { faqData: data },
-      // revalidate: 10,
-    };
-  } catch (error) {
-    context.res.setHeader("Location", "/");
-    context.res.statusCode = 301;
-    context.res.end();
-  }
+  //   return {
+  //     props: { faqData: data },
+  //     // revalidate: 10,
+  //   };
+  // } catch (error) {
+  //   context.res.setHeader("Location", "/");
+  //   context.res.statusCode = 301;
+  //   context.res.end();
+  // }
+  return {
+    redirect: {
+      destination: "/",
+      permanent: false,
+    },
+  };
 }

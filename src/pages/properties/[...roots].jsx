@@ -6,14 +6,7 @@ import {
   useQueryFilter,
 } from "@/components/category/shared/useCategory";
 
-const SearchPage = ({
-  page,
-  result,
-  dataObjectFromURL,
-  queries,
-  isSmallScreen,
-  isMobile,
-}) => {
+const SearchPage = ({ page, result, dataObjectFromURL, queries }) => {
   return (
     <>
       <HeadMetaTags
@@ -22,8 +15,6 @@ const SearchPage = ({
         dataObjectFromURL={dataObjectFromURL}
       />
       <FilterLayout
-        isSmallScreen={isSmallScreen}
-        isMobile={isMobile}
         queries={queries}
         page={page}
         result={result}
@@ -35,14 +26,6 @@ const SearchPage = ({
 export default SearchPage;
 
 export async function getServerSideProps(context) {
-  const { req } = context;
-  const userAgent = req.headers["user-agent"];
-  const isMobile = /mobile/i.test(userAgent);
-
-  const screenWidth =
-    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-  const isSmallScreen = parseInt(screenWidth, 10) <= 768; // Adjust the threshold as needed
-
   const {
     newSearchKeywords,
     currentGovernorate,
@@ -64,7 +47,6 @@ export async function getServerSideProps(context) {
 
   const objectFilter = useFilterObject(queryKeywords);
   const response = await foundKeyword(objectFilter);
-  // const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
   return {
     props: {
@@ -72,8 +54,6 @@ export async function getServerSideProps(context) {
       page: newSearchKeywords.page || 1,
       dataObjectFromURL: objectFilter,
       queries: newSearchKeywords,
-      isSmallScreen,
-      isMobile,
     },
   };
 }

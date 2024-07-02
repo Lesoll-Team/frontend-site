@@ -48,7 +48,7 @@ const Notifications = () => {
   };
   const handleSeeAll = async () => {
     setShowMenu(false);
-    dispatch(visitAllNotifications());
+    await dispatch(visitAllNotifications());
     dispatch(getNotifications());
   };
 

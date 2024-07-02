@@ -12,9 +12,11 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { getUserOffline } from "@/utils/userAPI";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 export default function Layout({ children }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+
   const dispatch = useDispatch();
   const { searchData } = useSelector((state) => state.Category);
 

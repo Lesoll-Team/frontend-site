@@ -64,6 +64,7 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("propType", propType);
   setValue("mainImage", "");
   setValue("multiImage", "");
+  setValue("resale", data?.resale);
   setValue("rentalPeriod", rentalPeriod);
   setValue("unitType", unitType);
   if (saleOption) {

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL, // Replace with your API base URL
-  withCredentials: true, //
+  withCredentials: true,
 });
 const refreshToken = async () => {
   try {
@@ -13,6 +13,7 @@ const refreshToken = async () => {
     );
     const { accessToken } = refreshResponse.data;
     Cookies.set("userToken", accessToken);
+
     return accessToken;
   } catch (error) {
     throw error.response.data;
@@ -24,6 +25,19 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.token = token;
     }
+    let langCode = "ar";
+    if (typeof window !== "undefined") {
+      const pathname = window.location.pathname;
+      const segments = pathname.split("/");
+      if (
+        segments.length > 1 &&
+        (segments[1] === "ar" || segments[1] === "en")
+      ) {
+        langCode = segments[1];
+      }
+    }
+    config.headers["Accept-Language"] = langCode;
+
     return config;
   },
   (error) => Promise.reject(error),
