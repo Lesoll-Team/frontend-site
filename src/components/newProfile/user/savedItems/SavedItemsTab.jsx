@@ -1,10 +1,11 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { useRouter } from "next/router";
 // import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 const SavedItemsTabs = ({ params, currentTab }) => {
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const handleTabClick = (tab) => {
     router.push(`?tab=${tab}`);

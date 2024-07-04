@@ -5,6 +5,7 @@ import {
 } from "@/Shared/generateRedirectDestination";
 import ContactLinksMobile from "@/components/new-prop-details/ContactLinksMobile";
 import NewPropDetails from "@/components/new-prop-details/NewPropDetails";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function PropertyDetails({ query, singleProperty, slug }) {
   return (
@@ -35,6 +36,7 @@ export async function getServerSideProps(context) {
         all,
         slug: context.query.id,
         query: context.query,
+        ...(await serverSideTranslations(context.locale, ["common"])),
       },
     };
   } catch (error) {

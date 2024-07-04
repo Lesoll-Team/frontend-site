@@ -1,3 +1,4 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import {
   Modal,
   ModalContent,
@@ -18,7 +19,8 @@ export default function ConfirmModal({
   children,
   id,
 }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   //   const [modalPlacement, setModalPlacement] = useState("bottom-center");
 

@@ -1,10 +1,9 @@
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-// import { useMemo } from "react";
-import { useSelector } from "react-redux";
 
 const PropertiesTabs = ({ currentTab }) => {
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   const handleTabClick = (tab) => {
     router.push(`?tab=${tab}`);
@@ -22,7 +21,7 @@ const PropertiesTabs = ({ currentTab }) => {
           handleTabClick("active");
         }}
       >
-        {language ? "النشطة" : "Active"}
+        {t("Activity")}
       </button>
       <button
         className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
@@ -34,7 +33,7 @@ const PropertiesTabs = ({ currentTab }) => {
           handleTabClick("pending");
         }}
       >
-        {language ? "قيد المراجعة" : "Pending"}
+        {t("Under_Review")}
       </button>
       <button
         className={`md:rounded-md  text-bae font-medium px-5 py-2 border-b ${
@@ -46,7 +45,7 @@ const PropertiesTabs = ({ currentTab }) => {
           handleTabClick("sold");
         }}
       >
-        {language ? "تم البيع" : "Sold"}
+        {t("Sold")}
       </button>
     </div>
   );

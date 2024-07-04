@@ -1,11 +1,11 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import NeedsFeed from "@/components/needs/needFeed/NeedsFeed";
-
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useSelector } from "react-redux";
 
 const NeedsPage = ({ data, keyword }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <div className="min-h-[85dvh]">
@@ -17,7 +17,7 @@ const NeedsPage = ({ data, keyword }) => {
   );
 };
 export default NeedsPage;
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, locale }) {
   const keyword = query;
   try {
     const response = await axiosInstance.get(
@@ -30,6 +30,7 @@ export async function getServerSideProps({ query }) {
       props: {
         keyword: keyword,
         data: data,
+        ...(await serverSideTranslations(locale, ["common"])),
       },
     };
   } catch (error) {

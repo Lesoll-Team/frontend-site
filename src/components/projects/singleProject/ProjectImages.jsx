@@ -4,11 +4,11 @@ import ShareBtn from "@/components/new-prop-details/ShareBtn";
 import { useMemo, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const router = useRouter();
   const { windowWidth } = useWindowWidth();
   // to cmbine the thumbnail and the subImages in ine array to use in lightbox
@@ -86,7 +86,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
-            src={images[0].link}
+            src={images[0]?.link}
             className=" object-cover"
           />
         </div>
@@ -100,7 +100,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={images[1].link}
+          src={images[1]?.link}
           className="object-cover "
           loading="lazy"
           placeholder="blur"
@@ -116,7 +116,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={images[2].link}
+          src={images[2]?.link}
           className=" object-cover"
           loading="lazy"
           placeholder="blur"
@@ -142,7 +142,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={images[3].link}
+          src={images[3]?.link}
           className="rounded-md brightness-75 object-cover bg-gray-300 md:brightness-100 "
           loading="lazy"
           placeholder="blur"
@@ -164,7 +164,7 @@ const ProjectImages = ({ propertyData, fav = true, query, slug }) => {
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
-            src={images[4].link}
+            src={images[4]?.link}
             className="rounded-md brightness-50 object-cover"
             loading="lazy"
             placeholder="blur"

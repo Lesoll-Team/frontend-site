@@ -1,13 +1,14 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 
 const PropertyInstallmentPlans = ({ propertyData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const isInstallment = propertyData.saleOption.includes("Installment");
   return (
     isInstallment && (
       <section className="md:space-y-[30px] space-y-[16px]">
-        <h2 className=" ">{language ? "خطط السداد" : "Installment Plans"}</h2>
+        <h2 className=" ">{t("Installment_Plans")}</h2>
         <div className="flex items-center flex-wrap gap-5">
           {propertyData.installment.map((item, index) => (
             <div key={index}>
@@ -28,21 +29,21 @@ const PropertyInstallmentPlans = ({ propertyData }) => {
 export default PropertyInstallmentPlans;
 
 const InstallmentCard = ({ data }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { t } = useTranslation("common");
+  const language = getLangBoolean();
   const period = useMemo(
     (period) => {
       switch (data.type) {
         case "Monthly":
-          return language ? "شهريا" : "Monthly";
+          return t("Monthly");
         case "Yearly":
-          return language ? "سنويا" : "Yearly";
+          return t("Yearly");
         case "6 Monthly":
-          return language ? "نصف سنويا" : "Semi-Annually";
+          return t("Semi_Annually");
         case "3 Monthly":
-          return language ? "ربع سنويا" : "Quarterly";
+          return t("Quarterly");
         default:
-          return language ? "جنية" : "Egp";
+          return t("Egp");
       }
     },
     [language],
@@ -63,13 +64,13 @@ const InstallmentCard = ({ data }) => {
         {!!data.ProjectPercentage && (
           <>
             <p>
-              {data.ProjectPercentage}% {language ? "مقدم" : "Down payment"}
+              {data.ProjectPercentage}% {t("Down_Payment")}
             </p>{" "}
             |
           </>
         )}
         <p>
-          {data.period} {language ? "سنوات" : "years"}
+          {data.period} {t("Years")}
         </p>
       </div>
     </div>

@@ -1,11 +1,12 @@
 import { getRecommendRealty } from "@/utils/propertyAPI";
 import { memo, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import RealtyCard from "../realtyCard/RealtyCard";
+import { useTranslation } from "next-i18next";
 
 const RecommendedProperties = ({ propertyData }) => {
   const [recommended, setRecommended] = useState();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+
+  const { t } = useTranslation("common");
 
   const isRecommended = recommended && recommended.length > 0;
   useEffect(() => {
@@ -21,7 +22,7 @@ const RecommendedProperties = ({ propertyData }) => {
   }, []);
   return isRecommended ? (
     <div className="w-full md:space-y-[30px] space-y-[16px] pb-5">
-      <h2>{language ? "عقارات مشابهة" : "Recommended Properties"}</h2>
+      <h2>{t("Recommended_Properties")}</h2>
       <div className="grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
         {recommended &&
           recommended.slice(0, 3).map((item) => {

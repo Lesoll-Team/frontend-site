@@ -1,4 +1,6 @@
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useSelector } from "react-redux";
 const fieldsToConsider = [
   "fullname",
@@ -15,7 +17,7 @@ const fieldsToConsider = [
 const CompanyPrograssBar = () => {
   const { data } = useUser();
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const completeness = (() => {
     const totalFields = fieldsToConsider.length;
     const completedFields = fieldsToConsider.filter(
@@ -28,9 +30,7 @@ const CompanyPrograssBar = () => {
     return (
       <div className={`space-y-2 `}>
         <h3 className="text-base md:text-xl text-baseGray font-bold">
-          {language
-            ? "ادخل جميع بياناتك لتكمل ملفك الشخصي"
-            : "Enter all your details to complete your profile"}
+          {t("Complete_Profile_Data")}
         </h3>
         <div className="flex gap-1 items-center">
           <div className="w-full h-3 bg-gray-300 rounded-full flex overflow-hidden">

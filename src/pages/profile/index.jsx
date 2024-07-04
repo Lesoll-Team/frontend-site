@@ -7,11 +7,13 @@ import AllDataForm from "@/components/newProfile/user/editUserDataForms/AllDataF
 import ProfileLinks from "@/components/newProfile/user/ProfileLinks";
 import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
 import { useUser } from "@/Shared/UserContext";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const ProfilePage = () => {
   const router = useRouter();
   const { data, status } = useUser();
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const isCompany = data?.typeOfUser === "company";
   useEffect(() => {
     if (status === "failed") {
@@ -45,5 +47,12 @@ const ProfilePage = () => {
     </>
   );
 };
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default ProfilePage;

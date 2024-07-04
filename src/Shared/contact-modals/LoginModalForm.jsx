@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -7,10 +7,11 @@ import { Ring } from "@uiball/loaders";
 import Button from "@/Shared/ui/Button";
 import { userLogin } from "@/components/auth/login/api/loginApi";
 import { useUser } from "../UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const LoginModalForm = ({ setIsOpen }) => {
   const { setUserData } = useUser();
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const dispatch = useDispatch();

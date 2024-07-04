@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
 import { FaSquareMinus } from "react-icons/fa6";
 import { useCallback } from "react";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 const INSTALLMENT = {
   type: {
     value: "",
@@ -25,7 +27,8 @@ const CashAndInstallment = ({
   watch,
   clearErrors,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { fields, append, remove } = useFieldArray({
     name: "installment",
     control,
@@ -56,7 +59,7 @@ const CashAndInstallment = ({
             : `${watch("currencies.ISO_code")}`;
       }
     },
-    [watch("installment"), watch("currencies")]
+    [watch("installment"), watch("currencies")],
   );
   return (
     <>
@@ -72,9 +75,7 @@ const CashAndInstallment = ({
           <p className="text-gray-800">
             {language ? "  الدفع الكاش" : " Cash Payment"}
           </p>
-          <h4 className="text-base text-darkGray">
-            {language ? "الخصم" : "Discount"}
-          </h4>
+          <h4 className="text-base text-darkGray">{t("Discount")}</h4>
           <div className="relative">
             <input
               inputMode="numeric"
@@ -93,9 +94,7 @@ const CashAndInstallment = ({
           </div>
         </div>
         <div>
-          <h3 className="text-xl font-bold">
-            {language ? " خطة التقسيط" : " Installment Plan"}
-          </h3>
+          <h3 className="text-xl font-bold">{t("Installment_Plan")}</h3>
         </div>
         {fields.map((plan, index) => {
           return (
@@ -119,9 +118,7 @@ const CashAndInstallment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? " نظام التقسيط" : "Installment System"}
-                  </p>
+                  <p className="text-gray-800">{t("Installment_System")}</p>
                   <DropDown
                     options={installmentTypeOptions}
                     selected={watch(`installment.${index}.type`)}
@@ -192,9 +189,7 @@ const CashAndInstallment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? " المقدم" : " Down payment"}
-                  </p>
+                  <p className="text-gray-800">{t("Down_Payment")}</p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -229,9 +224,7 @@ const CashAndInstallment = ({
                   </div>
                 </div>
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? "قيمة التقسيط" : "Installment amount"}
-                  </p>
+                  <p className="text-gray-800">{t("Installment_Amount")}</p>
                   <div className="relative">
                     <input
                       type="text"
@@ -274,7 +267,7 @@ const CashAndInstallment = ({
                     className=" w-fit text-blue-500 underline font-bold"
                     onClick={() => append(INSTALLMENT)}
                   >
-                    {language ? "إضافة خطة تقسيط اخرى" : "add new installment"}
+                    {t("Add_New_Installment")}
                   </button>
                 </div>
               )}

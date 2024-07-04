@@ -1,5 +1,6 @@
 import { useUser } from "@/Shared/UserContext";
 import Cookies from "js-cookie";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -25,10 +26,11 @@ function Index({ token }) {
   );
 }
 export default Index;
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, locale }) {
   return {
     props: {
       token: query?.token,
+      ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }

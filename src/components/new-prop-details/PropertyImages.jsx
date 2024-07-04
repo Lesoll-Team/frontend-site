@@ -4,12 +4,14 @@ import ShareBtn from "./ShareBtn";
 import { memo, useMemo, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import TimeAge from "./TimeAge";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const router = useRouter();
 
   const subImages = useMemo(() => {
@@ -120,7 +122,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
               onClick={() => openLightbox(4)}
               className="underline cursor-pointer absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:text-xl font-medium text-white text-center z-[2]"
             >
-              {language ? "مشاهدة جميع الصور" : "Show all images"}{" "}
+              {t("Show_All_Images")}{" "}
             </button>
           )}
           <Image

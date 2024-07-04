@@ -1,11 +1,12 @@
 import useContactLinks from "@/Hooks/useContactLinks";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { localizedNumber } from "@/utils/localizedNumber";
-// import { WhatsAppBtn } from "@/utils/propertyAPI";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import { useSelector } from "react-redux";
 
 const ProjectTitlePrice = ({ projectData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { WhatappLinkBtn, CallLinkBtn } = useContactLinks({
     phoneNumber: projectData.owner.code + projectData.owner.phone,
     message: "",
@@ -30,18 +31,16 @@ const ProjectTitlePrice = ({ projectData }) => {
           </h1>
           <div className="flex gap-6 items-center">
             <div className="flex gap-4 items-center">
-              <p>{language ? "السعر يبدأ من :" : "Price start from"}</p>
+              <p>{t("Price_Start_From")}</p>
               <h2>
-                {localizedNumber(projectData.priceFrom)}{" "}
-                {language ? "ج.م " : "Egp "}
+                {localizedNumber(projectData.priceFrom)} {t("Egp")}
               </h2>
             </div>
             {!!projectData.priceTo && (
               <div className="hidden md:flex gap-4  items-center">
-                <p>{language ? " إلى:" : "To:"}</p>
+                <p>{t("To")}</p>
                 <h2>
-                  {localizedNumber(projectData.priceTo)}{" "}
-                  {language ? "ج.م " : "Egp "}
+                  {localizedNumber(projectData.priceTo)} {t("Egp")}
                 </h2>
               </div>
             )}

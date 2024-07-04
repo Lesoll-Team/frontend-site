@@ -14,6 +14,7 @@ import { DotPulse, Ring } from "@uiball/loaders";
 import { scrollToTop } from "@/utils/scrollToTop";
 import { getCurrencies } from "./redux/currenciesSlice";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const AddProperty = () => {
   const {
     onSubmit,
@@ -27,10 +28,9 @@ const AddProperty = () => {
     clearErrors,
     formStatus,
   } = useAddProperty();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const features = useSelector((state) => state.getFeatures.features);
   const { data, status } = useUser();
-
+  const language = getLangBoolean();
   const currencies = useSelector((state) => state.getCurrencies.data);
 
   const [sended, setSended] = useState(false);
@@ -142,7 +142,6 @@ const AddProperty = () => {
               watch={watch}
             />
           );
-        default:
         case 4:
           return (
             <PropertyImages

@@ -3,16 +3,16 @@ import OfferType from "../steps/OfferType";
 import NeedsForm from "../steps/form/NeedsForm";
 import SecondStep from "../steps/SecondStep";
 import useAddNeed from "./hooks/useAddNeed";
-import { useSelector } from "react-redux";
 import Accepted from "./Accepted";
 import { DotPulse } from "@uiball/loaders";
 import Link from "next/link";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const AddNeed = () => {
   const { data, status } = useUser();
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const {
     errors,

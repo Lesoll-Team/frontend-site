@@ -2,9 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { getRecommendedProjects } from "./api/projectPageApis";
 import SpecialCard from "@/components/realtyCard/SpecialCard";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const RecommendedProjects = ({ projectTitle }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const [projects, setProjects] = useState(null);
   useEffect(() => {
     const fetchProjects = async () => {

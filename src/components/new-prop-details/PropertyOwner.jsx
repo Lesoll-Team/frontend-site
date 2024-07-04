@@ -1,15 +1,12 @@
 import { cn } from "@/utils/cn";
 import Image from "next/image";
-import { useSelector } from "react-redux";
-
 import useContactLinks from "@/Hooks/useContactLinks";
 import Link from "next/link";
-// import ReactTimeAgo from "react-time-ago";
-// const date = propertyData.createdAt;
 import { memo } from "react";
+import { useTranslation } from "next-i18next";
 
 const PropertyOwner = ({ propertyData, className }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
    ${"https://lesoll.com/property-details/" + propertyData?.slug} `;
@@ -42,12 +39,11 @@ const PropertyOwner = ({ propertyData, className }) => {
           {propertyData.user?.fullname}
         </h2>
         <div className="font-medium flex gap-2 flex-wrap md:justify-center items-center">
-          {/* <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p> */}
           <Link
             href={`/view-profile/${propertyData.user?.username}`}
             className="text-linkColor lg-text  underline"
           >
-            {language ? "رؤية جميع الإعلانات" : "See all properties"}
+            {t("See_All_Properties")}
           </Link>
         </div>
       </div>

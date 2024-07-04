@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
 import { useSelector } from "react-redux";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const ComboBox = ({
   filteredOptions,
   onSelect,
@@ -14,7 +15,7 @@ const ComboBox = ({
   inputStyle,
   optionStyle,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const [showOptions, setShowOptions] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -67,12 +68,12 @@ const ComboBox = ({
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setFocusedIndex((prevIndex) =>
-        prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
+        prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex,
       );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setFocusedIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : prevIndex
+        prevIndex > 0 ? prevIndex - 1 : prevIndex,
       );
     } else if (e.key === "Enter") {
       e.preventDefault();
@@ -108,7 +109,7 @@ const ComboBox = ({
             `w-full text-lg font-semibold disabled:bg-white  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60 border-2 rounded-md p-3 py-2 ${
               error && "border-red-500 focus:border-red-500 "
             }`,
-            inputStyle
+            inputStyle,
           )}
         />
         {showOptions && (
@@ -128,7 +129,7 @@ const ComboBox = ({
                       `text-lg w-full text-start font-semibold text-darkGray py-2 px-5 md:px-6 cursor-pointer active:ring-none duration-200 focus:outline-none focus:bg-slate-100 hover:bg-slate-100 ${
                         focusedIndex === index ? "bg-gray-200" : ""
                       }`,
-                      optionStyle
+                      optionStyle,
                     )}
                   >
                     {renderItem(option)}

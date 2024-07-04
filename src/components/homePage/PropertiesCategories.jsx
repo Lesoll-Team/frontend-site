@@ -18,7 +18,6 @@ const PropertiesCategories = ({
   isHome,
   // , category
 }) => {
-  // console.log("categories:>:>:>>>", category);
   const language = getLangBoolean();
 
   const categories = [

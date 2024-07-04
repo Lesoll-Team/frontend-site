@@ -1,13 +1,15 @@
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { localizedNumber } from "@/utils/localizedNumber";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { memo, useMemo } from "react";
 import { GoPencil } from "react-icons/go";
 import { MdOutlineAnalytics } from "react-icons/md";
-import { useSelector } from "react-redux";
 
 const PriceTitle = ({ propertData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { data } = useUser();
 
   const price = localizedNumber(propertData.price);
@@ -15,13 +17,11 @@ const PriceTitle = ({ propertData }) => {
     data && (data._id === propertData.user._id || data.supAdmin);
   const showAdminBtn = data && data.isAdmin;
   const sideInfoToPrice = useMemo(() => {
-    if (propertData.offer === "For Sale") {
-      if (propertData.RealEstateFinance) {
-        return language
-          ? "(متاح تمويل عقارى)"
-          : "(RealEstate Finance Avilable)";
+    if (propertData?.offer === "For Sale") {
+      if (propertData?.RealEstateFinance) {
+        return t("RealEstate_Finance_Avilable");
       } else if (propertData.negotiable) {
-        language ? "(قابل للتفاوض)" : "(Negotiable)";
+        return t("Negotiable");
       }
     } else {
       return "";
@@ -36,11 +36,11 @@ const PriceTitle = ({ propertData }) => {
       <div className="flex justify-between items-center flex-wrap gap-2">
         {propertData.offer === "For Investment" ? (
           <h2 className=" text-[24px] md:text-[26px] font-bold text-lightGreen  ">
-            {language ? "للإستثمار" : "For Investment "}
+            {t("For_Investment")}
           </h2>
         ) : (
           <h2 className=" text-[24px] md:text-3xl font-bold text-lightGreen  ">
-            {price + " "} {language ? "ج.م " : "Egp "}
+            {price + " "} {propertData.currencies}
             {sideInfoToPrice && (
               <span className="text-sm md:text-2xl text-darkGray font-normal ">
                 {sideInfoToPrice}
@@ -56,7 +56,7 @@ const PriceTitle = ({ propertData }) => {
           >
             <GoPencil className=" text-base md:text-xl font-bold" />
             <span className="underline text-sm md:text-xl">
-              {language ? "تعديل العقار" : "Edit Property"}
+              {t("Edit_Property")}
             </span>
           </Link>
         )}
@@ -67,7 +67,7 @@ const PriceTitle = ({ propertData }) => {
           >
             <MdOutlineAnalytics className="text-base md:text-xl font-bold" />
             <span className="underline text-sm md:text-xl">
-              {language ? "احصائيات العقار" : " Property analysis"}
+              {t("Property_Analysis")}
             </span>
           </Link>
         )}

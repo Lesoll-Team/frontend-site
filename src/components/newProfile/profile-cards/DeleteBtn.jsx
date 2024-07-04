@@ -1,16 +1,17 @@
 import DeleteModal from "@/Shared/models/DeleteModal";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { deleteProperty } from "@/utils/propertyAPI";
 import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const DeleteBtn = ({ propId, onDelete }) => {
   const dispatch = useDispatch();
   const [reason, setReason] = useState("");
   const [selectedReason, setSelectedReason] = useState("");
   const [error, setError] = useState(false);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const onReasonSelect = (selected, messege) => {
     setError(false);

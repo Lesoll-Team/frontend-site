@@ -2,6 +2,7 @@ import Modal from "react-modal";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FaXmark } from "react-icons/fa6";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const customStyles = {
   content: {
     top: "50%",
@@ -27,7 +28,7 @@ const ReactModal = ({
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   useEffect(() => {
     // Prevent scrolling when the SideMenu component is mounted

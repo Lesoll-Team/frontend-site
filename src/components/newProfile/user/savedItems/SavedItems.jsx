@@ -2,11 +2,12 @@ import { useCallback, useMemo } from "react";
 import FavoriteProperties from "./FavoriteProperties";
 import SavedItemsTabs from "./SavedItemsTab";
 import SavedSearch from "./SavedSearch";
-import { useSelector } from "react-redux";
+
 import MobilePageTitle from "../MobilePageTitle";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const SavedItems = ({ params }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const currentTab = useMemo(() => {
     switch (params?.tab) {

@@ -5,14 +5,17 @@ import { useSelector } from "react-redux";
 import { Ring } from "@uiball/loaders";
 import ComboBox from "@/Shared/ui/ComboBox";
 import useCompound from "./useCompound";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
   const [govInput, setGovInput] = useState("");
   const [regionInput, setRegionInput] = useState("");
   const [compoundInput, setCompoundInput] = useState("");
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const govStatus = useSelector((state) => state.getGov.status);
   const regionStatus = useSelector((state) => state.getRegion.status);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const {
     filteredGov,
     searchedRegions,
@@ -38,9 +41,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
     <>
       {watch("isCompound") && (
         <div className="space-y-2 md:col-span-2 w-full">
-          <p className="text-gray-800">
-            {language ? "الكومباوند" : "Compound"}
-          </p>
+          <p className="text-gray-800">{t("Compound")}</p>
           <div className="relative">
             <div className="flex items-center">
               <div className="flex w-full items-center">
@@ -103,7 +104,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
 
       {/* Governorate section */}
       <div className="space-y-2 w-full">
-        <p className="text-gray-800">{language ? "المحافظة" : "Governorate"}</p>
+        <p className="text-gray-800">{t("Governorate")}</p>
         <div className="relative">
           <div className="flex items-center">
             <div className="flex w-full items-center">
@@ -164,7 +165,7 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
 
       {/* Region section */}
       <div className="space-y-2 w-full">
-        <p className="text-gray-800">{language ? "المنطقة" : "Region"}</p>
+        <p className="text-gray-800">{t("Region")}</p>
 
         <div className="relative">
           <div className="flex items-center">

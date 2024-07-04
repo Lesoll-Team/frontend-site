@@ -10,6 +10,8 @@ import { useLoadScript } from "@react-google-maps/api";
 import Error from "@/Shared/ui/Error";
 import { getAllProjects } from "@/components/dashboard/router/all-projects/redux/allProjectsSlice";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
 const AddPropMainInfo = ({
@@ -19,7 +21,8 @@ const AddPropMainInfo = ({
   watch,
   clearErrors,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { data } = useUser();
   const projects = useSelector((state) => state.getProjects.projects.data);
   const dispatch = useDispatch();
@@ -67,9 +70,7 @@ const AddPropMainInfo = ({
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
-        <p className="text-gray-800">
-          {language ? "عنوان الإعلان" : "Proprty Title"}
-        </p>
+        <p className="text-gray-800">{t("Ad_Title")}</p>
         <input
           autoComplete="off"
           type="text"
@@ -104,7 +105,7 @@ const AddPropMainInfo = ({
       </div>
       {data?.isAdmin && (
         <div className="space-y-2 lg:col-span-2">
-          <p className="text-gray-800">{language ? "المشروع" : "project"}</p>
+          <p className="text-gray-800">{t("Project")}</p>
           {projects && (
             <DropDown
               selected={watch("ProjectID")}
@@ -117,9 +118,7 @@ const AddPropMainInfo = ({
         </div>
       )}
       <div className=" space-y-5">
-        <p className="text-gray-800">
-          {language ? "نوع الإعلان" : "Offer Type"}
-        </p>
+        <p className="text-gray-800">{t("Ad_Type")}</p>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
             type="button"
@@ -132,7 +131,7 @@ const AddPropMainInfo = ({
                 <div className="h-full w-full rounded-full bg-blue-600"></div>
               )}
             </span>
-            {language ? "للبيع" : "For Sale"}
+            {t("For_Sale")}
           </button>
           <button
             type="button"
@@ -145,7 +144,7 @@ const AddPropMainInfo = ({
                 <div className="h-full w-full rounded-full bg-blue-600"></div>
               )}
             </span>
-            {language ? "للإيجار" : "For Rent"}
+            {t("For_Rent")}
           </button>
           <button
             type="button"
@@ -158,15 +157,13 @@ const AddPropMainInfo = ({
                 <div className="h-full w-full rounded-full bg-blue-600"></div>
               )}
             </span>
-            {language ? "للإستثمار" : "For Investment"}
+            {t("For_Investment")}
           </button>
         </div>
       </div>
       {watch("offer") === "For Sale" && (
         <div className=" space-y-5">
-          <p className="text-gray-800">
-            {language ? "ملكية العقار" : "Property ownership"}
-          </p>
+          <p className="text-gray-800">{t("Property_Ownership")}</p>
           <div className=" flex justify-start gap-10 flex-wrap">
             <button
               type="button"
@@ -179,7 +176,7 @@ const AddPropMainInfo = ({
                   <div className="h-full w-full rounded-full bg-blue-600"></div>
                 )}
               </span>
-              {language ? "اول سكن" : "Primary"}
+              {t("First_Residence")}
             </button>
             <button
               type="button"
@@ -192,15 +189,13 @@ const AddPropMainInfo = ({
                   <div className="h-full w-full rounded-full bg-blue-600"></div>
                 )}
               </span>
-              {language ? "إعادة بيع" : "Resale"}
+              {t("Resale")}
             </button>
           </div>
         </div>
       )}
       <div className=" space-y-5  md:col-span-2">
-        <p className="text-gray-800">
-          {language ? "العقار فى كومباوند " : "Property in compound"}
-        </p>
+        <p className="text-gray-800">{t("Property_in_Compound")}</p>
         <div className=" flex justify-start gap-10 flex-wrap">
           <button
             type="button"
@@ -213,7 +208,7 @@ const AddPropMainInfo = ({
                 <div className="h-full w-full rounded-full bg-blue-600"></div>
               )}
             </span>
-            {language ? "لا" : "No"}
+            {t("No")}
           </button>
           <button
             type="button"
@@ -226,15 +221,13 @@ const AddPropMainInfo = ({
                 <div className="h-full w-full rounded-full bg-blue-600"></div>
               )}
             </span>
-            {language ? "نعم" : "Yes"}
+            {t("Yes")}
           </button>
         </div>
       </div>
 
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? "نوع العقار" : "Property Type"}
-        </p>
+        <p className="text-gray-800">{t("Property_Type")}</p>
         <input
           type="text"
           hidden
@@ -264,7 +257,7 @@ const AddPropMainInfo = ({
         )}
       </div>
       <div className="space-y-2">
-        <p className="text-gray-800">{language ? "نوع الوحده" : "Unit Type"}</p>
+        <p className="text-gray-800">{t("Unit_Type")}</p>
         <input
           type="text"
           hidden
@@ -314,9 +307,7 @@ const AddPropMainInfo = ({
         clearErrors={clearErrors}
       /> */}
       <div className="lg:col-span-2 space-y-2">
-        <p className="text-gray-800">
-          {language ? "وصف العقار" : "Property description"}
-        </p>
+        <p className="text-gray-800">{t("Property_Description")}</p>
         <textarea
           {...register("description", {
             required: {

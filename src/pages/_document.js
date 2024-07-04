@@ -31,9 +31,8 @@ Document.getInitialProps = async (ctx) => {
 //   // if (segments.length > 1 && (segments[1] === "ar" || segments[1] === "en")) {
 //   //   langCode = segments[1];
 //   // }
-//   // console.log("in side if");
 //   // }
-//   // console.log("query::>", queryUrl);
+
 //   return (
 //     <Html>
 //       <Head>

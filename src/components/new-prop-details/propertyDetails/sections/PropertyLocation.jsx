@@ -1,9 +1,9 @@
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { MdOutlineAddLocation } from "react-icons/md";
-import { useSelector } from "react-redux";
 
 const PropertyLocation = ({ propertyData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const openDirectionsInGoogleMaps = () => {
     const url = `https://www.google.com/maps/search/?api=1&query=${propertyData?.address.name}`;
     window.open(url, "_blank");
@@ -13,7 +13,7 @@ const PropertyLocation = ({ propertyData }) => {
   return (
     <section className="md:space-y-[32px] space-y-[16px]  p-2">
       <div className=" space-y-4">
-        <h2 className=" ">{language ? "موقع العقار" : "Property Location"}</h2>
+        <h2 className=" ">{t("Property_Location")}</h2>
         <p className="text-baseGray sm:text-xl">{address}</p>
       </div>
       <div className="relative flex overflow-hidden  max-h-[200px] md:max-h-[303px] w-full ">
@@ -21,8 +21,7 @@ const PropertyLocation = ({ propertyData }) => {
           onClick={openDirectionsInGoogleMaps}
           className="py-1 px-2 sm:py-2 sm:px-3 flex gap-2 items-center text-start absolute bottom-5 sm:bottom-10 bg-white text-blue-500 text-sm sm:text-base lg:text-xl underline"
         >
-          {language ? "الموقع على الخريطة" : "Location on the map"}
-
+          {t("Location_On_Map")}
           <MdOutlineAddLocation className="sm:text-2xl" />
         </button>
         <Image

@@ -1,8 +1,8 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
 const useLocalizedNumber = (number) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const [localizedNumber, setLocalizedNumber] = useState("");
 
   useEffect(() => {

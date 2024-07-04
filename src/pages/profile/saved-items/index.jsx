@@ -1,9 +1,8 @@
-// import useIsAuth from "@/Hooks/useIsAuth";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ProfileLayout from "../ProfileLayout";
 import SavedItems from "@/components/newProfile/user/savedItems/SavedItems";
 
 const index = ({ params }) => {
-  // const IsAuth = useIsAuth();
   return (
     <ProfileLayout hideHeader={true}>
       <SavedItems params={params} />
@@ -12,11 +11,12 @@ const index = ({ params }) => {
 };
 export default index;
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, locale }) {
   const params = query;
   return {
     props: {
       params,
+      ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }

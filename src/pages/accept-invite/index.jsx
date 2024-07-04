@@ -1,5 +1,5 @@
-// import AcceptInvite from "@/components/accept-invite/AcceptInvite";
 import AcceptWithSetPassword from "@/components/accept-invite/AcceptWithSetPassword";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const index = () => {
   return (
@@ -9,3 +9,10 @@ const index = () => {
   );
 };
 export default index;
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

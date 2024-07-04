@@ -1,11 +1,12 @@
-import { useSelector } from "react-redux";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const PropertyFeatures = ({ propertyData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <section className="md:space-y-[32px] space-y-[16px]">
-      <h2 className=" ">{language ? "المميزات" : "Features"}</h2>
+      <h2 className=" ">{t("المميزات")}</h2>
 
       <div className="flex flex-wrap gap-4 md:gap-x-8">
         {propertyData.service.map((service) => {
@@ -18,7 +19,7 @@ const PropertyFeatures = ({ propertyData }) => {
 export default PropertyFeatures;
 
 const FeatureCard = ({ name }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   return (
     <div className="border px-5 py-3 text-center  flex items-center justify-start rounded  font-bold">
       <p className="lg-text text-lightGreen font-cairo">

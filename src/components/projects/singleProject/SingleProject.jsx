@@ -8,9 +8,11 @@ import ProjectInfo from "./project-info/ProjectInfo";
 import InstallmentPlans from "./installment-plans/InstallmentPlans";
 import ProjectImages from "./ProjectImages";
 import RecommendedProjects from "./RecommendedProjects";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const SingleProject = ({ propertyData, allData, query }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <div className="min-h-[50dvh] mt-10 space-y-6 mb-10">

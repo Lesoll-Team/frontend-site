@@ -1,23 +1,25 @@
 import { formatDate } from "@/utils/FormateData";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useMemo } from "react";
 import { BsCash, BsHouses } from "react-icons/bs";
 import { LiaBedSolid, LiaVectorSquareSolid } from "react-icons/lia";
 import { PiArmchair, PiBathtub, PiPaintBrushBroad } from "react-icons/pi";
 import { TbCalendarCheck, TbStairsUp } from "react-icons/tb";
-import { useSelector } from "react-redux";
 
 const PropertyInfo = ({ propertyData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { year } = formatDate(propertyData.deliveryDate);
   const offer = useMemo(() => {
     if (propertyData.offer === "For Rent") {
-      return language ? "للإيجار" : "For Rent";
+      return t("For_Rent");
     } else if (propertyData?.saleOption.length > 1) {
-      return language ? "تقسيط أو كاش" : "Cash or Installment";
+      return t("Cash_Or_Installment");
     } else if (propertyData?.saleOption[0] === "Cash") {
-      return language ? "للبيع / كاش" : "For Sale / Cash";
+      return t("Sale_Cash");
     } else if (propertyData?.saleOption[0] === "Installment") {
-      return language ? "للبيع / تقسيط" : "For Sale / Installment";
+      return t("Sale_Installment");
     }
   }, [language]);
   const area = (
@@ -37,16 +39,16 @@ const PropertyInfo = ({ propertyData }) => {
   const finishingType = useMemo(() => {
     switch (propertyData?.finishingType) {
       case "Not Finished":
-        return language ? "بدون تشطيب" : "Not Finished";
+        return t("Not_Finished");
 
       case "Semi Finished":
-        return language ? "نصف تشطيب" : "Semi Finished";
+        return t("Semi_Finished");
 
       case "Lux":
-        return language ? "لوكس" : "Lux";
+        return t("Lux");
 
       case "Super Lux":
-        return language ? "سوبر لوكس" : "Super Lux";
+        return t("Super_Lux");
 
       default:
         return propertyData?.finishingType;
@@ -55,9 +57,9 @@ const PropertyInfo = ({ propertyData }) => {
 
   const isFurnished = useMemo(() => {
     if (propertyData.isFurnished) {
-      return language ? "العقار مفروش " : "Furnished";
+      return t("Furnished");
     } else {
-      return language ? " غير مفروش " : "Not Furnished";
+      return t("Not_Furnished");
     }
   }, [language]);
 
@@ -66,7 +68,7 @@ const PropertyInfo = ({ propertyData }) => {
     <section className="grid sm:grid-cols-2 gap-y-5 gap-x-2 md:mt-10 md:gap-y-10 ">
       <InfoCard
         icon={<BsHouses />}
-        title={language ? "نوع العقار" : "Property Type"}
+        title={t("Property_Type")}
         info={
           language
             ? propertyData?.unitType?.title?.ar
@@ -76,54 +78,46 @@ const PropertyInfo = ({ propertyData }) => {
       {!isLand && !!propertyData?.rooms && (
         <InfoCard
           icon={<LiaBedSolid />}
-          title={language ? " الغرف" : "Rooms"}
+          title={t("Rooms")}
           info={Math.abs(propertyData.rooms)}
         />
       )}
-      <InfoCard
-        icon={<BsCash />}
-        title={language ? "العرض" : "Offer"}
-        info={offer}
-      />
+      <InfoCard icon={<BsCash />} title={t("offer")} info={offer} />
       {!isLand && !!propertyData?.bathRooms && (
         <InfoCard
           icon={<PiBathtub />}
-          title={language ? "الحمامات" : "Bathrooms"}
+          title={t("Bathrooms")}
           info={Math.abs(propertyData.bathRooms)}
         />
       )}
-      <InfoCard
-        icon={<LiaVectorSquareSolid />}
-        title={language ? "المساحة" : "Area"}
-        info={area}
-      />
+      <InfoCard icon={<LiaVectorSquareSolid />} title={t("Area")} info={area} />
       {!isLand && (
         <>
           {" "}
           {finishingType && (
             <InfoCard
               icon={<PiPaintBrushBroad />}
-              title={language ? "التشطيب" : "Finishing"}
+              title={t("Finishing")}
               info={finishingType}
             />
           )}
           {year && (
             <InfoCard
               icon={<TbCalendarCheck />}
-              title={language ? "سنة التسليم" : "Delivery year"}
+              title={t("Delivery_Date")}
               info={year}
             />
           )}
           {!!propertyData.level && (
             <InfoCard
               icon={<TbStairsUp />}
-              title={language ? "الدور" : "floor"}
+              title={t("Level")}
               info={propertyData.level}
             />
           )}
           <InfoCard
             icon={<PiArmchair />}
-            title={language ? "مفروش" : "Furnished"}
+            title={t("Furnished")}
             info={isFurnished}
           />
         </>

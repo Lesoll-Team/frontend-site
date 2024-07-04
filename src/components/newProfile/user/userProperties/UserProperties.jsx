@@ -4,11 +4,10 @@ import ActiveProperties from "./ActiveProperties";
 import PendingProperties from "./PendingProperties";
 import SoldProperties from "./SoldProperties";
 import MobilePageTitle from "../MobilePageTitle";
-import { useSelector } from "react-redux";
+import { useTranslation } from "next-i18next";
 
 const UserProperties = ({ params }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { t } = useTranslation("common");
   const currentTab = useMemo(() => {
     switch (params?.tab) {
       case "active":
@@ -35,7 +34,7 @@ const UserProperties = ({ params }) => {
   }, [currentTab]);
   return (
     <div className="space-y-6 md:space-y-8">
-      <MobilePageTitle title={language ? "الاعلانات" : "Properties"} />
+      <MobilePageTitle title={t("Properties")} />
       <PropertiesTabs params={params} currentTab={currentTab} />
       {renderTab()}
     </div>

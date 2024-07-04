@@ -14,12 +14,15 @@ import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import { cn } from "@/utils/cn";
 import CommercialImgInput from "./CommercialImgInput";
 import { useUser } from "@/Shared/UserContext";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const CompanyInfoForm = ({ main }) => {
   const { data, setUserData } = useUser();
 
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const formStatus = useSelector((state) => state.editUser.status);
 
   const form = useForm();
@@ -72,18 +75,14 @@ const CompanyInfoForm = ({ main }) => {
   if (data) {
     return (
       <div className={`mx-auto space-y-8 ${main && "md:block hidden"}`}>
-        <MobilePageTitle
-          title={language ? "المعلومات الشخصية" : "Personal Info"}
-        />
+        <MobilePageTitle title={t("Personal_Info")} />
         <CompanyPrograssBar />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-y-10"
         >
           <div className="flex flex-col gap-y-8 md:grid lg:grid-cols-2 md:gap-x-10 lg:gap-x-14 md:gap-y-8">
-            <UserInputContainer
-              title={language ? "الإسم بالكامل" : "Full Name"}
-            >
+            <UserInputContainer title={t("Full_Name")}>
               <input
                 autoComplete="off"
                 type="text"
@@ -104,9 +103,7 @@ const CompanyInfoForm = ({ main }) => {
                 </p>
               )}
             </UserInputContainer>
-            <UserInputContainer
-              title={language ? " البريد الالكتروني" : " Email"}
-            >
+            <UserInputContainer title={t("Email")}>
               <input
                 readOnly
                 type="text"
@@ -114,9 +111,7 @@ const CompanyInfoForm = ({ main }) => {
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
-            <UserInputContainer
-              title={language ? " رقم التليفون " : " Phone number"}
-            >
+            <UserInputContainer title={t("Phone_Number")}>
               <div dir="ltr">
                 <PhoneInput
                   inputStyle={{
@@ -162,9 +157,7 @@ const CompanyInfoForm = ({ main }) => {
                 />
               </div>
             </UserInputContainer>
-            <UserInputContainer
-              title={language ? "عنوان الشركة" : "Company Address"}
-            >
+            <UserInputContainer title={t("Company_Address")}>
               <input
                 autoComplete="off"
                 type="text"
@@ -175,9 +168,7 @@ const CompanyInfoForm = ({ main }) => {
             </UserInputContainer>
 
             <CommercialImgInput setValue={setValue} watch={watch} />
-            <UserInputContainer
-              title={language ? " صورة البطاقة الضريبية" : "Working Hours"}
-            >
+            <UserInputContainer title={t("Tax_Card_Image")}>
               <input
                 ref={taxImgRef}
                 autoComplete="off"
@@ -188,7 +179,7 @@ const CompanyInfoForm = ({ main }) => {
             </UserInputContainer>
             <UserInputContainer
               className={"md:col-span-2"}
-              title={language ? " مواعيد العمل" : "Working Hours"}
+              title={t("Working_Hours")}
             >
               <input
                 autoComplete="off"
@@ -200,7 +191,7 @@ const CompanyInfoForm = ({ main }) => {
             </UserInputContainer>
             <UserInputContainer
               className={"md:col-span-2"}
-              title={language ? " نبذة عن الشركة" : "About Company"}
+              title={t("About_Company")}
             >
               <textarea
                 autoComplete="off"
@@ -217,7 +208,7 @@ const CompanyInfoForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "حفظ" : "Save"}
+              {t("Save")}
             </Button>
           </div>
         </form>
@@ -229,7 +220,7 @@ const CompanyInfoForm = ({ main }) => {
       <div className="container mx-auto space-y-8">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-baseGray">
-            {language ? "المعلومات الشخصية" : "Personal Info"}
+            {t("Personal_Info")}
           </h3>
           <Link href={"/profile"}>
             <FaArrowLeftLong className="text-baseGray text-2xl" />

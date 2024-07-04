@@ -1,13 +1,14 @@
 import { FaLocationDot } from "react-icons/fa6";
 import ContactForm from "./ContactForm";
-import { useSelector } from "react-redux";
 import { MdCall } from "react-icons/md";
 import { IoAlarm } from "react-icons/io5";
 import Image from "next/image";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const Contact = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   return (
     <div className="min-h-[90dvh] w-full md:container mx-auto ">
       <Image
@@ -28,33 +29,23 @@ const Contact = () => {
             <div className="flex flex-col gap-2">
               <h3 className="text-gray-800 font-bold">
                 {" "}
-                {language ? "العنوان" : "Address"}
+                {t("Contact_Page.Address")}
               </h3>
-              <p>
-                {language
-                  ? "21 عمارات العبور, صلاح سالم، مدينة نصر، محافظة القاهرة"
-                  : "21 Al Obour Buildings, Salah Salem, Nasr City, Cairo, 11811"}
-              </p>
+              <p>{t("Contact_Page.Address_Details")}</p>
             </div>
           </div>
           <div className="flex justify-start my-8 gap-3">
             <MdCall className="text-lightGreen text-xl" />
             <div className="flex flex-col gap-2">
-              <h3 className="text-gray-800 font-bold">
-                {" "}
-                {language ? "الإتصال" : "Call"}
-              </h3>
+              <h3 className="text-gray-800 font-bold"> {t("Call")}</h3>
               <p>01032362898</p>
             </div>
           </div>
           <div className="flex justify-start my-8 gap-3">
             <IoAlarm className="text-lightGreen text-xl" />
             <div className="flex flex-col gap-2">
-              <h3 className="text-gray-800 font-bold">
-                {" "}
-                {language ? "مواعيد العمل" : "Call"}
-              </h3>
-              <p>من الأحد الى الخميس 9 صباحاً : 5 مساءً</p>
+              <h3 className="text-gray-800 font-bold"> {t("Working_Hours")}</h3>
+              <p>{t("Contact_Page.Working_Hours_Details")}</p>
             </div>
           </div>
         </div>

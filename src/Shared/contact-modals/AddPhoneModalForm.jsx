@@ -1,14 +1,14 @@
 import { editUserData } from "@/components/newProfile/apis/profileApis";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Button from "../ui/Button";
 import { useRouter } from "next/router";
 import { useUser } from "../UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const AddPhoneModalForm = ({ setIsOpen }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { data, setUserData } = useUser();
 
   const [formStatus, setFormStatus] = useState("idle");

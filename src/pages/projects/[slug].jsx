@@ -1,6 +1,7 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import SingleProject from "@/components/projects/singleProject/SingleProject";
 import ProjectMobileContact from "@/components/projects/singleProject/mobileContact/ProjectMobileContact";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const SingleProjectPage = ({ data, query }) => {
   return (
@@ -27,7 +28,11 @@ export async function getServerSideProps(context) {
 
     const data = res.data;
     return {
-      props: { data: data, query: context.query },
+      props: {
+        data: data,
+        query: context.query,
+        ...(await serverSideTranslations(context.locale, ["common"])),
+      },
       // revalidate: 10,
     };
   } catch (error) {

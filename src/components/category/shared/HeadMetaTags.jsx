@@ -5,7 +5,6 @@ import React from "react";
 const HeadMetaTags = ({ result, dataObjectFromURL, queries }) => {
   const language = getLangBoolean();
 
-  console.log("result::>:>:>:>:>:>:>:>", result);
   const { category, saleOptions, unitType, region, governorate } =
     dataObjectFromURL;
 

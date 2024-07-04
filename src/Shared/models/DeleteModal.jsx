@@ -1,3 +1,4 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import {
   Modal,
   ModalContent,
@@ -16,7 +17,7 @@ export default function DeleteModal({
   selectedReason,
   deleteProp,
 }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onDelete = () => {

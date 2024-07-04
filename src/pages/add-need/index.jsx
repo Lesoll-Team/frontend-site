@@ -1,9 +1,10 @@
 import AddNeed from "@/components/needs/addNeed/AddNeed";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useSelector } from "react-redux";
 
 export default function need() {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <div className="min-h-[80dvh]  ">
@@ -23,4 +24,12 @@ export default function need() {
       <AddNeed />
     </div>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }

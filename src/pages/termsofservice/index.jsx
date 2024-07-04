@@ -1,32 +1,28 @@
 import TermsOfService from "@/components/termsofservice/TermsOfService";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useSelector } from "react-redux";
 
 const index = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <>
       <Head>
-        <title>
-          {language
-            ? "الشروط و الاحكام | ليسول "
-            : "Terms & Conditions | Lesoll "}
-        </title>
+        <title>{t("Terms_Page.Meta_Title")}</title>
         <meta name="robots" content="noindex, nofollow" />
-
-        <meta
-          name="description"
-          content={
-            language
-              ? "تعرف على شروط و أحكام موقع ليسول عند استخدامك خدمات الموقع اذا كنت تبحث عن عقار او تريد الاعلان عن عقارك "
-              : "Read about Lesoll’s terms and conditions when using the website to search for properties or advertise "
-          }
-        />
+        <meta name="description" content={t("Terms_Page.Meta_Description")} />
         <link rel="canonical" href={`https://lesoll.com/termsofservice`} />
       </Head>
       <TermsOfService />
     </>
   );
 };
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 export default index;

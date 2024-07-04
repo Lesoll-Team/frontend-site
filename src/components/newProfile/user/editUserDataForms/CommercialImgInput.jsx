@@ -3,10 +3,11 @@ import { FiPaperclip } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { cn } from "@/utils/cn";
 import { FaCircleXmark } from "react-icons/fa6";
+import { useTranslation } from "next-i18next";
 
 const CommercialImgInput = ({ watch, setValue }) => {
   const commercialImgRef = useRef(null);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const handleCommercialImgInputClick = () => {
     if (!watch("theCommercialRegistrationImg"))
       commercialImgRef.current.click();
@@ -31,9 +32,7 @@ const CommercialImgInput = ({ watch, setValue }) => {
     }
   }, [watch("theCommercialRegistrationImg")]);
   return (
-    <UserInputContainer
-      title={language ? " صورة السجل التجاري" : " صورة السجل التجاري"}
-    >
+    <UserInputContainer title={t("Commercial_Registration_Image")}>
       <button
         type="button"
         onClick={handleCommercialImgInputClick}
@@ -43,7 +42,7 @@ const CommercialImgInput = ({ watch, setValue }) => {
           <>
             {" "}
             <FiPaperclip className="-rotate-45" />
-            <p>{language ? "إضافة ملف" : "Add File"}</p>
+            <p>{t("Add_File")}</p>
           </>
         ) : (
           <div className="p-1 text-xs px-3 bg-gray-300 flex items-center gap-2">

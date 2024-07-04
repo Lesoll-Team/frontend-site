@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const PropType = ({ type }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <div

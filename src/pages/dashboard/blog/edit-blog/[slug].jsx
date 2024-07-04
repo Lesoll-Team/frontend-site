@@ -46,13 +46,7 @@ const EditBlog = ({ singleBlog }) => {
   const [propType, setPropType] = useState(singleBlog?.getBlogs.propType || "");
   const [unitType, setUnitType] = useState(singleBlog?.getBlogs.unitType || "");
   const [offer, setOffer] = useState(singleBlog?.getBlogs.offer || "");
-  console.log(`
-city ==>${city}
-region ==>${region}
-propType ==>${propType}
-unitType ==>${unitType}
-offer ==>${offer}
-    `);
+
   const unitTypesData = useUnitTypesData(propType);
 
   useEffect(() => {

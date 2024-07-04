@@ -5,11 +5,12 @@ import { BsBuildings } from "react-icons/bs";
 import SelectBtn from "./SelectBtn";
 import { updateUserData } from "@/redux-store/features/globalState";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const UserTypeForm = () => {
   const { data, setUserData } = useUser();
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const dispatch = useDispatch();
   const [userType, setUserType] = useState("");
   const [error, setError] = useState(false);

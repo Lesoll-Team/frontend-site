@@ -1,15 +1,17 @@
 import useContactLinks from "@/Hooks/useContactLinks";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { localizedNumber } from "@/utils/localizedNumber";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
 import ReactTimeAgo from "react-time-ago";
 
 const NeedsCard = ({ need }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const date = useMemo(() => new Date(need.createdAt), [need]);
   const title = useMemo(
     () => (language ? need?.title?.ar : need?.title?.en),
@@ -27,15 +29,15 @@ const NeedsCard = ({ need }) => {
       <div className="space-y-4 w-full md:w-7/12">
         <h3 className="text-black font-bold">{title}</h3>
         <div className="flex gap-2 items-center pb-2 flex-wrap">
-          <p className="font-bold">{language ? "السعر :" : "Price :"}</p>
+          <p className="font-bold">{t("Price")}: </p>
           <p>
             {localizedNumber(need.price.from)} -{" "}
-            {localizedNumber(need.price.to)} {language ? "جنية" : "Egp"}
+            {localizedNumber(need.price.to)} {t("Egp")}
           </p>
         </div>
         <hr className="h-1 md:w-[80%]" />
         <div className="flex gap-2 items-center pb-2">
-          <p className="font-bold">{language ? "المساحة :" : "Area :"}</p>
+          <p className="font-bold">{t("Area")}: </p>
           <p>
             {localizedNumber(need.area.from)} - {localizedNumber(need.area.to)}{" "}
             {language ? (
@@ -53,16 +55,12 @@ const NeedsCard = ({ need }) => {
         <div className="flex items-center gap-5">
           <div className="flex gap-5 items-center">
             <div className="flex items-center gap-2">
-              <p className="font-bold">
-                {language ? " عدد الغرف :" : "Rooms number :"}
-              </p>
+              <p className="font-bold">{t("Number_of_Rooms")}</p>
               <p>{need?.rooms}</p>
             </div>
             {need?.bathrooms && (
               <div className="flex items-center gap-2">
-                <p className="font-bold">
-                  {language ? " عدد الحمامات :" : "Bathrooms number :"}
-                </p>
+                <p className="font-bold">{t("Number_of_Bathrooms")}</p>
                 <p>{need?.bathrooms}</p>
               </div>
             )}
@@ -116,11 +114,7 @@ const NeedsCard = ({ need }) => {
       <p
         className={`absolute md:block hidden bottom-6 ${language ? "left-5" : "right-5"}`}
       >
-        <ReactTimeAgo
-          date={date}
-          // locale={language ? "ar" : "en-Us"}
-          timeStyle="twitter"
-        />
+        <ReactTimeAgo date={date} timeStyle="twitter" />
       </p>
     </div>
   );

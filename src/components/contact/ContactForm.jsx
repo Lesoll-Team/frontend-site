@@ -2,6 +2,8 @@ import {
   postConatctMessage,
   resetData,
 } from "@/redux-store/features/contactSlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaCheckCircle } from "react-icons/fa";
@@ -10,7 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 const ContactForm = () => {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const status = useSelector((state) => state.Contact.status);
   const [sended, setSended] = useState(false);
 
@@ -37,7 +40,7 @@ const ContactForm = () => {
       {sended && (
         <div className="fixed z-[50] right-4 top-28 bg-white p-7 rounded-sm py-3 border drop-shadow-sm fade-in-right flex items-center gap-3">
           <FaCheckCircle className="text-green-500 text-xl" />{" "}
-          <p>{language ? "تم الإرسال" : "sended"}</p>
+          <p>{t("Sended")}</p>
         </div>
       )}
       <form
@@ -45,12 +48,10 @@ const ContactForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="p-7 bg-lightNeutral rounded-lg space-y-4    mx-auto lg:max-w-[550px] relative"
       >
-        <h2 className="text-2xl text-center ">
-          {language ? "تواصل معنا" : "Contact Us"}
-        </h2>
+        <h2 className="text-2xl text-center ">{t("Contact_Us")}</h2>
 
         <div className="space-y-2">
-          <label htmlFor="fullName">{language ? "الاسم" : "Name"}</label>
+          <label htmlFor="fullName">{t("Full_Name")}</label>
           <input
             name="fullName"
             id="fullName"
@@ -71,9 +72,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className="space-y-2">
-          <label htmlFor="email">
-            {language ? "بريدك الإلكترونى" : "Your email"}
-          </label>
+          <label htmlFor="email">{t("Email")}</label>
           <input
             name="email"
             id="email"
@@ -102,7 +101,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className="space-y-2">
-          <label htmlFor="phone">{language ? "الهاتف" : "phone"}</label>
+          <label htmlFor="phone">{t("Phone_Number")}</label>
           <input
             name="phone"
             id="phone"
@@ -124,7 +123,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className="space-y-2">
-          <label htmlFor="phone">{language ? "الموضوع بشأن" : "Subject"}</label>
+          <label htmlFor="phone">{t("Subject")}</label>
           <input
             name="subject"
             id="subject"
@@ -146,9 +145,7 @@ const ContactForm = () => {
           )}
         </div>
         <div className="space-y-2">
-          <label htmlFor="phone">
-            {language ? "رسالتك " : "Your messeage"}
-          </label>
+          <label htmlFor="phone">{t("Contact_Page.Your_Messeage")}</label>
           <textarea
             name="message"
             id="message"
@@ -173,7 +170,7 @@ const ContactForm = () => {
           type="submit"
           className="bg-lightGreen h-10 w-full text-white flex items-center justify-center rounded-lg"
         >
-          {status === "loading" ? "Loading" : language ? "إرسال" : "Send"}
+          {status === "loading" ? "Loading" : t("Send")}
         </button>
       </form>
     </>

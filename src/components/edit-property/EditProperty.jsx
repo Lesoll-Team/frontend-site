@@ -13,6 +13,7 @@ import { DotPulse, Ring } from "@uiball/loaders";
 import useEditProperty from "./hooks/useEditProperty";
 import { scrollToTop } from "@/utils/scrollToTop";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const EditProperty = ({ propData }) => {
   const {
     onSubmit,
@@ -26,7 +27,7 @@ const EditProperty = ({ propData }) => {
     clearErrors,
     formStatus,
   } = useEditProperty(propData);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const features = useSelector((state) => state.getFeatures.features);
 
   const { status, data } = useUser();

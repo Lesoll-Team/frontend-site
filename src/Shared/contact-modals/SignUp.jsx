@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { useSelector } from "react-redux";
 import { userSignUp } from "@/components/auth/signup/api/signUpApi";
 import { Ring } from "@uiball/loaders";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import { useRouter } from "next/router";
 
 import Button from "@/Shared/ui/Button";
 import DropDown from "@/Shared/ui/DropDown";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const USER_TYPES = [
   {
     value: "individual",
@@ -56,7 +56,7 @@ const SignUp = () => {
   const [emailUserError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const [showPassword, setShowPassword] = useState(false);
   const phoneWithoutCode = (phone, code) => {
     return phone.startsWith(code) ? phone.substring(code.length) : phone;

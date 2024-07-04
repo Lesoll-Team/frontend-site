@@ -6,9 +6,10 @@ import {
   getSoldProp,
 } from "@/redux-store/features/user/userPropertiesSlice";
 import NoItems from "./NoItems";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const SoldProperties = () => {
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const soldProp = useSelector((state) => state.userProperties.sold.data);
   // const soldPropStatus = useSelector(
   //   (state) => state.userProperties.sold.status

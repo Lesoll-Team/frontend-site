@@ -6,7 +6,8 @@ import AddPropSectionContainer from "../AddPropSectionContainer";
 
 const SelectFeatures = ({ register, setValue, watch }) => {
   const features = useSelector((state) => state.getFeatures.features);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const featuresId = features.map((feature) => feature._id);
 
   const { handleSelect, selectedData } = useFeaures({
@@ -19,9 +20,7 @@ const SelectFeatures = ({ register, setValue, watch }) => {
 
   return (
     <AddPropSectionContainer className={"flex flex-col gap-4 "}>
-      <p className="text-gray-800">
-        {language ? "مميزات العقار" : "Property Features"}
-      </p>
+      <p className="text-gray-800">{t("Property_Features")}</p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {features &&
           features.map((feature, i) => {

@@ -1,29 +1,29 @@
 import React from "react";
 import Contact from "@/components/contact/Contact";
 import Head from "next/head";
-import { useSelector } from "react-redux";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 export default function contact() {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { t } = useTranslation("common");
   return (
     <div className="">
       <Head>
-        <title>{language ? "اتصل بنا | ليسول" : "Contact us | Lesoll"}</title>
+        <title>{t("Contact_Page.Meta_Title")}</title>
         <meta
           name="description"
-          content={
-            language
-              ? "في حالة وجود اي استفسارات أو ملاحظات أو شكاوى يرجى التواصل معنا من خلال صفحة اتصل بنا. يسعدنا دائما استقبال استفساراتكم "
-              : "It’s always a pleasure to receive your inquiries, recommendations and complaints through contact us page "
-          }
-        />
-        <meta
-          name="description"
-          content="تواصل معنا على صفحة اتصل بنا. اتصل بخبرائنا في مجال العقارات للاستفسارات وعروض العقارات والمساعدة. نحن هنا لمساعدتك في كل احتياجاتك في مجال العقارات. اتصل بنا اليوم!"
+          content={t("ConContact_Page.Meta_Description")}
         />
         <link rel="canonical" href={`https://lesoll.com/contact-us`} />
       </Head>
       <Contact />
     </div>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }

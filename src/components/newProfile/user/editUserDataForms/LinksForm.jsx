@@ -8,12 +8,13 @@ import Button from "@/Shared/ui/Button";
 import "react-phone-input-2/lib/style.css";
 import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
-import MobilePageTitle from "../MobilePageTitle";
 import { useUser } from "@/Shared/UserContext";
+import { useTranslation } from "next-i18next";
 
 const LinksForm = ({ main }) => {
   const { data, setUserData } = useUser();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+
+  const { t } = useTranslation("common");
   const formStatus = useSelector((state) => state.editUser.status);
   const dispatch = useDispatch();
   const form = useForm();
@@ -39,17 +40,13 @@ const LinksForm = ({ main }) => {
   if (data) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
-        <MobilePageTitle
-          title={language ? "المعلومات الشخصية" : "Personal Info"}
-        />
-
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-full gap-y-10"
         >
           <div className="flex flex-col gap-y-8 md:gap-y-11 w-full">
             <h3 className="text-base md:text-xl font-bold text-lightGreen">
-              {language ? "مواقع التواصل" : "Social media"}
+              {t("Social_Media")}
             </h3>
             <UserSocialMediaContainer
               name={"facebook icon"}
@@ -125,7 +122,7 @@ const LinksForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "حفظ" : "Save"}
+              {t("Save")}
             </Button>
           </div>
         </form>
@@ -134,14 +131,6 @@ const LinksForm = ({ main }) => {
   } else {
     return (
       <div className="container mx-auto space-y-8">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-baseGray">
-            {language ? "المعلومات الشخصية" : "Personal Info"}
-          </h3>
-          <Link href={"/profile"}>
-            <FaArrowLeftLong className="text-baseGray text-2xl" />
-          </Link>
-        </div>
         <div className="flex flex-col gap-y-10">
           <div className="flex flex-col gap-y-8">
             <InputSkeleton />

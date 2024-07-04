@@ -4,9 +4,12 @@ import { rentalTypes } from "./rentalTypes";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 import MainPrice from "./sale/mainPriceInput/MainPrice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   return (
     <>
@@ -17,9 +20,7 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
         watch={watch}
       />
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? "  نوع الإيجار" : "Rental Type"}
-        </p>
+        <p className="text-gray-800">{t("Rental_Type")}</p>
 
         <DropDown
           options={rentalTypes}
@@ -45,9 +46,7 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
         />
       </div>
       <div className=" space-y-2">
-        <p className="text-gray-800">
-          {language ? "  التأمين" : "  insurance"}
-        </p>
+        <p className="text-gray-800">{t("Insurance")}</p>
         <div className="relative flex items-center">
           <input
             autoComplete="off"
@@ -85,23 +84,21 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
         {errors.insurance && <Error>{errors.insurance.message}</Error>}
       </div>
       <div className="flex gap-4 items-center lg:mt-8">
-        <p className="text-gray-800">
-          {language ? "هل السعر قابل للتفاوض؟" : "Is price negotiable?"}
-        </p>
+        <p className="text-gray-800">{t("Is_Price_Negotiable")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("negotiable")}
             onClick={() => {
               setValue("negotiable", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("negotiable")}
             onClick={() => {
               setValue("negotiable", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>

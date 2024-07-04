@@ -1,5 +1,6 @@
 import Button from "@/Shared/ui/Button";
 import { getActiveProp } from "@/redux-store/features/user/userPropertiesSlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { propertyIsSold } from "@/utils/propertyAPI";
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function ConfirmSold({ openBtn, propertyDetails }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const propertyOnSold = async () => {
     try {
       await propertyIsSold({ propertyId: propertyDetails?._id });

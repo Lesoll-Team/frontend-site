@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { GetEditAds } from "@/utils/propertyAPI";
 import { DotPulse } from "@uiball/loaders";
 import EditProperty from "@/components/edit-property/EditProperty";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 const EditPropertyPage = () => {
   const router = useRouter();
   const [propData, setPropData] = useState("");
@@ -31,11 +32,10 @@ const EditPropertyPage = () => {
 };
 
 export default EditPropertyPage;
-
-// import { useSelector } from "react-redux";
-// import EditProp from "@/components/editproperty/EditProp";
-// import AddProperty from "@/components/newAddProperty/AddProperty";
-// import { formatApiData } from "@/components/edit-property/fromateApiData";
-// import EditProp from "@/components/editProperty/EditProp";
-// import EditProp from '@/components/editProperty/EditProp'
-// const userInfo = useSelector((state) => state.userProfile.userData);
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

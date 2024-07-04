@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { HiOutlineMailOpen } from "react-icons/hi";
-import { MdOutlineCall, MdOutlineEdit } from "react-icons/md";
-import ProfilePicForm from "./editUserDataForms/ProfilePicForm";
+import { MdOutlineCall } from "react-icons/md";
 import { useUser } from "@/Shared/UserContext";
 
 const ProfileHeader = ({ hideHeader }) => {
@@ -23,13 +22,6 @@ const ProfileHeader = ({ hideHeader }) => {
               alt="user avatar"
               className="rounded-full object-cover"
             />
-            {/* <ProfilePicForm
-              openBtn={
-                <div className="absolute bg-gray-300 cursor-pointer border p-2 rounded-full text-xl h-8 w-8 md:w-10 md:h-10  flex items-center justify-center border-black bottom-0">
-                  <MdOutlineEdit />
-                </div>
-              }
-            /> */}
           </div>
           <div className="flex w-full flex-col items-center lg:items-end lg:flex-row justify-center md:justify-between flex-wrap">
             <div className="lg:space-y-[24px]">
@@ -52,16 +44,6 @@ const ProfileHeader = ({ hideHeader }) => {
                 </div>
               </div>
             </div>
-            {/* <div className="p-[8px] lg:px-3 lg:py-5 mt-2 bg-lightNeutral h-fit rounded flex gap-2 lg:gap-4 items-center justify-center flex-wrap ">
-              <p className="text-sm xl:text-base font-bold text-lightGreen">
-                {language ? "الطلبات" : "Needs"}{" "}
-                <span className="text-outLine">{5}</span>
-              </p>
-              <p className="text-sm   xl:text-base font-bold text-lightGreen">
-                {language ? "عدد العقارات" : "Properties"}{" "}
-                <span className="text-outLine">{5}</span>
-              </p>
-            </div> */}
           </div>
         </header>
       </div>

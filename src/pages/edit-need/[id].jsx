@@ -1,5 +1,6 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import EditNeed from "@/components/needs/edit-needs/EditNeed";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import React from "react";
 
@@ -18,6 +19,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         data: data,
+        ...(await serverSideTranslations(context.locale, ["common"])),
       },
     };
   } catch (error) {
