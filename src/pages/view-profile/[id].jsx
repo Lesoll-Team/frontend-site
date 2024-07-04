@@ -1,6 +1,7 @@
 import ViewUser from "@/components/viewProfile/ViewUser";
 // import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const ViewProfilePage = ({ query, user, properties }) => {
   return (
