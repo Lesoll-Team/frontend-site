@@ -62,7 +62,7 @@ export const editFormData = (data) => {
   // formData.append("installmentOption", "");
   formData.append("price", data?.price || 0);
   formData.append("area", data?.area);
-  formData.append("RealEstateFinance", data?.RealEstateFinance);
+  formData.append("RealEstateFinance", data?.realEstateFinance);
   formData.append("downPayment", data?.downPayment || "");
   formData.append("rooms", data?.rooms || 0);
   formData.append("bathRooms", data?.bathRooms || 0);
