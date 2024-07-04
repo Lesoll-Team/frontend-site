@@ -1,13 +1,13 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
 import styles from "../../styles/blogs.module.css";
 import Image from "next/image";
 import SimilarBlogs from "./SimilarBlogs";
 import RealtyCard from "../realtyCard/RealtyCard";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 function BlogSinglePage({ BlogData }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const formattedDate = (dateString, language) => {
     const date = new Date(dateString);
     const locale = language ? "ar-EG" : "en-US";

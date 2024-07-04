@@ -10,13 +10,13 @@ import {
   propertyWhatsClick,
 } from "@/utils/clicksApis";
 import { cn } from "@/utils/cn";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { useRef, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { data } = useUser();
 
   const [notLogedOpen, setNotLogedOpen] = useState(false);

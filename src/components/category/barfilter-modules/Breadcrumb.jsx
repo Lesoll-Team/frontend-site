@@ -1,13 +1,14 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Link from "next/link";
 import React, { memo } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdHome } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 const Breadcrumb = ({ dataObjectFromURL, queries }) => {
   const { category, saleOptions, unitType, region, governorate } =
     dataObjectFromURL;
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const queryString = Object.keys(queries)
     .map((key) => `${key}=${encodeURIComponent(queries[key])}`)
     .join("&");

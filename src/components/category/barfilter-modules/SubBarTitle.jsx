@@ -1,29 +1,21 @@
 import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
 import { sortedData } from "@/Shared/search/dropdown/dataDropdown";
 import React, { memo, useEffect } from "react";
-// import { IoIosStar } from 'react-icons/io';
-// import { LuArrowDownUp } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-// import { saveSearchFilter } from '../shared/api';
-// import ConfirmModule from '../shared/ConfirmModule';
 import {
   sendMessageData,
   setConfirmSendMessage,
   setSaveSearchFilter,
 } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const SubBarTitle = ({ result }) => {
   const router = useRouter();
-
   const dispatch = useDispatch();
-  const {
-    sort,
-    // , messageData, confirmSendMessage, isSaved
-  } = useSelector((state) => state.Category);
+  const { sort } = useSelector((state) => state.Category);
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
-  // const [openSaveFilterInput, setOpenSaveFilterInput] = useState(false);
+  const language = getLangBoolean();
   useEffect(() => {
     dispatch(setSaveSearchFilter(false));
     dispatch(setConfirmSendMessage(false));
@@ -36,9 +28,9 @@ const SubBarTitle = ({ result }) => {
       <h1 className=" w-full text-[#4E4E4E] md:w-6/12 text-[17px] md:text-[19px] font-bold">
         {language
           ? result?.supTitleCategory?.ar ||
-            "عقارات للبيع و للايجار في مصر (8377)"
+            "عقارات للبيع و للايجار في مصر (83717)"
           : result?.supTitleCategory?.en ||
-            "Properties for sale or rent in Egypt (8377)"}
+            "Properties for sale or rent in Egypt (83717)"}
       </h1>
       {/*sorted and save search filter page */}
       <div className=" z-10    grid md:justify-items-end justify-items-start  w-full md:w-6/12">

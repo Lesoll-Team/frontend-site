@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
 import SocialMedia from "./SocialMedia";
 import Links from "./Links";
 import CopyRight from "./CopyRight";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const Footer = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <footer className="bg-[#F0F0F0]" dir={`${language && "rtl"}`}>

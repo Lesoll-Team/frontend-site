@@ -6,33 +6,33 @@ import {
   propertyType,
   saleOptionsType,
 } from "@/Shared/search/dropdown/dataDropdown";
+import { useTranslation } from "next-i18next";
 
 const DropdownsFilter = () => {
   const { saleOption, unitTypes, categoryType } = useSelector(
-    (state) => state.Category
+    (state) => state.Category,
   );
   const unitTypesData = useUnitTypesData(categoryType);
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { t } = useTranslation("common");
   return (
     <>
       <Dropdown
         stateName={"saleOption"}
-        defaultValue={language ? "العرض" : "offer"}
+        defaultValue={t("offer")}
         data={saleOptionsType}
         value={saleOption}
       />
 
       <Dropdown
         stateName={"categoryType"}
-        defaultValue={language ? "نوع الإعلان" : "property type"}
+        defaultValue={t("Property_Type")}
         data={propertyType}
         value={categoryType}
       />
 
       <Dropdown
         stateName={"unitTypes"}
-        defaultValue={language ? "نوع الوحدة" : "Unit types"}
+        defaultValue={t("Unit_Types")}
         data={unitTypesData()}
         value={unitTypes}
       />

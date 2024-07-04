@@ -17,7 +17,6 @@ import RenderProperties from "./RenderProperties";
 const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
   const [visible, setvisible] = useState(false);
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const { openFilter, searchData } = useSelector((state) => state.Category);
   const router = useRouter();
   const paginationRef = useRef(null);
@@ -93,7 +92,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
     <>
       {openFilter && (
         <div className={`fixed z-[700]  w-full top-0`}>
-          <SidebarFilter languageIs={language} result={result} />
+          <SidebarFilter result={result} />
         </div>
       )}
       <div

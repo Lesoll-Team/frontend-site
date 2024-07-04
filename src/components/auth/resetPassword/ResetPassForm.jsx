@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -7,8 +6,9 @@ import { Ring } from "@uiball/loaders";
 import Button from "@/Shared/ui/Button";
 import { resetPass } from "./api/resetPassApi";
 import Cookies from "js-cookie";
+import { useTranslation } from "next-i18next";
 const ResetPassForm = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors } = formState;
   const router = useRouter();
@@ -34,21 +34,17 @@ const ResetPassForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
     >
-      <h1> {language ? " إعادة تعيين كلمة السر" : " Reset  password"}</h1>
+      <h1> {t("Reset_Password_Title")}</h1>
 
       <div className="space-y-2">
         {" "}
-        <label htmlFor="email">
-          {language ? " كلمة السر الجديد" : "New Password"}
-        </label>
+        <label htmlFor="email">{t("New_Password")}</label>
         <div className="flex items-center mt-1">
           <input
             {...register("password", {
               required: {
                 value: true,
-                message: language
-                  ? "ادخل  رقم السر"
-                  : " Please enter your email",
+                message: t("Placeholder_Enter_Password"),
               },
             })}
             type={showPassword ? "text" : "password"}
@@ -75,9 +71,7 @@ const ResetPassForm = () => {
 
       <div className="space-y-2">
         {" "}
-        <label htmlFor="ConfirmPassword">
-          {language ? "تأكبد كلمة السر" : "Confirm Password"}
-        </label>
+        <label htmlFor="ConfirmPassword">{t("Confirm_Password")}</label>
         <div className="flex items-center mt-1">
           <input
             name="password"
@@ -85,18 +79,11 @@ const ResetPassForm = () => {
             {...register("confirmPassword", {
               required: {
                 value: true,
-                message: language
-                  ? "يرجى إدخال تأكيد كلمة السر"
-                  : "please confirm your password",
+                message: t("Placeholder_Enter_Password"),
               },
               validate: {
                 samePass: (value) => {
-                  return (
-                    value === watch("password") ||
-                    (language
-                      ? " كلمات السر غير متشابهة"
-                      : "Passwords do not match")
-                  );
+                  return value === watch("password") || t("Error_Password");
                 },
               },
             })}
@@ -136,7 +123,7 @@ const ResetPassForm = () => {
             </div>
           </>
         ) : (
-          <span>{language ? " تأكيد" : "Confirm"}</span>
+          <span>{t("Confirm")}</span>
         )}
       </Button>
     </form>

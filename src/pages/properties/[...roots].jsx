@@ -5,6 +5,7 @@ import {
   useFilterObject,
   useQueryFilter,
 } from "@/components/category/shared/useCategory";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const SearchPage = ({ page, result, dataObjectFromURL, queries }) => {
   return (
@@ -54,6 +55,7 @@ export async function getServerSideProps(context) {
       page: newSearchKeywords.page || 1,
       dataObjectFromURL: objectFilter,
       queries: newSearchKeywords,
+      ...(await serverSideTranslations(context.locale, ["common"])),
     },
   };
 }

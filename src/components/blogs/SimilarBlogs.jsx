@@ -1,11 +1,11 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Image from "next/image";
 import Link from "next/link";
-// import Link from "next/link";
 import { memo } from "react";
-import { useSelector } from "react-redux";
 
 const SimilarBlogs = ({ blog }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+
   const formattedDate = (dateString, language) => {
     const date = new Date(dateString);
     const locale = language ? "ar-EG" : "en-US";

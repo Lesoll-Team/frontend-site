@@ -1,9 +1,8 @@
 import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
-import Cookies from "js-cookie";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -13,14 +12,13 @@ import {
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { RiDashboardLine, RiLogoutBoxLine } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ProfileDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { data, logOutUserData } = useUser();
   const menuRef = useRef(null);
-  const router = useRouter();
   const dispatch = useDispatch();
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -31,7 +29,6 @@ const ProfileDropDown = () => {
   const handleLogout = () => {
     dispatch(clearUserData());
     logOutUserData();
-    // router.push("/signin");
   };
   useEffect(() => {
     function handleClickOutside(event) {
@@ -77,7 +74,7 @@ const ProfileDropDown = () => {
           >
             <MdOutlineAccountCircle className="" />
             <span className=" whitespace-nowrap break-keep">
-              {language ? "المعلومات الشخصية" : "Personal Info"}
+              {t("Personal_Info")}
             </span>
           </Link>
           <Link
@@ -86,7 +83,7 @@ const ProfileDropDown = () => {
             className="text-baseGray hidden md:flex items-center gap-4  text-[17px] lg:text-[19px] w-fit"
           >
             <MdOutlineAccountCircle className="" />
-            {language ? "المعلومات الشخصية" : "Personal Info"}
+            {t("Personal_Info")}
           </Link>
           <hr />
 
@@ -97,7 +94,7 @@ const ProfileDropDown = () => {
           >
             <MdOutlineRealEstateAgent className="" />
             <span className=" whitespace-nowrap break-keep">
-              {language ? "إعلاناتى" : "My ads"}
+              {t("Properties")}{" "}
             </span>
           </Link>
 
@@ -122,7 +119,7 @@ const ProfileDropDown = () => {
           >
             <IoMdHeartEmpty className="" />
             <span className=" whitespace-nowrap break-keep">
-              {language ? "العناصر المحفوظة" : "Saved Items"}
+              {t("Saved_Items")}
             </span>
           </Link>
 
@@ -136,7 +133,7 @@ const ProfileDropDown = () => {
               >
                 <BiEditAlt className="" />
                 <span className=" whitespace-nowrap break-keep">
-                  {language ? " الطلبات" : " Needs"}
+                  {t("Needs")}
                 </span>
               </Link>
               <hr />
@@ -151,7 +148,7 @@ const ProfileDropDown = () => {
               >
                 <RiDashboardLine />
                 <span className=" whitespace-nowrap break-keep">
-                  {language ? "لوحة القيادة" : "Dashboard"}
+                  {t("Dashboard")}
                 </span>
               </Link>
 
@@ -163,7 +160,7 @@ const ProfileDropDown = () => {
             className="text-red-500  text-[17px] lg:text-[19px] w-fit flex items-center gap-4 "
           >
             <RiLogoutBoxLine />
-            {language ? "تسجيل الخروج" : "Log out"}
+            {t("Logout")}
           </button>
         </div>
       )}

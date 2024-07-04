@@ -10,7 +10,7 @@ const SpecialCard = ({ cardDetails, isHome }) => {
      md:w-[400px]
      w-full
      max-w-[400px]
-     drop-shadow-md 
+     drop-shadow-md
      flex flex-col
      overflow-hidden
   `;
@@ -19,7 +19,7 @@ const SpecialCard = ({ cardDetails, isHome }) => {
     <div className={cardHomeStyle}>
       <ImageAndLogo isHome={isHome} cardDetails={cardDetails} />
       <div
-        className="px-[20px] py-[20px] w-full h-full flex flex-col 
+        className="px-[20px] py-[20px] w-full h-full flex flex-col
       md:gap-y-[12px]
       gap-y-[8px]
       "
@@ -32,4 +32,3 @@ const SpecialCard = ({ cardDetails, isHome }) => {
   );
 };
 export default memo(SpecialCard);
-// ` min-w-[320px] max-w-[320px] md:min-w-[400px] md:max-w-[400px]  bg-white flex flex-col md:block overflow-hidden  rounded-md  drop-shadow-md  relative`;

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -10,9 +9,11 @@ import Button from "@/Shared/ui/Button";
 import { userLogin } from "./api/loginApi";
 import TimeOut from "@/Shared/ui/TimeOut";
 import { useUser } from "@/Shared/UserContext";
+import { useTranslation } from "next-i18next";
 const SignInForm = () => {
+  const { t } = useTranslation("common");
+
   const { setUserData } = useUser();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const router = useRouter();
@@ -22,7 +23,6 @@ const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
-
   const onSubmit = async (data) => {
     await userLogin({ data, setFormStatus, setServerError, setToken });
   };
@@ -61,30 +61,23 @@ const SignInForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
     >
-      <h1 className="text-2xl md:text-4xl">
-        {" "}
-        {language ? "تسجيل الدخول" : "Sign In"}
-      </h1>
-      {/* ---------------------- email ------------------------- */}
+      <h1 className="text-2xl md:text-4xl">{t("Sign_In")}</h1>
 
       <div className="space-y-2">
-        <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
+        {" "}
+        <label htmlFor="email">{t("Email")}</label>
         <input
           name="email"
           id="email"
           {...register("email", {
             required: {
               value: true,
-              message: language
-                ? "ادخل البريد الإلكترونى"
-                : " Please enter your email",
+              message: t("Placeholder_Enter_Email"),
             },
             pattern: {
               value:
                 /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
-              message: language
-                ? "يرجى إدخال بريد إلكتروني صحيح"
-                : "Please enter a valid email",
+              message: t("Enter_Valid_Email"),
             },
           })}
           type="text"
@@ -97,18 +90,13 @@ const SignInForm = () => {
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
         {emailNotFound && (
-          <p className="text-red-500 text-sm">
-            {language
-              ? "بريد إلكترونى غير صحيح جرب مرة اخرى"
-              : "Email doesn't exist try again "}
-          </p>
+          <p className="text-red-500 text-sm">{t("DoesNoT_Email")}</p>
         )}
       </div>
       {/* --------------------- Password ------------------------- */}
 
       <div className="">
-        {" "}
-        <label htmlFor="password">{language ? "كلمة السر" : "Password"}</label>
+        <label htmlFor="password">{t("Password")}</label>
         <div className="flex items-center mt-1">
           <input
             name="password"
@@ -116,9 +104,7 @@ const SignInForm = () => {
             {...register("password", {
               required: {
                 value: true,
-                message: language
-                  ? "يرجى إدخال كلمة السر"
-                  : "please enter your password",
+                message: t("Placeholder_Enter_Password"),
               },
             })}
             type={showPassword ? "text" : "password"}
@@ -143,16 +129,14 @@ const SignInForm = () => {
         <div className="flex justify-end mt-1">
           {" "}
           <Link href={"/forgetpassword"} className="text-sm">
-            {language ? "هل نسيت كلمة السر؟" : "Forget Password?"}
+            {t("Forget_Password")}
           </Link>
         </div>
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
         {wrongPassword && (
-          <p className="text-red-500 text-sm">
-            {language ? "كلمة السر غير صحيحة" : "Wrong Password"}
-          </p>
+          <p className="text-red-500 text-sm">{t("Enter_Valid_Password")}</p>
         )}
       </div>
       {serverError?.code === 429 && <TimeOut seconds={60} />}
@@ -163,7 +147,6 @@ const SignInForm = () => {
       >
         {formStatus === "loading" ? (
           <>
-            {" "}
             <div className="md:hidden">
               <Ring size={20} color="#fff" />
             </div>
@@ -172,21 +155,19 @@ const SignInForm = () => {
             </div>
           </>
         ) : (
-          <span>{language ? "تسجيل الدخول" : "Sign In"}</span>
+          <span>{t("Sign_In")}</span>
         )}
       </Button>
       <div className="flex items-center gap-3">
         <div className="h-[1px] w-full bg-gray-500"></div>
-        <p className="text-gray-700">{language ? "او" : "or"}</p>
+        <p className="text-gray-700">{t("Or")}</p>
         <div className="h-[1px] w-full bg-gray-500"></div>
       </div>
       <GoogleSignInBtn />
       <div className="flex items-center justify-center gap-1">
-        <p className="text-lightGray">
-          {language ? "لا تمتلك حساب؟" : "Don't have an account?"}
-        </p>
+        <p className="text-lightGray">{t("Don_T_Have_Account")}</p>
         <Link className="text-lightGreen" href={"/signup"}>
-          {language ? "سجل الأن" : "Register Now"}
+          {t("Register_Now")}
         </Link>
       </div>
     </form>

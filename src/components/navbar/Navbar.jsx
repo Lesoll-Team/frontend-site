@@ -3,20 +3,22 @@ import dynamic from "next/dynamic";
 import { useUser } from "@/Shared/UserContext";
 import Link from "next/link";
 import Image from "next/image";
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 
-import { useSelector } from "react-redux";
 import Notifications from "./Notifications";
 import NeedsLink from "./NeedsLink";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 // const SearchModel = dynamic(() => import("./SearchModel"));
 const SideMenu = dynamic(() => import("./SideMenu"));
 const ChangeLang = dynamic(() => import("./ChangeLang"));
 const ProfileDropDown = dynamic(() => import("./ProfileDropDown"));
 
 function Navbar() {
-  const languageIs = useSelector((state) => state.GlobalState.languageIs);
+  const languageIs = getLangBoolean();
+  const { t } = useTranslation("common");
   const { data } = useUser();
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
@@ -41,7 +43,7 @@ function Navbar() {
           <ul className="font-inter hidden text-base gap-5 2xl:text-xl text-baseGray lg:flex items-center">
             <li>
               <Link href="/" className="font-noto">
-                {languageIs ? "الرئيسية" : "Home"}
+                {t("Home")}
               </Link>
             </li>
             <li>
@@ -51,7 +53,7 @@ function Navbar() {
             </li>
             <li>
               <Link href="/add-property" className="font-noto">
-                {languageIs ? "إضافة عقار" : "Add Property"}
+                {t("Add_Property")}
               </Link>
             </li>
 
@@ -65,9 +67,9 @@ function Navbar() {
                     languageIs ? "-left-8" : " -right-8"
                   }`}
                 >
-                  {languageIs ? "جديد" : "New"}
+                  {t("New")}
                 </span> */}
-                <span>{languageIs ? "المشروعات الجديدة" : "New Projects"}</span>
+                <span> {t("New_Projects")}</span>
               </Link>
             </li>
           </ul>
@@ -78,11 +80,11 @@ function Navbar() {
             {!data && (
               <div className="py-2   flex  gap-x-2 items-center text-lightGreen text-xs md:text-sm ">
                 <Link href={"/signin"} title="signin">
-                  {languageIs ? "تسجيل الدخول" : "Sign in"}
+                  {t("Sign_In")}
                 </Link>
                 |
                 <Link href={"/signup"} title="signin">
-                  {languageIs ? "الإشتراك" : "Sign up"}
+                  {t("Sign_Up")}
                 </Link>
               </div>
             )}

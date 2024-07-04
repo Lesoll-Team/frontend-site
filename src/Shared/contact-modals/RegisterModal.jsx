@@ -1,10 +1,10 @@
 import SignUp from "./SignUp";
 import ReactModal from "../ui/ReactModal";
-import { useSelector } from "react-redux";
 import { FaXmark } from "react-icons/fa6";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const RegisterModal = ({ isOpen, setIsOpen }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   return (
     <>
       <ReactModal
@@ -18,7 +18,7 @@ const RegisterModal = ({ isOpen, setIsOpen }) => {
             <button onClick={() => setIsOpen(false)}>
               <FaXmark />
             </button>
-          </div>{" "}
+          </div>
           <SignUp />
         </div>
       </ReactModal>

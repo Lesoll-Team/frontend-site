@@ -4,11 +4,12 @@ import { useSendFilterSearch } from "./FilterHooks";
 import { useRouter } from "next/router";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { scrollToTop } from "@/utils/scrollToTop";
+import { useTranslation } from "next-i18next";
 
 const ButtonSearchAction = ({ isBar }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const {
     categoryType,
     saleOption,
@@ -55,8 +56,6 @@ const ButtonSearchAction = ({ isBar }) => {
     router.push(route);
   }, [router, route, pageNumber]);
 
-  // Subscribe to changes in sort, pageNumber, and clickOnUnits
-
   const handleClick = () => {
     scrollToTop();
     handleFilterAction();
@@ -76,7 +75,7 @@ const ButtonSearchAction = ({ isBar }) => {
 
         lg-text text-white bg-lightGreen "
       >
-        {language ? "بحث" : "Search"}
+        {t("Search")}
       </button>
     );
   } else {
@@ -86,7 +85,7 @@ const ButtonSearchAction = ({ isBar }) => {
           onClick={handleClick}
           className="bg-lightGreen rounded-[6px] md:w-[24.2vw] lg-text mx-[10px] w-full h-[40px] md:h-[3.813rem] text-white font-bold"
         >
-          {language ? "عرض النتائج" : "Show results"}
+          {t("Show_Results")}
         </button>
       </div>
     );

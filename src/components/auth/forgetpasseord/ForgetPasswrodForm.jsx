@@ -2,16 +2,18 @@ import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { forgetPass } from "./api/forgetPassApi";
 import Image from "next/image";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const ForgetPasswrodForm = () => {
   const form = useForm();
-  const { register, reset, handleSubmit, formState, setValue, watch } = form;
+  const { register, reset, handleSubmit, formState } = form;
   const { errors } = formState;
+  const { t } = useTranslation("common");
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
@@ -52,26 +54,22 @@ const ForgetPasswrodForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className=" px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6"
     >
-      <h1>{language ? "إعادة تعيين كلمة السر" : "Reset password"}</h1>
+      <h1>{t("Reset_Password_Title")}</h1>
       <div className="space-y-2">
         {" "}
-        <label htmlFor="email">{language ? "البريدالإلكترونى" : "Email"}</label>
+        <label htmlFor="email">{t("Email")}</label>
         <input
           name="email"
           id="email"
           {...register("email", {
             required: {
               value: true,
-              message: language
-                ? "ادخل البريد الإلكترونى"
-                : " Please enter your email",
+              message: t("Placeholder_Enter_Email"),
             },
             pattern: {
               value:
                 /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
-              message: language
-                ? "يرجى إدخال بريد إلكتروني صحيح"
-                : "Please enter a valid email",
+              message: t("Enter_Valid_Email"),
             },
           })}
           type="text"
@@ -81,13 +79,7 @@ const ForgetPasswrodForm = () => {
           }`}
         />
         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-        {emailNotFound && (
-          <p className="text-red-500">
-            {language
-              ? "بريد إلكترونى غير موجود جرب مرة اخرى"
-              : "Email doesn't exist try again "}
-          </p>
-        )}
+        {emailNotFound && <p className="text-red-500">{t("DoesNoT_Email")}</p>}
         {formStatus === "success" && (
           <div className="text-green-500 w-full bg-white py-2 flex justify-center items-center gap-2 fade-in">
             <Image
@@ -96,11 +88,7 @@ const ForgetPasswrodForm = () => {
               src={"/done-icon.png"}
               alt="done check icon"
             />
-            <p>
-              {language
-                ? " تم الارسال بنجاح تحقق من بريدك"
-                : "Sended successfully check your email"}
-            </p>
+            <p>{t("Check_Your_Email")}</p>
           </div>
         )}
       </div>
@@ -119,15 +107,15 @@ const ForgetPasswrodForm = () => {
             </div>
           </>
         ) : (
-          <span>{language ? " إرسال" : "Send"}</span>
+          <span>{t("Send")}</span>
         )}
 
         {/* text */}
       </button>
       <div className="text-center flex items-center justify-center gap-1 font-inter">
-        <p>{language ? "رجوع الى" : "Back to"}</p>
+        <p>{t("Back_To")}</p>
         <Link href={"/signin"} className="text-darkGreen underline">
-          {language ? "تسجيل الدخول" : "Sign In"}
+          {t("Sign_In")}
         </Link>
       </div>
     </form>

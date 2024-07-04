@@ -12,8 +12,12 @@ import FinancingButtons from "./sidebar-modules/FinancingButtons";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
-const SidebarFilter = ({ languageIs }) => {
+const SidebarFilter = () => {
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { openFilter } = useSelector((state) => state.Category);
   const dispatch = useDispatch();
   const openSideFilter = () => {
@@ -37,15 +41,14 @@ const SidebarFilter = ({ languageIs }) => {
   }, [openFilter]);
   return (
     <div dir="ltr" className="w-full  h-screen flex">
-      {/*body content in sidebar */}
       <div
-        dir={languageIs ? "rtl" : "ltr"}
+        dir={language ? "rtl" : "ltr"}
         className={` bg-white shadow-lg overflow-y-auto shadow-gray-600 z-[1] h-screen  md:w-[37.7vw] w-full
          p-[2vw] pb-[100px]  flex flex-col md:gap-y-[3vh] gap-y-[20px]relative `}
       >
         {/*search text and button close*/}
         <div className=" w-full flex justify-between pb-5 items-center">
-          <h3 className="">{languageIs ? "خيارات أكثر" : "More Option"}</h3>
+          <h3>{t("More_Filter")}</h3>
           <IoClose
             onClick={openSideFilter}
             className="text-[20px] cursor-pointer"
@@ -80,11 +83,3 @@ const SidebarFilter = ({ languageIs }) => {
 };
 
 export default memo(SidebarFilter);
-
-/* <div className="  py-[10px]  flex flex-col gap-y-5 md:hidden  ">
-          <span className="flex lg-text font-bold text-gray2 ">          {languageIs ? "نوع الوحدة" : "unit type"}
-          </span>
-          <UnitTypesSmallScreen
-          // unitTypesItems={result?.UnitTypes}
-          />
-        </div> */

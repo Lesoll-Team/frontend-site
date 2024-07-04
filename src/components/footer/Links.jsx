@@ -1,9 +1,9 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
 
 const Links = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const pageLinks = [
     {
@@ -25,12 +25,6 @@ const Links = () => {
 
       id: 3,
     },
-    // {
-    //   link: "/faq",
-    //   titleAr: "الأسئلة الشائعة",
-    //   titleEn: "Common Questions",
-    //   id: 4,
-    // },
     {
       link: "/termsofservice",
       titleAr: "الشروط والاحكام",

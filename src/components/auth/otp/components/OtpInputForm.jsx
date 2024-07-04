@@ -2,14 +2,15 @@ import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import Button from "@/Shared/ui/Button";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
-import { useSelector } from "react-redux";
 import { getOtpCode, sendOtp } from "../api/otpApis";
 import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
 import Cookies from "js-cookie";
 import { useUser } from "@/Shared/UserContext";
+import { useTranslation } from "next-i18next";
 
 const OtpInputForm = () => {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
@@ -18,7 +19,6 @@ const OtpInputForm = () => {
   const [canResend, setCanResend] = useState(false);
   const [countdown, setCountdown] = useState(30); // Initial countdown value
   const { windowWidth } = useWindowWidth();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const token = router.query.token;
   const phone = router.query.phone;
   const { setUserData } = useUser();
@@ -91,20 +91,13 @@ const OtpInputForm = () => {
       className="flex items-center justify-center flex-col space-y-8 my-10 md:px-0 px-5"
     >
       <div className="text-center space-y-4">
-        {" "}
-        <h1 className="text-2xl md:text-4xl ">
-          {language ? "ادخل كود تفعيل الحساب" : "Enter your OTP"}
-        </h1>
-        <p className="max-w-[400px] text-center">
-          {language
-            ? "تم ارسال كود تفعيل الحساب (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
-            : "The account activation code (OTP) has been sent to your mobile phone. Please check the incoming messages."}
-        </p>
+        <h1 className="text-2xl md:text-4xl ">{t("Enter_OTP")}</h1>
+        <p className="max-w-[400px] text-center">{t("Please_Check_OTP")}</p>
       </div>
       <img src="/otp.svg" className="w-[40%] md:w-[30%]" />
       {error && (
         <div className="w-[55%] bg-red-600 text-white py-1 text-center rounded">
-          {language ? "الكود غير صحيح" : "The OTP is wrong"}
+          {t("OTP_Wrong")}
         </div>
       )}
       <div className=" flex items-center : gap-2" dir="ltr">
@@ -131,15 +124,11 @@ const OtpInputForm = () => {
             type="button"
             className="text-linkColor underline"
           >
-            {language ? "إعادة إرسال كود تفعيل الحساب" : "Resend OTP"}
+            {t("Resend_OTP")}
           </button>
         ) : (
           <>
-            <span>
-              {language
-                ? "يمكنك إرسال كود تفعيل الحساب مرة أخرى بعد"
-                : "You can send the account activation code again after"}
-            </span>
+            <span>{t("Resend_OTP_After_Time")}</span>
             <span>00:{countdown < 10 ? `0${countdown}` : countdown}</span>{" "}
           </>
         )}
@@ -147,13 +136,7 @@ const OtpInputForm = () => {
       </div>
 
       <Button disabled={otp.length < 4 || formStatus === "loading"}>
-        {formStatus === "loading" ? (
-          <Ring size={28} color="#fff" />
-        ) : language ? (
-          "ارسال"
-        ) : (
-          "Send"
-        )}
+        {formStatus === "loading" ? <Ring size={28} color="#fff" /> : t("Send")}
       </Button>
     </form>
   );

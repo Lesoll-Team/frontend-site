@@ -1,14 +1,13 @@
 import { formatDate } from "@/utils/FormateData";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback } from "react";
-import { useSelector } from "react-redux";
 
 const BlogCard = ({ blog }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { formattedDate } = formatDate(blog.createdAt);
   const description = useCallback((text) => {
-    // Remove HTML tags using a regular expression
     let cleanText = text.replace(/<[^>]*>/g, "");
     cleanText = cleanText.trim();
     let first200Characters = cleanText.substring(0, 200);

@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import BlogCategories from "./BlogCategories";
 import BlogPosts from "./BlogPosts";
 import BlogSearch from "./BlogSearch";
@@ -5,10 +6,12 @@ import BlogsHeader from "./BlogsHeader";
 import Head from "next/head";
 
 const BlogFeed = ({ blogs, keyword }) => {
+  const { t } = useTranslation("common");
   return (
     <div className="flex flex-col md:gap-y-[80px] md:mb-20 mb-10">
       <Head>
-        <title>المقالات</title>
+        <title>{t("Blogs")}</title>
+        <meta name="description" content={t("Meta_Blog_Description")} />
       </Head>
       <BlogsHeader />
       <main className="md:container w-full mx-auto flex flex-col md:flex-row md:gap-20">

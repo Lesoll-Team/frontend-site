@@ -4,11 +4,15 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { SearchDropdownLocation } from "./SearchDropdownLocation";
 import { IoIosArrowDown } from "react-icons/io";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 export function SearchBarHome() {
-  const languageIs = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
+
   const { locationGovernorate, locationRegion } = useSelector(
-    (state) => state.Category
+    (state) => state.Category,
   );
   const [saleOptions, setSaleOptions] = useState("sale");
   const router = useRouter();
@@ -30,8 +34,8 @@ export function SearchBarHome() {
     };
     const filteredKeywords = Object.fromEntries(
       Object.entries(InputKeywords).filter(
-        ([_, value]) => value != null && value !== "" && value !== 0
-      )
+        ([_, value]) => value != null && value !== "" && value !== 0,
+      ),
     );
 
     const pagesInput = Object.keys(filteredKeywords)
@@ -71,10 +75,10 @@ export function SearchBarHome() {
             saleOptions == "sale"
               ? "text-lightGreen bg-white"
               : "text-white  bg-lightGreen"
-          }  
+          }
             w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] lg-text`}
         >
-          {languageIs ? "للبيع" : "Buy"}
+          {t("Buy")}
         </button>
         <button
           id="Click-Gtm"
@@ -85,7 +89,7 @@ export function SearchBarHome() {
               : "text-white  bg-lightGreen"
           } w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] lg-text`}
         >
-          {languageIs ? "للإيجار" : "Rent"}
+          {t("Rent")}
         </button>
 
         <button
@@ -98,18 +102,18 @@ export function SearchBarHome() {
           }
              w-4/12 md:h-[40px] h-[30px] rounded-t-[8px] lg-text`}
         >
-          {languageIs ? "للإستثمار" : "Investment"}
+          {t("Investment")}
         </button>
       </div>
 
       {/*box search bar */}
       <div
         className={` md:flex md:flex-row flex flex-col  items-center md:items-center ${
-          languageIs
+          language
             ? "rounded-br-sm rounded-l-sm md:rounded-br-md md:rounded-l-md"
             : "rounded-bl-md rounded-r-md md:rounded-bl-md md:rounded-r-md"
         }  bg-white   drop-shadow-md  sm:drop-shadow-md  justify-between
-                md:gap-x-[4.1vw] 
+                md:gap-x-[4.1vw]
                 md:gap-y-[0px] gap-y-[28px]
                 md:py-[16px] py-[20px] md:px-[25px] px-[20px]
                 md:h-[112px]
@@ -118,14 +122,14 @@ export function SearchBarHome() {
         {/*search box */}
         <div className="flex  flex-col md:w-6/12 w-full gap-y-[5px] md:gap-y-[8px]    ">
           <span className="text-gray2 font-bold lg-text">
-            {languageIs ? "بحث بالكلمات المميزة" : "Search by keywords"}
+            {t("Search_By_Keywords")}
           </span>
           <div className=" border-1 md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 px-1 ">
             <input
               type="text"
               onChange={(e) => setKeywords(e.target.value)}
               autoComplete="off"
-              className=" rounded-[1vw] w-full font-inter h-full  text-black  
+              className=" rounded-[1vw] w-full font-inter h-full  text-black
               lg-text placeholder:lg-text
                active:outline-none indent-1 hover:outline-none focus:outline-none"
               onKeyDown={(e) => {
@@ -141,7 +145,7 @@ export function SearchBarHome() {
 
         <div className=" flex flex-col md:w-4/12 w-full gap-y-[5px] md:gap-y-[8px]   ">
           <h6 className="text-gray2 font-bold lg-text">
-            {languageIs ? "بحث بالمنطقة" : "Search by city"}
+            {t("Search_By_city")}
           </h6>
           <div className="md:h-full min-h-[33px] md:min-h-[40px] bg-white rounded-[4px] flex items-center border-gray1 border-b px-1 text-[12px]  ">
             <SearchDropdownLocation isHome isToggle={searchOptions} />
@@ -158,13 +162,13 @@ export function SearchBarHome() {
             id="Click-Gtm"
             // type="submit"
             onClick={handleSubmitSearch}
-            className={`bg-lightGreen text-white lg-text  font-bold select-none 
+            className={`bg-lightGreen text-white lg-text  font-bold select-none
             h-[40px] md:h-[50px]
           w-full rounded-[4px]
-          
+
           `}
           >
-            {languageIs ? "بـحـث" : "Search"}
+            {t("Search")}
           </button>
         </div>
       </div>
