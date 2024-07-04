@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux";
 import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const SaleType = ({ setValue, setStep, watch }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   const setCash = () => {
     setValue("saleOption", "Cash");
@@ -28,7 +31,7 @@ const SaleType = ({ setValue, setStep, watch }) => {
                 src="/icons/investment-icon.svg"
               />
             }
-            title={language ? "كاش" : "Cash"}
+            title={t("Cash")}
           />
           <SelectCard
             onClick={setInstallment}
@@ -38,7 +41,7 @@ const SaleType = ({ setValue, setStep, watch }) => {
                 src="/icons/real-estate.svg"
               />
             }
-            title={language ? "تقسيط" : "Installment"}
+            title={t("Installment")}
           />
         </div>
         <button
@@ -47,7 +50,7 @@ const SaleType = ({ setValue, setStep, watch }) => {
             setStep(1);
           }}
         >
-          {language ? "الخطوة السابقة" : "pervious step"}
+          {t("Pervious_Step")}
         </button>
       </div>
     </div>

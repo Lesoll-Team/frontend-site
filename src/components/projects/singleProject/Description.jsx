@@ -1,8 +1,11 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Description = ({ description, title }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const [showFullDescription, setShowFullDescription] = useState(false);
   const descriptionLinesNumbers = description.split("\n").length;
   const [descriptionTitle, setDesciptionTitle] = useState("");
@@ -98,13 +101,7 @@ const Description = ({ description, title }) => {
               className="underline text-linkColor lg-text"
               onClick={() => setShowFullDescription((prev) => !prev)}
             >
-              {showFullDescription
-                ? language
-                  ? " رؤية الاقل"
-                  : "See less"
-                : language
-                  ? "رؤية المزيد"
-                  : "show more"}
+              {showFullDescription ? t("See_Less") : t("See_More")}
             </button>
           )}
         </div>

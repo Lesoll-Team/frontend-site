@@ -1,10 +1,10 @@
 import AddProperty from "@/components/newAddProperty/AddProperty";
 import Head from "next/head";
-import { useSelector } from "react-redux";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const addPropertyPage = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  // const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   return (
     <>
       <Head>
@@ -26,6 +26,13 @@ const addPropertyPage = () => {
   );
 };
 
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 // export async function getServerSideProps(context) {
 //   const { req } = context;
 //   const firstSegment = req.url.split("/")[1]; // Extracting the first segment of the URL path

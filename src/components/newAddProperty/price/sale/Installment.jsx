@@ -7,6 +7,8 @@ import { FaSquareMinus } from "react-icons/fa6";
 
 import { useCallback } from "react";
 import Error from "@/Shared/ui/Error";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 const INSTALLMENT = {
   type: {
     value: "",
@@ -29,7 +31,8 @@ const Installment = ({
   watch,
   clearErrors,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { fields, append, remove } = useFieldArray({
     name: "installment",
     control,
@@ -69,14 +72,14 @@ const Installment = ({
             : `${watch("currencies.ISO_code")}`;
       }
     },
-    [watch("installment"), watch("currencies")]
+    [watch("installment"), watch("currencies")],
   );
 
   return (
     <>
       <div className="lg:col-span-2 ">
         <h3 className="text-xl lg:col-span-2 font-bold">
-          {language ? "خطة التقسيط" : "Installment Plan"}
+          {t("Installment_Plan")}
         </h3>
         {fields.map((plan, index) => {
           return (
@@ -102,9 +105,7 @@ const Installment = ({
               </div>
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? " نظام التقسيط" : "Installment System"}
-                  </p>
+                  <p className="text-gray-800">{t("Installment_System")}</p>
                   <DropDown
                     options={installmentTypeOptions}
                     selected={watch(`installment.${index}.type`)}
@@ -137,9 +138,7 @@ const Installment = ({
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? "مدة التقسيط" : "Installment Period"}
-                  </p>
+                  <p className="text-gray-800">{t("Installment_Period")}</p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -190,9 +189,7 @@ const Installment = ({
 
               <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? " المقدم" : " Down payment"}
-                  </p>
+                  <p className="text-gray-800">{t("Down_Payment")}</p>
                   <div className="relative">
                     <input
                       inputMode="numeric"
@@ -251,9 +248,7 @@ const Installment = ({
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <p className="text-gray-800">
-                    {language ? "قيمة التقسيط" : "Installment amount"}
-                  </p>
+                  <p className="text-gray-800">{t("Installment_Amount")}</p>
                   <div className="relative">
                     <input
                       type="text"
@@ -314,7 +309,7 @@ const Installment = ({
                     className=" w-fit text-blue-500 underline font-bold"
                     onClick={() => append(INSTALLMENT)}
                   >
-                    {language ? "إضافة خطة تقسيط اخرى" : "add new installment"}
+                    {t("Add_New_Installment")}
                   </button>
                 </div>
               )}

@@ -1,11 +1,11 @@
 // Importing necessary modules
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Image from "next/image";
-import { useSelector } from "react-redux";
 
 // Steps component definition
 const Steps = ({ step = 1, watch }) => {
   // Redux selector to get the language from global state
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const isForInvestment = watch("offer") === "For Investment";
   const isStepAboveOne = step > 1;
   const isStepAboveTwo = step > 2;

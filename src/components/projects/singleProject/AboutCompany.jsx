@@ -1,8 +1,11 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const AboutCompany = ({ projectData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const [showFullDescription, setShowFullDescription] = useState(false);
   const descriptionLinesNumbers = language
     ? projectData.aboutAr.split("\n").length
@@ -10,9 +13,7 @@ const AboutCompany = ({ projectData }) => {
 
   return (
     <section className="md:space-y-[30px] space-y-[16px]">
-      <h3 className="text-sm sm:text-3xl ">
-        {language ? "عن الشركه" : "About Company"}
-      </h3>
+      <h3 className="text-sm sm:text-3xl ">{t("About_Company")}</h3>
       <div>
         {" "}
         <p
@@ -36,13 +37,7 @@ const AboutCompany = ({ projectData }) => {
             className="underline text-linkColor "
             onClick={() => setShowFullDescription((prev) => !prev)}
           >
-            {showFullDescription
-              ? language
-                ? " رؤية الاقل"
-                : "See less"
-              : language
-                ? "رؤية المزيد"
-                : "show more"}
+            {showFullDescription ? t("See_Less") : t("See_More")}
           </button>
         )}
       </div>

@@ -1,4 +1,5 @@
 import { cn } from "@/utils/cn";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -7,7 +8,7 @@ const CurrenciesDropDown = ({ className, setValue, watch }) => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const currencies = useSelector((state) => state.getCurrencies.data);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const toggleMenu = () => {
     setShowMenu((prevState) => !prevState);
   };

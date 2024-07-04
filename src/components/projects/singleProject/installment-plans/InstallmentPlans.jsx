@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
 import InstallmentCard from "./InstallmentCard";
+import { useTranslation } from "next-i18next";
 
 const InstallmentPlans = ({ projectData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   return (
     <div className="space-y-[16px]">
-      <h2>{language ? "خطط السداد" : "Installment Plans"}</h2>
+      <h2>{t("Installment_Plans")}</h2>
       <div className="grid  grid-cols-3 md:flex-wrap md:flex  gap-3  md:gap-7">
         {projectData?.installment?.map((item, index) => {
           return <InstallmentCard plan={item} key={index} />;

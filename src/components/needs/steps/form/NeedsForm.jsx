@@ -10,6 +10,8 @@ import Button from "@/Shared/ui/Button";
 import PhoneNumber from "@/components/newAddProperty/PhoneNumber";
 import { Ring } from "@uiball/loaders";
 import Head from "next/head";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const NeedsForm = ({
   register,
@@ -21,7 +23,8 @@ const NeedsForm = ({
   onSubmit,
   formStatus,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const determineOptions = useMemo(() => {
     const propType = watch("propType.value");
     switch (propType) {
@@ -54,11 +57,7 @@ const NeedsForm = ({
           />
           {/* {language ? "رجوع" : "Back"} */}
         </button>
-        <h1 className=" font-bold ">
-          {language
-            ? "ادخل بيانات العقار المطلوب"
-            : "Enter the required property information"}
-        </h1>
+        <h1 className=" font-bold ">{t("Enter_Property_Data")}</h1>
       </div>
       <div
         onSubmit={onSubmit}
@@ -66,9 +65,7 @@ const NeedsForm = ({
       >
         <div className="flex md:flex-row flex-col gap-10 w-full">
           <div className="space-y-2 w-full">
-            <p className="text-gray-800">
-              {language ? "نوع العقار" : "Property Type"}
-            </p>
+            <p className="text-gray-800">{t("Property_Type")}</p>
             <input
               type="text"
               hidden
@@ -99,9 +96,7 @@ const NeedsForm = ({
             )}
           </div>
           <div className="space-y-2 w-full">
-            <p className="text-gray-800">
-              {language ? "نوع الوحده" : "Unit Type"}
-            </p>
+            <p className="text-gray-800">{t("Unit_Type")}</p>
             <input
               type="text"
               hidden
@@ -130,14 +125,14 @@ const NeedsForm = ({
           </div>
         </div>
         <div className="space-y-6 w-full">
-          <p className="text-gray-800">{language ? " السعر" : "Price"}</p>
+          <p className="text-gray-800">{t("Price")}</p>
           <div className="flex md:flex-row flex-col  gap-8 w-full">
             <div className=" space-y-2 w-full">
               <div className="relative">
                 <input
                   autoComplete="off"
                   type="text"
-                  placeholder={language ? "من" : "from"}
+                  placeholder={t("From")}
                   {...register("priceFrom", {
                     required: {
                       value: true,
@@ -165,7 +160,7 @@ const NeedsForm = ({
                     language ? "left-14" : "right-14"
                   } `}
                 >
-                  {language ? "جنية" : "Egp"}
+                  {t("Egp")}
                 </span>
               </div>
               {errors.priceFrom && <Error>{errors.priceFrom.message}</Error>}
@@ -175,7 +170,7 @@ const NeedsForm = ({
                 <input
                   autoComplete="off"
                   type="text"
-                  placeholder={language ? "الى" : "to"}
+                  placeholder={t("To")}
                   {...register("priceTo", {
                     required: {
                       value: true,
@@ -203,7 +198,7 @@ const NeedsForm = ({
                     language ? "left-14" : "right-14"
                   } `}
                 >
-                  {language ? "جنية" : "Egp"}
+                  {t("Egp")}
                 </span>
               </div>
               {errors.priceTo && <Error>{errors.priceTo.message}</Error>}
@@ -256,7 +251,7 @@ const NeedsForm = ({
                 <input
                   autoComplete="off"
                   type="text"
-                  placeholder={language ? "الى" : "to"}
+                  placeholder={t("To")}
                   {...register("areaTo", {
                     required: {
                       value: true,
@@ -295,9 +290,7 @@ const NeedsForm = ({
           watch("offer") === "For Sale" && (
             <div className=" flex md:flex-row flex-col gap-10">
               <div className="space-y-2 w-full  ">
-                <p className="text-gray-800">
-                  {language ? "المقدم" : "Down payment"}
-                </p>
+                <p className="text-gray-800">{t("Down_Payment")}</p>
                 <input
                   type="text"
                   {...register("installment.0.downPayment", {
@@ -332,9 +325,7 @@ const NeedsForm = ({
                 )}{" "}
               </div>
               <div className="space-y-2 w-full">
-                <p className="text-gray-800">
-                  {language ? "مدة التقسيط" : "installment period"}
-                </p>
+                <p className="text-gray-800">{t("installment_Period")}</p>
                 <input
                   type="text"
                   {...register("installment.0.period", {
@@ -373,7 +364,7 @@ const NeedsForm = ({
           )}
         <div className=" flex items- md:flex-row flex-col gap-10">
           <div className="space-y-2 w-full">
-            <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
+            <p className="text-gray-800">{t("Rooms")}</p>
             <input
               type="text"
               {...register("rooms", {
@@ -404,9 +395,7 @@ const NeedsForm = ({
             )}{" "}
           </div>
           <div className="space-y-2  w-full">
-            <p className="text-gray-800">
-              {language ? "عدد الحمامات" : "Bathrooms"}
-            </p>
+            <p className="text-gray-800">{t("Bathrooms")}</p>
             <input
               type="text"
               {...register("bathRooms", {
@@ -448,9 +437,7 @@ const NeedsForm = ({
           />
         </div>
         <div className="lg:col-span-2 space-y-2">
-          <p className="text-gray-800">
-            {language ? "هل تريد إضافة اي تفاصيل أخرى؟  " : "More information"}
-          </p>
+          <p className="text-gray-800">{t("More_Information")}</p>
           <textarea
             {...register("description", {
               validate: {

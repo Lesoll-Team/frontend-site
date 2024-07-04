@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from "react";
 
 import Error from "@/Shared/ui/Error";
 import { compressImage } from "@/utils/compressImage";
+import { useTranslation } from "next-i18next";
 
 const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const mainImgInputRef = useRef(null);
   const multiImgInputRef = useRef(null);
   const thumbnail = watch("thumbnail") || "";
@@ -113,14 +115,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               className="cursor-pointer"
             />
             <h2 className="text-center  text-darkGray font-bold">
-              {language
-                ? "اضف الصورة الرئيسية للعقار"
-                : "Add main image for the property"}
+              {t("Add_Main_Image")}
             </h2>
             <p className="text-center  text-outLine">
-              {language
-                ? "جودة الصور المرفقة للعقار تساعد في نشر إعلانك بشكل افضل"
-                : "The quality of the attached images of the property helps in spreading your ad better"}
+              {t("Main_Image_dscription")}
             </p>
             <input
               ref={mainImgInputRef}
@@ -137,7 +135,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               onClick={mainImage ? deleteMainImage : deleteThumbnail}
               className="absolute drop-shadow top-3 mx-2 px-2 py-1 rounded font-bold  text-red-500 bg-white"
             >
-              {language ? "حذف" : "Delete"}
+              {t("Delete")}
             </button>
             {mainImage && (
               <Image
@@ -215,12 +213,10 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
               className="cursor-pointer"
             />
             <h2 className="text-center  text-darkGray font-bold">
-              {language ? "اضف الصور الأخرى" : "Add other photos"}
+              {t("Add_Other_Photos")}
             </h2>
             <p className="text-center  text-outLine">
-              {language
-                ? "عدد الصور المسموح بها من 3 إلى 20"
-                : "Number of photos allowed from 3 to 20"}
+              {t("Other_Images_Description")}
             </p>
           </>
         ) : (
@@ -240,7 +236,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
                     onClick={() => handleDeleteImage(index)}
                     className="absolute drop-shadow top-3 mx-2 px-1 text-xs py-1 rounded font-bold  text-red-500 bg-white"
                   >
-                    {language ? "حذف" : "Delete"}
+                    {t("Delete")}
                   </button>
                 </div>
               ))}
@@ -253,7 +249,7 @@ const PropertyImages = ({ errors, register, setValue, watch, clearErrors }) => {
                       onClick={() => handleDeleteImageFromAlbum(item._id)}
                       className="absolute drop-shadow top-3 mx-2 px-1 text-xs py-1 rounded font-bold  text-red-500 bg-white"
                     >
-                      {language ? "حذف" : "Delete"}
+                      {t("Delete")}
                     </button>
                     <Image
                       alt={`multi-image-${index}`}

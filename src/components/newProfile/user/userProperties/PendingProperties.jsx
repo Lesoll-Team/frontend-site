@@ -3,17 +3,14 @@ import ProfileCard from "../../profile-cards/ProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getPendingProp } from "@/redux-store/features/user/userPropertiesSlice";
 import NoItems from "./NoItems";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const PendingProperties = () => {
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+
   const pendingProp = useSelector((state) => state.userProperties.pending.data);
-  // const pendingPropStatus = useSelector(
-  //   (state) => state.userProperties.pending.status
-  // );
-  // const pendingPropError = useSelector(
-  //   (state) => state.userProperties.pending.error
-  // );
+
   useEffect(() => {
     dispatch(getPendingProp());
   }, []);

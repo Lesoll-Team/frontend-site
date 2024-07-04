@@ -11,10 +11,13 @@ import InputSkeleton from "./InputSkeleton";
 import { updateUser } from "@/redux-store/features/user/editUserDataSlice";
 import MobilePageTitle from "../MobilePageTitle";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const AllDataForm = ({ main }) => {
   const { data, setUserData } = useUser();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const formStatus = useSelector((state) => state.editUser.status);
   const dispatch = useDispatch();
   const form = useForm();
@@ -56,9 +59,7 @@ const AllDataForm = ({ main }) => {
   if (data) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
-        <MobilePageTitle
-          title={language ? "المعلومات الشخصية" : "Personal Info"}
-        />
+        <MobilePageTitle title={t("Personal_Info")} />
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -90,9 +91,7 @@ const AllDataForm = ({ main }) => {
                 </p>
               )}
             </UserInputContainer>
-            <UserInputContainer
-              title={language ? " البريد الالكتروني" : " Email"}
-            >
+            <UserInputContainer title={t("Email")}>
               <input
                 readOnly
                 type="text"
@@ -100,9 +99,7 @@ const AllDataForm = ({ main }) => {
                 className="p-2 placeholder:text-outLine cursor-default rounded-md border w-full focus:outline-none text-outLine caret-transparent"
               />
             </UserInputContainer>
-            <UserInputContainer
-              title={language ? " رقم التليفون " : " Phone number"}
-            >
+            <UserInputContainer title={t("Phone_Number")}>
               <div dir="ltr">
                 <PhoneInput
                   inputStyle={{
@@ -157,9 +154,7 @@ const AllDataForm = ({ main }) => {
             </UserInputContainer>
           </div>
           <div className="flex flex-col gap-y-8 md:gap-y-11">
-            <h3 className=" font-bold text-lightGreen">
-              {language ? "مواقع التواصل" : "Social media"}
-            </h3>
+            <h3 className=" font-bold text-lightGreen">{t("Social_Media")}</h3>
             <UserSocialMediaContainer
               name={"facebook icon"}
               imgLink={"/social-icons/facebook.svg"}
@@ -193,7 +188,7 @@ const AllDataForm = ({ main }) => {
               type={"submit"}
               className={"w-fit min-w-[140px]"}
             >
-              {language ? "حفظ" : "Save"}
+              {t("Save")}
             </Button>
           </div>
         </form>
@@ -204,7 +199,7 @@ const AllDataForm = ({ main }) => {
       <div className="container mx-auto space-y-8">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-baseGray">
-            {language ? "المعلومات الشخصية" : "Personal Info"}
+            {t("Personal_Info")}
           </h3>
           <Link href={"/profile"}>
             <FaArrowLeftLong className="text-baseGray text-2xl" />

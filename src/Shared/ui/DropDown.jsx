@@ -1,6 +1,6 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import React, { useEffect, useRef, useState, memo } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { useSelector } from "react-redux";
 
 const DropDown = ({
   selected,
@@ -15,7 +15,7 @@ const DropDown = ({
   const dropdownButtonRef = useRef(null);
   const dropdownOptionsRef = useRef([]);
 
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   useEffect(() => {
     const handleClickOutside = (event) => {

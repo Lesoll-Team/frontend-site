@@ -8,9 +8,12 @@ import DropDown from "@/Shared/ui/DropDown";
 import { finishingType } from "../finishingType";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   const deliveryDateRef = useRef(null);
   const handleStartDateChange = (date) => {
@@ -24,7 +27,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   return (
     <AddPropSectionContainer>
       <div className="space-y-2">
-        <p className="text-gray-800">{language ? "المساحة " : "Space"}</p>
+        <p className="text-gray-800">{t("Space")}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -57,7 +60,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
       <div className="space-y-2">
         <p className="text-gray-800">
-          {language ? "الدور" : "level"}{" "}
+          {t("Level")}{" "}
           <span className="text-outLine">
             {language ? "(إختيارى)" : "(optional)"}
           </span>
@@ -94,7 +97,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         )}{" "}
       </div>
       <div className="space-y-2">
-        <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
+        <p className="text-gray-800">{t("Rooms")}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -124,9 +127,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         {errors.rooms && <p className="text-red-500">{errors.rooms.message}</p>}{" "}
       </div>
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? "عدد الحمامات" : "Bathrooms"}
-        </p>
+        <p className="text-gray-800">{t("Bathrooms")}</p>
         <input
           inputMode="numeric"
           type="text"
@@ -159,7 +160,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
       <div className="w-full space-y-2">
         <p className="text-gray-800">
-          {language ? " سنة التسليم" : "Delivery Date"}{" "}
+          {t("Delivery_Date")}{" "}
           <span className="text-outLine">
             {language ? "(إختيارى)" : "(optional)"}
           </span>
@@ -184,7 +185,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
             selected={selectedDate}
             onChange={handleStartDateChange}
             showYearPicker
-            placeholderText={language ? "سنة التسليم" : "Delivery Date"}
+            placeholderText={t("Delivery_Date")}
             dateFormat="yyyy"
             yearItemNumber={10}
             minDate={new Date()}
@@ -195,9 +196,7 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         <input type="text" {...register("deliveryDate")} hidden />
       </div>
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? " التشطيب" : "Finishing Type"}
-        </p>
+        <p className="text-gray-800">{t("Finishing_Type")}</p>
         <DropDown
           selected={watch("finishingType")}
           options={finishingType}
@@ -222,46 +221,40 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         />
       </div>
       <div className="flex gap-4">
-        <p className="text-gray-800">
-          {language
-            ? "هل العقار مسجل"
-            : "Notarized by the real estate certificate"}
-        </p>
+        <p className="text-gray-800">{t("Real__Estate_Certificate")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isRegisterd")}
             onClick={() => {
               setValue("isRegisterd", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("isRegisterd")}
             onClick={() => {
               setValue("isRegisterd", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>
       <div className="flex gap-4">
-        <p className="text-gray-800">
-          {language ? "هل العقار مفروش ؟" : "Is the property furnished?"}
-        </p>
+        <p className="text-gray-800">{t("Property_Furnished")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isFurnished")}
             onClick={() => {
               setValue("isFurnished", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("isFurnished")}
             onClick={() => {
               setValue("isFurnished", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>

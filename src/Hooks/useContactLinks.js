@@ -10,14 +10,16 @@ import {
   propertyWhatsClick,
 } from "@/utils/clicksApis";
 import { cn } from "@/utils/cn";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 import { useRef, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
+  const { t } = useTranslation("common");
 
   const [notLogedOpen, setNotLogedOpen] = useState(false);
   const [noPhoneOpen, setNoPhoneOpen] = useState(false);
@@ -114,7 +116,7 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
           children
         ) : (
           <>
-            {language ? "واتساب" : "Whatsapp"}
+            {t("Whatsapp")}
             <FaWhatsapp />
           </>
         )}
@@ -142,8 +144,8 @@ const useContactLinks = ({ phoneNumber, message = "", type, id }) => {
           children
         ) : (
           <>
-            {language ? "اتصال" : "Call"}
-            <IoCallSharp className="" />
+            {t("Call")}
+            <IoCallSharp />
           </>
         )}
       </button>

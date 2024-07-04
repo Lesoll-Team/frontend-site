@@ -1,15 +1,15 @@
 import SocialMediaModal from "@/Shared/models/SocialMediaModal";
+import { useTranslation } from "next-i18next";
 import { IoShareSocialOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 const ShareBtn = ({ propertyData }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <SocialMediaModal
       slug={propertyData?.slug}
       id={propertyData?._id}
-      title={language ? "مشاركة العقار" : "Share property"}
+      title={t("Share_Property")}
     >
       <button
         type="button"

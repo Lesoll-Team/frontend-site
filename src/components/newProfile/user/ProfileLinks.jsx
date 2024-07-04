@@ -1,5 +1,7 @@
 import { useUser } from "@/Shared/UserContext";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BiEditAlt } from "react-icons/bi";
@@ -12,7 +14,8 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfileLinks = ({ main }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { data, logOutUserData } = useUser();
   const isCompany = data?.typeOfUser === "company";
   const router = useRouter();
@@ -37,7 +40,7 @@ const ProfileLinks = ({ main }) => {
           className={`text-baseGray md:hidden flex items-center gap-4 font-semibold text-[17px] w-fit `}
         >
           <MdOutlineAccountCircle className="md:text-2xl" />
-          {language ? "المعلومات الشخصية" : "Personal Info"}
+          {t("Personal_Info")}
         </Link>
         <Link
           href={"/profile"}
@@ -45,7 +48,7 @@ const ProfileLinks = ({ main }) => {
         >
           {" "}
           <MdOutlineAccountCircle className="md:text-2xl" />
-          {language ? "المعلومات الشخصية" : "Personal Info"}
+          {t("Personal_Info")}
         </Link>
         <hr />
       </div>
@@ -55,7 +58,7 @@ const ProfileLinks = ({ main }) => {
           className={`text-baseGray font-semibold flex items-center gap-4  text-[17px] w-fit ${isAds && "md:text-lightGreen"}`}
         >
           <MdOutlineRealEstateAgent className="md:text-2xl" />
-          {language ? "الإعلانات" : "Properties"}
+          {t("Properties")}
         </Link>
         <hr />
       </div>
@@ -65,7 +68,7 @@ const ProfileLinks = ({ main }) => {
           className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isSaved && "md:text-lightGreen"}`}
         >
           <IoMdHeartEmpty className="md:text-2xl" />
-          {language ? "العناصر المحفوظة" : "Saved Items"}
+          {t("Saved_Items")}
         </Link>
         <hr />
       </div>
@@ -77,7 +80,7 @@ const ProfileLinks = ({ main }) => {
               className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isNeeds && "md:text-lightGreen"} `}
             >
               <BiEditAlt className="md:text-2xl" />
-              {language ? " الطلبات" : " Needs"}
+              {t("Needs")}
             </Link>
             <hr />
           </div>
@@ -90,7 +93,7 @@ const ProfileLinks = ({ main }) => {
           className="text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 "
         >
           <RiLogoutBoxLine className="md:text-2xl" />
-          {language ? "تسجيل الخروج" : "Log out"}
+          {t("Logout")}
         </button>
       </div>
     </div>

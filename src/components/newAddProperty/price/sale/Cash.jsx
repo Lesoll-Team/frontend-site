@@ -1,50 +1,46 @@
 import RadioBtn from "@/Shared/ui/RadioBtn";
-import { useSelector } from "react-redux";
+import { useTranslation } from "next-i18next";
 
 const Cash = ({ setValue, watch }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <>
       <div className="flex gap-4">
-        <p className="text-gray-800">
-          {language ? "هل السعر قابل للتفاوض؟" : "Is price negotiable?"}
-        </p>
+        <p className="text-gray-800">{t("Is_Price_Negotiable")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("negotiable")}
             onClick={() => {
               setValue("negotiable", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("negotiable")}
             onClick={() => {
               setValue("negotiable", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>
       <div className="flex gap-4">
-        <p className="text-gray-800">
-          {language ? "هل متاح تمويل عقاري؟" : "Is mortgage available?"}
-        </p>
+        <p className="text-gray-800">{t("Is_Mortage_Available")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("realEstateFinance")}
             onClick={() => {
               setValue("realEstateFinance", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("realEstateFinance")}
             onClick={() => {
               setValue("realEstateFinance", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>

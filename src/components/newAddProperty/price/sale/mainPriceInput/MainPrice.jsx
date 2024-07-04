@@ -1,15 +1,15 @@
 import Error from "@/Shared/ui/Error";
 import { useSelector } from "react-redux";
 import CurrenciesDropDown from "./CurrenciesDropDown";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const MainPrice = ({ register, errors, watch, setValue }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   return (
     <div className=" space-y-2">
-      <p className="text-gray-800">
-        {language ? " سعر الوحدة" : " Unit price"}
-      </p>
+      <p className="text-gray-800">{t("Unit_Price")}</p>
       <div className="relative flex rounded-md ">
         <input
           inputMode="numeric"

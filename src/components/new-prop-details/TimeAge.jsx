@@ -1,9 +1,9 @@
 import { BiTime } from "react-icons/bi";
-import { useSelector } from "react-redux";
 import { memo } from "react";
 import { formatDate } from "@/utils/FormateData";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const TimeAge = ({ createdAt }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { formattedDate } = formatDate(createdAt);
   return (
     <div

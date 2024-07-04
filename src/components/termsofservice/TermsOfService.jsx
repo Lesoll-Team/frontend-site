@@ -1,10 +1,11 @@
-import { memo } from "react";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, memo } from "react";
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 export const TermsOfService = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   const [terms, setTerms] = useState([]);
   const getTerms = () => {
@@ -20,9 +21,7 @@ export const TermsOfService = () => {
   useEffect(getTerms, []);
   return (
     <div className="container mx-auto py-10 mb-10 min-h-screen">
-      <h1 className="text-6xl font-semibold  ">
-        {language ? "الشروط والأحكام" : "Terms Of Service"}
-      </h1>
+      <h1 className="text-6xl font-semibold  ">{t("Terms_Page.TOS")}</h1>
       <div className="text-lg space-y-10 mt-10">
         {terms.map((term, i) => {
           return (

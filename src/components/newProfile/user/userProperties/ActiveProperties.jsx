@@ -7,9 +7,10 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 // import Image from "next/image";
 import NoItems from "./NoItems";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const ActiveProperties = () => {
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const activeProp = useSelector((state) => state.userProperties.active.data);
   // const activePropStatus = useSelector(
   //   (state) => state.userProperties.active.status

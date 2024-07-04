@@ -8,12 +8,15 @@ import {
   updateUser,
 } from "@/redux-store/features/user/editUserDataSlice";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 export default function ProfilePicForm({ openBtn }) {
   const { data, setUserData } = useUser();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const formStatus = useSelector((state) => state.editUser.status);
   const imagInputRef = useRef(null);
   const [profileImage, setProfileImage] = useState(null);
@@ -51,7 +54,7 @@ export default function ProfilePicForm({ openBtn }) {
                 className="my-3 px-3 md:px-5 py-5 space-y-4 min-h-[200px] flex flex-col items-center justify-center"
               >
                 <h3 className="w-full text-xl text-center">
-                  {language ? "تعديل الصورة الشخصية" : "Edit Profile Photo"}
+                  {t("Edit_Profile_Photo")}
                 </h3>
                 <Image
                   src={
@@ -89,7 +92,7 @@ export default function ProfilePicForm({ openBtn }) {
                       }}
                       className={"w-full bg-white text-red-500 border-red-500"}
                     >
-                      {language ? "حذف الصورة" : "Upload Image"}
+                      {t("Delete")}
                     </Button>
                   )}
                 </div>

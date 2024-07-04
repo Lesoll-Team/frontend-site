@@ -1,14 +1,16 @@
 import useGooglePlaces from "@/components/newAddProperty/hooks/useGooglePlaces";
 import ComboBox from "@/Shared/ui/ComboBox";
 import { getCooardinates } from "@/utils/getCooardinates";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import { useState } from "react"; // Import useRef
 import { useSelector } from "react-redux";
 
 const PlaceLatLng = ({ errors, register, setValue, watch, clearErrors }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const [searchinput, setSearchInput] = useState(watch("address.name"));
   const { places, clearSuggestions } = useGooglePlaces({ input: searchinput });
-
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const handleSelect = async (address) => {
     const { lat, lng } = await getCooardinates(address.description);
     setValue("address.name", address.description);
@@ -21,9 +23,7 @@ const PlaceLatLng = ({ errors, register, setValue, watch, clearErrors }) => {
 
   return (
     <div className="lg:col-span-2 space-y-2">
-      <p className="text-gray-800">
-        {language ? "العنوان بالتفصيل" : "Address in detail"}
-      </p>
+      <p className="text-gray-800">{t("Detailed_Address")}</p>
 
       <ComboBox
         inputValue={searchinput}

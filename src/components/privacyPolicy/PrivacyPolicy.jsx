@@ -1,7 +1,8 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import { useSelector } from "react-redux";
 
 const PrivacyPolicy = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <div className="md:container md:mx-auto mx-[20px] py-10 mb-10 min-h-[100vh] space-y-6">
@@ -11,11 +12,9 @@ const PrivacyPolicy = () => {
       <div className="space-y-4  ">
         <div className="space-y-5">
           <p className="">
-            بيانات التسجيل وغيرها من المعلومات ذات الصلة بك تخضع لسياسة الخصوصية
-            التي يتبعها ليسول ، كما يتعهد ليسول بحماية خصوصية المستخدم والحفاظ
-            عليها، ونشر سياسية الخصوصية وعرضها على المستخدم للعلم بها، كما يضمن
-            ليسول حماية بيانات ومعلومات المستخدم ومشاركتها ومعالجتها واستخدامها
-            على نحو يحافظ على سلامتها .
+            {language
+              ? " بيانات التسجيل وغيرها من المعلومات ذات الصلة بك تخضع لسياسة الخصوصية التي يتبعها ليسول ، كما يتعهد ليسول بحماية خصوصية المستخدم والحفاظ عليها، ونشر سياسية الخصوصية وعرضها على المستخدم للعلم بها، كما يضمن ليسول حماية بيانات ومعلومات المستخدم ومشاركتها ومعالجتها واستخدامها على نحو يحافظ على سلامتها ."
+              : "Your registration data and other relevant information are subject to the privacy policy followed by Lesoll. Lesoll is committed to protecting user privacy and maintaining it. The privacy policy will be published and made available to users for their awareness. Lesoll also guarantees the protection, sharing, processing, and use of user data and information in a manner that ensures their integrity."}
           </p>
         </div>
         <div className="space-y-5">

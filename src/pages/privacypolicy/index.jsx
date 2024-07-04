@@ -1,14 +1,15 @@
 import PrivacyPolicy from "@/components/privacyPolicy/PrivacyPolicy";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useSelector } from "react-redux";
 
 const index = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <>
       <Head>
-          <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="noindex, nofollow" />
         <title>
           {language ? "سياسة الخصوصية | ليسول " : "Privacy & Policy | Lesoll "}{" "}
         </title>
@@ -26,4 +27,11 @@ const index = () => {
     </>
   );
 };
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 export default index;

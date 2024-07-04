@@ -5,14 +5,17 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
-        <p className="text-gray-800">{language ? "المساحة " : "Space"}</p>
+        <p className="text-gray-800">{t("Space")}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -45,25 +48,21 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       </div>
 
       <div className="flex gap-4">
-        <p className="text-gray-800">
-          {language
-            ? "هل العقار مسجل"
-            : "Notarized by the real estate certificate"}
-        </p>
+        <p className="text-gray-800">{t("Real__Estate_Certificate")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isRegisterd")}
             onClick={() => {
               setValue("isRegisterd", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("isRegisterd")}
             onClick={() => {
               setValue("isRegisterd", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>

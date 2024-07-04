@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
 import InfoCard from "./InfoCard";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 const ProjectInfo = ({ projectData }) => {
   const router = useRouter();
@@ -13,24 +13,22 @@ const ProjectInfo = ({ projectData }) => {
     router.push(`${slug}?images=true`);
     //  setLightboxIndex(index);
   };
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <div className="space-y-[16px]">
-      <h2 className="hidden md:block">
-        {language ? "المواصفات" : "Properties"}
-      </h2>
+      <h2 className="hidden md:block">{t("Project_Properties")}</h2>
       <div className="flex items-center  gap-4 md:gap-8">
         <InfoCard
           onClick={openLightbox}
           src={"/projects-icons/images.svg"}
-          title={language ? "الصور" : "Images"}
+          title={t("Images")}
           alt={"Images Icon"}
         />
         <InfoCard
           onClick={openDirectionsInGoogleMaps}
           src={"/projects-icons/map.svg"}
-          title={language ? " عرض على الخريطة" : "Show on map"}
+          title={t("Show_On_Map")}
           alt={"Map Icon"}
         />
       </div>

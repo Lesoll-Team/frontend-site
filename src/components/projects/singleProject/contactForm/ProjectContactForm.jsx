@@ -9,11 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { postProjectContact } from "./api/projectContactFormApi";
 import Image from "next/image";
 import { Ring } from "@uiball/loaders";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const ProjectContactForm = ({ className, projectData }) => {
   const [formStatus, setFormStatus] = useState("idle");
   const [formError, setFormError] = useState("idle");
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const projects = useSelector((state) => state.getProjects.projects.data);
   const dispatch = useDispatch();
   const projectList =
@@ -49,7 +52,7 @@ const ProjectContactForm = ({ className, projectData }) => {
   useEffect(() => {
     if (projects && projectList) {
       const crruntProject = projectList.find(
-        (item) => item.name.ar === projectData.titleAr
+        (item) => item.name.ar === projectData.titleAr,
       );
       setValue("subject", crruntProject);
     }
@@ -69,12 +72,10 @@ const ProjectContactForm = ({ className, projectData }) => {
     <div
       className={cn(
         "bg-lightNeutral gap-4 md:gap-7 flex flex-col items-center md:justify-center  p-3 md:px-7  md:py-10  rounded-lg ",
-        className
+        className,
       )}
     >
-      <h2 className="text-center">
-        {language ? "تحتاج مساعدة عقارية؟" : "Need real estate advice?"}
-      </h2>
+      <h2 className="text-center">{t("Need_Real_Estate_Advice")}</h2>
       <p className="text-center lg-text">
         {language
           ? "ادخل بيناتك وسيتصل بيك خبير فى العقارات فى اقرب وقت"
@@ -87,7 +88,7 @@ const ProjectContactForm = ({ className, projectData }) => {
       >
         <input
           type="text"
-          placeholder={language ? "الإسم" : "Name"}
+          placeholder={t("Full_Name")}
           {...register("fullName", {
             required: {
               value: true,
@@ -110,7 +111,7 @@ const ProjectContactForm = ({ className, projectData }) => {
         <div>
           <input
             type="text"
-            placeholder={language ? "الهاتف" : "Phone number"}
+            placeholder={t("Phone_Number")}
             {...register("phone", {
               required: {
                 value: true,
@@ -134,7 +135,7 @@ const ProjectContactForm = ({ className, projectData }) => {
         <div>
           <textarea
             type="text"
-            placeholder={language ? "رسالتك" : "Message"}
+            placeholder={t("Message")}
             {...register("message", {
               required: {
                 value: true,
@@ -151,17 +152,15 @@ const ProjectContactForm = ({ className, projectData }) => {
         <Button type={"submit"}>
           {formStatus === "loading" ? (
             <Ring size={28} color="#fff" />
-          ) : language ? (
-            "ارسال"
           ) : (
-            "Send"
+            t("Send")
           )}
         </Button>
       </form>
       {formStatus === "success" && (
         <div className="text-green-500 w-full bg-white py-2 flex justify-center items-center gap-2 fade-in">
           <Image width={24} height={24} src={"/done-icon.png"} />
-          <p>{language ? "تم الارسال بنجاح" : "Sended successfully"}</p>
+          <p>{t("Sended")}</p>
         </div>
       )}
     </div>

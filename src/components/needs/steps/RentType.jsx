@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
 import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const RentType = ({ setValue, setStep, watch }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   return (
     <div className="min-h-[70dvh] md:min-h-[82dvh] grid place-content-center space-y-8 md:space-y-16 fade-in-right ">
       <h1 className="text-xl   display-text text-center font-bold">
-        اختر نوع الإيجار
+        {t("Choose_Rental_Type")}
       </h1>
       <div className="flex flex-col justify-center">
         <div className="flex justify-center gap-5 md:gap-10">
@@ -16,7 +18,7 @@ const RentType = ({ setValue, setStep, watch }) => {
             icon={
               <Image className="md:w-[150px]" src="/icons/rent-daily.svg" />
             }
-            title={language ? "إيجار يومي" : "Daily rent"}
+            title={t("Daily_Rent")}
             onClick={() => {
               setStep(3);
               setValue("rentalPeriod", "Daily");
@@ -24,7 +26,7 @@ const RentType = ({ setValue, setStep, watch }) => {
           />
           <SelectCard
             icon={<Image className="md:w-[150px]" src="/icons/rent-icon.svg" />}
-            title={language ? "إيجار شهري" : "Monthly rent"}
+            title={t("Monthly_Rent")}
             onClick={() => {
               setStep(3);
               setValue("rentalPeriod", "Monthly");
@@ -37,7 +39,7 @@ const RentType = ({ setValue, setStep, watch }) => {
             setStep(1);
           }}
         >
-          {language ? "الخطوة السابقة" : "pervious step"}
+          {t("Pervious_Step")}
         </button>
       </div>
     </div>

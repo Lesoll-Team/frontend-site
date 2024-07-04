@@ -7,6 +7,7 @@ import useIsAuth from "@/Hooks/useIsAuth";
 import CompanyInfoForm from "@/components/newProfile/user/editUserDataForms/CompanyInfoForm";
 // import { useSelector } from "react-redux";
 import { useUser } from "@/Shared/UserContext";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Index = () => {
   const { data } = useUser();
@@ -27,4 +28,12 @@ const Index = () => {
     </ProfileLayout>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 export default Index;

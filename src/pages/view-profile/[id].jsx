@@ -11,7 +11,7 @@ const ViewProfilePage = ({ query, user, properties }) => {
 };
 
 export default ViewProfilePage;
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, locale }) {
   const param = query;
   let userdata;
   const user = await axios.get(
@@ -30,6 +30,7 @@ export async function getServerSideProps({ query }) {
       query: param,
       user: user.data,
       properties: properties?.data || {},
+      ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }

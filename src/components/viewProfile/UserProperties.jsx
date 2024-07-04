@@ -8,9 +8,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Link from "next/link";
 import NoItems from "../newProfile/user/userProperties/NoItems";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const UserProperties = ({ user, properties, params }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const [ShowFilterMenu, setShowFilterMenu] = useState(false);
   const menuRef = useRef(null);
   const router = useRouter();
@@ -18,13 +21,13 @@ const UserProperties = ({ user, properties, params }) => {
   const filterName = useMemo(() => {
     switch (query.type) {
       case "000":
-        return language ? "الكل" : "All";
+        return t("All");
       case "111":
-        return language ? "للبيع" : "For Sale";
+        return t("For_Sale");
       case "222":
-        return language ? "للإيحار" : "For Rent";
+        return t("For_Rent");
       default:
-        return "all";
+        return t("All");
     }
   }, [language, query]);
 
@@ -82,7 +85,7 @@ const UserProperties = ({ user, properties, params }) => {
                       href={`/view-profile/${user.getUser.username}?page=1&type=000`}
                       className="text-center"
                     >
-                      {language ? "الكل" : "All"}
+                      {t("All")}
                     </Link>
                   </li>
                   {user.RealtySaleNumber > 0 && (
@@ -94,7 +97,7 @@ const UserProperties = ({ user, properties, params }) => {
                           href={`/view-profile/${user.getUser.username}?page=1&type=111`}
                           className="text-center"
                         >
-                          {language ? "للبيع" : "For Sale"}
+                          {t("For_Sale")}
                         </Link>
                       </li>
                     </>
@@ -108,7 +111,7 @@ const UserProperties = ({ user, properties, params }) => {
                           href={`/view-profile/${user.getUser.username}?page=1&type=222`}
                           className="text-center"
                         >
-                          {language ? "للإيحار" : "For Rent"}
+                          {t("For_Rent")}
                         </Link>
                       </li>
                     </>
@@ -125,7 +128,7 @@ const UserProperties = ({ user, properties, params }) => {
             return <RealtyCard key={item._id} propertyDetails={item} />;
           })
         ) : (
-          <NoItems title={language ? "لا توجد عقارات" : "No Properties"} />
+          <NoItems title={t("No_Properties")} />
         )}
       </div>
       {properties?.totalPages > 1 && (

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import AddPropSectionContainer from "./AddPropSectionContainer";
 import { FaSquareMinus } from "react-icons/fa6";
 import PhoneInput from "react-phone-input-2";
@@ -6,8 +5,11 @@ import "react-phone-input-2/lib/style.css";
 import Error from "@/Shared/ui/Error";
 import { useMemo } from "react";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 const PhoneNumber = ({ errors, register, setValue, watch, isNeed }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { data } = useUser();
 
   const showPhoneInput = watch("otherPhone");
@@ -55,7 +57,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed }) => {
                 // disableCountryCode={true}
                 // countryCodeEditable={false}
                 countryCodeEditable={false}
-                placeholder={language ? "رقم الهاتف" : "Phone Number"}
+                placeholder={t("Phone_Number")}
                 className=" z-30"
                 enableSearch={true}
                 country={"eg"}
@@ -139,7 +141,7 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed }) => {
                 // disableCountryCode={true}
                 // countryCodeEditable={false}
                 countryCodeEditable={false}
-                placeholder={language ? "رقم الهاتف" : "Phone Number"}
+                placeholder={t("Phone_Number")}
                 className=" z-30"
                 enableSearch={true}
                 country={"eg"}
@@ -185,13 +187,11 @@ const PhoneNumber = ({ errors, register, setValue, watch, isNeed }) => {
       ) : (
         <div className="p-5 bg-white w-full rounded space-y-4">
           <h3 className="text-sm md:text-xl font-cairo">
-            {language
-              ? "سيتم استخدام رقم الهاتف الخاص بك للتواصل عبر واتساب او التليفون"
-              : "Your phone number will be used to communicate via WhatsApp or phone"}
+            {t("Phone_Number_Info")}
           </h3>
           <div className="flex justify-between md:flex-row flex-col">
             <p className="flex items-center gap-5">
-              <span>{language ? "رقم التواصل :" : "Contact Number :"}</span>
+              <span>{t("Contact_Number")} :</span>
               <span dir="ltr">{data?.code + data?.phone}</span>
             </p>
             <button

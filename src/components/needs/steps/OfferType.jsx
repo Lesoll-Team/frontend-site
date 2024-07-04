@@ -2,9 +2,12 @@ import { Image } from "@nextui-org/react";
 import SelectCard from "./SelectCard";
 import { useSelector } from "react-redux";
 import Head from "next/head";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const OfferType = ({ setValue, setStep }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   const setOfferSale = () => {
     setValue("offer", "For Sale");
@@ -20,18 +23,18 @@ const OfferType = ({ setValue, setStep }) => {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <h1 className="text-xl   display-text text-center font-bold">
-        {language ? "بتدور على ايه؟" : "What you are looking for?"}
+        {t("What_Are_You_Looking")}
       </h1>
       <div className="flex justify-center gap-5 md:gap-10">
         <SelectCard
           onClick={setOfferSale}
           icon={<Image className="md:w-[150px]" src="/icons/sale-icon.svg" />}
-          title={language ? "  عايز أشترى" : "Want to buy"}
+          title={t("Want_To_Buy")}
         />
         <SelectCard
           onClick={setOfferRent}
           icon={<Image className="md:w-[150px]" src="/icons/rent-icon.svg" />}
-          title={language ? "عايز ايجار " : "Want to rent"}
+          title={t("Want_To_Rent")}
         />
       </div>
     </div>

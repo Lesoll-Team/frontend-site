@@ -8,9 +8,12 @@ import Cash from "./Cash";
 import AdminInsatllment from "./AdminInstallment";
 import MainPrice from "./mainPriceInput/MainPrice";
 import { useUser } from "@/Shared/UserContext";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 const Sale = ({ errors, register, setValue, watch, clearErrors, control }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const { data } = useUser();
 
   const selectedSaleOption = useCallback(() => {
@@ -62,9 +65,7 @@ const Sale = ({ errors, register, setValue, watch, clearErrors, control }) => {
         setValue={setValue}
       />
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? "طريقة الدفع" : "Payment Method"}
-        </p>
+        <p className="text-gray-800">{t("Payment_Method")}</p>
         <DropDown
           options={saleOptions}
           selected={watch("saleOption")}

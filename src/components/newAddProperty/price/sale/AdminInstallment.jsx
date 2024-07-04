@@ -4,6 +4,7 @@ import { useFieldArray } from "react-hook-form";
 import { FaSquareMinus } from "react-icons/fa6";
 
 import Error from "@/Shared/ui/Error";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const INSTALLMENT = {
   type: {
     value: "",
@@ -19,7 +20,7 @@ const INSTALLMENT = {
   discount: "",
 };
 const AdminInsatllment = ({ control, errors, register }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { fields, append, remove } = useFieldArray({
     name: "installment",
     control,

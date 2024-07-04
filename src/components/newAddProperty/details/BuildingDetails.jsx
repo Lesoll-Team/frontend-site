@@ -16,14 +16,13 @@ const BuildingDetails = ({
   watch,
   clearErrors,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
 
   return (
     <AddPropSectionContainer>
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? "مساحة المبنى " : "Building Area"}
-        </p>
+        <p className="text-gray-800">{t("Building_Area")}</p>
         <input
           inputMode="numeric"
           type="text"
@@ -80,7 +79,7 @@ const BuildingDetails = ({
         {errors.level && <Error>{errors.level.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
-        <p className="text-gray-800">{language ? "عدد الغرف" : "Rooms"}</p>
+        <p className="text-gray-800">{t("Rooms")}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -110,9 +109,7 @@ const BuildingDetails = ({
         {errors.rooms && <Error>{errors.rooms.message}</Error>}{" "}
       </div>
       <div className="space-y-2">
-        <p className="text-gray-800">
-          {language ? "عدد الحمامات" : "Bathrooms"}
-        </p>
+        <p className="text-gray-800">{t("Bathrooms")}</p>
         <input
           type="text"
           inputMode="numeric"
@@ -170,25 +167,21 @@ const BuildingDetails = ({
         />
       </div>
       <div className="flex gap-4 items-center lg:mt-9">
-        <p className="text-gray-800">
-          {language
-            ? "هل العقار مسجل"
-            : "Notarized by the real estate certificate"}
-        </p>
+        <p className="text-gray-800">{t("Real__Estate_Certificate")}</p>
         <div className="flex items-center gap-3">
           <RadioBtn
             active={watch("isRegisterd")}
             onClick={() => {
               setValue("isRegisterd", true);
             }}
-            title={language ? "نعم" : "Yes"}
+            title={t("Yes")}
           />
           <RadioBtn
             active={!watch("isRegisterd")}
             onClick={() => {
               setValue("isRegisterd", false);
             }}
-            title={language ? "لا" : "No"}
+            title={t("No")}
           />
         </div>
       </div>
