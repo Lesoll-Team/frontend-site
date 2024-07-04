@@ -2,11 +2,10 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useUser } from "@/Shared/UserContext";
 import { useEffect, useState } from "react";
 import { AddToFavorites } from "@/utils/propertyAPI";
-// import useFormatDate from "@/Hooks/useFormatDate";
 import { useFormatNewData } from "@/Hooks/useFormatTime";
-import { useSelector } from "react-redux";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const FavAndDate = ({ propertyDetails }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const { data, setUserData } = useUser();
   const time = useFormatNewData({

@@ -1,15 +1,17 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React, { memo, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { useSelector } from "react-redux";
 function BestLinksInHome({
   PopularSearches,
   MostArea,
   Others,
   MostGovernorate,
 }) {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const [toggleLinks, setToggleLinks] = useState(0);
+  const { t } = useTranslation("common");
 
   return (
     <section className="flex flex-wrap container mx-auto md:min-h-[488px] gap-5  justify-center md:justify-between gap-y-5   py-5 pb-14">
@@ -20,11 +22,7 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between  border-b-1 border-black md:border-none cursor-pointer md:cursor-default w-full"
         >
-          <h3 className=" font-bold ">
-            {language
-              ? "الكلمات الأكثر استخداما"
-              : "Most frequently used words"}
-          </h3>
+          <h3 className=" font-bold ">{t("Link_Most_Frequently")}</h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 1 && "-rotate-90"
@@ -54,9 +52,7 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default w-full"
         >
-          <h3 className=" font-bold ">
-            {language ? "العقارات الأكثر بحثاً" : "Most searched properties"}
-          </h3>
+          <h3 className=" font-bold ">{t("Link_Most_Searched")}</h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 2 && "-rotate-90"
@@ -86,9 +82,7 @@ function BestLinksInHome({
           }
           className="flex mb-6 items-center justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default w-full"
         >
-          <h3 className="font-bold">
-            {language ? "عقارات تجارية أخرى" : "Other commercial properties"}
-          </h3>
+          <h3 className="font-bold">{t("Link_Other_Commercial")}</h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 3 && "-rotate-90"
@@ -118,9 +112,7 @@ function BestLinksInHome({
           }
           className="flex  mb-6 items-center  justify-between border-b-1 border-black md:border-none cursor-pointer md:cursor-default w-full"
         >
-          <h3 className="font-bold">
-            {language ? "مناطق الأكثر بحثاً" : "Most searched areas"}
-          </h3>
+          <h3 className="font-bold">{t("Link_Most_Areas")}</h3>
           <IoIosArrowBack
             className={`md:hidden block rotate-40 duration-150 ${
               toggleLinks == 4 && "-rotate-90"

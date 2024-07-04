@@ -1,10 +1,10 @@
 import { useUser } from "@/Shared/UserContext";
 import { signWithGoogle } from "@/utils/userAPI";
+import { useTranslation } from "next-i18next";
 import { FcGoogle } from "react-icons/fc";
-import { useSelector } from "react-redux";
 
 const GoogleSignInBtn = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const { setUserData } = useUser();
   const handleGoogleAuth = async () => {
     await signWithGoogle();
@@ -17,7 +17,7 @@ const GoogleSignInBtn = () => {
       className="w-full py-2 text-lg mt-3 flex items-center justify-center bg-lightNeutral duration-100 gap-1  rounded-md "
     >
       <FcGoogle className="text-2xl mx-3" />
-      <span>{language ? "تسجيل الدخول بجوجل" : "Log In With Google"}</span>
+      <span>{t("Sign_In_Google")}</span>
     </button>
   );
 };

@@ -1,11 +1,10 @@
 import ReactModal from "../ui/ReactModal";
-import { useSelector } from "react-redux";
 import { FaXmark } from "react-icons/fa6";
-import LoginModalForm from "./LoginModalForm";
 import AddPhoneModalForm from "./AddPhoneModalForm";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const AddPhoneModal = ({ isOpen, setIsOpen }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   return (
     <>
       <ReactModal

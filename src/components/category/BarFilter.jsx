@@ -1,19 +1,21 @@
 import React, { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { CgOptions } from "react-icons/cg";
 import SearchByLocations from "./barfilter-modules/SearchByLocations";
 import DropdownsFilter from "./barfilter-modules/DropdownsFilter";
 import ButtonSearchAction from "./shared/ButtonSearchAction";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { useTranslation } from "next-i18next";
 
 const BarFilter = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
+  const { t } = useTranslation("common");
+
   const openSideFilter = () => {
     dispatch(
       updateAllStates({
         openFilter: true,
-      })
+      }),
     );
   };
   return (
@@ -23,7 +25,7 @@ const BarFilter = () => {
     >
       <div
         aria-label="search in category by locations"
-        className="flex md:gap-x-[1vw] gap-x-[1.5vw] md:bg-inherit  
+        className="flex md:gap-x-[1vw] gap-x-[1.5vw] md:bg-inherit
          bg-white rounded-[6px]  justify-around"
       >
         <SearchByLocations />
@@ -37,7 +39,7 @@ const BarFilter = () => {
           onClick={openSideFilter}
         >
           <span className="whitespace-nowrap hidden md:block text-gray1">
-            {language ? "خيارات اكثر" : "More filter"}
+            {t("More_Filter")}
           </span>
           <CgOptions className=" md:text-gray2 text-white md:font-normal font-bold md:sm-text text-xl md:rotate-0 rotate-90" />
         </button>

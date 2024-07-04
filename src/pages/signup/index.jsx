@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import SignUp from "@/components/auth/signup/components/SignUp";
 import { useUser } from "@/Shared/UserContext";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 const SignUpPage = () => {
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     if (data) {
@@ -20,11 +21,8 @@ const SignUpPage = () => {
       <Head>
         <meta name="robots" content="noindex, nofollow" />
 
-        <title>{language ? "الإشتراك" : "Sign Up"}</title>
-        <meta
-          name="description"
-          content="أنشئ حسابًا على منصتنا للعقارات. سجِّل الدخول لحفظ بحوث العقارات، واستلم تحديثات حول القوائم الجديدة، واستمتع بتجربة شخصية. انضم إلينا اليوم!"
-        />
+        <title>{t("Sign_Up")}</title>
+        <meta name="description" content={t("Meta_Sign_Up_Description")} />
         <link rel="canonical" href={`https://lesoll.com/signup`} />
       </Head>
 
@@ -33,3 +31,10 @@ const SignUpPage = () => {
   );
 };
 export default SignUpPage;
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

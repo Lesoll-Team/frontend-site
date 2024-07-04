@@ -1,13 +1,14 @@
-// import useContact from "@/Hooks/useContact";
 import useContactLinks from "@/Hooks/useContactLinks";
-// import Link from "next/link";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import React, { memo, useMemo } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCall } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 const PriceAndSocial = ({ propertyDetails }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
+
   const phone = useMemo(() => {
     if (propertyDetails.connectPhoneNumber) {
       return propertyDetails.connectPhoneNumber;
@@ -40,7 +41,7 @@ const PriceAndSocial = ({ propertyDetails }) => {
         </p>
       ) : (
         <p className=" font-bold gap-x-1 text-gray2 text-[12px] md:text-[17px] flex">
-          <span> {language ? "للإستثمار" : "Investment"} </span>
+          <span> {t("Investment")} </span>
         </p>
       )}
       <div className="flex   gap-x-[14px]  ">

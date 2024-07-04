@@ -1,9 +1,9 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import React from "react";
 import { TbVirusSearch } from "react-icons/tb";
-import { useSelector } from "react-redux";
 
 const ResultNotFound = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <div className="w-full  min-h-[75dvh] text-2xl text-default-500 text-center ">
@@ -15,7 +15,7 @@ const ResultNotFound = () => {
           >
             <div
               className={`
-                                md:items-start 
+                                md:items-start
                            flex flex-col items-center justify-center`}
             >
               <h4 className="font-semibold mb-3 text-lightGreen text-xl md:text-3xl">
@@ -47,7 +47,7 @@ const ResultNotFound = () => {
           >
             <div
               className={`
-                                md:items-start 
+                                md:items-start
                            flex flex-col items-center justify-center`}
             >
               <h4 className="font-semibold mb-3 text-lightGreen text-xl md:text-3xl">

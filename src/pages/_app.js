@@ -9,14 +9,8 @@ import ar from "javascript-time-ago/locale/ar.json";
 
 import { UserProvider } from "@/Shared/UserContext";
 import { appWithTranslation } from "next-i18next";
-// import { appWithTranslation } from "next-i18next";
 import nextI18nextConfig from "../../next-i18next.config";
-
-// import nextI18nextConfig from "../../next-i18next.config";
-// import nextI18nextConfig from "../../next-i18next.config";
-
 TimeAgo.addDefaultLocale(ar);
-
 function App({ Component, pageProps }) {
   return (
     <Provider store={store}>

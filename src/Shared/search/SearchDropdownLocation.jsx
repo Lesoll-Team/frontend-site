@@ -5,6 +5,8 @@ import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useGetCity, useGetRegion } from "@/Hooks/fetchCitiesAndRegions";
 import { useRouter } from "next/router";
 import { useSendFilterSearch } from "@/components/category/shared/FilterHooks";
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 
 export function SearchDropdownLocation({
   isToggle,
@@ -14,7 +16,8 @@ export function SearchDropdownLocation({
   setCity,
 }) {
   const router = useRouter();
-  let languageIs = useSelector((state) => state.GlobalState.languageIs);
+  const languageIs = getLangBoolean();
+  const { t } = useTranslation("common");
   const {
     categoryType,
     saleOption,
@@ -282,39 +285,11 @@ export function SearchDropdownLocation({
         break;
     }
   };
-  // useEffect(() => {
-  //   if (!isHome) {
-  //     const route = useSendFilterSearch({
-  //       filterInput: {
-  //         saleOptions: saleOption,
-  //         category: categoryType,
-  //         unitType: unitTypes,
-  //         governorate: locationGovernorate,
-  //         region: locationRegion,
-  //       },
-  //       queryInput: {
-  //         priceFrom,
-  //         page: 1,
-  //         priceTo,
-  //         numBathrooms,
-  //         numBedrooms,
-  //         areaFrom,
-  //         areaTo,
-  //         finishedOption: finishedOption,
-  //         paymentType,
-  //         sort: sort,
-  //         mortgage: propFinancing,
-  //         keyword: searchKeyword,
-  //       },
-  //     });
-  //     router.push(route);
-  //   }
-  // }, [locationGovernorate, locationRegion]);
   const city = useGetCity(locationGovernorate);
   const region = useGetRegion(locationRegion);
   return (
     <div
-      aria-label={languageIs ? "بحث بالمنطقة..." : "Search by Region..."}
+      aria-label={t("Search_By_city")}
       dir={languageIs ? "rtl" : "ltr"}
       className="relative w-full lg-text focus:outline-none h-full"
     >
@@ -371,7 +346,7 @@ export function SearchDropdownLocation({
         <div className="w-full   h-full" aria-labelledby="input search">
           <input
             type="text"
-            placeholder={languageIs ? "بحث بالمنطقة..." : "Search by Region..."}
+            placeholder={t("Search_By_city")}
             value={searchTerm}
             disabled={selectedValues.length >= 2}
             onChange={handleSearch}

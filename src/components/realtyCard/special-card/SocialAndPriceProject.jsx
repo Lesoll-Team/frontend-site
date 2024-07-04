@@ -2,10 +2,10 @@ import React, { useMemo } from "react";
 import { IoCall } from "react-icons/io5";
 import { FaWhatsapp } from "react-icons/fa";
 import useContactLinks from "@/Hooks/useContactLinks";
-import { useSelector } from "react-redux";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const SocialAndPriceProject = ({ cardDetails }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const phone = useMemo(() => {
     if (cardDetails.connectPhoneNumber) {
       return cardDetails.connectPhoneNumber;
@@ -39,10 +39,7 @@ const SocialAndPriceProject = ({ cardDetails }) => {
 
       <div className="flex   gap-x-[14px]  ">
         <CallLinkBtn>
-          <span
-            //md:w-[32px] md:h-[32px]
-            className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[40px] h-[40px]  rounded-full flex items-center justify-center"
-          >
+          <span className="bg-[#E1F9FA] cursor-pointer active:animate-appearance-in w-[40px] h-[40px]  rounded-full flex items-center justify-center">
             <IoCall className="text-[16px] md:text-[23px] text-blue-600" />
           </span>
         </CallLinkBtn>

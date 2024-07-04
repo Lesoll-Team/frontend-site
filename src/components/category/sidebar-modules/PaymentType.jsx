@@ -1,9 +1,10 @@
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import { useTranslation } from "next-i18next";
 import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const PaymentType = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const paymentTypeIs = useSelector((state) => state.Category.paymentType);
   const dispatch = useDispatch();
   const [cashClickCount, setCashClickCount] = useState(0);
@@ -11,7 +12,6 @@ const PaymentType = () => {
   const handlePaymentClick = (name) => {
     switch (name) {
       case "installment":
-        // setPaymentTypeKey("installment");
         setInstallmentClickCount((prevCount) => prevCount + 1);
         if (installmentClickCount % 2 === 0) {
           dispatch(updateAllStates({ paymentType: "installment" }));
@@ -22,7 +22,6 @@ const PaymentType = () => {
         break;
 
       case "cash":
-        // setPaymentTypeKey("cash");
         setCashClickCount((prevCount) => prevCount + 1);
         if (cashClickCount % 2 === 0) {
           dispatch(updateAllStates({ paymentType: "cash" }));
@@ -38,7 +37,7 @@ const PaymentType = () => {
   return (
     <div className="bg-[#F8F8F8] gap-y-[1.5vh] p-[1.5vw] flex flex-col w-full">
       <span className="font-bold lg-text text-gray2">
-        {language ? "طريقة السداد" : "Payment Options"}
+        {t("Payment_Options")}
       </span>
       <div className="flex sm-text md:gap-x-[1vw]  gap-x-[1.5vw]">
         <button
@@ -49,7 +48,7 @@ const PaymentType = () => {
               : "border-1 border-[#CCCCCC]"
           }`}
         >
-          {language ? "كاش" : "Cash"}
+          {t("Cash")}
         </button>
         <button
           onClick={() => handlePaymentClick("installment")}
@@ -59,7 +58,7 @@ const PaymentType = () => {
               : "border-1 border-[#CCCCCC]"
           }`}
         >
-          {language ? "تقسيط" : "Installment"}
+          {t("Installment")}
         </button>
       </div>
     </div>

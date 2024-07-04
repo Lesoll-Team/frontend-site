@@ -3,6 +3,7 @@ import {
   visitAllNotifications,
   visitNotification,
 } from "@/redux-store/features/user/notifiicationSlice";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 // import { formatDate } from "@/utils/FormateData";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +15,8 @@ const Notifications = () => {
   const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const menuRef = useRef(null);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+  const { t } = useTranslation("common");
   const userNotifications = useSelector(
     (state) => state.notifications.notifications.data,
   );
@@ -73,14 +75,14 @@ const Notifications = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 text-sm md:text-base text-darkGray font-bold">
               <IoIosNotificationsOutline className="text-lg md:text-xl" />
-              <h3>{language ? "الإشعارات" : "Nofifications"}</h3>
+              <h3>{t("Notifications")}</h3>
             </div>
             {userNotifications.length > 0 && (
               <button
                 onClick={handleSeeAll}
                 className="text-xs md:text-base text-outLine"
               >
-                {language ? "قراءة الكل" : "Read All"}
+                {t("Read_All")}
               </button>
             )}
           </div>
@@ -109,7 +111,7 @@ const Notifications = () => {
               })
             ) : (
               <div className="w-full grid place-content-center h-[250px]">
-                {language ? "لا توجد إشعارات" : "No Notifications"}
+                {t("No_Notifications")}
               </div>
             )}
           </div>

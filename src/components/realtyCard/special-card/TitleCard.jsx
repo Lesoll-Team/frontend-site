@@ -1,9 +1,9 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
 
 const TitleCard = ({ cardDetails }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <Link
@@ -14,10 +14,6 @@ const TitleCard = ({ cardDetails }) => {
       <h3 className=" font-bold  md:mt-0 mt-1 text-black line-clamp-1 ">
         {language ? cardDetails?.titleAr : cardDetails?.titleEn}
       </h3>
-      {/* <p className="flex items-center lg-text font-noto min-w-max gap-1  ">
-                {cardDetails?.address?.region
-                    && ` ${cardDetails?.address?.governrate}, ${cardDetails?.address?.region}`}
-            </p> */}
     </Link>
   );
 };

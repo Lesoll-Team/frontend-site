@@ -1,12 +1,12 @@
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useSelector } from "react-redux";
 
 const NeedsLink = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
   };
@@ -36,7 +36,7 @@ const NeedsLink = () => {
         onClick={toggleMenu}
       >
         <span className="flex items-start gap-2 ">
-          {language ? "الطلبات" : " Needs"}{" "}
+          {t("Needs")}
           <IoIosArrowDown
             className={`mt-1 duration-100 ${showMenu && "rotate-180 duration-100"}`}
           />
@@ -49,7 +49,7 @@ const NeedsLink = () => {
             className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150 font-noto"
             href={"/add-need"}
           >
-            {language ? " أطلب عقارك" : "Add Need"}
+            {t("Add_Need")}
           </Link>
           <hr />
           <Link
@@ -57,7 +57,7 @@ const NeedsLink = () => {
             className="break-keep min-w-fit px-2  hover:text-lightGreen duration-150 font-noto"
             href={"/needs?page=1"}
           >
-            {language ? " رؤية جميع الطلبات" : " Needs"}
+            {t("See_All_Needs")}
           </Link>
         </div>
       )}

@@ -1,20 +1,15 @@
 import ReactPaginate from "react-paginate";
 import styles from "../../styles/Pagination.module.css";
 import { IoIosArrowBack } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-// import {
-//   changeNumberPage,
-//   // updateAllStates,
-// } from "@/redux-store/features/category/categorySlice";
+import { useSelector } from "react-redux";
+
 import { useRouter } from "next/router";
 import { memo } from "react";
 import { useSendFilterSearch } from "@/components/category/shared/FilterHooks";
 
 const PaginationPage = ({ currentPage, totalPage }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const {
-    // pageNumber,
     saleOption,
     categoryType,
     unitTypes,
@@ -34,7 +29,6 @@ const PaginationPage = ({ currentPage, totalPage }) => {
   } = useSelector((state) => state.Category);
 
   const handlePageClick = (data) => {
-    // dispatch(changeNumberPage(data.selected + 1));
     const route = useSendFilterSearch({
       filterInput: {
         saleOptions: saleOption,
@@ -61,17 +55,6 @@ const PaginationPage = ({ currentPage, totalPage }) => {
     router.push(route);
   };
 
-  // useEffect(() => {
-  //   router.push({
-  //     pathname: router.pathname,
-  //     query: { ...router.query, page: pageNumber || 1 },
-  //   });
-  // }, [pageNumber]);
-
-  // const dispatch = useDispatch();
-  // const handlePageClick = (data) => {
-  //   dispatch(changeNumberPage(data.selected + 1));
-  // };
   return (
     <div dir="ltr" className={styles.pagination}>
       <ReactPaginate

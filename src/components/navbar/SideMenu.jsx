@@ -7,16 +7,19 @@ import { IoIosArrowDown, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { LuFileText } from "react-icons/lu";
 import { MdOutlineAddHomeWork, MdOutlineHeadsetMic } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ChangeLang from "./ChangeLang";
 import { clearUserData } from "@/redux-store/features/auth/userProfileSlice";
 import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import { useUser } from "@/Shared/UserContext";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const SideMenu = () => {
+  const { t } = useTranslation("common");
   const { windowWidth } = useWindowWidth();
   const [showNeedMenu, setShowNeedMenu] = useState(false);
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const { data, logOutUserData } = useUser();
 
   const dispatch = useDispatch();
@@ -108,7 +111,7 @@ const SideMenu = () => {
               className="flex items-center gap-4"
             >
               <GoHome className="text-baseGray text-lg" />
-              <span>{language ? "الرئيسية" : "Home"}</span>
+              <span>{t("Home")}</span>
             </Link>
             <Link
               onClick={closeSideMenu}
@@ -116,7 +119,7 @@ const SideMenu = () => {
               className="flex items-center gap-4"
             >
               <Image width={18} height={18} src={"/icons/projects-icon.svg"} />
-              <span>{language ? "المشاريع الجديدة" : "New Projects"}</span>
+              <span>{t("New_Projects")}</span>
             </Link>
 
             <Link
@@ -126,7 +129,7 @@ const SideMenu = () => {
             >
               <MdOutlineAddHomeWork className="text-baseGray text-lg" />
 
-              <span>{language ? "إضافة عقار" : "Add Property"}</span>
+              <span>{t("Add_Property")}</span>
             </Link>
             <div className="space-y-2">
               <button
@@ -137,7 +140,7 @@ const SideMenu = () => {
                 <div className="flex items-center justify-between gap-4 ">
                   <AiOutlineEdit className="text-baseGray text-lg" />
 
-                  <span> {language ? "الطلبات" : " Needs"}</span>
+                  <span> {t("Needs")}</span>
                 </div>
                 <IoIosArrowDown
                   className={`mt-1 duration-100 ${showNeedMenu && "rotate-180 duration-100"}`}
@@ -150,14 +153,14 @@ const SideMenu = () => {
                     href={"/add-need"}
                     className="flex items-center gap-4"
                   >
-                    <span>{language ? "إضافة طلب" : "Add Need"}</span>
+                    <span>{t("Add_Need")}</span>
                   </Link>
                   <Link
                     onClick={closeSideMenu}
                     href={"/needs"}
                     className="flex items-center gap-4"
                   >
-                    <span>{language ? " رؤية جميع الطلبات" : " Needs"}</span>
+                    <span>{t("See_All_Needs")}</span>
                   </Link>
                 </div>
               )}
@@ -169,7 +172,7 @@ const SideMenu = () => {
             >
               <LuFileText className="text-baseGray text-lg" />
 
-              <span>{language ? "المقالات" : "Blogs"}</span>
+              <span>{t("Blogs")}</span>
             </Link>
             <Link
               onClick={closeSideMenu}
@@ -178,7 +181,7 @@ const SideMenu = () => {
             >
               <MdOutlineHeadsetMic className="text-baseGray text-lg" />
 
-              <span>{language ? "تواصل معنا" : "Contact Us"}</span>
+              <span>{t("Contact_Us")}</span>
             </Link>
           </div>
           <hr className="w-10/12" />
@@ -186,7 +189,7 @@ const SideMenu = () => {
             <ChangeLang />
             {data && (
               <button onClick={handleLogout} className="text-red-600 w-fit">
-                {language ? "تسجيل الخروج" : "Log out"}
+                {t("Logout")}
               </button>
             )}
           </div>

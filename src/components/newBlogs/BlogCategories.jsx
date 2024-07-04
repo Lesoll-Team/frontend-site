@@ -1,18 +1,18 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 
 const BlogCategories = ({ blogs }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const router = useRouter();
   const query = router.query;
+  const { t } = useTranslation("common");
 
   return (
     <div className="md:space-y-[32px]   ">
       <div className=" hidden md:block space-y-[8px]">
-        <h2 className="text-gray-800 font-bold">
-          {language ? "الفئات" : "Categories"}
-        </h2>
+        <h2 className="text-gray-800 font-bold">{t("Categories")}</h2>
         <div className="flex items-center">
           <div className="h-[2px] bg-lightGreen w-4/12"></div>
           <div className="h-[2px] bg-outLine w-8/12"></div>

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
 import {
   CommercialRent,
   CommercialSale,
@@ -14,8 +13,14 @@ import {
 } from "./iconHomeSVG";
 
 import { IoIosArrowBack } from "react-icons/io";
-// import { getLangBoolean } from "@/utils/getLangBoolean";
-const PropertiesCategories = ({ isHome, language }) => {
+import { getLangBoolean } from "@/utils/getLangBoolean";
+const PropertiesCategories = ({
+  isHome,
+  // , category
+}) => {
+  // console.log("categories:>:>:>>>", category);
+  const language = getLangBoolean();
+
   const categories = [
     {
       icon: <ResidentialSale />,
@@ -108,7 +113,6 @@ const PropertiesCategories = ({ isHome, language }) => {
       window.innerWidth <= 1280 ? setSeeMore(6) : setSeeMore(8);
       window.innerWidth <= 770 && setSeeMore(4);
     };
-
     handleResize(); // Call the function to set the initial value
     window.addEventListener("resize", handleResize); // Add event listener for resize
 

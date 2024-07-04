@@ -1,12 +1,13 @@
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { useSelector } from "react-redux";
 
 const BlogSearch = () => {
   const router = useRouter();
   const [SearchInput, setSearchInput] = useState("");
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -27,14 +28,14 @@ const BlogSearch = () => {
           value={SearchInput}
           onChange={onSearchInputChange}
           type="text"
-          placeholder={language ? "البحث" : "Search"}
+          placeholder={t("Search")}
           className="placeholder:text-baseGray h-full w-full focus:outline-none focus:ring-0 "
         />
         <button
           type="submit"
           className="bg-lightGreen font-bold px-7 py-1 lg-text w-fit h-full text-white focus:outline-none focus:ring-0"
         >
-          {language ? "أبحث" : "Search"}
+          {t("Search")}
         </button>
       </form>
     </div>

@@ -1,15 +1,13 @@
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import { useSelector } from "react-redux";
 
 const BlogsHeader = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <header className="w-full flex relative justify-center items-center">
       <h1 className="absolute display-text text-white z-[5] text-center">
-        {language
-          ? "مقالات ومواضيع هامة عن العقارات في مصر"
-          : "Important blogs and topics about real estate in Egypt"}
+        {t("Real_Estate_Articles")}
       </h1>
       <Image
         src={"/blog-header.png"}

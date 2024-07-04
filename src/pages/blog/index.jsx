@@ -1,13 +1,22 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import BlogFeed from "@/components/newBlogs/BlogFeed";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const index = ({ keyword, data }) => {
   return <BlogFeed blogs={data} keyword={keyword} />;
 };
 export default index;
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, locale }) {
   const keyword = query;
+  if (locale === "en") {
+    return {
+      redirect: {
+        destination: `/blog?page=${keyword.page || 1}`,
+        permanent: true,
+      },
+    };
+  }
   try {
     const response = await axiosInstance.get(
       `/admin/blog/allblogs?page=${
@@ -21,6 +30,7 @@ export async function getServerSideProps({ query }) {
       props: {
         keyword: keyword,
         data: data,
+        ...(await serverSideTranslations(locale, ["common"])),
       },
     };
   } catch (error) {

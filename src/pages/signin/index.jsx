@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Signin from "@/components/auth/login/Signin";
 import { useUser } from "@/Shared/UserContext";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 const SignIn = () => {
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   const { data } = useUser();
 
@@ -18,11 +20,11 @@ const SignIn = () => {
   return (
     <>
       <Head>
-        <title>{language ? "تسجيل الدخول" : "Sign In"}</title>
-        <meta
-          name="description"
-          content="قم بتسجيل الدخول إلى حسابك على منصتنا للعقارات. احصل على وصول إلى بحوثك المحفوظة والقوائم المفضلة والمزيد. عملية تسجيل دخول آمنة ومريحة لتجربة شخصية."
-        />
+        <title>
+          {t("Sign_In")}
+          {/* {language ? "تسجيل الدخول" : "Sign In"} */}
+        </title>
+        <meta name="description" content={t("Sign_In_Meta_Description")} />
         <link rel="canonical" href={`https://lesoll.com/signin`} />
       </Head>
 
@@ -32,3 +34,10 @@ const SignIn = () => {
 };
 
 export default SignIn;
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

@@ -1,16 +1,10 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import React, { memo } from "react";
-// import { CgLayoutGridSmall } from "react-icons/cg";
-//LiaBedSolid,
 import { LiaVectorSquareSolid } from "react-icons/lia";
-import {
-  // PiBathtub,
-  PiBathtubThin,
-  PiBedLight,
-} from "react-icons/pi";
-import { useSelector } from "react-redux";
+import { PiBathtubThin, PiBedLight } from "react-icons/pi";
 
 const LocationAndRooms = ({ propertyDetails }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   return (
     <div className="flex w-fit justify-end  gap-x-4">
       {!propertyDetails.rooms == 0 && (

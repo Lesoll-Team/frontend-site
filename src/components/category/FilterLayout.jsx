@@ -10,21 +10,11 @@ const PaginationPage = dynamic(
   () => import("../../Shared/Pagination/PaginationSearch"),
 );
 import RealtyCard from "../realtyCard/RealtyCard";
-
-// const BarFilter = dynamic(() => import("./BarFilter"));
-// import SidebarFilter from "./SidebarFilter";
-// import BarFilter from "./BarFilter";
-// import Breadcrumb from "./barfilter-modules/Breadcrumb";
-// import PaginationPage from "@/Shared/Pagination/PaginationSearch";
-// import ResultNotFound from "./shared/ResultNotFound";
-// import SubBarTitle from "./barfilter-modules/SubBarTitle";
-
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 
 const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
   const dispatch = useDispatch();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const { openFilter } = useSelector((state) => state.Category);
   const router = useRouter();
   useEffect(() => {
@@ -55,7 +45,7 @@ const FilterLayout = ({ result, page, dataObjectFromURL, queries }) => {
       {/*Sidebar filter */}
       {openFilter && (
         <div className={`fixed z-[700]  w-full top-0`}>
-          <SidebarFilter languageIs={language} result={result} />
+          <SidebarFilter result={result} />
         </div>
       )}
       {/*bar filter */}

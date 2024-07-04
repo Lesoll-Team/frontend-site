@@ -1,5 +1,5 @@
 import ReactModal from "@/Shared/ui/ReactModal";
-import { useSelector } from "react-redux";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const NotSignUpModal = ({
   isOpen,
@@ -7,7 +7,8 @@ const NotSignUpModal = ({
   setRegisterIsOpen,
   setLoginIsOpen,
 }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
+
   function openRegister() {
     setIsOpen(false);
     setRegisterIsOpen(true);

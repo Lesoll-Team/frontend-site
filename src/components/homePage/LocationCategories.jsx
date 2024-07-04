@@ -1,8 +1,8 @@
+import { getLangBoolean } from "@/utils/getLangBoolean";
 import Link from "next/link";
 import React, { memo, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 const LocationCategories = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   const locations = [
     {

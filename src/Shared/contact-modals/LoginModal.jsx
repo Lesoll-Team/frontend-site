@@ -1,10 +1,10 @@
 import ReactModal from "../ui/ReactModal";
-import { useSelector } from "react-redux";
 import { FaXmark } from "react-icons/fa6";
 import LoginModalForm from "./LoginModalForm";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const LoginModal = ({ isOpen, setIsOpen }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   return (
     <>
       <ReactModal

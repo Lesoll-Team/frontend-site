@@ -1,8 +1,9 @@
 import { setLang } from "@/redux-store/features/globalState";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const ChangeLang = ({ bigScreen }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
   const dispatch = useDispatch();
   const router = useRouter();
   const changeLang = () => {

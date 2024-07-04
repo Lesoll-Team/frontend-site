@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { useSelector } from "react-redux";
 import GoogleSignInBtn from "@/components/auth/login/GoogleSignInBtn";
 import { userSignUp } from "../../api/signUpApi";
 import { Ring } from "@uiball/loaders";
@@ -11,8 +10,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@/Shared/ui/Button";
+import { useTranslation } from "next-i18next";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 
 const SignUpForm = () => {
+  const language = getLangBoolean();
+
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
   const [token, setToken] = useState(null);
@@ -34,8 +37,8 @@ const SignUpForm = () => {
   const [emailUserError, setEmailUserError] = useState(false);
   const { errors } = formState;
   const router = useRouter();
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation("common");
 
   const setUserType = (type) => {
     setValue("typeOfUser", type);
@@ -78,32 +81,30 @@ const SignUpForm = () => {
       className="px-10 md:px-0 w-full md:w-[60%] max-w-[500px] space-y-6 py-5 pb-14 md:my-0"
     >
       <div className="space-y-4">
-        <h1 className="text-2xl md:text-4xl">
-          {language ? "إنشاء حساب" : "Sign up"}
-        </h1>
+        <h1 className="text-2xl md:text-4xl">{t("Sign_Up")}</h1>
         <div className="flex rounded-lg overflow-hidden border">
           <button
             type="button"
             onClick={() => setUserType("individual")}
             className={`w-full text-darkGray text-center py-2 ${watch("typeOfUser") === "individual" && "bg-lightGreen text-white"}`}
           >
-            {language ? "سجل كفرد" : "As an individual"}
+            {t("Register_Individual")}
           </button>
           <button
             type="button"
             onClick={() => setValue("typeOfUser", "")}
             className={`w-full text-darkGray text-center py-2 ${watch("typeOfUser") !== "individual" && "bg-lightGreen text-white"}`}
           >
-            {language ? "سجل كشركة" : "As a company"}
+            {t("Register_Company")}
           </button>
         </div>
       </div>
       <div className="space-y-2">
         <input
           {...register("fullname", {
-            required: language ? "ادخل اسمك" : "Please enter your name",
+            required: t("Enter_Your_Name"),
           })}
-          placeholder={language ? "الإسم" : "Full Name"}
+          placeholder={t("Full_Name")}
           type="text"
           className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${errors.fullname && "border-red-500 focus:border-red-500"}`}
         />
@@ -114,18 +115,14 @@ const SignUpForm = () => {
       <div className="space-y-2">
         <input
           {...register("email", {
-            required: language
-              ? "ادخل البريد الإلكترونى"
-              : "Please enter your email",
+            required: t("Enter_Your_Email"),
             pattern: {
               value:
                 /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/,
-              message: language
-                ? "يرجى إدخال بريد إلكتروني صحيح"
-                : "Please enter a valid email",
+              message: t("Enter_Valid_Email"),
             },
           })}
-          placeholder={language ? "البريد الالكتروني" : "Email"}
+          placeholder={t("Email")}
           type="text"
           className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${(errors.email || emailUserError) && "border-red-500 focus:border-red-500"}`}
         />
@@ -133,11 +130,7 @@ const SignUpForm = () => {
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
         {emailUserError && (
-          <p className="text-red-500 text-sm">
-            {language
-              ? "هذا البريد مستخدم بالفعل"
-              : "This email already registered"}
-          </p>
+          <p className="text-red-500 text-sm">{t("DoseNot_Email")}</p>
         )}
       </div>
       <div className="space-y-2">
@@ -164,7 +157,7 @@ const SignUpForm = () => {
             }}
             autocompleteSearch={true}
             countryCodeEditable={false}
-            placeholder={language ? "رقم الهاتف" : "Phone Number"}
+            placeholder={t("Phone_Number")}
             className="z-30"
             enableSearch={true}
             country={"eg"}
@@ -181,9 +174,7 @@ const SignUpForm = () => {
           )}
           <input
             {...register("phone", {
-              required: language
-                ? "ادخل رقم الهاتف"
-                : "Please enter your Phone number",
+              required: t("Enter_Phone_Number"),
             })}
             className="hidden"
             type="text"
@@ -194,11 +185,9 @@ const SignUpForm = () => {
         <div className="flex items-center">
           <input
             {...register("password", {
-              required: language
-                ? "يرجى إدخال كلمة السر"
-                : "Please enter your password",
+              required: t("Placeholder_Enter_Password"),
             })}
-            placeholder={language ? " كلمة السر" : "Password"}
+            placeholder={t("Password")}
             type={showPassword ? "text" : "password"}
             className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${errors.password && "border-red-500 focus:border-red-500"}`}
           />
@@ -220,15 +209,11 @@ const SignUpForm = () => {
       </div>
       {watch("typeOfUser") !== "individual" && (
         <div className="space-y-2">
-          <label htmlFor="">
-            {language ? " عرفنا بيك" : "choose your type"}
-          </label>
+          <label htmlFor="">{t("Choose_Your_Type")}</label>
           <div className="flex items-center">
             <input
               {...register("typeOfUser", {
-                required: language
-                  ? "يرجى اختيار نوع المستخدم"
-                  : "Please choose your type",
+                required: t("Enter_Your_Type"),
               })}
               hidden
             />
@@ -244,7 +229,7 @@ const SignUpForm = () => {
                   height={30}
                   alt="مطور عقارى"
                 />
-                <span>{language ? "مطور عقارى" : "Developer"}</span>
+                <span>{t("Developer")}</span>
               </button>
               <button
                 onClick={() => setUserType("broker")}
@@ -257,7 +242,7 @@ const SignUpForm = () => {
                   height={30}
                   alt="سمسار"
                 />
-                <span>{language ? "سمسار" : "Broker"}</span>
+                <span>{t("Broker")}</span>
               </button>
             </div>
           </div>
@@ -269,9 +254,7 @@ const SignUpForm = () => {
       <div className="space-y-2 flex items-center gap-1">
         <input
           {...register("terms", {
-            required: language
-              ? "يجب الموافقة على الشروط والأحكام"
-              : "You must agree to the terms and conditions",
+            required: t("Must_Agree_Terms_Conditions"),
           })}
           type="checkbox"
           className={`mt-2 ${errors.terms && "outline-red-500"}`}
@@ -282,12 +265,12 @@ const SignUpForm = () => {
           htmlFor="terms"
           className={`text-sm ${errors.terms && "text-red-500"}`}
         >
-          {language ? "أوافق على جميع" : "I agree to all terms and conditions"}{" "}
+          {t("Agree_Conditions")}{" "}
           <Link
             href={"/termsofservice"}
             className={`text-lightGreen font-bold ${errors.terms && "text-red-500"}`}
           >
-            {language ? "الشروط والأحكام" : "terms and conditions"}
+            {t("Terms_Conditions")}
           </Link>
         </label>
       </div>
@@ -299,23 +282,21 @@ const SignUpForm = () => {
         {formStatus === "loading" ? (
           <Ring size={20} color="#fff" />
         ) : (
-          <span>{language ? "إنشاء حساب" : "Sign up"}</span>
+          <span>{t("Sign_Up")}</span>
         )}
       </Button>
       <div className="space-y-3">
         <div className="flex items-center gap-3">
           <div className="h-[1px] w-full bg-gray-500"></div>
-          <p className="text-gray-700">{language ? "او" : "or"}</p>
+          <p className="text-gray-700"> {t("Or")}</p>
           <div className="h-[1px] w-full bg-gray-500"></div>
         </div>
         <GoogleSignInBtn />
       </div>
       <div className="flex items-center justify-center gap-1">
-        <p className="text-lightGray">
-          {language ? "لديك حساب بالفعل؟" : "Already have an account?"}
-        </p>
+        <p className="text-lightGray">{t("Already_Have_Account")}</p>
         <Link href={"/signin"} className="text-lightGreen">
-          {language ? "سجل الدخول" : "Sign in"}
+          {t("Sign_In")}
         </Link>
       </div>
     </form>

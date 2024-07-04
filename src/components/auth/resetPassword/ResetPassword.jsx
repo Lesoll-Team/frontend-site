@@ -1,86 +1,104 @@
 import { sendResetNewPassword } from "@/utils/userAPI";
-import { Button, Input } from "@nextui-org/react";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { BiShow } from "react-icons/bi";
-import { GoEyeClosed } from "react-icons/go";
+import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function ResetPassword() {
+  const { register, formState, handleSubmit, watch } = useForm();
   const router = useRouter();
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const toggleVisibility = () => setIsVisible(!isVisible);
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
+  const { t } = useTranslation("common");
+  const { errors } = formState;
+  const [showPassword, setShowPassword] = useState(false);
 
-    if (password === confirmPassword) {
-      const token = router.query.token;
+  const onSubmit = async (data) => {
+    const token = router.query.token;
 
-      const userNewPassword = { token, password };
-
-      const data = await sendResetNewPassword(userNewPassword);
-      if (data.code == 200) {
-        router.push("/signin");
-      }
+    const res = await sendResetNewPassword({ token, password: data.password });
+    if (res.code == 200) {
+      router.push("/signin");
     }
   };
   return (
-    <div className="md:w-5/12 sm:10/12 w-full  bg-gray-200 rounded-xl  p-5">
-      <div className="md:text-4xl text-3xl text-center mb-5 text-lightGreen font-black">
-        Change Password
-      </div>
-      <form onSubmit={handleChangePassword} className="">
-        <div>
-          <Input
-            onChange={(e) => setPassword(e.target.value)}
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2`}
-            placeholder="New Password"
-            name="new-password"
-            type={isVisible ? "text" : "password"}
-            endContent={
-              <button
-                className="focus:outline-none"
-                type="button"
-                onClick={toggleVisibility}
-              >
-                {isVisible ? (
-                  <BiShow className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
-                  <GoEyeClosed className="text-2xl text-default-400 pointer-events-none" />
-                )}
-              </button>
-            }
-          />
+    <div className=" flex items-center justify-center ">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className=" h-2/3 md:w-8/12 w-full flex flex-col space-y-5 bg-white"
+      >
+        <h1 className="font-semibold text-black">
+          {t("Reset_Password_Title")}
+        </h1>
+        <div className="space-y-3">
+          <p className="font-inter">{t("New_Password")}</p>
+          <div className="flex items-center">
+            <input
+              {...register("password", {
+                required: t("Placeholder_Enter_Password"),
+              })}
+              placeholder={t("Password")}
+              type={showPassword ? "text" : "password"}
+              className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${errors.password && "border-red-500 focus:border-red-500"}`}
+            />
+            <button
+              className="-mx-10"
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <FaEye className="text-lightGray text-xl" />
+              ) : (
+                <FaEyeSlash className="text-lightGray text-xl" />
+              )}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password.message}</p>
+          )}
         </div>
-        <div>
-          <Input
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            name="confirm-password"
-            className={`block placeholder:text-gray-500 focus:outline-none   focus:border-lightGreen  w-full border-2 rounded-md px-4 py-2`}
-            placeholder="Confirm Password"
-            type={isVisible ? "text" : "password"}
-            endContent={
-              <button
-                className="focus:outline-none"
-                type="button"
-                onClick={toggleVisibility}
-              >
-                {isVisible ? (
-                  <BiShow className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
-                  <GoEyeClosed className="text-2xl text-default-400 pointer-events-none" />
-                )}
-              </button>
-            }
-          />
+
+        <div className="space-y-3">
+          <p className="font-inter">{t("Confirm_Password")}</p>
+
+          <div className="flex items-center">
+            <input
+              {...register("confirmPassword", {
+                required: t("Placeholder_Enter_Password"),
+                validate: {
+                  passMatch: (value) => {
+                    return value === watch("password") || t("Error_Password");
+                  },
+                },
+              })}
+              placeholder={t("Confirm_Password")}
+              type={showPassword ? "text" : "password"}
+              className={`w-full h-12 p-3 border-2 focus:outline-none focus:border-darkGreen rounded-md ${errors.confirmPassword && "border-red-500 focus:border-red-500"}`}
+            />
+            <button
+              className="-mx-10"
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <FaEye className="text-lightGray text-xl" />
+              ) : (
+                <FaEyeSlash className="text-lightGray text-xl" />
+              )}
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <p className="text-red-500 text-sm">
+              {errors.confirmPassword.message}
+            </p>
+          )}
         </div>
-        <div className=" w-full flex items-center justify-center">
-          <Button type="submit" className="w-4/12 bg-lightOrange text-white">
-            {" "}
-            Confirm{" "}
-          </Button>
-        </div>
+
+        <button
+          type="submit"
+          className="w-full p-3 rounded-md bg-lightGreen text-white"
+        >
+          {t("Confirm")}
+        </button>
       </form>
     </div>
   );

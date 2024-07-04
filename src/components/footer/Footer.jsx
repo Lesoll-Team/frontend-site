@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
 import SocialMedia from "./SocialMedia";
 import Links from "./Links";
 import CopyRight from "./CopyRight";
+import { getLangBoolean } from "@/utils/getLangBoolean";
 const Footer = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const language = getLangBoolean();
 
   return (
     <footer className="bg-[#F0F0F0]" dir={`${language && "rtl"}`}>
@@ -35,15 +35,3 @@ const Footer = () => {
 };
 
 export default memo(Footer);
-/* <div className="space-y-5 flex flex-col ">
-  <UsefulLinks />
-</div>
-<div className="space-y-5 flex flex-col">
-  <Help />
-</div>
-<div className="space-y-5 flex flex-col">
-  <Contact />
-</div>
-<div className="sm:hidden block  space-y-5 ">
-  <SocialMedia />
-</div> */

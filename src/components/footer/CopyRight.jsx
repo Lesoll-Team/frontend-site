@@ -1,11 +1,10 @@
-import React from 'react';
+import { useTranslation } from "next-i18next";
+import React from "react";
 
 const CopyRight = () => {
-    return (
-        <div className='lg-text'>
-              جميع الحقوق محفوظة | Lesoll 2024 ©
-        </div>
-    );
-}
+  const { t } = useTranslation("common");
+
+  return <div className="lg-text">{t("Copy_Right")} </div>;
+};
 
 export default CopyRight;

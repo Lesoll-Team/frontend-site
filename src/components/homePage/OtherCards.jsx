@@ -1,10 +1,10 @@
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, memo } from "react";
-import { useSelector } from "react-redux";
 
 const OtherCards = () => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
 
   return (
     <Fragment>
@@ -13,13 +13,9 @@ const OtherCards = () => {
         className="flex lg:h-[205px] h-[120px] p-5  gap-x-3 cursor-pointer justify-around items-center md:w-[49%] w-full bg-gradient-to-b border border-gray-100 from-[#e2f5ff] to-[#8ed9ff00] rounded-lg shadow"
       >
         <label className="min-w-[70%] max-w-[71%] flex flex-col gap-1  cursor-pointer">
-          <h2 className="text-[#0F3963]  font-bold">
-            {language ? "اضف عقارك" : "Add Property"}
-          </h2>
+          <h2 className="text-[#0F3963]  font-bold">{t("Add_Property")}</h2>
           <p className="font-semibold text-gray2 md:text-[18px] lg-text">
-            {language
-              ? "يمكنك الان عرض عقارك للبيع او الإيجار على ليسول بخطوات بسيطة"
-              : "You can now list your property for sale or rent on Lesoll in simple steps"}
+            {t("Add_Property_Description")}
           </p>
         </label>
         <Image
@@ -39,12 +35,10 @@ const OtherCards = () => {
       >
         <label className="min-w-[70%] flex flex-col gap-1 cursor-pointer">
           <h2 className="text-[#0F3963]  font-bold">
-            {language ? "أطلب عقارك الأن" : "Request your property now"}
+            {t("Request_Your_Property")}
           </h2>
           <p className="font-semibold text-gray2  md:text-[18px] lg-text">
-            {language
-              ? "حدد مواصفات العقار الذي تبحث عنه، حتى نتمكن من مساعدتك في العثور عليه"
-              : "Specify the specifications of the property you are looking for, so we can help you find it"}
+            {t("Add_Need_Description")}
           </p>
         </label>
         <Image

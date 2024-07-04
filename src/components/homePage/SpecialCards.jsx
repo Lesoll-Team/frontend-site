@@ -1,10 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
 import SpecialCard from "../realtyCard/SpecialCard";
-import { useSelector } from "react-redux";
 import { getFeaturesCards } from "./homeAPI";
+import { useTranslation } from "next-i18next";
 
 const SpecialCards = ({ isHome }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
+  const { t } = useTranslation("common");
+
   const [specialCardData, setSpecialCardData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -20,17 +21,13 @@ const SpecialCards = ({ isHome }) => {
       {isHome ? (
         <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
           <h2 className="font-bold  flex text-grayText2">
-            {language
-              ? "أفضل المشاريع والكومباوندات الجديدة"
-              : "Best new projects and compounds"}
+            {t("Best_Projects")}
           </h2>
         </div>
       ) : (
         <div className="w-full flex md:mb-[32px] mb-[16px] items-center justify-between">
           <h1 className="font-bold  flex text-grayText2">
-            {language
-              ? "أفضل المشاريع والكومباوندات الجديدة"
-              : "Best new projects and compounds"}
+            {t("Best_Projects")}
           </h1>
         </div>
       )}
