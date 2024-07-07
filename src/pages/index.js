@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import cache from "memory-cache";
 import HeroSection from "@/components/homePage/HeroSection";
 import SearchModule from "@/components/homePage/SearchModule";
 import OtherCards from "@/components/homePage/OtherCards";
@@ -11,9 +10,6 @@ const PropertiesCategories = dynamic(
 const LocationCategories = dynamic(
   () => import("@/components/homePage/LocationCategories"),
 );
-// const SpecialCards = dynamic(
-//   () => import("../components/homePage/SpecialCards"),
-// );
 
 const BestLinksInHome = dynamic(
   () => import("../components/linksInHome/BestLinksInHome"),
@@ -43,19 +39,15 @@ const Home = ({ bestSearch }) => {
   );
 };
 export default Home;
-export async function getServerSideProps() {
-  let linkInHome = cache.get("linkInHome");
-  if (!linkInHome) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`,
-    );
-    const linkInHome = await response.json();
-    cache.put("linkInHome", linkInHome, 86400000);
-  }
-
+export async function getStaticProps() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`,
+  );
+  const linkInHome = await response.json();
   return {
     props: {
       bestSearch: linkInHome,
     },
+    revalidate: 21600, // يعيد التحقق كل 6 ساعات (21600 ثانية)
   };
 }

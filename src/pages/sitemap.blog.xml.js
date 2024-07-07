@@ -7,7 +7,7 @@ function generateSiteMap({ data }) {
        <loc>https://lesoll.com</loc>
        <lastmod>${data.data[2].created}</lastmod>
         <priority>1.00</priority>
-     </url>    
+     </url>
      <url>
        <loc>https://lesoll.com/blog</loc>
        <lastmod>${data.data[2].created}</lastmod>

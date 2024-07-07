@@ -1,3 +1,4 @@
+import UserGift from "./UserGift";
 import UserData from "./userInfo/UserData";
 import UserLog from "./userInfo/UserLog";
 import UserPayment from "./UserPayment";
@@ -7,6 +8,7 @@ const UserDetails = ({
   userData,
   favNum,
   deletedNum,
+  bundleVIP,
   invstNum,
   rentNum,
   saleNum,
@@ -26,6 +28,7 @@ const UserDetails = ({
         visitedPages={visitedPages}
       />
       <UserPayment userData={userData} />
+      <UserGift bundleVIP={bundleVIP} userData={userData} />
       <UserProperties
         invstNum={invstNum}
         totalPropNum={totalPropNum}

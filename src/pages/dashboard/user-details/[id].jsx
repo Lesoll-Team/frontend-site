@@ -15,6 +15,7 @@ const UserDetailsPage = () => {
   const [saleNum, setSaletNum] = useState();
   const [totalPropNum, setTotalPropNum] = useState();
   const [visitedPages, setVisitedPages] = useState();
+  const [bundleVIP, setBundleVIP] = useState({});
   const router = useRouter();
 
   const slug = router.query.id;
@@ -23,7 +24,7 @@ const UserDetailsPage = () => {
       if (slug) {
         const data = await getUserDataDashboard(slug);
         setUserData(data.getData);
-
+        setBundleVIP(data.paymentPackage);
         setVisitedPages(data.linksUserVisit);
         setFavNum(data.numberOfPropertyDeleted);
         setDeletedNum(data.numberOfFavorites);
@@ -54,6 +55,7 @@ const UserDetailsPage = () => {
             invstNum={invstNum}
             rentNum={rentNum}
             saleNum={saleNum}
+            bundleVIP={bundleVIP}
             totalPropNum={totalPropNum}
             visitedPages={visitedPages}
           />
