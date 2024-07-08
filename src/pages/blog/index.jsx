@@ -1,7 +1,6 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import BestLinksInHome from "@/components/linksInHome/BestLinksInHome";
 import BlogFeed from "@/components/newBlogs/BlogFeed";
-import cache from "memory-cache";
 
 const index = ({ keyword, data, bestSearch }) => {
   return (
@@ -20,21 +19,18 @@ export default index;
 
 export async function getServerSideProps({ query }) {
   const keyword = query;
-  let linkInHome = cache.get("linkInHome");
-  if (!linkInHome) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`,
-    );
-    const linkInHome = await response.json();
-    cache.put("linkInHome", linkInHome, 86400000);
-  }
+  const linksHome = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/property/linkshome`,
+  );
+
   const response = await axiosInstance.get(
     `/admin/blog/allblogs?page=${
-      keyword.page || 1
-    }&limit=${"5"}&keyword=${keyword.search || ""}&category=${
-      keyword.category || ""
+      keyword?.page || 1
+    }&limit=${"5"}&keyword=${keyword?.search || ""}&category=${
+      keyword?.category || ""
     }`,
   );
+  const linkInHome = await linksHome.json();
   const data = response.data;
   return {
     props: {

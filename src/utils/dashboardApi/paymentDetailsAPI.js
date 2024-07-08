@@ -115,3 +115,25 @@ export async function deleteGiftFromUser({ packageID, userID }) {
     throw error.response.data;
   }
 }
+
+export async function sendBundleVIP({ packageData, userID }) {
+  try {
+    const response = await axiosInstance.post(
+      `/admin/dashboard/gift-vip/${userID}`,
+      { packageData },
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+export async function deleteGiftBundleVIP({ packageID }) {
+  try {
+    const response = await axiosInstance.delete(
+      `/admin/dashboard/gift-vip-delete/${packageID}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

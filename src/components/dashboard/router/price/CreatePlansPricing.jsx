@@ -7,10 +7,10 @@ import {
   getServicePrice,
 } from "@/redux-store/features/PricingSlice";
 import PlanAdded from "../../model/pricing/PlanAdded";
-// import SelectServices from "../../model/pricing/SelectServices";
 import DropBoxSelectServices from "../../model/pricing/DropBoxSelectServices";
+import { sendBundleVIP } from "@/utils/dashboardApi/paymentDetailsAPI";
 
-const CreatePlansPricing = () => {
+const CreatePlansPricing = ({ userId }) => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const servicePrice = useSelector((state) => state.Pricing.priceService);
@@ -30,13 +30,10 @@ const CreatePlansPricing = () => {
   const [oldPrice, setOldPrice] = useState(0);
   const [normalProp, setNormalProp] = useState(0);
 
-  // const [propNumber, setPropNumber] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
-
   const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-  // const [propNumberInHome, setPropNumberInHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
-
   const [featuresList, setFeaturesList] = useState(null);
+  const [giftCreated, setGiftCreated] = useState(false);
 
   const data = {
     PaymentAr: categoryNameAr,
@@ -58,9 +55,20 @@ const CreatePlansPricing = () => {
     addProperty: isAddProperty,
   };
 
-  const handleAddFeatures = (e) => {
+  const handleAddFeatures = async (e) => {
     e.preventDefault();
-    dispatch(createPricePlan(data));
+
+    if (userId) {
+      await sendBundleVIP({ packageData: data, userID: userId })
+        .then(() => {
+          console.log("then");
+          setGiftCreated(true);
+        })
+        .catch(() => {
+          console.log("catch");
+          setGiftCreated(false);
+        });
+    } else dispatch(createPricePlan(data));
   };
   useEffect(() => {
     dispatch(getServicePrice());
@@ -70,7 +78,7 @@ const CreatePlansPricing = () => {
       <div className="bg-white  sticky top-0">
         <Sidebar />
       </div>
-      {isCreated ? (
+      {isCreated || giftCreated ? (
         <PlanAdded
           message={
             language
@@ -260,12 +268,6 @@ const CreatePlansPricing = () => {
                   ) && (
                     <label className="flex flex-col gap-x-2">
                       ضمان ظهور إعلانك ضمن أول الإعلانات:-
-                      {/* <input
-                        type="number"
-                        className="mt-1 px-3 py-2 border rounded w-fit "
-                        onChange={(e) => setPropNumber(e.target.value)}
-                        placeholder="عدد العقارات "
-                      /> */}
                       <input
                         type="number"
                         className="mt-1 px-3 py-2 border rounded w-fit"
@@ -280,13 +282,6 @@ const CreatePlansPricing = () => {
                   ) && (
                     <label className="flex flex-col gap-x-2">
                       تجديد إعلانك يوميًا على الصفحة البحث:-
-                      {/* <input
-                        type="number"
-                        className=" mt-1 px-3 py-2 border rounded w-fit"
-                        onChange={(e) => setPropNumberInHome(e.target.value)}
-                        placeholder="عدد العقارات "
-                        value={propNumberInHome}
-                      /> */}
                       <input
                         type="number"
                         className="  mt-1 px-3 py-2 border rounded w-fit"

@@ -43,9 +43,12 @@ const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
           </div>
         </div>
         <div className="flex items-stretch justify-stretch gap-2">
-          <button className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2">
+          <Link
+            href={`/dashboard/user-details/send-bundle/${userData._id}`}
+            className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
+          >
             منح باقة
-          </button>
+          </Link>
           <Link
             href={`/view-profile/${userData.username}`}
             className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
