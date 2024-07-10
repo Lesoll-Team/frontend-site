@@ -1,15 +1,17 @@
 import { formatDate } from "@/utils/FormateData";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { HiDownload } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { getInvoice } from "../../apis/profileApis";
-
+import { HiOutlineDotsVertical } from "react-icons/hi";
 const PlanCard = ({ data }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { formattedDate: startDate } = formatDate(data?.startDate);
   const { formattedDate: expireDate } = formatDate(data?.expireDate);
   const [getInvoiceStatus, setGetInvoiceStatus] = useState("idle");
   const [getInvoiceError, setGetInvoiceError] = useState("idle");
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
   const [downloadLink, setDownloadLink] = useState(null);
   const packagePer = useMemo(() => {
     if (data.type === "month") {
@@ -40,66 +42,85 @@ const PlanCard = ({ data }) => {
     });
   };
   useEffect(() => {
-    handleDownloadClick();
+    if (getInvoiceStatus === "success") {
+      setGetInvoiceStatus("idle");
+      handleDownloadClick();
+    }
   }, [getInvoiceStatus]);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    }
+
+    // Add event listener when component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const toggleMenu = () => setShowMenu((prev) => !prev);
   return (
-    <div className="px-3 py-5 md:px-5 md:py10 border-1 rounded bg-white drop-shadow-sm flex flex-col gap-8 relative">
-      <div className="flex gap-2">
-        <h3>{language ? data?.packageName?.ar : data?.packageName?.en}</h3>
+    <div className="px-3 py-5 md:px-5 md:py10 border-1 rounded bg-white drop-shadow-sm flex flex-col gap-6 relative">
+      <div
+        className={`absolute top-4 ${language ? "left-4" : "right-4"} `}
+        ref={menuRef}
+      >
+        <button onClick={toggleMenu}>
+          <HiOutlineDotsVertical className="text-xl" />
+        </button>
+        {showMenu && (
+          <div className="absolute fade-in bg-white min-w-[130px] rounded-lg py-2  drop-shadow left-0 top-5 ">
+            <button
+              disabled={getInvoiceStatus === "loading"}
+              className="w-full flex gap-2 items-center justify-center  disabled:opacity-80 text-center"
+              onClick={getPackageInvoice}
+            >
+              {/* <HiDownload />{" "} */}
+              <p className="text-center">
+                {language ? "تحميل الفاتورة" : "Download the invoice "}
+              </p>
+              {getInvoiceStatus === "loading" && (
+                <div className="w-3 h-3 border-t-2  rounded-full border-lightGreen animate-spinner-ease-spin "></div>
+              )}
+              {/* <div className="w-10 h-1 bg-black animate-indeterminate-bar rounded-lg"></div> */}
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col gap-5">
+        <h2>{language ? data?.packageName?.ar : data?.packageName?.en}</h2>
         <h3 className="text-lightGreen">
           {data.price} {language ? "جنية" : "Egp"} / {packagePer}
         </h3>
       </div>
       <div>
-        <div>
-          <div className="py-3 px-4 flex justify-between bg-gray-200">
-            <p className="font-bold md:text-[16px] text-xs">
-              {language ? "عدد الإعلانات المتبقية للتثبيت" : "Remaining ads "}
-            </p>
-            <p className=" md:text-[16px] text-xs">
-              {data?.userPin || 0} {language ? " من" : "out of "}{" "}
-              {data?.pinPackage} {language ? "إعلان" : "ad"}
-            </p>
-          </div>
-          <div className="py-3 px-4 flex justify-between items-center ">
-            <p className="font-bold  max-w-[80%]  md:text-[16px] text-xs">
-              {language
-                ? "عدد الإعلانات المتبقية لإعادة النشر"
-                : "Remaining ads "}
-            </p>
-            <p className=" md:text-[16px] text-xs">
-              {data?.userRepost || 0} {language ? " من" : "out of "}{" "}
-              {data?.repostPackage} {language ? "إعلان" : "ad"}
-            </p>
-          </div>
-          <div className="py-3 px-4 flex justify-between bg-gray-200">
-            <p className="font-bold md:text-[16px] text-xs">
-              {language ? "تاريخ الإشتراك" : "Subscription date"}
-            </p>
-            <p className=" md:text-[16px] text-xs">{startDate}</p>
-          </div>
-          <div className="py-3 px-4 flex justify-between ">
-            <p className="font-bold md:text-[16px] text-xs">
-              {language ? "تاريخ الإنتهاء" : "End date"}
-            </p>
-            <p className=" md:text-[16px] text-xs">{expireDate}</p>
-          </div>
+        <div className="py-3  flex items-center gap-3">
+          <p className="font-bold md:text-[16px] text-xs">
+            {language ? "عدد الإعلانات المتبقية : " : "Remaining ads:  "}
+          </p>
+          <p className=" md:text-[16px] text-xs">
+            {data?.propertyNumber_min || 0} {language ? " من" : "out of "}{" "}
+            {data?.propertyNumber} {language ? "إعلان" : "ad"}
+          </p>
+        </div>
+
+        <div className="py-3  flex items-center gap-3">
+          <p className="font-bold md:text-[16px] text-xs">
+            {language ? "تاريخ الإشتراك: " : "Subscription date:"}
+          </p>
+          <p className=" md:text-[16px] text-xs">{startDate}</p>
+        </div>
+        <div className="py-3  flex items-center gap-3 ">
+          <p className="font-bold md:text-[16px] text-xs">
+            {language ? "تاريخ الإنتهاء: " : "End date: "}
+          </p>
+          <p className=" md:text-[16px] text-xs">{expireDate}</p>
         </div>
       </div>
-      <button
-        disabled={getInvoiceStatus === "loading"}
-        className="w-fit flex gap-2 items-center text-[#0863BD] disabled:opacity-80"
-        onClick={getPackageInvoice}
-      >
-        <HiDownload />{" "}
-        <p className="text-[#0863BD]">
-          {language ? "تحميل الفاتورة" : "Download the invoice "}
-        </p>
-        {getInvoiceStatus === "loading" && (
-          <div className="w-3 h-3 border-t-2  rounded-full border-lightGreen animate-spinner-ease-spin "></div>
-        )}
-        {/* <div className="w-10 h-1 bg-black animate-indeterminate-bar rounded-lg"></div> */}
-      </button>
     </div>
   );
 };

@@ -105,7 +105,7 @@ const OtpInputForm = ({ userData }) => {
           inputType="number"
           value={otp}
           onChange={setOtp}
-          numInputs={4}
+          numInputs={6}
           renderSeparator={<span className="mx-2"></span>}
           renderInput={(props) => <input {...props} />}
           inputStyle={{
@@ -139,7 +139,7 @@ const OtpInputForm = ({ userData }) => {
         {/* Display countdown */}
       </div>
 
-      <Button disabled={otp.length < 4 || formStatus === "loading"}>
+      <Button disabled={otp.length < 6 || formStatus === "loading"}>
         {formStatus === "loading" ? (
           <Ring size={28} color="#fff" />
         ) : language ? (

@@ -3,13 +3,11 @@ import Button from "@/Shared/ui/Button";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
 import { getOtp, verifyPhoneNumber } from "./apis";
 import ReactModal from "../ui/ReactModal";
 
 const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
-  const router = useRouter();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const [formStatus, setFormStatus] = useState("idle");
@@ -71,16 +69,16 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
     <ReactModal modalIsOpen={isOpen} setModalIsOpen={setIsOpen}>
       <form
         onSubmit={handleSubmit}
-        className="flex items-center justify-center flex-col space-y-8 my-10 md:px-0 px-5"
+        className="flex items-center justify-center flex-col space-y-8 pb  pt-7 md:px-0 px-5"
       >
         <div className="text-center space-y-4">
           {" "}
           <h1 className="text-2xl md:text-4xl ">
-            {language ? "ادخل كود تفعيل الحساب" : "Enter your OTP"}
+            {language ? "ادخل كود  تأكيد رقم الهاتف" : "Enter your OTP"}
           </h1>
           <p className="max-w-[400px] text-center">
             {language
-              ? "تم ارسال كود تفعيل الحساب (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
+              ? "تم ارسال كود تأكيد رقم العاتف (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
               : "The account activation code (OTP) has been sent to your mobile phone. Please check the incoming messages."}
           </p>
         </div>
@@ -95,13 +93,13 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
             inputType="number"
             value={otp}
             onChange={setOtp}
-            numInputs={4}
-            renderSeparator={<span className="mx-2"></span>}
+            numInputs={6}
+            renderSeparator={<span className="mx-2 font-bold">.</span>}
             renderInput={(props) => <input {...props} />}
             inputStyle={{
               border: "1px solid #A3A1A1",
-              width: windowWidth > 500 ? "60px" : "40px",
-              height: windowWidth > 500 ? "60px" : "40px",
+              width: windowWidth > 500 ? "55px" : "40px",
+              height: windowWidth > 500 ? "55px" : "40px",
               outline: "none",
               borderRadius: "4px",
             }}
@@ -114,13 +112,13 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
               type="button"
               className="text-linkColor underline"
             >
-              {language ? "إعادة إرسال كود تفعيل الحساب" : "Resend OTP"}
+              {language ? "إعادة إرسال كود تأكيد رقم الهاتف" : "Resend OTP"}
             </button>
           ) : (
             <>
               <span>
                 {language
-                  ? "يمكنك إرسال كود تفعيل الحساب مرة أخرى بعد"
+                  ? "يمكنك إرسال كود  تأكيد رقم الهاتف مرة أخرى بعد"
                   : "You can send the account activation code again after"}
               </span>
               <span>00:{countdown < 10 ? `0${countdown}` : countdown}</span>{" "}
@@ -129,7 +127,7 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
           {/* Display countdown */}
         </div>
 
-        <Button disabled={otp.length < 4 || formStatus === "loading"}>
+        <Button disabled={otp.length < 6 || formStatus === "loading"}>
           {formStatus === "loading" ? (
             <Ring size={28} color="#fff" />
           ) : language ? (

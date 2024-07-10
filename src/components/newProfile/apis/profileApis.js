@@ -281,3 +281,23 @@ export const deleteDraft = async ({ setApiStatus, id }) => {
     setApiStatus("failed");
   }
 };
+
+export const getcustomPackages = async ({
+  setCustomPackages,
+  id,
+  setApiStatus,
+}) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.get(
+      `/admin/dashboard/gift-vip-get/${id}`,
+    );
+    if (response.status == 200) {
+      setCustomPackages(response.data.paymentPackages);
+      setApiStatus("success");
+    }
+  } catch (error) {
+    setApiStatus("failed");
+    throw error.response.data;
+  }
+};

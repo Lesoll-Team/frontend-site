@@ -15,6 +15,7 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
   const [reachedLimit, setReachedLimit] = useState(false);
   const [confirtmRepost, setConfirmRepost] = useState(false);
   const [confirtmPin, setConfirmPin] = useState(false);
+  const hasRepost = userData?.propertyFeature?.includes("Repost");
 
   const handleRepostClick = () => {
     if (!userData?.packageSubscribe) {
@@ -46,15 +47,16 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
           {language ? "تثبيت" : "Pin"}
           <TiPinOutline />
         </button>
-
-        <button
-          disabled={disabled}
-          onClick={handleRepostClick}
-          className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
-        >
-          {language ? "إعادة نشر" : "Repost"}
-          <BsArrowRepeat />
-        </button>
+        {hasRepost && (
+          <button
+            disabled={disabled}
+            onClick={handleRepostClick}
+            className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
+          >
+            {language ? "إعادة نشر" : "Repost"}
+            <BsArrowRepeat />
+          </button>
+        )}
       </div>
       {/* no package */}
       {/* <ReactModal setModalIsOpen={setNoRepost} modalIsOpen={noRepost}>
