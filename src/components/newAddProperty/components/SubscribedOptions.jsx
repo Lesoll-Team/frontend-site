@@ -54,10 +54,10 @@ const SubscribedOptions = ({
               setValue("packId", "");
               clearErrors("adType");
             }}
-            className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${watch("adType") === "paid" && "border-lightGreen border"}`}
+            className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${watch("adType") === "paid" && !watch("packId") && "border-lightGreen border"}`}
           >
             <div className="flex items-center gap-2">
-              {watch("adType") === "paid" ? (
+              {watch("adType") === "paid" && !watch("packId") ? (
                 <IoIosRadioButtonOn className="text-lightGreen text-xl" />
               ) : (
                 <IoIosRadioButtonOff className="text-outLine text-xl" />

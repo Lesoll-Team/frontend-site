@@ -69,7 +69,7 @@ const PaymentStep = ({ errors, register, setValue, watch, clearErrors }) => {
           {errors?.adType && <Error>{errors?.adType.message}</Error>}
         </div>
       </AddPropSectionContainer>
-      {watch("adType") === "paid" && (
+      {watch("packId") && (
         <PaymentMethod
           clearErrors={clearErrors}
           errors={errors}
