@@ -9,6 +9,9 @@ const ViewUser = ({ user, properties, params }) => {
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: phoneNumber,
   });
+  console.log("user::>>>", user);
+  console.log("properties::>>>", properties);
+  console.log("params::>>>", params);
 
   return (
     <div className="container mx-auto py-5 md:py-20 space-y-6 md:space-y-20">

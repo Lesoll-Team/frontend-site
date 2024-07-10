@@ -116,3 +116,21 @@ input[type="search"]::-webkit-search-cancel-button {
     transform: translateX(0);
   }
 }
+
+
+
+/* Custom Swiper Pagination Styles */
+
+.swiper-pagination-custom .swiper-pagination-bullet {
+  /* width: 10px;
+  height: 10px; */
+  background-color: #CCCCCC;
+  /* Inactive bullet color */
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  background-color: #494d52;
+  /* Active bullet color */
+}

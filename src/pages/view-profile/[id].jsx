@@ -13,11 +13,9 @@ const ViewProfilePage = ({ query, user, properties }) => {
 export default ViewProfilePage;
 export async function getServerSideProps({ query }) {
   const param = query;
-  let userdata;
   const user = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${query.id}`,
   );
-  userdata = user.data;
   const properties = await axios
     .get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${
