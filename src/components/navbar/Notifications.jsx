@@ -1,4 +1,5 @@
 import {
+  clearNotifications,
   getNotifications,
   visitAllNotifications,
   visitNotification,
@@ -48,8 +49,8 @@ const Notifications = () => {
   };
   const handleSeeAll = async () => {
     setShowMenu(false);
+    dispatch(clearNotifications());
     dispatch(visitAllNotifications());
-    dispatch(getNotifications());
   };
 
   return (
