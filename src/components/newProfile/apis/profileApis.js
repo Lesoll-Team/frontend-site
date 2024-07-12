@@ -323,3 +323,31 @@ export const getcustomPackages = async ({
     throw error.response.data;
   }
 };
+
+// verify acc phone number
+export const getVerifyAccOtp = async ({ setApiStatus, phone }) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.post(`/user/otp/send/phonenumber/`, {
+      phoneNumber: phone,
+    });
+    if (response.status === 200 || response.status === 201) {
+      setApiStatus("success");
+    }
+  } catch (error) {
+    setApiStatus("failed");
+  }
+};
+export const VerifyAccOtp = async ({ setApiStatus, otp }) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.post(`/user/otp/send/phonenumber/`, {
+      phoneNumber: phone,
+    });
+    if (response.status === 200 || response.status === 201) {
+      setApiStatus("success");
+    }
+  } catch (error) {
+    setApiStatus("failed");
+  }
+};

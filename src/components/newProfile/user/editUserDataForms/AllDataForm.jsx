@@ -64,7 +64,7 @@ const AllDataForm = ({ main }) => {
       setUserData();
     }
   }, [formStatus]);
-
+  console.log(userData);
   if (userData) {
     return (
       <div className={` mx-auto space-y-8 ${main && "md:block hidden"} `}>
