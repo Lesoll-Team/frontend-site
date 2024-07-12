@@ -5,9 +5,9 @@ import { scrollToTop } from "@/utils/scrollToTop";
 import { useUser } from "@/Shared/UserContext";
 import ActionBtns from "./components/ActionBtns";
 import CurrentStep from "./components/CurrentStep";
-import NotsignedIn from "./components/NotsignedIn";
 import StepsBar from "./components/StepsBar";
 import PageLoading from "@/Shared/ui/PageLoading";
+import SignInToPost from "@/Shared/SignInToPost";
 
 const AddProperty = ({ propData }) => {
   const {
@@ -70,7 +70,7 @@ const AddProperty = ({ propData }) => {
       </form>
     );
   } else if (status === "failed") {
-    return <NotsignedIn />;
+    return <SignInToPost />;
   }
 };
 export default AddProperty;
