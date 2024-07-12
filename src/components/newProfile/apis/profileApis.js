@@ -85,6 +85,7 @@ export const deleteProperty = async ({
   try {
     const response = await axiosInstance.delete(
       `/property/delete/property/${propdId}`,
+      { reason: message },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -140,6 +141,27 @@ export const repostProperty = async ({
   }
 };
 
+export const pinPropertyHome = async ({
+  setFormStatus,
+  setServerError,
+  propId,
+}) => {
+  try {
+    setFormStatus("loading");
+
+    const response = await axiosInstance.patch(
+      `/payment-user/pin-homepage-property/${propId}`,
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+    }
+    return response.data;
+  } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};
 export const pinProperty = async ({
   setFormStatus,
   setServerError,

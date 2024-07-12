@@ -8,6 +8,7 @@ import FeatureLimitModal from "./modals/FeatureLimitModal";
 import ConfirmPin from "./modals/ConfirmPin";
 import ConfirmRepost from "./modals/ConfirmRepost";
 import { useUser } from "@/Shared/UserContext";
+import ConfirmPinHome from "./modals/ConfirmPinHome";
 const PaymentActions = ({ propId, getProperties, disabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
@@ -15,29 +16,45 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
   const [reachedLimit, setReachedLimit] = useState(false);
   const [confirtmRepost, setConfirmRepost] = useState(false);
   const [confirtmPin, setConfirmPin] = useState(false);
+  const [confirtmPinHome, setConfirmPinHome] = useState(false);
   const hasRepost = userData?.propertyFeature?.includes("Repost");
+  const hasPinHome = userData?.propertyFeature?.includes("pinPropertyHomePage");
+  console.log(userData?.propertyFeature);
+  console.log(hasPinHome);
 
   const handleRepostClick = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
-      // setNoRepost(true);
-    } else if (userData?.repostPropertyNumber == 0) {
-      setReachedLimit(true);
-    } else {
-      setConfirmRepost(true);
+    } else if (hasRepost) {
+      if (userData?.packagePropertyNumber == 0) {
+        setReachedLimit(true);
+      } else {
+        setConfirmRepost(true);
+      }
+    }
+  };
+  const handlePinHome = () => {
+    if (!userData?.packageSubscribe) {
+      setNoPackage(true);
+    } else if (hasPinHome) {
+      if (userData?.packagePropertyNumber == 0) {
+        setReachedLimit(true);
+      } else {
+        setConfirmPinHome(true);
+      }
     }
   };
   const handlePinClick = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
-    } else if (userData?.pinPropertyNumber == 0) {
+    } else if (userData?.packagePropertyNumber == 0) {
       setReachedLimit(true);
     } else {
       setConfirmPin(true);
     }
   };
   return (
-    <>
+    <div className="space-y-2">
       <div className={`flex gap-2 items-center  ${disabled && "opacity-60"}`}>
         <button
           disabled={disabled}
@@ -58,6 +75,17 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
           </button>
         )}
       </div>
+      {hasPinHome && (
+        <div className="flex w-full">
+          <button
+            disabled={disabled}
+            onClick={handlePinHome}
+            className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
+          >
+            {language ? "تثبيت فى الصفحة الرئيسية" : "Pin to Home Page "}
+          </button>
+        </div>
+      )}
       {/* no package */}
       {/* <ReactModal setModalIsOpen={setNoRepost} modalIsOpen={noRepost}>
         <div className="md:w-[500px] w-[95vw]">
@@ -81,7 +109,13 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
         open={confirtmRepost}
         propId={propId}
       />
-    </>
+      <ConfirmPinHome
+        getProperties={getProperties}
+        setIsOpen={setConfirmPinHome}
+        open={confirtmPinHome}
+        propId={propId}
+      />
+    </div>
   );
 };
 export default PaymentActions;
