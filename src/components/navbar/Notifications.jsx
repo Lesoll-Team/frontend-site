@@ -1,9 +1,11 @@
+import { useFormatNewData } from "@/Hooks/useFormatTime";
 import {
   clearNotifications,
   getNotifications,
   visitAllNotifications,
   visitNotification,
 } from "@/redux-store/features/user/notifiicationSlice";
+import { formatDate } from "@/utils/FormateData";
 // import { formatDate } from "@/utils/FormateData";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -88,24 +90,13 @@ const Notifications = () => {
           <div className="space-y-2">
             {userNotifications && userNotifications.length > 0 ? (
               userNotifications.map((item, i) => {
-                const notificationDate = new Date(item.createdAt);
+                const isLast = userNotifications.length != i + 1;
                 return (
-                  <div key={item._id}>
-                    <Link
-                      href={item?.link || ""}
-                      key={item._id}
-                      onClick={() => handleNotificationClick(item._id)}
-                      className={`flex items-start justify-between gap-1 rounded-md flex-col  py-2 font-noto px-2 flex-wrap `}
-                    >
-                      <span className="text-xs md:text-lg">
-                        {language ? item.title.ar : item.title.en}
-                      </span>
-                      <span className="text-xs md:text-sm text-lightGreen">
-                        <ReactTimeAgo date={notificationDate} />
-                      </span>
-                    </Link>
-                    {userNotifications.length != i + 1 && <hr />}
-                  </div>
+                  <SinglenNotification
+                    isLast={isLast}
+                    data={item}
+                    key={item._id}
+                  />
                 );
               })
             ) : (
@@ -120,3 +111,34 @@ const Notifications = () => {
   );
 };
 export default Notifications;
+
+const SinglenNotification = ({ data, isLast }) => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
+  const date = useFormatNewData({
+    date: data.createdAt,
+    lang: language,
+  });
+  // const { formattedTime } = formatDate(data.createdAt);
+  // const time = formattedTime.split(":").splice(0, 2).join(":");
+  // console.log(time);
+  return (
+    <div>
+      <Link
+        href={data?.link || ""}
+        key={data._id}
+        onClick={() => handleNotificationClick(data._id)}
+        className={`flex items-start justify-between gap-1 rounded-md flex-col  py-2 font-noto px-2 flex-wrap `}
+      >
+        <span className="text-xs md:text-lg">
+          {language ? data.title.ar : data.title.en}
+        </span>
+        <span className="text-xs md:text-sm text-lightGreen">
+          {/* <ReactTimeAgo date={notificationDate} /> */}
+          {date}
+        </span>
+      </Link>
+      {isLast && <hr />}
+    </div>
+  );
+};

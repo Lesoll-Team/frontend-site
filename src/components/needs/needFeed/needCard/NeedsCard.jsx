@@ -1,4 +1,5 @@
 import useContactLinks from "@/Hooks/useContactLinks";
+import { useFormatNewData } from "@/Hooks/useFormatTime";
 import { localizedNumber } from "@/utils/localizedNumber";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,10 +7,13 @@ import { useMemo } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
-import ReactTimeAgo from "react-time-ago";
 
 const NeedsCard = ({ need }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const time = useFormatNewData({
+    date: need.createdAt,
+    lang: language,
+  });
   const date = useMemo(() => new Date(need.createdAt), [need]);
   const title = useMemo(
     () => (language ? need?.title?.ar : need?.title?.en),
@@ -116,11 +120,7 @@ const NeedsCard = ({ need }) => {
       <p
         className={`absolute md:block hidden bottom-6 ${language ? "left-5" : "right-5"}`}
       >
-        <ReactTimeAgo
-          date={date}
-          // locale={language ? "ar" : "en-Us"}
-          timeStyle="twitter"
-        />
+        {time}
       </p>
     </div>
   );
