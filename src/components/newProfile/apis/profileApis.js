@@ -341,8 +341,8 @@ export const getVerifyAccOtp = async ({ setApiStatus, phone }) => {
 export const VerifyAccOtp = async ({ setApiStatus, otp }) => {
   try {
     setApiStatus("loading");
-    const response = await axiosInstance.post(`/user/otp/send/phonenumber/`, {
-      phoneNumber: phone,
+    const response = await axiosInstance.post(`/user/otp/send/verify`, {
+      codenumber: otp,
     });
     if (response.status === 200 || response.status === 201) {
       setApiStatus("success");
