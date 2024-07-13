@@ -12,6 +12,7 @@ import { editUserData } from "../../apis/profileApis";
 import OptModal from "@/Shared/otp/OtpModel";
 import EditFormSkeleton from "./EditFormSkeleton";
 import Error from "@/Shared/ui/Error";
+import VerifyAcc from "../VerifyAcc";
 
 const AllDataForm = ({ main }) => {
   const [formStatus, setFormStatus] = useState("idle");
@@ -19,6 +20,7 @@ const AllDataForm = ({ main }) => {
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
   const [phoneToVerify, setPhoneToVerify] = useState();
   const [otpVerifyIsOpen, setOtpVerifyIsOpen] = useState(false);
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   const form = useForm();
@@ -165,6 +167,11 @@ const AllDataForm = ({ main }) => {
                   type="text"
                 />
               </div>
+              {!userData?.Verified && (
+                <button onClick={() => setShowVerifyModal(true)} type="button">
+                  verify
+                </button>
+              )}
             </UserInputContainer>
           </div>
 
@@ -248,6 +255,13 @@ const AllDataForm = ({ main }) => {
             isOpen={otpVerifyIsOpen}
             setIsOpen={setOtpVerifyIsOpen}
             onSuccess={triggerSubmit}
+          />
+        )}
+        {showVerifyModal && (
+          <VerifyAcc
+            isOpen={showVerifyModal}
+            onSuccess={setUserData}
+            setIsOpen={setShowVerifyModal}
           />
         )}
       </div>
