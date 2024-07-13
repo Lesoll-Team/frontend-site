@@ -51,7 +51,7 @@ const ProfileLinks = ({ main }) => {
       <hr />
       <NavLink
         href="/profile/my-properties"
-        text={{ en: "Properties", ar: "الإعلانات" }}
+        text={{ en: "Properties", ar: "إعلاناتى" }}
         icon={MdOutlineRealEstateAgent}
         active={isAds}
       />
@@ -67,7 +67,7 @@ const ProfileLinks = ({ main }) => {
         <>
           <NavLink
             href="/profile/needs"
-            text={{ en: "Needs", ar: "الطلبات" }}
+            text={{ en: "Needs", ar: "طلباتى" }}
             icon={BiEditAlt}
             active={isNeeds}
           />
@@ -80,7 +80,7 @@ const ProfileLinks = ({ main }) => {
           className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isPackage && "md:text-lightGreen"}`}
         >
           <IoMdCard className="md:text-2xl" />
-          {language ? " الباقات" : "Package"}
+          {language ? " باقاتى" : "Package"}
         </Link>
         <hr />
       </div>
