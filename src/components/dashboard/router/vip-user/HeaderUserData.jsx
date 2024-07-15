@@ -11,7 +11,7 @@ const HeaderUserData = ({ userData }) => {
   return (
     <div className="w-full grid lg:grid-cols-2 grid-cols-1 space-y-4 p-2 items-center">
       <div className="flex items-center  justify-center md:justify-normal w-full ">
-        <Link href={`/view-profile/${userData?.username}`}>
+        <Link href={`/view-profile/${userData?.username}?page=1`}>
           <Image
             alt="user avatar"
             width={100}
@@ -22,7 +22,7 @@ const HeaderUserData = ({ userData }) => {
         </Link>
         <div className=" mx-2">
           <h1 className="text-2xl font-bold">
-            <Link href={`/view-profile/${userData?.username}`}>
+            <Link href={`/view-profile/${userData?.username}?page=1`}>
               {userData?.fullname}
             </Link>
           </h1>

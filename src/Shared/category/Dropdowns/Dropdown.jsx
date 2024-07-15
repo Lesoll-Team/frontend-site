@@ -200,6 +200,8 @@ const Dropdown = ({
           <div onClick={handleDeleteOption}>
             <GoXCircleFill className="md:text-2xl text-xl" />
           </div>
+        ) : baseIcon ? (
+          baseIcon
         ) : (
           <IoIosArrowDown
             className={`text-black duration-150 ${menuIsOpen && "rotate-180"}`}

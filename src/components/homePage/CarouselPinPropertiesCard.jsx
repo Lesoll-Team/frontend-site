@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/free-mode";
+// import "swiper/css/navigation";
+// import "swiper/css/free-mode";
 
-import { Navigation, FreeMode } from "swiper/modules";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+// import { Navigation, FreeMode } from "swiper/modules";
+// import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import RealtyCard from "../realtyCard/RealtyCard";
 import SkeletonCard from "../realtyCard/SkeletonCard";
 
@@ -33,40 +33,46 @@ const CarouselPinPropertiesCard = () => {
     <div className="relative">
       {!loading ? (
         <Swiper
-          navigation={{
-            prevEl: ".swiper-button-next-custom",
-            nextEl: ".swiper-button-prev-custom",
-          }}
-          spaceBetween={15}
-          modules={[Navigation, FreeMode]}
-          freeMode={true}
+          // navigation={{
+          //   prevEl: ".swiper-button-next-custom",
+          //   nextEl: ".swiper-button-prev-custom",
+          // }}
+          // centeredSlides={true}
+          // watchSlidesProgress={true}
+          spaceBetween={10}
+          // modules={[Navigation, FreeMode]}
+          // freeMode={true}
           slidesPerView={1}
           breakpoints={{
-            1400: {
+            1600: {
               slidesPerView: 5,
-              spaceBetween: 10,
+              spaceBetween: 25,
             },
             1200: {
               slidesPerView: 4,
-              spaceBetween: 10,
+              spaceBetween: 20,
             },
             900: {
-              slidesPerView: 4,
-              spaceBetween: 5,
+              slidesPerView: 3,
+              spaceBetween: 15,
             },
             650: {
-              slidesPerView: 3,
-              spaceBetween: 5,
+              slidesPerView: 2,
+              spaceBetween: 10,
             },
             430: {
-              slidesPerView: 2,
+              slidesPerView: 1,
               spaceBetween: 5,
             },
           }}
         >
           {properties.map((property) => (
             <SwiperSlide key={property._id}>
-              <RealtyCard cardID={property._id} propertyDetails={property} />
+              <RealtyCard
+                cardID={property._id}
+                propertyDetails={property}
+                withVertical
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -78,12 +84,12 @@ const CarouselPinPropertiesCard = () => {
           <SkeletonCard />
         </div>
       )}
-      <div className="swiper-button-prev-custom absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
+      {/* <div className="swiper-button-prev-custom absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
         <FaArrowLeft size={20} />
       </div>
       <div className="swiper-button-next-custom absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
         <FaArrowRight size={20} />
-      </div>
+      </div> */}
     </div>
   );
 };

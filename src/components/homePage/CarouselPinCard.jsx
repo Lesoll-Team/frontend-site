@@ -44,6 +44,9 @@ const CarouselPinCard = () => {
         </div>
       ) : (
         <Swiper
+          onReachEnd={() => {
+            console.log("end");
+          }}
           navigation={{
             prevEl: ".swiper-button-next-custom",
             nextEl: ".swiper-button-prev-custom",
@@ -82,7 +85,7 @@ const CarouselPinCard = () => {
           {users.map((user) => (
             <SwiperSlide key={user._id}>
               <Link
-                href={`/view-profile/${user.username}`}
+                href={`/view-profile/${user.username}?page=1`}
                 className="bg-[#FFFFFF]  w-[200px] h-[155px] border-1.5 border-[#CCCCCC] flex flex-col items-center justify-center rounded-[1.04vw]"
               >
                 <Image

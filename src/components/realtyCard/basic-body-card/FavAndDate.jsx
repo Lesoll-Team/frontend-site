@@ -51,7 +51,9 @@ const FavAndDate = ({ propertyDetails }) => {
           )}
         </div>
       )}
-      {propertyDetails.makePin || propertyDetails.makeRepost ? (
+      {propertyDetails.makePin ||
+      propertyDetails.makeRepost ||
+      propertyDetails.makePinHome ? (
         <div
           //bg-gradient-to-r from-yellow-100 via-yellow-50 to-white
           className={` bg-white  drop-shadow-sm sm:w-4/12 sm:max-w-[100px] p-1 sm:justify-around justify-center items-center rounded-sm font-inter  flex `}

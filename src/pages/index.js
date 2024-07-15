@@ -52,7 +52,7 @@ const Home = ({ bestSearch }) => {
         <PinPropertiesTitle />
         <CarouselPinPropertiesCard />
       </div>
-      <div className=" md:container md:mx-auto p-5 mx-[20px] bg-gray-50">
+      <div className=" md:container md:mx-auto flex flex-col justify-center h-[400px] mx-[20px] bg-gray-50">
         <PinProfileTitle />
         <CarouselPinCard />
       </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 const AgentCard = ({ logo, company, compounds, username }) => {
   return (
     <Link
-      href={`/view-profile/${username}`}
+      href={`/view-profile/${username}?page=1`}
       className="bg-white shadow-sm border-1 rounded-md p-4 flex flex-col items-center text-center"
     >
       <Image
