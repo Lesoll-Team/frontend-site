@@ -13,12 +13,14 @@ import CustomPackageCard from "./CustomPackageCard";
 const CurrentSubscriptions = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
+  console.log("asssss", data);
   const [activePackages, setActivePackages] = useState(null);
   const [customPackages, setCustomPackages] = useState(null);
   const [customPackagesStatus, setCustomPackagesStatus] = useState("idle");
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
-
+  const showNoPackage =
+    customPackages?.length === 0 && activePackages?.package?.length === 0;
   const fetchActivePackage = () => {
     getUserActivePackages({ setActivePackages, setFormStatus, setServerError });
   };
@@ -61,9 +63,11 @@ const CurrentSubscriptions = () => {
             return <PlanCard data={item} />;
           })
         ) : (
-          <NoItems
-            title={language ? "لا يوجد باقات نشطة" : "No Active Packages"}
-          />
+          showNoPackage && (
+            <NoItems
+              title={language ? "لا يوجد باقات نشطة" : "No Active Packages"}
+            />
+          )
         )
       ) : (
         formStatus === "failed" && ""

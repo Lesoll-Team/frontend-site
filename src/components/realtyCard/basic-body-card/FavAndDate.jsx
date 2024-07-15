@@ -9,7 +9,7 @@ const FavAndDate = ({ propertyDetails }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data, setUserData } = useUser();
   const time = useFormatNewData({
-    date: propertyDetails.acceptAt,
+    date: propertyDetails.createdAt,
     lang: language,
   });
   const [loved, setLoved] = useState(false);

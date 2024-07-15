@@ -40,7 +40,7 @@ const PriceTitle = ({ propertData }) => {
           </h2>
         ) : (
           <h2 className=" text-[24px] md:text-3xl font-bold text-lightGreen  ">
-            {price + " "} {propertData?.currencies}
+            {price + " "} {propertData.currencies}
             {sideInfoToPrice && (
               <span className="text-sm md:text-2xl text-darkGray font-normal ">
                 {sideInfoToPrice}
