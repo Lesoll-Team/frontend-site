@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { pinProperty } from "../../apis/profileApis";
 import { Ring } from "@uiball/loaders";
 import { useEffect, useState } from "react";
+import { useUser } from "@/Shared/UserContext";
 
 const ConfirmPin = ({ open, setIsOpen, propId, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
+  const { setUserData } = useUser();
   const pinProp = async () => {
     await pinProperty({ propId, setFormStatus, setServerError });
   };

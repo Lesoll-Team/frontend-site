@@ -145,7 +145,7 @@ export const pinPropertyHome = async ({
     setFormStatus("loading");
 
     const response = await axiosInstance.patch(
-      `/payment-user/pin-homepage-property/${propId}`,
+      `/payment-user/pin-property-homepage/${propId}`,
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");

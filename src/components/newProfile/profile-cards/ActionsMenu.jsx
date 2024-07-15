@@ -52,14 +52,14 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
     <div ref={menuRef} className="relative">
       <button
         onClick={toggleMenu}
-        className=" w-9 h-9 rounded-full mx-5 bg-white flex items-center justify-center border drop-shadow-md duration-150"
+        className=" w-9 h-9 rounded-full mx-5  bg-white flex items-center justify-center border drop-shadow-md duration-150"
       >
         <BsThreeDotsVertical />
       </button>
 
       {showMenu && (
         <div
-          className={`absolute w-24 p-2 space-y-1 fade-in bg-white drop-shadow-md top-7 rounded ${language ? "left-7" : "right-7"}`}
+          className={`absolute w-24 p-2 space-y-1 z-10 fade-in bg-white drop-shadow-md top-7 rounded ${language ? "left-7" : "right-7"}`}
         >
           <Link href={`/editproperty/${propData.slug}`}>
             {language ? "تعديل" : "Edit"}

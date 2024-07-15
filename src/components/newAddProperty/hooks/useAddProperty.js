@@ -21,7 +21,7 @@ import {
 import { formatApiData } from "@/components/edit-property/utils/fromateApiData";
 
 const useAddProperty = ({ propData }) => {
-  const { data: userData } = useUser();
+  const { data: userData, setUserData } = useUser();
   const userHavePackage =
     userData?.packageSubscribe && userData?.pinPropertyNumber;
   const [step, setStep] = useState(1);
@@ -93,13 +93,20 @@ const useAddProperty = ({ propData }) => {
       setLaoding(false);
     }
     if (formStatus === "success") {
-      setPosted(true);
+      const id = watch("packId");
+      if (id) {
+        setLaoding(true);
+      } else {
+        setPosted(true);
+        setUserData();
+      }
     } else if (finalStepStatus === "success") {
       if (watch("adType" === "free")) {
         setPosted(true);
       }
     } else {
       setPosted(false);
+      setLaoding(true);
     }
   }, [draftFormStatus, finalStepStatus, formStatus]);
 

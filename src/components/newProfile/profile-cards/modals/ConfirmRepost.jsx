@@ -4,17 +4,21 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { repostProperty } from "../../apis/profileApis";
 import { Ring } from "@uiball/loaders";
+import { useUser } from "@/Shared/UserContext";
 
 const ConfirmRepost = ({ open, setIsOpen, propId, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
+  const { setUserData } = useUser();
+
   const repostProp = async () => {
     await repostProperty({ propId, setFormStatus, setServerError });
   };
   useEffect(() => {
     if (formStatus === "success") {
       getProperties();
+      setUserData();
     }
   }, [formStatus]);
   return (
