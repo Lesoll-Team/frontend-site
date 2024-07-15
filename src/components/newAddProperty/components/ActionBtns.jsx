@@ -4,7 +4,7 @@ import { Ring } from "@uiball/loaders";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
-const ActionBtns = ({ step, setStep, loading, formStatus, watch }) => {
+const ActionBtns = ({ step, setStep, loading, watch }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const submitBtnText = useMemo(() => {
     const isInvestment = watch("offer") === "For Investment";
@@ -26,7 +26,7 @@ const ActionBtns = ({ step, setStep, loading, formStatus, watch }) => {
     <div className="flex items-center gap-4 max-w-[400px]">
       {step > 1 && (
         <Button
-          disabled={formStatus === "loading"}
+          disabled={loading}
           onClick={() => {
             scrollToTop();
             setStep((prev) => prev - 1);

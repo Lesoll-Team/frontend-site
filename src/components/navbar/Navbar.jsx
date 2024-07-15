@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav
       dir={languageIs ? "rtl" : "ltr"}
-      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center drop-shadow-md font-noto"
+      className="w-full z-[700] sticky top-0 bg-white flex flex-col items-center justify-center border-b drop-shadow-sm font-noto"
     >
       <div
         className={`container mx-auto  relative flex justify-between h-16 ${
