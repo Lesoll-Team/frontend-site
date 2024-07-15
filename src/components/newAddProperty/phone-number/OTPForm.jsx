@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { useSelector } from "react-redux";
 import { Ring } from "@uiball/loaders";
-import { getOtp, verifyPhoneNumber } from "./apis";
-import ReactModal from "../ui/ReactModal";
 
-const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
+import ReactModal from "@/Shared/ui/ReactModal";
+import { getOtp, verifyPhoneNumber } from "../apis/otpApis";
+
+const OTPModalAddProp = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const [formStatus, setFormStatus] = useState("idle");
@@ -67,19 +68,16 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
 
   return (
     <ReactModal modalIsOpen={isOpen} setModalIsOpen={setIsOpen}>
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center justify-center flex-col space-y-8 pb  pt-7 md:px-0 px-5"
-      >
+      <div className="flex items-center justify-center flex-col space-y-8 my-10 md:px-0 px-5">
         <div className="text-center space-y-4">
           {" "}
           <h1 className="text-2xl md:text-4xl ">
-            {language ? "ادخل كود  تأكيد رقم الهاتف" : "Enter your OTP"}
+            {language ? "ادخل كود التأكيد " : "Enter your OTP"}
           </h1>
           <p className="max-w-[400px] text-center">
             {language
-              ? "تم ارسال كود تأكيد رقم العاتف (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
-              : "The account activation code (OTP) has been sent to your mobile phone. Please check the incoming messages."}
+              ? "تم ارسال كود  التأكيد (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
+              : "The confirmation code (OTP) has been sent to your mobile phone. Please check the incoming messages."}
           </p>
         </div>
         <img src="/otp.svg" className="w-[40%] md:w-[30%]" />
@@ -94,12 +92,12 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
             value={otp}
             onChange={setOtp}
             numInputs={6}
-            renderSeparator={<span className="mx-2 font-bold"></span>}
+            renderSeparator={<span className="mx-2"></span>}
             renderInput={(props) => <input {...props} />}
             inputStyle={{
               border: "1px solid #A3A1A1",
-              width: windowWidth > 500 ? "55px" : "40px",
-              height: windowWidth > 500 ? "55px" : "40px",
+              width: windowWidth > 500 ? "60px" : "40px",
+              height: windowWidth > 500 ? "60px" : "40px",
               outline: "none",
               borderRadius: "4px",
             }}
@@ -112,13 +110,13 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
               type="button"
               className="text-linkColor underline"
             >
-              {language ? "إعادة إرسال كود تأكيد رقم الهاتف" : "Resend OTP"}
+              {language ? "إعادة إرسال كود التأكيد" : "Resend OTP"}
             </button>
           ) : (
             <>
               <span>
                 {language
-                  ? "يمكنك إرسال كود  تأكيد رقم الهاتف مرة أخرى بعد"
+                  ? "يمكنك إرسال كود التأكيد مرة أخرى بعد"
                   : "You can send the account activation code again after"}
               </span>
               <span>00:{countdown < 10 ? `0${countdown}` : countdown}</span>{" "}
@@ -127,7 +125,11 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
           {/* Display countdown */}
         </div>
 
-        <Button disabled={otp.length < 6 || formStatus === "loading"}>
+        <Button
+          type={"button"}
+          onClick={handleSubmit}
+          disabled={otp.length < 6 || formStatus === "loading"}
+        >
           {formStatus === "loading" ? (
             <Ring size={28} color="#fff" />
           ) : language ? (
@@ -136,8 +138,8 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
             "Send"
           )}
         </Button>
-      </form>
+      </div>
     </ReactModal>
   );
 };
-export default OptModal;
+export default OTPModalAddProp;

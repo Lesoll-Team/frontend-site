@@ -85,6 +85,7 @@ export const deleteProperty = async ({
   try {
     const response = await axiosInstance.delete(
       `/property/delete/property/${propdId}`,
+      { reason: message },
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -97,14 +98,10 @@ export const deleteProperty = async ({
   }
 };
 
-export const toggleSold = async ({
-  setFormStatus,
-  setServerError,
-  propdId,
-}) => {
+export const toggleSold = async ({ setFormStatus, propId }) => {
   try {
     const response = await axiosInstance.patch(
-      `/admin/property/sold/${propdId}`,
+      `/admin/property/sold/${propId}`,
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -112,7 +109,6 @@ export const toggleSold = async ({
     return response.data;
   } catch (error) {
     setFormStatus("failed");
-    setServerError(error.response.data);
     throw error.response.data;
   }
 };
@@ -140,6 +136,27 @@ export const repostProperty = async ({
   }
 };
 
+export const pinPropertyHome = async ({
+  setFormStatus,
+  setServerError,
+  propId,
+}) => {
+  try {
+    setFormStatus("loading");
+
+    const response = await axiosInstance.patch(
+      `/payment-user/pin-homepage-property/${propId}`,
+    );
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+    }
+    return response.data;
+  } catch (error) {
+    setFormStatus("failed");
+    setServerError(error.response.data);
+    throw error.response.data;
+  }
+};
 export const pinProperty = async ({
   setFormStatus,
   setServerError,
@@ -278,6 +295,54 @@ export const deleteDraft = async ({ setApiStatus, id }) => {
     }
     return response.data;
   } catch {
+    setApiStatus("failed");
+  }
+};
+
+export const getcustomPackages = async ({
+  setCustomPackages,
+  id,
+  setApiStatus,
+}) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.get(
+      `/admin/dashboard/gift-vip-get/${id}`,
+    );
+    if (response.status == 200) {
+      setCustomPackages(response.data.paymentPackages);
+      setApiStatus("success");
+    }
+  } catch (error) {
+    setApiStatus("failed");
+    throw error.response.data;
+  }
+};
+
+// verify acc phone number
+export const getVerifyAccOtp = async ({ setApiStatus, phone }) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.post(`/user/otp/send/phonenumber/`, {
+      phoneNumber: phone,
+    });
+    if (response.status === 200 || response.status === 201) {
+      setApiStatus("success");
+    }
+  } catch (error) {
+    setApiStatus("failed");
+  }
+};
+export const VerifyAccOtp = async ({ setApiStatus, otp }) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.post(`/user/otp/send/verify`, {
+      codenumber: otp,
+    });
+    if (response.status === 200 || response.status === 201) {
+      setApiStatus("success");
+    }
+  } catch (error) {
     setApiStatus("failed");
   }
 };

@@ -166,7 +166,42 @@ const AddPropMainInfo = ({
           </button>
         </div>
       </div>
-      <div className=" space-y-5">
+      {watch("offer") === "For Sale" && (
+        <div className=" space-y-5">
+          <p className="text-gray-800">
+            {language ? "ملكية العقار" : "Property ownership"}
+          </p>
+          <div className=" flex justify-start gap-10 flex-wrap">
+            <button
+              type="button"
+              className="flex gap-1 items-center"
+              onClick={() => setValue("resale", false)}
+            >
+              {" "}
+              <span className="border-2 w-4 h-4 p-[2px] rounded-full">
+                {!watch("resale") && (
+                  <div className="h-full w-full rounded-full bg-blue-600"></div>
+                )}
+              </span>
+              {language ? "اول سكن" : "Primary"}
+            </button>
+            <button
+              type="button"
+              className="flex gap-1 items-center"
+              onClick={() => setValue("resale", true)}
+            >
+              {" "}
+              <span className="border-2 w-4 h-4 p-[2px] rounded-full">
+                {watch("resale") && (
+                  <div className="h-full w-full rounded-full bg-blue-600"></div>
+                )}
+              </span>
+              {language ? "إعادة بيع" : "Resale"}
+            </button>
+          </div>
+        </div>
+      )}
+      <div className=" space-y-5  md:col-span-2">
         <p className="text-gray-800">
           {language ? "العقار فى كومباوند " : "Property in compound"}
         </p>
@@ -199,41 +234,6 @@ const AddPropMainInfo = ({
           </button>
         </div>
       </div>
-      {watch("offer") === "For Sale" && (
-        <div className=" space-y-5 md:col-span-2">
-          <p className="text-gray-800">
-            {language ? "ملكية العقار" : "Property ownership"}
-          </p>
-          <div className=" flex justify-start gap-10 flex-wrap">
-            <button
-              type="button"
-              className="flex gap-1 items-center"
-              onClick={() => setValue("resale", true)}
-            >
-              {" "}
-              <span className="border-2 w-4 h-4 p-[2px] rounded-full">
-                {watch("resale") && (
-                  <div className="h-full w-full rounded-full bg-blue-600"></div>
-                )}
-              </span>
-              {language ? "اول سكن" : "Primary"}
-            </button>
-            <button
-              type="button"
-              className="flex gap-1 items-center"
-              onClick={() => setValue("resale", false)}
-            >
-              {" "}
-              <span className="border-2 w-4 h-4 p-[2px] rounded-full">
-                {!watch("resale") && (
-                  <div className="h-full w-full rounded-full bg-blue-600"></div>
-                )}
-              </span>
-              {language ? "إعادة بيع" : "Resale"}
-            </button>
-          </div>
-        </div>
-      )}
       <div className="space-y-2">
         <p className="text-gray-800">
           {language ? "نوع العقار" : "Property Type"}

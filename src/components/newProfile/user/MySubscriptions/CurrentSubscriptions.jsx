@@ -1,26 +1,56 @@
 import { useEffect, useState } from "react";
-import { getUserActivePackages } from "../../apis/profileApis";
+import {
+  getcustomPackages,
+  getUserActivePackages,
+} from "../../apis/profileApis";
 import NoItems from "../userProperties/NoItems";
 import { useSelector } from "react-redux";
 import PlanCard from "./PackageCard";
 import PackageCardSkeleton from "./PackageCardSkeleton";
+import { useUser } from "@/Shared/UserContext";
+import CustomPackageCard from "./CustomPackageCard";
 
 const CurrentSubscriptions = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { data } = useUser();
+  console.log("asssss", data);
   const [activePackages, setActivePackages] = useState(null);
+  const [customPackages, setCustomPackages] = useState(null);
+  const [customPackagesStatus, setCustomPackagesStatus] = useState("idle");
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
-
+  const showNoPackage =
+    customPackages?.length === 0 && activePackages?.package?.length === 0;
   const fetchActivePackage = () => {
     getUserActivePackages({ setActivePackages, setFormStatus, setServerError });
+  };
+  const fetchCustomPackages = () => {
+    getcustomPackages({
+      setCustomPackages,
+      setApiStatus: setCustomPackagesStatus,
+      id: data?._id,
+    });
   };
   useEffect(() => {
     fetchActivePackage();
   }, []);
+  useEffect(() => {
+    if (data) {
+      fetchCustomPackages();
+    }
+  }, [data]);
 
   return (
     <div className="space-y-6 md:space-y-8">
+      {customPackagesStatus === "loading" ? (
+        <PackageCardSkeleton />
+      ) : (
+        customPackagesStatus === "success" &&
+        customPackages.length > 0 &&
+        customPackages.map((el) => {
+          return <CustomPackageCard data={el} key={el._id} />;
+        })
+      )}
       {formStatus === "loading" ? (
         <>
           <PackageCardSkeleton />
@@ -33,9 +63,11 @@ const CurrentSubscriptions = () => {
             return <PlanCard data={item} />;
           })
         ) : (
-          <NoItems
-            title={language ? "لا يوجد باقات نشطة" : "No Active Packages"}
-          />
+          showNoPackage && (
+            <NoItems
+              title={language ? "لا يوجد باقات نشطة" : "No Active Packages"}
+            />
+          )
         )
       ) : (
         formStatus === "failed" && ""

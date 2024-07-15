@@ -106,7 +106,7 @@ const useAddProperty = ({ propData }) => {
   // redirect to the payment gateway when is successful
   useEffect(() => {
     const id = watch("packId");
-    if (draftFormStatus === "success" && watch("adType") === "paid") {
+    if (finalStepStatus === "success" && watch("adType") === "paid") {
       if (watch("paymentMethod") === "card") {
         setLaoding(true);
         buyPackageActionWithCard({ id }).then((data) => {
@@ -133,38 +133,29 @@ const useAddProperty = ({ propData }) => {
 
   // handle the logic to update or post the draft
   const handleDraftOrPost = (formData) => {
-    if (userHavePackage) {
-      if (returnData?._id) {
-        editDraft({
-          id: returnData._id,
-          data: formData,
-          setFormStatus: setFinalStepStatus,
-          setServerError: setFinalStepError,
-        });
-      } else {
-        postProperty({
-          data: formData,
-          setFormStatus,
-          setServerError,
-        });
-      }
+    if (returnData?._id) {
+      editDraft({
+        id: returnData._id,
+        data: formData,
+        setFormStatus: setDraftFormStatus,
+        setServerError: setDraftServerError,
+      });
     } else {
-      if (returnData?._id) {
-        editDraft({
-          id: returnData._id,
-          data: formData,
-          setFormStatus: setDraftFormStatus,
-          setServerError: setDraftServerError,
-        });
-      } else {
-        postDraft({
-          data: formData,
-          setFormStatus: setDraftFormStatus,
-          setServerError: setDraftServerError,
-          setReturnData,
-        });
-      }
+      postDraft({
+        data: formData,
+        setFormStatus: setDraftFormStatus,
+        setServerError: setDraftServerError,
+        setReturnData,
+      });
     }
+  };
+  const handleEditDraftBeforPost = (formData) => {
+    editDraft({
+      id: returnData._id,
+      data: formData,
+      setFormStatus: setDraftFormStatus,
+      setServerError: setDraftServerError,
+    });
   };
   //  the edit draft for fonal action
   const handleEditDraft = (formData) => {
@@ -191,7 +182,10 @@ const useAddProperty = ({ propData }) => {
             setStep(3);
             scrollToTop();
           },
-          3: () => handleDraftOrPost(formData),
+          3: () => {
+            handleDraftOrPost(formData);
+            setStep(4);
+          },
           4: () => handleEditDraft(formData),
         }
       : {
@@ -207,7 +201,10 @@ const useAddProperty = ({ propData }) => {
             setStep(4);
             scrollToTop();
           },
-          4: () => handleDraftOrPost(formData),
+          4: () => {
+            handleDraftOrPost(formData);
+            setStep(4);
+          },
           5: () => handleEditDraft(formData),
         };
 

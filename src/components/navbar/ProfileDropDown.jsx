@@ -136,7 +136,7 @@ const ProfileDropDown = () => {
               >
                 <BiEditAlt className="" />
                 <span className=" whitespace-nowrap break-keep">
-                  {language ? " الطلبات" : " Needs"}
+                  {language ? " طلباتى" : " Needs"}
                 </span>
               </Link>
               <hr />

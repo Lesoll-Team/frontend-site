@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import NoItems from "./NoItems";
 import { getSoldProperties } from "../../apis/profileApis";
+import ProfileCardSkeleton from "../../profile-cards/ProfileCardSkeleton";
 const SoldProperties = () => {
   const [soldProperties, setSoldProperties] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
@@ -38,9 +39,9 @@ const SoldProperties = () => {
       ) : (
         <>
           {" "}
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
+          <ProfileCardSkeleton />
+          <ProfileCardSkeleton />
+          <ProfileCardSkeleton />
         </>
       )}
     </div>

@@ -57,7 +57,7 @@ const ReactModal = ({
         {closeBtn && (
           <button
             onClick={closeModal}
-            className={`absolute -top-1 z-10 ${language ? "left-2 md:left-0" : "right-2 md:right-0"} `}
+            className={`absolute -top-1 z-10 ${language ? "left-0" : "right-0"} `}
           >
             <FaXmark />
           </button>

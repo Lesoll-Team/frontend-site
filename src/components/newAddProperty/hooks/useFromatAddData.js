@@ -56,6 +56,7 @@ const useFromatAddData = (data) => {
   formData.append("installmentOption", JSON.stringify(data.installmentOption));
   formData.append("address", JSON.stringify(address));
   formData.append("negotiable", data.negotiable);
+  // formData.append("resale", data?.resale);
   formData.append("finishingType", data.finishingType.value || "");
   formData.append("isFurnished", data.isFurnished);
   formData.append("isRegisterd", data.isRegisterd);

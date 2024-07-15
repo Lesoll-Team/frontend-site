@@ -64,6 +64,7 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("propType", propType);
   setValue("mainImage", "");
   setValue("multiImage", "");
+  setValue("resale", data?.resale);
   setValue("rentalPeriod", rentalPeriod);
   setValue("unitType", unitType);
   if (saleOption) {
@@ -84,7 +85,7 @@ export const formatApiData = ({ setValue, data }) => {
   setValue("level", data.level);
   setValue("finishingType", finishingType);
   setValue("isRegisterd", data?.isRegisterd);
-  setValue("RealEstateFinance", data?.RealEstateFinance);
+  // setValue("RealEstateFinance", data?.RealEstateFinance);
   setValue("negotiable", data?.negotiable);
   setValue("isFurnished", data?.isFurnished);
   setValue("thumbnail", data?.thumbnail);

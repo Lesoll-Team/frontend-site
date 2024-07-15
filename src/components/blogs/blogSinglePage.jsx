@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 import styles from "../../styles/blogs.module.css";
 import Image from "next/image";
 import SimilarBlogs from "./SimilarBlogs";
+import RealtyCard from "../realtyCard/RealtyCard";
 
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  console.log("BlogData::>>>", BlogData);
   const formattedDate = (dateString, language) => {
     const date = new Date(dateString);
     const locale = language ? "ar-EG" : "en-US";
@@ -78,6 +79,13 @@ function BlogSinglePage({ BlogData }) {
                 : { __html: BlogData.getBlogs.description.en }
             }
           />
+        </div>
+        <div
+          className={` col-span-3 p-2 my-16  grid grid-cols-1 md:container md:mx-auto  mx-[20px]  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between sm:gap-10 gap-5 `}
+        >
+          {BlogData?.property.map((property) => (
+            <RealtyCard key={property._id} propertyDetails={property} />
+          ))}
         </div>
       </div>
     </div>

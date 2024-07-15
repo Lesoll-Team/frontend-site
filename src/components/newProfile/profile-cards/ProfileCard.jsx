@@ -12,23 +12,32 @@ import { MdOutlineStarPurple500 } from "react-icons/md";
 import Link from "next/link";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { useUser } from "@/Shared/UserContext";
+import { getPackageFeatures } from "../utils/getPackageFeatures";
 
 const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const price = localizedNumber(data?.price);
   const { data: userData } = useUser();
+  const { havePin, havePinHome, haveRepost, haveDashboard } =
+    getPackageFeatures(userData?.Features);
+  console.log(userData);
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
   }, [type]);
+
   const typeActive = useMemo(() => {
     return type === "نشطة" || type === "active";
   }, [type]);
+  console.log(data);
+
+  const isFeatured = data?.makePin || data?.makeRepost;
+  const showDashboard = haveDashboard && typeActive && isFeatured;
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
         <div className="w-full relative">
           <div className="flex w-full absolute items-center justify-between  top-4">
-            {data?.makePin || data?.makeRepost ? (
+            {data?.isFeateur ? (
               <div
                 className={`bg-white h-8 w-8 rounded-full lg-text text-baseGray  grid place-content-center mx-4 `}
               >
@@ -51,7 +60,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             alt="property image"
             className="w-full max-h-[150px] object-cover"
           />
-          {userData && userData.dashboardPackage && typeActive && (
+          {showDashboard && (
             <div className="absolute bottom-0 left-0 bg-white border py-1 px-2">
               <Link
                 href={`/profile/property-analytics/${data?.slug}`}
@@ -66,7 +75,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
         <div className="px-2 mb-4 md:mb-7 md:px-5 flex-col space-y-3 md:space-y-6 ">
           <p className="text-sm text-baseGray md:text-xl font-bold font-inter ">
             {" "}
-            {price} {language ? "ج.م" : "Egp"}
+            {price} {data?.currencies || "EGP"}
           </p>
 
           <div className="space-y-5">
@@ -108,7 +117,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             <PaymentActions
               getProperties={getProperties}
               propId={data._id}
-              disabled={paymentDisabled || data?.makePin || data?.makeRepost}
+              disabled={paymentDisabled || data?.isFeateur}
             />
           )}
         </div>

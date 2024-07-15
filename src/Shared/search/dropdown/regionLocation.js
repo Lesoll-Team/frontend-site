@@ -14,6 +14,13 @@ export const regionData = [
     city_name_en: "Al Azbakeyah",
   },
   {
+    _id: { $oid: "640f741f077f71bf48157800" },
+    number: "1001",
+    governorate_number: "23",
+    city_name_ar: "راس الحكمة",
+    city_name_en: "Ras El Hikma",
+  },
+  {
     _id: { $oid: "63dfc7e511355a551a400ba4" },
     number: "3",
     governorate_number: "1",

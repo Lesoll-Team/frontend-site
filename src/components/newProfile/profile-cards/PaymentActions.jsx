@@ -1,4 +1,3 @@
-import ReactModal from "@/Shared/ui/ReactModal";
 import { useState } from "react";
 import { BsArrowRepeat } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -8,35 +7,53 @@ import FeatureLimitModal from "./modals/FeatureLimitModal";
 import ConfirmPin from "./modals/ConfirmPin";
 import ConfirmRepost from "./modals/ConfirmRepost";
 import { useUser } from "@/Shared/UserContext";
+import ConfirmPinHome from "./modals/ConfirmPinHome";
+import { getPackageFeatures } from "../utils/getPackageFeatures";
 const PaymentActions = ({ propId, getProperties, disabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
   const [noPackage, setNoPackage] = useState(false);
   const [reachedLimit, setReachedLimit] = useState(false);
-  const [confirtmRepost, setConfirmRepost] = useState(false);
-  const [confirtmPin, setConfirmPin] = useState(false);
+  const [confirmRepost, setConfirmRepost] = useState(false);
+  const [confirmPin, setConfirmPin] = useState(false);
+  const [confirmPinHome, setConfirmPinHome] = useState(false);
+  const { havePin, havePinHome, haveRepost } = getPackageFeatures(
+    userData?.Features,
+  );
 
   const handleRepostClick = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
-      // setNoRepost(true);
-    } else if (userData?.repostPropertyNumber == 0) {
-      setReachedLimit(true);
-    } else {
-      setConfirmRepost(true);
+    } else if (haveRepost) {
+      if (userData?.packagePropertyNumber == 0) {
+        setReachedLimit(true);
+      } else {
+        setConfirmRepost(true);
+      }
+    }
+  };
+  const handlePinHome = () => {
+    if (!userData?.packageSubscribe) {
+      setNoPackage(true);
+    } else if (havePinHome) {
+      if (userData?.packagePropertyNumber == 0) {
+        setReachedLimit(true);
+      } else {
+        setConfirmPinHome(true);
+      }
     }
   };
   const handlePinClick = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
-    } else if (userData?.pinPropertyNumber == 0) {
+    } else if (userData?.packagePropertyNumber == 0) {
       setReachedLimit(true);
     } else {
       setConfirmPin(true);
     }
   };
   return (
-    <>
+    <div className="space-y-2">
       <div className={`flex gap-2 items-center  ${disabled && "opacity-60"}`}>
         <button
           disabled={disabled}
@@ -46,16 +63,28 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
           {language ? "تثبيت" : "Pin"}
           <TiPinOutline />
         </button>
-
-        <button
-          disabled={disabled}
-          onClick={handleRepostClick}
-          className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
-        >
-          {language ? "إعادة نشر" : "Repost"}
-          <BsArrowRepeat />
-        </button>
+        {haveRepost && (
+          <button
+            disabled={disabled}
+            onClick={handleRepostClick}
+            className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
+          >
+            {language ? "إعادة نشر" : "Repost"}
+            <BsArrowRepeat />
+          </button>
+        )}
       </div>
+      {havePinHome && (
+        <div className="flex w-full">
+          <button
+            disabled={disabled}
+            onClick={handlePinHome}
+            className={`w-full text-center  ${disabled && "opacity-60"} border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center`}
+          >
+            {language ? "تثبيت فى الصفحة الرئيسية" : "Pin to Home Page "}
+          </button>
+        </div>
+      )}
       {/* no package */}
       {/* <ReactModal setModalIsOpen={setNoRepost} modalIsOpen={noRepost}>
         <div className="md:w-[500px] w-[95vw]">
@@ -69,17 +98,23 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
       <ConfirmPin
         getProperties={getProperties}
         setIsOpen={setConfirmPin}
-        open={confirtmPin}
+        open={confirmPin}
         propId={propId}
       />
       {/* confirm modal repost */}
       <ConfirmRepost
         getProperties={getProperties}
         setIsOpen={setConfirmRepost}
-        open={confirtmRepost}
+        open={confirmRepost}
         propId={propId}
       />
-    </>
+      <ConfirmPinHome
+        getProperties={getProperties}
+        setIsOpen={setConfirmPinHome}
+        open={confirmPinHome}
+        propId={propId}
+      />
+    </div>
   );
 };
 export default PaymentActions;

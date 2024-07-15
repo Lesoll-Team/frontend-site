@@ -58,7 +58,11 @@ export const visitAllNotifications = createAsyncThunk(
 const notificationSlice = createSlice({
   name: "notificationSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    clearNotifications: (state) => {
+      state.notifications.data = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getNotifications.pending, (state, action) => {
@@ -104,3 +108,4 @@ const notificationSlice = createSlice({
 });
 
 export default notificationSlice.reducer;
+export const { clearNotifications } = notificationSlice.actions;

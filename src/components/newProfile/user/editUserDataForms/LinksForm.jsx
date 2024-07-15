@@ -66,9 +66,6 @@ const LinksForm = ({ main }) => {
                 dir="ltr"
                 autoComplete="off"
                 type="text"
-                userData
-                u
-                i
                 {...register("faceLink", {})}
                 className={`p-2 md:p-3 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen ${
                   errors.faceLink && "border-red-500 focus:border-red-500"

@@ -4,19 +4,22 @@ import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { useSelector } from "react-redux";
 import { Ring } from "@uiball/loaders";
-import { getOtp, verifyPhoneNumber } from "./apis";
-import ReactModal from "../ui/ReactModal";
+import ReactModal from "@/Shared/ui/ReactModal";
+import { getVerifyAccOtp, VerifyAccOtp } from "../apis/profileApis";
+import { useUser } from "@/Shared/UserContext";
 
-const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
+const VerifyAcc = ({ onSuccess, isOpen, setIsOpen }) => {
+  const { data: userData } = useUser();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const [formStatus, setFormStatus] = useState("idle");
+  const [getOtpStatus, setGetOtpStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);
   const [canResend, setCanResend] = useState(false);
   const [countdown, setCountdown] = useState(30); // Initial countdown value
   const { windowWidth } = useWindowWidth();
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const phoneNumber = userData?.phone;
   // Countdown timer effect
   useEffect(() => {
     let timer;
@@ -35,17 +38,18 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
     return () => clearInterval(timer);
   }, [canResend]);
   const resendOtp = async () => {
-    await getOtp({ phoneNumber });
+    await getVerifyAccOtp({ setApiStatus: setGetOtpStatus, phoneNumber });
     setCanResend(false);
     setCountdown(30);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await verifyPhoneNumber({ setFormStatus, otp, setServerError });
+    await VerifyAccOtp({ otp, setApiStatus: setFormStatus });
   };
 
   useEffect(() => {
-    if (isOpen && phoneNumber) getOtp({ phoneNumber });
+    if (isOpen && phoneNumber)
+      getVerifyAccOtp({ setApiStatus: setGetOtpStatus, phoneNumber });
   }, [phoneNumber, isOpen]);
 
   useEffect(() => {
@@ -74,11 +78,11 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
         <div className="text-center space-y-4">
           {" "}
           <h1 className="text-2xl md:text-4xl ">
-            {language ? "ادخل كود  تأكيد رقم الهاتف" : "Enter your OTP"}
+            {language ? "ادخل كود تفعيل الحساب" : "Enter your OTP"}
           </h1>
           <p className="max-w-[400px] text-center">
             {language
-              ? "تم ارسال كود تأكيد رقم العاتف (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
+              ? "تم ارسال كود تفعيل الحساب (OTP) إلى هاتفك المحمول يرجى التحقق من الرسائل الواردة"
               : "The account activation code (OTP) has been sent to your mobile phone. Please check the incoming messages."}
           </p>
         </div>
@@ -112,13 +116,13 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
               type="button"
               className="text-linkColor underline"
             >
-              {language ? "إعادة إرسال كود تأكيد رقم الهاتف" : "Resend OTP"}
+              {language ? "إعادة إرسال كود تفعيل الحساب" : "Resend OTP"}
             </button>
           ) : (
             <>
               <span>
                 {language
-                  ? "يمكنك إرسال كود  تأكيد رقم الهاتف مرة أخرى بعد"
+                  ? "يمكنك إرسال كود تفعيل الحساب مرة أخرى بعد"
                   : "You can send the account activation code again after"}
               </span>
               <span>00:{countdown < 10 ? `0${countdown}` : countdown}</span>{" "}
@@ -140,4 +144,4 @@ const OptModal = ({ onSuccess, phoneNumber, isOpen, setIsOpen }) => {
     </ReactModal>
   );
 };
-export default OptModal;
+export default VerifyAcc;
