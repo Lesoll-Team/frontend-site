@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import UserProperties from "./UserProperties";
 
-const ViewUser = ({ user, properties, params }) => {
+const ViewUser = ({ user, properties, params, loading }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const phoneNumber = user.getUser.code + user.getUser.phone;
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
@@ -79,7 +79,12 @@ const ViewUser = ({ user, properties, params }) => {
           </div>
         )}
       </div>
-      <UserProperties user={user} properties={properties} params={params} />
+      <UserProperties
+        user={user}
+        properties={properties}
+        params={params}
+        loading={loading}
+      />
     </div>
   );
 };

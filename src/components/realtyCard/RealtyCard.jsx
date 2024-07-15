@@ -7,15 +7,19 @@ import FavAndDate from "./basic-body-card/FavAndDate";
 import { memo } from "react";
 import { filterSlugURL } from "../../Shared/generateRedirectDestination";
 
-const RealtyCard = ({ propertyDetails, cardID }) => {
+const RealtyCard = ({ propertyDetails, cardID, withVertical }) => {
+  console.log("propertyDetails::>>>", propertyDetails);
   const new_slug = filterSlugURL(propertyDetails?.slug);
+  const layoutCard = withVertical
+    ? " h-auto   block drop-shadow-none  bg-none  rounded-none "
+    : " sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md ";
+  const layoutImage = withVertical
+    ? " w-full  min-w-[125px] flex  relative h-[40vh] max-h-[250px] min-h-[250px] "
+    : " sm:w-full w-5/12 min-w-[125px]  flex  relative   h-auto sm:h-[40vh] sm:max-h-[250px] sm:min-h-[250px]";
   return (
-    <div
-      key={cardID}
-      className="overflow-hidden  w-full  sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md"
-    >
+    <div key={cardID} className={`overflow-hidden  w-full  ${layoutCard}`}>
       {/* start icon favorite */}
-      <div className=" sm:w-full w-5/12 min-w-[125px]  flex  relative   h-auto sm:h-[40vh] sm:max-h-[250px] sm:min-h-[250px]">
+      <div className={layoutImage}>
         <FavAndDate propertyDetails={propertyDetails} />
 
         <Link

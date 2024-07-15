@@ -38,7 +38,9 @@ const PropertyCard = ({ propertyDetails }) => {
             </p>
           )}
           <p className="text-lightGreen">
-            {propertyDetails.makePin || propertyDetails.makeRepost ? (
+            {propertyDetails.makePin ||
+            propertyDetails.makeRepost ||
+            propertyDetails.makePinHome ? (
               <b className="text-yellow-500 mx-1"> مميز </b>
             ) : null}
 

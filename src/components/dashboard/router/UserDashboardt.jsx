@@ -16,6 +16,8 @@ const columns = [
   { name: "Phone", uid: "phone" },
   { name: "Type & Email", uid: "typeOfUser" },
   { name: "Created", uid: "createdAt" },
+  { name: "Properties", uid: "Propertycount" },
+  { name: "Properties Paid", uid: "ProperrtyPaid" },
 ];
 export default function UserDashboard() {
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
@@ -130,6 +132,18 @@ export default function UserDashboard() {
         return (
           <div className="relative flex justify-start items-center gap-2">
             <span className="text-sm text-gray-500"> {user.phone}</span>
+          </div>
+        );
+      case "Propertycount":
+        return (
+          <div className="relative flex justify-start items-center gap-2">
+            <span className="text-sm text-gray-500"> {user.Propertycount}</span>
+          </div>
+        );
+      case "ProperrtyPaid":
+        return (
+          <div className="relative flex justify-start items-center gap-2">
+            <span className="text-sm text-gray-500"> {user.ProperrtyPaid}</span>
           </div>
         );
     }

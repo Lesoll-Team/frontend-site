@@ -82,7 +82,7 @@ const UserData = ({
           </div>
         </div>
         <div className="flex flex-col sm:flex-row items-stretch justify-stretch gap-2">
-          {!userData.pinHome ? (
+          {userData.pinHome ? (
             <button
               onClick={unpinUserProfile}
               className="border-red-400 border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-red-400  text-red-400 flex items-center gap-2"
@@ -112,7 +112,7 @@ const UserData = ({
             اضافة باقة مخصصة{" "}
           </Link>
           <Link
-            href={`/view-profile/${userData.username}`}
+            href={`/view-profile/${userData.username}?page=1`}
             className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
           >
             <FiUser className="font-bold" />

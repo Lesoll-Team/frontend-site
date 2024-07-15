@@ -1,12 +1,15 @@
 import ViewUser from "@/components/viewProfile/ViewUser";
 import axios from "axios";
 
-const ViewProfilePage = ({ query, user, properties }) => {
-    console.log("properties::>>>", properties);
-  console.log("properties::>>>", user);
+const ViewProfilePage = ({ query, user, properties, loading }) => {
   return (
     <div className="min-h-[90dvh] ">
-      <ViewUser user={user} params={query} properties={properties} />
+      <ViewUser
+        user={user}
+        params={query}
+        properties={properties}
+        loading={loading}
+      />
     </div>
   );
 };
@@ -14,20 +17,33 @@ const ViewProfilePage = ({ query, user, properties }) => {
 export default ViewProfilePage;
 export async function getServerSideProps({ query }) {
   const param = query;
-  const user = await axios.get(
+  const queryString = Object.keys(param)
+    .map((key) => `${key}=${encodeURIComponent(param[key])}`)
+    .join("&");
+
+  let loadingState = true; // Initialize loading state
+
+  const userPromise = axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit/${query.id}`,
   );
-  const properties = await axios
-    .get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${query.id}?limit=10&page=${query?.page || 1}&of=${query?.type || "000"}`,
-    )
-    .catch(() => console.log("Error"));
+  const propertiesPromise = axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${query.id}?${queryString}&limit=10`,
+  );
+
+  // Wait for both requests to complete
+  const [userData, propertiesData] = await Promise.all([
+    userPromise,
+    propertiesPromise.catch(() => ({ data: {} })), // Handle potential error
+  ]);
+
+  loadingState = false; // Update loading state after data fetching completes
 
   return {
     props: {
+      loading: loadingState,
       query: param,
-      user: user.data,
-      properties: properties?.data || {},
+      user: userData.data,
+      properties: propertiesData.data || {},
     },
   };
 }

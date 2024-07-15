@@ -83,7 +83,7 @@ const NeedsCard = ({ need }) => {
               className="w-[30px] h-[30px] rounded-full"
             />
             <Link
-              href={`/view-profile/${need?.userId[0].username}`}
+              href={`/view-profile/${need?.userId[0].username}?page=1`}
               className="font-semibold"
             >
               <span className="text-base">{need?.userId[0]?.fullname}</span>
