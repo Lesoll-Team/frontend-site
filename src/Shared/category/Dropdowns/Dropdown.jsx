@@ -1,5 +1,7 @@
-
-import { useSelectListByKey, useSendFilterSearch } from "@/components/category/shared/FilterHooks";
+import {
+  useSelectListByKey,
+  useSendFilterSearch,
+} from "@/components/category/shared/FilterHooks";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
 import { useRouter } from "next/router";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
@@ -16,6 +18,7 @@ const Dropdown = ({
   baseIcon,
   isSort,
   stateName,
+  setStates,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -95,24 +98,25 @@ const Dropdown = ({
         });
         router.push(route);
       }
-
     }
-
+    if (setStates) {
+      setStates(e.value);
+    }
   };
 
-  const renderOptionType = useCallback(
-    () => {
-      return (
-        <div
-          className={`animate-appearance-in  md:w-full min-w-[160px] absolute  duration-200 border max-h-[22vh] overflow-y-auto shadow-sm px-2 bg-white`}
-        >
-          {data ? data[language && 'ar' || 'en'].map((option) => (
+  const renderOptionType = useCallback(() => {
+    return (
+      <div
+        className={`animate-appearance-in w-full min-w-[160px] absolute  duration-200 border max-h-[22vh] overflow-y-auto shadow-sm px-2 bg-white`}
+      >
+        {data ? (
+          data[(language && "ar") || "en"].map((option) => (
             <div
               key={option.id}
               className="p-1 flex flex-col border-b hover:bg-gray-200"
             >
               <button
-                dir={language && 'rtl'}
+                dir={language && "rtl"}
                 onClick={() => handleSetOption(option)}
                 className="w-full text-start py-1"
               >
@@ -120,17 +124,14 @@ const Dropdown = ({
               </button>
             </div>
           ))
-            : (
-              <span className="p-1 py-4 flex text-gray1">
-                {language ? "حدد نوع العقار" : "first choose property type"}
-              </span>
-            )}
-        </div>
-      );
-
-    },
-    [data, value, router, language]
-  );
+        ) : (
+          <span className="p-1 py-4 flex text-gray1">
+            {language ? "حدد نوع العقار" : "first choose property type"}
+          </span>
+        )}
+      </div>
+    );
+  }, [data, value, router, language]);
   const handleDeleteOption = () => {
     if (stateName) {
       const payload = {};
@@ -163,26 +164,23 @@ const Dropdown = ({
         router.push(route);
       }
     }
+    if (setStates) {
+      setStates("");
+    }
   };
-
 
   const handleSelectList = useCallback(() => {
     if (nameIs) {
-      setDropdownName(language ? nameIs.name : nameIs.value.split("_").join(" "))
+      setDropdownName(
+        language ? nameIs.name : nameIs.value.split("_").join(" "),
+      );
     }
-
-
-
   }, [language, data, value]);
 
   useEffect(() => {
     handleSelectList();
   }, [handleSelectList]);
-  // useEffect(() => {
-  //   if (isSort) {
-  //     router.push(route);
-  //   }
-  // }, [sort]);
+
   return (
     <div className={`${classNames} ${isSort ?? "min-w-[9.97vw]"}  relative`}>
       <button
@@ -190,29 +188,22 @@ const Dropdown = ({
         onClick={handleMenuOpen}
         disabled={isDisabled}
         className={`  ${classNames}   text-gray1 lg-text flex items-center justify-between
-         rounded-[1vh] md:px-3 ${isSort
-            ? " md:min-w-[110px] min-w-[90px]  h-[34px] md:h-[40px] "
-            : "w-full h-[40px] md:h-[3.313rem]"
-          } px-[9px] cursor-pointer border-[1px] border-[#CCCCCC] `}
+         rounded-[1vh] md:px-3 ${
+           isSort
+             ? " md:min-w-[110px] min-w-[90px]  h-[34px] md:h-[40px] "
+             : "w-full h-[40px] md:h-[3.313rem]"
+         } px-[9px] cursor-pointer border-[1px] border-[#CCCCCC] `}
       >
-
-        {(value && (
-          <span className="text-[#4E4E4E]">
-            {dropdownName}
-          </span>
-        )) ||
+        {(value && <span className="text-[#4E4E4E]">{dropdownName}</span>) ||
           (defaultValue && <span className="text-gray1">{defaultValue}</span>)}
         {value ? (
           <div onClick={handleDeleteOption}>
             <GoXCircleFill className="md:text-2xl text-xl" />
           </div>
         ) : (
-          baseIcon || (
-            <IoIosArrowDown
-              className={`text-black duration-150 ${menuIsOpen && "rotate-180"
-                }`}
-            />
-          )
+          <IoIosArrowDown
+            className={`text-black duration-150 ${menuIsOpen && "rotate-180"}`}
+          />
         )}
       </button>
       {menuIsOpen && renderOptionType()}

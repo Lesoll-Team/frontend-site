@@ -1,12 +1,28 @@
 import { Avatar } from "@nextui-org/react";
 import Link from "next/link";
-import { FaUser } from "react-icons/fa";
 import InfoCard from "./InfoCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { TiPinOutline } from "react-icons/ti";
+import { FiUser } from "react-icons/fi";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import {
+  pinUserProfileInHome,
+  unpinUserProfileInHome,
+} from "@/utils/dashboardApi/userDashbordAPI";
+import { LuLoader2, LuPinOff } from "react-icons/lu";
 
-const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
+const UserData = ({
+  userData,
+  favNum,
+  deletedNum,
+  totalPropNum,
+  makeAction,
+  setMakeAction,
+}) => {
+  // console.log("userData::>>", userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const [loading, setLoading] = useState(false);
   const [date, setdate] = useState();
   const userTypeLang = () => {
     switch (userData?.typeOfUser) {
@@ -30,6 +46,29 @@ const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
     }
     setdate(formatDate(createdAt));
   }, [userData]);
+  const pinUserProfile = () => {
+    setLoading(true);
+    pinUserProfileInHome({ userId: userData._id })
+      .then(() => {
+        setMakeAction(!makeAction);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
+  const unpinUserProfile = () => {
+    setLoading(true);
+
+    unpinUserProfileInHome({ userId: userData._id })
+      .then(() => {
+        setMakeAction(!makeAction);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
   return (
     <section className="p-5 px-2 sm:p-8 space-y-5 bg-gray-100 rounded-lg w-full">
       <div className="flex md:flex-row flex-col gap-3  justify-between items-center ">
@@ -42,18 +81,41 @@ const UserData = ({ userData, favNum, deletedNum, totalPropNum }) => {
             <p>{userData?.username}</p>
           </div>
         </div>
-        <div className="flex items-stretch justify-stretch gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch justify-stretch gap-2">
+          {!userData.pinHome ? (
+            <button
+              onClick={unpinUserProfile}
+              className="border-red-400 border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-red-400  text-red-400 flex items-center gap-2"
+            >
+              {loading ? <LuLoader2 className="animate-spin" /> : <LuPinOff />}
+              إزالة التثبيت
+            </button>
+          ) : (
+            <button
+              onClick={pinUserProfile}
+              className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
+            >
+              {loading ? (
+                <LuLoader2 className="animate-spin" />
+              ) : (
+                <TiPinOutline />
+              )}
+              تثبيت الملف الشخصي
+            </button>
+          )}
+
           <Link
             href={`/dashboard/user-details/send-bundle/${userData._id}`}
             className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
           >
-            منح باقة
+            <MdOutlineDashboardCustomize />
+            اضافة باقة مخصصة{" "}
           </Link>
           <Link
             href={`/view-profile/${userData.username}`}
             className="border-darkGreen border-2 text-sm md:text-md duration-150 px-4 py-2 rounded-lg hover:text-white hover:bg-darkGreen text-darkGreen flex items-center gap-2"
           >
-            <FaUser className="font-bold" />
+            <FiUser className="font-bold" />
             الصفحة العامة
           </Link>
         </div>

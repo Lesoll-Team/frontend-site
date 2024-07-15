@@ -28,7 +28,6 @@ const Sidebar = () => {
           alt="sidebar logo"
           width={50}
           height={50}
-          priority
         />
       </div>
       <div

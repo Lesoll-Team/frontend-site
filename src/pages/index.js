@@ -1,8 +1,30 @@
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/homePage/HeroSection";
-import SearchModule from "@/components/homePage/SearchModule";
 import OtherCards from "@/components/homePage/OtherCards";
 import HomeMetaTag from "@/components/homePage/HomeMetaTag";
+// import SearchModule from "@/components/homePage/SearchModule";
+// import CarouselPinCard from "@/components/homePage/CarouselPinCard";
+// import PinProfileTitle from "@/components/homePage/PinProfileTitle";
+// import PinPropertiesTitle from "@/components/homePage/PinPropertiesTitle";
+// import CarouselPinPropertiesCard from "@/components/homePage/CarouselPinPropertiesCard";
+
+const SearchModule = dynamic(
+  () => import("@/components/homePage/SearchModule"),
+);
+
+const CarouselPinPropertiesCard = dynamic(
+  () => import("@/components/homePage/CarouselPinPropertiesCard"),
+);
+const CarouselPinCard = dynamic(
+  () => import("@/components/homePage/CarouselPinCard"),
+);
+const PinPropertiesTitle = dynamic(
+  () => import("@/components/homePage/PinPropertiesTitle"),
+);
+
+const PinProfileTitle = dynamic(
+  () => import("@/components/homePage/PinProfileTitle"),
+);
 
 const PropertiesCategories = dynamic(
   () => import("@/components/homePage/PropertiesCategories"),
@@ -17,18 +39,27 @@ const BestLinksInHome = dynamic(
 
 const Home = ({ bestSearch }) => {
   return (
-    <main className="relative flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
+    <main className=" flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
       <HomeMetaTag />
       <div className="md:container md:mx-auto  mx-[20px]">
         <SearchModule />
       </div>
       <HeroSection />
-      {/* <SpecialCards isHome /> */}
-      <div className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2 flex-col md:flex-row justify-between">
+      <div className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2  flex-col md:flex-row justify-between">
         <OtherCards />
       </div>
+      <div className=" md:container md:mx-auto p-5 space-y-10 mx-[20px]">
+        <PinPropertiesTitle />
+        <CarouselPinPropertiesCard />
+      </div>
+      <div className=" md:container md:mx-auto p-5 mx-[20px] bg-gray-50">
+        <PinProfileTitle />
+        <CarouselPinCard />
+      </div>
+
       <PropertiesCategories isHome />
       <LocationCategories />
+
       <BestLinksInHome
         PopularSearches={bestSearch?.POPULAR_SEARCHES}
         MostArea={bestSearch?.Most_Area}
@@ -48,6 +79,7 @@ export async function getStaticProps() {
     props: {
       bestSearch: linkInHome,
     },
-    revalidate: 21600, // يعيد التحقق كل 6 ساعات (21600 ثانية)
+    revalidate: 604800, // يعيد التحقق كل أسبوع (604800 ثانية)
+    // revalidate: 21600, // يعيد التحقق كل 6 ساعات (21600 ثانية)
   };
 }

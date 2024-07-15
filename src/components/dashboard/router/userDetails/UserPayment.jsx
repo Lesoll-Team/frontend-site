@@ -2,9 +2,9 @@ import { useFormatNewData } from "@/Hooks/useFormatTime";
 import { deleteGiftFromUser } from "@/utils/dashboardApi/paymentDetailsAPI";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { MdOutlineAddCard } from "react-icons/md";
 import { PiCrownSimpleFill } from "react-icons/pi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { BsGiftFill } from "react-icons/bs";
 
 const UserPayment = ({ userData }) => {
   const [userPayments, setUserPayments] = useState(null);
@@ -13,13 +13,16 @@ const UserPayment = ({ userData }) => {
   }, []);
   return (
     <div>
-      <h2 className="text-3xl m-5">الباقات</h2>
+      <h2 className="text-3xl m-5">الباقات </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <Link
           href={`/dashboard/add-plan-to-user/${userData._id}`}
-          className="w-full flex flex-col rounded-md border-5 border-lightGreenHover min-h-[280px] justify-center items-center"
+          className="w-full flex  rounded-md border-5 border-lightGreenHover min-h-[280px] justify-center items-center"
         >
-          <MdOutlineAddCard className="text-6xl text-lightGreenHover" />
+          <span className="text-6xl text-lightGreenHover font-bold -ml-1.5 -mb-16">
+            +
+          </span>
+          <BsGiftFill className="text-6xl  text-lightGreenHover" />
         </Link>
         {userPayments?.length !== 0 &&
           userPayments?.map((plan) => (
@@ -29,7 +32,6 @@ const UserPayment = ({ userData }) => {
             >
               <div className="absolute top-1 left-1  flex justify-between w-fit p-4">
                 <PiCrownSimpleFill className="text-[#ffd700] text-5xl  left-2 -rotate-45" />
-                {/* <span className="text-white">created:- {created}</span> */}
               </div>
               <button
                 onClick={() => {

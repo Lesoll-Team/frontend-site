@@ -17,6 +17,7 @@ const UserDetailsPage = () => {
   const [visitedPages, setVisitedPages] = useState();
   const [bundleVIP, setBundleVIP] = useState({});
   const router = useRouter();
+  const [makeAction, setMakeAction] = useState(false);
 
   const slug = router.query.id;
   useEffect(() => {
@@ -35,7 +36,7 @@ const UserDetailsPage = () => {
       }
     };
     fetchData();
-  }, [slug]);
+  }, [slug, makeAction]);
 
   return (
     <div className="min-h-[90dvh] w-full flex" dir="ltr">
@@ -49,6 +50,8 @@ const UserDetailsPage = () => {
       <div className="w-full" dir="rtl">
         {userData ? (
           <UserDetails
+            makeAction={makeAction}
+            setMakeAction={setMakeAction}
             userData={userData}
             favNum={favNum}
             deletedNum={deletedNum}

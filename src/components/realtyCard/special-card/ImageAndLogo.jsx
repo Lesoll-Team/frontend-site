@@ -27,7 +27,6 @@ const ImageAndLogo = ({ cardDetails }) => {
      h-[240px]
      object-cover
      `}
-        priority
         width={500}
         height={500}
         src={cardDetails?.thumbnail}
