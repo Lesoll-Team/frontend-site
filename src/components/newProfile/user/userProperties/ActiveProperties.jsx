@@ -7,6 +7,10 @@ import ReactPaginate from "react-paginate";
 import NoItems from "./NoItems";
 import { getActiveProperties, getDrafts } from "../../apis/profileApis";
 import ProfileCardSkeleton from "../../profile-cards/ProfileCardSkeleton";
+import { FiInfo } from "react-icons/fi";
+import { useUser } from "@/Shared/UserContext";
+import Link from "next/link";
+import RemaningAds from "../../profile-cards/RemaningAds";
 const ActiveProperties = () => {
   const [activeProperties, setActiveProperties] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
@@ -15,6 +19,8 @@ const ActiveProperties = () => {
   const [page, setPage] = useState(1);
   const [drafts, setDrafts] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const { data } = useUser();
+  console.log(data);
   // make as a function like that so i can pass as a prop to the card so when the user delete or change the state of a peoperty it call it again
   const getProperties = () => {
     getActiveProperties({
@@ -35,7 +41,8 @@ const ActiveProperties = () => {
   const type = language ? "نشطة" : "active";
 
   return (
-    <div>
+    <div className="space-y-4">
+      {data && <RemaningAds />}
       <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
         {formStatus === "success" ? (
           activeProperties.confirmedRealty.length > 0 ? (
