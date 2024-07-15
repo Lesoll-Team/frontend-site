@@ -6,6 +6,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import NoItems from "./NoItems";
 import { getActiveProperties, getDrafts } from "../../apis/profileApis";
+import ProfileCardSkeleton from "../../profile-cards/ProfileCardSkeleton";
 const ActiveProperties = () => {
   const [activeProperties, setActiveProperties] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
@@ -56,9 +57,9 @@ const ActiveProperties = () => {
         ) : (
           <>
             {" "}
-            <ProfileCard />
-            <ProfileCard />
-            <ProfileCard />
+            <ProfileCardSkeleton />
+            <ProfileCardSkeleton />
+            <ProfileCardSkeleton />
           </>
         )}
       </div>

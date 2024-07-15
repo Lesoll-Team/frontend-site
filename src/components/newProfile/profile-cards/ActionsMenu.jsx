@@ -6,12 +6,13 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
 import { useSelector } from "react-redux";
 import DeleteBtn from "./DeleteBtn";
+import { toggleSold } from "../apis/profileApis";
 const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
-  // const [soldIsOpen, setSoldIsOpen] = useState(false);
+  const [soldIsOpen, setSoldIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -38,10 +39,14 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
     setShowMenu(false);
     setDeleteIsOpen(true);
   };
-  // const handleSoldClick = () => {
-  //   setShowMenu(false);
-  //   setSoldIsOpen(true);
-  // };
+  const toggleSoldModal = () => {
+    setShowMenu(false);
+    setSoldIsOpen((prev) => !prev);
+  };
+  const setSold = async () => {
+    await toggleSold({ propdId });
+    getProperties();
+  };
   return (
     <div ref={menuRef} className="relative">
       <button
@@ -59,14 +64,14 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
             {language ? "تعديل" : "Edit"}
           </Link>
           <hr />
-          {/* {!isPending && (
-                  <>
-                     <button onClick={handleSoldClick}>
-                        {language ? "تم البيع" : "Sold"}
-                     </button>
-                     <hr />
-                  </>
-               )} */}
+          {!isPending && (
+            <>
+              <button onClick={toggleSoldModal}>
+                {language ? "تم البيع" : "Sold"}
+              </button>
+              <hr />
+            </>
+          )}
           <button onClick={handleDeleteClick} className="text-red-500">
             {language ? "حذف" : "delete"}
           </button>
@@ -79,6 +84,26 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
           getProperties={getProperties}
           setDeleteIsOpen={setDeleteIsOpen}
         />
+      </ReactModal>
+      <ReactModal modalIsOpen={soldIsOpen} setModalIsOpen={setSoldIsOpen}>
+        <div className="sm:w-[450px] w-[85vw] md:w-[600px]  pt-4 space-y-4">
+          <h3>
+            {language
+              ? "هل انت متأكد من تحويل حالة العقار الى مباع؟"
+              : "Are you sure you want to change the status of the property to sold?"}
+          </h3>
+          <div className="flex justify-end items-center gap-2">
+            <button
+              onClick={toggleSoldModal}
+              className="border border-lightGreen  text-lightGreen px-4 py-2 rounded-md"
+            >
+              {language ? "إلغاء" : "Cancel"}
+            </button>
+            <button className="border border-lightGreen bg-lightGreen text-white px-4 py-2 rounded-md">
+              {language ? "تأكيد" : "Confirm"}
+            </button>
+          </div>
+        </div>
       </ReactModal>
     </div>
   );

@@ -3,6 +3,7 @@ import ProfileCard from "../../profile-cards/ProfileCard";
 import { useSelector } from "react-redux";
 import NoItems from "./NoItems";
 import { getPendingProperties } from "../../apis/profileApis";
+import ProfileCardSkeleton from "../../profile-cards/ProfileCardSkeleton";
 
 const PendingProperties = () => {
   const [pendingProperties, setPendingProperties] = useState(null);
@@ -44,9 +45,9 @@ const PendingProperties = () => {
       ) : (
         <>
           {" "}
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
+          <ProfileCardSkeleton />
+          <ProfileCardSkeleton />
+          <ProfileCardSkeleton />
         </>
       )}
     </div>

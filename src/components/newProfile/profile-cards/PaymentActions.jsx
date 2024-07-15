@@ -1,4 +1,3 @@
-import ReactModal from "@/Shared/ui/ReactModal";
 import { useState } from "react";
 import { BsArrowRepeat } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -9,23 +8,23 @@ import ConfirmPin from "./modals/ConfirmPin";
 import ConfirmRepost from "./modals/ConfirmRepost";
 import { useUser } from "@/Shared/UserContext";
 import ConfirmPinHome from "./modals/ConfirmPinHome";
+import { getPackageFeatures } from "../utils/getPackageFeatures";
 const PaymentActions = ({ propId, getProperties, disabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
   const [noPackage, setNoPackage] = useState(false);
   const [reachedLimit, setReachedLimit] = useState(false);
-  const [confirtmRepost, setConfirmRepost] = useState(false);
-  const [confirtmPin, setConfirmPin] = useState(false);
-  const [confirtmPinHome, setConfirmPinHome] = useState(false);
-  const hasRepost = userData?.propertyFeature?.includes("Repost");
-  const hasPinHome = userData?.propertyFeature?.includes("pinPropertyHomePage");
-  console.log(userData?.propertyFeature);
-  console.log(hasPinHome);
+  const [confirmRepost, setConfirmRepost] = useState(false);
+  const [confirmPin, setConfirmPin] = useState(false);
+  const [confirmPinHome, setConfirmPinHome] = useState(false);
+  const { havePin, havePinHome, haveRepost } = getPackageFeatures(
+    userData?.Features,
+  );
 
   const handleRepostClick = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
-    } else if (hasRepost) {
+    } else if (haveRepost) {
       if (userData?.packagePropertyNumber == 0) {
         setReachedLimit(true);
       } else {
@@ -36,7 +35,7 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
   const handlePinHome = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
-    } else if (hasPinHome) {
+    } else if (havePinHome) {
       if (userData?.packagePropertyNumber == 0) {
         setReachedLimit(true);
       } else {
@@ -64,7 +63,7 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
           {language ? "تثبيت" : "Pin"}
           <TiPinOutline />
         </button>
-        {hasRepost && (
+        {haveRepost && (
           <button
             disabled={disabled}
             onClick={handleRepostClick}
@@ -75,12 +74,12 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
           </button>
         )}
       </div>
-      {hasPinHome && (
+      {havePinHome && (
         <div className="flex w-full">
           <button
             disabled={disabled}
             onClick={handlePinHome}
-            className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
+            className={`w-full text-center  ${disabled && "opacity-60"} border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center`}
           >
             {language ? "تثبيت فى الصفحة الرئيسية" : "Pin to Home Page "}
           </button>
@@ -99,20 +98,20 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
       <ConfirmPin
         getProperties={getProperties}
         setIsOpen={setConfirmPin}
-        open={confirtmPin}
+        open={confirmPin}
         propId={propId}
       />
       {/* confirm modal repost */}
       <ConfirmRepost
         getProperties={getProperties}
         setIsOpen={setConfirmRepost}
-        open={confirtmRepost}
+        open={confirmRepost}
         propId={propId}
       />
       <ConfirmPinHome
         getProperties={getProperties}
         setIsOpen={setConfirmPinHome}
-        open={confirtmPinHome}
+        open={confirmPinHome}
         propId={propId}
       />
     </div>
