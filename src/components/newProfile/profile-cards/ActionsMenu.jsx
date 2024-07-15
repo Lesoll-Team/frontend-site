@@ -13,6 +13,7 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
   const menuRef = useRef(null);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [soldIsOpen, setSoldIsOpen] = useState(false);
+  const [soldApiStatus, setSoldApiStatus] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -44,7 +45,7 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
     setSoldIsOpen((prev) => !prev);
   };
   const setSold = async () => {
-    await toggleSold({ propdId });
+    await toggleSold({ propId, setFormStatus: setSoldApiStatus });
     getProperties();
   };
   return (
@@ -99,7 +100,10 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
             >
               {language ? "إلغاء" : "Cancel"}
             </button>
-            <button className="border border-lightGreen bg-lightGreen text-white px-4 py-2 rounded-md">
+            <button
+              onClick={setSold}
+              className="border border-lightGreen bg-lightGreen text-white px-4 py-2 rounded-md"
+            >
               {language ? "تأكيد" : "Confirm"}
             </button>
           </div>

@@ -98,14 +98,10 @@ export const deleteProperty = async ({
   }
 };
 
-export const toggleSold = async ({
-  setFormStatus,
-  setServerError,
-  propdId,
-}) => {
+export const toggleSold = async ({ setFormStatus, propId }) => {
   try {
     const response = await axiosInstance.patch(
-      `/admin/property/sold/${propdId}`,
+      `/admin/property/sold/${propId}`,
     );
     if (response.status === 200 || response.status === 201) {
       setFormStatus("success");
@@ -113,7 +109,6 @@ export const toggleSold = async ({
     return response.data;
   } catch (error) {
     setFormStatus("failed");
-    setServerError(error.response.data);
     throw error.response.data;
   }
 };
