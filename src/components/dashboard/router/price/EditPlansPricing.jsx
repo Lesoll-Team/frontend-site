@@ -15,6 +15,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const servicePrice = useSelector((state) => state.Pricing.priceService);
   const isUpdated = useSelector((state) => state.Pricing.isUpdated);
+  const [pinPropertyHomePageDays, setPinPropertyHomePageDays] = useState(0);
 
   const [categoryNameAr, setCategoryNameAr] = useState("");
   const [categoryNameEn, setCategoryNameEn] = useState("");
@@ -58,6 +59,7 @@ const EditPlansPricing = ({ paymentPlan }) => {
     setDurationPlan(paymentPlan.repostDayCategory);
     setNormalProp(paymentPlan.propNumber);
     setDurationPlanHome(paymentPlan.pinDayInHome);
+    setPinPropertyHomePageDays(paymentPlan.pinPropertyHomePageDays);
     // setPropNumber(paymentPlan.propNumberCategory);
     // setPropNumberInHome(paymentPlan.propNumberInHome);
   }, []);
@@ -77,6 +79,8 @@ const EditPlansPricing = ({ paymentPlan }) => {
     normalProp,
     pinDayInHome: durationPlanHome,
     addProperty: isAddProperty,
+    pinPropertyHomePageDays,
+
     // propNumberCategory: propNumber,
     // propNumberInHome,
   };
@@ -319,6 +323,22 @@ const EditPlansPricing = ({ paymentPlan }) => {
                       onChange={(e) => setDurationPlanHome(e.target.value)}
                       placeholder="عدد الايام "
                       value={durationPlanHome || ""}
+                    />
+                  </label>
+                )}
+                {featuresList?.some(
+                  (option) => option.serviceID === "668a8ff18da4baa896aaea64",
+                ) && (
+                  <label className="flex flex-col gap-x-2">
+                    عدد ايام تثبيت في الصفحة الرئيسية :-
+                    <input
+                      type="number"
+                      className="  mt-1 px-3 py-2 border rounded w-fit"
+                      onChange={(e) =>
+                        setPinPropertyHomePageDays(e.target.value)
+                      }
+                      placeholder="عدد الايام "
+                      value={pinPropertyHomePageDays || ""}
                     />
                   </label>
                 )}

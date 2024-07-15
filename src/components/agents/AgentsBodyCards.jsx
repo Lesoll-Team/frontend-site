@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import AgentCard from "./AgentCard";
 
-const AgentsBodyCards = () => {
+const AgentsBodyCards = ({ profile }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
@@ -10,48 +10,14 @@ const AgentsBodyCards = () => {
         {language ? "جميع الوكلاء" : "All agents"}
       </h2>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4">
-        <AgentCard
-          logo="https://cloud.lesoll.com/v0/public/Realty/2024/7/668bcfa9c021090332288b1f-668bd3d4c02109033228bb19-62486506.webp"
-          company="بالم هيلز للتطوير العقارى"
-          compounds="39"
-          units="403"
-          price="3,145,000"
-        />
-        <AgentCard
-          logo="https://cloud.lesoll.com/v0/public/Realty/2024/7/668bcfa9c021090332288b1f-668bd3d4c02109033228bb19-62486506.webp"
-          company="بالم هيلز للتطوير العقارى"
-          compounds="39"
-          units="403"
-          price="3,145,000"
-        />
-        <AgentCard
-          logo="https://cloud.lesoll.com/v0/public/Realty/2024/7/668bcfa9c021090332288b1f-668bd3d4c02109033228bb19-62486506.webp"
-          company="بالم هيلز للتطوير العقارى"
-          compounds="39"
-          units="403"
-          price="3,145,000"
-        />
-        <AgentCard
-          logo="https://cloud.lesoll.com/v0/public/Realty/2024/7/668bcfa9c021090332288b1f-668bd3d4c02109033228bb19-62486506.webp"
-          company="بالم هيلز للتطوير العقارى"
-          compounds="39"
-          units="403"
-          price="3,145,000"
-        />
-        <AgentCard
-          logo="https://cloud.lesoll.com/v0/public/Realty/2024/7/668bcfa9c021090332288b1f-668bd3d4c02109033228bb19-62486506.webp"
-          company="بالم هيلز للتطوير العقارى"
-          compounds="39"
-          units="403"
-          price="3,145,000"
-        />
-        <AgentCard
-          logo="https://cloud.lesoll.com/v0/public/Realty/2024/7/668bcfa9c021090332288b1f-668bd3d4c02109033228bb19-62486506.webp"
-          company="بالم هيلز للتطوير العقارى"
-          compounds="39"
-          units="403"
-          price="3,145,000"
-        />
+        {profile.map((user) => (
+          <AgentCard
+            logo={user.avatarUrl}
+            company={user.fullname}
+            compounds={user.count}
+            username={user.username}
+          />
+        ))}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsGiftFill } from "react-icons/bs";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { MdOutlineAddCard } from "react-icons/md";
 
 const UserGift = ({ bundleVIP, userData }) => {
   const [bundleVIPUser, setBundleVIPUser] = useState();
@@ -13,13 +14,13 @@ const UserGift = ({ bundleVIP, userData }) => {
   console.log("bundleVIPUser::>", bundleVIPUser);
   return (
     <div>
-      <h2 className="text-3xl m-5">الهدايه</h2>
+      <h2 className="text-3xl m-5">الباقات المخصصة</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <Link
           href={`/dashboard/user-details/send-bundle/${userData._id}`}
           className="w-full flex flex-col rounded-md border-5 border-lightGreenHover min-h-[280px] justify-center items-center"
         >
-          <BsGiftFill className="text-6xl text-lightGreenHover" />
+          <MdOutlineAddCard className="text-6xl text-lightGreenHover" />
         </Link>
         {bundleVIPUser?.length !== 0 &&
           bundleVIPUser?.map((plan) => (

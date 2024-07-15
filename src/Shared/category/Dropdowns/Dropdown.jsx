@@ -18,6 +18,7 @@ const Dropdown = ({
   baseIcon,
   isSort,
   stateName,
+  setStates,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
@@ -98,6 +99,9 @@ const Dropdown = ({
         router.push(route);
       }
     }
+    if (setStates) {
+      setStates(e.value);
+    }
   };
 
   const renderOptionType = useCallback(() => {
@@ -160,6 +164,9 @@ const Dropdown = ({
         router.push(route);
       }
     }
+    if (setStates) {
+      setStates("");
+    }
   };
 
   const handleSelectList = useCallback(() => {
@@ -173,11 +180,7 @@ const Dropdown = ({
   useEffect(() => {
     handleSelectList();
   }, [handleSelectList]);
-  // useEffect(() => {
-  //   if (isSort) {
-  //     router.push(route);
-  //   }
-  // }, [sort]);
+
   return (
     <div className={`${classNames} ${isSort ?? "min-w-[9.97vw]"}  relative`}>
       <button
@@ -198,13 +201,9 @@ const Dropdown = ({
             <GoXCircleFill className="md:text-2xl text-xl" />
           </div>
         ) : (
-          baseIcon || (
-            <IoIosArrowDown
-              className={`text-black duration-150 ${
-                menuIsOpen && "rotate-180"
-              }`}
-            />
-          )
+          <IoIosArrowDown
+            className={`text-black duration-150 ${menuIsOpen && "rotate-180"}`}
+          />
         )}
       </button>
       {menuIsOpen && renderOptionType()}

@@ -45,7 +45,6 @@ const SubBarTitle = ({ result }) => {
         <div className="   w-fit ">
           <Dropdown
             stateName={"sort"}
-            // baseIcon={<LuArrowDownUp />}
             data={sortedData}
             defaultValue={language ? "الاحدث" : "Recent"}
             value={sort}

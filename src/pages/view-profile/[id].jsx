@@ -1,8 +1,9 @@
 import ViewUser from "@/components/viewProfile/ViewUser";
-// import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import axios from "axios";
 
 const ViewProfilePage = ({ query, user, properties }) => {
+    console.log("properties::>>>", properties);
+  console.log("properties::>>>", user);
   return (
     <div className="min-h-[90dvh] ">
       <ViewUser user={user} params={query} properties={properties} />
@@ -18,11 +19,10 @@ export async function getServerSideProps({ query }) {
   );
   const properties = await axios
     .get(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${
-        query.id
-      }?limit=10&page=${query?.page || 1}&of=${query?.type || "000"}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/uservisit-property/${query.id}?limit=10&page=${query?.page || 1}&of=${query?.type || "000"}`,
     )
     .catch(() => console.log("Error"));
+
   return {
     props: {
       query: param,

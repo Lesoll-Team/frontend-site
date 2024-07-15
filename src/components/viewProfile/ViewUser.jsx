@@ -9,10 +9,6 @@ const ViewUser = ({ user, properties, params }) => {
   const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
     phoneNumber: phoneNumber,
   });
-  console.log("user::>>>", user);
-  console.log("properties::>>>", properties);
-  console.log("params::>>>", params);
-
   return (
     <div className="container mx-auto py-5 md:py-20 space-y-6 md:space-y-20">
       <div className="flex justify-between items-center flex-wrap gap-5">
@@ -55,10 +51,9 @@ const ViewUser = ({ user, properties, params }) => {
         {user.getUser.Bio && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
-              {language ? "عن" : "About"} {user.getUser.fullname}
+              {language ? "عن" : "About"}
             </h4>
             <p className="text-sm md:text-xl text-baseGray">
-              {/* {user.getUser.Bio}{" "} */}
               {user.getUser.Bio}
             </p>
           </div>
@@ -66,10 +61,9 @@ const ViewUser = ({ user, properties, params }) => {
         {user.getUser?.workingHours && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
-              {language ? "مواعيد العمل" : "Working Hours"}{" "}
+              {language ? "مواعيد العمل" : "Working Hours"}
             </h4>
             <p className="text-sm md:text-xl text-baseGray">
-              {/* {user.getUser.Bio}{" "} */}
               {user.getUser?.workingHours}
             </p>
           </div>
@@ -77,10 +71,9 @@ const ViewUser = ({ user, properties, params }) => {
         {user.getUser?.companyAddress && (
           <div className="space-y-3">
             <h4 className="text-base md:text-2xl font-bold text-darkGray">
-              {language ? "عنوان الشركة" : "Company Address"}{" "}
+              {language ? "عنوان الشركة" : "Company Address"}
             </h4>
             <p className="text-sm md:text-xl text-baseGray">
-              {/* {user.getUser.Bio}{" "} */}
               {user.getUser?.companyAddress}
             </p>
           </div>
@@ -91,60 +84,3 @@ const ViewUser = ({ user, properties, params }) => {
   );
 };
 export default ViewUser;
-
-/* {!user.getUser?.companyAddress && (
-          <div className="space-y-3">
-            <h4 className="text-base md:text-2xl font-bold text-darkGray">
-              {language ? " مواقع التواصل" : "Social media"}{" "}
-            </h4>
-            <div className="flex items-center gap-6 md:gap-10">
-              {!user.getUser.faceLink && (
-                <a href={user.getUser?.faceLink}>
-                  <Image
-                    src={"/social-icons/facebook.svg"}
-                    width={48}
-                    height={48}
-                    className="object-cover w-6 h-6 md:w-12 md:h-12"
-                    alt="facebook icon"
-                  />
-                </a>
-              )}
-              {!user.getUser.faceLink && (
-                <Image
-                  src={"/social-icons/instagram.svg"}
-                  width={48}
-                  height={48}
-                  className="object-cover w-6 h-6 md:w-12 md:h-12"
-                  alt="facebook icon"
-                />
-              )}
-              {!user.getUser.faceLink && (
-                <Image
-                  src={"/social-icons/x.svg"}
-                  width={48}
-                  height={48}
-                  className="object-cover w-6 h-6 md:w-12 md:h-12"
-                  alt="facebook icon"
-                />
-              )}
-              {!user.getUser.faceLink && (
-                <Image
-                  src={"/social-icons/linkedin.svg"}
-                  width={48}
-                  height={48}
-                  className="object-cover w-6 h-6 md:w-12 md:h-12"
-                  alt="facebook icon"
-                />
-              )}
-              {!user.getUser.faceLink && (
-                <Image
-                  src={"/social-icons/tiktok.svg"}
-                  width={48}
-                  height={48}
-                  className="object-cover w-6 h-6 md:w-12 md:h-12"
-                  alt="facebook icon"
-                />
-              )}
-            </div>
-          </div>
-        )} */

@@ -14,10 +14,14 @@ const UserDetails = ({
   saleNum,
   totalPropNum,
   visitedPages,
+  makeAction,
+  setMakeAction,
 }) => {
   return (
     <div className="sm:max-w-[1800px]  px-2  mx-auto my-3 space-y-5">
       <UserData
+        makeAction={makeAction}
+        setMakeAction={setMakeAction}
         userData={userData}
         favNum={favNum}
         deletedNum={deletedNum}

@@ -4,29 +4,20 @@ import { useRouter } from "next/router";
 import styles from "@/styles/Pagination.module.css";
 import ReactPaginate from "react-paginate";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import Link from "next/link";
+import { useMemo, useState } from "react";
 import NoItems from "../newProfile/user/userProperties/NoItems";
+import UserSearch from "./UserSearch";
 
 const UserProperties = ({ user, properties, params }) => {
+  const [categoryType, setCategoryType] = useState("");
+  const [offer, setOffer] = useState("");
+  const [unitType, setUnitType] = useState("");
+  const [keywords, setKeywords] = useState("");
+  const [sorting, setSorting] = useState("");
+
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [ShowFilterMenu, setShowFilterMenu] = useState(false);
-  const menuRef = useRef(null);
   const router = useRouter();
   const query = router.query;
-  const filterName = useMemo(() => {
-    switch (query.type) {
-      case "000":
-        return language ? "الكل" : "All";
-      case "111":
-        return language ? "للبيع" : "For Sale";
-      case "222":
-        return language ? "للإيحار" : "For Rent";
-      default:
-        return "all";
-    }
-  }, [language, query]);
 
   const type = useMemo(() => {
     if (router.query.type) {
@@ -38,87 +29,29 @@ const UserProperties = ({ user, properties, params }) => {
   const handlePageChange = (page) => {
     router.push(`${user.getUser.username}?page=${page + 1}&type=${type}`);
   };
-  const toggleFilterMeu = () => {
-    setShowFilterMenu((prev) => !prev);
-  };
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowFilterMenu(false);
-      }
-    }
-    // Add event listener when component mounts
-    document.addEventListener("mousedown", handleClickOutside);
-    // Remove event listener when component unmounts
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="space-y-6 md:space-y-8">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm md:text-2xl font-bold">
-          {language ? (
-            <span>عقارات {user.getUser.fullname}</span>
-          ) : (
-            <span>{user.getUser.fullname} Properties</span>
-          )}
-        </h3>
-        {properties?.getConfirmedRealty &&
-          properties.getConfirmedRealty.length > 0 && (
-            <div ref={menuRef} className="relative">
-              <button
-                onClick={toggleFilterMeu}
-                className=" flex items-center gap-1 relative border-2 rounded border-outLine py-1 px-4 md:py-2 md:px-8"
-              >
-                {filterName} <MdKeyboardArrowDown />
-              </button>
-              {ShowFilterMenu && (
-                <ul className="absolute w-full space-y-1 p-2 text-center bg-white drop-shadow z-10 rounded border">
-                  <li>
-                    <Link
-                      onClick={() => setShowFilterMenu(false)}
-                      href={`/view-profile/${user.getUser.username}?page=1&type=000`}
-                      className="text-center"
-                    >
-                      {language ? "الكل" : "All"}
-                    </Link>
-                  </li>
-                  {user.RealtySaleNumber > 0 && (
-                    <>
-                      <hr />
-                      <li>
-                        <Link
-                          onClick={() => setShowFilterMenu(false)}
-                          href={`/view-profile/${user.getUser.username}?page=1&type=111`}
-                          className="text-center"
-                        >
-                          {language ? "للبيع" : "For Sale"}
-                        </Link>
-                      </li>
-                    </>
-                  )}
-                  {user.RealtyRentNumber > 0 && (
-                    <>
-                      <hr />
-                      <li>
-                        <Link
-                          onClick={() => setShowFilterMenu(false)}
-                          href={`/view-profile/${user.getUser.username}?page=1&type=222`}
-                          className="text-center"
-                        >
-                          {language ? "للإيحار" : "For Rent"}
-                        </Link>
-                      </li>
-                    </>
-                  )}
-                </ul>
-              )}
-            </div>
-          )}
+      <h3 className="text-sm md:text-2xl font-bold">
+        <span>{language ? "العقارات" : "Properties"}</span>
+      </h3>
+      <div className="z-50 flex">
+        {properties?.getConfirmedRealty.length > 1 && (
+          <UserSearch
+            categoryType={categoryType}
+            setCategoryType={setCategoryType}
+            offer={offer}
+            setOffer={setOffer}
+            unitType={unitType}
+            setUnitType={setUnitType}
+            keywords={keywords}
+            setKeywords={setKeywords}
+            sorting={sorting}
+            setSorting={setSorting}
+          />
+        )}
       </div>
-      <div className="grid grid-cols-1   sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
+      <div className="grid grid-cols-1 -z-50  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-10">
         {properties?.getConfirmedRealty &&
         properties.getConfirmedRealty.length > 0 ? (
           properties.getConfirmedRealty.map((item) => {

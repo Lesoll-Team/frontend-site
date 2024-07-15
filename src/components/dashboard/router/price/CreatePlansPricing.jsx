@@ -29,6 +29,7 @@ const CreatePlansPricing = ({ userId }) => {
   const [basicPrice, setBasicPrice] = useState(0);
   const [oldPrice, setOldPrice] = useState(0);
   const [normalProp, setNormalProp] = useState(0);
+  const [pinPropertyHomePageDays, setPinPropertyHomePageDays] = useState(0);
 
   const [durationPlan, setDurationPlan] = useState(0); //ضمان ظهور إعلانك ضمن أول الإعلانات
   const [durationPlanHome, setDurationPlanHome] = useState(0); //تجديد إعلانك يوميًا على الصفحة الرئيسية
@@ -47,6 +48,8 @@ const CreatePlansPricing = ({ userId }) => {
     newService: featuresList,
     descriptionAr: descriptionCardAr,
     descriptionEn: descriptionCardEn,
+    pinPropertyHomePageDays,
+
     // propNumberCategory: propNumber,
     repostDayCategory: durationPlan,
     normalProp,
@@ -61,11 +64,11 @@ const CreatePlansPricing = ({ userId }) => {
     if (userId) {
       await sendBundleVIP({ packageData: data, userID: userId })
         .then(() => {
-          console.log("then");
+          // console.log("then");
           setGiftCreated(true);
         })
         .catch(() => {
-          console.log("catch");
+          // console.log("catch");
           setGiftCreated(false);
         });
     } else dispatch(createPricePlan(data));
@@ -276,7 +279,6 @@ const CreatePlansPricing = ({ userId }) => {
                       />
                     </label>
                   )}
-
                   {featuresList?.some(
                     (option) => option.serviceID === "656cc0c1485cfd01499d1365",
                   ) && (
@@ -288,6 +290,21 @@ const CreatePlansPricing = ({ userId }) => {
                         onChange={(e) => setDurationPlanHome(e.target.value)}
                         placeholder="عدد الايام "
                         // value={durationPlanHome}
+                      />
+                    </label>
+                  )}
+                  {featuresList?.some(
+                    (option) => option.serviceID === "668a8ff18da4baa896aaea64",
+                  ) && (
+                    <label className="flex flex-col gap-x-2">
+                      عدد ايام تثبيت في الصفحة الرئيسية :-
+                      <input
+                        type="number"
+                        className="  mt-1 px-3 py-2 border rounded w-fit"
+                        onChange={(e) =>
+                          setPinPropertyHomePageDays(e.target.value)
+                        }
+                        placeholder="عدد الايام "
                       />
                     </label>
                   )}
