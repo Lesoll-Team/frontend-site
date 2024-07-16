@@ -64,7 +64,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={propertyData?.album[0]?.image}
+          src={propertyData?.album[0]?.image || "/no-img-placeholder.png"}
           className="object-cover "
           loading="lazy"
           placeholder="blur"
@@ -77,7 +77,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={propertyData?.album[1]?.image}
+          src={propertyData?.album[1]?.image || "/no-img-placeholder.png"}
           className=" object-cover"
           loading="lazy"
           placeholder="blur"
@@ -105,7 +105,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
           width={1400}
           height={1000}
           alt={propertyData?.title || propertyData?.titleAr}
-          src={propertyData?.album[2]?.image}
+          src={propertyData?.album[2]?.image || "/no-img-placeholder.png"}
           className="rounded-md brightness-75 object-cover bg-gray-300 md:brightness-100 "
           loading="lazy"
           placeholder="blur"
@@ -128,7 +128,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
             width={1400}
             height={1000}
             alt={propertyData?.title || propertyData?.titleAr}
-            src={propertyData.album[3]?.image || "/image-placeholder.svg"}
+            src={propertyData.album[3]?.image || "/no-img-placeholder.png"}
             className="rounded-md brightness-50 object-cover"
             loading="lazy"
             placeholder="blur"
@@ -139,7 +139,7 @@ const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
 
       {query?.images && (
         <Lightbox
-          mainSrc={images[lightboxIndex].link}
+          mainSrc={images[lightboxIndex]?.link || "/no-img-placeholder.png"}
           nextSrc={images[(lightboxIndex + 1) % images.length].link}
           prevSrc={
             images[(lightboxIndex + images.length - 1) % images.length].link

@@ -50,7 +50,7 @@ const SubscribedOptions = ({
             type="button"
             onClick={() => {
               setValue("adType", "paid");
-              setValue("toPin", "pin");
+              setValue("toPin", "pinFromPack");
               setValue("packId", "");
               clearErrors("adType");
             }}
