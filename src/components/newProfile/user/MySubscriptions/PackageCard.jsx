@@ -64,38 +64,43 @@ const PlanCard = ({ data }) => {
   }, []);
   const toggleMenu = () => setShowMenu((prev) => !prev);
   return (
-    <div className="px-3 py-5 md:px-5 md:py10 border-1 rounded bg-white drop-shadow-sm flex flex-col gap-6 relative">
-      <div
-        className={`absolute top-4 ${language ? "left-4" : "right-4"} `}
-        ref={menuRef}
-      >
-        <button onClick={toggleMenu}>
-          <HiOutlineDotsVertical className="text-xl" />
-        </button>
-        {showMenu && (
-          <div className="absolute fade-in bg-white min-w-[130px] rounded-lg py-2  drop-shadow left-0 top-5 ">
-            <button
-              disabled={getInvoiceStatus === "loading"}
-              className="w-full flex gap-2 items-center justify-center  disabled:opacity-80 text-center"
-              onClick={getPackageInvoice}
-            >
-              {/* <HiDownload />{" "} */}
-              <p className="text-center">
-                {language ? "تحميل الفاتورة" : "Download the invoice "}
-              </p>
-              {getInvoiceStatus === "loading" && (
-                <div className="w-3 h-3 border-t-2  rounded-full border-lightGreen animate-spinner-ease-spin "></div>
-              )}
-              {/* <div className="w-10 h-1 bg-black animate-indeterminate-bar rounded-lg"></div> */}
-            </button>
-          </div>
-        )}
-      </div>
+    <div className="px-3 py-5 md:px-5 md:py10 border-1 rounded overflow-hidden bg-white drop-shadow-sm flex flex-col gap-6 relative">
+      {data?.gift && <IsGifted />}
+      {!data?.gift && (
+        <div
+          className={`absolute top-4 ${language ? "left-4" : "right-4"} `}
+          ref={menuRef}
+        >
+          <button onClick={toggleMenu}>
+            <HiOutlineDotsVertical className="text-xl" />
+          </button>
+          {showMenu && (
+            <div className="absolute fade-in bg-white min-w-[130px] rounded-lg py-2  drop-shadow left-0 top-5 ">
+              <button
+                disabled={getInvoiceStatus === "loading"}
+                className="w-full flex gap-2 items-center justify-center  disabled:opacity-80 text-center"
+                onClick={getPackageInvoice}
+              >
+                {/* <HiDownload />{" "} */}
+                <p className="text-center">
+                  {language ? "تحميل الفاتورة" : "Download the invoice "}
+                </p>
+                {getInvoiceStatus === "loading" && (
+                  <div className="w-3 h-3 border-t-2  rounded-full border-lightGreen animate-spinner-ease-spin "></div>
+                )}
+                {/* <div className="w-10 h-1 bg-black animate-indeterminate-bar rounded-lg"></div> */}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
       <div className="flex flex-col gap-5">
         <h2>{language ? data?.packageName?.ar : data?.packageName?.en}</h2>
-        <h3 className="text-lightGreen">
-          {data.price} {language ? "جنية" : "Egp"} / {packagePer}
-        </h3>
+        {!data?.gift && (
+          <h3 className="text-lightGreen">
+            {data.price} {language ? "جنية" : "Egp"}
+          </h3>
+        )}
       </div>
       <div>
         <div className="py-3  flex items-center gap-3">
@@ -125,3 +130,14 @@ const PlanCard = ({ data }) => {
   );
 };
 export default PlanCard;
+
+const IsGifted = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  return (
+    <div
+      className={`absolute  -top-3 bg-gradient-to-l from-darkGreen to-lightGreen font-bold  ${language ? "-left-11 -rotate-45" : "-right-11 rotate-45"} text-white  px-10 pb-2 pt-8`}
+    >
+      {language ? "هدية" : "Gift"}
+    </div>
+  );
+};
