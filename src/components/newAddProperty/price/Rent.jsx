@@ -4,7 +4,10 @@ import { rentalTypes } from "../data/rentalTypes";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 import MainPrice from "./sale/mainPriceInput/MainPrice";
-import { handleMonyInputChange } from "../utils/handleNumberInput";
+import {
+  convertToNumber,
+  handleMonyInputChange,
+} from "../utils/handleNumberInput";
 const formatNumber = (value) => {
   return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
@@ -72,8 +75,9 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
               },
               validate: {
                 mustBeNumber: (value) => {
+                  const number = convertToNumber(value);
                   return (
-                    !isNaN(value) ||
+                    !isNaN(number) ||
                     (language
                       ? "التأمين يجب ان يكون رقم"
                       : "the insurance must be a number")
