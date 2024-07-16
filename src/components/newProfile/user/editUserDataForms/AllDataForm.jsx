@@ -167,11 +167,11 @@ const AllDataForm = ({ main }) => {
                   type="text"
                 />
               </div>
-              {!userData?.Verified && (
+              {/* {!userData?.Verified && (
                 <button onClick={() => setShowVerifyModal(true)} type="button">
                   verify
                 </button>
-              )}
+              )} */}
             </UserInputContainer>
           </div>
 
