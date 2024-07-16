@@ -4,7 +4,6 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 
 const CustomPackageCard = ({ data }) => {
-  console.log(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const ButtonsBuyPackage = useBuyPackage({ id: data?._id });
   const packagePer = useMemo(() => {

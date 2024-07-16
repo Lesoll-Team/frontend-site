@@ -13,7 +13,6 @@ import CustomPackageCard from "./CustomPackageCard";
 const CurrentSubscriptions = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
-  console.log("asssss", data);
   const [activePackages, setActivePackages] = useState(null);
   const [customPackages, setCustomPackages] = useState(null);
   const [customPackagesStatus, setCustomPackagesStatus] = useState("idle");

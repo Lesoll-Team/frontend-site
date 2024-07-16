@@ -20,7 +20,6 @@ const ActiveProperties = () => {
   const [drafts, setDrafts] = useState(null);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data } = useUser();
-  console.log(data);
   // make as a function like that so i can pass as a prop to the card so when the user delete or change the state of a peoperty it call it again
   const getProperties = () => {
     getActiveProperties({

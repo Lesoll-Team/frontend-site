@@ -53,7 +53,6 @@ const useAddProperty = ({ propData }) => {
   const features = useSelector((state) => state.getFeatures.features);
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log(loading);
   // fetch the needed data to use in the form
   useEffect(() => {
     if (!features) {
@@ -94,7 +93,6 @@ const useAddProperty = ({ propData }) => {
     }
     if (formStatus === "success") {
       const id = watch("packId");
-      console.log();
       if (id) {
         setLaoding(true);
       } else {

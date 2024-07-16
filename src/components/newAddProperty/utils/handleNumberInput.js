@@ -4,7 +4,6 @@ const formatNumber = (value) => {
 };
 
 const handleMonyInputChange = (e, name, setValue) => {
-  // console.log(n);
   const value = e.target.value.replace(/,/g, "");
   if (!isNaN(value)) {
     setValue(name, formatNumber(value));

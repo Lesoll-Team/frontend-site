@@ -1,7 +1,6 @@
 import { convertToNumber } from "../utils/handleNumberInput";
 
 const useFromatAddData = (data) => {
-  console.log(data);
   const address = {
     name: data.address.name,
     longitude: data.address.longitude,

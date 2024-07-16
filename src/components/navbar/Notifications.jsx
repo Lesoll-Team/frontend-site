@@ -119,9 +119,6 @@ const SinglenNotification = ({ data, isLast }) => {
     date: data.createdAt,
     lang: language,
   });
-  // const { formattedTime } = formatDate(data.createdAt);
-  // const time = formattedTime.split(":").splice(0, 2).join(":");
-  // console.log(time);
   return (
     <div>
       <Link
