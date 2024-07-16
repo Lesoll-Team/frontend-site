@@ -17,10 +17,10 @@ const RemaningAds = () => {
       </div>
       <p>
         {language
-          ? `تابع المتبقى لديك من الإعلانات المجانية والمدفوهة`
+          ? `تابع المتبقى لديك من الإعلانات المجانية والمدفوعة`
           : `Track your remaining free and paid advertisements.`}
         <span className="mx-1 underline text-lightGreen">
-          <button onClick={toggleModal}>
+          <button onClick={toggleModal} className="underline">
             {language ? "معرفة المزيد" : "Know more."}
           </button>
         </span>
