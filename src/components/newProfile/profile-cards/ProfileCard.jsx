@@ -15,6 +15,7 @@ import { useUser } from "@/Shared/UserContext";
 import { getPackageFeatures } from "../utils/getPackageFeatures";
 
 const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
+  console.log(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const price = localizedNumber(data?.price);
   const { data: userData } = useUser();
@@ -113,6 +114,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
           </div>
           {!paymentDisabled && (
             <PaymentActions
+              data={data}
               getProperties={getProperties}
               propId={data._id}
               disabled={paymentDisabled || isFeatured}

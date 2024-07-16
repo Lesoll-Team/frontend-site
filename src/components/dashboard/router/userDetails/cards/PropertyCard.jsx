@@ -29,7 +29,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <p className="text-lightGreen font-bold">
               <span>
                 {language
-                  ? parseInt(propertyDetails?.price).toLocaleString("ar-EG")
+                  ? parseInt(propertyDetails?.price)
                   : parseInt(propertyDetails?.price).toLocaleString(
                       "en-US",
                     )}{" "}
@@ -113,9 +113,7 @@ const PropertyCard = ({ propertyDetails }) => {
           <div className="flex items-center gap-2 font-bold">
             <BiSolidBed className="text-xl " />
             <p>
-              {language
-                ? propertyDetails?.rooms.toLocaleString("ar-EG")
-                : propertyDetails?.rooms.toLocaleString("en-US")}{" "}
+              {language ? propertyDetails?.rooms : propertyDetails?.rooms}
               {language ? "غرف" : "Rooms"}
             </p>
           </div>
@@ -123,8 +121,8 @@ const PropertyCard = ({ propertyDetails }) => {
             <FaBath className="text-xl " />
             <p>
               {language
-                ? propertyDetails?.bathRooms.toLocaleString("ar-EG")
-                : propertyDetails?.bathRooms.toLocaleString("en-US")}{" "}
+                ? propertyDetails?.bathRooms
+                : propertyDetails?.bathRooms}{" "}
               {language ? "حمام" : "Bath"}
             </p>
           </div>
@@ -132,9 +130,7 @@ const PropertyCard = ({ propertyDetails }) => {
             <TbRulerMeasure className="text-xl " />
 
             <p>
-              {language
-                ? propertyDetails?.area.toLocaleString("ar-EG")
-                : propertyDetails?.area.toLocaleString("en-US")}{" "}
+              {language ? propertyDetails?.area : propertyDetails?.area}{" "}
               {language ? (
                 <span>
                   م<sup>2</sup>

@@ -9,7 +9,7 @@ import ConfirmRepost from "./modals/ConfirmRepost";
 import { useUser } from "@/Shared/UserContext";
 import ConfirmPinHome from "./modals/ConfirmPinHome";
 import { getPackageFeatures } from "../utils/getPackageFeatures";
-const PaymentActions = ({ propId, getProperties, disabled }) => {
+const PaymentActions = ({ data, propId, getProperties, disabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
   const [noPackage, setNoPackage] = useState(false);
@@ -60,7 +60,13 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
           onClick={handlePinClick}
           className="w-full text-center border-2 py-2 rounded-md bg-lightGreen text-white border-lightGreen flex justify-center items-center gap-2"
         >
-          {language ? "تثبيت" : "Pin"}
+          {language
+            ? data?.makePin
+              ? "مثبت"
+              : "تثبيت"
+            : data?.makePin
+              ? "Pinned"
+              : "Pin"}
           <TiPinOutline />
         </button>
         {haveRepost && (
@@ -69,7 +75,11 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
             onClick={handleRepostClick}
             className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
           >
-            {language ? "إعادة نشر" : "Repost"}
+            {language
+              ? `${data?.makRepost ? "مثبت" : "إعادة"} نشر`
+              : data?.makRepost
+                ? "Reposted"
+                : "Repost"}
             <BsArrowRepeat />
           </button>
         )}
@@ -81,7 +91,9 @@ const PaymentActions = ({ propId, getProperties, disabled }) => {
             onClick={handlePinHome}
             className={`w-full text-center  ${disabled && "opacity-60"} border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center`}
           >
-            {language ? "تثبيت فى الصفحة الرئيسية" : "Pin to Home Page "}
+            {language
+              ? `${data?.makePinHome ? "مثبت" : "تثبيت"} فى الصفحة الرئيسية`
+              : "Pin to Home Page "}
           </button>
         </div>
       )}
