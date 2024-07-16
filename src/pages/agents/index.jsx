@@ -6,7 +6,7 @@ const Agents = ({ profile }) => {
   return (
     <div>
       <AgentMetaTags />
-      <AgentsHeroSection />
+      {/* <AgentsHeroSection /> */}
       <AgentsBodyCards profile={profile} />
     </div>
   );
@@ -22,6 +22,5 @@ export async function getServerSideProps() {
     props: {
       profile: profile.getProfiles,
     },
-    // revalidate: 21600, // يعيد التحقق كل 6 ساعات (21600 ثانية)
   };
 }

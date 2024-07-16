@@ -5,12 +5,12 @@ const PinProfileTitle = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="mb-10">
+    <div className=" md:mx-0 mx-[20px] mb-10">
       <div className="flex justify-between">
-        <h2 className=" text-grayText2">
+        <h2 className=" font-bold  flex text-grayText2">
           {language ? "افضل الوكلاء" : "Best Agents"}
         </h2>
-        <Link href={"/agents"} className="underline">
+        <Link href={"/agents"} className="underline  lg-text">
           عرض المزيد
         </Link>
       </div>

@@ -88,7 +88,7 @@ const LocationCategories = () => {
     };
   }, []);
   return (
-    <div>
+    <div className="mb-10">
       <div className="md:container  md:mb-[32px]  md:mx-auto mx-[20px]">
         <h2 className="font-bold  flex  text-grayText2">
           {language ? "المحافظات" : "Governorates"}

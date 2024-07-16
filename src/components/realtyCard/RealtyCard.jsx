@@ -8,7 +8,7 @@ import { memo } from "react";
 import { filterSlugURL } from "../../Shared/generateRedirectDestination";
 
 const RealtyCard = ({ propertyDetails, cardID, withVertical }) => {
-  console.log("propertyDetails::>>>", propertyDetails);
+  // console.log("propertyDetails::>>>", propertyDetails);
   const new_slug = filterSlugURL(propertyDetails?.slug);
   const layoutCard = withVertical
     ? " h-auto   block drop-shadow-none  bg-none  rounded-none "
@@ -16,6 +16,9 @@ const RealtyCard = ({ propertyDetails, cardID, withVertical }) => {
   const layoutImage = withVertical
     ? " w-full  min-w-[125px] flex  relative h-[40vh] max-h-[250px] min-h-[250px] "
     : " sm:w-full w-5/12 min-w-[125px]  flex  relative   h-auto sm:h-[40vh] sm:max-h-[250px] sm:min-h-[250px]";
+  const layoutWhiteCard = withVertical
+    ? " pt-[20px] w-full flex flex-col justify-between gap-1"
+    : " sm:pt-[20px] sm:p-0 sm:py-0 py-2.5 p-1.5 w-full flex flex-col justify-between gap-1";
   return (
     <div key={cardID} className={`overflow-hidden  w-full  ${layoutCard}`}>
       {/* start icon favorite */}
@@ -42,15 +45,16 @@ const RealtyCard = ({ propertyDetails, cardID, withVertical }) => {
         </Link>
       </div>
       {/* start card data */}
-      <div
-        className=" sm:pt-[20px] sm:p-0 sm:py-0 py-2.5 p-1.5 w-full flex flex-col justify-between
-      gap-1
-      "
-      >
+      <div className={layoutWhiteCard}>
         {/* start title */}
-        <TitleCard propertyDetails={propertyDetails} />
+        <TitleCard
+          propertyDetails={propertyDetails}
+          withVertical={withVertical}
+        />
         {/* start location  details  ...etc*/}
-        <p className="flex items-center font-inter min-w-max text-gray2 md:text-[16px] text-[12px] gap-1  ">
+        <p
+          className={`${withVertical ? "text-[16px] " : "md:text-[16px] text-[12px]"} flex items-center font-inter min-w-max text-gray2  gap-1  `}
+        >
           {propertyDetails?.address?.region
             ? propertyDetails?.address?.region
             : propertyDetails?.address?.governrate}

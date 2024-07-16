@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const AgentCard = ({ logo, company, compounds, username }) => {
+const AgentCard = ({ logo, company, username }) => {
   return (
     <Link
       href={`/view-profile/${username}?page=1`}
-      className="bg-white shadow-sm border-1 rounded-md p-4 flex flex-col items-center text-center"
+      className="bg-white shadow-sm border-1  rounded-md p-4 flex flex-col items-center justify-center space-y-3 py-8 text-center"
     >
       <Image
         src={logo || "/user-avatar-placeholder.png"}
@@ -18,7 +18,7 @@ const AgentCard = ({ logo, company, compounds, username }) => {
         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCACCAIIDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAECAwb/xAAXEAEBAQEAAAAAAAAAAAAAAAAAAREC/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD2YAAAAAAAAAAAAAAAAAAAAACaWs6DWmsaug2Ma1oKIoAAAAAAAACVWbQS1m0tYtUa01jTQdJVlc5WpQdJV1iVdBpWVQAQFEAaAAY6arHQMWsWtdMVQ01kBuVqVzjcBuVqMRqA0rKoKIAogDYAJXPp0rn0Dn0xXSsVRhQBY1GY1AbjUZjUBVRUAAAAGwASsVus0HOsWOljNijnhjeGAkjUhIsgLFhIoCggAAAA2AAzWkoMWM2N2JgMYY1i4DOLIuLgGKYoIKgCKAgANgAAAzRUBMMVQTFFBFAEFQEAAABoAAAEAAAAUAAAEABAAAB//9k="
       />
       <h2 className="text-xl font-bold mb-1">{company}</h2>
-      <p> عدد العقارات {compounds} </p>
+      {/* <p> عدد العقارات {compounds} </p> */}
     </Link>
   );
 };
