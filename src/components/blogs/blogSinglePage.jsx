@@ -8,7 +8,6 @@ import RealtyCard from "../realtyCard/RealtyCard";
 
 function BlogSinglePage({ BlogData }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log("BlogData::>>>", BlogData);
   const formattedDate = (dateString, language) => {
     const date = new Date(dateString);
     const locale = language ? "ar-EG" : "en-US";

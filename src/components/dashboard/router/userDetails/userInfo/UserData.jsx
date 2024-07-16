@@ -20,7 +20,6 @@ const UserData = ({
   makeAction,
   setMakeAction,
 }) => {
-  // console.log("userData::>>", userData);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [loading, setLoading] = useState(false);
   const [date, setdate] = useState();

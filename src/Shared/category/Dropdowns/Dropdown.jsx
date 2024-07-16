@@ -107,13 +107,14 @@ const Dropdown = ({
   const renderOptionType = useCallback(() => {
     return (
       <div
-        className={`animate-appearance-in w-full min-w-[160px] absolute  duration-200 border max-h-[22vh] overflow-y-auto shadow-sm px-2 bg-white`}
+        className={`animate-appearance-in w-full min-w-fit  absolute  duration-200 border max-h-[22vh] overflow-y-auto shadow-sm px-2 bg-white`}
+        //min-w-[160px]
       >
         {data ? (
           data[(language && "ar") || "en"].map((option) => (
             <div
               key={option.id}
-              className="p-1 flex flex-col border-b hover:bg-gray-200"
+              className="p-1  flex flex-col border-b hover:bg-gray-200"
             >
               <button
                 dir={language && "rtl"}

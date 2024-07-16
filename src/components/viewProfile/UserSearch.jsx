@@ -23,10 +23,6 @@ const UserSearch = ({
   sorting,
   setSorting,
 }) => {
-  /**
-   *   const [city, setCity] = useState("");
-  const [region, setRegion] = useState("");
-   */
   const language = useSelector((state) => state.GlobalState.languageIs);
   const unitTypesData = useUnitTypesData(categoryType);
 

@@ -113,7 +113,9 @@ const PropertyCard = ({ propertyDetails }) => {
           <div className="flex items-center gap-2 font-bold">
             <BiSolidBed className="text-xl " />
             <p>
-              {language ? propertyDetails?.rooms : propertyDetails?.rooms}
+              {language
+                ? propertyDetails?.rooms?.toLocaleString("ar-EG")
+                : propertyDetails?.rooms?.toLocaleString("en-US")}{" "}
               {language ? "غرف" : "Rooms"}
             </p>
           </div>
@@ -121,8 +123,8 @@ const PropertyCard = ({ propertyDetails }) => {
             <FaBath className="text-xl " />
             <p>
               {language
-                ? propertyDetails?.bathRooms
-                : propertyDetails?.bathRooms}{" "}
+                ? propertyDetails?.bathRooms?.toLocaleString("ar-EG")
+                : propertyDetails?.bathRooms?.toLocaleString("en-US")}{" "}
               {language ? "حمام" : "Bath"}
             </p>
           </div>
@@ -130,7 +132,9 @@ const PropertyCard = ({ propertyDetails }) => {
             <TbRulerMeasure className="text-xl " />
 
             <p>
-              {language ? propertyDetails?.area : propertyDetails?.area}{" "}
+              {language
+                ? propertyDetails?.area?.toLocaleString("ar-EG")
+                : propertyDetails?.area?.toLocaleString("en-US")}{" "}
               {language ? (
                 <span>
                   م<sup>2</sup>
@@ -165,7 +169,9 @@ const PropertyCard = ({ propertyDetails }) => {
         />
         <p
           className={`${
-            propertyDetails.makePin || propertyDetails.makeRepost
+            propertyDetails.makePin ||
+            propertyDetails.makeRepost ||
+            propertyDetails.makePinHome
               ? "bg-yellow-500"
               : "bg-darkGreen"
           } absolute bottom-0 z-20 p-1 text-center w-full text-white  font-semibold`}

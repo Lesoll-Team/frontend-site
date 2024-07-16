@@ -64,11 +64,9 @@ const CreatePlansPricing = ({ userId }) => {
     if (userId) {
       await sendBundleVIP({ packageData: data, userID: userId })
         .then(() => {
-          // console.log("then");
           setGiftCreated(true);
         })
         .catch(() => {
-          // console.log("catch");
           setGiftCreated(false);
         });
     } else dispatch(createPricePlan(data));
