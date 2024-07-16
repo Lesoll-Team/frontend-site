@@ -118,7 +118,7 @@ const PropertiesCategories = ({ isHome }) => {
     };
   }, []);
   return (
-    <div className="my-10">
+    <div className="mb-14">
       <div className="md:w-full flex items-center justify-between  md:container md:mb-[32px] mb-[16px] md:mx-auto mx-[16px] ">
         {isHome ? (
           <h2 className="font-bold  flex text-grayText2">

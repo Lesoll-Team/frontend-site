@@ -39,24 +39,27 @@ const BestLinksInHome = dynamic(
 
 const Home = ({ bestSearch }) => {
   return (
-    <main className=" flex flex-col gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]">
+    <main
+      className=" flex flex-col "
+      //gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]
+    >
       <HomeMetaTag />
       <div className="md:container md:mx-auto  mx-[20px]">
         <SearchModule />
       </div>
       <HeroSection />
-      <div className="md:container md:mx-auto mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2  flex-col md:flex-row justify-between">
-        <OtherCards />
-      </div>
-      <div className=" md:container md:mx-auto p-5 space-y-10 mx-[20px]">
+
+      <div className=" md:container md:mx-auto lg:-mt-14 p-5 space-y-10 mx-[20px]">
         <PinPropertiesTitle />
         <CarouselPinPropertiesCard />
       </div>
-      <div className=" md:container md:mx-auto flex flex-col justify-center h-[400px] mx-[20px] bg-gray-50">
+      <div className=" md:container md:mx-auto flex flex-col justify-center h-[400px]  bg-gray-50">
         <PinProfileTitle />
         <CarouselPinCard />
       </div>
-
+      <div className=" md:container md:mx-auto my-14 mx-[20px] flex-wrap flex md:gap-y-0 gap-y-2  flex-col md:flex-row justify-between">
+        <OtherCards />
+      </div>
       <PropertiesCategories isHome />
       <LocationCategories />
 

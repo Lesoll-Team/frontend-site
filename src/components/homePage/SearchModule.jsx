@@ -9,7 +9,7 @@ const SearchModule = () => {
         className="w-full  flex flex-col  md:gap-y-[60px] items-center
       justify-center
         md:h-screen p-1 z-10
-       lg:h-[600px]  
+       lg:h-[600px]
         "
       >
         <div className="md:flex md:flex-col  gap-y-[3.27vh]   text-white ">
@@ -22,8 +22,8 @@ const SearchModule = () => {
             {language ? "ليسول طريقك لبيتك" : "Lesoll The Way You Home"}
           </h2>
           <p
-            className="hidden md:flex 
-              text-[16px] md:text-[20px] text-justify 
+            className="hidden md:flex
+              text-[16px] md:text-[20px] text-justify
               font-light text-white
               "
           >
