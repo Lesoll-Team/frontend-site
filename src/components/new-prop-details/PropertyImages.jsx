@@ -8,15 +8,37 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import TimeAge from "./TimeAge";
 
+const noImagesArray = [
+  {
+    id: 1,
+    link: "/no-img-placeholder.png",
+  },
+  {
+    id: 2,
+    link: "/no-img-placeholder.png",
+  },
+  {
+    id: 4,
+    link: "/no-img-placeholder.png",
+  },
+];
 const PropertyImages = ({ propertyData, fav = true, query, slug }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const router = useRouter();
 
   const subImages = useMemo(() => {
-    return propertyData.album.map((image, index) => {
-      return { link: image.image, id: index + 1 };
-    });
-  }, [propertyData]);
+    if (propertyData?.album.length < 2) {
+      const album = propertyData.album.map((image, index) => {
+        return { link: image.image, id: index + 1 };
+      });
+      return [...album, ...noImagesArray];
+    } else {
+      return propertyData.album.map((image, index) => {
+        return { link: image.image, id: index + 1 };
+      });
+    }
+  }, []);
+
   const images = [{ link: propertyData.thumbnail, id: 0 }, ...subImages];
 
   // lightbox logic
