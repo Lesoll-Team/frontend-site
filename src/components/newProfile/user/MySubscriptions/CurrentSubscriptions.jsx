@@ -9,6 +9,7 @@ import PlanCard from "./PackageCard";
 import PackageCardSkeleton from "./PackageCardSkeleton";
 import { useUser } from "@/Shared/UserContext";
 import CustomPackageCard from "./CustomPackageCard";
+import RemaningAds from "../../profile-cards/RemaningAds";
 
 const CurrentSubscriptions = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -41,6 +42,7 @@ const CurrentSubscriptions = () => {
 
   return (
     <div className="space-y-6 md:space-y-8">
+      <RemaningAds />
       {customPackagesStatus === "loading" ? (
         <PackageCardSkeleton />
       ) : (

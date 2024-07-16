@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import NoItems from "./NoItems";
 import { getSoldProperties } from "../../apis/profileApis";
 import ProfileCardSkeleton from "../../profile-cards/ProfileCardSkeleton";
+import RemaningAds from "../../profile-cards/RemaningAds";
 const SoldProperties = () => {
   const [soldProperties, setSoldProperties] = useState(null);
   const [formStatus, setFormStatus] = useState("idle");
@@ -19,31 +20,36 @@ const SoldProperties = () => {
   const type = language ? "تم البيع" : "Sold";
 
   return (
-    <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
-      {formStatus === "success" ? (
-        soldProperties.propertySoldProfile.length > 0 ? (
-          soldProperties.propertySoldProfile.map((item) => {
-            return (
-              <ProfileCard
-                paymentDisabled={true}
-                getProperties={getProperties}
-                data={item}
-                key={item?._id}
-                type={type}
-              />
-            );
-          })
+    <div className="space-y-4">
+      <RemaningAds />
+      <div className="flex flex-wrap gap-6 lg:justify-start justify-center lg:gap-12">
+        {formStatus === "success" ? (
+          soldProperties.propertySoldProfile.length > 0 ? (
+            soldProperties.propertySoldProfile.map((item) => {
+              return (
+                <ProfileCard
+                  paymentDisabled={true}
+                  getProperties={getProperties}
+                  data={item}
+                  key={item?._id}
+                  type={type}
+                />
+              );
+            })
+          ) : (
+            <NoItems
+              title={language ? "لا توجد اعلانات مباعة" : "No sold Ads"}
+            />
+          )
         ) : (
-          <NoItems title={language ? "لا توجد اعلانات مباعة" : "No sold Ads"} />
-        )
-      ) : (
-        <>
-          {" "}
-          <ProfileCardSkeleton />
-          <ProfileCardSkeleton />
-          <ProfileCardSkeleton />
-        </>
-      )}
+          <>
+            {" "}
+            <ProfileCardSkeleton />
+            <ProfileCardSkeleton />
+            <ProfileCardSkeleton />
+          </>
+        )}
+      </div>
     </div>
   );
 };

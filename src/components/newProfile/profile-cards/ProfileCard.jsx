@@ -15,7 +15,6 @@ import { useUser } from "@/Shared/UserContext";
 import { getPackageFeatures } from "../utils/getPackageFeatures";
 
 const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
-  console.log(data);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const price = localizedNumber(data?.price);
   const { data: userData } = useUser();
@@ -29,6 +28,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
     return type === "نشطة" || type === "active";
   }, [type]);
 
+  const typeSold = type === "Sold" || type === "تم البيع";
   const isFeatured = data?.makePin || data?.makeRepost || data?.isFeateur;
   const showDashboard = haveDashboard && typeActive && isFeatured;
   if (data) {
@@ -48,6 +48,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             <ActionsMenu
               propData={data}
               isPending={typePending}
+              isSold={typeSold}
               propId={data._id}
               getProperties={getProperties}
             />

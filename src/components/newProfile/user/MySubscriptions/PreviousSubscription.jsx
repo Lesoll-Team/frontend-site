@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import NoItems from "../userProperties/NoItems";
 import PlanCard from "./PackageCard";
 import PackageCardSkeleton from "./PackageCardSkeleton";
+import RemaningAds from "../../profile-cards/RemaningAds";
 
 const PreviousSubscription = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -24,6 +25,7 @@ const PreviousSubscription = () => {
   }, []);
   return (
     <div className="space-y-6 md:space-y-8">
+      <RemaningAds />
       {formStatus === "loading" ? (
         <>
           <PackageCardSkeleton />

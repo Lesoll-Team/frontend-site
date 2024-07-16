@@ -7,7 +7,13 @@ import { IoIosRadioButtonOn, IoMdRadioButtonOff } from "react-icons/io";
 import { useSelector } from "react-redux";
 import DeleteBtn from "./DeleteBtn";
 import { toggleSold } from "../apis/profileApis";
-const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
+const ActionsMenu = ({
+  propId,
+  getProperties,
+  isPending,
+  isSold,
+  propData,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
@@ -68,7 +74,13 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
           {!isPending && (
             <>
               <button onClick={toggleSoldModal}>
-                {language ? "تم البيع" : "Sold"}
+                {isSold
+                  ? language
+                    ? "إعادة بيع"
+                    : "Resale"
+                  : language
+                    ? "تم البيع"
+                    : "Sold"}
               </button>
               <hr />
             </>
@@ -89,9 +101,13 @@ const ActionsMenu = ({ propId, getProperties, isPending, propData }) => {
       <ReactModal modalIsOpen={soldIsOpen} setModalIsOpen={setSoldIsOpen}>
         <div className="sm:w-[450px] w-[85vw] md:w-[600px]  pt-4 space-y-4">
           <h3>
-            {language
-              ? "هل انت متأكد من تحويل حالة العقار الى مباع؟"
-              : "Are you sure you want to change the status of the property to sold?"}
+            {isSold
+              ? language
+                ? "هل انت متأكد من إعادة بيع العقار؟"
+                : "Are you sure you want to resale the property ?"
+              : language
+                ? "هل انت متأكد من تحويل حالة العقار الى مباع؟"
+                : "Are you sure you want to change the status of the property to sold?"}
           </h3>
           <div className="flex justify-end items-center gap-2">
             <button
