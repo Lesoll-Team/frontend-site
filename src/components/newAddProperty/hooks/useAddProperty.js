@@ -102,7 +102,7 @@ const useAddProperty = ({ propData }) => {
         setUserData();
       }
     } else if (finalStepStatus === "success") {
-      if (watch("adType") === "free") {
+      if (!watch("packId")) {
         setPosted(true);
         setUserData();
       }

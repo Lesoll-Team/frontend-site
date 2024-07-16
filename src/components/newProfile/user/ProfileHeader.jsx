@@ -60,15 +60,6 @@ const ProfileHeader = ({ hideHeader }) => {
                     </h3>
                   </div>
                 </div>
-                <div className="bg-neutral px-4 py-2 flex items center gap-1 rounded">
-                  <p className="text-lightGreen font-bold">
-                    {language ? "رصيد العقارات" : "Ads Balance "}:
-                  </p>
-                  <p className="text-outLine font-semibold">
-                    {" "}
-                    {data?.propertyPackageNumber}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
