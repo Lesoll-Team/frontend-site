@@ -41,7 +41,7 @@ const CarouselPinPropertiesCard = () => {
             nextEl: ".swiper-button-prev-property",
           }}
           pagination={{
-            clickable: false,
+            clickable: true,
             el: ".swiper-pagination-custom",
           }}
           modules={[Pagination, FreeMode, Navigation]}

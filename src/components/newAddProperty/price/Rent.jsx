@@ -14,7 +14,6 @@ const formatNumber = (value) => {
 const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   // const handleInputChange = (e, name,setValue) => {
-  //   // console.log(n);
   //   const value = e.target.value.replace(/,/g, "");
   //   if (!isNaN(value)) {
   //     setValue(name, formatNumber(value));

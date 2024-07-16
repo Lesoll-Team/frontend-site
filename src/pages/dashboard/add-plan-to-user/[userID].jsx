@@ -16,7 +16,7 @@ const Index = ({ userID, payments }) => {
   return (
     <div className="min-h-[90dvh] flex flex-col my-10 gap-y-10 items-center">
       <b className="text-3xl"> اختار باقة لليوسر باشا يامدييييير ❤</b>
-      <div className="flex mx-[20px] md:container md:mx-auto gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  mx-[20px] md:container md:mx-auto gap-10">
         {payments.map((plan) => (
           <div
             onClick={() => setIdPlan(plan._id)}
@@ -26,20 +26,20 @@ const Index = ({ userID, payments }) => {
           >
             {plan.Popular && (
               <div className="absolute top-1 left-1  flex justify-between w-full p-4">
-                <PiCrownSimpleFill className="text-[#ffd700] text-5xl  left-2 -rotate-45" />
+                <PiCrownSimpleFill className="text-[#ffd700] text-4xl  left-2 -rotate-45" />
               </div>
             )}
-            {plan?.offerPrice && (
-              <s className=" w-full flex justify-end md:text-[1em] text-[0.8em] font-bold text-red-300 ">
-                <span>{plan?.offerPrice + " EGP "}</span>
+            {plan.offerPrice && (
+              <s className=" w-full flex justify-end  font-bold text-red-300 ">
+                <span>{plan?.offerPrice} EGP </span>
               </s>
             )}
-            <div className=" w-full flex justify-between   md:text-[1.5em] text-[1em] font-bold text-white border-b-2 mb-6">
-              <span>{plan?.PaymentEn}</span>
+            <div className=" w-full flex justify-between   font-bold text-white border-b-2 mb-6">
+              <span className="  line-clamp-1">{plan?.PaymentEn}</span>
               <span>{plan?.price + " EGP "}</span>
             </div>
             {/**plan.offer */}
-            <div className="grid grid-cols-1 gap-1 px-4 md:text-[1.3em] text-[1em]">
+            <div className="grid grid-cols-1 gap-1 px-4 ">
               <div className=" w-full flex justify-between   text-medium text-gray-100 border-b-1  mb-1">
                 <span>Created</span>
                 <span>

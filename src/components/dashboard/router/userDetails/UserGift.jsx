@@ -11,7 +11,6 @@ const UserGift = ({ bundleVIP, userData }) => {
   useEffect(() => {
     setBundleVIPUser(bundleVIP);
   }, []);
-  console.log("bundleVIPUser::>", bundleVIPUser);
   return (
     <div>
       <h2 className="text-3xl m-5">الباقات المخصصة</h2>

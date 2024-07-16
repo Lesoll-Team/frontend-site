@@ -20,7 +20,6 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const { data: userData } = useUser();
   const { havePin, havePinHome, haveRepost, haveDashboard } =
     getPackageFeatures(userData?.Features);
-  console.log(userData);
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
   }, [type]);
@@ -28,7 +27,6 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const typeActive = useMemo(() => {
     return type === "نشطة" || type === "active";
   }, [type]);
-  console.log(data);
 
   const isFeatured = data?.makePin || data?.makeRepost;
   const showDashboard = haveDashboard && typeActive && isFeatured;
