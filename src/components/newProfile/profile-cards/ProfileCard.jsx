@@ -30,14 +30,14 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   }, [type]);
   console.log(data);
 
-  const isFeatured = data?.makePin || data?.makeRepost;
+  const isFeatured = data?.makePin || data?.makeRepost || data?.isFeateur;
   const showDashboard = haveDashboard && typeActive && isFeatured;
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
         <div className="w-full relative">
           <div className="flex w-full absolute items-center justify-between  top-4">
-            {data?.isFeateur ? (
+            {isFeatured ? (
               <div
                 className={`bg-white h-8 w-8 rounded-full lg-text text-baseGray  grid place-content-center mx-4 `}
               >
@@ -117,7 +117,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             <PaymentActions
               getProperties={getProperties}
               propId={data._id}
-              disabled={paymentDisabled || data?.isFeateur}
+              disabled={paymentDisabled || isFeatured}
             />
           )}
         </div>
