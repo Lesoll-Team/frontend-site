@@ -19,7 +19,7 @@ const Button = ({
             ? "bg-transparent text-lightGreen  "
             : "bg-lightGreen text-white "
         } ${disabled && "opacity-50"}`,
-        className
+        className,
       )}
     >
       {children}

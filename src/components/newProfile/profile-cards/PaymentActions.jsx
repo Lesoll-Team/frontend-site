@@ -7,8 +7,8 @@ import FeatureLimitModal from "./modals/FeatureLimitModal";
 import ConfirmPin from "./modals/ConfirmPin";
 import ConfirmRepost from "./modals/ConfirmRepost";
 import { useUser } from "@/Shared/UserContext";
-import ConfirmPinHome from "./modals/ConfirmPinHome";
-import { getPackageFeatures } from "../utils/getPackageFeatures";
+import ConfirmWhereToPin from "./modals/confirm-pin/ConfirmWhereToPin";
+import usePackageData from "../utils/usePackageData";
 const PaymentActions = ({ data, propId, getProperties, disabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
@@ -16,10 +16,15 @@ const PaymentActions = ({ data, propId, getProperties, disabled }) => {
   const [reachedLimit, setReachedLimit] = useState(false);
   const [confirmRepost, setConfirmRepost] = useState(false);
   const [confirmPin, setConfirmPin] = useState(false);
-  const [confirmPinHome, setConfirmPinHome] = useState(false);
-  const { havePin, havePinHome, haveRepost } = getPackageFeatures(
-    userData?.Features,
-  );
+  const [confirmWhereToPin, setConfirmWhereToPin] = useState(false);
+  const {
+    haveRepost,
+    pinText,
+    disablePin,
+    disableRepost,
+    openWherePinModal,
+    repostText,
+  } = usePackageData(data);
 
   const handleRepostClick = () => {
     if (!userData?.packageSubscribe) {
@@ -32,77 +37,44 @@ const PaymentActions = ({ data, propId, getProperties, disabled }) => {
       }
     }
   };
-  const handlePinHome = () => {
-    if (!userData?.packageSubscribe) {
-      setNoPackage(true);
-    } else if (havePinHome) {
-      if (userData?.packagePropertyNumber == 0) {
-        setReachedLimit(true);
-      } else {
-        setConfirmPinHome(true);
-      }
-    }
-  };
+
   const handlePinClick = () => {
     if (!userData?.packageSubscribe) {
       setNoPackage(true);
     } else if (userData?.packagePropertyNumber == 0) {
       setReachedLimit(true);
     } else {
-      setConfirmPin(true);
+      if (openWherePinModal) {
+        setConfirmWhereToPin(true);
+      } else {
+        setConfirmPin(true);
+      }
     }
   };
+
   return (
     <div className="space-y-2">
-      <div className={`flex gap-2 items-center  ${disabled && "opacity-60"}`}>
+      <div className={`flex flex-col gap-2 items-center  `}>
         <button
-          disabled={disabled}
+          disabled={disablePin}
           onClick={handlePinClick}
-          className="w-full text-center border-2 py-2 rounded-md bg-lightGreen text-white border-lightGreen flex justify-center items-center gap-2"
+          className="w-full text-center disabled:opacity-60 border-2 py-2 rounded-md bg-lightGreen text-white border-lightGreen flex justify-center items-center gap-2"
         >
-          {language
-            ? data?.makePin
-              ? "مثبت"
-              : "تثبيت"
-            : data?.makePin
-              ? "Pinned"
-              : "Pin"}
+          {pinText}
           <TiPinOutline />
         </button>
         {haveRepost && (
           <button
-            disabled={disabled}
+            disabled={disableRepost}
             onClick={handleRepostClick}
-            className="w-full text-center border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
+            className="w-full text-center border-2 disabled:opacity-60 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center"
           >
-            {language
-              ? `${data?.makRepost ? "مثبت" : "إعادة"} نشر`
-              : data?.makRepost
-                ? "Reposted"
-                : "Repost"}
+            {repostText}
             <BsArrowRepeat />
           </button>
         )}
       </div>
-      {havePinHome && (
-        <div className="flex w-full">
-          <button
-            disabled={disabled}
-            onClick={handlePinHome}
-            className={`w-full text-center  ${disabled && "opacity-60"} border-2 py-2 rounded-md bg bg-white text-lightGreen flex items-center gap-2 justify-center`}
-          >
-            {language
-              ? `${data?.makePinHome ? "مثبت" : "تثبيت"} فى الصفحة الرئيسية`
-              : "Pin to Home Page "}
-          </button>
-        </div>
-      )}
-      {/* no package */}
-      {/* <ReactModal setModalIsOpen={setNoRepost} modalIsOpen={noRepost}>
-        <div className="md:w-[500px] w-[95vw]">
-          <h3>sds</h3>
-        </div>
-      </ReactModal> */}
+
       <NoPackageModal setIsOpen={setNoPackage} open={noPackage} />
       {/* no pin or repost  */}
       <FeatureLimitModal open={reachedLimit} setIsOpen={setReachedLimit} />
@@ -120,11 +92,14 @@ const PaymentActions = ({ data, propId, getProperties, disabled }) => {
         open={confirmRepost}
         propId={propId}
       />
-      <ConfirmPinHome
-        getProperties={getProperties}
-        setIsOpen={setConfirmPinHome}
-        open={confirmPinHome}
+      <ConfirmWhereToPin
+        OnSuccess={getProperties}
+        setIsOpen={setConfirmWhereToPin}
+        isOpen={confirmWhereToPin}
         propId={propId}
+        isPinHome={data?.makePinHome}
+        isPinSearch={data?.makePin}
+        // isRepost={data?.makerepost}
       />
     </div>
   );

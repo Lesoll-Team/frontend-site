@@ -9,11 +9,10 @@ import { useUser } from "@/Shared/UserContext";
 const ConfirmRepost = ({ open, setIsOpen, propId, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState(null);
   const { setUserData } = useUser();
 
   const repostProp = async () => {
-    await repostProperty({ propId, setFormStatus, setServerError });
+    await repostProperty({ propId, setFormStatus });
   };
   useEffect(() => {
     if (formStatus === "success") {

@@ -116,7 +116,7 @@ export const toggleSold = async ({ setFormStatus, propId }) => {
 // payment apis
 export const repostProperty = async ({
   setFormStatus,
-  setServerError,
+
   propId,
 }) => {
   try {
@@ -131,7 +131,7 @@ export const repostProperty = async ({
     return response.data;
   } catch (error) {
     setFormStatus("failed");
-    setServerError(error.response.data);
+
     throw error.response.data;
   }
 };
