@@ -96,12 +96,12 @@ const useAddProperty = ({ propData }) => {
       if (id) {
         setLaoding(true);
       } else {
-        setPosted(true);
+        // setPosted(true);
         setUserData();
       }
     } else if (finalStepStatus === "success") {
       if (!watch("packId")) {
-        setPosted(true);
+        // setPosted(true);
         setUserData();
       }
     } else {

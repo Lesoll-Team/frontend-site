@@ -15,7 +15,7 @@ const PlanCard = ({ item, setValue, clearErrors, selected }) => {
       onClick={() => {
         setValue("packId", item._id);
         setValue("adType", "paid");
-        setValue("toPin", "pin");
+        setValue("toPin", "pinPaid");
         clearErrors("adType");
       }}
       className={`bg-white p-4 rounded-md space-y-4 border ${selected && "border-lightGreen"}`}

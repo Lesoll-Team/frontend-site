@@ -50,24 +50,48 @@ const SubscribedOptions = ({
             type="button"
             onClick={() => {
               setValue("adType", "paid");
-              setValue("toPin", "pinFromPack");
+              setValue("toPin", "pinSearch");
               setValue("packId", "");
               clearErrors("adType");
             }}
-            className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${watch("adType") === "paid" && !watch("packId") && "border-lightGreen border"}`}
+            className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${watch("toPin") === "pinSearch" && !watch("packId") && "border-lightGreen border"}`}
           >
             <div className="flex items-center gap-2">
-              {watch("adType") === "paid" && !watch("packId") ? (
+              {watch("toPin") === "pinSearch" && !watch("packId") ? (
                 <IoIosRadioButtonOn className="text-lightGreen text-xl" />
               ) : (
                 <IoIosRadioButtonOff className="text-outLine text-xl" />
               )}
-              <h3>{language ? "مميز" : "Featured"}</h3>
+              <h3>{language ? "تثبيت فى صفحة البحث" : "Pin At Search"}</h3>
             </div>
             <p className="text-start">
               {language ? "متبقى لديك" : "You have"}{" "}
-              {userData.packagePropertyNumber}{" "}
-              {language ? "إعلان مميز" : "Featured ad remaining"}
+              {userData.packagePropertyNumber} {language ? "إعلان" : "ad"}
+            </p>
+          </button>
+        )}
+        {!!userData.pinHomeAdCount && (
+          <button
+            type="button"
+            onClick={() => {
+              setValue("adType", "paid");
+              setValue("toPin", "pinHome");
+              setValue("packId", "");
+              clearErrors("adType");
+            }}
+            className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${watch("toPin") === "pinHome" && !watch("packId") && "border-lightGreen border"}`}
+          >
+            <div className="flex items-center gap-2">
+              {watch("toPin") === "pinHome" && !watch("packId") ? (
+                <IoIosRadioButtonOn className="text-lightGreen text-xl" />
+              ) : (
+                <IoIosRadioButtonOff className="text-outLine text-xl" />
+              )}
+              <h3>{language ? "تثبيت فى الصفحة الرئيسية" : "Pin At Home"}</h3>
+            </div>
+            <p className="text-start ">
+              {language ? "متبقى لديك" : "You have"} {userData.pinHomeAdCount}{" "}
+              {language ? "إعلان" : "ad"}
             </p>
           </button>
         )}
