@@ -8,10 +8,9 @@ import { useUser } from "@/Shared/UserContext";
 const ConfirmPinHome = ({ open, setIsOpen, propId, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState(null);
   const { setUserData } = useUser();
   const pinPropHome = async () => {
-    await pinPropertyHome({ propId, setFormStatus, setServerError });
+    await pinPropertyHome({ propId, setFormStatus });
   };
   useEffect(() => {
     if (formStatus === "success") {

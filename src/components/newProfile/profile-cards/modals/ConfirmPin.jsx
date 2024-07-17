@@ -9,14 +9,14 @@ import { useUser } from "@/Shared/UserContext";
 const ConfirmPin = ({ open, setIsOpen, propId, getProperties }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [formStatus, setFormStatus] = useState("idle");
-  const [serverError, setServerError] = useState(null);
   const { setUserData } = useUser();
   const pinProp = async () => {
-    await pinProperty({ propId, setFormStatus, setServerError });
+    await pinProperty({ propId, setFormStatus });
   };
   useEffect(() => {
     if (formStatus === "success") {
       getProperties();
+      setUserData();
     }
   }, [formStatus]);
   return (

@@ -136,11 +136,7 @@ export const repostProperty = async ({
   }
 };
 
-export const pinPropertyHome = async ({
-  setFormStatus,
-  setServerError,
-  propId,
-}) => {
+export const pinPropertyHome = async ({ setFormStatus, propId }) => {
   try {
     setFormStatus("loading");
 
@@ -153,15 +149,10 @@ export const pinPropertyHome = async ({
     return response.data;
   } catch (error) {
     setFormStatus("failed");
-    setServerError(error.response.data);
     throw error.response.data;
   }
 };
-export const pinProperty = async ({
-  setFormStatus,
-  setServerError,
-  propId,
-}) => {
+export const pinProperty = async ({ setFormStatus, propId }) => {
   try {
     setFormStatus("loading");
 
@@ -174,7 +165,6 @@ export const pinProperty = async ({
     return response.data;
   } catch (error) {
     setFormStatus("failed");
-    setServerError(error.response.data);
     throw error.response.data;
   }
 };
