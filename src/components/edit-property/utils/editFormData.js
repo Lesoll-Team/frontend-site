@@ -1,3 +1,5 @@
+import { convertToNumber } from "@/components/newAddProperty/utils/handleNumberInput";
+
 export const editFormData = (data) => {
   const address = {
     name: data?.address.name,
@@ -10,9 +12,9 @@ export const editFormData = (data) => {
     return {
       type: plan?.type.value,
       period: plan?.period || "",
-      amount: plan?.amount || "",
-      downPayment: plan?.downPayment || "",
-      discount: plan?.discount || "",
+      amount: convertToNumber(plan.period) || "",
+      downPayment: convertToNumber(plan.amount) || "",
+      discount: convertToNumber(plan.downPayment) || "",
       discount: plan?.discount || "",
       ProjectPercentage: plan.ProjectPercentage || "",
     };
@@ -56,14 +58,14 @@ export const editFormData = (data) => {
   formData.append("isFurnished", data?.isFurnished);
   formData.append("isRegisterd", data?.isRegisterd || false);
   formData.append("rentalPeriod", data?.rentalPeriod.value || "");
-  formData.append("insurance", data?.insurance || "");
+  formData.append("insurance", convertToNumber(data.insurance) || "");
   formData.append("propType", data?.propType.value);
   formData.append("unitType", data?.unitType.value);
   // formData.append("installmentOption", "");
-  formData.append("price", data?.price || 0);
-  formData.append("area", data?.area);
+  formData.append("price", convertToNumber(data.price));
+  formData.append("area", convertToNumber(data.area));
   formData.append("RealEstateFinance", data?.realEstateFinance);
-  formData.append("downPayment", data?.downPayment || "");
+  formData.append("downPayment", convertToNumber(data.downPayment) || "");
   formData.append("rooms", data?.rooms || 0);
   formData.append("bathRooms", data?.bathRooms || 0);
   formData.append("description", data?.description);

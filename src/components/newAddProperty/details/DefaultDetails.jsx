@@ -8,7 +8,10 @@ import DropDown from "@/Shared/ui/DropDown";
 import { finishingType } from "../finishingType";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
-
+import {
+  handleMonyInputChange,
+  validateIsNumber,
+} from "../utils/handleNumberInput";
 const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
@@ -21,6 +24,20 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
       return new Date(watch("deliveryDate"));
     } else null;
   }, [watch("deliveryDate")]);
+  const { onChange: areaOnChange, ...areaRegister } = register(`area`, {
+    required: {
+      value: true,
+      message: language ? "مطلوب" : "required",
+    },
+    validate: {
+      mustBeNumber: (value) => validateIsNumber(value, language),
+      // max: (value) => mustBeGreaterValidation(value, language),
+    },
+  });
+  const handleCustomChange = (e, name, onChange) => {
+    onChange(e); // Call the original onChange handler from `react-hook-form`
+    handleMonyInputChange(e, name, setValue); // Call your custom logic
+  };
   return (
     <AddPropSectionContainer>
       <div className="space-y-2">
@@ -28,24 +45,8 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
         <input
           type="text"
           inputMode="numeric"
-          {...register("area", {
-            required: {
-              value: true,
-              message: language
-                ? "من فضلك ادخل مساحة العقار"
-                : "please enter area",
-            },
-            validate: {
-              mustBeNumber: (value) => {
-                return (
-                  !isNaN(value) ||
-                  (language
-                    ? "يجب ان تكون مساحة العقار رقم"
-                    : "Propert area must be a number")
-                );
-              },
-            },
-          })}
+          {...areaRegister}
+          onChange={(e) => handleCustomChange(e, `area`, areaOnChange)}
           className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
             errors.area && "border-red-500 focus:border-red-500"
           }`}

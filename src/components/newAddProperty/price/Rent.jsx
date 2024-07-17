@@ -4,10 +4,13 @@ import { rentalTypes } from "./rentalTypes";
 import RadioBtn from "@/Shared/ui/RadioBtn";
 import Error from "@/Shared/ui/Error";
 import MainPrice from "./sale/mainPriceInput/MainPrice";
+import {
+  convertToNumber,
+  handleMonyInputChange,
+} from "../utils/handleNumberInput";
 
 const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
   return (
     <>
       <MainPrice
@@ -61,8 +64,9 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
               },
               validate: {
                 mustBeNumber: (value) => {
+                  const number = convertToNumber(value);
                   return (
-                    !isNaN(value) ||
+                    !isNaN(number) ||
                     (language
                       ? "التأمين يجب ان يكون رقم"
                       : "the insurance must be a number")
@@ -70,10 +74,12 @@ const Rent = ({ errors, register, setValue, watch, clearErrors }) => {
                 },
               },
             })}
+            onChange={(e) => handleMonyInputChange(e, "insurance", setValue)}
             className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
               errors.insurance && "border-red-500 focus:border-red-500"
             }`}
           />
+
           <span
             className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
               language ? "left-14" : "right-14"
