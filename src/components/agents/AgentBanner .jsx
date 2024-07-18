@@ -1,6 +1,15 @@
+import useContactLinks from "@/Hooks/useContactLinks";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 const AgentBanner = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+  const message =
+    "مساء الخير مهتم أعرف تفاصيل أكتر عن الحسابات المميزة وكيفية الاشنراك";
+  const { WhatappLinkBtn } = useContactLinks({
+    phoneNumber: "+201032362898",
+    message: message,
+  });
   return (
     <div className=" text-white relative col-span-full rounded-md  overflow-hidden h-[20dvh] sm:h-[35dvh]">
       <Image
@@ -16,15 +25,19 @@ const AgentBanner = () => {
       <div className="flex sm:px-10 px-5 justify-center h-full  flex-col overflow-hidden w-full ">
         <div className="flex flex-col space-y-1 ">
           <p className=" text-white sm:text-lg lg-text font-bold font-noto">
-            هل تبحث عن مزيد من الانتشار ؟
+            {language
+              ? " هل تبحث عن مزيد من الانتشار ؟"
+              : "Are you looking to reach a wider audience?"}
           </p>
           <p className=" text-white sm:text-lg lg-text   font-noto">
-            انضم إلينا الان واصبح احد وكلاء ليسول المعتمدين
+            {language
+              ? "انضم إلينا الان واصبح احد عملاء ليسول المميزين"
+              : "Join us now and become one of Lesoll's distinguished clients."}
           </p>
         </div>
-        <button className="bg-[#1351A3] font-noto sm:mt-[40px] mt-[20px] p-1 px-2 lg-text rounded-md w-fit">
-          اكتشف المزيد
-        </button>
+        <WhatappLinkBtn className="bg-[#1351A3] font-noto sm:mt-[40px] mt-[20px] p-1 px-2 lg-text rounded-md w-fit">
+          {language ? "اكتشف المزيد" : "Know more!"}
+        </WhatappLinkBtn>
       </div>
     </div>
   );
