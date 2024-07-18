@@ -31,9 +31,10 @@ const GovRegion = ({ errors, register, setValue, watch, clearErrors }) => {
   });
   const { filterdCompunds } = useCompound(compoundInput);
   const clearCompound = () => {
-    setValue("compaounds", {});
+    setValue("compaounds", "");
   };
-
+  console.log(watch("compaounds"));
+  console.log(watch("compaounds"));
   return (
     <>
       {watch("isCompound") && (

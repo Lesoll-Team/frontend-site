@@ -317,7 +317,9 @@ const AddPropMainInfo = ({
           {...register("description", {
             required: {
               value: true,
-              message: "please enter description",
+              message: language
+                ? "من فضلك ادخل الوصف"
+                : "please enter description",
             },
             validate: {
               // mustBeNumber: (value) => {
