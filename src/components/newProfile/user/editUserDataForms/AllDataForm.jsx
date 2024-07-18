@@ -13,6 +13,7 @@ import OptModal from "@/Shared/otp/OtpModel";
 import EditFormSkeleton from "./EditFormSkeleton";
 import Error from "@/Shared/ui/Error";
 import VerifyAcc from "../VerifyAcc";
+import LinksForm from "./LinksForm";
 
 const AllDataForm = ({ main }) => {
   const [formStatus, setFormStatus] = useState("idle");
@@ -172,9 +173,23 @@ const AllDataForm = ({ main }) => {
                 </button>
               )} */}
             </UserInputContainer>
+            <div className="col-span-full space-y-2">
+              <p className=" text-gray-800 ">
+                {" "}
+                {language ? "الوصف" : "Description"}
+              </p>
+              <textarea
+                autoComplete="off"
+                type="text"
+                // readOnly
+                defaultValue={userData.Bio}
+                {...register("Bio")}
+                className={`p-2 placeholder:text-outLine rounded-md border w-full focus:outline-none focus:border-lightGreen min-h-[200px] resize-none`}
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col gap-y-8 md:gap-y-11">
+          {/* <div className="flex flex-col gap-y-8 md:gap-y-11">
             <h3 className=" font-bold text-lightGreen">
               {language ? "مواقع التواصل" : "Social media"}
             </h3>
@@ -228,7 +243,7 @@ const AllDataForm = ({ main }) => {
                 )}
               </div>
             </UserSocialMediaContainer>
-          </div>
+          </div> */}
           <div className="flex justify-end">
             <Button
               disabled={formStatus === "loading"}
@@ -239,6 +254,7 @@ const AllDataForm = ({ main }) => {
             </Button>
           </div>
         </form>
+        <LinksForm />
         <ReactModal
           modalIsOpen={successModalIsOpen}
           setModalIsOpen={setSuccessModalIsOpen}
