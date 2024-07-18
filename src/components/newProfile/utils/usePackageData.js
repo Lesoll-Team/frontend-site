@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 const usePackageData = (cardData) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(cardData);
+  const isFeatured =
+    cardData?.makePin || cardData?.makeRepost || cardData?.makePinHome;
   const { data } = useUser();
-  console.log(data?.Features);
   const havePinSearch = data?.Features?.includes("656cc095485cfd01499d1362");
   const havePinHome = data?.Features?.includes("668a8ff18da4baa896aaea64");
   const haveRepost = data?.Features?.includes("656cc0c1485cfd01499d1365");
@@ -52,6 +52,7 @@ const usePackageData = (cardData) => {
     disableRepost,
     openWherePinModal,
     repostText,
+    isFeatured,
   };
 };
 

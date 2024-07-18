@@ -12,14 +12,12 @@ import { MdOutlineStarPurple500 } from "react-icons/md";
 import Link from "next/link";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { useUser } from "@/Shared/UserContext";
-import { getPackageFeatures } from "../utils/getPackageFeatures";
+import usePackageData from "../utils/usePackageData";
 
 const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const price = localizedNumber(data?.price);
-  const { data: userData } = useUser();
-  const { havePin, havePinHome, haveRepost, haveDashboard } =
-    getPackageFeatures(userData?.Features);
+  const { haveDashboard, isFeatured } = usePackageData(data);
   const typePending = useMemo(() => {
     return type === "تحت المراجعة" || type === "Pending";
   }, [type]);
@@ -29,7 +27,7 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   }, [type]);
 
   const typeSold = type === "Sold" || type === "تم البيع";
-  const isFeatured = data?.makePin || data?.makeRepost || data?.isFeateur;
+
   const showDashboard = haveDashboard && typeActive && isFeatured;
   if (data) {
     return (

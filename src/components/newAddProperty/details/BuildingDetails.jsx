@@ -52,7 +52,7 @@ const BuildingDetails = ({
             }`}
             // className={"border-none"}
           />
-          <p className="text-darkGray">
+          <p className="text-sm text-[#A3A1A1] -mx-8">
             {language ? "م" : "m"} <sup>2</sup>
           </p>
         </div>
