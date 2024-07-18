@@ -135,7 +135,7 @@ const IsGifted = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   return (
     <div
-      className={`absolute  -top-3 bg-gradient-to-l from-darkGreen to-lightGreen font-bold  ${language ? "-left-11 -rotate-45" : "-right-11 rotate-45"} text-white  px-10 pb-2 pt-8`}
+      className={`absolute  -top-4 bg-gradient-to-l from-darkGreen to-lightGreen font-bold  ${language ? "-left-11 -rotate-45" : "-right-11 rotate-45"} text-white  px-10 pb-2 pt-9`}
     >
       {language ? "هدية" : "Gift"}
     </div>
