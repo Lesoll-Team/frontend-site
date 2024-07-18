@@ -14,7 +14,10 @@ import { useEffect, useState } from "react";
 import { editUserInfoProfile } from "@/utils/dashboardApi/userDashbordAPI";
 import { useRouter } from "next/router";
 import { LuLoader2 } from "react-icons/lu";
+import { useUser } from "@/Shared/UserContext";
 const ViewUser = ({ user, properties, params, loading }) => {
+  const { data } = useUser();
+
   const router = useRouter();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [loadingBio, setLoadingBio] = useState(false);
@@ -40,15 +43,11 @@ const ViewUser = ({ user, properties, params, loading }) => {
   const [editBio, setEditBio] = useState(false);
   const [editWorkingHours, setEditWorkingHours] = useState(false);
   const [editCompanyAddress, setEditCompanyAddress] = useState(false);
-  const isAdmin = user.getUser.superAdmin || user.getUser.isAdmin;
-  const isPassBio = user.getUser.Bio || isAdmin;
-  const isPassWorkingHours = user.getUser.workingHours || isAdmin;
-  const isPassCompanyAddress = user.getUser.companyAddress || isAdmin;
 
-  const phoneNumber = user.getUser.code + user.getUser.phone;
-  const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
-    phoneNumber: phoneNumber,
-  });
+  const isAdmin = !!(data?.superAdmin || data?.isAdmin);
+  const isPassBio = !!(user.getUser.Bio || isAdmin);
+  const isPassWorkingHours = !!(user?.getUser?.workingHours || isAdmin);
+  const isPassCompanyAddress = !!(user.getUser.companyAddress || isAdmin);
   const socialMedia = !!(
     user.getUser?.instagramLink ||
     user.getUser?.faceLink ||
@@ -56,6 +55,11 @@ const ViewUser = ({ user, properties, params, loading }) => {
     user.getUser?.xLink ||
     user.getUser?.linkedInLink
   );
+
+  const phoneNumber = user.getUser.code + user.getUser.phone;
+  const { CallLinkBtn, WhatappLinkBtn } = useContactLinks({
+    phoneNumber: phoneNumber,
+  });
   const contactSocialMedia = [
     {
       icon: <FaFacebookF className="bg-blue-500 text-white sm:p-2 p-1" />,
@@ -145,7 +149,15 @@ const ViewUser = ({ user, properties, params, loading }) => {
     setLoadingCompanyAddress(false);
     setLoadingSocialLinks(false);
   }, [router]);
-
+  console.table([
+    { isAdmin: isAdmin },
+    { editBio: editBio },
+    { isPassBio: isPassBio },
+    { isPassWorkingHours: isPassWorkingHours },
+    { socialMedia: socialMedia },
+    { isPassCompanyAddress: isPassCompanyAddress },
+    { loadingBio: loadingBio },
+  ]);
   return (
     <div className="container mx-auto py-5 md:py-20 space-y-6 md:space-y-20">
       <div className="flex justify-between items-center flex-wrap gap-5">
@@ -191,36 +203,40 @@ const ViewUser = ({ user, properties, params, loading }) => {
               <h3 className="text-base md:text-2xl font-bold text-darkGray">
                 {language ? "عن" : "About"}
               </h3>
-              {isAdmin && editBio ? (
-                <div className="flex gap-4 mx-4">
-                  <button
-                    className="bg-red-600 px-3 text-white font-bold p-1 rounded-md"
-                    onClick={() => {
-                      setEditBio(false);
+              {isAdmin && (
+                <>
+                  {editBio && (
+                    <div className="flex gap-4 mx-4">
+                      <button
+                        className="bg-red-600 px-3 text-white font-bold p-1 rounded-md"
+                        onClick={() => {
+                          setEditBio(false);
 
-                      setAddBio("");
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-green-600 p-1 text-white font-bold px-3 rounded-md"
-                    onClick={handleChangeUserBio}
-                  >
-                    Edit
-                  </button>
-                </div>
-              ) : (
-                <button onClick={() => setEditBio(true)} className="w-fit ">
-                  {loadingBio ? (
-                    <LuLoader2 className="animate-spin text-xl" />
-                  ) : (
-                    <FaEdit className="mx-4 text-base md:text-2xl" />
+                          setAddBio("");
+                        }}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="bg-green-600 p-1 text-white font-bold px-3 rounded-md"
+                        onClick={handleChangeUserBio}
+                      >
+                        Edit
+                      </button>
+                    </div>
                   )}
-                </button>
+
+                  <button onClick={() => setEditBio(true)} className="w-fit ">
+                    {loadingBio ? (
+                      <LuLoader2 className="animate-spin text-xl" />
+                    ) : (
+                      <FaEdit className="mx-4 text-base md:text-2xl" />
+                    )}
+                  </button>
+                </>
               )}
             </div>
-            {editBio ? (
+            {editBio && isAdmin ? (
               <textarea
                 value={addBio}
                 className="w-full border-1.5 min-h-[150px] max-h-[300px] rounded-md p-3"
@@ -239,35 +255,38 @@ const ViewUser = ({ user, properties, params, loading }) => {
               <h4 className="text-base md:text-2xl font-bold text-darkGray">
                 {language ? "مواعيد العمل" : "Working Hours"}
               </h4>
-              {isAdmin && editWorkingHours ? (
-                <div className="flex gap-4 mx-4">
-                  <button
-                    className="bg-red-600 px-3 text-white font-bold p-1 rounded-md"
-                    onClick={() => {
-                      setEditWorkingHours(false);
-                      setAddWorkingHours("");
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-green-600 p-1 text-white font-bold px-3 rounded-md"
-                    onClick={handleChangeUserWorkingHours}
-                  >
-                    Edit
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setEditWorkingHours(true)}
-                  className="w-fit "
-                >
-                  {loadingWorkingHours ? (
-                    <LuLoader2 className="animate-spin text-xl" />
-                  ) : (
-                    <FaEdit className="mx-4 text-base md:text-2xl" />
+              {isAdmin && (
+                <>
+                  {editWorkingHours && (
+                    <div className="flex gap-4 mx-4">
+                      <button
+                        className="bg-red-600 px-3 text-white font-bold p-1 rounded-md"
+                        onClick={() => {
+                          setEditWorkingHours(false);
+                          setAddWorkingHours("");
+                        }}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="bg-green-600 p-1 text-white font-bold px-3 rounded-md"
+                        onClick={handleChangeUserWorkingHours}
+                      >
+                        Edit
+                      </button>
+                    </div>
                   )}
-                </button>
+                  <button
+                    onClick={() => setEditWorkingHours(true)}
+                    className="w-fit "
+                  >
+                    {loadingWorkingHours ? (
+                      <LuLoader2 className="animate-spin text-xl" />
+                    ) : (
+                      <FaEdit className="mx-4 text-base md:text-2xl" />
+                    )}
+                  </button>
+                </>
               )}
             </div>
             {editWorkingHours ? (
@@ -289,35 +308,39 @@ const ViewUser = ({ user, properties, params, loading }) => {
               <h4 className="text-base md:text-2xl font-bold text-darkGray">
                 {language ? "عنوان الشركة" : "Company Address"}
               </h4>
-              {isAdmin && editCompanyAddress ? (
-                <div className="flex gap-4 mx-4">
-                  <button
-                    className="bg-red-600 px-3 text-white font-bold p-1 rounded-md"
-                    onClick={() => {
-                      setEditCompanyAddress(false);
-                      setAddCompanyAddress("");
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-green-600 p-1 text-white font-bold px-3 rounded-md"
-                    onClick={handleChangeUserCompanyAddress}
-                  >
-                    Edit
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setEditCompanyAddress(true)}
-                  className="w-fit "
-                >
-                  {loadingCompanyAddress ? (
-                    <LuLoader2 className="animate-spin text-xl" />
-                  ) : (
-                    <FaEdit className="mx-4 text-base md:text-2xl" />
+              {isAdmin && (
+                <>
+                  {editCompanyAddress && (
+                    <div className="flex gap-4 mx-4">
+                      <button
+                        className="bg-red-600 px-3 text-white font-bold p-1 rounded-md"
+                        onClick={() => {
+                          setEditCompanyAddress(false);
+                          setAddCompanyAddress("");
+                        }}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="bg-green-600 p-1 text-white font-bold px-3 rounded-md"
+                        onClick={handleChangeUserCompanyAddress}
+                      >
+                        Edit
+                      </button>
+                    </div>
                   )}
-                </button>
+
+                  <button
+                    onClick={() => setEditCompanyAddress(true)}
+                    className="w-fit "
+                  >
+                    {loadingCompanyAddress ? (
+                      <LuLoader2 className="animate-spin text-xl" />
+                    ) : (
+                      <FaEdit className="mx-4 text-base md:text-2xl" />
+                    )}
+                  </button>
+                </>
               )}
             </div>
             {editCompanyAddress ? (
