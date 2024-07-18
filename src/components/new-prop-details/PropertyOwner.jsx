@@ -7,8 +7,12 @@ import Link from "next/link";
 // import ReactTimeAgo from "react-time-ago";
 // const date = propertyData.createdAt;
 import { memo } from "react";
+import { useUser } from "@/Shared/UserContext";
+import usePackageData from "../newProfile/utils/usePackageData";
 
 const PropertyOwner = ({ propertyData, className }) => {
+  const { showPropAnalitycs } = usePackageData(propertyData);
+
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
@@ -23,6 +27,7 @@ const PropertyOwner = ({ propertyData, className }) => {
     type: "property",
     id: propertyData?._id,
   });
+
   return (
     <div
       className={cn(
@@ -43,12 +48,21 @@ const PropertyOwner = ({ propertyData, className }) => {
         </h2>
         <div className="font-medium flex gap-2 flex-wrap md:justify-center items-center">
           {/* <p className="font-medium">5 {language ? "إعلانات" : "Properties"}</p> */}
-          <Link
-            href={`/view-profile/${propertyData.user?.username}?page=1`}
-            className="text-linkColor lg-text  underline"
-          >
-            {language ? "رؤية جميع الإعلانات" : "See all properties"}
-          </Link>
+          {showPropAnalitycs ? (
+            <Link
+              href={`/profile/property-analytics/${propertyData?.slug}`}
+              className="text-linkColor lg-text  underline"
+            >
+              {language ? "رؤية إحصائيات العقار" : "See property analytics"}
+            </Link>
+          ) : (
+            <Link
+              href={`/view-profile/${propertyData.user?.username}?page=1`}
+              className="text-linkColor lg-text  underline"
+            >
+              {language ? "رؤية جميع الإعلانات" : "See all properties"}
+            </Link>
+          )}
         </div>
       </div>
 
