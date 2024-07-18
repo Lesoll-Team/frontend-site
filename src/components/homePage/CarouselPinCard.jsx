@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,8 +12,10 @@ import Link from "next/link";
 import ProfileCardSkeleton from "./ProfileCardSkeleton ";
 
 const CarouselPinCard = () => {
+  const swiperRef = useRef();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isStart, setIsStart] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,8 +46,14 @@ const CarouselPinCard = () => {
         </div>
       ) : (
         <Swiper
+          ref={swiperRef}
           onReachEnd={() => {
-            console.log("end");
+            console.log("end reach");
+          }}
+          onSlideChange={() => {
+            if (swiperRef.current.swiper.activeIndex !== 0) {
+              setIsStart(false);
+            } else setIsStart(true);
           }}
           navigation={{
             prevEl: ".swiper-button-next-custom",
@@ -115,12 +123,17 @@ const CarouselPinCard = () => {
           <div className="swiper-pagination-custom  pt-10 bottom-2 flex items-center justify-center w-full  text-center"></div>
         </Swiper>
       )}
-      <div className="swiper-button-prev-custom absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
+      <button
+        className={` swiper-button-prev-custom absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC]  text-white p-2 rounded-full`}
+      >
         <FaArrowLeft size={20} />
-      </div>
-      <div className="swiper-button-next-custom absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
+      </button>
+
+      <button
+        className={`swiper-button-next-custom absolute right-0 top-1/2 transform -translate-y-1/2 z-10 ${!isStart ? "bg-[#CCCCCC] " : " hidden "} text-white p-2 rounded-full`}
+      >
         <FaArrowRight size={20} />
-      </div>
+      </button>
     </div>
   );
 };

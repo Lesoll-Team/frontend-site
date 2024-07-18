@@ -1,9 +1,11 @@
+import ViewProfileMetaTags from "@/components/viewProfile/ViewProfileMetaTags";
 import ViewUser from "@/components/viewProfile/ViewUser";
 import axios from "axios";
 
 const ViewProfilePage = ({ query, user, properties, loading }) => {
   return (
     <div className="min-h-[90dvh] ">
+      <ViewProfileMetaTags userData={user?.getUser?.fullname} />
       <ViewUser
         user={user}
         params={query}

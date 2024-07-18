@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 
-import { Pagination, FreeMode, Navigation } from "swiper/modules";
+import { Pagination, FreeMode, Navigation, Keyboard } from "swiper/modules";
 import RealtyCard from "../realtyCard/RealtyCard";
 import SkeletonCard from "../realtyCard/SkeletonCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -12,6 +12,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const CarouselPinPropertiesCard = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const swiperRef = useRef();
+  const [isStart, setIsStart] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,10 +31,22 @@ const CarouselPinPropertiesCard = () => {
     };
     fetchData();
   }, []);
+
   return (
     <div dir="rtl" className="px-10 relative">
       {!loading ? (
         <Swiper
+          ref={swiperRef}
+          nested={true}
+          keyboard={{
+            enabled: true,
+            onlyInViewport: true,
+          }}
+          onSlideChange={() => {
+            if (swiperRef.current.swiper.activeIndex !== 0) {
+              setIsStart(false);
+            } else setIsStart(true);
+          }}
           spaceBetween={10}
           slidesPerView={1.2}
           freeMode={false}
@@ -44,7 +58,7 @@ const CarouselPinPropertiesCard = () => {
             clickable: true,
             el: ".swiper-pagination-custom",
           }}
-          modules={[Pagination, FreeMode, Navigation]}
+          modules={[Pagination, FreeMode, Navigation, Keyboard]}
           breakpoints={{
             1700: {
               slidesPerView: 4.5,
@@ -95,25 +109,12 @@ const CarouselPinPropertiesCard = () => {
       <div className="swiper-button-prev-property absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
         <FaArrowLeft size={20} />
       </div>
-      <div className="swiper-button-next-property absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
+      <div
+        className={`swiper-button-next-property absolute right-0 top-1/2 transform -translate-y-1/2 z-10 ${!isStart ? "bg-[#CCCCCC] " : " hidden "} text-white p-2 rounded-full`}
+      >
         <FaArrowRight size={20} />
       </div>
     </div>
   );
 };
-
 export default CarouselPinPropertiesCard;
-
-// navigation={{
-//   prevEl: ".swiper-button-next-custom",
-//   nextEl: ".swiper-button-prev-custom",
-// }}
-// centeredSlides={true}
-// watchSlidesProgress={true}
-/* <div className="swiper-button-prev-custom absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
-        <FaArrowLeft size={20} />
-      </div>
-      <div className="swiper-button-next-custom absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#CCCCCC] text-white p-2 rounded-full">
-        <FaArrowRight size={20} />
-      </div> */ // modules={[Navigation, FreeMode]}
-// freeMode={true}

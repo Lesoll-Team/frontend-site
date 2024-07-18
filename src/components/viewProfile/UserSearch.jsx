@@ -27,7 +27,7 @@ const UserSearch = ({
   const unitTypesData = useUnitTypesData(categoryType);
 
   return (
-    <div className="grid md:grid-cols-7 grid-cols-3 gap-2 p-1 z-[100] w-full ">
+    <div className="grid md:grid-cols-7 grid-cols-3 gap-2    z-[100] w-full ">
       <div className="md:col-span-3  col-span-2 flex hover:border-gray-600 border-2 rounded-md px-2 items-center">
         <IoSearch className="text-2xl text-gray-400" />
         <SearchDropdownLocation
@@ -37,40 +37,40 @@ const UserSearch = ({
           setRegion={setRegion}
         />
       </div>
-      <div className="bg-blue-300">
+      <div className="">
         <Dropdown
           value={offer}
           defaultValue={language ? "العرض" : "offer"}
           data={saleOptionsType}
-          classNames={"bg-white h-full  md:text-xl text-lg"}
+          classNames={"bg-white sm-text "}
           setStates={setOffer}
         />
       </div>
-      <div className=" bg-yellow-300">
+      <div className=" ">
         <Dropdown
           value={categoryType}
           data={propertyType}
           defaultValue={language ? "الفئة" : "Category"}
           setStates={setCategoryType}
-          classNames={"bg-white h-full  md:text-xl text-lg"}
+          classNames={"bg-white sm-text"}
         />
       </div>
-      <div className=" bg-green-300">
+      <div className=" ">
         <Dropdown
           value={unitType}
           setStates={setUnitType}
           defaultValue={language ? "النوع" : "type"}
           data={unitTypesData()}
-          classNames={"bg-white h-full  md:text-xl text-lg"}
+          classNames={"bg-white sm-text"}
         />
       </div>
-      <div className=" bg-gray-300">
+      <div className=" ">
         <Dropdown
           value={sorting}
           setStates={setSorting}
           data={sortedData}
           defaultValue={language ? "ترتيب" : "sort"}
-          classNames={"bg-white h-full  md:text-xl text-lg"}
+          classNames={"bg-white sm-text"}
           baseIcon={<GoGitPullRequestDraft className={`text-black  `} />}
         />
       </div>

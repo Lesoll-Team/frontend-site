@@ -8,7 +8,6 @@ import { memo } from "react";
 import { filterSlugURL } from "../../Shared/generateRedirectDestination";
 
 const RealtyCard = ({ propertyDetails, cardID, withVertical }) => {
-  // console.log("propertyDetails::>>>", propertyDetails);
   const new_slug = filterSlugURL(propertyDetails?.slug);
   const layoutCard = withVertical
     ? " h-auto   block drop-shadow-none  bg-none  rounded-none "

@@ -1,21 +1,16 @@
-// import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
-// import { BiSearch } from "react-icons/bi";
+import Dropdown from "@/Shared/category/Dropdowns/Dropdown";
+import { BiSearch } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 const SearchByAgents = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="absolute z-10  flex flex-col  justify-around -space-y-28 items-center w-full h-full">
-      <h1 className="  text-white w-fit  md:text-4xl ">
-        {language
-          ? "اعثر على أفضل وكلاء العقارات"
-          : "Find the best real estate agents"}
-      </h1>
+    <div className=" z-10  flex flex-col  justify-around -space-y-28 items-center w-full h-full">
       {/**
        * search of best agents , but not launch  now because total users
        */}
-      {/* <div className="bg-gray-100 w-11/12 md:w-8/12 rounded-md flex flex-col md:flex-row p-5 gap-4 md:gap-8">
+      <div className="bg-gray-100 w-11/12 md:w-8/12 rounded-md flex flex-col md:flex-row p-5 gap-4 md:gap-8">
         <div className="flex h-full items-center bg-white w-full rounded-md gap-3 px-2 border-2 hover:border-gray-400">
           <BiSearch className="text-gray-400 text-2xl" />
           <input
@@ -37,7 +32,7 @@ const SearchByAgents = () => {
             {language ? "بحــــث" : "Search"}
           </span>
         </button>
-      </div> */}
+      </div>
     </div>
   );
 };
