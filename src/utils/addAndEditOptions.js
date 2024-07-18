@@ -3,7 +3,7 @@ export const saleOptions = [
   { value: ["Installment"], name: { ar: "تقسيط", en: "Installment" } },
   {
     value: ["Cash", "Installment"],
-    name: { ar: "كاش وتقسيط", en: "Cash & Installment" },
+    name: { ar: "كاش أو تقسيط", en: "Cash or Installment" },
   },
 ];
 export const installmentTypeOptions = [

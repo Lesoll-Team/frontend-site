@@ -4,6 +4,12 @@ import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
 import { FaSquareMinus } from "react-icons/fa6";
 import { useCallback } from "react";
+import Error from "@/Shared/ui/Error";
+import {
+  handleMonyInputChange,
+  mustBeGreaterValidation,
+  validateIsNumber,
+} from "../../utils/handleNumberInput";
 const INSTALLMENT = {
   type: {
     value: "",
@@ -58,6 +64,11 @@ const CashAndInstallment = ({
     },
     [watch("installment"), watch("currencies")],
   );
+  const handleCustomChange = (e, name, onChange) => {
+    onChange(e); // Call the original onChange handler from `react-hook-form`
+    handleMonyInputChange(e, name, setValue); // Call your custom logic
+  };
+
   return (
     <div className="lg:col-span-2 ">
       {/* <h3 className="text-xl lg:col-span-2 font-bold">
@@ -97,6 +108,43 @@ const CashAndInstallment = ({
         </h3>
       </div>
       {fields.map((plan, index) => {
+        const { onChange: periodOnChange, ...periodRegister } = register(
+          `installment.${index}.period`,
+          {
+            required: {
+              value: true,
+              message: language ? "مطلوب" : "required",
+            },
+            validate: {
+              mustBeNumber: (value) => validateIsNumber(value, language),
+              // max: (value) => mustBeGreaterValidation(value, language),
+            },
+          },
+        );
+        const { onChange: downPaymentOnChange, ...downPaymentRegister } =
+          register(`installment.${index}.downPayment`, {
+            required: {
+              value: true,
+              message: language ? "مطلوب" : "required",
+            },
+            validate: {
+              mustBeNumber: (value) => validateIsNumber(value, language),
+              max: (value) => mustBeGreaterValidation(value, language),
+            },
+          });
+        const { onChange: amountOnChange, ...amountRegister } = register(
+          `installment.${index}.amount`,
+          {
+            required: {
+              value: true,
+              message: language ? "مطلوب" : "required",
+            },
+            validate: {
+              mustBeNumber: (value) => validateIsNumber(value, language),
+              max: (value) => mustBeGreaterValidation(value, language),
+            },
+          },
+        );
         return (
           <div
             className="fade-in lg:col-span-2 flex flex-col gap-y-5 mb-6 "
@@ -144,7 +192,9 @@ const CashAndInstallment = ({
                   {...register(`installment.${index}.type.value`, {
                     required: {
                       value: true,
-                      message: "please choose installment type",
+                      message: language
+                        ? "أختر نظام التقسيط"
+                        : "please choose installment type",
                     },
                   })}
                 />
@@ -161,15 +211,14 @@ const CashAndInstallment = ({
                     {...register(`installment.${index}.period`, {
                       required: {
                         value: true,
-                        message: "please enter period",
+                        message: language
+                          ? "ادخل مدة التقسيط"
+                          : "please enter period",
                       },
                       validate: {
                         mustBeNumber: (value) => {
                           return !isNaN(value) || "must be a number";
                         },
-                        // max: (value) => {
-                        //   return parseInt(value) > 100 || "min is 100";
-                        // },
                       },
                     })}
                     className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
@@ -186,6 +235,9 @@ const CashAndInstallment = ({
                     {language ? "سنين" : "years"}
                   </span>
                 </div>
+                {errors?.installment && errors?.installment[index]?.period && (
+                  <Error>{errors?.installment[index]?.period?.message}</Error>
+                )}
               </div>
             </div>
 
@@ -198,20 +250,14 @@ const CashAndInstallment = ({
                   <input
                     inputMode="numeric"
                     type="text"
-                    {...register(`installment.${index}.downPayment`, {
-                      required: {
-                        value: true,
-                        message: "please enter downPayment",
-                      },
-                      validate: {
-                        mustBeNumber: (value) => {
-                          return !isNaN(value) || "must be a number";
-                        },
-                        max: (value) => {
-                          return parseInt(value) > 100 || "min is 100";
-                        },
-                      },
-                    })}
+                    {...downPaymentRegister}
+                    onChange={(e) =>
+                      handleCustomChange(
+                        e,
+                        `installment.${index}.downPayment`,
+                        downPaymentOnChange,
+                      )
+                    }
                     className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
                       errors?.installment &&
                       errors?.installment[index]?.downPayment &&
@@ -226,7 +272,19 @@ const CashAndInstallment = ({
                     {watch("currencies.ISO_code")}
                   </span>
                 </div>
+                {/* {errors?.installment[index]?.downPayment && (
+                    <Error>
+                      {errors?.installment[index]?.downPayment.message}
+                    </Error>
+                  )} */}
+                {errors?.installment &&
+                  errors?.installment[index]?.downPayment && (
+                    <Error>
+                      {errors?.installment[index]?.downPayment?.message}
+                    </Error>
+                  )}
               </div>
+
               <div className="space-y-2 w-full">
                 <p className="text-gray-800">
                   {language ? "قيمة التقسيط" : "Installment amount"}
@@ -235,20 +293,14 @@ const CashAndInstallment = ({
                   <input
                     type="text"
                     inputMode="numeric"
-                    {...register(`installment.${index}.amount`, {
-                      required: {
-                        value: true,
-                        message: "please enter amount",
-                      },
-                      validate: {
-                        mustBeNumber: (value) => {
-                          return !isNaN(value) || "must be a number";
-                        },
-                        max: (value) => {
-                          return parseInt(value) > 100 || "min is 100";
-                        },
-                      },
-                    })}
+                    {...amountRegister}
+                    onChange={(e) =>
+                      handleCustomChange(
+                        e,
+                        `installment.${index}.amount`,
+                        amountOnChange,
+                      )
+                    }
                     className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
                       errors?.installment &&
                       errors?.installment[index]?.amount &&
@@ -263,6 +315,9 @@ const CashAndInstallment = ({
                     {egpPer(watch(`installment.${index}.type.value`))}
                   </span>
                 </div>
+                {errors?.installment && errors?.installment[index]?.amount && (
+                  <Error>{errors?.installment[index]?.amount.message}</Error>
+                )}
               </div>
             </div>
             {fields.length === index + 1 && index < 3 && (

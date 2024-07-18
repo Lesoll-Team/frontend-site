@@ -41,16 +41,21 @@ const BuildingDetails = ({
         <p className="text-gray-800">
           {language ? "مساحة المبنى " : "Building Area"}
         </p>
-        <input
-          inputMode="numeric"
-          type="text"
-          {...areaRegister}
-          onChange={(e) => handleCustomChange(e, `area`, areaOnChange)}
-          className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-            errors.area && "border-red-500 focus:border-red-500"
-          }`}
-          // className={"border-none"}
-        />
+        <div className="flex items-center">
+          <input
+            inputMode="numeric"
+            type="text"
+            {...areaRegister}
+            onChange={(e) => handleCustomChange(e, `area`, areaOnChange)}
+            className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+              errors.area && "border-red-500 focus:border-red-500"
+            }`}
+            // className={"border-none"}
+          />
+          <p className="text-darkGray">
+            {language ? "م" : "m"} <sup>2</sup>
+          </p>
+        </div>
         {errors.area && <p className="text-red-500">{errors.area.message}</p>}{" "}
       </div>
       <div className="space-y-2">
