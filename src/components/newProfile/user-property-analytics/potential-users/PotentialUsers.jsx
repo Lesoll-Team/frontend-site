@@ -12,9 +12,9 @@ const PotentialUsers = ({ users }) => {
   };
   const renderTab = useCallback(() => {
     if (tab === "visits") {
-      return <RenderUsers users={users?.usersVisitAd} />;
+      return <RenderUsers users={users?.visits} />;
     } else if (tab === "actions") {
-      return <RenderUsers users={users?.usersClickWhatsappAndCall} />;
+      return <RenderUsers users={users?.interested_users} />;
     } else return <RenderUsers users={[]} />;
   }, [tab]);
   return (
@@ -36,14 +36,6 @@ const PotentialUsers = ({ users }) => {
           </button>
         </div>
       </div>
-      {tab === "visits" && (
-        <p className={`flex items-center gap-2 fade-in`}>
-          <MdOutlineInfo className="text-xl" />{" "}
-          {language
-            ? " يتم عرض احدث عشر مشاهدات لعقارك فقط"
-            : "Only the ten most recent views of your property are displayed"}
-        </p>
-      )}
       {renderTab()}
     </div>
   );

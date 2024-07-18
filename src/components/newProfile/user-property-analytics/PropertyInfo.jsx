@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const PropertyInfo = ({ data }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { formattedDate } = formatDate(data?.property_createdAt);
+  const { formattedDate } = formatDate(data?.publishAt);
   const adType = useMemo(() => {
     if (data?.adType === "Free") {
       return language ? "مجانى" : "Free";
