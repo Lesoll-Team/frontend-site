@@ -6,10 +6,14 @@ const AgentMetaTags = () => {
 
   return (
     <Head>
-      <title>{language ? "وكلاء ليسول" : "Lesoll agents"}</title>
+      <title>
+        {language ? "الحسابات الموثقة | ليسول" : "Verified Accounts | Lesoll"}
+      </title>
       <meta
         name="description"
-        content={language ? "وكلاء  ليسول" : "Lesoll agents"}
+        content={
+          language ? "الحسابات الموثقة ليسول" : "Verified Accounts Lesoll"
+        }
       />
       <meta name="robots" content="noindex, nofollow" />
     </Head>

@@ -22,3 +22,17 @@ export async function unpinUserProfileInHome({ userId }) {
     throw error.response.data;
   }
 }
+
+export async function editUserInfoProfile({ userId, changesData }) {
+  try {
+    const response = await axiosInstance.put(
+      `/admin/update-user/${userId}`,
+      changesData,
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+//PUT: /api/admin/update/user/:id + token

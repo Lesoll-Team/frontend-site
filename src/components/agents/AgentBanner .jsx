@@ -4,8 +4,8 @@ const AgentBanner = () => {
   return (
     <div className=" text-white relative col-span-full rounded-md  overflow-hidden h-[20dvh] sm:h-[35dvh]">
       <Image
-        className="w-full h-full absolute object-cover  -z-10  brightness-90"
-        src="/agents/agent-banner.svg"
+        className="w-full h-full absolute object-cover  -z-10  brightness-50"
+        src="/agents/agent-banner.webp"
         width={400}
         height={400}
         alt="agents banner"

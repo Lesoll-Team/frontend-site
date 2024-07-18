@@ -39,10 +39,7 @@ const BestLinksInHome = dynamic(
 
 const Home = ({ bestSearch }) => {
   return (
-    <main
-      className=" flex flex-col "
-      //gap-y-[40px] md:gap-y-[40px] lg:gap-y-[70px]
-    >
+    <main className="flex flex-col">
       <HomeMetaTag />
       <div className="md:container md:mx-auto  mx-[20px]">
         <SearchModule />

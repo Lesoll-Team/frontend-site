@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const NoItems = ({ title }) => {
   return (
-    <div className="w-full flex flex-col items-center justify-center min-h-[200px] gap-4">
+    <div className="w-full flex flex-col  col-span-4 items-center justify-center min-h-[200px] gap-4">
       <Image
         src={"/no-items.svg"}
         width={370}
