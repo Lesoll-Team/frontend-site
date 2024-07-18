@@ -7,6 +7,7 @@ const UserRow = ({ odd, data }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { code, phone, email, fullname, avatarUrl } = data;
   const [copied, setCopied] = useState(false);
+
   const handleCopyClick = () => {
     // Use the Clipboard API to write text to the clipboard
     navigator.clipboard
@@ -18,6 +19,7 @@ const UserRow = ({ odd, data }) => {
         console.error("Failed to copy text: ", err);
       });
   };
+
   useEffect(() => {
     if (copied) {
       const timeoutId = setTimeout(() => {
@@ -28,9 +30,10 @@ const UserRow = ({ odd, data }) => {
       return () => clearTimeout(timeoutId);
     }
   }, [copied]);
+
   return (
     <div
-      className={`py-4 px-3 flex justify-between md:flex-row flex-col  items-center ${odd ? "bg-[#F8F8F8]" : "bg-white"} `}
+      className={`py-4 px-3 flex justify-between md:flex-row flex-col items-center ${odd ? "bg-[#F8F8F8]" : "bg-white"}`}
     >
       <div className="w-full flex gap-2 items-center">
         <Image
@@ -46,7 +49,7 @@ const UserRow = ({ odd, data }) => {
         <p>{email}</p>
         <div className="relative">
           {copied && (
-            <div className="absolute -top-8 left-[37%] fade-in  bg-white rounded-xl border px-3 p-1.5 ">
+            <div className="absolute -top-8 left-[37%] fade-in bg-white rounded-xl border px-3 p-1.5">
               <p className="text-xs">{language ? "تم النسخ" : "Copied"}</p>
             </div>
           )}
