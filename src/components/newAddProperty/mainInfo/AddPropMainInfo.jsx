@@ -13,6 +13,7 @@ import { useUser } from "@/Shared/UserContext";
 import styles from "@/components/newAddProperty/styles/addProperrty.module.css";
 const phoneRegex = /(\d{3}[-\s]?\d{3}[-\s]?\d{4})/g;
 const mapLib = ["places"];
+const { addPropInput, addPropInputError } = styles;
 const AddPropMainInfo = ({
   errors,
   register,
@@ -99,12 +100,9 @@ const AddPropMainInfo = ({
               },
             },
           })}
-          className={` ${styles.addPropInput} ${
-            errors.title && "border-red-500 focus:border-red-500"
-          }`}
-          // className={"border-none"}
+          className={` ${addPropInput} ${errors?.title && addPropInputError}`}
         />
-        {errors.title && <Error className="">{errors.title.message}</Error>}
+        {errors?.title && <Error className="">{errors.title.message}</Error>}
       </div>
       {data?.isAdmin && (
         <div className="space-y-2 lg:col-span-2">

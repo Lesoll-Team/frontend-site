@@ -106,7 +106,6 @@ const useAddProperty = ({ propData }) => {
       }
     } else {
       setPosted(false);
-      setLaoding(true);
     }
   }, [draftFormStatus, finalStepStatus, formStatus]);
 
