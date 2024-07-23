@@ -11,8 +11,7 @@ import { useUser } from "@/Shared/UserContext";
 import usePackageData from "../newProfile/utils/usePackageData";
 
 const PropertyOwner = ({ propertyData, className }) => {
-  const { showPropAnalitycs } = usePackageData(propertyData);
-
+  const showPropAnalitycs = propertyData.makePin || propertyData?.makePinHome;
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
