@@ -11,7 +11,10 @@ import { useUser } from "@/Shared/UserContext";
 import usePackageData from "../newProfile/utils/usePackageData";
 
 const PropertyOwner = ({ propertyData, className }) => {
-  const showPropAnalitycs = propertyData.makePin || propertyData?.makePinHome;
+  const { data } = useUser();
+  const isPinned = propertyData.makePin || propertyData?.makePinHome;
+
+  const showPropAnalitycs = data?._id === propertyData?.user?._id && isPinned;
   const language = useSelector((state) => state.GlobalState.languageIs);
   const message = `
   مساء الخير مهتم أعرف تفاصيل أكتر عن عقارك اللى تم نشره على موقع ليسول
