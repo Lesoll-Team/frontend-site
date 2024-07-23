@@ -14,8 +14,10 @@ import { useEffect, useState } from "react";
 import { editUserInfoProfile } from "@/utils/dashboardApi/userDashbordAPI";
 import { useRouter } from "next/router";
 import { LuLoader2 } from "react-icons/lu";
+import { useUser } from "@/Shared/UserContext";
 const ViewUser = ({ user, properties, params, loading }) => {
   const router = useRouter();
+  const { data } = useUser();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [loadingBio, setLoadingBio] = useState(false);
   const [loadingWorkingHours, setLoadingWorkingHours] = useState(false);
@@ -40,7 +42,7 @@ const ViewUser = ({ user, properties, params, loading }) => {
   const [editBio, setEditBio] = useState(false);
   const [editWorkingHours, setEditWorkingHours] = useState(false);
   const [editCompanyAddress, setEditCompanyAddress] = useState(false);
-  const isAdmin = user.getUser.superAdmin || user.getUser.isAdmin;
+  const isAdmin = data?.superAdmin || data?.isAdmin;
   const isPassBio = user.getUser.Bio || isAdmin;
   const isPassWorkingHours = user.getUser.workingHours || isAdmin;
   const isPassCompanyAddress = user.getUser.companyAddress || isAdmin;
