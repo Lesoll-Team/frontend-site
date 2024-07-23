@@ -19,7 +19,7 @@ const ConfirmWhereToPin = ({
   isPinSearch,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const { setUserData } = useUser();
   const [pinStatus, setPinStatus] = useState("idle");
   const isLoading = pinStatus === "loading";
   const isError = pinStatus === "failed";
@@ -33,6 +33,7 @@ const ConfirmWhereToPin = ({
   useEffect(() => {
     if (pinStatus === "success") {
       OnSuccess();
+      setUserData();
       setIsOpen(false);
     }
   }, [pinStatus]);

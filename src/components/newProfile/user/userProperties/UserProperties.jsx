@@ -6,6 +6,7 @@ import SoldProperties from "./SoldProperties";
 import MobilePageTitle from "../MobilePageTitle";
 import { useSelector } from "react-redux";
 import DraftProperties from "./DraftProperties";
+import PaymentOnHold from "./PaymentOnHold";
 
 const UserProperties = ({ params }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -20,6 +21,8 @@ const UserProperties = ({ params }) => {
         return "sold";
       case "draft":
         return "draft";
+      case "onhold":
+        return "onhold";
       default:
         return "active";
     }
@@ -34,6 +37,8 @@ const UserProperties = ({ params }) => {
         return <SoldProperties />;
       case "draft":
         return <DraftProperties />;
+      case "onhold":
+        return <PaymentOnHold />;
       default:
         return <ActiveProperties />;
     }

@@ -64,6 +64,7 @@ const useAddProperty = ({ propData }) => {
   }, []);
   useEffect(() => {
     if (propData) {
+      propData?.offer === "For Investment" ? setStep(4) : setStep(5);
       formatApiData({
         setValue: setValue,
         data: propData,
@@ -172,7 +173,16 @@ const useAddProperty = ({ propData }) => {
       setServerError: setFinalStepError,
     });
   };
-
+  const isInvestment = watch("offer") === "For Investment";
+  useEffect(() => {
+    if (formStatus === "success") {
+      if (isInvestment) {
+        step === 3 && setStep(4);
+      } else {
+        step === 4 && setStep(5);
+      }
+    }
+  }, [formStatus]);
   // hancle the form submission on every step
   const handleStepsActions = (data) => {
     const { formData } = useFromatAddData(data);
@@ -190,7 +200,6 @@ const useAddProperty = ({ propData }) => {
           },
           3: () => {
             handleDraftOrPost(formData);
-            setStep(4);
           },
           4: () => handleEditDraft(formData),
         }
@@ -209,7 +218,6 @@ const useAddProperty = ({ propData }) => {
           },
           4: () => {
             handleDraftOrPost(formData);
-            setStep(4);
           },
           5: () => handleEditDraft(formData),
         };

@@ -9,13 +9,13 @@ const ActionBtns = ({ step, setStep, loading, watch }) => {
   const submitBtnText = useMemo(() => {
     const isInvestment = watch("offer") === "For Investment";
     if (isInvestment) {
-      if (step < 3) {
+      if (step < 4) {
         return language ? "التالى" : "next";
       } else {
         return language ? "اضف عقارك" : "Add your property";
       }
     } else {
-      if (step < 4) {
+      if (step < 5) {
         return language ? "التالى" : "next";
       } else {
         return language ? "اضف عقارك" : "Add your property";

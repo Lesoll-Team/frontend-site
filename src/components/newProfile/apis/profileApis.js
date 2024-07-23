@@ -40,6 +40,23 @@ export const getActiveProperties = async ({
     setServerError(error?.response?.data);
   }
 };
+export const getPaymentOnHold = async ({
+  setFormStatus,
+  setServerError,
+  setOnHoldProperties,
+}) => {
+  try {
+    setFormStatus("loading");
+    const response = await axiosInstance.get(`/user/user-paid-ads`);
+    if (response.status === 200 || response.status === 201) {
+      setFormStatus("success");
+      setOnHoldProperties(response.data);
+    }
+    return response.data;
+  } catch (error) {
+    setServerError(error?.response?.data);
+  }
+};
 export const getPendingProperties = async ({
   setFormStatus,
   setServerError,

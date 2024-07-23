@@ -14,7 +14,13 @@ import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { useUser } from "@/Shared/UserContext";
 import usePackageData from "../utils/usePackageData";
 
-const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
+const ProfileCard = ({
+  data,
+  type,
+  getProperties,
+  paymentDisabled,
+  onHold,
+}) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const price = localizedNumber(data?.price);
   const { haveDashboard, isFeatured } = usePackageData(data);
@@ -25,10 +31,12 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
   const typeActive = useMemo(() => {
     return type === "نشطة" || type === "active";
   }, [type]);
-
+  const typeOnHold = useMemo(() => {
+    return type === "معلقة" || type === "onhold";
+  }, [type]);
   const typeSold = type === "Sold" || type === "تم البيع";
-
-  const showDashboard = haveDashboard && typeActive && isFeatured;
+  const isPinned = data.makePin || data.makePinHome;
+  const showDashboard = haveDashboard && typeActive && isPinned;
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
@@ -43,21 +51,37 @@ const ProfileCard = ({ data, type, getProperties, paymentDisabled }) => {
             ) : (
               <PropType type={type} />
             )}
-            <ActionsMenu
-              propData={data}
-              isPending={typePending}
-              isSold={typeSold}
-              propId={data._id}
-              getProperties={getProperties}
-            />
+            {!typeOnHold && (
+              <ActionsMenu
+                propData={data}
+                isPending={typePending}
+                isSold={typeSold}
+                propId={data._id}
+                getProperties={getProperties}
+              />
+            )}
           </div>
-          <Image
-            src={data?.thumbnail}
-            width={400}
-            height={150}
-            alt="property image"
-            className="w-full max-h-[150px] object-cover"
-          />
+          {typeActive ? (
+            <Link href={`/property-details/${data?.slug}`}>
+              {" "}
+              <Image
+                src={data?.thumbnail}
+                width={400}
+                height={150}
+                alt="property image"
+                className="w-full max-h-[150px] object-cover"
+              />
+            </Link>
+          ) : (
+            <Image
+              src={data?.thumbnail}
+              width={400}
+              height={150}
+              alt="property image"
+              className="w-full max-h-[150px] object-cover"
+            />
+          )}
+
           {showDashboard && (
             <div className="absolute bottom-0 left-0 bg-white border py-1 px-2">
               <Link

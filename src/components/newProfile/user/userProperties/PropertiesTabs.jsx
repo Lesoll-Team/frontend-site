@@ -60,6 +60,18 @@ const PropertiesTabs = ({ currentTab }) => {
       >
         {language ? "مسودة" : "Draft"}
       </button>
+      <button
+        className={`md:rounded-md min-w-fit whitespace-nowrap  text-xs font-medium px-4 md:px-5 py-2 border-b ${
+          currentTab === "onhold"
+            ? "md:bg-lightGreen md:text-white text-lightGreen border-b-lightGreen"
+            : "text-baseGray md:bg-gray-100"
+        }`}
+        onClick={() => {
+          handleTabClick("onhold");
+        }}
+      >
+        {language ? "معلقة" : "on hold"}
+      </button>
     </div>
   );
 };

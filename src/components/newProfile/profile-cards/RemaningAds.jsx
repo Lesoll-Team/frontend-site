@@ -78,6 +78,16 @@ const InfoModal = ({ isOpen, setIsOpen }) => {
             </p>
           </div>
         </div>
+        <div className="border-2 flex flex-col justify-center items-center gap-4  mx-auto py-3 rounded-md w-[90%]">
+          <p className="font-bold text-lightGreen text-xl text-center ">
+            {data?.pinHomeAdCount}
+          </p>
+          <p className="text-xl text-center">
+            {language
+              ? "اعلانات للتثبيت فى الصفحة الرئيسية"
+              : "Remaining pin at home ads."}
+          </p>
+        </div>
       </div>
     </ReactModal>
   );
