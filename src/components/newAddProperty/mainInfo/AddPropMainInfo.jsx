@@ -345,7 +345,7 @@ const AddPropMainInfo = ({
           cols="30"
           rows="10"
           className={`${styles.addPropInput} ${
-            errors.description && "border-red-500 focus:border-red-500"
+            errors.description && addPropInputError
           }`}
         />
         {errors.description && (

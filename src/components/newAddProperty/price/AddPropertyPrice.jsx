@@ -1,11 +1,9 @@
 import AddPropSectionContainer from "../components/AddPropSectionContainer";
 import Rent from "./Rent";
 import Sale from "./sale/Sale";
-import CashAndInstallment from "./sale/CashAndInstallment";
 import AdminCashAndInstallment from "./sale/AdminCashAndInstallment";
 import { useUser } from "@/Shared/UserContext";
-// import PhoneNumber from "../PhoneNumber";
-
+import Installment from "./sale/Installment";
 const AddPropertyPrice = ({
   errors,
   register,
@@ -60,13 +58,14 @@ const AddPropertyPrice = ({
     } else {
       return (
         <AddPropSectionContainer>
-          <CashAndInstallment
+          <Installment
             errors={errors}
             clearErrors={clearErrors}
             register={register}
             setValue={setValue}
             watch={watch}
             control={control}
+            showCashPayment
           />
         </AddPropSectionContainer>
       );
@@ -77,14 +76,6 @@ const AddPropertyPrice = ({
     <>
       <AddPropSectionContainer>{renderPrice()}</AddPropSectionContainer>
       {watch("saleOption.value")?.length > 1 && renderCashAndInstallment()}
-
-      {/* <PhoneNumber
-        clearErrors={clearErrors}
-        errors={errors}
-        register={register}
-        watch={watch}
-        setValue={setValue}
-      /> */}
     </>
   );
 };

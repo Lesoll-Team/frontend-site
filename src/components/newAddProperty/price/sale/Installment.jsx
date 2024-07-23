@@ -2,41 +2,35 @@ import DropDown from "@/Shared/ui/DropDown";
 import { installmentTypeOptions } from "@/utils/addAndEditOptions";
 import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
-
 import { FaSquareMinus } from "react-icons/fa6";
-
 import { useCallback } from "react";
 import Error from "@/Shared/ui/Error";
 import {
-  convertToNumber,
-  greateThanValidation,
   handleMonyInputChange,
-  minIsHundred,
   mustBeGreaterValidation,
   validateIsNumber,
 } from "../../utils/handleNumberInput";
+import styles from "@/components/newAddProperty/styles/addProperrty.module.css";
+import { requiredInput } from "../../utils/inputValidations";
+
+const { addPropInput, addPropInputError } = styles;
+
 const INSTALLMENT = {
-  type: {
-    value: "",
-    name: {
-      ar: "",
-      en: "",
-    },
-  },
+  type: { value: "", name: { ar: "", en: "" } },
   period: "",
   amount: "",
   downPayment: "",
-  ProjectPercentage: "",
   discount: "",
 };
 
-const Installment = ({
+const InstallmentPlan = ({
   control,
   errors,
   register,
   setValue,
   watch,
   clearErrors,
+  showCashPayment,
 }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { fields, append, remove } = useFieldArray({
@@ -46,103 +40,131 @@ const Installment = ({
 
   const egpPer = useCallback(
     (period) => {
+      const isoCode = watch("currencies.ISO_code");
       switch (period) {
         case "Monthly":
-          return language
-            ? `${watch("currencies.ISO_code")}/شهر`
-            : `${watch("currencies.ISO_code")}/Month`;
+          return language ? `${isoCode}/شهر` : `${isoCode}/Month`;
         case "Yearly":
-          return language
-            ? `${watch("currencies.ISO_code")}/سنة`
-            : `${watch("currencies.ISO_code")}/Year`;
+          return language ? `${isoCode}/سنة` : `${isoCode}/Year`;
         case "6 Monthly":
-          return language
-            ? `${watch("currencies.ISO_code")}/ شهور 6`
-            : `${watch("currencies.ISO_code")} /6 Month`;
+          return language ? `${isoCode}/شهور 6` : `${isoCode}/6 Month`;
         case "3 Monthly":
-          return language
-            ? `${watch("currencies.ISO_code")}/ شهور 3`
-            : `${watch("currencies.ISO_code")} /3 Month`;
+          return language ? `${isoCode}/شهور 3` : `${isoCode}/3 Month`;
         default:
-          return `${watch("currencies.ISO_code")}`;
+          return `${isoCode}`;
       }
     },
-    [watch("installment"), watch("currencies")],
+    [language, watch],
   );
+
   const handleCustomChange = (e, name, onChange) => {
-    onChange(e); // Call the original onChange handler from `react-hook-form`
-    handleMonyInputChange(e, name, setValue); // Call your custom logic
+    onChange(e);
+    handleMonyInputChange(e, name, setValue);
   };
 
+  const renderInstallmentField = (
+    label,
+    name,
+    registerOptions,
+    index,
+    onChangeHandler,
+  ) => (
+    <div className="space-y-2 w-full">
+      <p className="text-gray-800">{label}</p>
+      <div className="relative">
+        <input
+          inputMode="numeric"
+          type="text"
+          {...registerOptions}
+          onChange={(e) => handleCustomChange(e, name, onChangeHandler)}
+          className={`${addPropInput} ${errors?.installment?.[index]?.[name] && addPropInputError}`}
+        />
+        <span
+          className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${language ? "left-14" : "right-14"}`}
+        >
+          {name === "amount"
+            ? egpPer(watch(`installment.${index}.type.value`))
+            : watch("currencies.ISO_code")}
+        </span>
+      </div>
+      {errors?.installment?.[index]?.[name] && (
+        <Error>{errors.installment[index][name].message}</Error>
+      )}
+    </div>
+  );
+
   return (
-    <div className="lg:col-span-2 ">
-      <h3 className="text-xl lg:col-span-2 font-bold">
-        {language ? "خطة التقسيط" : "Installment Plan"}
-      </h3>
+    <div className="lg:col-span-2">
+      {showCashPayment && (
+        <div className="space-y-2 w-full mb-4">
+          <p className="text-gray-800">
+            {language ? "الدفع الكاش" : "Cash Payment"}
+          </p>
+          <h4 className="text-base text-darkGray">
+            {language ? "الخصم" : "Discount"}
+          </h4>
+          <div className="relative">
+            <input
+              inputMode="numeric"
+              placeholder={language ? "إختيارى" : "optional"}
+              type="text"
+              {...register(`installment.${0}.discount`)}
+              className="w-full text-lg font-semibold focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60 border-2 rounded-md p-3 py-2"
+            />
+            <span
+              className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${language ? "left-14" : "right-14"}`}
+            >
+              %
+            </span>
+          </div>
+        </div>
+      )}
+      <div>
+        <h3 className="text-xl font-bold">
+          {language ? "خطة التقسيط" : "Installment Plan"}
+        </h3>
+      </div>
       {fields.map((plan, index) => {
-        const { onChange: periodOnChange, ...periodRegister } = register(
-          `installment.${index}.period`,
-          {
-            required: {
-              value: true,
-              message: language ? "مطلوب" : "required",
-            },
-            validate: {
-              mustBeNumber: (value) => validateIsNumber(value, language),
-              // max: (value) => mustBeGreaterValidation(value, language),
-            },
+        const periodRegister = register(`installment.${index}.period`, {
+          required: { value: true, message: language ? "مطلوب" : "required" },
+          validate: {
+            mustBeNumber: (value) => validateIsNumber(value, language),
           },
-        );
-        const { onChange: downPaymentOnChange, ...downPaymentRegister } =
-          register(`installment.${index}.downPayment`, {
-            required: {
-              value: true,
-              message: language ? "مطلوب" : "required",
-            },
-            validate: {
-              mustBeNumber: (value) => validateIsNumber(value, language),
-              max: (value) => mustBeGreaterValidation(value, language),
-            },
-          });
-        const { onChange: amountOnChange, ...amountRegister } = register(
-          `installment.${index}.amount`,
+        });
+        const downPaymentRegister = register(
+          `installment.${index}.downPayment`,
           {
-            required: {
-              value: true,
-              message: language ? "مطلوب" : "required",
-            },
+            required: { value: true, message: language ? "مطلوب" : "required" },
             validate: {
               mustBeNumber: (value) => validateIsNumber(value, language),
               max: (value) => mustBeGreaterValidation(value, language),
             },
           },
         );
+        const amountRegister = register(`installment.${index}.amount`, {
+          required: { value: true, message: language ? "مطلوب" : "required" },
+          validate: {
+            mustBeNumber: (value) => validateIsNumber(value, language),
+            max: (value) => mustBeGreaterValidation(value, language),
+          },
+        });
 
         return (
           <div
-            className="fade-in lg:col-span-2 flex flex-col gap-y-5 mb-6 "
+            className="fade-in lg:col-span-2 flex flex-col gap-y-5 mb-6"
             key={plan.id}
           >
-            {/* gap-y-10 gap-x-16  */}
-
             <div className="flex justify-end items-center">
-              {/* <h4 className="text-lg font-semibold">
-                {language ? `خطة رقم ${index + 1}` : ""}
-              </h4> */}
               {index > 0 && (
-                <button
-                  type="button"
-                  className=""
-                  onClick={() => remove(index)}
-                >
+                <button type="button" onClick={() => remove(index)}>
                   <FaSquareMinus className="text-r text-2xl md:text-3xl" />
                 </button>
               )}
             </div>
-            <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
+            <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16 items-start">
               <div className="space-y-2 w-full">
                 <p className="text-gray-800">
-                  {language ? " نظام التقسيط" : "Installment System"}
+                  {language ? "نظام التقسيط" : "Installment System"}
                 </p>
                 <DropDown
                   options={installmentTypeOptions}
@@ -151,16 +173,11 @@ const Installment = ({
                     setValue(`installment.${index}.type`, value);
                     clearErrors(`installment.${index}.type.value`);
                   }}
-                  error={
-                    errors?.installment &&
-                    errors?.installment[index]?.type?.value
-                  }
+                  error={errors?.installment?.[index]?.type?.value}
                   errorMessage={
-                    errors?.installment &&
-                    errors?.installment[index]?.type?.value?.message
+                    errors?.installment?.[index]?.type?.value?.message
                   }
                 />
-
                 <input
                   type="text"
                   hidden
@@ -168,149 +185,52 @@ const Installment = ({
                     required: {
                       value: true,
                       message: language
-                        ? "من فضلك اختر نوع التقسيط"
+                        ? "أختر نظام التقسيط"
                         : "please choose installment type",
                     },
                   })}
                 />
               </div>
-
-              <div className="space-y-2 w-full">
-                <p className="text-gray-800">
-                  {language ? "مدة التقسيط" : "Installment Period"}
-                </p>
-                <div className="relative">
-                  <input
-                    inputMode="numeric"
-                    type="text"
-                    {...periodRegister}
-                    onChange={(e) =>
-                      handleCustomChange(
-                        e,
-                        `installment.${index}.period`,
-                        periodOnChange,
-                      )
-                    }
-                    className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                      errors?.installment &&
-                      errors?.installment[index]?.period &&
-                      "border-red-500 focus:border-red-500"
-                    }`}
-                  />
-                  <span
-                    className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
-                      language ? "left-14" : "right-14"
-                    } `}
-                  >
-                    {language ? "سنين" : "years"}
-                  </span>
-                </div>
-                {errors?.installment && errors?.installment[index]?.period && (
-                  <Error>{errors?.installment[index]?.period?.message}</Error>
-                )}
-              </div>
+              {renderInstallmentField(
+                language ? "مدة التقسيط" : "Installment Period",
+                `period`,
+                periodRegister,
+                index,
+                periodRegister.onChange,
+              )}
             </div>
-
-            <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16  items-start">
-              <div className="space-y-2 w-full">
-                <p className="text-gray-800">
-                  {language ? " المقدم" : " Down payment"}
-                </p>
-                <div className="relative">
-                  <input
-                    inputMode="numeric"
-                    type="text"
-                    {...downPaymentRegister}
-                    onChange={(e) =>
-                      handleCustomChange(
-                        e,
-                        `installment.${index}.downPayment`,
-                        downPaymentOnChange,
-                      )
-                    }
-                    className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                      errors?.installment &&
-                      errors?.installment[index]?.downPayment &&
-                      "border-red-500 focus:border-red-500"
-                    }`}
-                  />
-                  <span
-                    className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
-                      language ? "left-14" : "right-14"
-                    } `}
-                  >
-                    {watch("currencies.ISO_code")}
-                  </span>
-                </div>
-                {/* {errors?.installment[index]?.downPayment && (
-                    <Error>
-                      {errors?.installment[index]?.downPayment.message}
-                    </Error>
-                  )} */}
-                {errors?.installment &&
-                  errors?.installment[index]?.downPayment && (
-                    <Error>
-                      {errors?.installment[index]?.downPayment?.message}
-                    </Error>
-                  )}
-              </div>
-
-              <div className="space-y-2 w-full">
-                <p className="text-gray-800">
-                  {language ? "قيمة التقسيط" : "Installment amount"}
-                </p>
-                <div className="relative">
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    {...amountRegister}
-                    onChange={(e) =>
-                      handleCustomChange(
-                        e,
-                        `installment.${index}.amount`,
-                        amountOnChange,
-                      )
-                    }
-                    className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-                      errors?.installment &&
-                      errors?.installment[index]?.amount &&
-                      "border-red-500 focus:border-red-500"
-                    }`}
-                  />
-                  <span
-                    className={`-mx-9 text-sm text-[#A3A1A1] absolute z-10 top-3 ${
-                      language ? "left-14" : "right-14"
-                    } `}
-                  >
-                    {egpPer(watch(`installment.${index}.type.value`))}
-                  </span>
-                </div>
-                {errors?.installment && errors?.installment[index]?.amount && (
-                  <Error>{errors?.installment[index]?.amount.message}</Error>
-                )}
-              </div>
+            <div className="flex lg:flex-row flex-col gap-y-10 gap-x-16 items-start">
+              {renderInstallmentField(
+                language ? "المقدم" : "Down payment",
+                `downPayment`,
+                downPaymentRegister,
+                index,
+                downPaymentRegister.onChange,
+              )}
+              {renderInstallmentField(
+                language ? "قيمة التقسيط" : "Installment amount",
+                `amount`,
+                amountRegister,
+                index,
+                amountRegister.onChange,
+              )}
             </div>
             {fields.length === index + 1 && index < 3 && (
               <div className="flex justify-end">
-                {" "}
                 <button
                   type="button"
-                  className=" w-fit text-blue-500 underline font-bold"
+                  className="w-fit text-blue-500 underline font-bold"
                   onClick={() => append(INSTALLMENT)}
                 >
                   {language ? "إضافة خطة تقسيط اخرى" : "add new installment"}
                 </button>
               </div>
             )}
-            {/* {index > 0 && (
-              <button className="mx-3" onClick={() => remove(index)}>
-                remove
-              </button>
-            )} */}
           </div>
         );
       })}
     </div>
   );
 };
-export default Installment;
+
+export default InstallmentPlan;

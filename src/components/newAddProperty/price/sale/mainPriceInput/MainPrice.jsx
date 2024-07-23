@@ -1,13 +1,14 @@
 import Error from "@/Shared/ui/Error";
 import { useSelector } from "react-redux";
 import CurrenciesDropDown from "./CurrenciesDropDown";
-// import { handleMonyInputChange } from "@/components/newAddProp erty/utils/handleMonyInputChange";
 import {
   convertToNumber,
   handleMonyInputChange,
   validateIsNumber,
 } from "@/components/newAddProperty/utils/handleNumberInput";
+import styles from "@/components/newAddProperty/styles/addProperrty.module.css";
 
+const { addPropInput, addPropInputError } = styles;
 const MainPrice = ({ register, errors, watch, setValue }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { onChange: priceOnChange, ...priceRgister } = register("price", {
@@ -44,9 +45,7 @@ const MainPrice = ({ register, errors, watch, setValue }) => {
           type="text"
           {...priceRgister}
           onChange={handleCustomChange}
-          className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
-            errors.price && "border-red-500 focus:border-red-500"
-          }`}
+          className={` ${addPropInput} ${errors.price && addPropInputError}`}
         />
 
         <CurrenciesDropDown

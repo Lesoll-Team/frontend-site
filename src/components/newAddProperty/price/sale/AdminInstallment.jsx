@@ -1,9 +1,13 @@
 import { useSelector } from "react-redux";
 import { useFieldArray } from "react-hook-form";
-
 import { FaSquareMinus } from "react-icons/fa6";
-
 import Error from "@/Shared/ui/Error";
+import styles from "@/components/newAddProperty/styles/addProperrty.module.css";
+import {
+  mustBeGreaterValidation,
+  validateIsNumber,
+} from "../../utils/inputValidations";
+const { addPropInput, addPropInputError } = styles;
 const INSTALLMENT = {
   type: {
     value: "",
@@ -66,20 +70,14 @@ const AdminInsatllment = ({ control, errors, register }) => {
                           : "please enter installment period",
                       },
                       validate: {
-                        mustBeNumber: (value) => {
-                          return (
-                            !isNaN(value) ||
-                            (language
-                              ? "يجب ان تكون مدة التقسيط رقم"
-                              : "installment period must be a number")
-                          );
-                        },
+                        mustBeNumber: (value) =>
+                          validateIsNumber(value, language),
                       },
                     })}
-                    className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                    className={` ${addPropInput} ${
                       errors?.installment &&
                       errors?.installment[index]?.period &&
-                      "border-red-500 focus:border-red-500"
+                      addPropInputError
                     }`}
                   />
                   <span
@@ -109,27 +107,18 @@ const AdminInsatllment = ({ control, errors, register }) => {
                     }
                     type="text"
                     {...register(`installment.${index}.ProjectPercentage`, {
-                      required: {
-                        value: true,
-                        message: language
-                          ? "من فضلك ادخل المقدم"
-                          : "please enter Down Payment",
-                      },
+                      required: requiredInput(language),
                       validate: {
-                        mustBeNumber: (value) => {
-                          return (
-                            !isNaN(value) ||
-                            (language
-                              ? "يجب ان يكون المقدم رقم"
-                              : "Down Payment must be a number")
-                          );
-                        },
+                        mustBeNumber: (value) =>
+                          validateIsNumber(value, language),
+                        max: (value) =>
+                          mustBeGreaterValidation(value, language),
                       },
                     })}
-                    className={` w-full text-lg font-semibold  focus:outline-none focus:border-lightGreen placeholder:text-darkGray placeholder:opacity-60   border-2 rounded-md p-3 py-2 ${
+                    className={`${addPropInput} ${
                       errors?.installment &&
                       errors?.installment[index]?.ProjectPercentage &&
-                      "border-red-500 focus:border-red-500"
+                      addPropInputError
                     }`}
                   />
                   <span
