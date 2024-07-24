@@ -3,7 +3,7 @@ import AgentCard from "./AgentCard";
 import { useEffect, useState } from "react";
 
 const CardGrid = ({ cardsData }) => {
-  const [columns, setColumns] = useState(1);
+  const [columns, setColumns] = useState(2);
 
   useEffect(() => {
     const updateColumns = () => {
@@ -14,7 +14,7 @@ const CardGrid = ({ cardsData }) => {
       } else if (window.innerWidth >= 768) {
         setColumns(2); // md
       } else {
-        setColumns(1); // default
+        setColumns(2); // default
       }
     };
 
@@ -54,7 +54,7 @@ const CardGrid = ({ cardsData }) => {
     // If cardsData.length is less than a full row, add banner at the end
     if (!bannerAdded) {
       elements.push(
-        <div key="banner-end" className={`col-span-${columns}`}>
+        <div key="banner-end" className={`col-span-full`}>
           <AgentBanner />
         </div>,
       );
@@ -65,7 +65,7 @@ const CardGrid = ({ cardsData }) => {
 
   return (
     <div
-      className={`grid mt-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4`}
+      className={`grid mt-5 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4`}
     >
       {renderCardsWithBanners()}
     </div>

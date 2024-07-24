@@ -11,7 +11,7 @@ const AgentBanner = () => {
     message: message,
   });
   return (
-    <div className=" text-white relative col-span-full rounded-md  overflow-hidden h-[20dvh] sm:h-[35dvh]">
+    <div className=" text-white relative col-span-full  overflow-hidden h-[15dvh] sm:h-[28dvh]">
       <Image
         className="w-full h-full absolute object-cover  -z-10  brightness-50"
         src="/agents/agent-banner.webp"
