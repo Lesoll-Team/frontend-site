@@ -33,7 +33,7 @@ const CarouselPinPropertiesCard = () => {
   }, []);
 
   return (
-    <div dir="rtl" className="px-10 relative">
+    <div dir="rtl" className="md:px-10 relative">
       {!loading ? (
         <Swiper
           ref={swiperRef}

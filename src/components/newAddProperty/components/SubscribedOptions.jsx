@@ -70,7 +70,7 @@ const SubscribedOptions = ({
             </p>
           </button>
         )}
-        {!!userData.pinHomeAdCount && (
+        {!!userData.pinHomeAdCount && !userData?.isPinnedHome && (
           <button
             type="button"
             onClick={() => {

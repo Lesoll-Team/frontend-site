@@ -43,6 +43,7 @@ const usePackageData = (cardData) => {
   const openWherePinModal = cardData?.makePinHome || pinHomeAvilable;
   const showPropAnalitycs =
     data?._id === cardData?.user?._id && isFeatured && haveDashboard;
+  const disablePinHome = data?.isPinnedHome;
   return {
     pinHomeAvilable,
     haveDashboard,
@@ -56,6 +57,7 @@ const usePackageData = (cardData) => {
     repostText,
     isFeatured,
     showPropAnalitycs,
+    disablePinHome,
   };
 };
 

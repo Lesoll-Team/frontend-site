@@ -23,7 +23,7 @@ const ConfirmWhereToPin = ({
   const [pinStatus, setPinStatus] = useState("idle");
   const isLoading = pinStatus === "loading";
   const isError = pinStatus === "failed";
-
+  const { disablePinHome } = usePackageData();
   const pinSearch = async () => {
     await pinProperty({ propId, setFormStatus: setPinStatus });
   };
@@ -66,8 +66,15 @@ const ConfirmWhereToPin = ({
           </p>
         </div>
         <div className="flex flex-col justify-center items-center w-[80%] mx-auto gap-5">
-          <Button disabled={isLoading || isPinHome} onClick={pinHome}>
-            {pinHomeText}
+          <Button
+            disabled={isLoading || isPinHome || disablePinHome}
+            onClick={pinHome}
+          >
+            {disablePinHome
+              ? language
+                ? "لديك عقار مثبت فى الرئيسية"
+                : "You already have a prperty pinned at home"
+              : pinHomeText}
           </Button>
           <Button
             variant="bordered"

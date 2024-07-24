@@ -96,6 +96,7 @@ const useAddProperty = ({ propData }) => {
       const id = watch("packId");
       if (id) {
         setLaoding(true);
+        setUserData();
       } else {
         setPosted(true);
         setUserData();
