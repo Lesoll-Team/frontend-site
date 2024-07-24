@@ -20,8 +20,8 @@ const PlanCard = ({ item, setValue, clearErrors, selected }) => {
       }}
       className={`bg-white p-4 rounded-md space-y-4 border ${selected && "border-lightGreen"}`}
     >
-      <div className="flex items-center justify-between gap-2 ">
-        <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2 ">
           <div className="w-6">
             {selected ? (
               <IoIosRadioButtonOn className="text-2xl text-lightGreen" />
