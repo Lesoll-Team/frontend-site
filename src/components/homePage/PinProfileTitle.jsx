@@ -8,15 +8,12 @@ const PinProfileTitle = () => {
     <div className=" md:mx-0 mx-[20px] mb-10">
       <div className="flex justify-between">
         <h2 className=" font-bold  flex text-grayText2">
-          {language ? "افضل الوكلاء" : "Best Agents"}
+          {language ? "الحسابات المميزة " : "premium accounts"}
         </h2>
         <Link href={"/agents"} className="underline  lg-text">
-          عرض المزيد
+          {language ? "عرض المزيد" : "Show more"}
         </Link>
       </div>
-      <p className="mt-2 text-[#666666]">
-        {language ? "افضل وكلاء العقارات" : "Best real estate agents"}
-      </p>
     </div>
   );
 };

@@ -54,9 +54,9 @@ const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
             }`}
             // className={"border-none"}
           />
-          <p className="text-sm text-[#A3A1A1] -mx-8">
+          {/* <p className="text-sm text-[#A3A1A1] -mx-8">
             {language ? "م" : "m"} <sup>2</sup>
-          </p>
+          </p> */}
         </div>
         {errors.area && (
           <Error className="text-red-500">{errors.area.message}</Error>
