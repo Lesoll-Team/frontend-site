@@ -37,7 +37,7 @@ const UserSearch = ({
           setRegion={setRegion}
         />
       </div>
-      <div className="">
+      <div className="z-10">
         <Dropdown
           value={offer}
           defaultValue={language ? "العرض" : "offer"}
