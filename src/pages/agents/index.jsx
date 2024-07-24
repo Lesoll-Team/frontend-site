@@ -4,7 +4,7 @@ import AgentsHeroSection from "@/components/agents/HeroSection";
 
 const Agents = ({ profile }) => {
   return (
-    <div>
+    <div className="min-h-[90dvh]">
       <AgentMetaTags />
       {/* <AgentsHeroSection /> */}
       <AgentsBodyCards profile={profile} />

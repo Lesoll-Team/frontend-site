@@ -26,6 +26,8 @@ const CardGrid = ({ cardsData }) => {
   const renderCardsWithBanners = () => {
     let elements = [];
     let rowCount = 0;
+    let bannerAdded = false; // Flag to check if the banner has been added
+
     for (let i = 0; i < cardsData.length; i++) {
       elements.push(
         <AgentCard
@@ -38,10 +40,24 @@ const CardGrid = ({ cardsData }) => {
 
       rowCount++;
 
-      if (rowCount === columns * 1) {
-        elements.push(<AgentBanner key={`banner-${i}`} />);
-        // rowCount = 0; if i need repeat agent banner
+      // Add banner after the first set of AgentCards
+      if (rowCount === columns && !bannerAdded) {
+        elements.push(
+          <div key={`banner-${i}`} className={`col-span-${columns}`}>
+            <AgentBanner />
+          </div>,
+        );
+        bannerAdded = true; // Set the flag to true to prevent further banners
       }
+    }
+
+    // If cardsData.length is less than a full row, add banner at the end
+    if (!bannerAdded) {
+      elements.push(
+        <div key="banner-end" className={`col-span-${columns}`}>
+          <AgentBanner />
+        </div>,
+      );
     }
 
     return elements;
