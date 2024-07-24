@@ -19,11 +19,12 @@ const UserRow = ({ odd, data }) => {
   //       console.error("Failed to copy text: ", err);
   //     });
   // };
-  const handleCopyClick = () => {
+  const handleCopyClick = async () => {
     // Ensure the Clipboard API is available
+    const phone = `${data?.code || ""}${data?.phone || ""}`;
     if (navigator.clipboard) {
       navigator.clipboard
-        .writeText(data?.code + data?.phone)
+        .writeText(phone)
         .then(() => {
           setCopied(true);
         })
