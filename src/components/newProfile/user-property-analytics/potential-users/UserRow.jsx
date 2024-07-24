@@ -8,16 +8,31 @@ const UserRow = ({ odd, data }) => {
   const { code, phone, email, fullname, avatarUrl } = data;
   const [copied, setCopied] = useState(false);
 
+  // const handleCopyClick = () => {
+  //   // Use the Clipboard API to write text to the clipboard
+  //   navigator.clipboard
+  //     .writeText(data?.code + data?.phone)
+  //     .then(() => {
+  //       setCopied(true);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Failed to copy text: ", err);
+  //     });
+  // };
   const handleCopyClick = () => {
-    // Use the Clipboard API to write text to the clipboard
-    navigator.clipboard
-      .writeText(data?.code + data?.phone)
-      .then(() => {
-        setCopied(true);
-      })
-      .catch((err) => {
-        console.error("Failed to copy text: ", err);
-      });
+    // Ensure the Clipboard API is available
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(data?.code + data?.phone)
+        .then(() => {
+          setCopied(true);
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+        });
+    } else {
+      console.error("Clipboard API not supported");
+    }
   };
 
   useEffect(() => {
