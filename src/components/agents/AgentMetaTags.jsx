@@ -7,12 +7,12 @@ const AgentMetaTags = () => {
   return (
     <Head>
       <title>
-        {language ? "الحسابات الموثقة | ليسول" : "Verified Accounts | Lesoll"}
+        {language ? "الحسابات المميزة | ليسول" : "Premium Accounts | Lesoll"}
       </title>
       <meta
         name="description"
         content={
-          language ? "الحسابات الموثقة ليسول" : "Verified Accounts Lesoll"
+          language ? "الحسابات المميزة | ليسول" : "Premium Accounts | Lesoll"
         }
       />
       <meta name="robots" content="noindex, nofollow" />

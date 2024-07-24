@@ -5,7 +5,7 @@ const AgentCard = ({ logo, company, username }) => {
   return (
     <Link
       href={`/view-profile/${username}?page=1`}
-      className="bg-white   rounded-md p-4 flex flex-col items-center justify-center space-y-3 py-8 text-center"
+      className="bg-white border   rounded-2xl p-4 flex flex-col items-center justify-center space-y-3 py-8 text-center justify-items-start"
     >
       <Image
         src={logo || "/user-avatar-placeholder.png"}

@@ -6,14 +6,10 @@ const AgentsBodyCards = ({ profile }) => {
 
   return (
     <div className="w-full container mx-auto mt-10 ">
-      {/* <SearchByAgents /> */}
-
       <h2 className="text-2xl font-bold  text-gray-800">
-        {language ? "الحسابات الموثقة " : "Verified Accounts "}
+        {language ? "الحسابات المميزة " : "premium accounts"}
       </h2>
-      {/* <p className="mt-2 text-[#666666]">
-        {language ? "افضل الحسابات الموثقة " : "Best Verified Accounts"}
-      </p> */}
+
       <CardGrid cardsData={profile} />
     </div>
   );

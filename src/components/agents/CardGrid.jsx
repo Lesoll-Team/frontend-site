@@ -65,7 +65,7 @@ const CardGrid = ({ cardsData }) => {
 
   return (
     <div
-      className={`grid mt-5 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4`}
+      className={`grid mt-5 items-start grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4`}
     >
       {renderCardsWithBanners()}
     </div>
