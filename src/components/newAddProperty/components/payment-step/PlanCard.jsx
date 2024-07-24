@@ -21,12 +21,14 @@ const PlanCard = ({ item, setValue, clearErrors, selected }) => {
       className={`bg-white p-4 rounded-md space-y-4 border ${selected && "border-lightGreen"}`}
     >
       <div className="flex items-center justify-between gap-2 ">
-        <div className="flex items-center gap-2">
-          {selected ? (
-            <IoIosRadioButtonOn className="text-2xl text-lightGreen" />
-          ) : (
-            <IoIosRadioButtonOff className="text-2xl text-outLine" />
-          )}{" "}
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="w-6">
+            {selected ? (
+              <IoIosRadioButtonOn className="text-2xl text-lightGreen" />
+            ) : (
+              <IoIosRadioButtonOff className="text-2xl text-outLine" />
+            )}{" "}
+          </div>
           <p>{language ? item.PaymentAr : item.PaymentEn}</p>
         </div>
         <p>
@@ -40,7 +42,9 @@ const PlanCard = ({ item, setValue, clearErrors, selected }) => {
               className="flex items-start justify-start gap-2"
               key={service._id}
             >
-              <IoMdCheckmarkCircleOutline className="text-xl text-green-400" />
+              <div className="w-6">
+                <IoMdCheckmarkCircleOutline className="text-xl text-green-400" />
+              </div>
               <p className="text-start">{language ? service.ar : service.en}</p>
             </div>
           );
