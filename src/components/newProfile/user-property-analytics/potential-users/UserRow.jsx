@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { IoLink } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
@@ -7,32 +7,19 @@ const UserRow = ({ odd, data }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { code, phone, email, fullname, avatarUrl } = data;
   const [copied, setCopied] = useState(false);
+  const textAreaRef = useRef(null);
 
-  // const handleCopyClick = () => {
-  //   // Use the Clipboard API to write text to the clipboard
-  //   navigator.clipboard
-  //     .writeText(data?.code + data?.phone)
-  //     .then(() => {
-  //       setCopied(true);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Failed to copy text: ", err);
-  //     });
-  // };
-  const handleCopyClick = async () => {
-    // Ensure the Clipboard API is available
-    const phone = `${data?.code || ""}${data?.phone || ""}`;
-    if (navigator.clipboard) {
-      navigator.clipboard
-        .writeText(phone)
-        .then(() => {
-          setCopied(true);
-        })
-        .catch((err) => {
-          console.error("Failed to copy text: ", err);
-        });
-    } else {
-      console.error("Clipboard API not supported");
+  const handleCopyClick = () => {
+    const phoneNumber = `${data?.code || ""}${data?.phone || ""}`;
+    if (textAreaRef.current) {
+      textAreaRef.current.value = phoneNumber;
+      textAreaRef.current.select();
+      try {
+        document.execCommand("copy");
+        setCopied(true);
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+      }
     }
   };
 
@@ -42,7 +29,6 @@ const UserRow = ({ odd, data }) => {
         setCopied(false);
       }, 3000);
 
-      // Clear the timeout if the effect runs again or the component unmounts
       return () => clearTimeout(timeoutId);
     }
   }, [copied]);
@@ -82,6 +68,12 @@ const UserRow = ({ odd, data }) => {
             </p>
           )}
         </div>
+        <textarea
+          ref={textAreaRef}
+          value=""
+          style={{ position: "absolute", left: "-9999px", opacity: 0 }}
+          readOnly
+        />
       </div>
     </div>
   );
