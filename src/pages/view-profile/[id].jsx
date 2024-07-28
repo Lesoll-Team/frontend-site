@@ -9,6 +9,10 @@ const ViewProfilePage = ({ query, user, properties }) => {
       <Head>
         <title>{user?.getUser?.fullname}</title>
         <meta name="description" content={user?.getUser?.fullname} />
+        <link
+          rel="canonical"
+          href={`/view-profile/${user?.getUser?.fullname}`}
+        />
       </Head>
       <ViewUser user={user} params={query} properties={properties} />
     </div>

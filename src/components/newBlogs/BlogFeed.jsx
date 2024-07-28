@@ -5,10 +5,12 @@ import BlogsHeader from "./BlogsHeader";
 import Head from "next/head";
 
 const BlogFeed = ({ blogs, keyword }) => {
+  const canonicalLink = `https://lesoll.com/blog?page=${keyword?.page || "1"}${keyword?.search ? "&search=" + keyword?.search : ""}${keyword?.category ? "&category=" + keyword?.category : ""}`;
   return (
     <div className="flex flex-col md:gap-y-[80px] mb-10">
       <Head>
         <title>المقالات</title>
+        <link rel="canonical" href={canonicalLink} />
       </Head>
       <BlogsHeader />
       <main className="md:container w-full mx-auto flex flex-col md:flex-row md:gap-20">
