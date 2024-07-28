@@ -1,10 +1,15 @@
 import ViewUser from "@/components/viewProfile/ViewUser";
 // import axiosInstance from "@/Shared/axiosInterceptorInstance";
 import axios from "axios";
+import Head from "next/head";
 
 const ViewProfilePage = ({ query, user, properties }) => {
   return (
     <div className="min-h-[90dvh] ">
+      <Head>
+        <title>{user?.getUser?.fullname}</title>
+        <meta name="description" content={user?.getUser?.fullname} />
+      </Head>
       <ViewUser user={user} params={query} properties={properties} />
     </div>
   );
