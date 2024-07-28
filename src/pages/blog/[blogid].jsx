@@ -45,7 +45,12 @@ export async function getServerSideProps(context) {
     }
   } catch (error) {
     if (error.response && error.response.status === 500) {
-      context.res.statusCode = 410;
+      return {
+        redirect: {
+          destination: `/blog?page=1`,
+          statusCode: 308,
+        },
+      };
     }
     throw error;
   }
