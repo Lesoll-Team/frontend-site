@@ -75,7 +75,7 @@ const DeleteBtn = ({ propId, onDelete }) => {
         </button>
         <button
           onClick={() => {
-            onReasonSelect("other", otherMessage);
+            onReasonSelect("other", reason);
           }}
           type="button"
           className="flex gap-2 items-center text-lg font-normal"
@@ -89,10 +89,9 @@ const DeleteBtn = ({ propId, onDelete }) => {
         </button>
         {selectedReason === "other" && (
           <textarea
-            value={otherMessage}
+            value={reason}
             onChange={(e) => {
               setReason(e.target.value);
-              setOtherMessage(e.target.value);
             }}
             className={`resize-none w-full p-2 border-[2px] md:border-[3px] rounded-md focus:ring-0 focus:border-lightGreen focus:outline-none animate-appearance-in ${
               selectedReason !== "other" && "animate-appearance-out"
