@@ -26,9 +26,9 @@ const ViewUser = ({ user, properties, params }) => {
             className="rounded-full object-cover w-[50px] h-[50px] md:w-[140px] md:h-[140px]"
           />
           <div className="flex flex-col gap-2 md:gap-4">
-            <h3 className="text-sm md:text-2xl font-bold">
+            <h1 className="text-sm md:text-2xl font-bold">
               {user.getUser?.fullname}
-            </h3>
+            </h1>
             <p className="text-xs md:text-xl text-lightGreen font-bold">
               {user.resultConfirmed}{" "}
               {language ? "عدد العقارات" : "Properties numbers"}
