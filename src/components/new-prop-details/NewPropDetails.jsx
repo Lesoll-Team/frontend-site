@@ -22,7 +22,7 @@ const NewPropDetails = ({ propertyData, slug, query }) => {
         />
         <link
           rel="canonical"
-          href={`https://lesoll.com/property-details/${slug}`}
+          href={`https://lesoll.com/property-details/${propertyData?.slug}`}
         />
       </Head>
       <PropertyImages propertyData={propertyData} query={query} slug={slug} />
