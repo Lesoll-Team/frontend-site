@@ -81,11 +81,13 @@ const AddPropMainInfo = ({
             },
             validate: {
               max: (value) => {
-                return value.length < 100 || language
+                const errorMessage = language
                   ? "لايجب ان يزيد عن 100 حرف"
                   : "the title should not be more than 100 characters";
+
+                return value.length < 100 || errorMessage;
               },
-              max: (value) => {
+              noPhone: (value) => {
                 return (
                   !value.match(phoneRegex) ||
                   (language
