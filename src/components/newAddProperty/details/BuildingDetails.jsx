@@ -12,7 +12,6 @@ import {
   handleMonyInputChange,
   validateIsNumber,
 } from "../utils/handleNumberInput";
-
 const BuildingDetails = ({
   errors,
   register,

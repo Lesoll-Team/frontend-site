@@ -12,7 +12,6 @@ import {
   handleMonyInputChange,
   validateIsNumber,
 } from "../utils/handleNumberInput";
-
 const DefaultDetails = ({ errors, register, setValue, watch, clearErrors }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 

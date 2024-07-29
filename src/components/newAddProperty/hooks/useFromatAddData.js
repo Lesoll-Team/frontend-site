@@ -60,7 +60,7 @@ const useFromatAddData = (data) => {
   formData.append("isFurnished", data.isFurnished);
   formData.append("isRegisterd", data.isRegisterd);
   formData.append("rentalPeriod", data.rentalPeriod.value) || "";
-  formData.append("insurance", data.insurance || "");
+  formData.append("insurance", convertToNumber(data.insurance) || "");
   formData.append("propType", data.propType.value);
   formData.append("unitType", data.unitType.value);
   formData.append("price", convertToNumber(data.price));

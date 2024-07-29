@@ -35,6 +35,14 @@ export async function getServerSideProps(context) {
     // context.res.end();
 
     // If the error is not a 400 status code, re-throw the error
+    if (error.response && error.response.status === 500) {
+      return {
+        redirect: {
+          destination: `/projects`,
+          statusCode: 308,
+        },
+      };
+    }
     throw error;
   }
 }

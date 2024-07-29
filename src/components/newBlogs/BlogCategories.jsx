@@ -20,11 +20,12 @@ const BlogCategories = ({ blogs }) => {
       </div>
       <div className="flex gap-4 overflow-auto no-scrollbar md:overflow-hidden px-3 md:px-0 bg-[#EDEDED] py-3 md:py-0  md:bg-white md:flex-col md:space-y-4 w-full ">
         {blogs.categories.map((item) => {
-          const isActive = query?.category === item.categoryNameEn;
+          const catNameLink = item.categoryNameEn.split(" ").join("-");
+          const isActive = query?.category === catNameLink;
           return (
             <Link
               key={item._id}
-              href={`?category=${item.categoryNameEn}&page=1`}
+              href={`?category=${catNameLink}&page=1`}
               className={`text-sm md:text-[19px] min-w-fit md:w-fit break-keep  md:hover:text-lightGreen duration-150 ${isActive ? "text-lightGreen" : "text-baseGray"}`}
             >
               {language ? item.categoryNameAr : item.categoryNameEn}

@@ -45,9 +45,9 @@ const ContactForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="p-7 bg-lightNeutral rounded-lg space-y-4    mx-auto lg:max-w-[550px] relative"
       >
-        <h2 className="text-2xl text-center ">
+        <h1 className="text-2xl text-center ">
           {language ? "تواصل معنا" : "Contact Us"}
-        </h2>
+        </h1>
 
         <div className="space-y-2">
           <label htmlFor="fullName">{language ? "الاسم" : "Name"}</label>

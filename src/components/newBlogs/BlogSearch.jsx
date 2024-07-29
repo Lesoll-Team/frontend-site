@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
 
@@ -9,12 +9,16 @@ const BlogSearch = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    router.push(`?search=${encodeURIComponent(SearchInput)}`);
+    const searchQuery = SearchInput.split(" ").join("-");
+    router.push(`?search=${encodeURIComponent(searchQuery)}`);
   };
   const onSearchInputChange = (e) => {
     setSearchInput(e.target.value);
   };
+  const searchDefaultValue = router.query?.search?.split("-").join(" ") || "";
+  useEffect(() => {
+    searchDefaultValue && setSearchInput(searchDefaultValue);
+  }, [searchDefaultValue]);
   return (
     <div className="px-5 py-4 md:py-0 md:px-0 md:bg-transparent bg-white -mb-1 md:mb-0">
       <form
@@ -27,6 +31,7 @@ const BlogSearch = () => {
           value={SearchInput}
           onChange={onSearchInputChange}
           type="text"
+          defaultValue={searchDefaultValue}
           placeholder={language ? "البحث" : "Search"}
           className="placeholder:text-baseGray h-full w-full focus:outline-none focus:ring-0 "
         />

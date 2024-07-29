@@ -26,7 +26,6 @@ const LandDetails = ({ errors, register, setValue, watch, clearErrors }) => {
     onChange(e); // Call the original onChange handler from `react-hook-form`
     handleMonyInputChange(e, name, setValue); // Call your custom logic
   };
-
   return (
     <AddPropSectionContainer>
       <div className="lg:col-span-2 space-y-2">
