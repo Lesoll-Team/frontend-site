@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useUser } from "../UserContext";
 const AddPhoneModalForm = ({ setIsOpen }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { data, setUserData } = useUser();
+  const { data: userData, setUserData } = useUser();
 
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState("idle");
@@ -26,7 +26,7 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
     formData.append("phone", phoneNumberwithoutCode(data.phone, data.code));
     await editUserData({
       data: formData,
-      userId: data?._id,
+      userId: userData?._id,
       setFormStatus,
       setServerError,
     });
@@ -36,7 +36,7 @@ const AddPhoneModalForm = ({ setIsOpen }) => {
     if (formStatus === "success") {
       const redirectBackTo = router.asPath;
       setIsOpen(false);
-      if (!data?.verifiedPhone) {
+      if (!userData?.verifiedPhone) {
         const userToken = Cookies.get("userToken");
 
         router.push(
