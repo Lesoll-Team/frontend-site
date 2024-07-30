@@ -3,14 +3,15 @@ import { useAddMotorContext } from "../context/addMotorContext";
 import TestMot from "./TestMot";
 
 const AddMotorForm = () => {
-  const { step, setStep, errors, register, handleSubmit } =
+  const { step, setStep, errors, register, handleSubmit, formSubmit } =
     useAddMotorContext();
   console.log(step);
   return (
-    <div>
+    <form onSubmit={formSubmit}>
       AddMotorForm
       <TestMot />
-    </div>
+      <button>submit</button>
+    </form>
   );
 };
 

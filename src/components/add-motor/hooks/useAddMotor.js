@@ -38,6 +38,10 @@ const useAddMotor = () => {
       setValue("thumbnail", returnData?.thumbnail);
     }
   }, [returnData, setValue, watch]);
+  const onSubmit = async (data) => {
+    console.log(data);
+  };
+  const formSubmit = handleSubmit(onSubmit);
   return {
     step,
     setStep,
@@ -47,6 +51,7 @@ const useAddMotor = () => {
     register,
     control,
     handleSubmit,
+    formSubmit,
   };
 };
 
