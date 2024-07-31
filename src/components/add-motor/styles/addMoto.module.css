@@ -12,3 +12,20 @@
   border-radius: 10px;
   background: #666666;
 }
+
+.addMotorInput {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  border: 1px transparent solid;
+  width: 100%;
+  outline: none;
+}
+.addMotorInput:focus {
+  border: 1px solid #309da0;
+}
+
+ .inputError , .inputError:focus{
+  border: 1px solid #ef4444;
+
+}

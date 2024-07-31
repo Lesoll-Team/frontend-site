@@ -1,39 +1,35 @@
-import { carBrands } from "@/components/add-motor/data/carsBrands";
-import Image from "next/image";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "../../../styles/addMoto.module.css";
 import NoItems from "@/components/newProfile/user/userProperties/NoItems";
 import ItemSearch from "../../ui/itemSearch";
 import StepContainer from "../../ui/StepContainer";
-import BrandCard from "./BrandCard";
+import { carMadeAtYears } from "@/components/add-motor/data/madeAtYears";
+import YearCard from "./YearCard";
 import ScrollableContainer from "../../ui/ScrollableContainer";
-const { customScrollbar } = styles;
-const CarBrandStep = () => {
+
+const CarMadeAtStep = () => {
   const [search, setSearch] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const filterdCars = carBrands.filter((item) => {
-    if (
-      item.ar.includes(search.toLocaleLowerCase().trim()) ||
-      item.en.includes(search.toLocaleLowerCase().trim())
-    ) {
-      return item;
+  const filteredYears = carMadeAtYears.filter((item) => {
+    const trimmedSearch = search.toLowerCase().trim();
+    if (trimmedSearch === "") {
+      return true; // Return all items if the search term is empty
     }
+    return item.toLowerCase().trim().startsWith(trimmedSearch);
   });
   return (
     <StepContainer className={"space-y-10"}>
       <ItemSearch
-        placeholder={language ? "ابحث بواسطة الماركة" : "Search by brand"}
+        placeholder={language ? "ابحث بواسطة السنة" : "Search by year"}
         setValue={setSearch}
         value={search}
       />
+      <ScrollableContainer>
+        {filteredYears.length > 0 ? (
+          filteredYears.map((year, index, years) => {
+            const last = index + 1 === years.length;
 
-      <ScrollableContainer
-        className={"grid-cols-2 sm:grid-cols-3 xl:grid-cols-4"}
-      >
-        {filterdCars.length > 0 ? (
-          filterdCars.map((car) => {
-            return <BrandCard car={car} key={car.ar} />;
+            return <YearCard last={last} year={year} />;
           })
         ) : (
           <div className="col-span-full h-[50dvh] grid place-content-center ">
@@ -45,4 +41,4 @@ const CarBrandStep = () => {
   );
 };
 
-export default CarBrandStep;
+export default CarMadeAtStep;

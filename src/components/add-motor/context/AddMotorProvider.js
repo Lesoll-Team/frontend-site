@@ -1,7 +1,7 @@
 // AddPropertyProvider.js
 
 import useAddMotor from "../hooks/useAddMotor";
-import AddMotorContext from "./addMotorContext";
+import AddMotorContext from "./AddMotorContext";
 const AddPropertyProvider = ({ children }) => {
   const addProperty = useAddMotor();
 

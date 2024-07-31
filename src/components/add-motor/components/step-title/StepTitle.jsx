@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
-import { useAddMotorContext } from "../../context/addMotorContext";
+import { useAddMotorContext } from "../../context/AddMotorContext";
 import { FaArrowLeft } from "react-icons/fa";
 
 const StepTitle = () => {
   const { step, setStep } = useAddMotorContext();
   const language = useSelector((state) => state.GlobalState.languageIs);
-  console.log(step);
   const handleBackBtn = () => {
     step > 1 && setStep((prev) => prev - 1);
   };
@@ -30,9 +29,13 @@ const StepTitle = () => {
   return (
     <div className="md:w-[75%] mx-auto relative justify-center flex items-center">
       <h1 className="text-center">{stepText()}</h1>
-      {step > -1 && (
-        <button onClick={handleBackBtn} className="absolute left-0">
-          <FaArrowLeft className="text-2xl text-black" />
+      {step > 1 && (
+        <button
+          onClick={handleBackBtn}
+          type="button"
+          className="absolute left-0"
+        >
+          <FaArrowLeft className="text-2xl text-darkGray" />
         </button>
       )}
     </div>
