@@ -2,7 +2,6 @@ import {
   handleMonyInputChange,
   validateIsNumber,
 } from "@/components/newAddProperty/utils/handleNumberInput";
-import React from "react";
 import { useSelector } from "react-redux";
 
 const useInputRegisters = ({ register, setValue }) => {
@@ -37,7 +36,7 @@ const useInputRegisters = ({ register, setValue }) => {
   });
 
   const handleCcChange = (e) => {
-    kiloMeterOnChange(e); // Call the original onChange handler from `react-hook-form`
+    ccOnChange(e); // Call the original onChange handler from `react-hook-form`
     handleMonyInputChange(e, "CC", setValue); // Call your custom logic
   };
   return {

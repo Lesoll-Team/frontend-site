@@ -52,6 +52,7 @@ const useAddMotor = () => {
     control,
     handleSubmit,
     formSubmit,
+    watch,
   };
 };
 
