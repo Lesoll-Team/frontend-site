@@ -34,6 +34,9 @@ function Navbar() {
               width={114}
               height={46}
               alt="lesoll logo"
+              priority={true}
+              // loading="lazy"
+              // placeholder="empty"
               className="h-[28px] w-[70px] lg:h-[36px] lg:w-[90px]"
             />
           </Link>

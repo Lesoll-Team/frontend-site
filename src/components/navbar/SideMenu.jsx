@@ -72,6 +72,8 @@ const SideMenu = () => {
                 src={"/logo.svg"}
                 width={114}
                 height={46}
+                loading="lazy"
+                placeholder="empty"
                 alt="lesoll logo"
                 className="h-[28px] w-[70px] "
               />

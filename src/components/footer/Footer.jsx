@@ -17,6 +17,8 @@ const Footer = () => {
             height={100}
             className="  w-[121px] h-[40px]"
             src={"/icons/logoNavbar.png"}
+            loading="lazy"
+            placeholder="empty"
           />
           <div className=" ml-[16px]  hidden md:block bg-gray2 w-[1px] h-[26px] " />
           <div className=" w-full max-w-[200px] ">
