@@ -11,10 +11,20 @@ export const initialFormData = {
   CC: "", //number
   bodyType: "",
   fuel: "", //"string" => enum: ['Gasoline', "Diesel", "Petrol", "Natural gas", "Liquid", "electric"]
-  transmissionType: "", //"string" => enum: ['Automatic', "Manual"]
+  transmissionType: "Manual", //"string" => enum: ['Automatic', "Manual"]
   price: "", //"number"
-  currencies: "", // "string"
+  currencies: {
+    Country: "Egypt",
+    Currency_symbol: "£E",
+    ISO_code: "EGP",
+    title: {
+      ar: "الجنيه المصري",
+      en: "Egyptian pound",
+    },
+  }, // "string"
+
   description: "", // "string"
+  service: [],
   address: null, // {governrate: "string",region:"string"}
   mainImage: null, // file
   multiImage: null, // array of files

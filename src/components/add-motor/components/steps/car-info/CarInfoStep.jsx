@@ -9,73 +9,112 @@ import useInputRegisters from "@/components/add-motor/hooks/useInputRegisters";
 import FuelType from "./FuelType";
 import CarType from "./CarType";
 import TransferCaseType from "./TransferCaseType";
+import TransmissionType from "./TransmissionType";
+import CarPrice from "./CarPrice";
+import GovAndRegion from "./GovAndRegion";
+import CarServices from "./car-services/CarServices";
 const { addMotorInput, inputError } = styles;
 const CarInfoStep = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { step, setStep, register, clearErrors, setValue, errors } =
-    useAddMotorContext();
+  const { register, setValue, errors, watch } = useAddMotorContext();
   const {
     handleKiloMeterChange,
     kiloMeterRgister,
     ccRegister,
     handleCcChange,
-  } = useInputRegisters({
-    register,
-    setValue,
-  });
+    titleRegister,
+    descriptionRegister,
+  } = useInputRegisters();
 
   return (
-    <StepContainer className={"space-y-10"}>
-      <FormInputContainer
-        title={language ? "عدد الكيلومترات" : "Number of Kilometers"}
-      >
-        <div className="flex items-center">
+    <div className="space-y-10">
+      <StepContainer className={"space-y-10"}>
+        <FormInputContainer
+          title={language ? "عدد الكيلومترات" : "Number of Kilometers"}
+        >
+          <div className="flex items-center">
+            <input
+              type="text"
+              inputMode="numeric"
+              {...kiloMeterRgister}
+              onChange={(e) => handleKiloMeterChange(e)}
+              className={`${addMotorInput} ${errors.kiloMeter && inputError} `}
+            />
+            <p className="-mx-8">{language ? "كم" : "KM"}</p>
+          </div>
+          {errors.kiloMeter && <Error>{errors.kiloMeter.message}</Error>}
+        </FormInputContainer>
+        <FormInputContainer title={language ? "حالة السيارة" : "Car status"}>
+          <CarType />
+        </FormInputContainer>
+        <FormInputContainer
+          title={language ? "سعة المحرك (سى سى)" : "Engine capacity (cc)"}
+        >
           <input
             type="text"
             inputMode="numeric"
-            {...kiloMeterRgister}
-            onChange={(e) => handleKiloMeterChange(e)}
-            className={`${addMotorInput} ${errors.kiloMeter && inputError} `}
+            {...ccRegister}
+            onChange={(e) => handleCcChange(e)}
+            className={`${addMotorInput} ${errors.CC && inputError} `}
           />
-          <p className="-mx-8">{language ? "كم" : "KM"}</p>
-        </div>
-        {errors.kiloMeter && <Error>{errors.kiloMeter.message}</Error>}
-      </FormInputContainer>
-      <FormInputContainer title={language ? "حالة السيارة" : "Car status"}>
-        <CarType />
-      </FormInputContainer>
-      <FormInputContainer
-        title={language ? "سعة المحرك (سى سى)" : "Engine capacity (cc)"}
-      >
-        <input
-          type="text"
-          inputMode="numeric"
-          {...ccRegister}
-          onChange={(e) => handleCcChange(e)}
-          className={`${addMotorInput} ${errors.CC && inputError} `}
-        />
-        {errors.CC && <Error>{errors.CC.message}</Error>}
-      </FormInputContainer>
-      <FormInputContainer
-        title={language ? "الشكل الخارجى" : "Exterior design"}
-      >
-        <input
-          type="text"
-          inputMode="numeric"
-          {...ccRegister}
-          onChange={(e) => handleCcChange(e)}
-          className={`${addMotorInput} ${errors.CC && inputError} `}
-        />
-        {errors.CC && <Error>{errors.CC.message}</Error>}
-      </FormInputContainer>
-      <FormInputContainer title={language ? "نوع الوقود" : "Fuel type"}>
-        <FuelType />
-      </FormInputContainer>
-      <FormInputContainer title={language ? " طبيعة الدفع" : "Car drivetrain"}>
-        <TransferCaseType />
-      </FormInputContainer>
-      <button>submit</button>
-    </StepContainer>
+          {errors.CC && <Error>{errors.CC.message}</Error>}
+        </FormInputContainer>
+        <FormInputContainer
+          title={language ? "الشكل الخارجى" : "Exterior design"}
+        >
+          {/* <input
+            type="text"
+            inputMode="numeric"
+            {...ccRegister}
+            onChange={(e) => handleCcChange(e)}
+            className={`${addMotorInput} ${errors.CC && inputError} `}
+          /> */}
+          {errors.CC && <Error>{errors.CC.message}</Error>}
+        </FormInputContainer>
+        <FormInputContainer title={language ? "نوع الوقود" : "Fuel type"}>
+          <FuelType />
+        </FormInputContainer>
+        <FormInputContainer
+          title={language ? "ناقل الحركة" : "Transmission type"}
+        >
+          <TransmissionType />
+        </FormInputContainer>
+        <FormInputContainer
+          title={language ? " طبيعة الدفع" : "Car drivetrain"}
+        >
+          <TransferCaseType />
+        </FormInputContainer>
+        <FormInputContainer title={language ? "السعر" : "Price"}>
+          <CarPrice />
+        </FormInputContainer>
+        <button>submit</button>
+      </StepContainer>
+      <StepContainer className={"min-h-fit py-8"}>
+        <FormInputContainer title={language ? "عنوان الإعلان" : "Ad title"}>
+          <input
+            type="text"
+            inputMode="numeric"
+            {...titleRegister}
+            className={`${addMotorInput} ${errors.title && inputError} `}
+          />
+          {errors.title && <Error>{errors.title.message}</Error>}
+        </FormInputContainer>
+        <FormInputContainer title={language ? "الوصف" : "Description"}>
+          <textarea
+            type="text"
+            inputMode="numeric"
+            {...descriptionRegister}
+            className={`${addMotorInput} ${errors.description && inputError} min-h-[180px] resize-none `}
+          />
+          <p className="text-darkGray text-sm">
+            4000 / {watch("description").length}
+          </p>
+          {errors.description && <Error>{errors.description.message}</Error>}
+        </FormInputContainer>
+        <GovAndRegion />
+      </StepContainer>
+      <CarServices />
+    </div>
   );
 };
 

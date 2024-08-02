@@ -20,6 +20,7 @@ import editProjectSlice from "@/components/dashboard/router/edit-project/redux/e
 import pendingNeedsSlice from "@/components/dashboard/router/needs/redux/pendingNeedsSlice";
 import currenciesSlice from "@/components/newAddProperty/redux/currenciesSlice";
 import PricingReducer from "./features/PricingSlice";
+import getMotoServicesSlice from "./features/motor/getMotoServicesSlice";
 
 export default combineReducers({
   GlobalState: globalState,
@@ -44,4 +45,5 @@ export default combineReducers({
   editProject: editProjectSlice,
   PendingNeeds: pendingNeedsSlice,
   getCurrencies: currenciesSlice,
+  motorServices: getMotoServicesSlice,
 });

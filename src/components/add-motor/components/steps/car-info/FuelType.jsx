@@ -1,28 +1,46 @@
 import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
 import { fuelTypes } from "@/components/add-motor/data/fuelTypes";
-import { useWindowWidth } from "@/Hooks/useWindowWidth";
 import Error from "@/Shared/ui/Error";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 const FuelType = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-
+  const foucsBtnRef = useRef(null);
   const { register, clearErrors, setValue, errors, watch } =
     useAddMotorContext();
   const handleSelect = (value) => {
     setValue("fuel", value);
     clearErrors("fuel");
   };
+  useEffect(() => {
+    if (errors?.fuel) {
+      foucsBtnRef.current && foucsBtnRef.current.focus();
+    }
+  }, [errors?.fuel]);
   return (
     <>
-      <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-        {fuelTypes.map((type) => {
+      <div className="flex gap-2 md:gap-3 xl:gap-4  min-w-full overflow-x-auto no-scrollbar">
+        {fuelTypes.map((type, index) => {
+          if (index === 0) {
+            return (
+              <button
+                ref={foucsBtnRef}
+                key={type.en}
+                type="button"
+                onClick={() => handleSelect(type.en)}
+                className={`py-3 min-w-[80px] w-full rounded-md duration-100  ${watch("fuel") === type.en ? "bg-lightGreen text-white" : "bg-white"}`}
+              >
+                {language ? type.ar : type.en}
+              </button>
+            );
+          }
           return (
             <button
               key={type.en}
               type="button"
               onClick={() => handleSelect(type.en)}
-              className={`py-3 w-full rounded-md duration-100  ${watch("fuel") === type.en ? "bg-lightGreen text-white" : "bg-white"}`}
+              className={`py-3  min-w-[80px] w-full rounded-md duration-100  ${watch("fuel") === type.en ? "bg-lightGreen text-white" : "bg-white"}`}
             >
               {language ? type.ar : type.en}
             </button>

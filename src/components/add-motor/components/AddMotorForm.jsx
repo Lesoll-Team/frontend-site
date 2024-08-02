@@ -27,7 +27,7 @@ const AddMotorForm = () => {
     }
   }, [step, setStep]);
   return (
-    <form onSubmit={formSubmit} className="space-y-8">
+    <form onSubmit={formSubmit} className="space-y-4 md:space-y-8">
       <StepTitle />
       {renderStep()}
     </form>

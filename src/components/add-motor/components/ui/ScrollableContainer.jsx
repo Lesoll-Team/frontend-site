@@ -5,7 +5,7 @@ const ScrollableContainer = ({ children, className }) => {
   return (
     <div
       className={cn(
-        `grid  gap-5 rounded   max-h-[57dvh] px-2 overflow-y-auto ${customScrollbar} `,
+        `grid  gap-5 rounded  max-h-[55dvh] sm:max-h-[57dvh] px-2 overflow-y-auto ${customScrollbar} `,
         className,
       )}
     >

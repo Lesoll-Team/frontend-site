@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initialFormData } from "../data/initialAddMotorData";
 import { useForm } from "react-hook-form";
 import { useUser } from "@/Shared/UserContext";
+import { getMotorServices } from "@/redux-store/features/motor/getMotoServicesSlice";
 const useAddMotor = () => {
   const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
@@ -23,11 +24,15 @@ const useAddMotor = () => {
   });
   const { data: userData, setUserData } = useUser();
   const currencies = useSelector((state) => state.getCurrencies.data);
+  const motorServices = useSelector((state) => state.motorServices.services);
   const dispatch = useDispatch();
-
+  console.log(motorServices);
   useEffect(() => {
     if (!currencies) {
       dispatch(getCurrencies());
+    }
+    if (!motorServices) {
+      dispatch(getMotorServices());
     }
   }, []);
   useEffect(() => {
