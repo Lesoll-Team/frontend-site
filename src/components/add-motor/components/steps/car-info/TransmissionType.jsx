@@ -12,6 +12,7 @@ const TransmissionType = () => {
     if (type === "Automatic") {
       return (
         <Image
+          alt="Automatic"
           src={`/icons/manual-icon-${selected ? "light" : "dark"}.svg`}
           width={24}
           height={24}
@@ -21,6 +22,7 @@ const TransmissionType = () => {
     if (type === "Manual") {
       return (
         <Image
+          alt="Manual"
           src={`/icons/automatic-icon-${selected ? "light" : "dark"}.svg`}
           width={24}
           height={24}

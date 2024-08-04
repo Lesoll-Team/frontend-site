@@ -13,10 +13,14 @@ import TransmissionType from "./TransmissionType";
 import CarPrice from "./CarPrice";
 import GovAndRegion from "./GovAndRegion";
 import CarServices from "./car-services/CarServices";
+import FormDropDown from "../../ui/FormDropDown";
+import { vehicleTypes } from "@/components/add-motor/data/vehicleType";
+import ActionBtns from "../../ActionBtns";
 const { addMotorInput, inputError } = styles;
 const CarInfoStep = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch } = useAddMotorContext();
+  const { register, setValue, errors, watch, clearErrors } =
+    useAddMotorContext();
   const {
     handleKiloMeterChange,
     kiloMeterRgister,
@@ -24,6 +28,7 @@ const CarInfoStep = () => {
     handleCcChange,
     titleRegister,
     descriptionRegister,
+    vehicleTypeRegister,
   } = useInputRegisters();
 
   return (
@@ -62,14 +67,17 @@ const CarInfoStep = () => {
         <FormInputContainer
           title={language ? "الشكل الخارجى" : "Exterior design"}
         >
-          {/* <input
-            type="text"
-            inputMode="numeric"
-            {...ccRegister}
-            onChange={(e) => handleCcChange(e)}
-            className={`${addMotorInput} ${errors.CC && inputError} `}
-          /> */}
-          {errors.CC && <Error>{errors.CC.message}</Error>}
+          <FormDropDown
+            options={vehicleTypes}
+            error={errors?.vehicleType}
+            errorMessage={errors?.vehicleType?.message}
+            selected={watch("vehicleType")}
+            setValue={(e) => {
+              setValue("vehicleType", e);
+              clearErrors("vehicleType");
+            }}
+          />
+          <input {...vehicleTypeRegister} hidden />
         </FormInputContainer>
         <FormInputContainer title={language ? "نوع الوقود" : "Fuel type"}>
           <FuelType />
@@ -87,7 +95,6 @@ const CarInfoStep = () => {
         <FormInputContainer title={language ? "السعر" : "Price"}>
           <CarPrice />
         </FormInputContainer>
-        <button>submit</button>
       </StepContainer>
       <StepContainer className={"min-h-fit py-8"}>
         <FormInputContainer title={language ? "عنوان الإعلان" : "Ad title"}>
@@ -114,6 +121,7 @@ const CarInfoStep = () => {
         <GovAndRegion />
       </StepContainer>
       <CarServices />
+      <ActionBtns />
     </div>
   );
 };

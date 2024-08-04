@@ -32,7 +32,7 @@ const CarColorStep = () => {
           filterdColors.map((color, index, allColors) => {
             const last = index + 1 === allColors.length;
 
-            return <CarColorCard color={color} last={last} />;
+            return <CarColorCard color={color} last={last} key={color.ar} />;
           })
         ) : (
           <div className="col-span-full h-[50dvh] grid place-content-center ">

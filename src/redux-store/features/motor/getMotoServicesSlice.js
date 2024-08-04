@@ -13,7 +13,7 @@ export const getMotorServices = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://ec2-3-227-150-208.compute-1.amazonaws.com:8000/api/car/service`,
+        `http://ec2-3-227-150-208.compute-1.amazonaws.com:8000/v2/api/car/service`,
       );
       return response.data.service;
     } catch (error) {
@@ -32,7 +32,7 @@ const getMotorServicesSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getMotorServices.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status = "success";
         state.error = null;
         state.services = action.payload;
       })

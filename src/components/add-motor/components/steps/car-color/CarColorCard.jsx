@@ -11,8 +11,8 @@ const CarColorCard = ({ color, last }) => {
     setStep((prev) => prev + 1);
   };
   return (
-    <button onClick={handleSelect} className="space-y-6">
-      <div className="flex items-center gap-3">
+    <button onClick={handleSelect} type="button" className="space-y-6">
+      <div className="flex items-center gap-3 border-b pb-6">
         <div
           style={{
             backgroundColor: colorCode,
@@ -21,7 +21,7 @@ const CarColorCard = ({ color, last }) => {
         ></div>
         <p>{language ? color.ar : color.en}</p>
       </div>
-      {!last && <hr className="border" />}{" "}
+      {/* {!last && <hr className="border" />}{" "} */}
     </button>
   );
 };

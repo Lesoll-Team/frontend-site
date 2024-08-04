@@ -10,8 +10,9 @@ const ModalCard = ({ car, last }) => {
   };
   return (
     <button
+      type="button"
       onClick={handleSelect}
-      className="space-y-6 text-start border-b pb-6 hover:bg-lightNeutral"
+      className="space-y-6 text-start border-b pb-6 "
     >
       {car.ar}
       {/* {!last && <hr className="border" />}{" "} */}

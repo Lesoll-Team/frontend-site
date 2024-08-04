@@ -82,6 +82,12 @@ const useInputRegisters = () => {
       },
     },
   });
+  const vehicleTypeRegister = register("vehicleType", {
+    required: {
+      value: true,
+      message: language ? "مطلوب" : "required",
+    },
+  });
   const descriptionRegister = register("description", {
     required: {
       value: true,
@@ -115,6 +121,7 @@ const useInputRegisters = () => {
     handlePriceChange,
     titleRegister,
     descriptionRegister,
+    vehicleTypeRegister,
   };
 };
 

@@ -9,9 +9,13 @@ const YearCard = ({ year, last }) => {
     setStep((prev) => prev + 1);
   };
   return (
-    <button onClick={handleSelect} className="space-y-6 text-start">
+    <button
+      type="button"
+      onClick={handleSelect}
+      className="space-y-6 text-start border-b pb-6"
+    >
       <p>{year}</p>
-      {!last && <hr className="border" />}{" "}
+      {/* {!last && <hr className="border" />}{" "} */}
     </button>
   );
 };

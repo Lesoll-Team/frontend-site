@@ -110,7 +110,6 @@ const GovAndRegion = () => {
                 filteredOptions={searchedRegions}
                 onSelect={(region) => {
                   selectRegion(region);
-                  setValue("address.reigon", region);
                   setRegionInput("");
                 }}
                 renderItem={(option) => {

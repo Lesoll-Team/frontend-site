@@ -6,6 +6,7 @@ import { initialFormData } from "../data/initialAddMotorData";
 import { useForm } from "react-hook-form";
 import { useUser } from "@/Shared/UserContext";
 import { getMotorServices } from "@/redux-store/features/motor/getMotoServicesSlice";
+import { getCarBrands } from "@/redux-store/features/motor/getCarBrandsSlice";
 const useAddMotor = () => {
   const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
@@ -25,8 +26,8 @@ const useAddMotor = () => {
   const { data: userData, setUserData } = useUser();
   const currencies = useSelector((state) => state.getCurrencies.data);
   const motorServices = useSelector((state) => state.motorServices.services);
+  const carBrands = useSelector((state) => state.carBrands.brands);
   const dispatch = useDispatch();
-  console.log(motorServices);
   useEffect(() => {
     if (!currencies) {
       dispatch(getCurrencies());
@@ -34,7 +35,11 @@ const useAddMotor = () => {
     if (!motorServices) {
       dispatch(getMotorServices());
     }
+    if (!carBrands) {
+      dispatch(getCarBrands());
+    }
   }, []);
+  console.log(watch("brand"));
   useEffect(() => {
     if (returnData?._id && !watch("thumbnail")) {
       setValue("mainImage", null);
@@ -45,6 +50,9 @@ const useAddMotor = () => {
   }, [returnData, setValue, watch]);
   const onSubmit = async (data) => {
     console.log(data);
+    if (step < 7) {
+      setStep((prev) => prev + 1);
+    }
   };
   const formSubmit = handleSubmit(onSubmit);
   return {

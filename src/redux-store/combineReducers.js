@@ -21,6 +21,7 @@ import pendingNeedsSlice from "@/components/dashboard/router/needs/redux/pending
 import currenciesSlice from "@/components/newAddProperty/redux/currenciesSlice";
 import PricingReducer from "./features/PricingSlice";
 import getMotoServicesSlice from "./features/motor/getMotoServicesSlice";
+import getCarBrandsSlice from "./features/motor/getCarBrandsSlice";
 
 export default combineReducers({
   GlobalState: globalState,
@@ -46,4 +47,5 @@ export default combineReducers({
   PendingNeeds: pendingNeedsSlice,
   getCurrencies: currenciesSlice,
   motorServices: getMotoServicesSlice,
+  carBrands: getCarBrandsSlice,
 });

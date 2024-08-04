@@ -45,13 +45,15 @@ const CarServices = () => {
         ) : (
           <div className="flex gap-2">
             <p>
-              {language ? "اضف المميزات الخاصة بسياراتك من قائمة المميزات" : ""}{" "}
+              {language
+                ? "اضف المميزات الخاصة بسياراتك من قائمة المميزات"
+                : "Add the features of your car from the list of features."}{" "}
               <span
                 type="button"
                 onClick={toggleModal}
                 className="underline cursor-pointer text-linkColor"
               >
-                من هنا
+                {language ? "من هنا" : "Click here"}
               </span>
             </p>
           </div>
@@ -66,7 +68,7 @@ const CarServices = () => {
           <div
             className={`flex flex-wrap gap-3 max-h-[700px] pb-3 overflow-auto ${customScrollbar}`}
           >
-            {motorServices.map((feat) => {
+            {motorServices?.map((feat) => {
               const selected = selectedServices.includes(feat._id);
               return (
                 <button

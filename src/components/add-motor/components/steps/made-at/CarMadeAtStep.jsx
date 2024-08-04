@@ -29,7 +29,7 @@ const CarMadeAtStep = () => {
           filteredYears.map((year, index, years) => {
             const last = index + 1 === years.length;
 
-            return <YearCard last={last} year={year} />;
+            return <YearCard last={last} year={year} key={year} />;
           })
         ) : (
           <div className="col-span-full h-[50dvh] grid place-content-center ">
