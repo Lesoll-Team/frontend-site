@@ -2,6 +2,7 @@ import { useState } from "react";
 import Accordion from "./Accordion";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import styles from "../../../styles/carBrandAccordion.module.css";
 
 const ShapeCarsAccordion = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -64,7 +65,7 @@ const ShapeCarsAccordion = () => {
   return (
     <Accordion title={language ? "هيكل السيارة" : "Shape car"}>
       <div className=" p-4">
-        <div className="h-64 overflow-y-auto">
+        <div className={styles.accordionScroll + " h-64 overflow-y-auto"}>
           {carTypes.map((car) => (
             <div key={car.id} className="flex items-center m-4 gap-3">
               <input

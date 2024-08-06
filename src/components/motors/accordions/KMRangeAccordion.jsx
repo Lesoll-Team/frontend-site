@@ -9,7 +9,7 @@ const KMRangeAccordion = () => {
   const minKM = 10;
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  const [range, setRange] = useState([maxKM / 2, maxKM / 2]); // Set initial values within the range
+  const [range, setRange] = useState([0, 0]); // Set initial values within the range
 
   const handleChange = (newRange) => {
     setRange(newRange);

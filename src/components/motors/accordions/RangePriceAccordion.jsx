@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const RangePriceAccordion = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
-  const [range, setRange] = useState([1000000, 5000000]);
+  const [range, setRange] = useState([0, 0]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
 
