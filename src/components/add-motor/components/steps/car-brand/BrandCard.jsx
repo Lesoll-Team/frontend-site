@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 
 const BrandCard = ({ car }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { setValue, clearErrors, setStep } = useAddMotorContext();
+  const { setValue, clearErrors, setStep, formSubmit } = useAddMotorContext();
   const handleSelect = () => {
     setValue("brand", car);
     clearErrors("brand");
-    setStep((prev) => prev + 1);
+    formSubmit();
   };
   return (
     <button
@@ -20,7 +20,7 @@ const BrandCard = ({ car }) => {
         width={100}
         height={100}
         src={car.image}
-        className=" object-cover row-span-2 max-w-[100px] max-h-[100px]"
+        className=" object-cover row-span-2 "
         alt={car.en}
       />
 

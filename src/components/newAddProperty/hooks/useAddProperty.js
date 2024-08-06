@@ -21,9 +21,7 @@ import {
 import { formatApiData } from "@/components/edit-property/utils/fromateApiData";
 
 const useAddProperty = ({ propData }) => {
-  const { data: userData, setUserData } = useUser();
-  const userHavePackage =
-    userData?.packageSubscribe && userData?.pinPropertyNumber;
+  const { setUserData } = useUser();
   const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
   const [serverError, setServerError] = useState(null);

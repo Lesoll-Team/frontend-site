@@ -98,10 +98,10 @@ const FormDropDown = ({
           }`}
         >
           {options.map((option, i) => (
-            <div key={option.value} className="w-full">
+            <div key={i} className="w-full">
               <button
-                ref={(el) => (dropdownOptionsRef.current[i] = el)}
                 type="button"
+                ref={(el) => (dropdownOptionsRef.current[i] = el)}
                 onClick={() => handleOptionClick(option)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {

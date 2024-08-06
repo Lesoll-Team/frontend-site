@@ -1,20 +1,30 @@
-import { carBrands } from "@/components/add-motor/data/carsBrands";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "../../../styles/addMoto.module.css";
 import NoItems from "@/components/newProfile/user/userProperties/NoItems";
 import ItemSearch from "../../ui/itemSearch";
 import StepContainer from "../../ui/StepContainer";
 import ModalCard from "./ModalCard";
 import ScrollableContainer from "../../ui/ScrollableContainer";
-const { customScrollbar } = styles;
+import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
 const CarModalStep = () => {
+  const { watch } = useAddMotorContext();
   const [search, setSearch] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const filterdCars = carBrands.filter((item) => {
+  const carModels = useSelector((state) => state.brandModels.models);
+
+  const brandModels = carModels?.filter(
+    (item) => item.carNumber == watch("brand").number,
+  );
+  const filterdCars = brandModels?.filter((item) => {
     if (
-      item.ar.includes(search.toLocaleLowerCase().trim()) ||
-      item.en.includes(search.toLocaleLowerCase().trim())
+      item.ar
+        .toLocaleLowerCase()
+        .trim()
+        .includes(search.toLocaleLowerCase().trim()) ||
+      item.en
+        .toLocaleLowerCase()
+        .trim()
+        .includes(search.toLocaleLowerCase().trim())
     ) {
       return item;
     }

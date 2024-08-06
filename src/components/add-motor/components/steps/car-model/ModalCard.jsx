@@ -1,12 +1,15 @@
 import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
-import React from "react";
+
+import { useSelector } from "react-redux";
 
 const ModalCard = ({ car, last }) => {
-  const { setValue, clearErrors, setStep } = useAddMotorContext();
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
+  const { setValue, clearErrors, formSubmit } = useAddMotorContext();
   const handleSelect = () => {
-    setValue("model", car.ar);
+    setValue("model", car);
     clearErrors("model");
-    setStep((prev) => prev + 1);
+    formSubmit();
   };
   return (
     <button
@@ -14,8 +17,7 @@ const ModalCard = ({ car, last }) => {
       onClick={handleSelect}
       className="space-y-6 text-start border-b pb-6 "
     >
-      {car.ar}
-      {/* {!last && <hr className="border" />}{" "} */}
+      {language ? car.ar : car.en}
     </button>
   );
 };

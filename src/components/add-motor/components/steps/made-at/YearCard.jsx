@@ -2,11 +2,11 @@ import { useAddMotorContext } from "@/components/add-motor/context/AddMotorConte
 import React from "react";
 
 const YearCard = ({ year, last }) => {
-  const { setValue, clearErrors, setStep } = useAddMotorContext();
+  const { setValue, clearErrors, formSubmit } = useAddMotorContext();
   const handleSelect = () => {
     setValue("usedSince", year);
     clearErrors("usedSince");
-    setStep((prev) => prev + 1);
+    formSubmit();
   };
   return (
     <button

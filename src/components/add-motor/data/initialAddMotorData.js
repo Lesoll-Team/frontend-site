@@ -9,7 +9,6 @@ export const initialFormData = {
   kiloMeter: "", // "number"
   carType: "new", // "string" => enum: ['used', "new"]
   CC: "", //number
-  bodyType: "",
   fuel: "", //"string" => enum: ['Gasoline', "Diesel", "Petrol", "Natural gas", "Liquid", "electric"]
   transmissionType: "Manual", //"string" => enum: ['Automatic', "Manual"]
   price: "", //"number"
@@ -28,9 +27,9 @@ export const initialFormData = {
   address: null, // {governrate: "string",region:"string"}
   mainImage: null, // file
   multiImage: null, // array of files
-  album: "",
+  album: [],
   thumbnail: "",
-  adType: "", // "string" => enum: ['free', "paid"]
+  adType: "free", // "string" => enum: ['free', "paid"]
   toPin: "", //"string" => enum: ['pinPaid', "pinHome", "pinSearch"]
   packId: "", // "string"
 };
