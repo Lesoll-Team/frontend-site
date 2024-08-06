@@ -1,0 +1,116 @@
+/* CarBrandAccordion.module.css */
+
+.scrollContainer {
+  max-height: 300px;
+  overflow-y: auto;
+  direction: rtl;
+}
+
+/* Custom scrollbar styles */
+.scrollContainer::-webkit-scrollbar {
+  width: 10px;
+  /* Set the width of the scrollbar */
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+  background: #ffffff;
+  /* Background color of the scrollbar track */
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background-color: #afafaf;
+  /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  /* Round the corners of the scrollbar thumb */
+  border: 2px solid #f1f1f1;
+  /* Border around the thumb for better visibility */
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #f1f1f1;
+  /* Darker color on hover */
+}
+
+/******************************/
+.customScroll {
+  overflow-y: auto;
+  max-height: 150px;
+  transition: all 0.5s ease-in-out;
+  direction: rtl;
+}
+
+/* Custom scrollbar styles for this specific div */
+.customScroll::-webkit-scrollbar {
+  width: 10px;
+  /* Adjust the width as needed */
+}
+
+.customScroll::-webkit-scrollbar-track {
+  background: #ffffff;
+  /* Adjust the track background color */
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background-color: #afafaf;
+  /* Adjust the thumb color */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+}
+
+.customScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #f1f1f1;
+}
+
+/*****************************************/
+
+/* Custom scrollbar styles */
+.filterContainer::-webkit-scrollbar {
+  width: 14px;
+  /* Set the width of the scrollbar */
+}
+
+.filterContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Background color of the scrollbar track */
+}
+
+.filterContainer::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  /* Round the corners of the scrollbar thumb */
+  border: 2px solid #f1f1f1;
+  /* Border around the thumb for better visibility */
+}
+
+.filterContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  /* Darker color on hover */
+}
+
+/*****************************************/
+
+/* Custom scrollbar styles */
+.accordionScroll::-webkit-scrollbar {
+  width: 10px;
+  /* Set the width of the scrollbar */
+}
+
+.accordionScroll::-webkit-scrollbar-track {
+  background: #ffffff;
+  /* Background color of the scrollbar track */
+}
+
+.accordionScroll::-webkit-scrollbar-thumb {
+  background-color: #afafaf;
+  /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  /* Round the corners of the scrollbar thumb */
+  border: 2px solid #f1f1f1;
+  /* Border around the thumb for better visibility */
+}
+
+.accordionScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #a0a0a0;
+  /* Darker color on hover */
+}

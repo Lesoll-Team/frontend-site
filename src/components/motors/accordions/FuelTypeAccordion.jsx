@@ -44,7 +44,7 @@ const FuelTypeAccordion = () => {
   return (
     <Accordion title={language ? "نوع الوقود" : "Fuel type"}>
       <div className=" p-2">
-        <div className="h-64 overflow-y-auto">
+        <div className="h-[195px] overflow-y-auto">
           {carFuelTypes.map((fuel) => (
             <div key={fuel.id} className="flex items-center m-3 gap-3">
               <input

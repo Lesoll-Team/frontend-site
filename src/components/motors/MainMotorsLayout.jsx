@@ -3,7 +3,7 @@ import SidebarFilterCars from "./layout/SidebarFilterCars";
 
 const MainMotorsLayout = () => {
   return (
-    <div className="h-screen flex gap-2   bg-yellow-200">
+    <div dir="rtl" className="h-screen flex gap-2 p-1 my-10">
       <SidebarFilterCars />
       <MotorsResultCards />
     </div>

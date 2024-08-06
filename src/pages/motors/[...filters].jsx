@@ -3,7 +3,7 @@ import MainMotorsLayout from "@/components/motors/MainMotorsLayout";
 const FiltersCars = ({ result }) => {
   return (
     <div className="md:container md:mx-auto mx-[20px] ">
-      <MainMotorsLayout result={result} />;
+      <MainMotorsLayout result={result} />
     </div>
   );
 };

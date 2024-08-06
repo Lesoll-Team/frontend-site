@@ -5,7 +5,7 @@ module.exports = async () => {
    */
   const nextConfig = {
     images: {
-      domains: ["cloud.lesoll.com", "lh3.googleusercontent.com"],
+      domains: ["cloud.lesoll.com", "lh3.googleusercontent.com", "fakeimg.pl"],
     },
     /* config options here */
     async redirects() {

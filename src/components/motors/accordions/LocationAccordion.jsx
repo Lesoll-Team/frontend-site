@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Accordion from "./Accordion";
 import { useSelector } from "react-redux";
-
+import styles from "../../../styles/carBrandAccordion.module.css";
 const LocationAccordion = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selectedCarsFuel, setSelectedCarsFuel] = useState([]);
@@ -66,7 +66,7 @@ const LocationAccordion = () => {
   return (
     <Accordion title={language ? "مكان تواجد السيارة " : "Location of the car"}>
       <div className="">
-        <div className="h-64 overflow-y-auto">
+        <div className={styles.accordionScroll + " h-60 overflow-y-auto"}>
           {carFuelTypes.map((fuel) => (
             <div key={fuel.id} className="flex items-center m-3 gap-3">
               <input
