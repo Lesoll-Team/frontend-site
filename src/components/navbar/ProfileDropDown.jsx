@@ -14,11 +14,14 @@ import {
 } from "react-icons/md";
 import { RiDashboardLine, RiLogoutBoxLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import usePackageData from "../newProfile/utils/usePackageData";
+import { TbBrandGoogleAnalytics } from "react-icons/tb";
 
 const ProfileDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data, logOutUserData } = useUser();
+  const { haveDashboard } = usePackageData();
   const menuRef = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -112,8 +115,23 @@ const ProfileDropDown = () => {
               {language ? "باقاتى" : "My Packages"}
             </span>
           </Link>
-
           <hr />
+          {haveDashboard && (
+            <>
+              {" "}
+              <Link
+                onClick={closeMenu}
+                href={"/profile/properties-analytics"}
+                className="text-baseGray flex items-center gap-4  text-[17px] lg:text-[19px] "
+              >
+                <TbBrandGoogleAnalytics />
+                <span className=" whitespace-nowrap break-keep">
+                  {language ? "الإحصائيات" : "Analytics"}
+                </span>
+              </Link>
+              <hr />
+            </>
+          )}
 
           <Link
             onClick={closeMenu}
