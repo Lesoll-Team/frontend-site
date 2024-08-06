@@ -6,10 +6,10 @@ const ResetAndTitleSearch = () => {
 
   return (
     <div dir={language && "rtl"} className="flex justify-between  items-center">
-      <h3>Search options</h3>
+      <h3>{language ? "خيارات البحث" : "Search options"}</h3>
       <button className="flex items-center gap-1">
-        <PiArrowCounterClockwiseLight />
-        Reset options
+        <PiArrowCounterClockwiseLight className="rotate-12" />
+        {language ? "إعادة ضبط" : "Reset options"}
       </button>
     </div>
   );

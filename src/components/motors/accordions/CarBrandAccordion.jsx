@@ -8,7 +8,6 @@ import { MdOutlineSearch } from "react-icons/md";
 import { Ring } from "@uiball/loaders";
 import styles from "../../../styles/carBrandAccordion.module.css";
 
-// const [loadingBrands, setLoadingBrands] = useState(true); // Loading state for brands
 const CarBrandAccordion = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -17,6 +16,8 @@ const CarBrandAccordion = () => {
   const [models, setModels] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [searchBrandTerm, setSearchBrandTerm] = useState("");
+  const [searchModelTerm, setSearchModelTerm] = useState("");
+
   const [maxPage, setMaxPage] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false); // Loading state
@@ -53,6 +54,7 @@ const CarBrandAccordion = () => {
     try {
       const response = await getModelName({
         number: brandNumber,
+        model: searchModelTerm.split(" ").join("-"),
       });
       setModels(response);
     } catch (error) {
@@ -60,7 +62,7 @@ const CarBrandAccordion = () => {
     } finally {
       setLoading(false); // End loading
     }
-  }, [brandNumber]);
+  }, [brandNumber, searchModelTerm]);
 
   useEffect(() => {
     fetchBrands();
@@ -164,7 +166,7 @@ const CarBrandAccordion = () => {
 
                   <input
                     type="text"
-                    // onChange={(e) => setSearchModelTerm(e.target.value)}
+                    onChange={(e) => setSearchModelTerm(e.target.value)}
                     placeholder={
                       language
                         ? "ابحث عن موديل السيارة"
@@ -209,73 +211,3 @@ const CarBrandAccordion = () => {
 };
 
 export default CarBrandAccordion;
-// const [searchModelTerm, setSearchModelTerm] = useState("");
-// const [number, setNumber] = useState(null);
-// const fetchModel = useCallback(async () => {
-//   try {
-//     const response = await getModelName({
-//       model: searchBrandTerm,
-//       number,
-//     });
-//     console.log("response model,", response);
-
-//     // setBrands((prevBrands) => [...prevBrands, ...response]);
-//   } catch (error) {
-//     console.error("There was an error fetching the brands data!", error);
-//   }
-// }, [searchModelTerm]);
-
-// useEffect(() => {
-//   fetchModel();
-// }, [fetchModel]);
-
-/* {selectedBrand === brand.id && (
-              <div className="  max-h-[170px] overflow-y-auto">
-                <div className="border-1.5 mx-4 p-0.5 px-1 rounded-md  w-10/12 flex gap-1 items-center">
-                  <MdOutlineSearch className="text-grayText text-[18px]" />
-
-                  <input
-                    type="text"
-                    onChange={(e) => setSearchModelTerm(e.target.value)}
-                    placeholder={
-                      language
-                        ? "ابحث عن موديل السيارة"
-                        : "search by model name"
-                    }
-                    className="w-full outline-none"
-                  />
-                </div>
-                {brand.model.map((item) => (
-                  <label
-                    key={item.id}
-                    className="p-2 gap-1 cursor-pointer hover:bg-gray-100 flex items-center"
-                  >
-                    <input type="checkbox" className="mr-2" />
-                    <span>
-                      {language ? item.modelNameAr : item.modelNameEn}
-                    </span>
-                    <span>({item.modelCount})</span>
-                  </label>
-                ))}
-              </div>
-            )} */
-//_____________________________________________________
-//_____________________________________________________
-//_____________________________________________________
-//_____________________________________________________
-//_____________________________________________________
-//_____________________________________________________
-/* <div className="border-1.5 mx-4 p-0.5 px-1 rounded-md  w-10/12 flex gap-1 items-center">
-                  <MdOutlineSearch className="text-grayText text-[18px]" />
-
-                  <input
-                    type="text"
-                    // onChange={(e) => setSearchModelTerm(e.target.value)}
-                    placeholder={
-                      language
-                        ? "ابحث عن موديل السيارة"
-                        : "search by model name"
-                    }
-                    className="w-full outline-none"
-                  />
-                </div> */
