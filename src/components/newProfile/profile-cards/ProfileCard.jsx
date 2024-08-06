@@ -35,8 +35,8 @@ const ProfileCard = ({
     return type === "معلقة" || type === "onhold";
   }, [type]);
   const typeSold = type === "Sold" || type === "تم البيع";
-  const isPinned = data?.makePin || data?.makePinHome;
-  const showDashboard = haveDashboard && typeActive && isPinned;
+
+  const showDashboard = haveDashboard && typeActive;
   if (data) {
     return (
       <div className="w-full max-w-[400px] md:min-w-[400px] flex flex-col gap-5 border drop-shadow rounded-md bg-white">
