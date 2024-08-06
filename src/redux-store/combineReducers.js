@@ -22,7 +22,7 @@ import currenciesSlice from "@/components/newAddProperty/redux/currenciesSlice";
 import PricingReducer from "./features/PricingSlice";
 import getMotoServicesSlice from "./features/motor/getMotoServicesSlice";
 import getCarBrandsSlice from "./features/motor/getCarBrandsSlice";
-
+import getCarModelSlice from "./features/motor/getCarModelSlice";
 export default combineReducers({
   GlobalState: globalState,
   Property: overViewReducer,
@@ -48,4 +48,5 @@ export default combineReducers({
   getCurrencies: currenciesSlice,
   motorServices: getMotoServicesSlice,
   carBrands: getCarBrandsSlice,
+  brandModels: getCarModelSlice,
 });

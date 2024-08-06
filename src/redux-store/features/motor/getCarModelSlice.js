@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  brands: null,
+  models: null,
   status: "idle",
   error: null,
 };
 
-export const getCarBrands = createAsyncThunk(
-  "getCarBrands/getModels",
+export const getCarModels = createAsyncThunk(
+  "getCarModels/getModels",
   async (thunkAPI) => {
     try {
       const response = await axios.get(
@@ -25,27 +25,27 @@ const getCarModelSlice = createSlice({
   name: "getCarModelSlice",
   initialState,
   reducers: {
-    setCarBrand: (state, action) => {
-      state.brands = action.payload;
+    setBrandModels: (state, action) => {
+      state.models = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getCarBrands.pending, (state) => {
+      .addCase(getCarModels.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getCarBrands.fulfilled, (state, action) => {
+      .addCase(getCarModels.fulfilled, (state, action) => {
         state.status = "success";
         state.error = null;
-        state.brands = action.payload;
+        state.models = action.payload;
       })
-      .addCase(getCarBrands.rejected, (state, action) => {
+      .addCase(getCarModels.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
   },
 });
 
-export default getCarBrandsSlice.reducer;
+export default getCarModelSlice.reducer;
 
-export const { setCarBrand } = getCarModelSlice.actions;
+export const { setBrandModels } = getCarModelSlice.actions;

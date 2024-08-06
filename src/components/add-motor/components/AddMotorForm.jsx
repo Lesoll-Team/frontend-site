@@ -11,9 +11,10 @@ import {
   CarModalStep,
   CarPaymentStep,
 } from "./steps";
+import AdPosted from "./ui/AdPosted";
 
 const AddMotorForm = () => {
-  const { step, setStep, formSubmit } = useAddMotorContext();
+  const { step, setStep, formSubmit, posted } = useAddMotorContext();
 
   const renderStep = useCallback(() => {
     switch (step) {
@@ -37,8 +38,14 @@ const AddMotorForm = () => {
   }, [step, setStep]);
   return (
     <form onSubmit={formSubmit} className="space-y-4 md:space-y-8">
-      <StepTitle />
-      {renderStep()}
+      {posted ? (
+        <AdPosted />
+      ) : (
+        <>
+          <StepTitle />
+          {renderStep()}
+        </>
+      )}
     </form>
   );
 };

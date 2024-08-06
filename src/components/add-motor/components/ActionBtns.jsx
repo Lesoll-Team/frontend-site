@@ -3,19 +3,30 @@ import { useAddMotorContext } from "../context/AddMotorContext";
 
 const ActionBtns = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { setStep } = useAddMotorContext();
+  const { setStep, step, loading, formSubmit } = useAddMotorContext();
+  console.log(loading);
+
+  const nextText =
+    step < 7 ? (language ? "التالى" : "Next") : language ? "النشر" : "Post";
   return (
     <div className="md:w-[75%] mx-auto flex justify-between gap-5">
       <button
-        type="submit"
-        // type="button"
+        disabled={loading}
         onClick={() => setStep((prev) => prev - 1)}
-        className="text-darkGray  boeder w-full text-center py-2 rounded border border-darkGray"
+        className="text-darkGray disabled:opacity-60  boeder w-full text-center py-2 rounded border border-darkGray"
       >
         {language ? "السابق" : "Previous"}
       </button>
-      <button className="text-white bg-lightGreen boeder py-2 rounded w-full text-center border border-lightGreen">
-        {language ? "التالى" : "Next"}
+      <button
+        disabled={loading}
+        type="button"
+        onClick={() => {
+          formSubmit();
+          console.log("why");
+        }}
+        className="text-white disabled:opacity-60 bg-lightGreen boeder py-2 rounded w-full text-center border border-lightGreen"
+      >
+        {nextText}
       </button>
     </div>
   );
