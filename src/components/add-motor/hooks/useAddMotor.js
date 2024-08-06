@@ -15,6 +15,7 @@ const useAddMotor = () => {
   const [serverError, setServerError] = useState("idle");
   const [returnData, setReturnData] = useState(null);
   const [finalStepStatus, setFinalStepStatus] = useState("idle");
+  const [posted, setPosted] = useState(false);
 
   const {
     register,
@@ -63,6 +64,12 @@ const useAddMotor = () => {
       step < 7 && setStep((prev) => prev + 1);
     }
   }, [formStatus]);
+  useEffect(() => {
+    if (finalStepStatus === "success") {
+      setFinalStepStatus("idle");
+      setPosted(true);
+    }
+  }, [finalStepStatus]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -114,6 +121,7 @@ const useAddMotor = () => {
     formSubmit,
     watch,
     loading,
+    posted,
   };
 };
 
