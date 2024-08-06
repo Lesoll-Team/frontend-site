@@ -33,6 +33,7 @@ module.exports = {
         grayText2: "#454545",
         gray1: "#A3A1A1",
         gray2: "#656565",
+        bgGray: "#F5F5F5",
       },
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],
