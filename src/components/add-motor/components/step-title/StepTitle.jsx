@@ -3,10 +3,12 @@ import { useAddMotorContext } from "../../context/AddMotorContext";
 import { FaArrowLeft } from "react-icons/fa";
 
 const StepTitle = () => {
-  const { step, setStep } = useAddMotorContext();
+  const { step, setStep, clearErrors } = useAddMotorContext();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleBackBtn = () => {
     step > 1 && setStep((prev) => prev - 1);
+    clearErrors("mainImage");
+    clearErrors("multiImage");
   };
   const stepText = () => {
     switch (step) {

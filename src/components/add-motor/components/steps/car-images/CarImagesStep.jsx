@@ -7,28 +7,6 @@ import ActionBtns from "../../ActionBtns";
 
 const CarImagesStep = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const arr = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ];
   return (
     <div className="space-y-10">
       <StepContainer className={"min-h-fit"}>

@@ -28,6 +28,8 @@ const UserOptions = () => {
     setValue("packId", "");
     clearErrors("adType");
   };
+  // console.log(userData.propertyDefaultNumber);
+
   return (
     <div className="space-y-5">
       <p className="font-bold">{language ? "نوع الإعلان" : "Ad type"}</p>
@@ -82,7 +84,7 @@ const AdTypeBtn = ({ onClick, active, remaining, title, disabled }) => {
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${active && "border-lightGreen border"}`}
+      className={`w-full bg-white flex p-4 rounded-md border flex-wrap justify-between items-center ${active && "border-lightGreen border"} ${disabled && "opacity-70"}`}
     >
       <div className="flex items-center gap-2">
         <div className="w-5">

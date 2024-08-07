@@ -33,7 +33,7 @@ export const motorFormData = (data, step) => {
   }
   if (step > 5) {
     data?.mainImage && formData.append("mainImage", data.mainImage);
-    data?.thumbnail && formData.append("mainImage", data.thumbnail);
+    data?.thumbnail && formData.append("thumbnail", data.thumbnail);
     if (data?.multiImage) {
       for (let i = 0; i < data.multiImage?.length; i++) {
         formData.append("multiImage", data.multiImage[i]);

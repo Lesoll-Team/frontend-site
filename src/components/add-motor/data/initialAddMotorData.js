@@ -29,7 +29,7 @@ export const initialFormData = {
   multiImage: null, // array of files
   album: [],
   thumbnail: "",
-  adType: "free", // "string" => enum: ['free', "paid"]
+  adType: "", // "string" => enum: ['free', "paid"]
   toPin: "", //"string" => enum: ['pinPaid', "pinHome", "pinSearch"]
   packId: "", // "string"
 };

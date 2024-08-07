@@ -50,7 +50,7 @@ const useAddMotor = () => {
   }, []);
 
   useEffect(() => {
-    if (returnData?._id) {
+    if (returnData?._id && !watch("thumbnail")) {
       setValue("mainImage", null);
       setValue("multiImage", null);
       setValue("album", returnData?.album);
@@ -70,6 +70,8 @@ const useAddMotor = () => {
       setPosted(true);
     }
   }, [finalStepStatus]);
+  console.log(errors);
+  console.log(returnData);
 
   const onSubmit = async (data) => {
     console.log(data);
