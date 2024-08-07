@@ -1,16 +1,15 @@
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import ImageCard from "./ImageCard";
 import Error from "@/Shared/ui/Error";
-import { compressImage } from "@/utils/compressImage";
 import AddMoreImagesCard from "./AddMoreImagesCard";
 import useFormImages from "@/components/add-motor/hooks/useFormImages";
 
 const CarOtherImages = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch, clearErrors } =
+  const { register, setValue, errors, watch, clearErrors, step } =
     useAddMotorContext();
   const containerRef = useRef(null);
   const {
@@ -105,16 +104,37 @@ const CarOtherImages = () => {
           </button>
         </div>
       )}
-      {/* <input
+      <input
         type="file"
         accept="images/*"
         hidden
-        ref={mainImageRef}
-        onChange={(e) => {
-          setValue("mainImage", e.target.files[0]);
-          clearErrors("mainImage");
-        }}
-      /> */}
+        {...register("multiImage", {
+          validate: {
+            min: (value) => {
+              if (step === 6) {
+                const totalPics =
+                  (value?.length || 0) + (watch("album")?.length || 0);
+                return (
+                  totalPics > 2 ||
+                  (language
+                    ? "يجب ان لا يقل عدد الصور الاخرى عن 3"
+                    : " must be a at least 3 images")
+                );
+              }
+            },
+            max: (value) => {
+              if (step === 6) {
+                return (
+                  (value?.length || 0) + (watch("album")?.length || 0) < 21 ||
+                  (language
+                    ? "يجب الا يزيد عدد الصور عن 20"
+                    : "only 20 images a re allowed")
+                );
+              }
+            },
+          },
+        })}
+      />
       <input
         ref={multiImagesRef}
         type="file"

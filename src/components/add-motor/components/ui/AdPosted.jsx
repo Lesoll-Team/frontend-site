@@ -1,6 +1,11 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const AdPosted = () => {
+  const language = useSelector((state) => state.GlobalState.languageIs);
+
   return (
     <div className="w-full md:min-h-[322px] text-center gap-16 px-3 bg-lightNeutral py-16 grid place-content-center  justify-center items-center">
       <div className="flex flex-col justify-center items-center gap-y-5">

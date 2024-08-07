@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 
 const CarMainImage = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch, clearErrors } =
+  const { register, setValue, errors, watch, clearErrors, step } =
     useAddMotorContext();
   const containerRef = useRef(null);
 
@@ -98,6 +98,22 @@ const CarMainImage = () => {
         hidden
         ref={mainImageRef}
         onChange={handleMainImageChange}
+      />
+      <input
+        hidden
+        {...register("mainImage", {
+          validate: {
+            requierd: (value) => {
+              if (step === 6) {
+                const image = Boolean(value) || Boolean(watch("thumbnail"));
+                const errorMessage = language
+                  ? "يجب اضافة الصورة الرئيسية للعقار"
+                  : "Main image is missing.";
+                return image || errorMessage;
+              }
+            },
+          },
+        })}
       />
       {errors.mainImage && (
         <Error>

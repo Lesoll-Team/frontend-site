@@ -3,46 +3,10 @@ import { useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 const useFormImages = ({ register, setValue, errors, watch, clearErrors }) => {
-  const language = useSelector((state) => state.GlobalState.languageIs);
   const multiImagesRef = useRef(null);
   const mainImageRef = useRef(null);
   const multiImagesCount =
     (watch("album")?.length || 0) + (watch("multiImage")?.length || 0);
-  useEffect(() => {
-    register("multiImage", {
-      validate: {
-        min: (value) => {
-          const totalPics =
-            (value?.length || 0) + (watch("album")?.length || 0);
-          return (
-            totalPics > 2 ||
-            (language
-              ? "يجب ان لا يقل عدد الصور الاخرى عن 3"
-              : " must be a at least 3 images")
-          );
-        },
-        max: (value) => {
-          return (
-            (value?.length || 0) + (watch("album")?.length || 0) < 21 ||
-            (language
-              ? "يجب الا يزيد عدد الصور عن 20"
-              : "only 20 images a re allowed")
-          );
-        },
-      },
-    });
-    register("mainImage", {
-      validate: {
-        requierd: (value) => {
-          const image = Boolean(value) || Boolean(watch("thumbnail"));
-          const errorMessage = language
-            ? "يجب اضافة الصورة الرئيسية للعقار"
-            : "Main image is missing.";
-          return image || errorMessage;
-        },
-      },
-    });
-  }, [register, language]);
 
   const handleMainImageChange = async (e) => {
     const originalFile = e.target.files[0];
