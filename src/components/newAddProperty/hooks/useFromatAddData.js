@@ -1,6 +1,6 @@
 import { convertToNumber } from "../utils/handleNumberInput";
 
-const useFromatAddData = (data) => {
+const useFromatAddData = (data, step) => {
   const address = {
     name: data.address.name,
     longitude: data.address.longitude,
@@ -36,15 +36,24 @@ const useFromatAddData = (data) => {
   data.service.map((service) => {
     formData.append("service", service);
   });
-
+  if (data.offer === "For Investment") {
+    if (step > 3) {
+      data.packId && formData.append("packId", data.packId);
+      formData.append("adType", data.adType);
+      data.toPin && formData.append("toPin", data.toPin);
+    }
+  } else {
+    if (step > 4) {
+      data.packId && formData.append("packId", data.packId);
+      formData.append("adType", data.adType);
+      data.toPin && formData.append("toPin", data.toPin);
+    }
+  }
   formData.append("connectPhoneNumber", data.connectPhoneNumber || "");
   data.deliveryDate && formData.append("deliveryDate", data.deliveryDate);
   // adType: "free",
   // packageId: "",
   // toPin: "",
-  data.packId && formData.append("packId", data.packId);
-  formData.append("adType", data.adType);
-  data.toPin && formData.append("toPin", data.toPin);
 
   formData.append("title", data.title);
   formData.append("resale", data.resale);
