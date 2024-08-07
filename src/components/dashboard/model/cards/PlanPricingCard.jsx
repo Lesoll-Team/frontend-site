@@ -10,7 +10,7 @@ const PlanPricingCard = ({ stylesCss, data, dash, planId }) => {
   return (
     <div
       key={planId}
-      className={`bg-white drop-shadow overflow-hidden flex flex-col gap-y-[16px] w-full  rounded-[6px] relative ${data?.Popular ? "h-[600px]" : "h-[550px]"}`}
+      className={`bg-white drop-shadow overflow-hidden flex flex-col gap-y-[16px] w-full  rounded-[6px] relative h-[550px]`}
     >
       <div dir={language ? "ltr" : "rtl"} className={`flex w-full relative`}>
         {data?.Popular && <PopularTag />}
