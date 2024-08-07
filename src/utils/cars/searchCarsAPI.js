@@ -9,11 +9,11 @@ export const fetchBrandNameData = async ({ brand, page = 1 }) => {
   );
   return response.data;
 };
-const fetchModelNameData = async ({ number }) => {
+const fetchModelNameData = async ({ number, model }) => {
   const response = await axios.get(
     "http://ec2-3-227-150-208.compute-1.amazonaws.com:8000/v2/api/car/search/model",
     {
-      params: { number, limit: 100 },
+      params: { number, limit: 100, model },
     },
   );
   return response.data.result;

@@ -1,33 +1,44 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { updateCarStates } from "@/redux-store/features/carsCategory/searchMotorsSlice";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const ButtonsCarStatus = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const [statusCar, setStatusCar] = useState("");
+  const { status } = useSelector((state) => state.Motors);
+  const dispatch = useDispatch();
+
+  const changeStatusCar = (key) => {
+    dispatch(
+      updateCarStates({
+        status: key,
+      }),
+    );
+  };
+
   return (
     <div
-      dir={language && "rtl"}
+      dir={"rtl"}
       className="grid grid-cols-3 gap-2 items-center justify-between w-full"
     >
       <button
-        onClick={() => setStatusCar("all")}
+        onClick={() => changeStatusCar("all")}
         className={`shadow-sm border rounded-md bg-white p-2 px-3 `}
       >
         {language ? "الكل" : "All"}
       </button>
       <button
-        onClick={() => setStatusCar("new")}
-        className={`${statusCar === "new" && "border-lightGreen text-lightGreen"} shadow-sm border rounded-md bg-white p-2 px-3 `}
+        onClick={() => changeStatusCar("new")}
+        className={`${status === "new" && "border-lightGreen text-lightGreen"} shadow-sm border rounded-md bg-white p-2 px-3 `}
       >
         {language ? "جديد" : "New"}
       </button>
       <button
-        onClick={() => setStatusCar("used")}
-        className={`${statusCar === "used" && "border-lightGreen text-lightGreen "}shadow-sm border rounded-md bg-white p-2 `}
+        onClick={() => changeStatusCar("used")}
+        className={`${status === "used" && "border-lightGreen text-lightGreen "}shadow-sm border rounded-md bg-white p-2 `}
       >
         {language ? "مستعمل" : "Used"}
       </button>
     </div>
   );
 };
-export default ButtonsCarStatus;
+export default memo(ButtonsCarStatus);

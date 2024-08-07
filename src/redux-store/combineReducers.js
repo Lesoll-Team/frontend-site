@@ -23,6 +23,8 @@ import PricingReducer from "./features/PricingSlice";
 import getMotoServicesSlice from "./features/motor/getMotoServicesSlice";
 import getCarBrandsSlice from "./features/motor/getCarBrandsSlice";
 import getCarModelSlice from "./features/motor/getCarModelSlice";
+import searchMotorsReducer from "./features/carsCategory/searchMotorsSlice";
+
 export default combineReducers({
   GlobalState: globalState,
   Property: overViewReducer,
@@ -49,4 +51,5 @@ export default combineReducers({
   motorServices: getMotoServicesSlice,
   carBrands: getCarBrandsSlice,
   brandModels: getCarModelSlice,
+  Motors: searchMotorsReducer,
 });
