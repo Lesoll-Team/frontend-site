@@ -4,7 +4,7 @@ const PinPropertiesTitle = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <h2 className=" text-grayText2">
+    <h2 className=" text-grayText2 my-8">
       {language ? "أفضل الإعلانات" : "Best Properties"}
     </h2>
   );

@@ -8,6 +8,7 @@ import styles from "../../../../styles/Pagination.module.css";
 const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
   const [propertyData, setPropertyData] = useState();
   const [page, setPage] = useState();
+  const [changing, setChanging] = useState(false);
 
   const [propType, setPropType] = useState("000");
   const router = useRouter();
@@ -19,7 +20,7 @@ const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
       setPropertyData(data);
     };
     fetchData();
-  }, [slug, page, propType]);
+  }, [slug, page, propType, changing]);
 
   const handlePropTypeChange = (type) => {
     if (type !== propType) {
@@ -121,7 +122,14 @@ const UserProperties = ({ invstNum, rentNum, saleNum, totalPropNum }) => {
         propertyData.getConfirmedRealty.length > 0 ? (
           <div className="grid lg:grid-cols-2 2xl:grid-cols-3 items-center gap-5 justify-center">
             {propertyData.getConfirmedRealty.map((propdata, index) => {
-              return <PropertyCard propertyDetails={propdata} key={index} />;
+              return (
+                <PropertyCard
+                  propertyDetails={propdata}
+                  key={index}
+                  changing={changing}
+                  setChanging={setChanging}
+                />
+              );
             })}
           </div>
         ) : (

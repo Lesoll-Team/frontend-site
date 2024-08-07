@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -8,6 +8,7 @@ import { Pagination, FreeMode, Navigation, Keyboard } from "swiper/modules";
 import RealtyCard from "../realtyCard/RealtyCard";
 import SkeletonCard from "../realtyCard/SkeletonCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import PinPropertiesTitle from "./PinPropertiesTitle";
 
 const CarouselPinPropertiesCard = () => {
   const [properties, setProperties] = useState([]);
@@ -31,11 +32,20 @@ const CarouselPinPropertiesCard = () => {
     };
     fetchData();
   }, []);
-
+  if (properties.length <= 0) {
+    return;
+  }
   return (
-    <div dir="rtl" className="md:px-10 relative">
+    <div dir="rtl" className=" relative">
+      {!loading ? (
+        <PinPropertiesTitle />
+      ) : (
+        <div className="bg-gray-100 animate-pulse w-72 p-5"> </div>
+      )}
+
       {!loading ? (
         <Swiper
+          className="md:px-10"
           ref={swiperRef}
           nested={true}
           keyboard={{
@@ -65,7 +75,7 @@ const CarouselPinPropertiesCard = () => {
               spaceBetween: 20,
             },
             1480: {
-              slidesPerView: 4.2,
+              slidesPerView: 4.5,
               spaceBetween: 20,
             },
             1300: {
@@ -73,17 +83,17 @@ const CarouselPinPropertiesCard = () => {
               spaceBetween: 20,
             },
             1000: {
-              slidesPerView: 3.2,
-              spaceBetween: 15,
+              slidesPerView: 3.5,
+              spaceBetween: 20,
             },
             750: {
               slidesPerView: 2.2,
             },
             430: {
-              slidesPerView: 1.2,
+              slidesPerView: 1.5,
             },
             280: {
-              slidesPerView: 1.1,
+              slidesPerView: 1.5,
             },
           }}
         >
@@ -117,4 +127,4 @@ const CarouselPinPropertiesCard = () => {
     </div>
   );
 };
-export default CarouselPinPropertiesCard;
+export default memo(CarouselPinPropertiesCard);
