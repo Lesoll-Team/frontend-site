@@ -5,13 +5,14 @@ const searchMotorsSlice = createSlice({
   name: "Motors",
   initialState: initialStateMotors,
   reducers: {
-    updateAllStates: (state, action) => {
+    updateCarStates: (state, action) => {
       return {
         ...state,
         ...action.payload,
       };
     },
+    resetCarStates: () => initialStateMotors,
   },
 });
-export const { updateAllStates } = searchMotorsSlice.actions;
+export const { updateCarStates, resetCarStates } = searchMotorsSlice.actions;
 export default searchMotorsSlice.reducer;
