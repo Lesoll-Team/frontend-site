@@ -12,10 +12,10 @@ export const editFormData = (data) => {
     return {
       type: plan?.type.value,
       period: plan?.period || "",
-      amount: convertToNumber(plan.period) || "",
-      downPayment: convertToNumber(plan.amount) || "",
-      discount: convertToNumber(plan.downPayment) || "",
-      discount: plan?.discount || "",
+      amount: convertToNumber(plan?.amount) || "",
+      downPayment: convertToNumber(plan?.downPayment) || "",
+      discount: convertToNumber(plan.discount) || "",
+      // discount: plan?.discount || "",
       ProjectPercentage: plan.ProjectPercentage || "",
     };
   });
