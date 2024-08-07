@@ -1,5 +1,6 @@
 import useBuyPackage from "@/Hooks/useBuyPackage";
 import { deletePricePlan } from "@/redux-store/features/PricingSlice";
+import ConfirmModal from "@/Shared/models/ConfirmModal";
 import Link from "next/link";
 import React from "react";
 import { FiEdit } from "react-icons/fi";
@@ -10,21 +11,20 @@ const ButtonsActions = ({ stylesCss, data }) => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const ButtonsBuyPackage = useBuyPackage({ id: data?._id });
+
+  const handleDeletePackage = (id) => {
+    dispatch(deletePricePlan({ id }));
+  };
+
   return (
     <>
       {data?.isAdmin ? (
         <div className="justify-center flex flex-col absolute bottom-7 items-center gap-y-1 w-full ">
           <ButtonsBuyPackage
             disabled={data.Subscribed}
-            className={`lg-text font-bold ${data.Subscribed ? "bg-[#66bfc2]" : "bg-lightGreen"}  w-10/12 h-[35px] rounded-[6px] text-white`}
+            className={`lg-text font-bold bg-lightGreen w-10/12 h-[35px] rounded-[6px] text-white`}
           >
-            {language
-              ? data.Subscribed
-                ? "بالفعل انت مشترك"
-                : "اشترك الان"
-              : data.Subscribed
-                ? "Already subscribed"
-                : "Subscribe now"}
+            {language ? "اشترك الان" : "Subscribe now"}
           </ButtonsBuyPackage>
           <div className="w-full flex justify-center items-center gap-x-5 ">
             <Link
@@ -39,11 +39,15 @@ const ButtonsActions = ({ stylesCss, data }) => {
             >
               <FiEdit className="text-2xl" />
             </Link>
-            <button
-              className="py-1 mx-5   rounded-xl"
-              onClick={() => dispatch(deletePricePlan({ id: data._id }))}
-            >
-              <MdDeleteForever className="text-2xl" />
+
+            <button className="py-1 mx-5   rounded-xl">
+              <ConfirmModal
+                actinFunction={() => handleDeletePackage(data._id)}
+                title={"تاكيد مسح الباقة "}
+                description={"تاكيد مسح الباقة نهائية"}
+                children={<MdDeleteForever className="text-2xl" />}
+                id={data._id}
+              />
             </button>
           </div>
         </div>
