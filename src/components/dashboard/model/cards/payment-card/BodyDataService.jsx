@@ -15,7 +15,7 @@ const BodyDataService = ({ data, dash }) => {
         ? data?.newService?.map((item) => (
             <div key={item._id} className="flex gap-x-1  items-center px-3">
               <IoMdCheckmarkCircleOutline className=" max-w-[40px] min-w-[40px] text-2xl text-[#30D143]" />
-              <p className="line-clamp-1 lg-text ">
+              <p className="line-clamp-2 lg-text ">
                 {language ? item.ar : item.en}
               </p>
             </div>
@@ -26,7 +26,7 @@ const BodyDataService = ({ data, dash }) => {
               className="flex gap-x-1  items-center px-3"
             >
               <IoMdCheckmarkCircleOutline className=" max-w-[40px] min-w-[40px] text-2xl text-[#30D143]" />
-              <p className="line-clamp-1 lg-text ">
+              <p className="line-clamp-2 lg-text ">
                 {language ? item.ar : item.en}
               </p>
             </div>
