@@ -11,6 +11,8 @@ import {
 } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import usePackageData from "../utils/usePackageData";
+import { TbBrandGoogleAnalytics } from "react-icons/tb";
 
 const ProfileLinks = ({ main }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
@@ -18,7 +20,7 @@ const ProfileLinks = ({ main }) => {
   const isCompany = data?.typeOfUser === "company";
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const { haveDashboard } = usePackageData();
   const handleLogout = useCallback(() => {
     dispatch(clearUserData());
     logOutUserData();
@@ -29,6 +31,7 @@ const ProfileLinks = ({ main }) => {
   const isSaved = route.includes("/profile/saved-items");
   const isNeeds = route.includes("/profile/needs");
   const isPackage = route.includes("/profile/my-subscriptions");
+  const isAnalytics = route.includes("/profile/properties-analytics");
   const NavLink = ({ href, text, icon: Icon, active }) => (
     <Link
       href={href}
@@ -84,7 +87,18 @@ const ProfileLinks = ({ main }) => {
         </Link>
         <hr />
       </div>
-
+      {haveDashboard && (
+        <div className="flex flex-col gap-5">
+          <Link
+            href={"/profile/properties-analytics"}
+            className={`text-baseGray font-semibold text-[17px] w-fit flex items-center gap-4 ${isAnalytics && "md:text-lightGreen"}`}
+          >
+            <TbBrandGoogleAnalytics className="md:text-2xl" />
+            {language ? "الإحصائيات" : "Analytics"}
+          </Link>
+          <hr />
+        </div>
+      )}
       <div className="flex flex-col gap-5">
         <button
           onClick={handleLogout}

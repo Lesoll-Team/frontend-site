@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import ProfileCardSkeleton from "./ProfileCardSkeleton ";
+import PinProfileTitle from "./PinProfileTitle";
 
 const CarouselPinCard = () => {
   const swiperRef = useRef();
@@ -33,8 +34,13 @@ const CarouselPinCard = () => {
     };
     fetchData();
   }, []);
+  if (users.length <= 0) {
+    return;
+  }
   return (
-    <div dir="rtl" className="relative md:mx-0 mx-[15px] px-10">
+    <div dir="rtl" className="relative md:mx-0 mx-[15px] ">
+      <PinProfileTitle />
+
       {loading ? (
         <div className=" md:container md:mx-auto mx-[20px] flex  justify-between gap-10 overflow-hidden ">
           <ProfileCardSkeleton />
@@ -47,9 +53,9 @@ const CarouselPinCard = () => {
       ) : (
         <Swiper
           ref={swiperRef}
-          onReachEnd={() => {
-            console.log("end reach");
-          }}
+          // onReachEnd={() => {
+          //   console.log("end reach");
+          // }}
           onSlideChange={() => {
             if (swiperRef.current.swiper.activeIndex !== 0) {
               setIsStart(false);
@@ -138,4 +144,4 @@ const CarouselPinCard = () => {
   );
 };
 
-export default CarouselPinCard;
+export default memo(CarouselPinCard);

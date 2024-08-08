@@ -8,15 +8,34 @@ import Link from "next/link";
 import { BiSolidBed } from "react-icons/bi";
 import { FaBath } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { TbRulerMeasure } from "react-icons/tb";
+import { TbHomeRibbon, TbRulerMeasure } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { CiShare2, CiFacebook, CiCircleQuestion } from "react-icons/ci";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoCallOutline } from "react-icons/io5";
+import { pinUserPropertyInHome } from "@/utils/dashboardApi/userDashbordAPI";
+import { useState } from "react";
+import { LuLoader2, LuPinOff } from "react-icons/lu";
 
-const PropertyCard = ({ propertyDetails }) => {
+const PropertyCard = ({ propertyDetails, changing, setChanging }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
+  const [isPinned, setIsPinned] = useState(false);
+
+  const handlePinPropInHome = async (propId) => {
+    setIsPinned(true);
+    await pinUserPropertyInHome({ propId })
+      .then(() => {
+        setIsPinned(true);
+      })
+      .catch(() => {
+        setIsPinned(false);
+      })
+      .finally(() => {
+        setIsPinned(false);
+        setChanging(!changing);
+      });
+  };
   const formatDate = (date) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     return new Date(date).toLocaleString("en-US", options);
@@ -147,7 +166,7 @@ const PropertyCard = ({ propertyDetails }) => {
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex  items-center justify-between gap-2">
           <Link
             href={`/dashboard/property-details/${propertyDetails?.slug}`}
             className="w-full text-center border p-1 rounded-md border-darkGreen hover:bg-darkGreen hover:text-white font-semibold hover:drop-shadow-md md:hover:-translate-y-[3px] duration-300"
@@ -160,6 +179,30 @@ const PropertyCard = ({ propertyDetails }) => {
           >
             صفحة العقار
           </Link>
+          <button
+            className="w-full text-center border p-1 rounded-md border-amber-400 hover:bg-amber-400 hover:text-white font-semibold hover:drop-shadow-md md:hover:-translate-y-[3px] duration-300 flex items-center justify-center gap-1"
+            onClick={() => handlePinPropInHome(propertyDetails._id)}
+          >
+            {propertyDetails.makePinHome ? (
+              <>
+                الغا تثبيت
+                {isPinned ? (
+                  <LuLoader2 className="animate-spin" />
+                ) : (
+                  <LuPinOff />
+                )}
+              </>
+            ) : (
+              <>
+                تثبيت
+                {isPinned ? (
+                  <LuLoader2 className="animate-spin" />
+                ) : (
+                  <TbHomeRibbon />
+                )}
+              </>
+            )}
+          </button>
         </div>
       </div>
       <div className="sm:w-4/12 relative rounded-md overflow-hidden max-h-[250px] sm:max-h-full">

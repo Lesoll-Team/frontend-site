@@ -77,7 +77,7 @@ const PricePageBody = () => {
           </button>
         )}
         {loading && payments ? (
-          <div className=" grid grid-cols-1 lg:grid-cols-3  items-center  justify-center ">
+          <div className="sm:gap-y-10 gap-y-7 grid grid-cols-1 lg:grid-cols-3  items-center  justify-center ">
             {sortedPayments.map((plan) => (
               <div
                 key={plan._id}
@@ -125,7 +125,7 @@ const PricePageBody = () => {
             ))}
           </div>
         ) : (
-          <div className=" grid grid-cols-1 justify-around md:grid-cols-3 ">
+          <div className="sm:gap-14 gap-7 grid grid-cols-1 lg:grid-cols-3  items-center  justify-center ">
             <SkeletonPriceCard />
             <SkeletonPriceCard />
             <SkeletonPriceCard />

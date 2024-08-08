@@ -326,6 +326,26 @@ export const getcustomPackages = async ({
   }
 };
 
+export const getPropertiesAnalytics = async ({
+  setAalyticsTable,
+  setApiStatus,
+  page = 1,
+}) => {
+  try {
+    setApiStatus("loading");
+    const response = await axiosInstance.get(
+      `/payment-user/table-analysis?limit=9&page=${page}`,
+    );
+    if (response.status == 200) {
+      setAalyticsTable(response.data);
+      setApiStatus("success");
+    }
+  } catch (error) {
+    setApiStatus("failed");
+    throw error.response.data;
+  }
+};
+
 // verify acc phone number
 export const getVerifyAccOtp = async ({ setApiStatus, phone }) => {
   try {

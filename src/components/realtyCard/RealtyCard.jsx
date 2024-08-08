@@ -13,10 +13,10 @@ const RealtyCard = ({ propertyDetails, cardID, withVertical }) => {
     ? " h-auto   block drop-shadow-none  bg-none  rounded-none "
     : " sm:h-auto h-[135px] flex sm:block sm:drop-shadow-none drop-shadow-md sm:bg-none bg-white sm:rounded-none rounded-md ";
   const layoutImage = withVertical
-    ? " w-full  min-w-[125px] flex  relative h-[40vh] max-h-[250px] min-h-[250px] "
+    ? " w-full  min-w-[115px] flex  relative h-[40vh] max-h-[180px] min-h-[180px] "
     : " sm:w-full w-5/12 min-w-[125px]  flex  relative   h-auto sm:h-[40vh] sm:max-h-[250px] sm:min-h-[250px]";
   const layoutWhiteCard = withVertical
-    ? " pt-[20px] w-full flex flex-col justify-between gap-1"
+    ? " pt-[12px] w-full flex flex-col justify-between gap-1"
     : " sm:pt-[20px] sm:p-0 sm:py-0 py-2.5 p-1.5 w-full flex flex-col justify-between gap-1";
   return (
     <div key={cardID} className={`overflow-hidden  w-full  ${layoutCard}`}>

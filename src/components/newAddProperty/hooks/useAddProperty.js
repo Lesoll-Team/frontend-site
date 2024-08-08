@@ -184,7 +184,7 @@ const useAddProperty = ({ propData }) => {
   }, [formStatus]);
   // hancle the form submission on every step
   const handleStepsActions = (data) => {
-    const { formData } = useFromatAddData(data);
+    const { formData } = useFromatAddData(data, step);
     const isInvestment = watch("offer") === "For Investment";
 
     const steps = isInvestment

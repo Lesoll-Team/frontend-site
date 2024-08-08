@@ -1,5 +1,17 @@
 import axiosInstance from "@/Shared/axiosInterceptorInstance";
 
+export async function pinUserPropertyInHome({ propId }) {
+  try {
+    const response = await axiosInstance.patch(
+      `/admin/dashboard/pin-property/${propId}`,
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}
+
 export async function pinUserProfileInHome({ userId }) {
   try {
     const response = await axiosInstance.patch(
