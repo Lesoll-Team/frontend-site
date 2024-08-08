@@ -7,17 +7,18 @@ import Head from "next/head";
 import { setLang } from "@/redux-store/features/globalState";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { getUserOffline } from "@/utils/userAPI";
 import { updateAllStates } from "@/redux-store/features/category/categorySlice";
+import GetPackagesModal from "@/components/get-packages-modal/GetPackagesModal";
 
 export default function Layout({ children }) {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const dispatch = useDispatch();
   const { searchData } = useSelector((state) => state.Category);
-
+  const [isOpend, setIsOpend] = useState(false);
   const router = useRouter();
   const userKey = parseInt(
     Math.ceil(Math.random() * Date.now())
@@ -53,7 +54,13 @@ export default function Layout({ children }) {
       );
     }
   }, [router]);
-
+  useEffect(() => {
+    const isPaymentModal = localStorage.getItem("isPaymentModal");
+    if (!isPaymentModal) {
+      setIsOpend(true);
+      localStorage.setItem("isPaymentModal", true);
+    }
+  }, []);
   return (
     <div>
       <Head>
@@ -64,6 +71,7 @@ export default function Layout({ children }) {
       <main dir={language ? "rtl" : "ltr"}>{children}</main>
       <Footer dir={language ? "rtl" : "ltr"} />
       <ScrollToTopButton />
+      <GetPackagesModal isOpend={isOpend} setIsOpend={setIsOpend} />
     </div>
   );
 }
