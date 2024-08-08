@@ -62,10 +62,10 @@ const PricePageBody = () => {
   }, [payments, updateIndexPlan]);
   return (
     <>
-      {payments && (
+      {/* {payments && (
         <PriceFilter type={type} setType={setType} typeExist={typeExist} />
-      )}
-      <div className="md:container md:mx-auto gap-x-[1vh] mx-[20px]">
+      )} */}
+      <div className="md:container md:mx-auto gap-x-[1vh] mx-[20px] ">
         {data?.isAdmin && (
           <button
             onClick={() => setShowSetting(!showSetting)}

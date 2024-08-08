@@ -5,7 +5,7 @@ const PinPropertiesTitle = () => {
 
   return (
     <h2 className=" text-grayText2 my-8">
-      {language ? "أفضل الإعلانات" : "Best Properties"}
+      {language ? " الإعلانات المميزة" : "Featured Properties"}
     </h2>
   );
 };

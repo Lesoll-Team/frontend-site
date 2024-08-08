@@ -114,6 +114,15 @@ const DropBoxSelectServices = ({
     }
   }, [selectedOptions, setFeaturesList, isInitialLoad]);
 
+  const handleDeleteOption = (serviceID) => {
+    setSelectedOptions((prevSelected) =>
+      prevSelected.filter((option) => option.serviceID !== serviceID),
+    );
+    // setLocalServicePrice((prevServicePrice) =>
+    //   prevServicePrice.filter((service) => service._id !== serviceID),
+    // );
+  };
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">اختر الخدمات</h2>
@@ -197,6 +206,12 @@ const DropBoxSelectServices = ({
                   >
                     تعديل
                   </button>
+                  <button
+                    onClick={() => handleDeleteOption(option.serviceID)}
+                    className="ml-2 px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                  >
+                    حذف
+                  </button>
                 </>
               )}
             </li>
@@ -208,3 +223,43 @@ const DropBoxSelectServices = ({
 };
 
 export default DropBoxSelectServices;
+/* {selectedOptions.map((option) => (
+            <li key={option.serviceID} className="flex items-center space-x-2">
+              {editOptionId === option.serviceID ? (
+                <>
+                  <input
+                    type="text"
+                    value={editOptionAr}
+                    onChange={(e) => setEditOptionAr(e.target.value)}
+                    className="form-input mt-1 block w-full border p-2"
+                    placeholder="تعديل الخيار بالعربية"
+                  />
+                  <input
+                    type="text"
+                    value={editOptionEn}
+                    onChange={(e) => setEditOptionEn(e.target.value)}
+                    className="form-input mt-1 block w-full border p-2"
+                    placeholder="تعديل الخيار بالإنجليزية"
+                  />
+                  <button
+                    onClick={handleSaveEditOption}
+                    className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                  >
+                    حفظ
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="text-lg">
+                    {option.ar} / {option.en}
+                  </span>
+                  <button
+                    onClick={() => handleEditOption(option)}
+                    className="ml-2 px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                  >
+                    تعديل
+                  </button>
+                </>
+              )}
+            </li>
+          ))} */
