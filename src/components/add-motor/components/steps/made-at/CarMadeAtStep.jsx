@@ -6,8 +6,12 @@ import StepContainer from "../../ui/StepContainer";
 import { carMadeAtYears } from "@/components/add-motor/data/madeAtYears";
 import YearCard from "./YearCard";
 import ScrollableContainer from "../../ui/ScrollableContainer";
+import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
+import SelectCard from "../SelectCard";
 
 const CarMadeAtStep = () => {
+  const { setValue, clearErrors, formSubmit, loading } = useAddMotorContext();
+
   const [search, setSearch] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
   const filteredYears = carMadeAtYears.filter((item) => {
@@ -17,6 +21,12 @@ const CarMadeAtStep = () => {
     }
     return item.toLowerCase().trim().startsWith(trimmedSearch);
   });
+
+  const handleSelect = (year) => {
+    setValue("usedSince", year);
+    clearErrors("usedSince");
+    formSubmit();
+  };
   return (
     <StepContainer className={"space-y-10"}>
       <ItemSearch
@@ -26,10 +36,16 @@ const CarMadeAtStep = () => {
       />
       <ScrollableContainer>
         {filteredYears.length > 0 ? (
-          filteredYears.map((year, index, years) => {
-            const last = index + 1 === years.length;
-
-            return <YearCard last={last} year={year} key={year} />;
+          filteredYears.map((year) => {
+            return (
+              <SelectCard
+                key={year}
+                disabled={loading}
+                handleSelect={() => handleSelect(year)}
+              >
+                <p>{year}</p>
+              </SelectCard>
+            );
           })
         ) : (
           <div className="col-span-full h-[50dvh] grid place-content-center ">

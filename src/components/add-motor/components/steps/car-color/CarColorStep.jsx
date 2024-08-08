@@ -1,15 +1,17 @@
-import { carBrands } from "@/components/add-motor/data/carsBrands";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "../../../styles/addMoto.module.css";
 import NoItems from "@/components/newProfile/user/userProperties/NoItems";
 import ItemSearch from "../../ui/itemSearch";
 import StepContainer from "../../ui/StepContainer";
 import { carColors } from "@/components/add-motor/data/carColors";
 import ScrollableContainer from "../../ui/ScrollableContainer";
-import CarColorCard from "./CarColorCard";
-const { customScrollbar } = styles;
+
+import SelectCard from "../SelectCard";
+import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
+
 const CarColorStep = () => {
+  const { setValue, clearErrors, formSubmit, loading } = useAddMotorContext();
+
   const [search, setSearch] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
   const filterdColors = carColors.filter((item) => {
@@ -20,6 +22,11 @@ const CarColorStep = () => {
       return item;
     }
   });
+  const handleSelect = (color) => {
+    setValue("carColor", color);
+    clearErrors("carColor");
+    formSubmit();
+  };
   return (
     <StepContainer className={"space-y-10"}>
       <ItemSearch
@@ -29,10 +36,23 @@ const CarColorStep = () => {
       />
       <ScrollableContainer>
         {filterdColors.length > 0 ? (
-          filterdColors.map((color, index, allColors) => {
-            const last = index + 1 === allColors.length;
-
-            return <CarColorCard color={color} last={last} key={color.ar} />;
+          filterdColors.map((color) => {
+            return (
+              <SelectCard
+                color
+                key={color.en}
+                disabled={loading}
+                handleSelect={() => handleSelect(color)}
+              >
+                <div
+                  style={{
+                    backgroundColor: color.code,
+                  }}
+                  className={`h-8 border w-8 bg-[${color.code}] rounded-full`}
+                ></div>
+                <p>{language ? color.ar : color.en}</p>
+              </SelectCard>
+            );
           })
         ) : (
           <div className="col-span-full h-[50dvh] grid place-content-center ">

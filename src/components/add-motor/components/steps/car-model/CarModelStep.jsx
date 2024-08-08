@@ -6,8 +6,10 @@ import StepContainer from "../../ui/StepContainer";
 import ModalCard from "./ModalCard";
 import ScrollableContainer from "../../ui/ScrollableContainer";
 import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
+import SelectCard from "../SelectCard";
 const CarModalStep = () => {
-  const { watch } = useAddMotorContext();
+  const { watch, setValue, clearErrors, formSubmit, loading } =
+    useAddMotorContext();
   const [search, setSearch] = useState("");
   const language = useSelector((state) => state.GlobalState.languageIs);
   const carModels = useSelector((state) => state.brandModels.models);
@@ -29,6 +31,11 @@ const CarModalStep = () => {
       return item;
     }
   });
+  const handleSelect = (car) => {
+    setValue("model", car);
+    clearErrors("model");
+    formSubmit();
+  };
   return (
     <StepContainer className={"space-y-10"}>
       <ItemSearch
@@ -38,9 +45,16 @@ const CarModalStep = () => {
       />
       <ScrollableContainer>
         {filterdCars.length > 0 ? (
-          filterdCars.map((car, index, allCars) => {
-            const last = index + 1 === allCars.length;
-            return <ModalCard last={last} car={car} key={car.ar} />;
+          filterdCars.map((car) => {
+            return (
+              <SelectCard
+                key={car.en}
+                disabled={loading}
+                handleSelect={() => handleSelect(car)}
+              >
+                {language ? car.ar : car.en}
+              </SelectCard>
+            );
           })
         ) : (
           <div className="col-span-full h-[50dvh] grid place-content-center ">
