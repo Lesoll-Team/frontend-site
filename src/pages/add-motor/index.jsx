@@ -7,7 +7,7 @@ const index = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
 
   return (
-    <div className="min-h-[90dvh] container mx-auto py-10">
+    <div className="min-h-[90dvh] container mx-auto">
       <Head>
         <title>
           {language

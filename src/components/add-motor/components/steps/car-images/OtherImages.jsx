@@ -80,7 +80,7 @@ const CarOtherImages = () => {
       ) : (
         <div
           ref={containerRef}
-          className={`bg-white py-8 gap-5  border-2 flex flex-col items-center justify-center px-2 rounded-md ${errors.multiImage ? "border-red-500" : "border-white"}`}
+          className={`bg-white py-8 gap-5  border-2 flex flex-col items-center justify-center px-4 rounded-md ${errors.multiImage ? "border-red-500" : "border-white"}`}
           onDrop={handleMultiImagesDrop}
           onDragOver={handleMultiImagesDragOver}
         >
@@ -96,8 +96,8 @@ const CarOtherImages = () => {
             <h3>{language ? "أضف صور السيارة" : "Add Car Images"}</h3>
             <p>
               {language
-                ? "جودة الصور المرفقة للسيارة تساعد في نشر إعلانك بشكل افضل"
-                : "The quality of the attached car images helps to promote your ad better."}
+                ? "ينصح بإضافة صور توضح الحالة الداخلية والخارجية للسيارة"
+                : "It is recommended to add pictures showing the interior and exterior condition of the car."}
             </p>
           </div>
           <button

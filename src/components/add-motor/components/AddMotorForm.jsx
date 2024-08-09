@@ -37,7 +37,7 @@ const AddMotorForm = () => {
     }
   }, [step, setStep]);
   return (
-    <form onSubmit={formSubmit} className="space-y-4 md:space-y-8">
+    <form onSubmit={formSubmit} className="space-y-4 md:space-y-8  py-10">
       {posted ? (
         <div className="flex items-center min-h-[80dvh] w-full">
           <AdPosted />

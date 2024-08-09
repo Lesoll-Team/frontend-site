@@ -40,7 +40,7 @@ const CarMainImage = () => {
     <>
       <div
         ref={containerRef}
-        className={`bg-white py-8 gap-5  border-2 flex flex-col items-center justify-center px-2 rounded-md ${errors.mainImage ? "border-red-500" : "border-white"}`}
+        className={`bg-white py-8 gap-5  border-2 flex flex-col items-center justify-center px-4 rounded-md ${errors.mainImage ? "border-red-500" : "border-white"}`}
         onDrop={handleMainImageDrop}
         onDragOver={handleMainImageDragOver}
       >
@@ -82,8 +82,8 @@ const CarMainImage = () => {
               </h3>
               <p>
                 {language
-                  ? "جودة الصور المرفقة للسيارة تساعد في نشر إعلانك بشكل افضل"
-                  : "The quality of the attached car images helps to promote your ad better."}
+                  ? "جودة الصورة المرفقة للسيارة تساعد في نشر إعلانك بشكل افضل"
+                  : "The quality of the attached car image helps to promote your ad better."}
               </p>
             </div>
             <button
@@ -91,7 +91,7 @@ const CarMainImage = () => {
               className="bg-lightGreen py-2 text-white rounded-md min-w-[50%] px-4"
               onClick={addMainImage}
             >
-              {language ? "أضف الصور" : "Upload images"}
+              {language ? "أضف الصورة" : "Upload image"}
             </button>
           </>
         )}
