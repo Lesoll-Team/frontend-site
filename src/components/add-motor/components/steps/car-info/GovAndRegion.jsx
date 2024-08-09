@@ -10,7 +10,7 @@ import styles from "../../../styles/addMoto.module.css";
 
 const { addMotorInput, inputError } = styles;
 const GovAndRegion = () => {
-  const { register, setValue, errors, watch, clearErrors } =
+  const { register, setValue, errors, watch, clearErrors, loading } =
     useAddMotorContext();
   const [govInput, setGovInput] = useState("");
   const [regionInput, setRegionInput] = useState("");
@@ -75,7 +75,12 @@ const GovAndRegion = () => {
                     ? watch("address.governrate.governorate_name_ar")
                     : watch("address.governrate.governorate_name_en")}
                 </p>
-                <button type="button" className="mt-[2px]" onClick={clearGov}>
+                <button
+                  disabled={loading}
+                  type="button"
+                  className="mt-[2px]"
+                  onClick={clearGov}
+                >
                   <FaCircleXmark className="text-xs" />
                 </button>
               </div>
@@ -134,6 +139,7 @@ const GovAndRegion = () => {
                     : watch("address.region.city_name_en")}
                 </p>
                 <button
+                  disabled={loading}
                   type="button"
                   className="mt-[2px]"
                   onClick={clearRegion}

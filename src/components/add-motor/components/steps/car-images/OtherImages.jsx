@@ -9,7 +9,7 @@ import useFormImages from "@/components/add-motor/hooks/useFormImages";
 
 const CarOtherImages = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch, clearErrors, step } =
+  const { register, setValue, errors, watch, clearErrors, step, loading } =
     useAddMotorContext();
   const containerRef = useRef(null);
   const {
@@ -23,6 +23,9 @@ const CarOtherImages = () => {
   } = useFormImages({ register, setValue, errors, watch, clearErrors });
 
   const addMultiImages = () => {
+    if (loading) {
+      return;
+    }
     if (multiImagesRef.current) {
       multiImagesRef.current.click();
     }
@@ -49,6 +52,7 @@ const CarOtherImages = () => {
           >
             {watch("multiImage")?.map((image, index) => (
               <ImageCard
+                loading={loading}
                 key={index}
                 onDelete={() => {
                   handleDeleteImage(index);
@@ -59,6 +63,7 @@ const CarOtherImages = () => {
             ))}
             {watch("album")?.map((image, index) => (
               <ImageCard
+                loading={loading}
                 key={image._id}
                 onDelete={() => {
                   handleDeleteImageFromAlbum(image._id);
@@ -144,7 +149,6 @@ const CarOtherImages = () => {
         onChange={handleMultiImageChange}
       />
       {errors.multiImage && <Error>{errors?.multiImage?.message}</Error>}
-      {/* <button type="submit">sub</button> */}
     </>
   );
 };

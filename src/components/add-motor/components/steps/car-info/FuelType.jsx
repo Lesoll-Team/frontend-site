@@ -10,7 +10,7 @@ const FuelType = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const foucsBtnRef = useRef(null);
   const { windowWidth } = useWindowWidth();
-  const { register, clearErrors, setValue, errors, watch } =
+  const { register, clearErrors, setValue, errors, watch, loading } =
     useAddMotorContext();
   const handleSelect = (value) => {
     setValue("fuel", value);
@@ -29,11 +29,12 @@ const FuelType = () => {
             if (index === 0) {
               return (
                 <button
+                  disabled={loading}
                   ref={foucsBtnRef}
                   key={type.en}
                   type="button"
                   onClick={() => handleSelect(type)}
-                  className={`py-3 min-w-[80px] w-full rounded-md duration-100  ${watch("fuel.en") === type.en ? "bg-lightGreen text-white" : "bg-white"}`}
+                  className={`py-3 min-w-[80px] w-full rounded-md disabled:opacity-70 duration-100  ${watch("fuel.en") === type.en ? "bg-lightGreen text-white" : "bg-white"}`}
                 >
                   {language ? type.ar : type.en}
                 </button>

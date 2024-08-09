@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useSelector } from "react-redux";
 
-const CurrenciesDropDown = ({ className, setValue, watch }) => {
+const CurrenciesDropDown = ({ className, setValue, watch, disabled }) => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const currencies = useSelector((state) => state.getCurrencies.data);
@@ -29,9 +29,10 @@ const CurrenciesDropDown = ({ className, setValue, watch }) => {
   return (
     <div className={cn("relative", className)} ref={menuRef}>
       <button
+        disabled={disabled}
         onClick={toggleMenu}
         type="button"
-        className={`h-full w-full px-3 sm:px-4 flex items-center gap-1 ${language ? "border-r" : "border-l"}`}
+        className={`h-full w-full px-3 disabled:opacity-70 sm:px-4 flex items-center gap-1 ${language ? "border-r" : "border-l"}`}
       >
         <MdKeyboardArrowDown />
         <span className="lg-text"> {watch("currencies.ISO_code")}</span>

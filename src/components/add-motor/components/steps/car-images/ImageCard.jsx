@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
 
-const ImageCard = ({ src, onDelete, main }) => {
+const ImageCard = ({ src, onDelete, main, loading }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -26,6 +26,7 @@ const ImageCard = ({ src, onDelete, main }) => {
         {/* <button className="z-10 w-8 h-8 rounded-full border-2 border-white"></button> */}
       </button>
       <button
+        disabled={loading}
         onClick={onDelete}
         type="button"
         className="h-[25%] border-t w-full  flex justify-center items-center gap-2"

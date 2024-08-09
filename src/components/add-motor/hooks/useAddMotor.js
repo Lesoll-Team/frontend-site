@@ -9,6 +9,7 @@ import { getCarBrands } from "@/redux-store/features/motor/getCarBrandsSlice";
 import { getCarModels } from "@/redux-store/features/motor/getCarModelSlice";
 import { createMotorDraft, updateMotorDraft } from "../apis/addMotorApis";
 import { motorFormData } from "../utils/motorFormData";
+import { scrollToTop } from "@/utils/scrollToTop";
 const useAddMotor = () => {
   const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
@@ -62,20 +63,18 @@ const useAddMotor = () => {
     if (formStatus === "success") {
       setFormStatus("idle");
       step < 7 && setStep((prev) => prev + 1);
+      scrollToTop();
     }
   }, [formStatus]);
   useEffect(() => {
     if (finalStepStatus === "success") {
       setFinalStepStatus("idle");
       setPosted(true);
+      setUserData();
     }
   }, [finalStepStatus]);
-  console.log(errors);
-  console.log(returnData);
 
   const onSubmit = async (data) => {
-    console.log(data);
-
     if (!returnData?._id) {
       if (step < 3) {
         setStep((prev) => prev + 1);

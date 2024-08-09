@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
 import { useAddMotorContext } from "../../context/AddMotorContext";
 import { FaArrowLeft } from "react-icons/fa";
+import { scrollToTop } from "@/utils/scrollToTop";
 
 const StepTitle = () => {
-  const { step, setStep, clearErrors } = useAddMotorContext();
+  const { step, setStep, clearErrors, loading } = useAddMotorContext();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const handleBackBtn = () => {
     step > 1 && setStep((prev) => prev - 1);
     clearErrors("mainImage");
     clearErrors("multiImage");
+    scrollToTop();
   };
   const stepText = () => {
     switch (step) {
@@ -33,6 +35,7 @@ const StepTitle = () => {
       <h1 className="text-center">{stepText()}</h1>
       {step > 1 && (
         <button
+          disabled={loading}
           onClick={handleBackBtn}
           type="button"
           className="absolute left-0"

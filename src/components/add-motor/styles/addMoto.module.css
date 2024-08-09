@@ -24,7 +24,9 @@
 .addMotorInput:focus {
   border: 1px solid #309da0;
 }
-
+.addMotorInput:disabled {
+  opacity: 65%;
+}
  .inputError , .inputError:focus{
   border: 1px solid #ef4444;
 

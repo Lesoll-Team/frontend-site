@@ -4,17 +4,19 @@ import { useSelector } from "react-redux";
 
 const BrandCard = ({ car }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { setValue, clearErrors, setStep, formSubmit } = useAddMotorContext();
+  const { setValue, clearErrors, formSubmit, loading } = useAddMotorContext();
   const handleSelect = () => {
     setValue("brand", car);
+    setValue("model", "");
     clearErrors("brand");
     formSubmit();
   };
   return (
     <button
+      disabled={loading}
       type="button"
       onClick={handleSelect}
-      className="w-full grid grid-rows-3 items-center justify-center  p-2  md:p-6   rounded bg-white md:hover:-translate-y-1 md:hover:drop-shadow-sm duration-150"
+      className="w-full grid grid-rows-3 items-center justify-center  p-2  md:p-6   rounded bg-white md:hover:-translate-y-1 md:hover:drop-shadow-sm duration-150 disabled:opacity-70"
     >
       <Image
         width={100}

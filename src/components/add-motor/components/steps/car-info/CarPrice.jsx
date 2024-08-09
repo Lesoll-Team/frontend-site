@@ -8,7 +8,7 @@ import Error from "@/Shared/ui/Error";
 const { addMotorInput, inputError } = styles;
 const CarPrice = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch } = useAddMotorContext();
+  const { register, setValue, errors, watch, loading } = useAddMotorContext();
   const { priceRegister, handlePriceChange } = useInputRegisters({
     register,
     setValue,
@@ -18,6 +18,7 @@ const CarPrice = () => {
     <>
       <div className="relative flex rounded-md">
         <input
+          disabled={loading}
           type="text"
           inputMode="numeric"
           {...priceRegister}
@@ -25,6 +26,7 @@ const CarPrice = () => {
           className={`${addMotorInput} ${errors.price && inputError} `}
         />
         <CurrenciesDropDown
+          disabled={loading}
           setValue={setValue}
           watch={watch}
           className={`  absolute h-full  ${language ? "left-0" : "right-0"}`}

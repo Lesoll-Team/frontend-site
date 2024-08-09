@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 
 const CarMainImage = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch, clearErrors, step } =
+  const { register, setValue, errors, watch, clearErrors, step, loading } =
     useAddMotorContext();
   const containerRef = useRef(null);
 
@@ -37,84 +37,88 @@ const CarMainImage = () => {
   };
   const showImage = watch("mainImage") || watch("thumbnail");
   return (
-    <div
-      ref={containerRef}
-      className={`bg-white py-8 gap-5  border-2 flex flex-col items-center justify-center px-2 rounded-md ${errors.mainImage ? "border-red-500" : "border-white"}`}
-      onDrop={handleMainImageDrop}
-      onDragOver={handleMainImageDragOver}
-    >
-      {showImage ? (
-        watch("thumbnail") ? (
-          <ImageCard
-            main
-            onDelete={deleteThumbnail}
-            src={watch("thumbnail")}
-            alt="upload image"
-            width={100}
-            height={100}
-          />
-        ) : (
-          <ImageCard
-            main
-            onDelete={deleteMainImage}
-            src={URL.createObjectURL(watch("mainImage"))}
-            alt="upload image"
-            width={100}
-            height={100}
-          />
-        )
-      ) : (
-        <>
-          <button type="button" onClick={addMainImage}>
-            <Image
-              src={"/upload-image.svg"}
+    <>
+      <div
+        ref={containerRef}
+        className={`bg-white py-8 gap-5  border-2 flex flex-col items-center justify-center px-2 rounded-md ${errors.mainImage ? "border-red-500" : "border-white"}`}
+        onDrop={handleMainImageDrop}
+        onDragOver={handleMainImageDragOver}
+      >
+        {showImage ? (
+          watch("thumbnail") ? (
+            <ImageCard
+              loading={loading}
+              main
+              onDelete={deleteThumbnail}
+              src={watch("thumbnail")}
               alt="upload image"
               width={100}
               height={100}
             />
-          </button>
-          <div className="space-y-2 text-center">
-            <h3>
-              {language ? "أضف صورة الإعلان الرئيسية" : "Add car main image"}
-            </h3>
-            <p>
-              {language
-                ? "جودة الصور المرفقة للسيارة تساعد في نشر إعلانك بشكل افضل"
-                : "The quality of the attached car images helps to promote your ad better."}
-            </p>
-          </div>
-          <button
-            type="button"
-            className="bg-lightGreen py-2 text-white rounded-md min-w-[50%] px-4"
-            onClick={addMainImage}
-          >
-            {language ? "أضف الصور" : "Upload images"}
-          </button>
-        </>
-      )}
-      <input
-        type="file"
-        accept="images/*"
-        hidden
-        ref={mainImageRef}
-        onChange={handleMainImageChange}
-      />
-      <input
-        hidden
-        {...register("mainImage", {
-          validate: {
-            requierd: (value) => {
-              if (step === 6) {
-                const image = Boolean(value) || Boolean(watch("thumbnail"));
-                const errorMessage = language
-                  ? "يجب اضافة الصورة الرئيسية للعقار"
-                  : "Main image is missing.";
-                return image || errorMessage;
-              }
+          ) : (
+            <ImageCard
+              loading={loading}
+              main
+              onDelete={deleteMainImage}
+              src={URL.createObjectURL(watch("mainImage"))}
+              alt="upload image"
+              width={100}
+              height={100}
+            />
+          )
+        ) : (
+          <>
+            <button type="button" onClick={addMainImage}>
+              <Image
+                src={"/upload-image.svg"}
+                alt="upload image"
+                width={100}
+                height={100}
+              />
+            </button>
+            <div className="space-y-2 text-center">
+              <h3>
+                {language ? "أضف صورة الإعلان الرئيسية" : "Add car main image"}
+              </h3>
+              <p>
+                {language
+                  ? "جودة الصور المرفقة للسيارة تساعد في نشر إعلانك بشكل افضل"
+                  : "The quality of the attached car images helps to promote your ad better."}
+              </p>
+            </div>
+            <button
+              type="button"
+              className="bg-lightGreen py-2 text-white rounded-md min-w-[50%] px-4"
+              onClick={addMainImage}
+            >
+              {language ? "أضف الصور" : "Upload images"}
+            </button>
+          </>
+        )}
+        <input
+          type="file"
+          accept="images/*"
+          hidden
+          ref={mainImageRef}
+          onChange={handleMainImageChange}
+        />
+        <input
+          hidden
+          {...register("mainImage", {
+            validate: {
+              requierd: (value) => {
+                if (step === 6) {
+                  const image = Boolean(value) || Boolean(watch("thumbnail"));
+                  const errorMessage = language
+                    ? "يجب اضافة الصورة الرئيسية للعقار"
+                    : "Main image is missing.";
+                  return image || errorMessage;
+                }
+              },
             },
-          },
-        })}
-      />
+          })}
+        />
+      </div>
       {errors.mainImage && (
         <Error>
           {language
@@ -122,7 +126,7 @@ const CarMainImage = () => {
             : "Please upload the main image"}
         </Error>
       )}
-    </div>
+    </>
   );
 };
 

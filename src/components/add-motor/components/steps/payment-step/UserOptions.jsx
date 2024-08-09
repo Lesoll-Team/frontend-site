@@ -6,23 +6,26 @@ import { IoIosRadioButtonOff } from "react-icons/io";
 import { IoIosRadioButtonOn } from "react-icons/io";
 import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
 const UserOptions = () => {
-  const { errors, register, setValue, watch, clearErrors } =
+  const { errors, register, setValue, watch, clearErrors, loading } =
     useAddMotorContext();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { data: userData } = useUser();
   const setAdToFree = () => {
+    if (loading) return;
     setValue("adType", "free");
     setValue("toPin", "");
     clearErrors("adType");
     setValue("packId", "");
   };
   const setAdPinSearch = () => {
+    if (loading) return;
     setValue("adType", "paid");
     setValue("toPin", "pinSearch");
     setValue("packId", "");
     clearErrors("adType");
   };
   const setAdPinHome = () => {
+    if (loading) return;
     setValue("adType", "paid");
     setValue("toPin", "pinHome");
     setValue("packId", "");
@@ -37,12 +40,13 @@ const UserOptions = () => {
         <AdTypeBtn
           active={watch("adType") === "free"}
           onClick={setAdToFree}
-          disabled={userData.propertyDefaultNumber == 0}
+          disabled={userData.propertyDefaultNumber == 0 || loading}
           remaining={userData.propertyDefaultNumber}
           title={language ? "مجانى" : "Free"}
         />
         {!!userData.packagePropertyNumber && (
           <AdTypeBtn
+            disabled={loading}
             active={watch("toPin") === "pinSearch" && !watch("packId")}
             onClick={setAdPinSearch}
             remaining={userData.packagePropertyNumber}
@@ -51,6 +55,7 @@ const UserOptions = () => {
         )}
         {!!userData.pinHomeAdCount && !userData?.isPinnedHome && (
           <AdTypeBtn
+            disabled={loading}
             active={watch("toPin") === "pinHome" && !watch("packId")}
             onClick={setAdPinHome}
             remaining={userData.pinHomeAdCount}

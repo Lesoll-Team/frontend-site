@@ -7,17 +7,18 @@ const TRANSFER_CASE_TYPES = [
 ];
 const TransferCaseType = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { setValue, watch } = useAddMotorContext();
+  const { setValue, watch, loading } = useAddMotorContext();
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
       {TRANSFER_CASE_TYPES.map((type, index, types) => {
         const last = index + 1 === types.length;
         return (
           <button
+            disabled={loading}
             key={type.en}
             type="button"
             onClick={() => setValue("transferCase", type.en)}
-            className={`py-3 w-full rounded-md duration-100  ${watch("transferCase") === type.en ? "bg-lightGreen text-white" : "bg-white"} ${last && "col-span-2 md:col-span-1"}`}
+            className={`py-3 w-full rounded-md duration-100 disabled:opacity-70  ${watch("transferCase") === type.en ? "bg-lightGreen text-white" : "bg-white"} ${last && "col-span-2 md:col-span-1"}`}
           >
             {language ? type.ar : type.en}
           </button>

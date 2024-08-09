@@ -8,12 +8,13 @@ import SelectedServices from "./SelectedServices";
 import FormInputContainer from "../../../ui/FormInputContainer";
 const { customScrollbar } = styles;
 const CarServices = () => {
-  const { setValue, watch } = useAddMotorContext();
+  const { setValue, watch, loading } = useAddMotorContext();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const motorServices = useSelector((state) => state.motorServices.services);
 
   const [serviceModalOpen, setServiceModalOpen] = useState(false);
   const toggleModal = () => {
+    if (loading) return;
     setServiceModalOpen((prev) => !prev);
   };
   const selectedServices = useMemo(() => watch("service"), [watch("service")]);

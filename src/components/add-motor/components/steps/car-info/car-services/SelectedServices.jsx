@@ -4,7 +4,7 @@ import { FaXmark } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 const SelectedServices = () => {
-  const { setValue, watch } = useAddMotorContext();
+  const { setValue, watch, loading } = useAddMotorContext();
   const language = useSelector((state) => state.GlobalState.languageIs);
   const motorServices = useSelector((state) => state.motorServices.services);
 
@@ -26,7 +26,11 @@ const SelectedServices = () => {
           >
             {language ? item.ar : item?.en}
 
-            <button type="button" onClick={() => handleDelete(item._id)}>
+            <button
+              disabled={loading}
+              type="button"
+              onClick={() => handleDelete(item._id)}
+            >
               <FaXmark className="hover:text-red-500" />
             </button>
           </div>

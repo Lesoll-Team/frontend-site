@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { useAddMotorContext } from "../context/AddMotorContext";
+import { scrollToTop } from "@/utils/scrollToTop";
 
 const ActionBtns = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
   const { setStep, step, loading, formSubmit } = useAddMotorContext();
-  console.log(loading);
 
   const nextText =
     step < 7 ? (language ? "التالى" : "Next") : language ? "النشر" : "Post";
@@ -12,7 +12,10 @@ const ActionBtns = () => {
     <div className="md:w-[75%] mx-auto flex justify-between gap-5">
       <button
         disabled={loading}
-        onClick={() => setStep((prev) => prev - 1)}
+        onClick={() => {
+          scrollToTop();
+          setStep((prev) => prev - 1);
+        }}
         className="text-darkGray disabled:opacity-60  boeder w-full text-center py-2 rounded border border-darkGray"
       >
         {language ? "السابق" : "Previous"}

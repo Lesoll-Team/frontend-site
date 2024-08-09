@@ -5,7 +5,6 @@ import ItemSearch from "../../ui/itemSearch";
 import StepContainer from "../../ui/StepContainer";
 import { carColors } from "@/components/add-motor/data/carColors";
 import ScrollableContainer from "../../ui/ScrollableContainer";
-
 import SelectCard from "../SelectCard";
 import { useAddMotorContext } from "@/components/add-motor/context/AddMotorContext";
 

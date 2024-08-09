@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const PlanCard = ({ item }) => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { setValue, watch, clearErrors } = useAddMotorContext();
+  const { setValue, watch, clearErrors, loading } = useAddMotorContext();
   const selected = item._id === watch("packId");
   const onSelect = () => {
     setValue("packId", item._id);
@@ -20,8 +20,9 @@ const PlanCard = ({ item }) => {
   return (
     <button
       type="button"
+      disabled={loading}
       onClick={onSelect}
-      className={`bg-white w-full p-4 rounded-md space-y-4 border ${selected && "border-lightGreen"}`}
+      className={`bg-white w-full p-4 rounded-md space-y-4 border ${selected && "border-lightGreen"} disabled:opacity-70`}
     >
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-start gap-2 ">

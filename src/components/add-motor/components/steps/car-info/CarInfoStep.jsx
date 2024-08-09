@@ -19,7 +19,7 @@ import ActionBtns from "../../ActionBtns";
 const { addMotorInput, inputError } = styles;
 const CarInfoStep = () => {
   const language = useSelector((state) => state.GlobalState.languageIs);
-  const { register, setValue, errors, watch, clearErrors } =
+  const { register, setValue, errors, watch, clearErrors, loading } =
     useAddMotorContext();
   const {
     handleKiloMeterChange,
@@ -39,6 +39,7 @@ const CarInfoStep = () => {
         >
           <div className="flex items-center">
             <input
+              disabled={loading}
               type="text"
               inputMode="numeric"
               {...kiloMeterRgister}
@@ -56,6 +57,7 @@ const CarInfoStep = () => {
           title={language ? "سعة المحرك (سى سى)" : "Engine capacity (cc)"}
         >
           <input
+            disabled={loading}
             type="text"
             inputMode="numeric"
             {...ccRegister}
@@ -99,6 +101,7 @@ const CarInfoStep = () => {
       <StepContainer className={"min-h-fit py-8"}>
         <FormInputContainer title={language ? "عنوان الإعلان" : "Ad title"}>
           <input
+            disabled={loading}
             type="text"
             inputMode="numeric"
             {...titleRegister}
@@ -108,6 +111,7 @@ const CarInfoStep = () => {
         </FormInputContainer>
         <FormInputContainer title={language ? "الوصف" : "Description"}>
           <textarea
+            disabled={loading}
             type="text"
             inputMode="numeric"
             {...descriptionRegister}
