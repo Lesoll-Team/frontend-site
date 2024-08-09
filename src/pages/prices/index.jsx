@@ -7,7 +7,7 @@ const Prices = () => {
   return (
     <div className="min-h-screen">
       <PriceHeader />
-      <div className=" md:container md:mx-auto mx-[20px] mt-10">
+      <div className=" md:container md:mx-auto mx-[20px] mt-14">
         <PricePageBody />
         <OtherOptionPrice />
       </div>

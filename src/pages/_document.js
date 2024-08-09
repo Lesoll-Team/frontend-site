@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="ar">
       <Head>
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -14,18 +14,18 @@ export default function Document() {
             })(window,document,'script','dataLayer','GTM-T876WFM');
           `,
           }}
-        />
+        /> */}
       </Head>
       <body className="font-cairo">
         <Main />
         <NextScript />
-        <iframe
+        {/* <iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-T876WFM"
           height="0"
           width="0"
           style={{ display: "none", visibility: "hidden" }}
           title="GTM"
-        />
+        /> */}
       </body>
     </Html>
   );

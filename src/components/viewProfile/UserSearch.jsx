@@ -37,12 +37,12 @@ const UserSearch = ({
           setRegion={setRegion}
         />
       </div>
-      <div className="z-10">
+      <div className="md:z-0 z-10">
         <Dropdown
           value={offer}
           defaultValue={language ? "العرض" : "offer"}
           data={saleOptionsType}
-          classNames={"bg-white sm-text "}
+          classNames={"bg-white max-w-[200px] sm-text "}
           setStates={setOffer}
         />
       </div>
@@ -52,7 +52,7 @@ const UserSearch = ({
           data={propertyType}
           defaultValue={language ? "الفئة" : "Category"}
           setStates={setCategoryType}
-          classNames={"bg-white sm-text"}
+          classNames={"bg-white max-w-[200px] sm-text"}
         />
       </div>
       <div className=" ">
@@ -61,7 +61,7 @@ const UserSearch = ({
           setStates={setUnitType}
           defaultValue={language ? "النوع" : "type"}
           data={unitTypesData()}
-          classNames={"bg-white sm-text"}
+          classNames={"bg-white max-w-[200px] sm-text"}
         />
       </div>
       <div className=" ">
@@ -70,7 +70,7 @@ const UserSearch = ({
           setStates={setSorting}
           data={sortedData}
           defaultValue={language ? "ترتيب" : "sort"}
-          classNames={"bg-white sm-text"}
+          classNames={"bg-white max-w-[200px] sm-text"}
           baseIcon={<GoGitPullRequestDraft className={`text-black  `} />}
         />
       </div>
