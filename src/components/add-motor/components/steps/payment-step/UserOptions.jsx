@@ -14,14 +14,17 @@ const UserOptions = () => {
     if (loading) return;
     setValue("adType", "free");
     setValue("toPin", "");
-    clearErrors("adType");
     setValue("packId", "");
+    setValue("paymentMethod", "");
+    clearErrors("adType");
   };
   const setAdPinSearch = () => {
     if (loading) return;
     setValue("adType", "paid");
     setValue("toPin", "pinSearch");
     setValue("packId", "");
+    setValue("paymentMethod", "");
+
     clearErrors("adType");
   };
   const setAdPinHome = () => {
@@ -29,6 +32,8 @@ const UserOptions = () => {
     setValue("adType", "paid");
     setValue("toPin", "pinHome");
     setValue("packId", "");
+    setValue("paymentMethod", "");
+
     clearErrors("adType");
   };
   // console.log(userData.propertyDefaultNumber);

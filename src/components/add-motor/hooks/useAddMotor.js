@@ -10,6 +10,11 @@ import { getCarModels } from "@/redux-store/features/motor/getCarModelSlice";
 import { createMotorDraft, updateMotorDraft } from "../apis/addMotorApis";
 import { motorFormData } from "../utils/motorFormData";
 import { scrollToTop } from "@/utils/scrollToTop";
+import {
+  buyPackageActionWithCard,
+  buyPackageActionWithWallet,
+} from "@/utils/PricingAPI";
+import { useRouter } from "next/router";
 const useAddMotor = () => {
   const [step, setStep] = useState(1);
   const [formStatus, setFormStatus] = useState("idle");
@@ -17,7 +22,7 @@ const useAddMotor = () => {
   const [returnData, setReturnData] = useState(null);
   const [finalStepStatus, setFinalStepStatus] = useState("idle");
   const [posted, setPosted] = useState(false);
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -68,9 +73,25 @@ const useAddMotor = () => {
   }, [formStatus]);
   useEffect(() => {
     if (finalStepStatus === "success") {
-      setFinalStepStatus("idle");
-      setPosted(true);
-      setUserData();
+      if (!watch("packId")) {
+        setFinalStepStatus("idle");
+        setPosted(true);
+        scrollToTop();
+        setUserData();
+      } else {
+        setFinalStepStatus("loading");
+        const id = watch("packId");
+        if (watch("paymentMethod") === "wallet") {
+          buyPackageActionWithWallet({ id }).then((data) => {
+            router.push(data.link);
+          });
+        } else if (watch("paymentMethod") === "card") {
+          buyPackageActionWithCard({ id }).then((data) => {
+            router.push(data.link);
+          });
+        }
+        setUserData();
+      }
     }
   }, [finalStepStatus]);
 
@@ -108,6 +129,7 @@ const useAddMotor = () => {
           });
     }
   };
+
   const formSubmit = handleSubmit(onSubmit);
   const loading = formStatus == "loading" || finalStepStatus === "loading";
   return {
